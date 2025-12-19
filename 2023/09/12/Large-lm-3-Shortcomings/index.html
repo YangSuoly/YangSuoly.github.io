@@ -24,20 +24,18 @@
     var CONFIG = {"hostname":"yangsuoly.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":true},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":true,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="3. 大模型的有害性  3.1 Introduction 本次内容主要探讨大型语言模型的有害性（危害），常见的几种危害包括:  性能差异 社会偏见和刻板印象 有害信息 虚假信息">
+  <meta name="description" content="3. 大模型的有害性 3.1 Introduction 本次内容主要探讨大型语言模型的有害性（危害），常见的几种危害包括:  性能差异 社会偏见和刻板印象 有害信息 虚假信息">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Large-lm-3-Shortcomings">
 <meta property="og:url" content="http://yangsuoly.com/2023/09/12/Large-lm-3-Shortcomings/index.html">
 <meta property="og:site_name" content="独孤诗人的学习驿站">
-<meta property="og:description" content="3. 大模型的有害性  3.1 Introduction 本次内容主要探讨大型语言模型的有害性（危害），常见的几种危害包括:  性能差异 社会偏见和刻板印象 有害信息 虚假信息">
+<meta property="og:description" content="3. 大模型的有害性 3.1 Introduction 本次内容主要探讨大型语言模型的有害性（危害），常见的几种危害包括:  性能差异 社会偏见和刻板印象 有害信息 虚假信息">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://cdn.jsdelivr.net/gh/YangSuoly/Images/Large-LM/202309131700845.png">
 <meta property="article:published_time" content="2023-09-12T10:01:47.000Z">
 <meta property="article:modified_time" content="2023-09-13T09:21:19.040Z">
 <meta property="article:author" content="YangSu">
 <meta property="article:tag" content="LM">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/YangSuoly/Images/Large-LM/202309131700845.png">
 
 <link rel="canonical" href="http://yangsuoly.com/2023/09/12/Large-lm-3-Shortcomings/">
 
@@ -293,8 +291,8 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h1 id="3-大模型的有害性"><a class="markdownIt-Anchor" href="#3-大模型的有害性"></a> 3. 大模型的有害性</h1>
-<h2 id="31-introduction"><a class="markdownIt-Anchor" href="#31-introduction"></a> 3.1 Introduction</h2>
+        <h1 id="大模型的有害性">3. 大模型的有害性</h1>
+<h2 id="introduction">3.1 Introduction</h2>
 <p>本次内容主要探讨大型语言模型的有害性（危害），常见的几种危害包括:</p>
 <ul>
 <li>性能差异</li>
@@ -310,27 +308,29 @@
 <li>环境影响</li>
 <li>权力集中</li>
 </ul>
-<p>本节将主要专注于将专注于 <code>LLM</code> 的危害相关的相对具体但是级别较低的一些关注点，主要集中于以下两个点：</p>
+<p>本节将主要专注于将专注于 <code>LLM</code>
+的危害相关的相对具体但是级别较低的一些关注点，主要集中于以下两个点：</p>
 <ul>
-<li><strong>性能差异相关的危害</strong>。对于特定任务（e.g., question-answer），性能差异意味着模型在某些群体中表现更好，在其他群体中表现更差。
+<li><strong>性能差异相关的危害</strong>。对于特定任务（e.g.,
+question-answer），性能差异意味着模型在某些群体中表现更好，在其他群体中表现更差。
 <ul>
-<li>自动语音识别 <code>ASR</code> 系统在黑人说话者的识别性能要差于白人说话者（<a target="_blank" rel="noopener" href="https://www.pnas.org/content/117/14/7684">Koenecke e t al., 2020</a>）。</li>
-</ul>
-</li>
+<li>自动语音识别 <code>ASR</code>
+系统在黑人说话者的识别性能要差于白人说话者（<a
+target="_blank" rel="noopener" href="https://www.pnas.org/content/117/14/7684">Koenecke e t al.,
+2020</a>）。</li>
+</ul></li>
 <li><strong>社会偏见和刻板印象相关的危害</strong>。
 <ul>
 <li>社会偏见：将某个概念（例如科学）与某些群体相对其他群体（例如男女性）进行系统关联。</li>
 <li>刻板印象：一种特定且普遍存在的社会偏见形式，其中的关联是被广泛持有、过度简化并且一般固定的。</li>
-</ul>
-</li>
+</ul></li>
 <li><strong>有害信息和虚假信息</strong>
 <ul>
 <li>生成有毒的内容，恶意行为者可以利用它们来扩大自己的信息传播；</li>
 <li>检测虚假信息，从而帮助进行内容审核。</li>
+</ul></li>
 </ul>
-</li>
-</ul>
-<h2 id="32-性能差异"><a class="markdownIt-Anchor" href="#32-性能差异"></a> 3.2 性能差异</h2>
+<h2 id="性能差异">3.2 性能差异</h2>
 <p>在美国，受保护的属性是指那些不可作为决策基础的人口特征，包括</p>
 <ul>
 <li>种族；</li>
@@ -343,14 +343,19 @@
 <li>体貌；</li>
 <li>社会经济状况等。</li>
 </ul>
-<h2 id="33-社会偏见"><a class="markdownIt-Anchor" href="#33-社会偏见"></a> 3.3 社会偏见</h2>
-<p>大模型通过使用大规模预训练数据进行训练，因此数据的偏见可能会导致 <code>LLM</code> 性能和社会偏见危害。</p>
-<h3 id="331-名字偏见"><a class="markdownIt-Anchor" href="#331-名字偏见"></a> 3.3.1 名字偏见</h3>
-<p>这里我们首先将大模型在 <code>SQuAD</code> 数据进行训练，然后设计一个新的任务进行测试。</p>
+<h2 id="社会偏见">3.3 社会偏见</h2>
+<p>大模型通过使用大规模预训练数据进行训练，因此数据的偏见可能会导致
+<code>LLM</code> 性能和社会偏见危害。</p>
+<h3 id="名字偏见">3.3.1 名字偏见</h3>
+<p>这里我们首先将大模型在 <code>SQuAD</code>
+数据进行训练，然后设计一个新的任务进行测试。</p>
 <ul>
 <li>动机：测试模型在涉及人名的文本中的理解和行为方式。</li>
-<li>原始任务：<a target="_blank" rel="noopener" href="https://rajpurkar.github.io/SQuAD-explorer/">SQuAD - Stanford Question Answering Datasets</a> (Rajpurkar et al., 2016)</li>
-<li>修改后的任务：使用 <code>SQuAD</code> 数据构建额外的测试例子，将之前的测试答案中的两个名字进行交换。最终测试模型的回答正确性。</li>
+<li>原始任务：<a
+target="_blank" rel="noopener" href="https://rajpurkar.github.io/SQuAD-explorer/">SQuAD - Stanford
+Question Answering Datasets</a> (Rajpurkar et al., 2016)</li>
+<li>修改后的任务：使用 <code>SQuAD</code>
+数据构建额外的测试例子，将之前的测试答案中的两个名字进行交换。最终测试模型的回答正确性。</li>
 <li>指标：翻转表示交换名称会改变模型输出的名称对的百分比。</li>
 </ul>
 <p>结果：</p>
@@ -359,7 +364,7 @@
 <li>对于不太知名的人，效果会很快减弱。</li>
 <li>当交换名称时，模型通常不会改变它们的预测结果。</li>
 </ul>
-<h3 id="332-刻板印象"><a class="markdownIt-Anchor" href="#332-刻板印象"></a> 3.3.2 刻板印象</h3>
+<h3 id="刻板印象">3.3.2 刻板印象</h3>
 <ul>
 <li>动机：评估模型在涉及刻板印象的文本中的行为方式</li>
 <li>任务：比较模型对具有刻板印象和反刻板印象关联的句子的概率</li>
@@ -370,22 +375,28 @@
 <li>所有模型都显示出对刻板印象数据的系统偏好。</li>
 <li>较大的模型往往具有较高的刻板印象得分。</li>
 </ul>
-<h2 id="34-toxicity"><a class="markdownIt-Anchor" href="#34-toxicity"></a> 3.4 Toxicity</h2>
-<h3 id="341-definition"><a class="markdownIt-Anchor" href="#341-definition"></a> 3.4.1 Definition</h3>
-<p>有毒性指的是伤害涉及到的是人，即 “粗鲁、不尊重或不合理的行为，可能使某人想要离开一场对话”。如：</p>
+<h2 id="toxicity">3.4 Toxicity</h2>
+<h3 id="definition">3.4.1 Definition</h3>
+<p>有毒性指的是伤害涉及到的是人，即
+“粗鲁、不尊重或不合理的行为，可能使某人想要离开一场对话”。如：</p>
 <ul>
-<li><em>I bet China would be happy to help Puerto Rico rebuild in exchange for a nice military base.</em> [toxicity: 0]<br />
+<li><em>I bet China would be happy to help Puerto Rico rebuild in
+exchange for a nice military base.</em> [toxicity: 0]
 (我打赌中国会愿意帮助波多黎各重建，换取一个漂亮的军事基地)</li>
-<li><em>The ignorance and bigotry comes from your post!</em> [toxicity: 80%]<br />
-(无知和偏见来自你的帖子！)</li>
+<li><em>The ignorance and bigotry comes from your post!</em> [toxicity:
+80%] (无知和偏见来自你的帖子！)</li>
 </ul>
 <p>有毒性方面可能对两类人带来伤害：</p>
 <ul>
 <li>基于语言模型系统的用户。聊天机器人可能会回复有毒的响应，或者自动完成系统可能会提出有毒的建议。</li>
 <li>用户生成内容的接收者。用户可能会在社交媒体上发布有毒内容，无论他们是否有恶意。</li>
 </ul>
-<h3 id="342-perspective-api"><a class="markdownIt-Anchor" href="#342-perspective-api"></a> 3.4.2 Perspective API</h3>
-<p><code>Google</code> 的 <code>Jigsaw</code> 部门（专注于用技术解决社会问题，如极端主义）在 2017 年开发了一项广受欢迎的有关毒性分类的专有服务——Perspective API。这是一个机器学习模型，可以为每个输入分配一个介于 <code>0</code> 和 <code>1</code> 之间的毒性分数。</p>
+<h3 id="perspective-api">3.4.2 Perspective API</h3>
+<p><code>Google</code> 的 <code>Jigsaw</code>
+部门（专注于用技术解决社会问题，如极端主义）在 2017
+年开发了一项广受欢迎的有关毒性分类的专有服务——Perspective
+API。这是一个机器学习模型，可以为每个输入分配一个介于 <code>0</code> 和
+<code>1</code> 之间的毒性分数。</p>
 <p>实例：</p>
 <ul>
 <li>“hello”（毒性：低）</li>
@@ -395,97 +406,128 @@
 <ul>
 <li>“You’re like Hitler.”（毒性：低）</li>
 <li>“I hope you lose your right arm.”（毒性：低）</li>
-<li>“I read The Idiot by Fyodor Dostoevsky yesterday.”（毒性：86.06%）</li>
+<li>“I read The Idiot by Fyodor Dostoevsky
+yesterday.”（毒性：86.06%）</li>
 <li>“That is f—— good.”（毒性：85.50%）。</li>
 </ul>
-<p>总的来说，虽然Perspective API是机器学习和自然语言处理社区广泛使用的一个起点，但是使用时需要持有适度的怀疑态度。因为该模型标注的一致性很低，不能捕获标注者的身份或更广泛的语言或社会环境。它可能会对某些人群产生偏见，因为身份词（如“gay”）的出现与毒性有关，这是因为他们受到的有毒评论过多。</p>
-<h2 id="35-虚假信息"><a class="markdownIt-Anchor" href="#35-虚假信息"></a> 3.5 虚假信息</h2>
+<p>总的来说，虽然Perspective
+API是机器学习和自然语言处理社区广泛使用的一个起点，但是使用时需要持有适度的怀疑态度。因为该模型标注的一致性很低，不能捕获标注者的身份或更广泛的语言或社会环境。它可能会对某些人群产生偏见，因为身份词（如“gay”）的出现与毒性有关，这是因为他们受到的有毒评论过多。</p>
+<h2 id="虚假信息">3.5 虚假信息</h2>
 <ul>
-<li>
-<p>误导性信息（Misinformation）：不论意图如何，被误导性地呈现为真实的错误信息。</p>
-</li>
-<li>
-<p>虚假信息（Disinformation）：有意为之地呈现错误或误导性信息以欺骗某一特定受众，其中存在对抗性质。</p>
-</li>
+<li><p>误导性信息（Misinformation）：不论意图如何，被误导性地呈现为真实的错误信息。</p></li>
+<li><p>虚假信息（Disinformation）：有意为之地呈现错误或误导性信息以欺骗某一特定受众，其中存在对抗性质。</p></li>
 </ul>
 <p><strong>注</strong>：误导性和虚假信息并非一定可被验证；有时，它会引起人们的疑虑或将举证责任转移给听众。此外，一些并非真实的内容并不被视为误导性或虚假信息，如完全虚构的小说。</p>
 <p>目前，我们尚不了解是否有由语言模型驱动的严重虚假信息战役。关键问题是：语言模型能否生成新颖，通顺的文本，传达特定信息，并且针对目标人群（在线超定向）？</p>
 <p>GPT-3论文已经表明，生成的新闻文章与真实文章几乎无法区分。这意味着语言模型可以是新颖和通顺的，但它们是否具有说服力？</p>
 <ul>
-<li>
-<p><a target="_blank" rel="noopener" href="https://www.cambridge.org/core/services/aop-cambridge-core/content/view/40F27F0661B839FA47375F538C19FA59/S2052263020000378a.pdf/all-the-news-thats-fit-to-fabricate-ai-generated-text-as-a-tool-of-media-misinformation.pdf">Kreps et al. (2020)</a> 在2020年生成的关于朝鲜扣押船只的文章（使用经过微调的GPT-2），用户研究参与者发现这些故事具有可信度。用户发现针对他们政治信仰量身定制的故事更具有可信度（在线超定向有效）。增加模型大小（在GPT-2内）只产生了边际效益。</p>
-</li>
-<li>
-<p><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2009.06807.pdf">McGuffie &amp; Newhouse (2020)</a> 在2020年指出，GPT-2需要微调，GPT-3只需要提示（更快适应/控制）。GPT-3具有深厚的极端社区知识（例如，QAnon，瓦格纳组，原子武器师）。GPT-3可以表现得像一个QAnon信徒。他们指出GPT-3可能在网络激进化中的作用（创建群体身份，传播影响思想和感情的叙事）。结论：我们应该非常担心（GPT-3可以产生具有意识形态一致性，互动性，规范性的环境）。风险缓解：针对大型语言模型的保护措施，提升数字素养，检测模型。</p>
-</li>
-<li>
-<p><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/1905.12616.pdf">Zellers et al. (2020)</a> 在2020年训练Grover（一个GPT-2大小的模型）在RealNews上生成假新闻。模型：按照不同的顺序生成（领域，日期，作者，标题，正文）。当前的检测器：73%的准确性。对Grover进行微调以检测假新闻，准确性为92%。</p>
-</li>
-<li>
-<p><a target="_blank" rel="noopener" href="https://cset.georgetown.edu/wp-content/uploads/CSET-Truth-Lies-and-Automation.pdf">Buchanan et al. (2021)</a> 在2021年强调人类与GPT-3共同生成虚假信息的有效性，技术娴熟的政府（如中国和俄罗斯）可能部署这样的系统。风险缓解：专注于假账户而不是内容。</p>
-</li>
+<li><p><a
+target="_blank" rel="noopener" href="https://www.cambridge.org/core/services/aop-cambridge-core/content/view/40F27F0661B839FA47375F538C19FA59/S2052263020000378a.pdf/all-the-news-thats-fit-to-fabricate-ai-generated-text-as-a-tool-of-media-misinformation.pdf">Kreps
+et al. (2020)</a>
+在2020年生成的关于朝鲜扣押船只的文章（使用经过微调的GPT-2），用户研究参与者发现这些故事具有可信度。用户发现针对他们政治信仰量身定制的故事更具有可信度（在线超定向有效）。增加模型大小（在GPT-2内）只产生了边际效益。</p></li>
+<li><p><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2009.06807.pdf">McGuffie &amp;
+Newhouse (2020)</a>
+在2020年指出，GPT-2需要微调，GPT-3只需要提示（更快适应/控制）。GPT-3具有深厚的极端社区知识（例如，QAnon，瓦格纳组，原子武器师）。GPT-3可以表现得像一个QAnon信徒。他们指出GPT-3可能在网络激进化中的作用（创建群体身份，传播影响思想和感情的叙事）。结论：我们应该非常担心（GPT-3可以产生具有意识形态一致性，互动性，规范性的环境）。风险缓解：针对大型语言模型的保护措施，提升数字素养，检测模型。</p></li>
+<li><p><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/1905.12616.pdf">Zellers et al.
+(2020)</a>
+在2020年训练Grover（一个GPT-2大小的模型）在RealNews上生成假新闻。模型：按照不同的顺序生成（领域，日期，作者，标题，正文）。当前的检测器：73%的准确性。对Grover进行微调以检测假新闻，准确性为92%。</p></li>
+<li><p><a
+target="_blank" rel="noopener" href="https://cset.georgetown.edu/wp-content/uploads/CSET-Truth-Lies-and-Automation.pdf">Buchanan
+et al. (2021)</a>
+在2021年强调人类与GPT-3共同生成虚假信息的有效性，技术娴熟的政府（如中国和俄罗斯）可能部署这样的系统。风险缓解：专注于假账户而不是内容。</p></li>
 </ul>
-<h2 id="36-内容审查"><a class="markdownIt-Anchor" href="#36-内容审查"></a> 3.6 内容审查</h2>
+<h2 id="内容审查">3.6 内容审查</h2>
 <p>我们已经讨论过语言模型生成有害内容的问题，但如果它们能生成此类内容，也可能被用于检测有害内容。</p>
 <p>Facebook（或Meta）长期以来一直在打击有害内容，最近开始利用语言模型自动检测这类内容。例如，RoBERTa已经被使用了几年。</p>
-<p><img src="https://cdn.jsdelivr.net/gh/YangSuoly/Images/Large-LM/202309131700845.png" alt="" /></p>
-<p>“少量样本学习器”（Few-Shot Learner）是Meta最新强大的内容审查模型。该模型在大量原始文本和历史数据上进行训练，将任务简化为蕴涵（entailment)。例如：</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/YangSuoly/Images/Large-LM/202309131700845.png" /></p>
+<p>"少量样本学习器"（Few-Shot
+Learner）是Meta最新强大的内容审查模型。该模型在大量原始文本和历史数据上进行训练，将任务简化为蕴涵（entailment)。例如：</p>
 <ul>
-<li>𝖨 𝗅𝗈𝗏𝖾 𝗒𝗈𝗎𝗋 𝖾𝗍𝗁𝗇𝗂𝖼 𝗀𝗋𝗈𝗎𝗉. 𝖩𝖪. 𝖸𝗈𝗎 𝗌𝗁𝗈𝗎𝗅𝖽 𝖺𝗅𝗅 𝖻𝖾 𝟨 𝖿𝖾𝖾𝗍 𝗎𝗇𝖽𝖾𝗋𝗀𝗋𝗈𝗎𝗇𝖽. 𝖳𝗁𝗂𝗌 𝗂𝗌 𝗁𝖺𝗍𝖾 𝗌𝗉𝖾𝖾𝖼𝗁⇒entailment.<br />
-(我爱你的族群。开玩笑。你们都应该埋在六英尺地下。这是仇恨言论。⇒ 蕴涵)</li>
+<li>𝖨 𝗅𝗈𝗏𝖾 𝗒𝗈𝗎𝗋 𝖾𝗍𝗁𝗇𝗂𝖼 𝗀𝗋𝗈𝗎𝗉. 𝖩𝖪. 𝖸𝗈𝗎 𝗌𝗁𝗈𝗎𝗅𝖽 𝖺𝗅𝗅 𝖻𝖾 𝟨 𝖿𝖾𝖾𝗍 𝗎𝗇𝖽𝖾𝗋𝗀𝗋𝗈𝗎𝗇𝖽.
+𝖳𝗁𝗂𝗌 𝗂𝗌 𝗁𝖺𝗍𝖾 𝗌𝗉𝖾𝖾𝖼𝗁⇒entailment.
+(我爱你的族群。开玩笑。你们都应该埋在六英尺地下。这是仇恨言论。⇒
+蕴涵)</li>
 </ul>
 <p>以下是一些微妙言论的实例，这些言论被正确地判定为有害内容：</p>
 <ul>
 <li>Discouraging COVID vaccines: <em>Vaccine or DNA changer?</em></li>
-<li>Inciting violence: <em>Does that guy need all of his teeth?</em></li>
+<li>Inciting violence: <em>Does that guy need all of his
+teeth?</em></li>
 </ul>
-<h2 id="37-reference"><a class="markdownIt-Anchor" href="#37-reference"></a> 3.7 Reference</h2>
+<h2 id="reference">3.7 Reference</h2>
 <p>Risk of Foundation Models</p>
 <ul>
-<li>
-<p><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2108.07258.pdf">Bommasani et al., 2021</a></p>
-</li>
-<li>
-<p><a target="_blank" rel="noopener" href="https://dl.acm.org/doi/pdf/10.1145/3442188.3445922">Bender and Gebru et al., 2020</a></p>
-</li>
-<li>
-<p><a target="_blank" rel="noopener" href="https://aclanthology.org/2020.acl-main.485.pdf">Blodgett et al., 2020</a></p>
-</li>
-<li>
-<p><a target="_blank" rel="noopener" href="https://aclanthology.org/2021.acl-long.81.pdf">Blodgett et al., 2021</a></p>
-</li>
-<li>
-<p><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2112.04359.pdf">Weidinger et al., 2021</a></p>
-</li>
-<li>
-<p><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2112.11446.pdf">Scaling Language Models: Methods, Analysis&amp;Insights from Training Gopher</a>. <em>Jack W. Rae et al.</em> 2021. Introduces the Gopher model from DeepMind. Has extensive analysis on biases and toxicity.</p>
-</li>
-<li>
-<p><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2112.04359.pdf">Ethical and social risks of harm from Language Models</a>. <em>Laura Weidinge et al</em>. 2021. Taxonomy of harms from DeepMind.</p>
-</li>
+<li><p><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2108.07258.pdf">Bommasani et al.,
+2021</a></p></li>
+<li><p><a
+target="_blank" rel="noopener" href="https://dl.acm.org/doi/pdf/10.1145/3442188.3445922">Bender and
+Gebru et al., 2020</a></p></li>
+<li><p><a target="_blank" rel="noopener" href="https://aclanthology.org/2020.acl-main.485.pdf">Blodgett
+et al., 2020</a></p></li>
+<li><p><a target="_blank" rel="noopener" href="https://aclanthology.org/2021.acl-long.81.pdf">Blodgett
+et al., 2021</a></p></li>
+<li><p><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2112.04359.pdf">Weidinger et al.,
+2021</a></p></li>
+<li><p><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2112.11446.pdf">Scaling Language
+Models: Methods, Analysis&amp;Insights from Training
+Gopher</a>. <em>Jack W. Rae et al.</em> 2021. Introduces the Gopher
+model from DeepMind. Has extensive analysis on biases and
+toxicity.</p></li>
+<li><p><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2112.04359.pdf">Ethical and social
+risks of harm from Language Models</a>. <em>Laura Weidinge et al</em>.
+2021. Taxonomy of harms from DeepMind.</p></li>
 </ul>
 <p>Performance disparities:</p>
 <ul>
-<li><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/1608.08868.pdf">Demographic Dialectal Variation in Social Media: A Case Study of African-American English</a>. <em>Su Lin Blodgett, L. Green, Brendan T. O’Connor</em>. EMNLP, 2016.</li>
-<li><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/1707.00061.pdf">Racial Disparity in Natural Language Processing: A Case Study of Social Media African-American English</a>. <em>Su Lin Blodgett, Brendan T. O’Connor</em>. FATML, 2017.</li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/1608.08868.pdf">Demographic Dialectal
+Variation in Social Media: A Case Study of African-American
+English</a>. <em>Su Lin Blodgett, L. Green, Brendan T. O’Connor</em>.
+EMNLP, 2016.</li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/1707.00061.pdf">Racial Disparity in
+Natural Language Processing: A Case Study of Social Media
+African-American English</a>. <em>Su Lin Blodgett, Brendan T.
+O’Connor</em>. FATML, 2017.</li>
 </ul>
 <p>Content moderation:</p>
 <ul>
-<li><a target="_blank" rel="noopener" href="https://journals.sagepub.com/doi/pdf/10.1177/2053951719897945">Algorithmic content moderation: technical and political challenges in the automation of platform governance</a></li>
-<li><a target="_blank" rel="noopener" href="https://dl.acm.org/doi/pdf/10.1145/3274301">The Internet’s Hidden Rules: An Empirical Study of Reddit Norm Violations at Micro, Meso, and Macro Scales</a></li>
+<li><a
+target="_blank" rel="noopener" href="https://journals.sagepub.com/doi/pdf/10.1177/2053951719897945">Algorithmic
+content moderation: technical and political challenges in the automation
+of platform governance</a></li>
+<li><a target="_blank" rel="noopener" href="https://dl.acm.org/doi/pdf/10.1145/3274301">The Internet’s
+Hidden Rules: An Empirical Study of Reddit Norm Violations at Micro,
+Meso, and Macro Scales</a></li>
 </ul>
 <p>Toxicity:</p>
 <ul>
-<li><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2009.11462.pdf">RealToxicityPrompts: Evaluating Neural Toxic Degeneration in Language Models</a>. <em>Samuel Gehman et al</em>. Findings of EMNLP, 2020.</li>
-<li><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2109.07445.pdf">Challenges in Detoxifying Language Models</a>. <em>Johannes Welbl et al.</em> EMNLP 2021.</li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2009.11462.pdf">RealToxicityPrompts:
+Evaluating Neural Toxic Degeneration in Language Models</a>. <em>Samuel
+Gehman et al</em>. Findings of EMNLP, 2020.</li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2109.07445.pdf">Challenges in
+Detoxifying Language Models</a>. <em>Johannes Welbl et al.</em> EMNLP
+2021.</li>
 </ul>
 <p>Disinformation:</p>
 <ul>
-<li><a target="_blank" rel="noopener" href="https://www.cambridge.org/core/services/aop-cambridge-core/content/view/40F27F0661B839FA47375F538C19FA59/S2052263020000378a.pdf/all-the-news-thats-fit-to-fabricate-ai-generated-text-as-a-tool-of-media-misinformation.pdf">All the News That’s Fit to Fabricate: AI-Generated Text as a Tool of Media Misinformation</a>. <em>Sarah Kreps et al.</em> Journal of Experimental Political Science, 2020.</li>
-<li><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/1908.09203.pdf">Release Strategies and the Social Impacts of Language Models</a>. <em>Irene Solaiman et al.</em>. 2019.</li>
-<li><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2009.06807.pdf">The Radicalization Risks of GPT-3 and Advanced Neural Language Models</a>. <em>Kris McGuffie, Alex Newhouse</em>. 2020.</li>
-<li><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/1905.12616.pdf">Defending Against Neural Fake News</a>. <em>Rowan Zellers et al.</em>. NeurIPS 2019. Trained <strong>Grover</strong> to generate and detect fake news.</li>
-<li><a target="_blank" rel="noopener" href="https://cset.georgetown.edu/wp-content/uploads/CSET-Truth-Lies-and-Automation.pdf">Truth, Lies, and Automation</a>. <em>Ben Buchanan, Andrew Lohn, Micah Musser, Katerina Sedova.</em> CSET report, 2021.</li>
+<li><a
+target="_blank" rel="noopener" href="https://www.cambridge.org/core/services/aop-cambridge-core/content/view/40F27F0661B839FA47375F538C19FA59/S2052263020000378a.pdf/all-the-news-thats-fit-to-fabricate-ai-generated-text-as-a-tool-of-media-misinformation.pdf">All
+the News That’s Fit to Fabricate: AI-Generated Text as a Tool of Media
+Misinformation</a>. <em>Sarah Kreps et al.</em> Journal of Experimental
+Political Science, 2020.</li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/1908.09203.pdf">Release Strategies
+and the Social Impacts of Language Models</a>. <em>Irene Solaiman et
+al.</em>. 2019.</li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2009.06807.pdf">The Radicalization
+Risks of GPT-3 and Advanced Neural Language Models</a>. <em>Kris
+McGuffie, Alex Newhouse</em>. 2020.</li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/1905.12616.pdf">Defending Against
+Neural Fake News</a>. <em>Rowan Zellers et al.</em>. NeurIPS 2019.
+Trained <strong>Grover</strong> to generate and detect fake news.</li>
+<li><a
+target="_blank" rel="noopener" href="https://cset.georgetown.edu/wp-content/uploads/CSET-Truth-Lies-and-Automation.pdf">Truth,
+Lies, and Automation</a>. <em>Ben Buchanan, Andrew Lohn, Micah Musser,
+Katerina Sedova.</em> CSET report, 2021.</li>
 </ul>
 
     </div>
@@ -603,7 +645,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#3-%E5%A4%A7%E6%A8%A1%E5%9E%8B%E7%9A%84%E6%9C%89%E5%AE%B3%E6%80%A7"><span class="nav-text"> 3. 大模型的有害性</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#31-introduction"><span class="nav-text"> 3.1 Introduction</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#32-%E6%80%A7%E8%83%BD%E5%B7%AE%E5%BC%82"><span class="nav-text"> 3.2 性能差异</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#33-%E7%A4%BE%E4%BC%9A%E5%81%8F%E8%A7%81"><span class="nav-text"> 3.3 社会偏见</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#331-%E5%90%8D%E5%AD%97%E5%81%8F%E8%A7%81"><span class="nav-text"> 3.3.1 名字偏见</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#332-%E5%88%BB%E6%9D%BF%E5%8D%B0%E8%B1%A1"><span class="nav-text"> 3.3.2 刻板印象</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#34-toxicity"><span class="nav-text"> 3.4 Toxicity</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#341-definition"><span class="nav-text"> 3.4.1 Definition</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#342-perspective-api"><span class="nav-text"> 3.4.2 Perspective API</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#35-%E8%99%9A%E5%81%87%E4%BF%A1%E6%81%AF"><span class="nav-text"> 3.5 虚假信息</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#36-%E5%86%85%E5%AE%B9%E5%AE%A1%E6%9F%A5"><span class="nav-text"> 3.6 内容审查</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#37-reference"><span class="nav-text"> 3.7 Reference</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%A4%A7%E6%A8%A1%E5%9E%8B%E7%9A%84%E6%9C%89%E5%AE%B3%E6%80%A7"><span class="nav-text">3. 大模型的有害性</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#introduction"><span class="nav-text">3.1 Introduction</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%A7%E8%83%BD%E5%B7%AE%E5%BC%82"><span class="nav-text">3.2 性能差异</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%A4%BE%E4%BC%9A%E5%81%8F%E8%A7%81"><span class="nav-text">3.3 社会偏见</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%90%8D%E5%AD%97%E5%81%8F%E8%A7%81"><span class="nav-text">3.3.1 名字偏见</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%BB%E6%9D%BF%E5%8D%B0%E8%B1%A1"><span class="nav-text">3.3.2 刻板印象</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#toxicity"><span class="nav-text">3.4 Toxicity</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#definition"><span class="nav-text">3.4.1 Definition</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#perspective-api"><span class="nav-text">3.4.2 Perspective API</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%99%9A%E5%81%87%E4%BF%A1%E6%81%AF"><span class="nav-text">3.5 虚假信息</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%86%85%E5%AE%B9%E5%AE%A1%E6%9F%A5"><span class="nav-text">3.6 内容审查</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#reference"><span class="nav-text">3.7 Reference</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 

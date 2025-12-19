@@ -24,12 +24,12 @@
     var CONFIG = {"hostname":"yangsuoly.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":true},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":true,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="1 Stata operation  1.1 Import data   use grilic_small.dta 文件的目录请根据自己的文件目录填写，数据文件可在陈强老师的网站下载，Click here，选择《计量经济学及Stata应用》中的数据集下载。 1use &quot;D:\Demo\University\XMU\Class_files\Econometrics\Econometric">
+  <meta name="description" content="1 Stata operation 1.1 Import data  use grilic_small.dta 文件的目录请根据自己的文件目录填写，数据文件可在陈强老师的网站下载，Click here，选择《计量经济学及Stata应用》中的数据集下载。 1use &quot;D:\Demo\University\XMU\Class_files\Econometrics\Econometrics a">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Stata Introduction">
 <meta property="og:url" content="http://yangsuoly.com/2020/12/15/Stata-introduction/index.html">
 <meta property="og:site_name" content="独孤诗人的学习驿站">
-<meta property="og:description" content="1 Stata operation  1.1 Import data   use grilic_small.dta 文件的目录请根据自己的文件目录填写，数据文件可在陈强老师的网站下载，Click here，选择《计量经济学及Stata应用》中的数据集下载。 1use &quot;D:\Demo\University\XMU\Class_files\Econometrics\Econometric">
+<meta property="og:description" content="1 Stata operation 1.1 Import data  use grilic_small.dta 文件的目录请根据自己的文件目录填写，数据文件可在陈强老师的网站下载，Click here，选择《计量经济学及Stata应用》中的数据集下载。 1use &quot;D:\Demo\University\XMU\Class_files\Econometrics\Econometrics a">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://s3.ax1x.com/2020/12/15/rKz0OK.png">
 <meta property="og:image" content="https://s3.ax1x.com/2020/12/15/rKzrwD.png">
@@ -301,237 +301,241 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h1 id="1-stata-operation"><a class="markdownIt-Anchor" href="#1-stata-operation"></a> 1 Stata operation</h1>
-<h2 id="11-import-data"><a class="markdownIt-Anchor" href="#11-import-data"></a> 1.1 Import data</h2>
+        <h1 id="stata-operation">1 Stata operation</h1>
+<h2 id="import-data">1.1 Import data</h2>
 <ul>
-<li>
-<p>use</p>
-<p><code>grilic_small.dta</code> 文件的目录请根据自己的文件目录填写，数据文件可在陈强老师的网站下载，<a target="_blank" rel="noopener" href="http://www.econometrics-stata.com/col.jsp?id=101">Click here</a>，选择《计量经济学及Stata应用》中的数据集下载。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">use <span class="string">&quot;D:\Demo\University\XMU\Class_files\Econometrics\Econometrics and Stata application\Data-Finished-bachelor\grilic_small.dta&quot;</span>, clear</span><br></pre></td></tr></table></figure>
-</li>
+<li><p>use</p>
+<p><code>grilic_small.dta</code>
+文件的目录请根据自己的文件目录填写，数据文件可在陈强老师的网站下载，<a
+target="_blank" rel="noopener" href="http://www.econometrics-stata.com/col.jsp?id=101">Click
+here</a>，选择《计量经济学及Stata应用》中的数据集下载。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">use <span class="string">&quot;D:\Demo\University\XMU\Class_files\Econometrics\Econometrics and Stata application\Data-Finished-bachelor\grilic_small.dta&quot;</span>, clear</span><br></pre></td></tr></table></figure></li>
 </ul>
 <a id="more"></a>
 <ul>
-<li>
-<p>clear</p>
-<p>关闭一个数据集，以便使用另外一个数据集</p>
-</li>
-<li>
-<p><code>d</code>escribe</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看数据集中的变量名称、标签等</span></span><br><span class="line">describe <span class="keyword">or</span> d</span><br></pre></td></tr></table></figure>
-</li>
-<li>
-<p>set more off/on</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 连续滚屏显示命令运行结果</span></span><br><span class="line"><span class="built_in">set</span> more off</span><br><span class="line"></span><br><span class="line"><span class="comment"># 分页显示命令运行结果</span></span><br><span class="line"><span class="built_in">set</span> more on</span><br></pre></td></tr></table></figure>
-</li>
-<li>
-<p><code>l</code>ist</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看变量 s 和 lnw 的前 5 个数据</span></span><br><span class="line"><span class="built_in">list</span> s lnw <span class="keyword">in</span> <span class="number">1</span>/<span class="number">5</span> <span class="comment"># or</span></span><br><span class="line">l s lnw <span class="keyword">in</span> <span class="number">1</span>/<span class="number">5</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 罗列第 11-15 个观测值</span></span><br><span class="line"><span class="built_in">list</span> ss lnw <span class="keyword">in</span> <span class="number">11</span>/<span class="number">15</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 列出满足条件 ‘s&gt;=16&#x27; 的数据</span></span><br><span class="line"><span class="built_in">list</span> s lnw <span class="keyword">if</span> s &gt;= <span class="number">16</span></span><br><span class="line"><span class="comment"># &gt;=: 等于  &lt;=：小于等于  ==：等于  ~= or !=：不等于  =：赋值</span></span><br></pre></td></tr></table></figure>
-</li>
-<li>
-<p>drop / keep</p>
+<li><p>clear</p>
+<p>关闭一个数据集，以便使用另外一个数据集</p></li>
+<li><p><code>d</code>escribe</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看数据集中的变量名称、标签等</span></span><br><span class="line">describe <span class="keyword">or</span> d</span><br></pre></td></tr></table></figure></li>
+<li><p>set more off/on</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 连续滚屏显示命令运行结果</span></span><br><span class="line"><span class="built_in">set</span> more off</span><br><span class="line"></span><br><span class="line"><span class="comment"># 分页显示命令运行结果</span></span><br><span class="line"><span class="built_in">set</span> more on</span><br></pre></td></tr></table></figure></li>
+<li><p><code>l</code>ist</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看变量 s 和 lnw 的前 5 个数据</span></span><br><span class="line"><span class="built_in">list</span> s lnw <span class="keyword">in</span> <span class="number">1</span>/<span class="number">5</span> <span class="comment"># or</span></span><br><span class="line">l s lnw <span class="keyword">in</span> <span class="number">1</span>/<span class="number">5</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 罗列第 11-15 个观测值</span></span><br><span class="line"><span class="built_in">list</span> ss lnw <span class="keyword">in</span> <span class="number">11</span>/<span class="number">15</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 列出满足条件 ‘s&gt;=16&#x27; 的数据</span></span><br><span class="line"><span class="built_in">list</span> s lnw <span class="keyword">if</span> s &gt;= <span class="number">16</span></span><br><span class="line"><span class="comment"># &gt;=: 等于  &lt;=：小于等于  ==：等于  ~= or !=：不等于  =：赋值</span></span><br></pre></td></tr></table></figure></li>
+<li><p>drop / keep</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 删除满足 ’s&gt;=16&#x27; 的观测值</span></span><br><span class="line">drop <span class="keyword">if</span> s &gt;= <span class="number">16</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 只保留满足 &#x27;s&gt;=16&#x27; 的观测值</span></span><br><span class="line">keep <span class="keyword">if</span> s &gt;= <span class="number">16</span></span><br></pre></td></tr></table></figure>
-<p>注：Stata 并不提供 undo 功能，故需慎重删除数据，最好保留备份-</p>
-</li>
-<li>
-<p>sort / gsort</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 将数据按照变量 s 的升序排列</span></span><br><span class="line">sort s</span><br><span class="line">lsit</span><br><span class="line"></span><br><span class="line"><span class="comment"># 降序排列</span></span><br><span class="line">gsort -s</span><br><span class="line"><span class="built_in">list</span></span><br></pre></td></tr></table></figure>
-</li>
+<p>注：Stata 并不提供 undo
+功能，故需慎重删除数据，最好保留备份-</p></li>
+<li><p>sort / gsort</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 将数据按照变量 s 的升序排列</span></span><br><span class="line">sort s</span><br><span class="line">lsit</span><br><span class="line"></span><br><span class="line"><span class="comment"># 降序排列</span></span><br><span class="line">gsort -s</span><br><span class="line"><span class="built_in">list</span></span><br></pre></td></tr></table></figure></li>
 </ul>
-<h2 id="12-plot"><a class="markdownIt-Anchor" href="#12-plot"></a> 1.2 Plot</h2>
-<h3 id="131-直方图"><a class="markdownIt-Anchor" href="#131-直方图"></a> 1.3.1 直方图</h3>
+<h2 id="plot">1.2 Plot</h2>
+<h3 id="直方图">1.3.1 直方图</h3>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">histogram s, width(<span class="number">1</span>) frequency</span><br><span class="line">hist s, w(<span class="number">1</span>) freq</span><br><span class="line"><span class="comment"># histogram: 直方图,</span></span><br><span class="line"><span class="comment"># 选择项 &#x27;width(1)&#x27; 表示将组宽设为 1（否则将使用 Stata 根据样本容量计算的默认分组数）</span></span><br><span class="line"><span class="comment"># 选择项 ‘frequency&#x27; 表示将纵坐标定为频数（默认使用密度）</span></span><br></pre></td></tr></table></figure>
 <p>Result:</p>
-<img src="https://s3.ax1x.com/2020/12/15/rKz0OK.png" alt="image-20201210163044446" style="zoom:80%;" />
-<center> Fig. 1-1 Histogram figure </center>
+<p><img src="https://s3.ax1x.com/2020/12/15/rKz0OK.png" alt="image-20201210163044446" style="zoom:80%;" /></p>
+<center>
+Fig. 1-1 Histogram figure
+</center>
 <ul>
 <li>查看帮助文档</li>
 </ul>
-<p>对于任何 <code>Stata</code> 命令，只需要输入 <code>help command_name</code> 即可查看该命令的帮助文档，<strong>初学者应养成经常查看帮助文档的习惯</strong>。</p>
+<p>对于任何 <code>Stata</code> 命令，只需要输入
+<code>help command_name</code>
+即可查看该命令的帮助文档，<strong>初学者应养成经常查看帮助文档的习惯</strong>。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">help</span> histogram</span><br><span class="line">h hist</span><br><span class="line"><span class="comment"># 查看 histogram 命令的帮助文档</span></span><br></pre></td></tr></table></figure>
 <p>Result:</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line">histogram varname [<span class="keyword">if</span>] [<span class="keyword">in</span>] [weight] [, [continuous_opts | discrete_opts] options]</span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string">[if], [in]: 条件操作</span></span><br><span class="line"><span class="string">[weight]: 权重</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">[continuous_opts]: 连续型变量选择项</span></span><br><span class="line"><span class="string">[discrete_opts]: 离散型选择项</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">continuous_opts        Description</span></span><br><span class="line"><span class="string">----------------------------------------</span></span><br><span class="line"><span class="string">Main</span></span><br><span class="line"><span class="string">  bin(#)               set number of bins to #</span></span><br><span class="line"><span class="string">  width(#)             set width of bins to #</span></span><br><span class="line"><span class="string">  start(#)         	   set lower limit of first bin to #</span></span><br><span class="line"><span class="string">-------------------------------------------</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">discrete_opts          Description</span></span><br><span class="line"><span class="string">------------------------------------------</span></span><br><span class="line"><span class="string">Main</span></span><br><span class="line"><span class="string">  discrete             specify that data are discrete</span></span><br><span class="line"><span class="string">  width(#)             set width of bins to #</span></span><br><span class="line"><span class="string">  start(#)             set theoretical minimum value to #</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">options                Description</span></span><br><span class="line"><span class="string">-------------------------------------------</span></span><br><span class="line"><span class="string">Main</span></span><br><span class="line"><span class="string">  density               draw as density; the default</span></span><br><span class="line"><span class="string">  fraction              draw as fractions</span></span><br><span class="line"><span class="string">  frequency             draw as frequencies</span></span><br><span class="line"><span class="string">  percent               draw as percentages</span></span><br><span class="line"><span class="string">  bar_options           rendition of bars</span></span><br><span class="line"><span class="string">  binrescale  | recalculate bin sizes when by() is specified</span></span><br><span class="line"><span class="string">  addlabels             add height labels to bars</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">Density plots</span></span><br><span class="line"><span class="string">  normal                  add a normal density to the graph</span></span><br><span class="line"><span class="string">  normopts(line_options)  affect rendition of normal density</span></span><br><span class="line"><span class="string">  kdensity     | add a kernel density estimate to the graph</span></span><br><span class="line"><span class="string">  kdenopts(kdensity_options) | affect rendition of kernel density</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">Add plots</span></span><br><span class="line"><span class="string">  addplot(plot)           add other plots to the histogram</span></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br></pre></td></tr></table></figure>
-<h3 id="132-散点图"><a class="markdownIt-Anchor" href="#132-散点图"></a> 1.3.2 散点图</h3>
+<h3 id="散点图">1.3.2 散点图</h3>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">scatter lnw s</span><br><span class="line">sc lnw s</span><br></pre></td></tr></table></figure>
 <p>Result:</p>
-<img src="https://s3.ax1x.com/2020/12/15/rKzrwD.png" alt="image-20201210163409860" style="zoom:80%;" />
-<center> Fig. 1-2 Scatter between lnw and s </center>
+<p><img src="https://s3.ax1x.com/2020/12/15/rKzrwD.png" alt="image-20201210163409860" style="zoom:80%;" /></p>
+<center>
+Fig. 1-2 Scatter between lnw and s
+</center>
 <ul>
 <li>标签</li>
 </ul>
-<p>如果想在散点图上标注每个点对应于哪个观测值，可先定义变量 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">n</span></span></span></span>，表示第 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">n</span></span></span></span> 个观测值：</p>
+<p>如果想在散点图上标注每个点对应于哪个观测值，可先定义变量 <span
+class="math inline">\(n\)</span>，表示第 <span
+class="math inline">\(n\)</span> 个观测值：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">gen n = _n</span><br><span class="line">scatter lnw s, mlabel(n) <span class="comment"># 选择变量 n 作为标签（mark label）</span></span><br></pre></td></tr></table></figure>
-<p>其中，<code>_n</code> 表示第 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">n</span></span></span></span> 个观测值。然后以变量作为每个点的标签来画散点图。结果如下：</p>
-<img src="https://s3.ax1x.com/2020/12/15/rKzsTe.png" alt="image-20201210164351554" style="zoom:80%;" />
-<center> Fig. 1-3 Scatter with mark label </center>
-<h3 id="133-核密度估计图"><a class="markdownIt-Anchor" href="#133-核密度估计图"></a> 1.3.3 核密度估计图</h3>
+<p>其中，<code>_n</code> 表示第 <span class="math inline">\(n\)</span>
+个观测值。然后以变量作为每个点的标签来画散点图。结果如下：</p>
+<p><img src="https://s3.ax1x.com/2020/12/15/rKzsTe.png" alt="image-20201210164351554" style="zoom:80%;" /></p>
+<center>
+Fig. 1-3 Scatter with mark label
+</center>
+<h3 id="核密度估计图">1.3.3 核密度估计图</h3>
 <p>直方图必然是不连续的，如果想得到密度函数的连续估计，可输入命令：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">kdensity lnw, normal normop (lpattern (dash))</span><br><span class="line">kdensity lnw, normal normop (lp (dash))</span><br></pre></td></tr></table></figure>
 <p>其中</p>
 <ul>
-<li><code>kdensity</code>：核密度估计（kernel density estimation）；</li>
+<li><code>kdensity</code>：核密度估计（kernel density
+estimation）；</li>
 <li><code>normal</code>：画正态分布的密度函数作为对比；</li>
 <li><code>normop (lp (Dash))</code>：将正态密度用虚线来画。
 <ul>
 <li><code>normop</code>：normal options</li>
 <li><code>lpattern</code>： line pattern.</li>
-</ul>
-</li>
+</ul></li>
 </ul>
 <p>Result:</p>
-<img src="https://s3.ax1x.com/2020/12/15/rKzRSI.md.png" alt="image-20201210224215508" style="zoom:80%;" />
-<center> Fig. 1-4 Kernel density estimate</center>
-<h2 id="13-statistical-analysis"><a class="markdownIt-Anchor" href="#13-statistical-analysis"></a> 1.3 Statistical analysis</h2>
+<p><img src="https://s3.ax1x.com/2020/12/15/rKzRSI.md.png" alt="image-20201210224215508" style="zoom:80%;" /></p>
+<center>
+Fig. 1-4 Kernel density estimate
+</center>
+<h2 id="statistical-analysis">1.3 Statistical analysis</h2>
 <ul>
-<li>
-<p>统计特征</p>
+<li><p>统计特征</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">summarize s</span><br><span class="line">su s</span><br><span class="line"></span><br><span class="line"><span class="built_in">sum</span> lnw, detail <span class="comment"># 显示更多统计指标，如偏度、峰度</span></span><br></pre></td></tr></table></figure>
 <p>Result:</p>
-<img src="https://s3.ax1x.com/2020/12/15/rKzDeO.png" alt="image-20201210164927010" style="zoom:80%;" />
-<img src="https://s3.ax1x.com/2020/12/15/rKzgfA.png" alt="image-20201210223033995" style="zoom:80%;" />
-<center> Fig. 1-4 Statistical description</center>
-<p>显示了变量 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>s</mi></mrow><annotation encoding="application/x-tex">s</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">s</span></span></span></span> 的样本容量、平均值、标准差、最小值于最大值。如 <strong>不指明变量</strong>，则显示 <strong>所有变量</strong> 的统计指标。</p>
-</li>
-<li>
-<p>经验累计分布函数（Empirical cumulative distribution function）</p>
+<p><img src="https://s3.ax1x.com/2020/12/15/rKzDeO.png" alt="image-20201210164927010" style="zoom:80%;" /></p>
+<p><img src="https://s3.ax1x.com/2020/12/15/rKzgfA.png" alt="image-20201210223033995" style="zoom:80%;" /></p>
+<center>
+<p>Fig. 1-4 Statistical description</p>
+</center>
+<p>显示了变量 <span class="math inline">\(s\)</span>
+的样本容量、平均值、标准差、最小值于最大值。如
+<strong>不指明变量</strong>，则显示 <strong>所有变量</strong>
+的统计指标。</p></li>
+<li><p>经验累计分布函数（Empirical cumulative distribution
+function）</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">tabulate s <span class="comment"># 显示 s 的经验累积分布番薯</span></span><br><span class="line">ta s</span><br></pre></td></tr></table></figure>
 <p>Result:</p>
-<img src="https://s3.ax1x.com/2020/12/15/rKzwy6.png" alt="image-20201210165710687" style="zoom:80%;" />
-<center> Fig. 1-5 Empirical cummlative distribution </center>
-<p>其中，<code>Freq</code> 表示频数，<code>Percent</code> 表示百分比，而 <code>Cum.</code> 表示累积百分比。</p>
-</li>
-<li>
-<p>相关系数</p>
+<p><img src="https://s3.ax1x.com/2020/12/15/rKzwy6.png" alt="image-20201210165710687" style="zoom:80%;" /></p>
+<center>
+<p>Fig. 1-5 Empirical cummlative distribution</p>
+</center>
+<p>其中，<code>Freq</code> 表示频数，<code>Percent</code> 表示百分比，而
+<code>Cum.</code> 表示累积百分比。</p></li>
+<li><p>相关系数</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">pwcorr lnw s expr, sig star(<span class="number">.05</span>)</span><br><span class="line"><span class="comment"># 对工资对数、教育年限于工龄之间的相关系数</span></span><br></pre></td></tr></table></figure>
 <p>其中，</p>
 <ul>
-<li><code>pwcorr</code> ： <code>pairwise correlation</code>，即两两相关；</li>
-<li>选择项 <code>sig</code> ：相关系数的显著性水平，即 <code>p-value</code>，列在相关系数的下方 ；</li>
-<li>选择项 <code>star (.05)</code> ：所有显著性水平小于或等于 5% 的相关系数打赏星号。</li>
+<li><code>pwcorr</code> ：
+<code>pairwise correlation</code>，即两两相关；</li>
+<li>选择项 <code>sig</code> ：相关系数的显著性水平，即
+<code>p-value</code>，列在相关系数的下方 ；</li>
+<li>选择项 <code>star (.05)</code> ：所有显著性水平小于或等于 5%
+的相关系数打赏星号。</li>
 </ul>
 <p>Result:</p>
-<img src="https://s3.ax1x.com/2020/12/15/rKz6FH.png" alt="image-20201210170540089" style="zoom:80%;" />
-<center> Fig.1-6 Correlation coefficient</center>
-<p>结果显示，<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mrow><mi mathvariant="normal">l</mi><mi mathvariant="normal">n</mi></mrow><mi mathvariant="normal">w</mi></mrow><annotation encoding="application/x-tex">\rm{ln} w</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord"><span class="mord"><span class="mord mathrm">l</span><span class="mord mathrm">n</span></span><span class="mord mathrm" style="margin-right:0.01389em;">w</span></span></span></span></span> 与 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>s</mi></mrow><annotation encoding="application/x-tex">s</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">s</span></span></span></span> 的相关系数为 0.5368，且在 1% 水平上显著（ <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>p</mi></mrow><annotation encoding="application/x-tex">p</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="mord mathdefault">p</span></span></span></span> 值为0.0022）；<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mrow><mi mathvariant="normal">l</mi><mi mathvariant="normal">n</mi></mrow><mi mathvariant="normal">w</mi></mrow><annotation encoding="application/x-tex">\rm{ln} w</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord"><span class="mord"><span class="mord mathrm">l</span><span class="mord mathrm">n</span></span><span class="mord mathrm" style="margin-right:0.01389em;">w</span></span></span></span></span> 与 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>e</mi><mi>x</mi><mi>p</mi><mi>r</mi></mrow><annotation encoding="application/x-tex">expr</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="mord mathdefault">e</span><span class="mord mathdefault">x</span><span class="mord mathdefault">p</span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span></span></span></span> 的相关系数为 -0.1132，但此相关关系也不显著（<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>p</mi><mo>−</mo><mi>v</mi><mi>a</mi><mi>l</mi><mi>u</mi><mi>e</mi></mrow><annotation encoding="application/x-tex">p-value</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7777700000000001em;vertical-align:-0.19444em;"></span><span class="mord mathdefault">p</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">v</span><span class="mord mathdefault">a</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">u</span><span class="mord mathdefault">e</span></span></span></span> 为0.5514）</p>
-</li>
+<p><img src="https://s3.ax1x.com/2020/12/15/rKz6FH.png" alt="image-20201210170540089" style="zoom:80%;" /></p>
+<center>
+<p>Fig.1-6 Correlation coefficient</p>
+</center>
+<p>结果显示，<span class="math inline">\(\rm{ln} w\)</span> 与 <span
+class="math inline">\(s\)</span> 的相关系数为 0.5368，且在 1%
+水平上显著（ <span class="math inline">\(p\)</span> 值为0.0022）；<span
+class="math inline">\(\rm{ln} w\)</span> 与 <span
+class="math inline">\(expr\)</span> 的相关系数为
+-0.1132，但此相关关系也不显著（<span
+class="math inline">\(p-value\)</span> 为0.5514）</p></li>
 </ul>
-<h2 id="14-generate-new-variable"><a class="markdownIt-Anchor" href="#14-generate-new-variable"></a> 1.4 Generate new variable</h2>
-<h3 id="141-basic-operation"><a class="markdownIt-Anchor" href="#141-basic-operation"></a> 1.4.1 Basic operation</h3>
+<h2 id="generate-new-variable">1.4 Generate new variable</h2>
+<h3 id="basic-operation">1.4.1 Basic operation</h3>
 <ul>
 <li>对数</li>
 </ul>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">generate lns = log(s)</span><br><span class="line">g lns = log(s) <span class="comment"># 对数</span></span><br></pre></td></tr></table></figure>
 <ul>
-<li>
-<p>平方</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gen s2 = s ^<span class="number">2</span> <span class="comment"># 平方项</span></span><br></pre></td></tr></table></figure>
-</li>
-<li>
-<p>互动项（乘法）</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gen exprs = s * expr <span class="comment"># s 与 expr 的互动项</span></span><br></pre></td></tr></table></figure>
-</li>
-<li>
-<p>指数</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gen w = exp(lnw) <span class="comment"># 指数</span></span><br></pre></td></tr></table></figure>
-</li>
+<li><p>平方</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gen s2 = s ^<span class="number">2</span> <span class="comment"># 平方项</span></span><br></pre></td></tr></table></figure></li>
+<li><p>互动项（乘法）</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gen exprs = s * expr <span class="comment"># s 与 expr 的互动项</span></span><br></pre></td></tr></table></figure></li>
+<li><p>指数</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gen w = exp(lnw) <span class="comment"># 指数</span></span><br></pre></td></tr></table></figure></li>
 </ul>
-<h3 id="142-虚拟变量"><a class="markdownIt-Anchor" href="#142-虚拟变量"></a> 1.4.2 虚拟变量</h3>
-<p>假设定义 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>s</mi><mo>≥</mo><mn>16</mn></mrow><annotation encoding="application/x-tex">s \geq 16</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7719400000000001em;vertical-align:-0.13597em;"></span><span class="mord mathdefault">s</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">≥</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span><span class="mord">6</span></span></span></span> 为 ”受过高等教育“，并使用 变量 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>c</mi><mi>o</mi><mi>l</mi><mi>l</mi><mi>e</mi><mi>g</mi><mi>e</mi></mrow><annotation encoding="application/x-tex">college</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord mathdefault">c</span><span class="mord mathdefault">o</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">e</span><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="mord mathdefault">e</span></span></span></span> 来表示:</p>
+<h3 id="虚拟变量">1.4.2 虚拟变量</h3>
+<p>假设定义 <span class="math inline">\(s \geq 16\)</span> 为
+”受过高等教育“，并使用 变量 <span class="math inline">\(college\)</span>
+来表示:</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gen colleg = (s &gt;= <span class="number">16</span>)</span><br></pre></td></tr></table></figure>
-<p>其中，括弧 <code>()</code> 表示对括弧中的表达式进行逻辑评估：如果此表达式为真，则取值为1；如果为假，则取值为0。</p>
+<p>其中，括弧 <code>()</code>
+表示对括弧中的表达式进行逻辑评估：如果此表达式为真，则取值为1；如果为假，则取值为0。</p>
 <ul>
-<li>
-<p>变量重命名</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">rename colleg college</span><br><span class="line">ren colleg college</span><br></pre></td></tr></table></figure>
-</li>
-<li>
-<p>变量重定义</p>
-<p>将 ”受过高等教育“的定义改为 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>s</mi><mo>≥</mo><mn>15</mn></mrow><annotation encoding="application/x-tex">s \geq 15</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7719400000000001em;vertical-align:-0.13597em;"></span><span class="mord mathdefault">s</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">≥</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span><span class="mord">5</span></span></span></span>，但仍用 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>c</mi><mi>o</mi><mi>l</mi><mi>l</mi><mi>e</mi><mi>g</mi><mi>e</mi></mrow><annotation encoding="application/x-tex">college</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord mathdefault">c</span><span class="mord mathdefault">o</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">e</span><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="mord mathdefault">e</span></span></span></span> 作为变量名：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Method one</span></span><br><span class="line">drop college</span><br><span class="line">gen college = (s &gt;= <span class="number">15</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Method two</span></span><br><span class="line">replace college = (s &gt;= <span class="number">15</span>)</span><br></pre></td></tr></table></figure>
-</li>
-<li>
-<p>变量输入</p>
+<li><p>变量重命名</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">rename colleg college</span><br><span class="line">ren colleg college</span><br></pre></td></tr></table></figure></li>
+<li><p>变量重定义</p>
+<p>将 ”受过高等教育“的定义改为 <span class="math inline">\(s \geq
+15\)</span>，但仍用 <span class="math inline">\(college\)</span>
+作为变量名：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Method one</span></span><br><span class="line">drop college</span><br><span class="line">gen college = (s &gt;= <span class="number">15</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Method two</span></span><br><span class="line">replace college = (s &gt;= <span class="number">15</span>)</span><br></pre></td></tr></table></figure></li>
+<li><p>变量输入</p>
 <p>对于较长的变量，一一输入较为麻烦，，有如下简便方式：</p>
 <ul>
-<li>
-<p>在变量 窗口双击需要的变量；</p>
-</li>
-<li>
-<p><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>s</mi><mn>1</mn><mo>−</mo><mi>s</mi><mn>5</mn></mrow><annotation encoding="application/x-tex">s1 - s5</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="mord mathdefault">s</span><span class="mord">1</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord mathdefault">s</span><span class="mord">5</span></span></span></span> 来选择这 5 个变量；</p>
-</li>
-<li>
-<p>用 <code>*</code> 来简化变量名的书写。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">drop s* <span class="comment"># 去掉所有以 s 开头的变量</span></span><br></pre></td></tr></table></figure>
-</li>
+<li><p>在变量 窗口双击需要的变量；</p></li>
+<li><p><span class="math inline">\(s1 - s5\)</span> 来选择这 5
+个变量；</p></li>
+<li><p>用 <code>*</code> 来简化变量名的书写。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">drop s* <span class="comment"># 去掉所有以 s 开头的变量</span></span><br></pre></td></tr></table></figure></li>
+</ul></li>
 </ul>
-</li>
-</ul>
-<h2 id="15-other"><a class="markdownIt-Anchor" href="#15-other"></a> 1.5 Other</h2>
-<h3 id="151-calculator"><a class="markdownIt-Anchor" href="#151-calculator"></a> 1.5.1 Calculator</h3>
-<p><code>Stata</code> 也可作为计算器来使用，命令格式为 <code>display expression</code>。</p>
+<h2 id="other">1.5 Other</h2>
+<h3 id="calculator">1.5.1 Calculator</h3>
+<p><code>Stata</code> 也可作为计算器来使用，命令格式为
+<code>display expression</code>。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">display log(<span class="number">2</span>) <span class="comment"># 计算 ln2</span></span><br><span class="line">di log(<span class="number">2</span>)</span><br><span class="line"></span><br><span class="line">dis <span class="number">2</span>^<span class="number">0.5</span> <span class="comment"># 计算 $\sqrt&#123;2&#125;$</span></span><br></pre></td></tr></table></figure>
-<h3 id="152-invoke-and-terminate-commands"><a class="markdownIt-Anchor" href="#152-invoke-and-terminate-commands"></a> 1.5.2 Invoke and terminate commands</h3>
+<h3 id="invoke-and-terminate-commands">1.5.2 Invoke and terminate
+commands</h3>
 <ul>
-<li>
-<p>调用旧命令</p>
+<li>调用旧命令
 <ul>
 <li>使用键盘上的 <code>Pg Up</code> 和 <code>Pg Dn</code> 键；</li>
-<li>在历史命令窗口 <strong>单击</strong> 旧命令，将命令调入命令窗口；</li>
+<li>在历史命令窗口 <strong>单击</strong>
+旧命令，将命令调入命令窗口；</li>
 <li>在历史命令窗口 <strong>双击</strong> 旧命令，再次执行此命令。</li>
-</ul>
-</li>
-<li>
-<p>停止执行当前执行命令</p>
+</ul></li>
+<li>停止执行当前执行命令
 <ul>
 <li>点击 <code>Break</code> 图标的快捷键；</li>
 <li>同时按住 <code>Ctrl + Break</code>。</li>
+</ul></li>
 </ul>
-</li>
-</ul>
-<h3 id="153-log-file"><a class="markdownIt-Anchor" href="#153-log-file"></a> 1.5.3 Log file</h3>
-<p><code>Stata</code> 日志文件的扩展名为 <code>smcl</code>。可通过快捷键 <code>Log</code> 图标使用，也可通过输入如下命令：</p>
+<h3 id="log-file">1.5.3 Log file</h3>
+<p><code>Stata</code> 日志文件的扩展名为 <code>smcl</code>。可通过快捷键
+<code>Log</code> 图标使用，也可通过输入如下命令：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">log using today <span class="comment"># 在当前路径中生成一个名为 &#x27;today.smcl&#x27; 的日志文件</span></span><br><span class="line"></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string"># Result:</span></span><br><span class="line"><span class="string">log using &quot;D:\Demo\University\XMU\Class_files\Econometrics\Econometrics and Stata application\Test\Test-log.smcl&quot;</span></span><br><span class="line"><span class="string">--------------------------------------------</span></span><br><span class="line"><span class="string">name:  &lt;unnamed&gt;</span></span><br><span class="line"><span class="string">log:  D:\Demo\University\XMU\Class_files\Econometrics\Econometrics and Stata application\Test\Test-log.smcl</span></span><br><span class="line"><span class="string">log type:  smcl</span></span><br><span class="line"><span class="string">opened on:  10 Dec 2020, 19:10:30</span></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br></pre></td></tr></table></figure>
 <ul>
-<li>
-<p>暂时关闭日志</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">log off</span><br></pre></td></tr></table></figure>
-</li>
-<li>
-<p>恢复使用日志</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">log on</span><br></pre></td></tr></table></figure>
-</li>
-<li>
-<p>彻底退出日志</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">log close</span><br></pre></td></tr></table></figure>
-</li>
+<li><p>暂时关闭日志</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">log off</span><br></pre></td></tr></table></figure></li>
+<li><p>恢复使用日志</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">log on</span><br></pre></td></tr></table></figure></li>
+<li><p>彻底退出日志</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">log close</span><br></pre></td></tr></table></figure></li>
 </ul>
-<h3 id="154-updata-stata-lib"><a class="markdownIt-Anchor" href="#154-updata-stata-lib"></a> 1.5.4 Updata stata lib</h3>
-<p>更新 <code>Stata</code> 命令库（ <code>Stata &quot;ado&quot;</code>文件及其他可执行文件）。</p>
+<h3 id="updata-stata-lib">1.5.4 Updata stata lib</h3>
+<p>更新 <code>Stata</code> 命令库（
+<code>Stata "ado"</code>文件及其他可执行文件）。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">updata <span class="built_in">all</span></span><br></pre></td></tr></table></figure>
 <ul>
-<li>
-<p>非官方命令</p>
-<p>最流行的非官方命令下载平台为 <a target="_blank" rel="noopener" href="https://ideas.repec.org/s/boc/bocode.html">统计软件成分</a> (Statistical Software Components, SSC)，从 <code>SCC</code> 下载 <code>Stata</code> 程序的命令为：</p>
+<li><p>非官方命令</p>
+<p>最流行的非官方命令下载平台为 <a
+target="_blank" rel="noopener" href="https://ideas.repec.org/s/boc/bocode.html">统计软件成分</a>
+(Statistical Software Components, SSC)，从 <code>SCC</code> 下载
+<code>Stata</code> 程序的命令为：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">scc install newcommand</span><br></pre></td></tr></table></figure>
-<p>如果非官方命令不是来自 <code>SSC</code>，则需要手工安装。只需要将所有相关文件下载到制定的 <code>Stata</code> 文件夹中即可（通常为 <code>ado\plus\</code>）。如果不清楚应把文件复制到哪个文件夹，可输入以下命令，显示 <code>Stata</code> 的系统路径（System directories）：</p>
+<p>如果非官方命令不是来自
+<code>SSC</code>，则需要手工安装。只需要将所有相关文件下载到制定的
+<code>Stata</code> 文件夹中即可（通常为
+<code>ado\plus\</code>）。如果不清楚应把文件复制到哪个文件夹，可输入以下命令，显示
+<code>Stata</code> 的系统路径（System directories）：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sysdir</span><br></pre></td></tr></table></figure>
 <p>Result:</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">. sysdir</span><br><span class="line">   STATA:  D:\Program files\Stata <span class="number">16</span>\</span><br><span class="line">    BASE:  D:\Program files\Stata <span class="number">16</span>\ado\base\</span><br><span class="line">    SITE:  D:\Program files\Stata <span class="number">16</span>\ado\site\</span><br><span class="line">    PLUS:  C:\Users\YangSu\ado\plus\ <span class="comment"># 复制到此文件夹</span></span><br><span class="line">PERSONAL:  C:\Users\YangSu\ado\personal\</span><br><span class="line">OLDPLACE:  c:\ado\</span><br></pre></td></tr></table></figure>
-</li>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">. sysdir</span><br><span class="line">   STATA:  D:\Program files\Stata <span class="number">16</span>\</span><br><span class="line">    BASE:  D:\Program files\Stata <span class="number">16</span>\ado\base\</span><br><span class="line">    SITE:  D:\Program files\Stata <span class="number">16</span>\ado\site\</span><br><span class="line">    PLUS:  C:\Users\YangSu\ado\plus\ <span class="comment"># 复制到此文件夹</span></span><br><span class="line">PERSONAL:  C:\Users\YangSu\ado\personal\</span><br><span class="line">OLDPLACE:  c:\ado\</span><br></pre></td></tr></table></figure></li>
 </ul>
-<h3 id="155-search-and-findit"><a class="markdownIt-Anchor" href="#155-search-and-findit"></a> 1.5.5 Search and findit</h3>
+<h3 id="search-and-findit">1.5.5 Search and findit</h3>
 <ul>
-<li>
-<p>Search command</p>
+<li><p>Search command</p>
 <p>如果想使用某种估计方法，但不知道它是否存在，可输入命令：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">search keyword</span><br></pre></td></tr></table></figure>
-<p>此命令搜索 <code>Stata</code> 帮助文件、<code>Stata</code> 常见问题、<code>Stata</code> 案例、<code>Stata Journal</code>、<code>Stata Technical Bulletin</code>等。</p>
-</li>
-<li>
-<p>Findit keyword</p>
+<p>此命令搜索 <code>Stata</code> 帮助文件、<code>Stata</code>
+常见问题、<code>Stata</code>
+案例、<code>Stata Journal</code>、<code>Stata Technical Bulletin</code>等。</p></li>
+<li><p>Findit keyword</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">findit keyword</span><br></pre></td></tr></table></figure>
-<p><code>findit</code>搜索范围更广，还包括 <code>Stata</code> 的网络资源。</p>
-</li>
+<p><code>findit</code>搜索范围更广，还包括 <code>Stata</code>
+的网络资源。</p></li>
 </ul>
 
     </div>
@@ -650,7 +654,8 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-stata-operation"><span class="nav-text"> 1 Stata operation</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#11-import-data"><span class="nav-text"> 1.1 Import data</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#12-plot"><span class="nav-text"> 1.2 Plot</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#131-%E7%9B%B4%E6%96%B9%E5%9B%BE"><span class="nav-text"> 1.3.1 直方图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#132-%E6%95%A3%E7%82%B9%E5%9B%BE"><span class="nav-text"> 1.3.2 散点图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#133-%E6%A0%B8%E5%AF%86%E5%BA%A6%E4%BC%B0%E8%AE%A1%E5%9B%BE"><span class="nav-text"> 1.3.3 核密度估计图</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#13-statistical-analysis"><span class="nav-text"> 1.3 Statistical analysis</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#14-generate-new-variable"><span class="nav-text"> 1.4 Generate new variable</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#141-basic-operation"><span class="nav-text"> 1.4.1 Basic operation</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#142-%E8%99%9A%E6%8B%9F%E5%8F%98%E9%87%8F"><span class="nav-text"> 1.4.2 虚拟变量</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#15-other"><span class="nav-text"> 1.5 Other</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#151-calculator"><span class="nav-text"> 1.5.1 Calculator</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#152-invoke-and-terminate-commands"><span class="nav-text"> 1.5.2 Invoke and terminate commands</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#153-log-file"><span class="nav-text"> 1.5.3 Log file</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#154-updata-stata-lib"><span class="nav-text"> 1.5.4 Updata stata lib</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#155-search-and-findit"><span class="nav-text"> 1.5.5 Search and findit</span></a></li></ol></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#stata-operation"><span class="nav-text">1 Stata operation</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#import-data"><span class="nav-text">1.1 Import data</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#plot"><span class="nav-text">1.2 Plot</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%9B%B4%E6%96%B9%E5%9B%BE"><span class="nav-text">1.3.1 直方图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%A3%E7%82%B9%E5%9B%BE"><span class="nav-text">1.3.2 散点图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A0%B8%E5%AF%86%E5%BA%A6%E4%BC%B0%E8%AE%A1%E5%9B%BE"><span class="nav-text">1.3.3 核密度估计图</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#statistical-analysis"><span class="nav-text">1.3 Statistical analysis</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#generate-new-variable"><span class="nav-text">1.4 Generate new variable</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#basic-operation"><span class="nav-text">1.4.1 Basic operation</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%99%9A%E6%8B%9F%E5%8F%98%E9%87%8F"><span class="nav-text">1.4.2 虚拟变量</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#other"><span class="nav-text">1.5 Other</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#calculator"><span class="nav-text">1.5.1 Calculator</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#invoke-and-terminate-commands"><span class="nav-text">1.5.2 Invoke and terminate
+commands</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#log-file"><span class="nav-text">1.5.3 Log file</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#updata-stata-lib"><span class="nav-text">1.5.4 Updata stata lib</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#search-and-findit"><span class="nav-text">1.5.5 Search and findit</span></a></li></ol></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 

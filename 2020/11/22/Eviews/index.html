@@ -24,12 +24,12 @@
     var CONFIG = {"hostname":"yangsuoly.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":true},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":true,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="1 Create workfile Eviews 10 创建时间序列工作文件，界面如下   figure 1-1 时间序列类型 参数释义为：">
+  <meta name="description" content="1 Create workfile Eviews 10 创建时间序列工作文件，界面如下   figure 1-1 时间序列类型  参数释义为：">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Eviews notes">
 <meta property="og:url" content="http://yangsuoly.com/2020/11/22/Eviews/index.html">
 <meta property="og:site_name" content="独孤诗人的学习驿站">
-<meta property="og:description" content="1 Create workfile Eviews 10 创建时间序列工作文件，界面如下   figure 1-1 时间序列类型 参数释义为：">
+<meta property="og:description" content="1 Create workfile Eviews 10 创建时间序列工作文件，界面如下   figure 1-1 时间序列类型  参数释义为：">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://s3.ax1x.com/2020/11/25/DUNDeA.png">
 <meta property="og:image" content="https://s3.ax1x.com/2020/11/25/DUN0Ld.png">
@@ -277,7 +277,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">Symbols count in article: </span>
-              <span>644</span>
+              <span>634</span>
             </span>
             <span class="post-meta-item" title="Reading time">
               <span class="post-meta-item-icon">
@@ -296,10 +296,12 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h1 id="1-create-workfile"><a class="markdownIt-Anchor" href="#1-create-workfile"></a> 1 Create workfile</h1>
+        <h1 id="create-workfile">1 Create workfile</h1>
 <p>Eviews 10 创建时间序列工作文件，界面如下</p>
-<p><img src="https://s3.ax1x.com/2020/11/25/DUNDeA.png" alt="" /></p>
-<center> figure 1-1 时间序列类型</center>
+<p><img src="https://s3.ax1x.com/2020/11/25/DUNDeA.png" /></p>
+<center>
+figure 1-1 时间序列类型
+</center>
 <p>参数释义为：</p>
 <a id="more"></a>
 <ul>
@@ -311,27 +313,34 @@
 <li>Fortnightly：两周</li>
 <li>Daily-custom week：用户自定义选择周几</li>
 <li>Intraday：当日数据，精确到每天每隔多少时间</li>
-<li>Integer data：可以是年度（eg：2001 - 2012），也可以是哪一期（eg：3 - 33）</li>
+<li>Integer data：可以是年度（eg：2001 - 2012），也可以是哪一期（eg：3 -
+33）</li>
 </ul>
 <p>创建平衡面板数据：</p>
-<p><img src="https://s3.ax1x.com/2020/11/25/DUN0Ld.png" alt="" /></p>
-<center> figure 1-2 平衡面板数据</center>
-<h1 id="2-least-squares最小二乘法"><a class="markdownIt-Anchor" href="#2-least-squares最小二乘法"></a> 2 Least Squares（最小二乘法）</h1>
+<p><img src="https://s3.ax1x.com/2020/11/25/DUN0Ld.png" /></p>
+<center>
+figure 1-2 平衡面板数据
+</center>
+<h1 id="least-squares最小二乘法">2 Least Squares（最小二乘法）</h1>
 <p>Command中输入 <code>ls y c x</code>即可得到如下结果：</p>
-<p><img src="https://s3.ax1x.com/2020/11/25/DUNrdI.md.png" alt="" /></p>
-<center> figure 1-3 Parameters</center>
+<p><img src="https://s3.ax1x.com/2020/11/25/DUNrdI.md.png" /></p>
+<center>
+figure 1-3 Parameters
+</center>
 <p>Parameters:</p>
 <ul>
 <li>Coefficient：系数，参数估计值</li>
 <li>Std. Error：参数估计量标准差估计值</li>
-<li>t-Statistic：<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>t</mi></mrow><annotation encoding="application/x-tex">t</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.61508em;vertical-align:0em;"></span><span class="mord mathdefault">t</span></span></span></span> 统计量的值</li>
-<li>Prob: <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>P</mi></mrow><annotation encoding="application/x-tex">P</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">P</span></span></span></span> 值</li>
+<li>t-Statistic：<span class="math inline">\(t\)</span> 统计量的值</li>
+<li>Prob: <span class="math inline">\(P\)</span> 值</li>
 <li>R-squared: $ R^2$</li>
-<li>Adjusted R-squared: $\mathop \limits^ -  $</li>
-<li>S.E. of regression: <span class="katex"><span class="katex-mathml"><math><semantics><mrow><msup><mi>σ</mi><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">\sigma ^2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8141079999999999em;vertical-align:0em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.03588em;">σ</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span></span></span></span></li>
+<li>Adjusted R-squared: $^ - $</li>
+<li>S.E. of regression: <span class="math inline">\(\sigma
+^2\)</span></li>
 <li>Sum squared resid: $ RSS$，残差平方和</li>
-<li>Mean dependent var: <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mover><mo><mi>Y</mi></mo><mo>−</mo></mover></mrow><annotation encoding="application/x-tex">\overset{-}{Y}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.391661em;vertical-align:0em;"></span><span class="mord"><span class="mop op-limits"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:1.391661em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span><span class="mop mathdefault" style="margin-right:0.22222em;">Y</span></span></span><span style="top:-3.88333em;margin-left:0em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">−</span></span></span></span></span></span></span></span></span></span></span></span>，被解释变量的均值</li>
-<li>S.D. dependent var:  被解释变量的标准差</li>
+<li>Mean dependent var: <span
+class="math inline">\(\overset{-}{Y}\)</span>，被解释变量的均值</li>
+<li>S.D. dependent var: 被解释变量的标准差</li>
 </ul>
 
     </div>
@@ -447,7 +456,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-create-workfile"><span class="nav-text"> 1 Create workfile</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-least-squares%E6%9C%80%E5%B0%8F%E4%BA%8C%E4%B9%98%E6%B3%95"><span class="nav-text"> 2 Least Squares（最小二乘法）</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#create-workfile"><span class="nav-text">1 Create workfile</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#least-squares%E6%9C%80%E5%B0%8F%E4%BA%8C%E4%B9%98%E6%B3%95"><span class="nav-text">2 Least Squares（最小二乘法）</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
