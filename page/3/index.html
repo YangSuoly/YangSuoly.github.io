@@ -210,6 +210,111 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yangsuoly.com/2023/03/21/dive-into-DL-2-Linear/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/YangSu.jpg">
+      <meta itemprop="name" content="YangSu">
+      <meta itemprop="description" content="A blog for recording learning notes...">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="独孤诗人的学习驿站">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/03/21/dive-into-DL-2-Linear/" class="post-title-link" itemprop="url">dive-into-DL-2-Linear</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2023-03-21 18:09:44" itemprop="dateCreated datePublished" datetime="2023-03-21T18:09:44+08:00">2023-03-21</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2023-03-28 11:45:32" itemprop="dateModified" datetime="2023-03-28T11:45:32+08:00">2023-03-28</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/Categories/Notes/" itemprop="url" rel="index"><span itemprop="name">Notes</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/Categories/Notes/D2L/" itemprop="url" rel="index"><span itemprop="name">D2L</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="Symbols count in article">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">Symbols count in article: </span>
+              <span>37k</span>
+            </span>
+            <span class="post-meta-item" title="Reading time">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">Reading time &asymp;</span>
+              <span>33 mins.</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="0-preface"><a class="markdownIt-Anchor" href="#0-preface"></a> 0. Preface</h1>
+<p>本系列博文是 DataWhale 社区 2023年 3月《动手学深度学习（Pytorch）》组队学习活动的笔记，本篇为系列笔记的第二篇—— 线性回归和Softmax回归。</p>
+<p>本文是学习李沐老师 B 站视频教程 <a target="_blank" rel="noopener" href="https://space.bilibili.com/1567748478/channel/seriesdetail?sid=358497">动手学深度学习 PyTorch版</a> 所记录的笔记。主要使用 <code>Obsidian</code> 软件并借助插件 <code>Meida extended</code> 插件，在 markdown 文件中生成时间戳，可以在后期温习笔记时，方便地定位到原视频所在位置。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2023/03/21/dive-into-DL-2-Linear/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <div>
+      
+    </div>
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://yangsuoly.com/2023/03/19/dive-into-DL-1-introduction/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1134,111 +1239,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yangsuoly.com/2022/02/07/Eat-pytorch-4-lowAPI/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/YangSu.jpg">
-      <meta itemprop="name" content="YangSu">
-      <meta itemprop="description" content="A blog for recording learning notes...">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="独孤诗人的学习驿站">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/02/07/Eat-pytorch-4-lowAPI/" class="post-title-link" itemprop="url">Eat-pytorch-4-lowAPI</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2022-02-07 23:03:43" itemprop="dateCreated datePublished" datetime="2022-02-07T23:03:43+08:00">2022-02-07</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-02-08 16:23:09" itemprop="dateModified" datetime="2022-02-08T16:23:09+08:00">2022-02-08</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/Categories/Notes/" itemprop="url" rel="index"><span itemprop="name">Notes</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/Categories/Notes/Eat-pytorch-in-20-days/" itemprop="url" rel="index"><span itemprop="name">Eat pytorch in 20 days</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="Symbols count in article">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">Symbols count in article: </span>
-              <span>28k</span>
-            </span>
-            <span class="post-meta-item" title="Reading time">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">Reading time &asymp;</span>
-              <span>26 mins.</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="1-introduction"><a class="markdownIt-Anchor" href="#1-introduction"></a> 1. Introduction</h1>
-<h2 id="11-preface"><a class="markdownIt-Anchor" href="#11-preface"></a> 1.1 Preface</h2>
-<p>本系列博文是和鲸社区的活动《20天吃掉那只PyTorch》学习的笔记，本篇为系列笔记的第四篇—— <code>Pytorch</code> 的低阶 <code>API</code>。该专栏是 <code>Github</code> 上 <code>2.8K</code> 星的项目，在学习该书的过程中可以参考阅读《Python深度学习》一书的第一部分&quot;深度学习基础&quot;内容。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2022/02/07/Eat-pytorch-4-lowAPI/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <div>
-      
-    </div>
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1314,7 +1314,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">72</span>
+          <span class="site-state-item-count">73</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -1327,7 +1327,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/Tags/">
           
-        <span class="site-state-item-count">42</span>
+        <span class="site-state-item-count">43</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
