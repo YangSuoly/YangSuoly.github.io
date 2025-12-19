@@ -235,7 +235,7 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2025-12-19 11:09:21 / Modified: 11:54:28" itemprop="dateCreated datePublished" datetime="2025-12-19T11:09:21+08:00">2025-12-19</time>
+              <time title="Created: 2025-12-19 11:09:21 / Modified: 12:09:42" itemprop="dateCreated datePublished" datetime="2025-12-19T11:09:21+08:00">2025-12-19</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -253,7 +253,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">Symbols count in article: </span>
-              <span>4.3k</span>
+              <span>4.5k</span>
             </span>
             <span class="post-meta-item" title="Reading time">
               <span class="post-meta-item-icon">
@@ -275,13 +275,19 @@
           <h1 id="玩转-claude-code全平台接入智谱-glm-4.6-配置实战">玩转 Claude
 Code：全平台接入智谱 GLM-4.6 配置实战</h1>
 <h2 id="前言">📝 前言</h2>
-<p>Claude Code 确实是个好工具，但在国内直连 Anthropic 官方 API
-不仅门槛高，成本也不低。好在智谱 AI (ChatGLM)
-现在非常给力，提供了完全兼容 Anthropic 协议的接口。</p>
-<p>这意味着我们完全可以<strong>用 Claude Code 的壳，跑 GLM-4.6
-的芯</strong>。不仅访问速度起飞，成本也大大降低。这篇笔记整理了我在
-Windows、macOS 和 Ubuntu
-上跑通全流程的配置方法，希望能帮大家少走弯路。</p>
+<p>起因是半年前买的 Cursor 教育 Por
+版失效了，刚好最近有非常刚需的项目变成需求，于是花了点时间做调研，查看是否有更
+fancy 的方法能让我实现代码编写和项目管理，最后发现 Claude
+Code是真香。</p>
+<p>但在国内直连 Anthropic 官方 API
+不仅门槛高，成本也不低。好在许多国产的模型，如智谱 AI (ChatGLM)
+，豆包，Minmax 等现在非常给力，提供了完全兼容 Anthropic
+协议的接口，可以轻松地平替掉 Claude 内置的模型，绕过ip的限制。</p>
+<p>这意味着我们完全可以<strong>用 Claude Code 的壳，跑国产模型
+（如GLM-4.6
+）的芯</strong>。不仅访问速度起飞，成本也大大降低。这篇笔记整理了我在
+Windows、macOS 和 Ubuntu 上跑通智谱 GLM-4.6
+模型流程的配置方法，希望能帮大家少走弯路。</p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2025/12/19/Claude-code/#more" rel="contents">
