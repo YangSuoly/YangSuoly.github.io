@@ -24,15 +24,15 @@
     var CONFIG = {"hostname":"yangsuoly.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":true},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":true,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="Claude Code + ChatGLM 全平台配置指南  概述 本文档介绍如何在Windows、macOS和Ubuntu系统上配置Claude Code使用ChatGLM（智谱AI）模型。">
+  <meta name="description" content="玩转 Claude Code：全平台接入智谱 GLM-4.6 配置实战  📝 前言 Claude Code 确实是个好工具，但在国内直连 Anthropic 官方 API 不仅门槛高，成本也不低。好在智谱 AI (ChatGLM) 现在非常给力，提供了完全兼容 Anthropic 协议的接口。 这意味着我们完全可以用 Claude Code 的壳，跑 GLM-4.6 的芯。不仅访问速度起飞，成">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Claude-code">
 <meta property="og:url" content="http://yangsuoly.com/2025/12/19/Claude-code/index.html">
 <meta property="og:site_name" content="独孤诗人的学习驿站">
-<meta property="og:description" content="Claude Code + ChatGLM 全平台配置指南  概述 本文档介绍如何在Windows、macOS和Ubuntu系统上配置Claude Code使用ChatGLM（智谱AI）模型。">
+<meta property="og:description" content="玩转 Claude Code：全平台接入智谱 GLM-4.6 配置实战  📝 前言 Claude Code 确实是个好工具，但在国内直连 Anthropic 官方 API 不仅门槛高，成本也不低。好在智谱 AI (ChatGLM) 现在非常给力，提供了完全兼容 Anthropic 协议的接口。 这意味着我们完全可以用 Claude Code 的壳，跑 GLM-4.6 的芯。不仅访问速度起飞，成">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2025-12-19T03:09:21.000Z">
-<meta property="article:modified_time" content="2025-12-19T03:12:33.779Z">
+<meta property="article:modified_time" content="2025-12-19T03:50:59.627Z">
 <meta property="article:author" content="YangSu">
 <meta property="article:tag" content="Tool">
 <meta name="twitter:card" content="summary">
@@ -237,7 +237,7 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2025-12-19 11:09:21 / Modified: 11:12:33" itemprop="dateCreated datePublished" datetime="2025-12-19T11:09:21+08:00">2025-12-19</time>
+              <time title="Created: 2025-12-19 11:09:21 / Modified: 11:50:59" itemprop="dateCreated datePublished" datetime="2025-12-19T11:09:21+08:00">2025-12-19</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -262,14 +262,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">Symbols count in article: </span>
-              <span>6.1k</span>
+              <span>4.5k</span>
             </span>
             <span class="post-meta-item" title="Reading time">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">Reading time &asymp;</span>
-              <span>6 mins.</span>
+              <span>4 mins.</span>
             </span>
 
         </div>
@@ -281,215 +281,150 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h1 id="claude-code-chatglm-全平台配置指南"><a class="markdownIt-Anchor" href="#claude-code-chatglm-全平台配置指南"></a> Claude Code + ChatGLM 全平台配置指南</h1>
-<h2 id="概述"><a class="markdownIt-Anchor" href="#概述"></a> 概述</h2>
-<p>本文档介绍如何在Windows、macOS和Ubuntu系统上配置Claude Code使用ChatGLM（智谱AI）模型。</p>
+        <h1 id="玩转-claude-code全平台接入智谱-glm-46-配置实战"><a class="markdownIt-Anchor" href="#玩转-claude-code全平台接入智谱-glm-46-配置实战"></a> 玩转 Claude Code：全平台接入智谱 GLM-4.6 配置实战</h1>
+<h2 id="前言"><a class="markdownIt-Anchor" href="#前言"></a> 📝 前言</h2>
+<p>Claude Code 确实是个好工具，但在国内直连 Anthropic 官方 API 不仅门槛高，成本也不低。好在智谱 AI (ChatGLM) 现在非常给力，提供了完全兼容 Anthropic 协议的接口。</p>
+<p>这意味着我们完全可以<strong>用 Claude Code 的壳，跑 GLM-4.6 的芯</strong>。不仅访问速度起飞，成本也大大降低。这篇笔记整理了我在 Windows、macOS 和 Ubuntu 上跑通全流程的配置方法，希望能帮大家少走弯路。</p>
 <a id="more"></a>
-<h2 id="重要说明"><a class="markdownIt-Anchor" href="#重要说明"></a> 重要说明</h2>
-<p>智谱AI提供了Anthropic兼容的API端点，推荐使用以下配置方式：</p>
+<h2 id="一-准备工作磨刀不误砍柴工"><a class="markdownIt-Anchor" href="#一-准备工作磨刀不误砍柴工"></a> 一、 准备工作：磨刀不误砍柴工</h2>
+<p>在开始敲命令行之前，我们需要先搞定“入场券”。</p>
+<h3 id="11-获取智谱-api-key"><a class="markdownIt-Anchor" href="#11-获取智谱-api-key"></a> 1.1 获取智谱 API Key</h3>
+<p>这一步很简单，直接去 <a target="_blank" rel="noopener" href="https://open.bigmodel.cn/">智谱AI开放平台</a> 注册个账号。登录控制台后，创建一个 API Key 并复制下来，后面全靠它。</p>
+<h3 id="12-为什么选择-glm-46"><a class="markdownIt-Anchor" href="#12-为什么选择-glm-46"></a> 1.2 为什么选择 GLM-4.6？</h3>
+<p>这里多啰嗦两句，智谱最近推了个 <a target="_blank" rel="noopener" href="https://www.bigmodel.cn/claude-code?ic=U1FZX68JPC"><strong>Coding Plan</strong></a>，专门针对编程场景做了优化：</p>
 <ul>
-<li>API端点：<code>https://open.bigmodel.cn/api/anthropic</code></li>
-<li>配置方式：使用 <code>env</code> 对象包装环境变量</li>
-<li>模型映射：支持Claude模型名称到GLM模型的自动映射</li>
+<li><strong>模型升级</strong>：默认模型已经升级到了 <strong>GLM-4.6</strong>，在代码生成和理解上比之前的版本强不少。</li>
+<li><strong>无缝兼容</strong>：它对 Claude Code 的兼容性做得很好，基本不用改什么代码逻辑。</li>
+<li><strong>性价比</strong>：相比官方 Claude，国内调用的价格和稳定性优势很明显，特别是对学生党和企业用户有各种优惠政策（首月尝鲜、拼车之类的，大家自己去官网看）。</li>
 </ul>
-<h2 id="准备工作"><a class="markdownIt-Anchor" href="#准备工作"></a> 准备工作</h2>
-<h3 id="获取智谱ai-api-key"><a class="markdownIt-Anchor" href="#获取智谱ai-api-key"></a> 获取智谱AI API Key</h3>
-<ol>
-<li>访问 <a target="_blank" rel="noopener" href="https://open.bigmodel.cn/">智谱AI开放平台</a></li>
-<li>注册并登录账号</li>
-<li>在控制台获取API Key</li>
-</ol>
-<h3 id="关于智谱coding-plan"><a class="markdownIt-Anchor" href="#关于智谱coding-plan"></a> 关于智谱Coding Plan</h3>
-<p>智谱AI最近推出了Coding Plan服务，专门为代码生成和编程任务优化：</p>
+<blockquote>
+<p><strong>💡 小贴士</strong>：如果你之前已经在 <code>settings.json</code> 里写死了 <code>glm-4.5</code>，建议这次顺手改成 <code>glm-4.6</code>，体验会有提升。</p>
+</blockquote>
+<h3 id="13-环境依赖nodejs"><a class="markdownIt-Anchor" href="#13-环境依赖nodejs"></a> 1.3 环境依赖：Node.js</h3>
+<p>Claude Code 是基于 Node.js 的，所以请确保你的电脑上已经安装了 Node 环境（推荐 LTS 长期支持版）。</p>
 <ul>
-<li><strong>默认模型</strong>：已升级至GLM-4.6</li>
-<li><strong>特点</strong>：针对编程场景进行了专门优化</li>
-<li><strong>兼容性</strong>：完全兼容Claude Code，无需额外配置</li>
-<li><strong>优势</strong>：更好的代码理解、生成和调试能力</li>
-</ul>
-<h3 id="优惠活动"><a class="markdownIt-Anchor" href="#优惠活动"></a> 优惠活动</h3>
-<p>智谱AI目前提供以下优惠活动：</p>
-<ul>
-<li><strong>首月尝鲜</strong>：新用户首月享受特别优惠价格</li>
-<li><strong>拼车优惠</strong>：多人团购可享受更低折扣</li>
-<li><strong>学生优惠</strong>：在校学生凭学生证可获得专属折扣</li>
-<li><strong>企业方案</strong>：为企业提供定制化的优惠方案</li>
-</ul>
-<p>注意：如果您之前在settings.json中配置过GLM-4.5的固定模型映射，建议更新为GLM-4.6以获得最新性能。</p>
-<h3 id="安装nodejs"><a class="markdownIt-Anchor" href="#安装nodejs"></a> 安装Node.js</h3>
-<p>所有平台都需要先安装Node.js（建议使用LTS版本）：</p>
-<ul>
-<li>官方下载：<a target="_blank" rel="noopener" href="https://nodejs.org/">https://nodejs.org/</a></li>
-<li>或使用包管理器安装</li>
+<li><strong>下载地址</strong>：<a target="_blank" rel="noopener" href="https://nodejs.org/">https://nodejs.org/</a></li>
 </ul>
 <hr />
-<h2 id="windows-配置"><a class="markdownIt-Anchor" href="#windows-配置"></a> Windows 配置</h2>
-<h3 id="1-安装claude-code"><a class="markdownIt-Anchor" href="#1-安装claude-code"></a> 1. 安装Claude Code</h3>
-<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># 使用npm全局安装</span><br><span class="line">npm install -g @anthropic-ai/claude-code</span><br><span class="line"></span><br><span class="line"># 或者使用yarn</span><br><span class="line">yarn global add @anthropic-ai/claude-code</span><br></pre></td></tr></table></figure>
-<h3 id="2-配置方法"><a class="markdownIt-Anchor" href="#2-配置方法"></a> 2. 配置方法</h3>
-<h4 id="方法1使用settingsjson文件推荐"><a class="markdownIt-Anchor" href="#方法1使用settingsjson文件推荐"></a> 方法1：使用settings.json文件（推荐）</h4>
+<h2 id="二-windows-系统配置指南"><a class="markdownIt-Anchor" href="#二-windows-系统配置指南"></a> 二、 Windows 系统配置指南</h2>
+<h3 id="21-安装-claude-code"><a class="markdownIt-Anchor" href="#21-安装-claude-code"></a> 2.1 安装 Claude Code</h3>
+<p>打开 CMD 或 PowerShell，直接用 npm 全局安装：</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">npm install -g @anthropic-ai/claude-code</span><br><span class="line"># 或者用 yarn</span><br><span class="line">yarn global add @anthropic-ai/claude-code</span><br></pre></td></tr></table></figure>
+<h3 id="22-配置连接二选一"><a class="markdownIt-Anchor" href="#22-配置连接二选一"></a> 2.2 配置连接（二选一）</h3>
+<h4 id="221-方案-a通过配置文件推荐"><a class="markdownIt-Anchor" href="#221-方案-a通过配置文件推荐"></a> 2.2.1 方案 A：通过配置文件（推荐 ✅）</h4>
+<p>这是最干净的配置方式，不会污染系统的环境变量。</p>
 <ol>
-<li>创建配置目录：<code>C:\Users\%USERNAME%\.claude</code></li>
-<li>创建 <code>settings.json</code> 文件，内容：</li>
+<li>在用户目录下创建一个文件夹：<code>C:\Users\%USERNAME%\.claude</code></li>
+<li>在里面新建一个 <code>settings.json</code> 文件。</li>
+<li>填入下面的配置（记得把 Key 换成你自己的）：</li>
 </ol>
-<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">&quot;env&quot;</span>: &#123;</span><br><span class="line">    <span class="attr">&quot;ANTHROPIC_AUTH_TOKEN&quot;</span>: <span class="string">&quot;your_zhipu_api_key&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;ANTHROPIC_BASE_URL&quot;</span>: <span class="string">&quot;https://open.bigmodel.cn/api/anthropic&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;ANTHROPIC_DEFAULT_HAIKU_MODEL&quot;</span>: <span class="string">&quot;glm-4.5-air&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;ANTHROPIC_DEFAULT_SONNET_MODEL&quot;</span>: <span class="string">&quot;glm-4.6&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;ANTHROPIC_DEFAULT_OPUS_MODEL&quot;</span>: <span class="string">&quot;glm-4.6&quot;</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="方法2使用环境变量"><a class="markdownIt-Anchor" href="#方法2使用环境变量"></a> 方法2：使用环境变量</h4>
-<p>永久设置环境变量：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">&quot;env&quot;</span>: &#123;</span><br><span class="line">    <span class="attr">&quot;ANTHROPIC_AUTH_TOKEN&quot;</span>: <span class="string">&quot;你的智谱API_KEY&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;ANTHROPIC_BASE_URL&quot;</span>: <span class="string">&quot;[https://open.bigmodel.cn/api/anthropic](https://open.bigmodel.cn/api/anthropic)&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;ANTHROPIC_DEFAULT_HAIKU_MODEL&quot;</span>: <span class="string">&quot;glm-4.5-air&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;ANTHROPIC_DEFAULT_SONNET_MODEL&quot;</span>: <span class="string">&quot;glm-4.6&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;ANTHROPIC_DEFAULT_OPUS_MODEL&quot;</span>: <span class="string">&quot;glm-4.6&quot;</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="222-方案-b设置系统环境变量"><a class="markdownIt-Anchor" href="#222-方案-b设置系统环境变量"></a> 2.2.2 方案 B：设置系统环境变量</h4>
+<p>如果你更喜欢用环境变量，可以这样操作：</p>
 <ol>
-<li>右键&quot;此电脑&quot; → “属性” → “高级系统设置”</li>
-<li>点击&quot;环境变量&quot;</li>
-<li>在&quot;用户变量&quot;中添加：
+<li>右键&quot;此电脑&quot; → “属性” → “高级系统设置” → “环境变量”。</li>
+<li>在&quot;用户变量&quot;里新建以下几项：
 <ul>
-<li>变量名：<code>ANTHROPIC_AUTH_TOKEN</code></li>
-<li>变量值：<code>your_zhipu_api_key</code></li>
-<li>变量名：<code>ANTHROPIC_BASE_URL</code></li>
-<li>变量值：<code>https://open.bigmodel.cn/api/anthropic</code></li>
-<li>变量名：<code>ANTHROPIC_DEFAULT_SONNET_MODEL</code></li>
-<li>变量值：<code>glm-4.6</code></li>
+<li><code>ANTHROPIC_AUTH_TOKEN</code>: <code>你的智谱API_KEY</code></li>
+<li><code>ANTHROPIC_BASE_URL</code>: <code>https://open.bigmodel.cn/api/anthropic</code></li>
+<li><code>ANTHROPIC_DEFAULT_SONNET_MODEL</code>: <code>glm-4.6</code></li>
 </ul>
 </li>
 </ol>
-<h3 id="3-验证配置"><a class="markdownIt-Anchor" href="#3-验证配置"></a> 3. 验证配置</h3>
-<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># 检查版本</span><br><span class="line">claude --version</span><br><span class="line"></span><br><span class="line"># 启动Claude Code</span><br><span class="line">claude</span><br></pre></td></tr></table></figure>
+<h3 id="23-验证是否成功"><a class="markdownIt-Anchor" href="#23-验证是否成功"></a> 2.3 验证是否成功</h3>
+<p>打开终端，输入 <code>claude</code>。如果能正常进入交互界面，且没有报错，说明配置成功！</p>
 <hr />
-<h2 id="macos-配置"><a class="markdownIt-Anchor" href="#macos-配置"></a> macOS 配置</h2>
-<h3 id="1-安装claude-code-2"><a class="markdownIt-Anchor" href="#1-安装claude-code-2"></a> 1. 安装Claude Code</h3>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 使用npm全局安装</span></span><br><span class="line">npm install -g @anthropic-ai/claude-code</span><br><span class="line"></span><br><span class="line"><span class="comment"># 或者使用yarn</span></span><br><span class="line">yarn global add @anthropic-ai/claude-code</span><br><span class="line"></span><br><span class="line"><span class="comment"># 或者使用Homebrew</span></span><br><span class="line">brew install claude-code</span><br></pre></td></tr></table></figure>
-<h3 id="2-配置方法-2"><a class="markdownIt-Anchor" href="#2-配置方法-2"></a> 2. 配置方法</h3>
-<h4 id="方法1使用settingsjson文件推荐-2"><a class="markdownIt-Anchor" href="#方法1使用settingsjson文件推荐-2"></a> 方法1：使用settings.json文件（推荐）</h4>
-<p>创建配置文件 <code>~/.claude/settings.json</code>：</p>
-<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">&quot;env&quot;</span>: &#123;</span><br><span class="line">    <span class="attr">&quot;ANTHROPIC_AUTH_TOKEN&quot;</span>: <span class="string">&quot;your_zhipu_api_key&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;ANTHROPIC_BASE_URL&quot;</span>: <span class="string">&quot;https://open.bigmodel.cn/api/anthropic&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;ANTHROPIC_DEFAULT_HAIKU_MODEL&quot;</span>: <span class="string">&quot;glm-4.5-air&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;ANTHROPIC_DEFAULT_SONNET_MODEL&quot;</span>: <span class="string">&quot;glm-4.6&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;ANTHROPIC_DEFAULT_OPUS_MODEL&quot;</span>: <span class="string">&quot;glm-4.6&quot;</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="方法2使用环境变量-2"><a class="markdownIt-Anchor" href="#方法2使用环境变量-2"></a> 方法2：使用环境变量</h4>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 在 ~/.zshrc 或 ~/.bash_profile 中添加</span></span><br><span class="line"><span class="built_in">export</span> ANTHROPIC_AUTH_TOKEN=<span class="string">&quot;your_zhipu_api_key&quot;</span></span><br><span class="line"><span class="built_in">export</span> ANTHROPIC_BASE_URL=<span class="string">&quot;https://open.bigmodel.cn/api/anthropic&quot;</span></span><br><span class="line"><span class="built_in">export</span> ANTHROPIC_DEFAULT_HAIKU_MODEL=<span class="string">&quot;glm-4.5-air&quot;</span></span><br><span class="line"><span class="built_in">export</span> ANTHROPIC_DEFAULT_SONNET_MODEL=<span class="string">&quot;glm-4.6&quot;</span></span><br><span class="line"><span class="built_in">export</span> ANTHROPIC_DEFAULT_OPUS_MODEL=<span class="string">&quot;glm-4.6&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 重新加载配置</span></span><br><span class="line"><span class="built_in">source</span> ~/.zshrc  <span class="comment"># 或 source ~/.bash_profile</span></span><br></pre></td></tr></table></figure>
-<h3 id="3-验证配置-2"><a class="markdownIt-Anchor" href="#3-验证配置-2"></a> 3. 验证配置</h3>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 检查版本</span></span><br><span class="line">claude --version</span><br><span class="line"></span><br><span class="line"><span class="comment"># 启动Claude Code</span></span><br><span class="line">claude</span><br></pre></td></tr></table></figure>
+<h2 id="三-macos-系统配置指南"><a class="markdownIt-Anchor" href="#三-macos-系统配置指南"></a> 三、 macOS 系统配置指南</h2>
+<h3 id="31-安装工具"><a class="markdownIt-Anchor" href="#31-安装工具"></a> 3.1 安装工具</h3>
+<p>Mac 用户通过终端安装，Homebrew 或 npm 都可以：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># npm 方式</span></span><br><span class="line">npm install -g @anthropic-ai/claude-code</span><br><span class="line"></span><br><span class="line"><span class="comment"># 或者 Homebrew</span></span><br><span class="line">brew install claude-code</span><br></pre></td></tr></table></figure>
+<h3 id="32-配置连接"><a class="markdownIt-Anchor" href="#32-配置连接"></a> 3.2 配置连接</h3>
+<h4 id="321-方案-a配置文件法推荐"><a class="markdownIt-Anchor" href="#321-方案-a配置文件法推荐"></a> 3.2.1 方案 A：配置文件法（推荐 ✅）</h4>
+<p>这是最稳妥的方法。在终端运行以下命令创建文件：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mkdir -p ~/.claude</span><br><span class="line">nano ~/.claude/settings.json</span><br></pre></td></tr></table></figure>
+<p>然后粘贴以下 JSON 内容（<code>Ctrl+O</code> 保存，<code>Ctrl+X</code> 退出）：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">&quot;env&quot;</span>: &#123;</span><br><span class="line">    <span class="attr">&quot;ANTHROPIC_AUTH_TOKEN&quot;</span>: <span class="string">&quot;你的智谱API_KEY&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;ANTHROPIC_BASE_URL&quot;</span>: <span class="string">&quot;[https://open.bigmodel.cn/api/anthropic](https://open.bigmodel.cn/api/anthropic)&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;ANTHROPIC_DEFAULT_HAIKU_MODEL&quot;</span>: <span class="string">&quot;glm-4.5-air&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;ANTHROPIC_DEFAULT_SONNET_MODEL&quot;</span>: <span class="string">&quot;glm-4.6&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;ANTHROPIC_DEFAULT_OPUS_MODEL&quot;</span>: <span class="string">&quot;glm-4.6&quot;</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="322-方案-b环境变量法"><a class="markdownIt-Anchor" href="#322-方案-b环境变量法"></a> 3.2.2 方案 B：环境变量法</h4>
+<p>修改你的 shell 配置文件（比如 <code>~/.zshrc</code>）：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> ANTHROPIC_AUTH_TOKEN=<span class="string">&quot;你的智谱API_KEY&quot;</span></span><br><span class="line"><span class="built_in">export</span> ANTHROPIC_BASE_URL=<span class="string">&quot;[https://open.bigmodel.cn/api/anthropic](https://open.bigmodel.cn/api/anthropic)&quot;</span></span><br><span class="line"><span class="comment"># 强制映射模型</span></span><br><span class="line"><span class="built_in">export</span> ANTHROPIC_DEFAULT_SONNET_MODEL=<span class="string">&quot;glm-4.6&quot;</span></span><br><span class="line"><span class="built_in">export</span> ANTHROPIC_DEFAULT_OPUS_MODEL=<span class="string">&quot;glm-4.6&quot;</span></span><br></pre></td></tr></table></figure>
+<p>记得执行 <code>source ~/.zshrc</code> 让配置生效。</p>
 <hr />
-<h2 id="linuxubuntu-配置"><a class="markdownIt-Anchor" href="#linuxubuntu-配置"></a> Linux/Ubuntu 配置</h2>
-<h3 id="1-安装nodejs如果还没有"><a class="markdownIt-Anchor" href="#1-安装nodejs如果还没有"></a> 1. 安装Node.js（如果还没有）</h3>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 使用NodeSource仓库安装最新LTS版本</span></span><br><span class="line">curl -fsSL https://deb.nodesource.com/setup_lts.x | sudo -E bash -</span><br><span class="line">sudo apt-get install -y nodejs</span><br><span class="line"></span><br><span class="line"><span class="comment"># 或使用包管理器</span></span><br><span class="line">sudo apt install nodejs npm</span><br></pre></td></tr></table></figure>
-<h3 id="2-安装claude-code"><a class="markdownIt-Anchor" href="#2-安装claude-code"></a> 2. 安装Claude Code</h3>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 使用npm全局安装</span></span><br><span class="line">sudo npm install -g @anthropic-ai/claude-code</span><br><span class="line"></span><br><span class="line"><span class="comment"># 或者使用yarn</span></span><br><span class="line">sudo yarn global add @anthropic-ai/claude-code</span><br></pre></td></tr></table></figure>
-<h3 id="3-配置方法"><a class="markdownIt-Anchor" href="#3-配置方法"></a> 3. 配置方法</h3>
-<h4 id="方法1使用settingsjson文件推荐-3"><a class="markdownIt-Anchor" href="#方法1使用settingsjson文件推荐-3"></a> 方法1：使用settings.json文件（推荐）</h4>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 创建配置目录</span></span><br><span class="line">mkdir -p ~/.claude</span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建settings.json文件</span></span><br><span class="line">nano ~/.claude/settings.json</span><br></pre></td></tr></table></figure>
-<p>文件内容：</p>
-<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">&quot;env&quot;</span>: &#123;</span><br><span class="line">    <span class="attr">&quot;ANTHROPIC_AUTH_TOKEN&quot;</span>: <span class="string">&quot;your_zhipu_api_key&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;ANTHROPIC_BASE_URL&quot;</span>: <span class="string">&quot;https://open.bigmodel.cn/api/anthropic&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;ANTHROPIC_DEFAULT_HAIKU_MODEL&quot;</span>: <span class="string">&quot;glm-4.5-air&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;ANTHROPIC_DEFAULT_SONNET_MODEL&quot;</span>: <span class="string">&quot;glm-4.6&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;ANTHROPIC_DEFAULT_OPUS_MODEL&quot;</span>: <span class="string">&quot;glm-4.6&quot;</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>设置文件权限：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod 600 ~/.claude/settings.json</span><br></pre></td></tr></table></figure>
-<h4 id="方法2使用环境变量-3"><a class="markdownIt-Anchor" href="#方法2使用环境变量-3"></a> 方法2：使用环境变量</h4>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 在 ~/.bashrc 或 ~/.zshrc 中添加</span></span><br><span class="line"><span class="built_in">export</span> ANTHROPIC_AUTH_TOKEN=<span class="string">&quot;your_zhipu_api_key&quot;</span></span><br><span class="line"><span class="built_in">export</span> ANTHROPIC_BASE_URL=<span class="string">&quot;https://open.bigmodel.cn/api/anthropic&quot;</span></span><br><span class="line"><span class="built_in">export</span> ANTHROPIC_DEFAULT_HAIKU_MODEL=<span class="string">&quot;glm-4.5-air&quot;</span></span><br><span class="line"><span class="built_in">export</span> ANTHROPIC_DEFAULT_SONNET_MODEL=<span class="string">&quot;glm-4.6&quot;</span></span><br><span class="line"><span class="built_in">export</span> ANTHROPIC_DEFAULT_OPUS_MODEL=<span class="string">&quot;glm-4.6&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 重新加载配置</span></span><br><span class="line"><span class="built_in">source</span> ~/.bashrc  <span class="comment"># 或 source ~/.zshrc</span></span><br></pre></td></tr></table></figure>
-<h3 id="4-验证配置"><a class="markdownIt-Anchor" href="#4-验证配置"></a> 4. 验证配置</h3>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 检查版本</span></span><br><span class="line">claude --version</span><br><span class="line"></span><br><span class="line"><span class="comment"># 启动Claude Code</span></span><br><span class="line">claude</span><br></pre></td></tr></table></figure>
+<h2 id="四-linux-ubuntu-配置指南"><a class="markdownIt-Anchor" href="#四-linux-ubuntu-配置指南"></a> 四、 Linux / Ubuntu 配置指南</h2>
+<p>Linux 下的操作和 Mac 比较像，重点是权限管理。</p>
+<h3 id="41-确保-nodejs-已就位"><a class="markdownIt-Anchor" href="#41-确保-nodejs-已就位"></a> 4.1 确保 Node.js 已就位</h3>
+<p>如果没有安装 Node，可以用 NodeSource 源装个新的 LTS 版本：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">curl -fsSL [https://deb.nodesource.com/setup_lts.x](https://deb.nodesource.com/setup_lts.x) | sudo -E bash -</span><br><span class="line">sudo apt-get install -y nodejs</span><br></pre></td></tr></table></figure>
+<h3 id="42-安装-claude-code"><a class="markdownIt-Anchor" href="#42-安装-claude-code"></a> 4.2 安装 Claude Code</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo npm install -g @anthropic-ai/claude-code</span><br></pre></td></tr></table></figure>
+<h3 id="43-写入配置"><a class="markdownIt-Anchor" href="#43-写入配置"></a> 4.3 写入配置</h3>
+<p>同样推荐使用 json 文件配置，这样迁移方便：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 创建目录</span></span><br><span class="line">mkdir -p ~/.claude</span><br><span class="line"><span class="comment"># 编辑文件</span></span><br><span class="line">nano ~/.claude/settings.json</span><br></pre></td></tr></table></figure>
+<p>内容同上：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">&quot;env&quot;</span>: &#123;</span><br><span class="line">    <span class="attr">&quot;ANTHROPIC_AUTH_TOKEN&quot;</span>: <span class="string">&quot;你的智谱API_KEY&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;ANTHROPIC_BASE_URL&quot;</span>: <span class="string">&quot;[https://open.bigmodel.cn/api/anthropic](https://open.bigmodel.cn/api/anthropic)&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;ANTHROPIC_DEFAULT_HAIKU_MODEL&quot;</span>: <span class="string">&quot;glm-4.5-air&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;ANTHROPIC_DEFAULT_SONNET_MODEL&quot;</span>: <span class="string">&quot;glm-4.6&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;ANTHROPIC_DEFAULT_OPUS_MODEL&quot;</span>: <span class="string">&quot;glm-4.6&quot;</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><strong>🔒 安全建议</strong>：为了防止 Key 泄露，建议把这个文件的权限设死一点： <code>chmod 600 ~/.claude/settings.json</code></p>
+</blockquote>
 <hr />
-<h2 id="通用配置参数说明"><a class="markdownIt-Anchor" href="#通用配置参数说明"></a> 通用配置参数说明</h2>
-<h3 id="settingsjson-完整参数"><a class="markdownIt-Anchor" href="#settingsjson-完整参数"></a> settings.json 完整参数</h3>
-<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">&quot;apiUrl&quot;</span>: <span class="string">&quot;https://open.bigmodel.cn/api/paas/v4/chat/completions&quot;</span>,</span><br><span class="line">  <span class="attr">&quot;authToken&quot;</span>: <span class="string">&quot;your_zhipu_api_key&quot;</span>,</span><br><span class="line">  <span class="attr">&quot;model&quot;</span>: <span class="string">&quot;glm-4.6&quot;</span>,</span><br><span class="line">  <span class="attr">&quot;maxTokens&quot;</span>: <span class="number">8192</span>,</span><br><span class="line">  <span class="attr">&quot;temperature&quot;</span>: <span class="number">0.7</span>,</span><br><span class="line">  <span class="attr">&quot;topP&quot;</span>: <span class="number">0.9</span>,</span><br><span class="line">  <span class="attr">&quot;stream&quot;</span>: <span class="literal">true</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="参数说明"><a class="markdownIt-Anchor" href="#参数说明"></a> 参数说明</h3>
+<h2 id="五-进阶如何调教你的配置"><a class="markdownIt-Anchor" href="#五-进阶如何调教你的配置"></a> 五、 进阶：如何调教你的配置</h2>
+<p><code>settings.json</code> 其实还支持更多参数，如果你想微调模型行为，可以参考下面的说明。</p>
+<h3 id="51-常用参数解析"><a class="markdownIt-Anchor" href="#51-常用参数解析"></a> 5.1 常用参数解析</h3>
+<p>虽然我们在 <code>env</code> 里做了映射，但如果你在其他工具中使用智谱 API，可能会用到标准格式：</p>
 <ul>
-<li><code>apiUrl</code>: 智谱AI的API地址</li>
-<li><code>authToken</code>: 你的智谱API Key</li>
-<li><code>model</code>: 使用的模型（glm-4.6, glm-4-flash, glm-4-air）</li>
-<li><code>maxTokens</code>: 最大生成token数，建议8192</li>
-<li><code>temperature</code>: 温度参数，0-1之间，控制创造性</li>
-<li><code>topP</code>: 核采样参数，0-1之间</li>
-<li><code>stream</code>: 是否使用流式输出</li>
-</ul>
-<hr />
-<h2 id="常见问题"><a class="markdownIt-Anchor" href="#常见问题"></a> 常见问题</h2>
-<h3 id="1-api地址配置"><a class="markdownIt-Anchor" href="#1-api地址配置"></a> 1. API地址配置</h3>
-<p>智谱AI的API地址为：</p>
+<li><strong>apiUrl</strong>: 智谱的接口地址，生产环境一般是 <code>https://open.bigmodel.cn/api/paas/v4/chat/completions</code>。</li>
+<li><strong>maxTokens</strong>: 建议设为 <strong>8192</strong>。写长代码时 Token 太少会截断，很搞心态。</li>
+<li><strong>temperature</strong>: “温度”。设为 <code>0</code> 到 <code>0.3</code> 适合写代码（严谨）；设为 <code>0.7</code> 以上适合写文案（发散）。</li>
+<li><strong>model</strong>:
 <ul>
-<li>生产环境：<code>https://open.bigmodel.cn/api/paas/v4/chat/completions</code></li>
-<li>支持的模型：<code>glm-4.6</code>, <code>glm-4-flash</code>, <code>glm-4-air</code></li>
-</ul>
-<h3 id="2-模型选择建议"><a class="markdownIt-Anchor" href="#2-模型选择建议"></a> 2. 模型选择建议</h3>
-<ul>
-<li><code>glm-4.6</code>：最新版本，性能最好，适合复杂任务</li>
-<li><code>glm-4-flash</code>：响应速度快，适合简单任务</li>
-<li><code>glm-4-air</code>：成本更低，适合大批量任务</li>
-</ul>
-<h3 id="3-代理设置如果需要"><a class="markdownIt-Anchor" href="#3-代理设置如果需要"></a> 3. 代理设置（如果需要）</h3>
-<p><strong>Windows:</strong></p>
-<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">set</span> HTTP_PROXY=http://proxy.example.com:port</span><br><span class="line"><span class="built_in">set</span> HTTPS_PROXY=http://proxy.example.com:port</span><br></pre></td></tr></table></figure>
-<p><strong>macOS/Linux:</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> HTTP_PROXY=<span class="string">&quot;http://proxy.example.com:port&quot;</span></span><br><span class="line"><span class="built_in">export</span> HTTPS_PROXY=<span class="string">&quot;http://proxy.example.com:port&quot;</span></span><br></pre></td></tr></table></figure>
-<h3 id="4-权限问题解决"><a class="markdownIt-Anchor" href="#4-权限问题解决"></a> 4. 权限问题解决</h3>
-<p><strong>Windows:</strong></p>
-<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># 确保有写入权限</span><br><span class="line">icacls &quot;C:\Users\<span class="variable">%USERNAME%</span>\.claude&quot; /grant <span class="variable">%USERNAME%</span>:(F)</span><br></pre></td></tr></table></figure>
-<p><strong>macOS/Linux:</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 设置正确的文件权限</span></span><br><span class="line">chmod 755 ~/.claude</span><br><span class="line">chmod 600 ~/.claude/settings.json</span><br></pre></td></tr></table></figure>
-<h3 id="5-常见错误及解决方案"><a class="markdownIt-Anchor" href="#5-常见错误及解决方案"></a> 5. 常见错误及解决方案</h3>
-<h4 id="错误command-not-found"><a class="markdownIt-Anchor" href="#错误command-not-found"></a> 错误：Command not found</h4>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 确认npm全局安装路径在PATH中</span></span><br><span class="line">npm config get prefix</span><br><span class="line"><span class="comment"># 将输出路径添加到系统PATH</span></span><br></pre></td></tr></table></figure>
-<h4 id="错误api-key无效"><a class="markdownIt-Anchor" href="#错误api-key无效"></a> 错误：API Key无效</h4>
-<ul>
-<li>检查API Key是否正确复制</li>
-<li>确认账户余额充足</li>
-<li>检查API Key是否过期</li>
-</ul>
-<h4 id="错误网络连接失败"><a class="markdownIt-Anchor" href="#错误网络连接失败"></a> 错误：网络连接失败</h4>
-<ul>
-<li>检查防火墙设置</li>
-<li>确认代理配置正确</li>
-<li>测试网络连通性</li>
-</ul>
-<hr />
-<h2 id="使用示例"><a class="markdownIt-Anchor" href="#使用示例"></a> 使用示例</h2>
-<p>配置完成后，可以直接使用：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 在项目目录下启动</span></span><br><span class="line">claude</span><br><span class="line"></span><br><span class="line"><span class="comment"># 或者直接提问</span></span><br><span class="line">claude <span class="string">&quot;帮我写一个Python脚本&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 生成代码</span></span><br><span class="line">claude <span class="string">&quot;创建一个React组件&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 代码审查</span></span><br><span class="line">claude <span class="string">&quot;审查当前目录的代码&quot;</span></span><br></pre></td></tr></table></figure>
-<hr />
-<h2 id="高级配置"><a class="markdownIt-Anchor" href="#高级配置"></a> 高级配置</h2>
-<h3 id="自定义模型映射"><a class="markdownIt-Anchor" href="#自定义模型映射"></a> 自定义模型映射</h3>
-<p>可以在settings.json中添加模型映射：</p>
-<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">&quot;apiUrl&quot;</span>: <span class="string">&quot;https://open.bigmodel.cn/api/paas/v4/chat/completions&quot;</span>,</span><br><span class="line">  <span class="attr">&quot;authToken&quot;</span>: <span class="string">&quot;your_zhipu_api_key&quot;</span>,</span><br><span class="line">  <span class="attr">&quot;model&quot;</span>: <span class="string">&quot;glm-4.6&quot;</span>,</span><br><span class="line">  <span class="attr">&quot;modelMapping&quot;</span>: &#123;</span><br><span class="line">    <span class="attr">&quot;claude-3-opus&quot;</span>: <span class="string">&quot;glm-4.6&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;claude-3-sonnet&quot;</span>: <span class="string">&quot;glm-4-flash&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;claude-3-haiku&quot;</span>: <span class="string">&quot;glm-4-air&quot;</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="团队配置"><a class="markdownIt-Anchor" href="#团队配置"></a> 团队配置</h3>
-<p>对于团队使用，可以创建共享配置：</p>
-<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">&quot;apiUrl&quot;</span>: <span class="string">&quot;https://open.bigmodel.cn/api/paas/v4/chat/completions&quot;</span>,</span><br><span class="line">  <span class="attr">&quot;authToken&quot;</span>: <span class="string">&quot;$&#123;ZHIPU_API_KEY&#125;&quot;</span>,</span><br><span class="line">  <span class="attr">&quot;model&quot;</span>: <span class="string">&quot;glm-4.6&quot;</span>,</span><br><span class="line">  <span class="attr">&quot;maxTokens&quot;</span>: <span class="number">4096</span>,</span><br><span class="line">  <span class="attr">&quot;temperature&quot;</span>: <span class="number">0.3</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>然后在环境变量中设置API Key。</p>
-<hr />
-<h2 id="注意事项"><a class="markdownIt-Anchor" href="#注意事项"></a> 注意事项</h2>
-<ol>
-<li>
-<p><strong>API Key保密</strong></p>
-<ul>
-<li>不要将API Key提交到版本控制系统</li>
-<li>使用环境变量存储敏感信息</li>
-<li>定期轮换API Key</li>
+<li><code>glm-4.6</code>: 主力模型，处理复杂逻辑用它。</li>
+<li><code>glm-4-flash</code>: 速度快，适合简单的问答。</li>
+<li><code>glm-4-air</code>: 性价比之选，跑大量任务时用。</li>
 </ul>
 </li>
-<li>
-<p><strong>网络连接</strong></p>
-<ul>
-<li>确保能访问智谱AI的API地址</li>
-<li>检查防火墙和代理设置</li>
-<li>考虑使用CDN加速</li>
 </ul>
-</li>
-<li>
-<p><strong>性能优化</strong></p>
-<ul>
-<li>根据任务复杂度选择合适的模型</li>
-<li>调整maxTokens避免浪费</li>
-<li>使用流式输出提升体验</li>
-</ul>
-</li>
-<li>
-<p><strong>成本控制</strong></p>
-<ul>
-<li>监控API使用量</li>
-<li>设置合理的请求频率限制</li>
-<li>选择适合的模型版本</li>
-</ul>
-</li>
-</ol>
 <hr />
-<h2 id="参考链接"><a class="markdownIt-Anchor" href="#参考链接"></a> 参考链接</h2>
+<h3 id="52-实际上手体验"><a class="markdownIt-Anchor" href="#52-实际上手体验"></a> 5.2 实际上手体验</h3>
+<p>一切配置妥当后，你就可以像使唤原生 Claude 一样使唤 GLM 了：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 启动交互模式</span></span><br><span class="line">claude</span><br><span class="line"></span><br><span class="line"><span class="comment"># 直接让它干活</span></span><br><span class="line">claude <span class="string">&quot;帮我用 Python 写个贪吃蛇游戏&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 让他帮你 Review 代码</span></span><br><span class="line">claude <span class="string">&quot;审查当前目录下的代码，指出潜在 bug&quot;</span></span><br></pre></td></tr></table></figure>
+<h2 id="六-避坑指南-faq"><a class="markdownIt-Anchor" href="#六-避坑指南-faq"></a> 六、 避坑指南 (FAQ)</h2>
+<p>配置过程中可能会遇到的一些玄学问题，我这里总结了一下：</p>
+<h3 id="61-报错-command-not-found"><a class="markdownIt-Anchor" href="#61-报错-command-not-found"></a> 6.1 报错 “Command not found”</h3>
+<p><strong>原因</strong>：npm 的全局安装路径没加到系统 PATH 变量里。 <strong>解决</strong>：运行 <code>npm config get prefix</code> 查看路径，手动把它加到环境变量 PATH 中。</p>
+<h3 id="62-报错-api-key-无效-或-401"><a class="markdownIt-Anchor" href="#62-报错-api-key-无效-或-401"></a> 6.2 报错 “API Key 无效” 或 401</h3>
 <ul>
-<li><a target="_blank" rel="noopener" href="https://docs.bigmodel.cn/">智谱AI开放文档</a></li>
-<li><a target="_blank" rel="noopener" href="https://docs.anthropic.com/claude-code">Claude Code官方文档</a></li>
-<li><a target="_blank" rel="noopener" href="https://nodejs.org/">Node.js官方下载</a></li>
-<li><a target="_blank" rel="noopener" href="https://docs.npmjs.com/">npm官方文档</a></li>
-<li><a target="_blank" rel="noopener" href="https://www.yuque.com/xiaoyou-nwu1w/ooi105/ezbqz1el31ekgt3k">接入 GLM 4.6 模型</a></li>
+<li>检查 Key 是不是复制漏了字符。</li>
+<li><strong>重点</strong>：去智谱后台看看是不是欠费了，或者 API Key 是否过期。</li>
+</ul>
+<h3 id="63-网络连接超时"><a class="markdownIt-Anchor" href="#63-网络连接超时"></a> 6.3 网络连接超时</h3>
+<p>虽然智谱是国内节点，但如果你本地开了全局代理，有时候反而会打架。</p>
+<ul>
+<li><strong>Windows</strong>: 设置 <code>HTTP_PROXY</code> 环境变量。</li>
+<li><strong>Linux/Mac</strong>: 检查 <code>export http_proxy</code> 设置。</li>
+<li>通常直连智谱是最快的，不需要代理。</li>
+</ul>
+<h3 id="64-权限不足-eacces"><a class="markdownIt-Anchor" href="#64-权限不足-eacces"></a> 6.4 权限不足 (EACCES)</h3>
+<p>如果在安装或运行 <code>claude</code> 时提示权限错误：</p>
+<ul>
+<li><strong>Windows</strong>: 用管理员身份运行 CMD。</li>
+<li><strong>Linux/Mac</strong>: 检查 <code>.claude</code> 文件夹的归属权，可以用 <code>chown -R $(whoami) ~/.claude</code> 修复。</li>
+</ul>
+<hr />
+<h2 id="七-参考链接"><a class="markdownIt-Anchor" href="#七-参考链接"></a> 七、参考链接</h2>
+<ul>
+<li>
+<p><a target="_blank" rel="noopener" href="https://docs.bigmodel.cn/">智谱AI开放文档</a></p>
+</li>
+<li>
+<p><a target="_blank" rel="noopener" href="https://docs.anthropic.com/claude-code">Claude Code官方文档</a></p>
+</li>
+<li>
+<p><a target="_blank" rel="noopener" href="https://nodejs.org/">Node.js官方下载</a></p>
+</li>
+<li>
+<p><a target="_blank" rel="noopener" href="https://docs.npmjs.com/">npm官方文档 </a></p>
+</li>
+<li>
+<p><a target="_blank" rel="noopener" href="https://www.yuque.com/xiaoyou-nwu1w/ooi105/ezbqz1el31ekgt3k">接入 GLM 4.6 模型</a></p>
+</li>
 </ul>
 
     </div>
@@ -604,7 +539,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#claude-code-chatglm-%E5%85%A8%E5%B9%B3%E5%8F%B0%E9%85%8D%E7%BD%AE%E6%8C%87%E5%8D%97"><span class="nav-text"> Claude Code + ChatGLM 全平台配置指南</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A6%82%E8%BF%B0"><span class="nav-text"> 概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%87%8D%E8%A6%81%E8%AF%B4%E6%98%8E"><span class="nav-text"> 重要说明</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%87%86%E5%A4%87%E5%B7%A5%E4%BD%9C"><span class="nav-text"> 准备工作</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%8E%B7%E5%8F%96%E6%99%BA%E8%B0%B1ai-api-key"><span class="nav-text"> 获取智谱AI API Key</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B3%E4%BA%8E%E6%99%BA%E8%B0%B1coding-plan"><span class="nav-text"> 关于智谱Coding Plan</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BC%98%E6%83%A0%E6%B4%BB%E5%8A%A8"><span class="nav-text"> 优惠活动</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85nodejs"><span class="nav-text"> 安装Node.js</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#windows-%E9%85%8D%E7%BD%AE"><span class="nav-text"> Windows 配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E5%AE%89%E8%A3%85claude-code"><span class="nav-text"> 1. 安装Claude Code</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E9%85%8D%E7%BD%AE%E6%96%B9%E6%B3%95"><span class="nav-text"> 2. 配置方法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%B9%E6%B3%951%E4%BD%BF%E7%94%A8settingsjson%E6%96%87%E4%BB%B6%E6%8E%A8%E8%8D%90"><span class="nav-text"> 方法1：使用settings.json文件（推荐）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%B9%E6%B3%952%E4%BD%BF%E7%94%A8%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F"><span class="nav-text"> 方法2：使用环境变量</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E9%AA%8C%E8%AF%81%E9%85%8D%E7%BD%AE"><span class="nav-text"> 3. 验证配置</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#macos-%E9%85%8D%E7%BD%AE"><span class="nav-text"> macOS 配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E5%AE%89%E8%A3%85claude-code-2"><span class="nav-text"> 1. 安装Claude Code</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E9%85%8D%E7%BD%AE%E6%96%B9%E6%B3%95-2"><span class="nav-text"> 2. 配置方法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%B9%E6%B3%951%E4%BD%BF%E7%94%A8settingsjson%E6%96%87%E4%BB%B6%E6%8E%A8%E8%8D%90-2"><span class="nav-text"> 方法1：使用settings.json文件（推荐）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%B9%E6%B3%952%E4%BD%BF%E7%94%A8%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F-2"><span class="nav-text"> 方法2：使用环境变量</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E9%AA%8C%E8%AF%81%E9%85%8D%E7%BD%AE-2"><span class="nav-text"> 3. 验证配置</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#linuxubuntu-%E9%85%8D%E7%BD%AE"><span class="nav-text"> Linux&#x2F;Ubuntu 配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E5%AE%89%E8%A3%85nodejs%E5%A6%82%E6%9E%9C%E8%BF%98%E6%B2%A1%E6%9C%89"><span class="nav-text"> 1. 安装Node.js（如果还没有）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E5%AE%89%E8%A3%85claude-code"><span class="nav-text"> 2. 安装Claude Code</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E9%85%8D%E7%BD%AE%E6%96%B9%E6%B3%95"><span class="nav-text"> 3. 配置方法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%B9%E6%B3%951%E4%BD%BF%E7%94%A8settingsjson%E6%96%87%E4%BB%B6%E6%8E%A8%E8%8D%90-3"><span class="nav-text"> 方法1：使用settings.json文件（推荐）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%B9%E6%B3%952%E4%BD%BF%E7%94%A8%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F-3"><span class="nav-text"> 方法2：使用环境变量</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-%E9%AA%8C%E8%AF%81%E9%85%8D%E7%BD%AE"><span class="nav-text"> 4. 验证配置</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%80%9A%E7%94%A8%E9%85%8D%E7%BD%AE%E5%8F%82%E6%95%B0%E8%AF%B4%E6%98%8E"><span class="nav-text"> 通用配置参数说明</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#settingsjson-%E5%AE%8C%E6%95%B4%E5%8F%82%E6%95%B0"><span class="nav-text"> settings.json 完整参数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%82%E6%95%B0%E8%AF%B4%E6%98%8E"><span class="nav-text"> 参数说明</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98"><span class="nav-text"> 常见问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-api%E5%9C%B0%E5%9D%80%E9%85%8D%E7%BD%AE"><span class="nav-text"> 1. API地址配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E6%A8%A1%E5%9E%8B%E9%80%89%E6%8B%A9%E5%BB%BA%E8%AE%AE"><span class="nav-text"> 2. 模型选择建议</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E4%BB%A3%E7%90%86%E8%AE%BE%E7%BD%AE%E5%A6%82%E6%9E%9C%E9%9C%80%E8%A6%81"><span class="nav-text"> 3. 代理设置（如果需要）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-%E6%9D%83%E9%99%90%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3"><span class="nav-text"> 4. 权限问题解决</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-%E5%B8%B8%E8%A7%81%E9%94%99%E8%AF%AF%E5%8F%8A%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88"><span class="nav-text"> 5. 常见错误及解决方案</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%94%99%E8%AF%AFcommand-not-found"><span class="nav-text"> 错误：Command not found</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%94%99%E8%AF%AFapi-key%E6%97%A0%E6%95%88"><span class="nav-text"> 错误：API Key无效</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%94%99%E8%AF%AF%E7%BD%91%E7%BB%9C%E8%BF%9E%E6%8E%A5%E5%A4%B1%E8%B4%A5"><span class="nav-text"> 错误：网络连接失败</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E7%A4%BA%E4%BE%8B"><span class="nav-text"> 使用示例</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%AB%98%E7%BA%A7%E9%85%8D%E7%BD%AE"><span class="nav-text"> 高级配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E6%A8%A1%E5%9E%8B%E6%98%A0%E5%B0%84"><span class="nav-text"> 自定义模型映射</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9B%A2%E9%98%9F%E9%85%8D%E7%BD%AE"><span class="nav-text"> 团队配置</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9"><span class="nav-text"> 注意事项</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E9%93%BE%E6%8E%A5"><span class="nav-text"> 参考链接</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%8E%A9%E8%BD%AC-claude-code%E5%85%A8%E5%B9%B3%E5%8F%B0%E6%8E%A5%E5%85%A5%E6%99%BA%E8%B0%B1-glm-46-%E9%85%8D%E7%BD%AE%E5%AE%9E%E6%88%98"><span class="nav-text"> 玩转 Claude Code：全平台接入智谱 GLM-4.6 配置实战</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-text"> 📝 前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80-%E5%87%86%E5%A4%87%E5%B7%A5%E4%BD%9C%E7%A3%A8%E5%88%80%E4%B8%8D%E8%AF%AF%E7%A0%8D%E6%9F%B4%E5%B7%A5"><span class="nav-text"> 一、 准备工作：磨刀不误砍柴工</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#11-%E8%8E%B7%E5%8F%96%E6%99%BA%E8%B0%B1-api-key"><span class="nav-text"> 1.1 获取智谱 API Key</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#12-%E4%B8%BA%E4%BB%80%E4%B9%88%E9%80%89%E6%8B%A9-glm-46"><span class="nav-text"> 1.2 为什么选择 GLM-4.6？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#13-%E7%8E%AF%E5%A2%83%E4%BE%9D%E8%B5%96nodejs"><span class="nav-text"> 1.3 环境依赖：Node.js</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C-windows-%E7%B3%BB%E7%BB%9F%E9%85%8D%E7%BD%AE%E6%8C%87%E5%8D%97"><span class="nav-text"> 二、 Windows 系统配置指南</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#21-%E5%AE%89%E8%A3%85-claude-code"><span class="nav-text"> 2.1 安装 Claude Code</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#22-%E9%85%8D%E7%BD%AE%E8%BF%9E%E6%8E%A5%E4%BA%8C%E9%80%89%E4%B8%80"><span class="nav-text"> 2.2 配置连接（二选一）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#221-%E6%96%B9%E6%A1%88-a%E9%80%9A%E8%BF%87%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E6%8E%A8%E8%8D%90"><span class="nav-text"> 2.2.1 方案 A：通过配置文件（推荐 ✅）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#222-%E6%96%B9%E6%A1%88-b%E8%AE%BE%E7%BD%AE%E7%B3%BB%E7%BB%9F%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F"><span class="nav-text"> 2.2.2 方案 B：设置系统环境变量</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#23-%E9%AA%8C%E8%AF%81%E6%98%AF%E5%90%A6%E6%88%90%E5%8A%9F"><span class="nav-text"> 2.3 验证是否成功</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89-macos-%E7%B3%BB%E7%BB%9F%E9%85%8D%E7%BD%AE%E6%8C%87%E5%8D%97"><span class="nav-text"> 三、 macOS 系统配置指南</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#31-%E5%AE%89%E8%A3%85%E5%B7%A5%E5%85%B7"><span class="nav-text"> 3.1 安装工具</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#32-%E9%85%8D%E7%BD%AE%E8%BF%9E%E6%8E%A5"><span class="nav-text"> 3.2 配置连接</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#321-%E6%96%B9%E6%A1%88-a%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E6%B3%95%E6%8E%A8%E8%8D%90"><span class="nav-text"> 3.2.1 方案 A：配置文件法（推荐 ✅）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#322-%E6%96%B9%E6%A1%88-b%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E6%B3%95"><span class="nav-text"> 3.2.2 方案 B：环境变量法</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%9B-linux-ubuntu-%E9%85%8D%E7%BD%AE%E6%8C%87%E5%8D%97"><span class="nav-text"> 四、 Linux &#x2F; Ubuntu 配置指南</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#41-%E7%A1%AE%E4%BF%9D-nodejs-%E5%B7%B2%E5%B0%B1%E4%BD%8D"><span class="nav-text"> 4.1 确保 Node.js 已就位</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#42-%E5%AE%89%E8%A3%85-claude-code"><span class="nav-text"> 4.2 安装 Claude Code</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#43-%E5%86%99%E5%85%A5%E9%85%8D%E7%BD%AE"><span class="nav-text"> 4.3 写入配置</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%94-%E8%BF%9B%E9%98%B6%E5%A6%82%E4%BD%95%E8%B0%83%E6%95%99%E4%BD%A0%E7%9A%84%E9%85%8D%E7%BD%AE"><span class="nav-text"> 五、 进阶：如何调教你的配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#51-%E5%B8%B8%E7%94%A8%E5%8F%82%E6%95%B0%E8%A7%A3%E6%9E%90"><span class="nav-text"> 5.1 常用参数解析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#52-%E5%AE%9E%E9%99%85%E4%B8%8A%E6%89%8B%E4%BD%93%E9%AA%8C"><span class="nav-text"> 5.2 实际上手体验</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%AD-%E9%81%BF%E5%9D%91%E6%8C%87%E5%8D%97-faq"><span class="nav-text"> 六、 避坑指南 (FAQ)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#61-%E6%8A%A5%E9%94%99-command-not-found"><span class="nav-text"> 6.1 报错 “Command not found”</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#62-%E6%8A%A5%E9%94%99-api-key-%E6%97%A0%E6%95%88-%E6%88%96-401"><span class="nav-text"> 6.2 报错 “API Key 无效” 或 401</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#63-%E7%BD%91%E7%BB%9C%E8%BF%9E%E6%8E%A5%E8%B6%85%E6%97%B6"><span class="nav-text"> 6.3 网络连接超时</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#64-%E6%9D%83%E9%99%90%E4%B8%8D%E8%B6%B3-eacces"><span class="nav-text"> 6.4 权限不足 (EACCES)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%83-%E5%8F%82%E8%80%83%E9%93%BE%E6%8E%A5"><span class="nav-text"> 七、参考链接</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
