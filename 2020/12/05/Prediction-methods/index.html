@@ -24,12 +24,12 @@
     var CONFIG = {"hostname":"yangsuoly.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":true},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":true,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="1 Differential equation model 1.1 Introduction  特点  当描述实际对象的某些特征随时间（或空间）而演变的过程、分析它的变化规律、预测它的未来形态、研究它的控制手段时，通常需要建立对象的 动态微分方程模型。 微分模型求解的结果就是问题的答案，该答案是 唯一 的。  典型的模型：  传染病的预测模型 经济增长预测模型 兰彻斯特（Lanchester）战争">
+  <meta name="description" content="1 Differential equation model1.1 Introduction 特点  当描述实际对象的某些特征随时间（或空间）而演变的过程、分析它的变化规律、预测它的未来形态、研究它的控制手段时，通常需要建立对象的 动态微分方程模型。 微分模型求解的结果就是问题的答案，该答案是 唯一 的。  典型的模型： 传染病的预测模型 经济增长预测模型 兰彻斯特（Lanchester）战争预测模">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Prediction methods">
 <meta property="og:url" content="http://yangsuoly.com/2020/12/05/Prediction-methods/index.html">
 <meta property="og:site_name" content="独孤诗人的学习驿站">
-<meta property="og:description" content="1 Differential equation model 1.1 Introduction  特点  当描述实际对象的某些特征随时间（或空间）而演变的过程、分析它的变化规律、预测它的未来形态、研究它的控制手段时，通常需要建立对象的 动态微分方程模型。 微分模型求解的结果就是问题的答案，该答案是 唯一 的。  典型的模型：  传染病的预测模型 经济增长预测模型 兰彻斯特（Lanchester）战争">
+<meta property="og:description" content="1 Differential equation model1.1 Introduction 特点  当描述实际对象的某些特征随时间（或空间）而演变的过程、分析它的变化规律、预测它的未来形态、研究它的控制手段时，通常需要建立对象的 动态微分方程模型。 微分模型求解的结果就是问题的答案，该答案是 唯一 的。  典型的模型： 传染病的预测模型 经济增长预测模型 兰彻斯特（Lanchester）战争预测模">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://s3.ax1x.com/2020/12/05/DLrAIJ.png">
 <meta property="article:published_time" content="2020-12-05T06:46:56.000Z">
@@ -275,14 +275,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">Symbols count in article: </span>
-              <span>9.4k</span>
+              <span>9k</span>
             </span>
             <span class="post-meta-item" title="Reading time">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">Reading time &asymp;</span>
-              <span>9 mins.</span>
+              <span>8 mins.</span>
             </span>
 
         </div>
@@ -294,84 +294,62 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h1 id="differential-equation-model">1 Differential equation model</h1>
-<h2 id="introduction">1.1 Introduction</h2>
-<ul>
+        <h1 id="1-Differential-equation-model"><a href="#1-Differential-equation-model" class="headerlink" title="1 Differential equation model"></a>1 Differential equation model</h1><h2 id="1-1-Introduction"><a href="#1-1-Introduction" class="headerlink" title="1.1 Introduction"></a>1.1 Introduction</h2><ul>
 <li>特点</li>
 </ul>
-<p>当描述实际对象的某些特征随时间（或空间）而演变的过程、分析它的变化规律、预测它的未来形态、研究它的控制手段时，通常需要建立对象的
-<strong>动态微分方程模型</strong>。</p>
-<p>微分模型求解的结果就是问题的答案，该答案是 <strong>唯一</strong>
-的。</p>
+<p>当描述实际对象的某些特征随时间（或空间）而演变的过程、分析它的变化规律、预测它的未来形态、研究它的控制手段时，通常需要建立对象的 <strong>动态微分方程模型</strong>。</p>
+<p>微分模型求解的结果就是问题的答案，该答案是 <strong>唯一</strong> 的。</p>
 <ul>
-<li>典型的模型：
-<ul>
+<li>典型的模型：<ul>
 <li>传染病的预测模型</li>
 <li>经济增长预测模型</li>
 <li>兰彻斯特（Lanchester）战争预测模型</li>
 <li>药物在体内的分布于排除预测模型</li>
 <li>人口的预测模型</li>
 <li>烟雾的扩散与消失模型</li>
-</ul></li>
+</ul>
+</li>
 </ul>
 <p>模型的基本规律随着时间的增长趋势呈指数形式，根据变量的个数建立微分方程。</p>
 <a id="more"></a>
 <ul>
 <li><strong>优点</strong></li>
 </ul>
-<p>短、中、长期的预测都能适用，既能反应 <strong>内部规律</strong> 以及
-<strong>事物的内在关系</strong>，也能分析两个因素的
-<strong>相关关系</strong>，精度相应的比较高，另外对模型的改进也比较容易理解和实现。</p>
+<p>短、中、长期的预测都能适用，既能反应 <strong>内部规律</strong> 以及 <strong>事物的内在关系</strong>，也能分析两个因素的 <strong>相关关系</strong>，精度相应的比较高，另外对模型的改进也比较容易理解和实现。</p>
 <ul>
 <li><strong>缺点</strong></li>
 </ul>
-<p>虽然反应的是内部规律，但由于方程的建立是以局部规律的独立性假定为基础，故中长期预测
-<strong>偏差有点大</strong>，且 <strong>解较难得到</strong>。</p>
-<h2 id="case">1.2 Case</h2>
-<ul>
+<p>虽然反应的是内部规律，但由于方程的建立是以局部规律的独立性假定为基础，故中长期预测 <strong>偏差有点大</strong>，且 <strong>解较难得到</strong>。</p>
+<h2 id="1-2-Case"><a href="#1-2-Case" class="headerlink" title="1.2 Case"></a>1.2 Case</h2><ul>
 <li><p>Problem</p>
-<p>硫黄岛位于东京以南 660 英里的海面上，是日军的重要空军基地。美军在1945
-年2 月开始进攻，激烈的战斗持续了一个月，双方伤亡惨重，日方守军21500
-人全部阵亡或被俘，美方投入兵力73000 人，伤亡20265 人，战争进行到28
-天时美军宣布占领该岛，实际战斗到36
-天才停止。美军的战地记录有按天统计的战斗减员和增援情况。日军没有后援，战地记录则全部遗失。</p></li>
+<p>硫黄岛位于东京以南 660 英里的海面上，是日军的重要空军基地。美军在1945 年2 月开始进攻，激烈的战斗持续了一个月，双方伤亡惨重，日方守军21500 人全部阵亡或被俘，美方投入兵力73000 人，伤亡20265 人，战争进行到28 天时美军宣布占领该岛，实际战斗到36 天才停止。美军的战地记录有按天统计的战斗减员和增援情况。日军没有后援，战地记录则全部遗失。</p>
+</li>
 <li><p>Solution Code</p>
 <figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">dxy=@(t,x)[<span class="number">-0.0544</span>*x(<span class="number">2</span>)+<span class="number">54000</span>*(t&gt;=<span class="number">0</span> &amp; t&lt;<span class="number">1</span>)+<span class="number">6000</span>*(t&gt;=<span class="number">2</span> &amp; t&lt;<span class="number">3</span>)+<span class="number">13000</span>*(t&gt;=<span class="number">5</span> &amp; t&lt;<span class="number">6</span>)</span><br><span class="line">    <span class="number">-0.0106</span>*x(<span class="number">1</span>)];  <span class="comment">%用匿名函数定义方程右端项，这里用逻辑语句定义分段函数</span></span><br><span class="line">[t,xy]=ode45(dxy,[<span class="number">0</span>:<span class="number">36</span>],[<span class="number">0</span>,<span class="number">21500</span>])</span><br><span class="line">subplot(<span class="number">211</span>), <span class="built_in">plot</span>(t,xy(:,<span class="number">1</span>),<span class="string">&#x27;r*&#x27;</span>,t,xy(:,<span class="number">2</span>),<span class="string">&#x27;gD&#x27;</span>)</span><br><span class="line">xlabel(<span class="string">&#x27;时间t&#x27;</span>),  ylabel(<span class="string">&#x27;人数&#x27;</span>), <span class="built_in">legend</span>(<span class="string">&#x27;美军&#x27;</span>,<span class="string">&#x27;日军&#x27;</span>)</span><br><span class="line">subplot(<span class="number">212</span>),  <span class="built_in">plot</span>(xy(:,<span class="number">1</span>),xy(:,<span class="number">2</span>))  <span class="comment">%画微分方程组的轨线</span></span><br><span class="line">xlabel(<span class="string">&#x27;美军人数x&#x27;</span>),  ylabel(<span class="string">&#x27;日军人数y&#x27;</span>)  </span><br></pre></td></tr></table></figure>
 <p>Result:</p>
-<p><img src="https://s3.ax1x.com/2020/12/05/DLrAIJ.png" /></p>
-<center>
-<p>Fig. 1-1 Result of case 1</p>
-</center></li>
+<p><img src="https://s3.ax1x.com/2020/12/05/DLrAIJ.png" alt=""></p>
+<center> Fig. 1-1 Result of case 1 </center>
+
+</li>
 </ul>
-<h1 id="grey-model">2 Grey model</h1>
-<h2 id="introduction-1">2.1 Introduction</h2>
-<ul>
+<h1 id="2-Grey-model"><a href="#2-Grey-model" class="headerlink" title="2 Grey model"></a>2 Grey model</h1><h2 id="2-1-Introduction"><a href="#2-1-Introduction" class="headerlink" title="2.1 Introduction"></a>2.1 Introduction</h2><ul>
 <li><p>主要特点</p>
-<p>模型使用的不是原始数据序列，而是生成的数据序列，其核心体系是
-<strong>灰色模型（Grey model, GM）</strong>， 即对原始数据作
-<strong>累加生成</strong> 得到近似的 <strong>指数规律
-</strong>再进行建模的方法。</p></li>
+<p>模型使用的不是原始数据序列，而是生成的数据序列，其核心体系是 <strong>灰色模型（Grey model, GM）</strong>， 即对原始数据作 <strong>累加生成</strong> 得到近似的 <strong>指数规律 </strong>再进行建模的方法。</p>
+</li>
 <li><p><strong>优点</strong></p>
 <ul>
 <li>不需要很多的数据，一般只需要4个数据，就能解决<strong>历史数据少、序列的完整性及可靠性低</strong>的问题；</li>
 <li>能利用微分方程来充分挖掘系统的本质，精度高；</li>
 <li>能将无规律的原始数据进行生成得到规律性较强的生成序列，预算简便，易于检验，不考虑分布规律，不考虑变化趋势。</li>
-</ul></li>
-<li><p><strong>缺点</strong></p>
-<p>只适用于 <strong>中短期的预测</strong>，只适合
-<strong>指数增长的预测</strong>。</p></li>
 </ul>
-<h2 id="categories">2.2 Categories</h2>
-<h3 id="gm1-1-forecasting-model">2.2.1 GM(1, 1) forecasting model</h3>
-<p>GM(1, 1) denotes the grey model is a <strong>first order difference
-equation</strong> and only include <strong>one variable</strong>.</p>
-<p>Not finished, to be continued...</p>
-<h3 id="gm2-1-dgm-and-verhulst-model">2.2.2 GM(2, 1), DGM and Verhulst
-model</h3>
-<p>GM(1, 1) 模型适用于具有较强 <strong>指数规律</strong>
-的序列，只能描述单调的变化过程，对于<strong>非单调的摆动发展序列</strong>或
-<strong>有饱和的 S 形序列</strong>，可以考虑建立 GM(2, 1), DGM and
-Verhulst model。</p>
+</li>
+<li><p><strong>缺点</strong></p>
+<p>只适用于 <strong>中短期的预测</strong>，只适合 <strong>指数增长的预测</strong>。</p>
+</li>
+</ul>
+<h2 id="2-2-Categories"><a href="#2-2-Categories" class="headerlink" title="2.2 Categories"></a>2.2 Categories</h2><h3 id="2-2-1-GM-1-1-forecasting-model"><a href="#2-2-1-GM-1-1-forecasting-model" class="headerlink" title="2.2.1 GM(1, 1) forecasting model"></a>2.2.1 GM(1, 1) forecasting model</h3><p>GM(1, 1) denotes the grey model is a <strong>first order difference equation</strong> and only include <strong>one variable</strong>. </p>
+<p>Not finished, to be continued…</p>
+<h3 id="2-2-2-GM-2-1-DGM-and-Verhulst-model"><a href="#2-2-2-GM-2-1-DGM-and-Verhulst-model" class="headerlink" title="2.2.2 GM(2, 1), DGM and Verhulst model"></a>2.2.2 GM(2, 1), DGM and Verhulst model</h3><p>GM(1, 1) 模型适用于具有较强 <strong>指数规律</strong> 的序列，只能描述单调的变化过程，对于<strong>非单调的摆动发展序列</strong>或 <strong>有饱和的 S 形序列</strong>，可以考虑建立 GM(2, 1), DGM and Verhulst model。</p>
 <ul>
 <li><p>灰色 Verhulst 预测模型</p>
 <p>Verhulst 模型主要用来描述具有剥和状态的过程，即 S 形过程，常用于</p>
@@ -380,385 +358,192 @@ Verhulst model。</p>
 <li>生物生长</li>
 <li>繁殖预测</li>
 <li>产品经济寿命预测</li>
-</ul></li>
 </ul>
-<h1 id="difference-equation">3 Difference equation</h1>
-<h2 id="introduction-2">3.1 Introduction</h2>
-<p>在利用差分方程建模研究实际问题时，常需要根据统计数据用
-<strong>最小二乘法</strong> 来 <strong>拟合 </strong>出差分方程的
-<strong>系数</strong>。其系统稳定性讨论要用到代数方程的求根。</p>
-<h3 id="一阶自回归ar1">3.1.1 一阶自回归（AR(1)）</h3>
-<p>由于时间序列一般存在自相关，故最简单的预测方法为，使用过去值 <span
-class="math inline">\(y_{t-1}\)</span> 来预测当前值 <span
-class="math inline">\(y_{t}\)</span> ，即一阶自回归模型（AR(1)） <span
-class="math display">\[
-y_t = \beta_0 + \beta_1 y_{t-1} + \varepsilon_t \ \ (t = 2, \dots, T)
-\]</span> 其中，扰动项 <span
-class="math inline">\(\varepsilon_t\)</span> 为白噪声，故无自相关，即
-<span class="math inline">\(\rm{Cov}(\varepsilon_t,\ \varepsilon_s) = 0,
-\forall t \neq s\)</span>。假设自回归系数 $|_1| &lt; 1 $，则 $ {y_t}$
-为渐进独立的平稳过程。</p>
-<h3 id="高阶自回归arp">3.1.2 高阶自回归（AR(p)）</h3>
-<p>在 AR(1) 模型中，假设扰动项为无自相关，故可用 <span
-class="math inline">\(OLS\)</span>
-进行一致的估计。<strong>然而</strong>， 如果模型为 AR(2)，但却被误设为
-AR(1)，则意味着二阶滞后项 <span class="math inline">\(\beta_2
-y_{t-2}\)</span> 被纳入扰动项： <span class="math display">\[
-y_t = \beta_0 + \beta_1 y_{t-1} + (\beta_2 y_{t-2} + \varepsilon_t)
-\]</span> 其中，由于扰动项为 $(<em>2 y</em>{t-2} + _t)
-$，故扰动项与解释变量 <span class="math inline">\(y_{t-1}\)</span>
-相关，因为 <span class="math inline">\(\rm{Cov}(y_{t-1},\ y_{t-2}) \neq
-0\)</span>。此时，扰动项存在自相关，<span
-class="math inline">\(OLS\)</span> 不再一致，需引入 <span
-class="math inline">\(\beta_2 y_{t-2}\)</span> 才能得到一致估计。</p>
-<p>另外，从预测的角度来看，更高阶的滞后项也可能包含有用的信息。为此，更一般地，考虑
-$ p$ 阶自回归模型，记为 <span class="math inline">\(AR(p)\)</span>：
-<span class="math display">\[
-y_t = \beta_0 + \beta_1 y_{t-1} + \dots + \beta_p y_{t-p} +
-\varepsilon_t
-\]</span> 其中，扰动项 <span
-class="math inline">\(\varepsilon_t\)</span> 为白噪声，无自相关，故
-<span class="math inline">\(OLS\)</span>
-为一致估计。然而，通常我们并不知道滞后期 <span
-class="math inline">\(p\)</span>。</p>
-<p>估计 <span class="math inline">\(\hat{p}\)</span> 的方法：</p>
+</li>
+</ul>
+<h1 id="3-Difference-equation"><a href="#3-Difference-equation" class="headerlink" title="3 Difference equation"></a>3 Difference equation</h1><h2 id="3-1-Introduction"><a href="#3-1-Introduction" class="headerlink" title="3.1 Introduction"></a>3.1 Introduction</h2><p>在利用差分方程建模研究实际问题时，常需要根据统计数据用 <strong>最小二乘法</strong> 来 <strong>拟合 </strong>出差分方程的 <strong>系数</strong>。其系统稳定性讨论要用到代数方程的求根。</p>
+<h3 id="3-1-1-一阶自回归（AR-1-）"><a href="#3-1-1-一阶自回归（AR-1-）" class="headerlink" title="3.1.1 一阶自回归（AR(1)）"></a>3.1.1 一阶自回归（AR(1)）</h3><p>由于时间序列一般存在自相关，故最简单的预测方法为，使用过去值 $y_{t-1}$ 来预测当前值  $y_{t}$ ，即一阶自回归模型（AR(1)）</p>
+<script type="math/tex; mode=display">
+y_t = \beta_0 + \beta_1 y_{t-1} + \varepsilon_t \ \ (t = 2, \dots, T)</script><p>其中，扰动项 $\varepsilon_t$ 为白噪声，故无自相关，即 $\rm{Cov}(\varepsilon_t, \varepsilon_s) = 0, \forall t \neq s$。假设自回归系数 $|\beta_1| &lt; 1 $，则 $ \{y_t\}$ 为渐进独立的平稳过程。</p>
+<h3 id="3-1-2-高阶自回归（AR-p-）"><a href="#3-1-2-高阶自回归（AR-p-）" class="headerlink" title="3.1.2 高阶自回归（AR(p)）"></a>3.1.2 高阶自回归（AR(p)）</h3><p>在 AR(1) 模型中，假设扰动项为无自相关，故可用 $OLS$ 进行一致的估计。<strong>然而</strong>， 如果模型为 AR(2)，但却被误设为 AR(1)，则意味着二阶滞后项 $\beta_2 y_{t-2}$ 被纳入扰动项：</p>
+<script type="math/tex; mode=display">
+y_t = \beta_0 + \beta_1 y_{t-1} + (\beta_2 y_{t-2} + \varepsilon_t)</script><p>其中，由于扰动项为 $(\beta_2 y_{t-2} + \varepsilon_t) $，故扰动项与解释变量 $y_{t-1}$ 相关，因为 $\rm{Cov}(y_{t-1}, y_{t-2}) \neq 0$。此时，扰动项存在自相关，$OLS$ 不再一致，需引入 $\beta_2 y_{t-2}$ 才能得到一致估计。</p>
+<p>另外，从预测的角度来看，更高阶的滞后项也可能包含有用的信息。为此，更一般地，考虑  $ p$  阶自回归模型，记为 $AR(p)$：</p>
+<script type="math/tex; mode=display">
+y_t = \beta_0 + \beta_1 y_{t-1} + \dots + \beta_p y_{t-p} + \varepsilon_t</script><p>其中，扰动项 $\varepsilon_t$ 为白噪声，无自相关，故 $OLS$ 为一致估计。然而，通常我们并不知道滞后期 $p$。</p>
+<p>估计 $\hat{p}$ 的方法：</p>
 <ul>
-<li><p>设一个最大滞后期 <span
-class="math inline">\(p_{\max}\)</span>，然后令 $ = p_{} $
-进行估计，并对最后一个滞后期系数的显著性进行 <span
-class="math inline">\(t\)</span> 检验。</p>
-<p>如果接受该系数为 0，则令 $ = p_{} -1
-$，重新进行估计，再对最后一个滞后期的系数进行 <span
-class="math inline">\(t\)</span> 检验。</p></li>
-<li><p>使用信息准则，选择 <span class="math inline">\(\hat{p}\)</span>
-使得 <span class="math inline">\(AIC\)</span> 或 <span
-class="math inline">\(BIC\)</span> 最小化，分别记为 <span
-class="math inline">\(\hat{p}_{AIC}\)</span> 与 <span
-class="math inline">\(\hat{p}_{BIC}\)</span>。</p></li>
+<li><p>设一个最大滞后期 $p_{\max}$，然后令 $\hat{p} = p_{\max} $ 进行估计，并对最后一个滞后期系数的显著性进行 $t$ 检验。</p>
+<p>如果接受该系数为 0，则令 $\hat{p} = p_{\max} -1 $，重新进行估计，再对最后一个滞后期的系数进行 $t$ 检验。</p>
+</li>
+<li><p>使用信息准则，选择 $\hat{p}$ 使得 $AIC$ 或 $BIC$  最小化，分别记为 $\hat{p}_{AIC}$ 与 $\hat{p}_{BIC}$。</p>
+</li>
 </ul>
-<h3 id="自回归分布滞后模型adl">3.1.3 自回归分布滞后模型（ADL）</h3>
-<p>在自回归 <span class="math inline">\(AR(p)\)</span>
-中，为提高预测力或解释力，可引入其他解释变量，构成
-<strong>自回归分布滞后模型</strong>（Autoregressive Distributed Lag
-Model, ADL(p, 1) or ARDL(p, q)）。 <span class="math display">\[
-y_t = \beta_o + \beta_1 y_{t-1} + \dots + \beta_p y_{t-p} + \gamma_1
-x_{t-1} + \dots + \gamma_q x_{t-q} + \varepsilon_t
-\]</span> 其中，<span class="math inline">\(p\)</span> 为解释变量 <span
-class="math inline">\(y\)</span> 的自回归阶数，<span
-class="math inline">\(q\)</span> 为解释变量 <span
-class="math inline">\(x\)</span> 的滞后阶数。假定扰动项 <span
-class="math inline">\(\varepsilon_t\)</span> 为白噪声，则 <span
-class="math inline">\(OLS\)</span> 为一致估计。</p>
-<h3 id="误差修正模型ecm">3.1.4 误差修正模型（ECM）</h3>
-<p>ADL
-是一种动态模型。从经济理论而言，<strong>相关变量之间可能存在长期的均衡关系，而变量的短期变动则是向着这个长期均衡关系的调整</strong>。ECM
-正是这一思想在计量经济学中的体现。</p>
-<p>考虑 ADL(1, 1) 模型： <span class="math display">\[
-y_t = \beta_o + \beta_1 y_{t-1} + \gamma_1 x_{t-1} + \varepsilon_t
-\]</span> 其中，<span class="math inline">\(|\beta_1| &lt;
-1\)</span>，故为平稳过程。假设经济理论 认为 <span
-class="math inline">\((y,\ x)\)</span> 之间存在长期均衡关系： <span
-class="math display">\[
-y = \phi + \theta x
-\]</span> 其中，<span class="math inline">\(\phi\)</span> 和 <span
-class="math inline">\(\theta\)</span> 为待定参数。对方程两边求期望，并令
-<span class="math inline">\(y^\star = \rm{E}(y_t) =
-\rm{E}(y_{t-1})\)</span>， <span class="math inline">\(x^\star =
-\rm{E}(x_t) = \rm{E}(x_{t-1})\)</span>，可得： <span
-class="math display">\[
-y^\star = \frac{\beta_0}{1-\beta_1} + \frac{\gamma_1}{1-\beta_1} x^\star
-\]</span> 所以，<span class="math inline">\(\phi =
-\frac{\beta_0}{1-\beta_1}\)</span>， <span class="math inline">\(\theta
-= \frac{\gamma_0}{1-\beta_1}\)</span>。其中 $ $ 即为长期程数，衡量当
-<span class="math inline">\(x\)</span> 永久性变化 1 单位时，将导致 <span
-class="math inline">\(y\)</span> 的永久变化幅度。在方程（5）两边同时减去
-<span class="math inline">\(y_{t-1}\)</span> 得： <span
-class="math display">\[
-\Delta y_t = (\beta_1 -1)(y_{t-1} - \phi - \theta x_{t-1}) +
-\varepsilon_t
-\]</span> 其中，<span class="math inline">\((y_{t-1} - \phi - \theta
-x_{t-1})\)</span> 衡量上一期对均衡条件 <span class="math inline">\(y =
-\phi + \theta x\)</span> 的偏离（误差），而 <span
-class="math inline">\((\beta_1 -1)(y_{t-1} - \phi - \theta
-x_{t-1})\)</span> 为根据上期的误差做的反向修正，成为
-<code>误差修正项</code>。</p>
+<h3 id="3-1-3-自回归分布滞后模型（ADL）"><a href="#3-1-3-自回归分布滞后模型（ADL）" class="headerlink" title="3.1.3 自回归分布滞后模型（ADL）"></a>3.1.3 自回归分布滞后模型（ADL）</h3><p>在自回归 $AR(p)$ 中，为提高预测力或解释力，可引入其他解释变量，构成 <strong>自回归分布滞后模型</strong>（Autoregressive Distributed Lag Model, ADL(p, 1) or ARDL(p, q)）。</p>
+<script type="math/tex; mode=display">
+y_t = \beta_o + \beta_1 y_{t-1} + \dots + \beta_p y_{t-p} + \gamma_1 x_{t-1} + \dots + \gamma_q x_{t-q} + \varepsilon_t</script><p>其中，$p$ 为解释变量 $y$ 的自回归阶数，$q$  为解释变量 $x$ 的滞后阶数。假定扰动项 $\varepsilon_t$ 为白噪声，则 $OLS$ 为一致估计。</p>
+<h3 id="3-1-4-误差修正模型（ECM）"><a href="#3-1-4-误差修正模型（ECM）" class="headerlink" title="3.1.4 误差修正模型（ECM）"></a>3.1.4 误差修正模型（ECM）</h3><p>ADL 是一种动态模型。从经济理论而言，<strong>相关变量之间可能存在长期的均衡关系，而变量的短期变动则是向着这个长期均衡关系的调整</strong>。ECM 正是这一思想在计量经济学中的体现。</p>
+<p>考虑 ADL(1, 1) 模型：</p>
+<script type="math/tex; mode=display">
+y_t = \beta_o + \beta_1 y_{t-1} + \gamma_1 x_{t-1} + \varepsilon_t</script><p>其中，$|\beta_1| &lt; 1$，故为平稳过程。假设经济理论 认为 $(y, x)$ 之间存在长期均衡关系：</p>
+<script type="math/tex; mode=display">
+y = \phi + \theta x</script><p>其中，$\phi$ 和 $\theta$ 为待定参数。对方程两边求期望，并令 $y^\star = \rm{E}(y_t) = \rm{E}(y_{t-1})$， $x^\star = \rm{E}(x_t) = \rm{E}(x_{t-1})$，可得：</p>
+<script type="math/tex; mode=display">
+y^\star = \frac{\beta_0}{1-\beta_1} + \frac{\gamma_1}{1-\beta_1} x^\star</script><p>所以，$\phi = \frac{\beta_0}{1-\beta_1}$， $\theta = \frac{\gamma_0}{1-\beta_1}$。其中 $ \theta$ 即为长期程数，衡量当 $x$ 永久性变化 1 单位时，将导致 $y$ 的永久变化幅度。在方程（5）两边同时减去 $y_{t-1}$ 得：</p>
+<script type="math/tex; mode=display">
+\Delta y_t = (\beta_1 -1)(y_{t-1} - \phi - \theta x_{t-1}) + \varepsilon_t</script><p>其中，$(y_{t-1} - \phi - \theta x_{t-1})$ 衡量上一期对均衡条件 $y = \phi + \theta x$ 的偏离（误差），而 $(\beta_1 -1)(y_{t-1} - \phi - \theta x_{t-1})$ 为根据上期的误差做的反向修正，成为 <code>误差修正项</code>。</p>
 <ul>
 <li><p>ECM 优点</p>
-<p>一般 ADL 模型都可转化为 ECM 模型。ECM
-模型经济含义十分明确，而且可以分别考察长期效益（长期均衡关系）与短期效应（误差修正效应）。</p></li>
+<p>一般 ADL 模型都可转化为 ECM 模型。ECM 模型经济含义十分明确，而且可以分别考察长期效益（长期均衡关系）与短期效应（误差修正效应）。</p>
+</li>
 </ul>
-<h1 id="markov-model">4 Markov model</h1>
-<h2 id="defination-of-markov-chain">4.1 Defination of Markov Chain</h2>
-<p>现实生活中有很多这样的现象，某一系统在已知现在情况的条件下，系统未来时刻的情况只与现在有关，而与过去的历史无直接关系。</p>
+<h1 id="4-Markov-model"><a href="#4-Markov-model" class="headerlink" title="4 Markov model"></a>4 Markov model</h1><h2 id="4-1-Defination-of-Markov-Chain"><a href="#4-1-Defination-of-Markov-Chain" class="headerlink" title="4.1 Defination of Markov Chain"></a>4.1 Defination of Markov Chain</h2><p>现实生活中有很多这样的现象，某一系统在已知现在情况的条件下，系统未来时刻的情况只与现在有关，而与过去的历史无直接关系。</p>
 <p>如，研究一个商店的累计销售额，如果现在时刻的累计销售额已知，未来某一时刻的累计销售额与现在时刻以前的任一时刻累计销售额无关。</p>
-<p>描述这类 <strong>随机现象</strong> 的数学模型称为
-<strong>马尔科夫模型</strong>，简称马氏模型</p>
+<p>描述这类 <strong>随机现象</strong> 的数学模型称为 <strong>马尔科夫模型</strong>，简称马氏模型</p>
 <ul>
-<li><strong>定义 1</strong></li>
+<li><strong>定义 1</strong> </li>
 </ul>
-<p>设 <span class="math inline">\(\{\xi_n,\ n = 1,\ 2,\dots \}\)</span>
-是一个随机序列，状态空间 <span class="math inline">\(E\)</span>
-为有限或可列集，对于任意的正整数 $m, n $，若 <span
-class="math inline">\(i,\ j,\ ,\ i_k \in E\ (k=1, \dots,
-n-1)\)</span>，有： <span class="math display">\[
-P\{\xi_{n+m} = j | \xi_n = i,\ \xi_{n-1} = i_{n-1}, \dots, \xi_1 = i_1\}
-= P\{\xi_{n+m} = j | \xi_n = i\}
-\]</span> 则称 <span class="math inline">\(\{\xi_{n} , n = 1,\ 2,
-\dots\}\)</span> 是一个马尔可夫链。式 (9) 也被称为马氏性。</p>
-<p>式 (9) 中，可以证明，对于 <span class="math inline">\(m = 1\)</span>
-时成立，则它对 <strong>任意</strong> 的正整数 <span
-class="math inline">\(m\)</span> 都成立。因此，只要当 <span
-class="math inline">\(m=1\)</span> 式，式 (9) 成立，就可以称随机序列
-<span class="math inline">\(\{\xi_n,\ n=1,\ 2, \dots\}\)</span> 具有
-<strong>马氏性</strong>，即 <span class="math inline">\(\{\xi_{n} , n =
-1,\ 2, \dots\}\)</span> 是一个马尔可夫链。</p>
+<p>设 $\{\xi_n, n = 1, 2,\dots \}$ 是一个随机序列，状态空间 $E$ 为有限或可列集，对于任意的正整数 $m, n $，若 $i, j, , i_k \in E (k=1, \dots, n-1)$，有：</p>
+<script type="math/tex; mode=display">
+P\{\xi_{n+m} = j | \xi_n = i,\ \xi_{n-1} = i_{n-1}, \dots, \xi_1 = i_1\} = P\{\xi_{n+m} = j | \xi_n = i\}</script><p>则称 $\{\xi_{n} , n = 1, 2, \dots\}$ 是一个马尔可夫链。式 (9) 也被称为马氏性。</p>
+<p>式 (9) 中，可以证明，对于 $m = 1$ 时成立，则它对 <strong>任意</strong> 的正整数 $m$ 都成立。因此，只要当 $m=1$ 式，式 (9) 成立，就可以称随机序列 $\{\xi_n, n=1, 2, \dots\}$ 具有 <strong>马氏性</strong>，即  $\{\xi_{n} , n = 1, 2, \dots\}$ 是一个马尔可夫链。</p>
 <ul>
 <li><strong>定义 2</strong></li>
 </ul>
-<p>设 <span class="math inline">\(\{\xi_n,\ n = 1,\ 2,\dots \}\)</span>
-是一个马尔科夫链，如果式 (9) 右边的条件概率与 <span
-class="math inline">\(n\)</span> 无关，即： <span
-class="math display">\[
-P\{\xi_{n+m} = j | \xi_n = i \} = p_{ij}(m)
-\]</span> 则称 <span class="math inline">\(\{\xi_n,\ n = 1,\ 2,\dots
-\}\)</span> 为时齐的马尔可夫链。称 <span
-class="math inline">\(p_{ij}(m)\)</span> 为系统由状态 <span
-class="math inline">\(i\)</span> 经过 <span
-class="math inline">\(m\)</span> 个时间间隔（或 <span
-class="math inline">\(m\)</span> 步）转移到状态 <span
-class="math inline">\(j\)</span> 的转移概率。式 (10)
-称为时齐性，它的含义式系统由状态 <span class="math inline">\(i\)</span>
-到 状态 <span class="math inline">\(j\)</span> 的转移概率
-<strong>只依赖与时间间隔的长短</strong>，与起始时刻无关。本章介绍的马尔可夫链都是时齐的，因此省略
-<code>时齐</code> 二字。</p>
-<h2 id="转移概率矩阵及柯尔莫哥洛夫定理">4.2
-转移概率矩阵及柯尔莫哥洛夫定理</h2>
-<h3 id="转移概率矩阵">4.2.1 转移概率矩阵</h3>
-<p>对于马尔科夫链 <span class="math inline">\(\{\xi_n,\ n = 1,\ 2,\dots
-\}\)</span> ，称以 <span class="math inline">\(m\)</span> 步转移概率
-<span class="math inline">\(p_{ij}(m)\)</span> 为元素的矩阵 <span
-class="math inline">\(P (m) = p_{ij}(m)\)</span> 为马尔科夫链的
-<strong>$ m$ 步转移概率矩阵</strong>。当 <span class="math inline">\(m =
-1\)</span>时，记 <span class="math inline">\(P(1) = P\)</span>
-称为马尔可夫链的 <strong>一步转移矩阵</strong>，或简称
-<strong>转移矩阵</strong>。</p>
+<p>设 $\{\xi_n, n = 1, 2,\dots \}$ 是一个马尔科夫链，如果式 (9) 右边的条件概率与 $n$ 无关，即：</p>
+<script type="math/tex; mode=display">
+P\{\xi_{n+m} = j | \xi_n = i \} = p_{ij}(m)</script><p>则称  $\{\xi_n, n = 1, 2,\dots \}$ 为时齐的马尔可夫链。称 $p_{ij}(m)$ 为系统由状态 $i$ 经过 $m$ 个时间间隔（或 $m$ 步）转移到状态 $j$ 的转移概率。式 (10) 称为时齐性，它的含义式系统由状态 $i$ 到 状态 $j$ 的转移概率 <strong>只依赖与时间间隔的长短</strong>，与起始时刻无关。本章介绍的马尔可夫链都是时齐的，因此省略 <code>时齐</code> 二字。</p>
+<h2 id="4-2-转移概率矩阵及柯尔莫哥洛夫定理"><a href="#4-2-转移概率矩阵及柯尔莫哥洛夫定理" class="headerlink" title="4.2 转移概率矩阵及柯尔莫哥洛夫定理"></a>4.2 转移概率矩阵及柯尔莫哥洛夫定理</h2><h3 id="4-2-1-转移概率矩阵"><a href="#4-2-1-转移概率矩阵" class="headerlink" title="4.2.1 转移概率矩阵"></a>4.2.1 转移概率矩阵</h3><p>对于马尔科夫链 $\{\xi_n, n = 1, 2,\dots \}$ ，称以 $m$ 步转移概率 $p_{ij}(m)$ 为元素的矩阵 $P<br>(m) = p_{ij}(m)$ 为马尔科夫链的 <strong>$ m$ 步转移概率矩阵</strong>。当 $m = 1$时，记 $P(1) = P$ 称为马尔可夫链的 <strong>一步转移矩阵</strong>，或简称 <strong>转移矩阵</strong>。</p>
 <p>转移矩阵具有如下性质：</p>
 <ul>
-<li>对一切 $i, j E, 0 p_{ij}(m) $，</li>
-<li>对一切 $i E, <em> p</em>{ij}(m) = 1 $，-</li>
-<li>对一切 <span class="math inline">\(i,\ j \in E, p_{ij}(0) =
-\delta_{ij} = \left\{\begin{array}{k}1,\ (i = j) \\ 0,\ (i \neq j)
-\end{array}\right.\)</span></li>
+<li>对一切 $i, j \in E, 0 \leq p_{ij}(m) \leq 1 $，</li>
+<li>对一切 $i \in E, \sum_\limits{j \in E} p_{ij}(m) = 1 $，-</li>
+<li>对一切 $i, j \in E, p_{ij}(0) = \delta_{ij} = \left\{\begin{array}{k}1, (i = j) \ 0, (i \neq j) \end{array}\right.$</li>
 </ul>
-<p>当实际问题可以用马尔可夫链来描述时，首先要确定它的
-<strong>状态空间及参数集合</strong>，然后确定它的
-<strong>一步转移概率</strong>。该概率的确定，可以由问题的
-<strong>内在规律</strong> 得到，也可以由过去的经验给出，还可以根据
-<strong>预测数据</strong> 来估计。案例可见 4.4 Cases 的 Case 1。</p>
-<h3 id="柯尔莫哥洛夫定理">4.2.2 柯尔莫哥洛夫定理</h3>
-<ul>
+<p>当实际问题可以用马尔可夫链来描述时，首先要确定它的 <strong>状态空间及参数集合</strong>，然后确定它的 <strong>一步转移概率</strong>。该概率的确定，可以由问题的 <strong>内在规律</strong> 得到，也可以由过去的经验给出，还可以根据 <strong>预测数据</strong> 来估计。案例可见 4.4 Cases 的 Case 1。</p>
+<h3 id="4-2-2-柯尔莫哥洛夫定理"><a href="#4-2-2-柯尔莫哥洛夫定理" class="headerlink" title="4.2.2 柯尔莫哥洛夫定理"></a>4.2.2 柯尔莫哥洛夫定理</h3><ul>
 <li>柯尔莫哥洛夫- 开普曼定理</li>
 </ul>
-<p>设 <span class="math inline">\(\{\xi_n,\ n = 1,\ 2,\dots \}\)</span>
-是一个马尔可夫链，其状态空间 <span class="math inline">\(E = \{1,\
-2,\dots\}\)</span>，则对任意正整数 <span class="math inline">\(m,\
-n\)</span>，有： <span class="math display">\[
-p_{ij}(n+m) = \sum_{k \in E} p_{ik}(n)p_{kj}(m)
-\]</span> 其中：<span class="math inline">\(i,\ j \in E\)</span>。</p>
+<p>设  $\{\xi_n, n = 1, 2,\dots \}$ 是一个马尔可夫链，其状态空间 $E = \{1, 2,\dots\}$，则对任意正整数 $m, n$，有：</p>
+<script type="math/tex; mode=display">
+p_{ij}(n+m) = \sum_{k \in E} p_{ik}(n)p_{kj}(m)</script><p>其中：$i, j \in E$。</p>
 <ul>
 <li><strong>定理</strong></li>
 </ul>
-<p>设 <span class="math inline">\(P\)</span> 是一步马尔科夫链转移矩阵（
-<span class="math inline">\(P\)</span> 的行向量是概率向量），<span
-class="math inline">\(P^{(0)}\)</span> 是初始分布行向量，则第 <span
-class="math inline">\(n\)</span> 步的 <strong>概率分布</strong> 为：
-<span class="math display">\[
-P^{(n)} = P^{(0)} P^n
-\]</span></p>
-<h2 id="转移概率的渐近性质极限概率分布">4.3
-转移概率的渐近性质—极限概率分布</h2>
-<h3 id="introduction-3">4.3.1 Introduction</h3>
-<ul>
-<li>随着 <span class="math inline">\(n\)</span> 的增大，<span
-class="math inline">\(P^n\)</span> 是否会趋于某以固定矩阵？</li>
+<p>设 $P$ 是一步马尔科夫链转移矩阵（ $P$  的行向量是概率向量），$P^{(0)}$ 是初始分布行向量，则第 $n$ 步的 <strong>概率分布</strong> 为：</p>
+<script type="math/tex; mode=display">
+P^{(n)} = P^{(0)} P^n</script><h2 id="4-3-转移概率的渐近性质—极限概率分布"><a href="#4-3-转移概率的渐近性质—极限概率分布" class="headerlink" title="4.3 转移概率的渐近性质—极限概率分布"></a>4.3 转移概率的渐近性质—极限概率分布</h2><h3 id="4-3-1-Introduction"><a href="#4-3-1-Introduction" class="headerlink" title="4.3.1 Introduction"></a>4.3.1 Introduction</h3><ul>
+<li>随着 $n$ 的增大，$P^n$ 是否会趋于某以固定矩阵？</li>
 </ul>
 <p>先考虑一个简单的例子：</p>
-转移矩阵 $ P =
-<span class="math display">\[\begin{bmatrix}
-0.5 &amp; 0.5 \\
-0.7 &amp; 0.3 \\
-\end{bmatrix}\]</span>
-<p>$，当 <span class="math inline">\(n \rightarrow +
-\infty\)</span>，有： <span class="math display">\[
-P^n \rightarrow \begin{bmatrix} \frac{7}{12} &amp; \frac{5}{12}\\
-\frac{7}{12} &amp; \frac{5}{12} \\
-\end{bmatrix}
-\]</span> 若取 <span class="math display">\[
+<p>转移矩阵 $ P = \begin{bmatrix}<br>0.5 &amp; 0.5 \\<br>0.7 &amp; 0.3 \\<br>\end{bmatrix}$，当 $n \rightarrow + \infty$，有：</p>
+<script type="math/tex; mode=display">
+P^n \rightarrow \begin{bmatrix} \frac{7}{12} & \frac{5}{12}\\
+\frac{7}{12} & \frac{5}{12} \\
+\end{bmatrix}</script><p>若取 </p>
+<script type="math/tex; mode=display">
 \begin{align*}
-u = \begin{bmatrix} \frac{7}{12} &amp; \frac{5}{12}\\
-\frac{7}{12} &amp; \frac{5}{12} \\
+u = \begin{bmatrix} \frac{7}{12} & \frac{5}{12}\\
+\frac{7}{12} & \frac{5}{12} \\
 \end{bmatrix}
-\end{align*}
-\]</span> 则 <span class="math inline">\(uP = u\)</span>，<span
-class="math inline">\(u^T\)</span> 为矩阵 <span
-class="math inline">\(P^T\)</span> 的对应于特征值为 <span
-class="math inline">\(\lambda = 1\)</span> 的特征（概率）向量，<span
-class="math inline">\(u\)</span> 也称为 <span
-class="math inline">\(P\)</span> 的不动点向量。</p>
+\end{align*}</script><p>则 $uP = u$，$u^T$ 为矩阵 $P^T$ 的对应于特征值为 $\lambda = 1$ 的特征（概率）向量，$u$ 也称为 $P$ 的不动点向量。</p>
 <ul>
 <li><p>哪些转移矩阵具有不动点向量？</p>
-<p><strong>定义：</strong>马尔可夫链的转移矩阵 <span
-class="math inline">\(P\)</span> 是正则 <span
-class="math inline">\(\Leftrightarrow \ \exist\ k \in N^+\)</span>，使
-<span class="math inline">\(P^k\)</span> 任一元素都为正</p>
-<p><strong>定理：</strong>若 <span class="math inline">\(P\)</span>
-是一个马尔科夫链的正则阵，则：</p>
+<p><strong>定义：</strong>马尔可夫链的转移矩阵 $P$ 是正则 $\Leftrightarrow  \exist k \in N^+$，使 $P^k$ 任一元素都为正</p>
+<p><strong>定理：</strong>若 $P$ 是一个马尔科夫链的正则阵，则：</p>
 <ul>
-<li><span class="math inline">\(P\)</span> 有 <strong>唯一</strong>
-的不动点向量 <span class="math inline">\(W,\ W\)</span>
-的每个分量都为正；</li>
-<li><span class="math inline">\(P\)</span> 的 <span
-class="math inline">\(n\)</span> 次幂 <span
-class="math inline">\(P^n\)</span>（ <span
-class="math inline">\(n\)</span> 为正整数）随 <span
-class="math inline">\(n\)</span> 的增加趋于矩阵 <span
-class="math inline">\(\overline{W},\ \overline{W}\)</span>
-的每一行向量<strong>均等于不动点向量</strong> <span
-class="math inline">\(W\)</span>。</li>
-</ul></li>
+<li>$P$ 有 <strong>唯一</strong> 的不动点向量 $W, W$ 的每个分量都为正；</li>
+<li>$P$ 的 $n$ 次幂 $P^n$（ $n$ 为正整数）随 $n$ 的增加趋于矩阵 $\overline{W}, \overline{W}$ 的每一行向量<strong>均等于不动点向量</strong> $W$。</li>
 </ul>
-<p>设时齐马尔科夫链的状态空间为 <span
-class="math inline">\(E\)</span>，如果对于所有 <span
-class="math inline">\(i,\ j \in E\)</span>，转移概率 <span
-class="math inline">\(p_{ij}(n)\)</span> 存在极限： <span
-class="math display">\[
-\lim_{n\to \infty}p_{ij}(n) = \pi_j\quad (\text{不依赖于 }i)
-\]</span> 或： <span class="math display">\[
-P(n) = P^n \underset{(n\to \infty)}{\longrightarrow} \begin{bmatrix}
-\pi_1 &amp; \pi_2 &amp; \dots &amp; \pi_j &amp; \dots \\
-\pi_1 &amp; \pi_2 &amp; \dots &amp; \pi_j &amp; \dots \\
-\vdots &amp; \vdots &amp; \ddots &amp; \vdots &amp; \ddots \\
-\pi_1 &amp; \pi_2 &amp; \ddots &amp; \pi_j &amp; \dots \\
-\vdots &amp; \vdots &amp; \ddots &amp; \vdots &amp; \ddots \\
-\end{bmatrix}
-\]</span> 则称此链具有 <strong>遍历性</strong>。若 <span
-class="math inline">\(\sum_\limits j \pi_j = 1\)</span>，则同时称 <span
-class="math inline">\(\vec {\pi} = [\pi_1,\  \pi_2, \dots]\)</span>
-为链的 <strong>极限分布</strong>。</p>
+</li>
+</ul>
+<p>设时齐马尔科夫链的状态空间为 $E$，如果对于所有 $i, j \in E$，转移概率 $p_{ij}(n)$ 存在极限：</p>
+<script type="math/tex; mode=display">
+\lim_{n\to \infty}p_{ij}(n) = \pi_j\quad (\text{不依赖于 }i)</script><p>或：</p>
+<script type="math/tex; mode=display">
+P(n) = P^n \underset{(n\to \infty)}{\longrightarrow} \begin{bmatrix} \pi_1 & \pi_2 & \dots & \pi_j & \dots \\
+\pi_1 & \pi_2 & \dots & \pi_j & \dots \\
+\vdots & \vdots & \ddots & \vdots & \ddots \\
+\pi_1 & \pi_2 & \ddots & \pi_j & \dots \\
+\vdots & \vdots & \ddots & \vdots & \ddots \\
+\end{bmatrix}</script><p>则称此链具有 <strong>遍历性</strong>。若 $\sum_\limits j \pi_j = 1$，则同时称 $\vec {\pi} = [\pi_1,  \pi_2, \dots]$ 为链的 <strong>极限分布</strong>。</p>
 <ul>
 <li><p>就有限链的遍历性给出一个充分条件：</p>
-<p><strong>定理：</strong>设时齐马尔可夫链 <span
-class="math inline">\(\{\xi_n,\ n = 1,\ 2,\dots \}\)</span> 的状态空间为
-<span class="math inline">\(E = \{a_1,\dots,\ a_N\},\ P =
-(p_{ij})\)</span> 是它的一步转移矩阵，如果存在正整数 <span
-class="math inline">\(m\)</span>，使对任意的 <span
-class="math inline">\(a_i,\ a_j \in E\)</span>，都有： <span
-class="math display">\[
-p_{ij}(m) &gt; 0,\ i, j = 1, 2, \dots, N
-\]</span> 则此链具有 <strong>遍历性</strong>；且有极限分布 <span
-class="math inline">\(\vec \pi = [\pi_i, \dots,
-\pi_N]\)</span>，他是方程组： <span class="math display">\[
-\pi = \pi P\quad \mathrm{or\quad} \pi_j = \sum_{i=1}^N \pi_i p_{ij}, \ j
-= 1, \dots,\ N
-\]</span> 的满足条件 <span class="math inline">\(\pi_j &gt; 0,\
-\sum_\limits{j=1}^N \pi_j = 1\)</span> 的唯一解。</p></li>
+<p><strong>定理：</strong>设时齐马尔可夫链 $\{\xi_n, n = 1, 2,\dots \}$ 的状态空间为 $E = \{a_1,\dots, a_N\}, P = (p_{ij})$ 是它的一步转移矩阵，如果存在正整数 $m$，使对任意的 $a_i, a_j \in E$，都有：</p>
+<script type="math/tex; mode=display">
+p_{ij}(m) > 0,\ i, j = 1, 2, \dots, N</script><p>则此链具有 <strong>遍历性</strong>；且有极限分布 $\vec \pi = [\pi_i, \dots, \pi_N]$，他是方程组：</p>
+<script type="math/tex; mode=display">
+\pi = \pi P\quad \mathrm{or\quad} \pi_j = \sum_{i=1}^N \pi_i p_{ij}, \ j = 1, \dots,\ N</script><p>的满足条件 $\pi_j &gt; 0, \sum_\limits{j=1}^N \pi_j = 1$ 的唯一解。</p>
+</li>
 </ul>
-<h2 id="cases">4.4 Cases</h2>
-<ul>
+<h2 id="4-4-Cases"><a href="#4-4-Cases" class="headerlink" title="4.4 Cases"></a>4.4 Cases</h2><ul>
 <li><strong>Case 1:</strong></li>
 </ul>
-<p>某计算机机房的一台计算机经常出故障，研究者每隔15 分钟观察一次计算
-机的运行状态，收集了24 小时的数据（共作97 次观察）。用1
-表示正常状态，用0 表示不正常状态，所得的数据序列如下：</p>
-<p>1110010011111110011110111111001111111110001101101
-111011011010111101110111101111110011011111100111</p>
-<p><strong>解：</strong>设 <span class="math inline">\(X_n (n =
-1,\dots,97)\)</span> 为第 <span class="math inline">\(n\)</span>
-个时段的计算机状态，可以认为它是一个时齐马氏链，状态空间 <span
-class="math inline">\(E = \{0,\ 1\}\)</span>，编写如下 <span
-class="math inline">\(Matlab\)</span> 程序：</p>
+<p>某计算机机房的一台计算机经常出故障，研究者每隔15 分钟观察一次计算<br>机的运行状态，收集了24 小时的数据（共作97 次观察）。用1 表示正常状态，用0 表示不正常状态，所得的数据序列如下：</p>
+<p>1110010011111110011110111111001111111110001101101<br>111011011010111101110111101111110011011111100111</p>
+<p><strong>解：</strong>设 $X_n (n = 1,\dots,97)$ 为第 $n$ 个时段的计算机状态，可以认为它是一个时齐马氏链，状态空间 $E = \{0, 1\}$，编写如下 $Matlab$ 程序：</p>
 <figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">a1=<span class="string">&#x27;1110010011111110011110111111001111111110001101101&#x27;</span>;</span><br><span class="line">a2=<span class="string">&#x27;111011011010111101110111101111110011011111100111&#x27;</span>;</span><br><span class="line">a=[a1 a2];</span><br><span class="line">f00=<span class="built_in">length</span>(findstr(<span class="string">&#x27;00&#x27;</span>,a))</span><br><span class="line">f01=<span class="built_in">length</span>(findstr(<span class="string">&#x27;01&#x27;</span>,a))</span><br><span class="line">f10=<span class="built_in">length</span>(findstr(<span class="string">&#x27;10&#x27;</span>,a))</span><br><span class="line">f11=<span class="built_in">length</span>(findstr(<span class="string">&#x27;11&#x27;</span>,a))</span><br></pre></td></tr></table></figure>
 <p>Result:</p>
-<p>求得 96 次的转移情况是： <span class="math display">\[
+<p>求得 96 次的转移情况是：</p>
+<script type="math/tex; mode=display">
 \left\{
 \begin{array}{c}
-0 \rightarrow 0,\ \ 8 \text{次}; \qquad\ 0 \rightarrow 1,\ 18 \text{次}
-\\
+0 \rightarrow 0,\ \ 8 \text{次}; \qquad\ 0 \rightarrow 1,\ 18 \text{次} \\
 1 \rightarrow 0,\ 18 \text{次}; \qquad 1 \rightarrow 1,\ 52 \text{次}
 \end{array}
-\right.
-\]</span> 因此，一步转移概率可用频率近似地表示为： <span
-class="math display">\[
+\right.</script><p>因此，一步转移概率可用频率近似地表示为：</p>
+<script type="math/tex; mode=display">
 \left\{
 \begin{array}{c}
-P_{00} = P\{X_{n+1} = 0 | X_n = 0 \} \approx \frac{8}{8 + 18} =
-\frac{4}{13} \\
-P_{01} = P\{X_{n+1} = 1 | X_n = 0 \} \approx \frac{18}{8 + 18} =
-\frac{9}{13} \\
-P_{10} = P\{X_{n+1} = 0 | X_n = 1 \} \approx \frac{18}{18 + 52} =
-\frac{9}{35} \\
-P_{11} = P\{X_{n+1} = 1 | X_n = 1 \} \approx \frac{52}{18 + 52} =
-\frac{26}{35}
+P_{00} = P\{X_{n+1} = 0 | X_n = 0 \} \approx \frac{8}{8 + 18} = \frac{4}{13} \\
+P_{01} = P\{X_{n+1} = 1 | X_n = 0 \} \approx \frac{18}{8 + 18} = \frac{9}{13} \\
+P_{10} = P\{X_{n+1} = 0 | X_n = 1 \} \approx \frac{18}{18 + 52} = \frac{9}{35} \\
+P_{11} = P\{X_{n+1} = 1 | X_n = 1 \} \approx \frac{52}{18 + 52} = \frac{26}{35} 
 \end{array}
-\right.
-\]</span></p>
-<ul>
+\right.</script><ul>
 <li><strong>Case 2:</strong></li>
 </ul>
-<p>若顾客的购买是无记忆的，即已知现在顾客购买情况，未来顾客的购买情况不受过去购买历史的影响，而只与现在购买情况有关。现在市场上供应
-<span class="math inline">\(A,\ B,\ C\)</span> 三个不同厂家生产的 50
-克袋装味精，用 <span class="math inline">\(\xi_n = 1,\ \xi_n, \ \xi_n =
-3\)</span> 分别表示”顾客第 <span class="math inline">\(n\)</span> 次购买
-<span class="math inline">\(A,\ B,\ C\)</span> 厂的味精”。显然，<span
-class="math inline">\(\{\xi_n, n = 1,\ 2,\dots\}\)</span>
-是一个马氏链。若已知第一次顾客购买三个厂味精的概率依次为 <span
-class="math inline">\(0.2,\ 0.4,\
-0.4\)</span>。又知道一般顾客购买的倾向由表2给出。求</p>
+<p>若顾客的购买是无记忆的，即已知现在顾客购买情况，未来顾客的购买情况不受过去购买历史的影响，而只与现在购买情况有关。现在市场上供应 $A, B, C$ 三个不同厂家生产的 50 克袋装味精，用 $\xi_n = 1, \xi_n,  \xi_n = 3$ 分别表示”顾客第 $n$ 次购买 $A, B, C$ 厂的味精”。显然，$\{\xi_n, n = 1, 2,\dots\}$ 是一个马氏链。若已知第一次顾客购买三个厂味精的概率依次为 $0.2, 0.4, 0.4$。又知道一般顾客购买的倾向由表2给出。求</p>
 <p>1）顾客第四次购买各家味精的概率；</p>
 <p>2）预测经过长期的多次购买滞后，顾客的购买倾向如何？</p>
+<div class="table-container">
 <table>
 <thead>
-<tr class="header">
-<th style="text-align: center;"></th>
-<th style="text-align: center;">A</th>
-<th style="text-align: center;">B</th>
-<th style="text-align: center;">C</th>
+<tr>
+<th style="text-align:center"></th>
+<th style="text-align:center">A</th>
+<th style="text-align:center">B</th>
+<th style="text-align:center">C</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
-<td style="text-align: center;">A</td>
-<td style="text-align: center;">0.8</td>
-<td style="text-align: center;">0.1</td>
-<td style="text-align: center;">0.1</td>
+<tr>
+<td style="text-align:center">A</td>
+<td style="text-align:center">0.8</td>
+<td style="text-align:center">0.1</td>
+<td style="text-align:center">0.1</td>
 </tr>
-<tr class="even">
-<td style="text-align: center;">B</td>
-<td style="text-align: center;">0.5</td>
-<td style="text-align: center;">0.1</td>
-<td style="text-align: center;">0.4</td>
+<tr>
+<td style="text-align:center">B</td>
+<td style="text-align:center">0.5</td>
+<td style="text-align:center">0.1</td>
+<td style="text-align:center">0.4</td>
 </tr>
-<tr class="odd">
-<td style="text-align: center;">C</td>
-<td style="text-align: center;">0.5</td>
-<td style="text-align: center;">0.3</td>
-<td style="text-align: center;">0.2</td>
+<tr>
+<td style="text-align:center">C</td>
+<td style="text-align:center">0.5</td>
+<td style="text-align:center">0.3</td>
+<td style="text-align:center">0.2</td>
 </tr>
 </tbody>
 </table>
+</div>
 <p>解：</p>
-<p>1）第一次购买的概率分布为：<span class="math inline">\(P^{(1)} =
-[0.2,\ 0.4,\ 0.4]\)</span>，一步状态转移矩阵为：</p>
-<p><span class="math inline">\(P = \begin{bmatrix}0.8 &amp; 0.1 &amp;
-0.1 \\ 0.5 &amp; 0.1 &amp; 0.4 \\ 0.5 &amp; 0.3 &amp;
-0.2\\\end{bmatrix}\)</span>，则顾客第四次购买各家味精的概率为： <span
-class="math display">\[
-P^{(4)} = P^{(1)} P^3 = [0.7004, 0.136, 0.1636]
-\]</span> 2）这个马尔可夫链的转移矩阵 <span
-class="math inline">\(P\)</span> 满足 <span
-class="math inline">\(p_{ij}(m) &gt; 0,\ i,\ j = 1, 2,\dots,
-N\)</span>，可以求出其极限概率分布。为此，解下列方程组： <span
-class="math display">\[
+<p>1）第一次购买的概率分布为：$P^{(1)} = [0.2, 0.4, 0.4]$，一步状态转移矩阵为：</p>
+<p>$P = \begin{bmatrix}0.8 &amp; 0.1 &amp; 0.1 \ 0.5 &amp; 0.1 &amp; 0.4 \ 0.5 &amp; 0.3 &amp; 0.2\\\end{bmatrix}$，则顾客第四次购买各家味精的概率为：</p>
+<script type="math/tex; mode=display">
+P^{(4)} = P^{(1)} P^3 = [0.7004, 0.136, 0.1636]</script><p>2）这个马尔可夫链的转移矩阵 $P$ 满足 $p_{ij}(m) &gt; 0, i, j = 1, 2,\dots, N$，可以求出其极限概率分布。为此，解下列方程组：</p>
+<script type="math/tex; mode=display">
 \left\{
 \begin{array}{l}
 p_1 = 0.2p_1 + 0.8p_2 + 0.1p_3,\\
@@ -766,22 +551,11 @@ p_2 = 0.8p_1 + 0.3p_3, \\
 p_3 = 0.2p_2 + 0.6p_3, \\
 p_1 + p_2 + p_3 = 1,
 \end{array}
-\right.
-\]</span> 求得 <span class="math inline">\(p_1 = \frac{5}{7},\ p_2 =
-\frac{11}{84},\ p_3 =
-\frac{13}{84}\)</span>。这说明，无论第一次顾客购买的情况如何，经过长期多次购买后，<span
-class="math inline">\(A\)</span> 厂产的味精占有市场的 <span
-class="math inline">\(\frac{5}{7}\)</span>，<span
-class="math inline">\(B,\ C\)</span> 两厂的产品分别占有市场的 <span
-class="math inline">\(\frac{11}{84}\)</span> 和 <span
-class="math inline">\(\frac{13}{84}\)</span>。</p>
+\right.</script><p>求得 $p_1 = \frac{5}{7}, p_2 = \frac{11}{84}, p_3 = \frac{13}{84}$。这说明，无论第一次顾客购买的情况如何，经过长期多次购买后，$A$ 厂产的味精占有市场的 $\frac{5}{7}$，$B, C$ 两厂的产品分别占有市场的 $\frac{11}{84}$ 和 $\frac{13}{84}$。</p>
 <p>Relative codes:</p>
 <figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">format <span class="built_in">rat</span></span><br><span class="line">p=[<span class="number">0.8</span> <span class="number">0.1</span> <span class="number">0.1</span>;<span class="number">0.5</span> <span class="number">0.1</span> <span class="number">0.4</span>;<span class="number">0.5</span> <span class="number">0.3</span> <span class="number">0.2</span>];</span><br><span class="line">a=[p&#x27;-<span class="built_in">eye</span>(<span class="number">3</span>);<span class="built_in">ones</span>(<span class="number">1</span>,<span class="number">3</span>)];</span><br><span class="line">b=[<span class="built_in">zeros</span>(<span class="number">3</span>,<span class="number">1</span>);<span class="number">1</span>];</span><br><span class="line">p_limit=a\b</span><br></pre></td></tr></table></figure>
-<p>或者利用求转移矩阵 <span class="math inline">\(P\)</span> 的转置矩阵
-<span class="math inline">\(P^T\)</span> 的特征值 1
-对应的特征(概率)向量，求得极 限概率。编写程序如下：</p>
+<p>或者利用求转移矩阵 $P$ 的转置矩阵 $P^T$  的特征值 1 对应的特征(概率)向量，求得极<br>限概率。编写程序如下：</p>
 <figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">clc,clear</span><br><span class="line">p=[<span class="number">0.8</span> <span class="number">0.1</span> <span class="number">0.1</span>;<span class="number">0.5</span> <span class="number">0.1</span> <span class="number">0.4</span>;<span class="number">0.5</span> <span class="number">0.3</span> <span class="number">0.2</span>];</span><br><span class="line">p=sym(p&#x27;);</span><br><span class="line">[x,y]=eig(p)</span><br><span class="line">y=<span class="built_in">diag</span>(y);y=double(y);</span><br><span class="line">ind=<span class="built_in">find</span>(y==<span class="built_in">max</span>(y));</span><br><span class="line">p=x(:,ind)/sum(x(:,ind))</span><br></pre></td></tr></table></figure>
-
     </div>
 
     
@@ -898,10 +672,7 @@ class="math inline">\(\frac{13}{84}\)</span>。</p>
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#differential-equation-model"><span class="nav-text">1 Differential equation model</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#introduction"><span class="nav-text">1.1 Introduction</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#case"><span class="nav-text">1.2 Case</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#grey-model"><span class="nav-text">2 Grey model</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#introduction-1"><span class="nav-text">2.1 Introduction</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#categories"><span class="nav-text">2.2 Categories</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#gm1-1-forecasting-model"><span class="nav-text">2.2.1 GM(1, 1) forecasting model</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#gm2-1-dgm-and-verhulst-model"><span class="nav-text">2.2.2 GM(2, 1), DGM and Verhulst
-model</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#difference-equation"><span class="nav-text">3 Difference equation</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#introduction-2"><span class="nav-text">3.1 Introduction</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80%E9%98%B6%E8%87%AA%E5%9B%9E%E5%BD%92ar1"><span class="nav-text">3.1.1 一阶自回归（AR(1)）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%AB%98%E9%98%B6%E8%87%AA%E5%9B%9E%E5%BD%92arp"><span class="nav-text">3.1.2 高阶自回归（AR(p)）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%87%AA%E5%9B%9E%E5%BD%92%E5%88%86%E5%B8%83%E6%BB%9E%E5%90%8E%E6%A8%A1%E5%9E%8Badl"><span class="nav-text">3.1.3 自回归分布滞后模型（ADL）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AF%AF%E5%B7%AE%E4%BF%AE%E6%AD%A3%E6%A8%A1%E5%9E%8Becm"><span class="nav-text">3.1.4 误差修正模型（ECM）</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#markov-model"><span class="nav-text">4 Markov model</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#defination-of-markov-chain"><span class="nav-text">4.1 Defination of Markov Chain</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BD%AC%E7%A7%BB%E6%A6%82%E7%8E%87%E7%9F%A9%E9%98%B5%E5%8F%8A%E6%9F%AF%E5%B0%94%E8%8E%AB%E5%93%A5%E6%B4%9B%E5%A4%AB%E5%AE%9A%E7%90%86"><span class="nav-text">4.2
-转移概率矩阵及柯尔莫哥洛夫定理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BD%AC%E7%A7%BB%E6%A6%82%E7%8E%87%E7%9F%A9%E9%98%B5"><span class="nav-text">4.2.1 转移概率矩阵</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9F%AF%E5%B0%94%E8%8E%AB%E5%93%A5%E6%B4%9B%E5%A4%AB%E5%AE%9A%E7%90%86"><span class="nav-text">4.2.2 柯尔莫哥洛夫定理</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BD%AC%E7%A7%BB%E6%A6%82%E7%8E%87%E7%9A%84%E6%B8%90%E8%BF%91%E6%80%A7%E8%B4%A8%E6%9E%81%E9%99%90%E6%A6%82%E7%8E%87%E5%88%86%E5%B8%83"><span class="nav-text">4.3
-转移概率的渐近性质—极限概率分布</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#introduction-3"><span class="nav-text">4.3.1 Introduction</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#cases"><span class="nav-text">4.4 Cases</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-Differential-equation-model"><span class="nav-text">1 Differential equation model</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-1-Introduction"><span class="nav-text">1.1 Introduction</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-2-Case"><span class="nav-text">1.2 Case</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-Grey-model"><span class="nav-text">2 Grey model</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1-Introduction"><span class="nav-text">2.1 Introduction</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2-Categories"><span class="nav-text">2.2 Categories</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-1-GM-1-1-forecasting-model"><span class="nav-text">2.2.1 GM(1, 1) forecasting model</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-2-GM-2-1-DGM-and-Verhulst-model"><span class="nav-text">2.2.2 GM(2, 1), DGM and Verhulst model</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-Difference-equation"><span class="nav-text">3 Difference equation</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#3-1-Introduction"><span class="nav-text">3.1 Introduction</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-1-%E4%B8%80%E9%98%B6%E8%87%AA%E5%9B%9E%E5%BD%92%EF%BC%88AR-1-%EF%BC%89"><span class="nav-text">3.1.1 一阶自回归（AR(1)）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-2-%E9%AB%98%E9%98%B6%E8%87%AA%E5%9B%9E%E5%BD%92%EF%BC%88AR-p-%EF%BC%89"><span class="nav-text">3.1.2 高阶自回归（AR(p)）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-3-%E8%87%AA%E5%9B%9E%E5%BD%92%E5%88%86%E5%B8%83%E6%BB%9E%E5%90%8E%E6%A8%A1%E5%9E%8B%EF%BC%88ADL%EF%BC%89"><span class="nav-text">3.1.3 自回归分布滞后模型（ADL）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-4-%E8%AF%AF%E5%B7%AE%E4%BF%AE%E6%AD%A3%E6%A8%A1%E5%9E%8B%EF%BC%88ECM%EF%BC%89"><span class="nav-text">3.1.4 误差修正模型（ECM）</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-Markov-model"><span class="nav-text">4 Markov model</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#4-1-Defination-of-Markov-Chain"><span class="nav-text">4.1 Defination of Markov Chain</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-2-%E8%BD%AC%E7%A7%BB%E6%A6%82%E7%8E%87%E7%9F%A9%E9%98%B5%E5%8F%8A%E6%9F%AF%E5%B0%94%E8%8E%AB%E5%93%A5%E6%B4%9B%E5%A4%AB%E5%AE%9A%E7%90%86"><span class="nav-text">4.2 转移概率矩阵及柯尔莫哥洛夫定理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-2-1-%E8%BD%AC%E7%A7%BB%E6%A6%82%E7%8E%87%E7%9F%A9%E9%98%B5"><span class="nav-text">4.2.1 转移概率矩阵</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-2-2-%E6%9F%AF%E5%B0%94%E8%8E%AB%E5%93%A5%E6%B4%9B%E5%A4%AB%E5%AE%9A%E7%90%86"><span class="nav-text">4.2.2 柯尔莫哥洛夫定理</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-3-%E8%BD%AC%E7%A7%BB%E6%A6%82%E7%8E%87%E7%9A%84%E6%B8%90%E8%BF%91%E6%80%A7%E8%B4%A8%E2%80%94%E6%9E%81%E9%99%90%E6%A6%82%E7%8E%87%E5%88%86%E5%B8%83"><span class="nav-text">4.3 转移概率的渐近性质—极限概率分布</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-3-1-Introduction"><span class="nav-text">4.3.1 Introduction</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-4-Cases"><span class="nav-text">4.4 Cases</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
