@@ -24,12 +24,12 @@
     var CONFIG = {"hostname":"yangsuoly.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":true},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":true,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="1. Introduction  投资者情绪等指数对石油价格（收益率）的预测（or predictability）；如投资者看涨、看跌的情绪. 投资者关注度。如对石油市场的关注度（可以借助谷歌指数）、对石油政策、绿色消费、碳中和等的关注度等； 基于数据挖掘对石油价格的预测。挖掘一些新的创意点对油价进行预测，初步拟定爬取新闻文本，之后借助自然语言处理分析投资者情绪，情感分析，投资者关注度等。  虽">
+  <meta name="description" content="1. Introduction  投资者情绪等指数对石油价格（收益率）的预测（or predictability）；如投资者看涨、看跌的情绪. 投资者关注度。如对石油市场的关注度（可以借助谷歌指数）、对石油政策、绿色消费、碳中和等的关注度等； 基于数据挖掘对石油价格的预测。挖掘一些新的创意点对油价进行预测，初步拟定爬取新闻文本，之后借助自然语言处理分析投资者情绪，情感分析，投资者关注度等。  虽然">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Text-mining">
 <meta property="og:url" content="http://yangsuoly.com/2021/09/01/Text-mining/index.html">
 <meta property="og:site_name" content="独孤诗人的学习驿站">
-<meta property="og:description" content="1. Introduction  投资者情绪等指数对石油价格（收益率）的预测（or predictability）；如投资者看涨、看跌的情绪. 投资者关注度。如对石油市场的关注度（可以借助谷歌指数）、对石油政策、绿色消费、碳中和等的关注度等； 基于数据挖掘对石油价格的预测。挖掘一些新的创意点对油价进行预测，初步拟定爬取新闻文本，之后借助自然语言处理分析投资者情绪，情感分析，投资者关注度等。  虽">
+<meta property="og:description" content="1. Introduction  投资者情绪等指数对石油价格（收益率）的预测（or predictability）；如投资者看涨、看跌的情绪. 投资者关注度。如对石油市场的关注度（可以借助谷歌指数）、对石油政策、绿色消费、碳中和等的关注度等； 基于数据挖掘对石油价格的预测。挖掘一些新的创意点对油价进行预测，初步拟定爬取新闻文本，之后借助自然语言处理分析投资者情绪，情感分析，投资者关注度等。  虽然">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://z3.ax1x.com/2021/09/01/hwspge.png">
 <meta property="og:image" content="https://z3.ax1x.com/2021/09/01/hwsFHI.png">
@@ -279,7 +279,7 @@
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">Reading time &asymp;</span>
-              <span>29 mins.</span>
+              <span>28 mins.</span>
             </span>
 
         </div>
@@ -291,48 +291,60 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h1 id="1-introduction"><a class="markdownIt-Anchor" href="#1-introduction"></a> 1. Introduction</h1>
-<ol>
-<li>投资者情绪等指数对石油价格（收益率）的预测（or predictability）；如投资者看涨、看跌的情绪.</li>
+        <h1 id="introduction">1. Introduction</h1>
+<ol type="1">
+<li>投资者情绪等指数对石油价格（收益率）的预测（or
+predictability）；如投资者看涨、看跌的情绪.</li>
 <li>投资者关注度。如对石油市场的关注度（可以借助谷歌指数）、对石油政策、绿色消费、碳中和等的关注度等；</li>
 <li><strong>基于数据挖掘对石油价格的预测</strong>。挖掘一些新的创意点对油价进行预测，初步拟定爬取新闻文本，之后借助自然语言处理分析投资者情绪，情感分析，投资者关注度等。</li>
 </ol>
 <p>虽然研究的是油价预测，但油价其实只是一个载体，换成其他的商品处理逻辑也差不多，只是因为课题是能源金融，需要一个载体来契合这个点。</p>
 <a id="more"></a>
-<h1 id="2-methodology"><a class="markdownIt-Anchor" href="#2-methodology"></a> 2. Methodology</h1>
-<ol>
+<h1 id="methodology">2. Methodology</h1>
+<ol type="1">
 <li>可使用的工具：</li>
 </ol>
 <ul>
 <li>爬虫: 多线程和多进程爬重</li>
-<li>机器学习：<code>SVM</code>, <code>Lasso</code>, <code>Random Forest</code>, <code>LightGBM</code>;</li>
+<li>机器学习：<code>SVM</code>, <code>Lasso</code>,
+<code>Random Forest</code>, <code>LightGBM</code>;</li>
 <li>深度学习: <code>CNN</code></li>
-<li><code>NLP</code>: Text classification, Sentiment analysis, Topic modelling.</li>
+<li><code>NLP</code>: Text classification, Sentiment analysis, Topic
+modelling.</li>
 </ul>
-<h1 id="3-text-mining"><a class="markdownIt-Anchor" href="#3-text-mining"></a> 3. Text mining</h1>
-<h2 id="31-get-news-information"><a class="markdownIt-Anchor" href="#31-get-news-information"></a> 3.1 Get news information</h2>
-<h3 id="311-爬取信息"><a class="markdownIt-Anchor" href="#311-爬取信息"></a> 3.1.1 爬取信息</h3>
-<p>参考 <a target="_blank" rel="noopener" href="https://linkinghub.elsevier.com/retrieve/pii/S0263224120309982">Wu et al.</a>，我们也选择 <a target="_blank" rel="noopener" href="https://oilprice.com/">OilPrice.com</a> 的 <code>ARTICLE ARCHIVE | PAGE 1</code> 部分的所有新闻，作为我们的新闻来源，我们借助 <code>Python</code> 爬虫工具从该栏目中爬取了 1300 页，每页有 20 条新闻，合计 26000 条新闻。</p>
+<h1 id="text-mining">3. Text mining</h1>
+<h2 id="get-news-information">3.1 Get news information</h2>
+<h3 id="爬取信息">3.1.1 爬取信息</h3>
+<p>参考 <a
+target="_blank" rel="noopener" href="https://linkinghub.elsevier.com/retrieve/pii/S0263224120309982">Wu
+et al.</a>，我们也选择 <a target="_blank" rel="noopener" href="https://oilprice.com/">OilPrice.com</a>
+的 <code>ARTICLE ARCHIVE | PAGE 1</code>
+部分的所有新闻，作为我们的新闻来源，我们借助 <code>Python</code>
+爬虫工具从该栏目中爬取了 1300 页，每页有 20 条新闻，合计 26000
+条新闻。</p>
 <p>爬虫分两步：</p>
-<ol>
-<li>
-<p>利用多线程爬虫（<code>threading</code>) 爬取所有新闻的链接</p>
-<p>最终，得到了总计 26000 条新闻的所有链接。</p>
-</li>
-<li>
-<p>利用多进程爬虫 （<code>multiprocessing</code>) 爬取所有新闻的内容</p>
-<p>由于数据量过于庞大，要对总计 26000 条新闻链接进行访问和获取包含标题、发布时间、作者、新闻内容在内所有信息，因此如果一条条的进行爬取的话，会非常耗时。因此，此处借助多 <code>CPU</code> 的优点，选择使用多进程 <code>multiprocessing</code> 爬虫进行处理。</p>
-<p>此外，由于个人电脑的 <code>CPU</code> 数量并不多，<code>Google Colab</code> 平台的 <code>CPU</code> 数为 2，综合考虑之后，此处使用阿里云平台的  <a target="_blank" rel="noopener" href="https://dsw-dev.data.aliyun.com/">Data Science Workshop</a> 进行处理，因为其 <code>CPU</code> 数为 24。最终得到 25695 条新闻数据的全部文本内容。</p>
-</li>
+<ol type="1">
+<li><p>利用多线程爬虫（<code>threading</code>) 爬取所有新闻的链接</p>
+<p>最终，得到了总计 26000 条新闻的所有链接。</p></li>
+<li><p>利用多进程爬虫 （<code>multiprocessing</code>)
+爬取所有新闻的内容</p>
+<p>由于数据量过于庞大，要对总计 26000
+条新闻链接进行访问和获取包含标题、发布时间、作者、新闻内容在内所有信息，因此如果一条条的进行爬取的话，会非常耗时。因此，此处借助多
+<code>CPU</code> 的优点，选择使用多进程 <code>multiprocessing</code>
+爬虫进行处理。</p>
+<p>此外，由于个人电脑的 <code>CPU</code>
+数量并不多，<code>Google Colab</code> 平台的 <code>CPU</code> 数为
+2，综合考虑之后，此处使用阿里云平台的 <a
+target="_blank" rel="noopener" href="https://dsw-dev.data.aliyun.com/">Data Science Workshop</a>
+进行处理，因为其 <code>CPU</code> 数为 24。最终得到 25695
+条新闻数据的全部文本内容。</p></li>
 </ol>
-<h2 id="32-news-propression"><a class="markdownIt-Anchor" href="#32-news-propression"></a> 3.2 News propression</h2>
-<h3 id="321-text-cleaning"><a class="markdownIt-Anchor" href="#321-text-cleaning"></a> 3.2.1 Text cleaning</h3>
-<p>First of all, we need process data cleaning.</p>
-<ol>
-<li>Load news content and and remove the data outside the time frame of our study.</li>
-<li>Turn the Time columns (string) to timetype.</li>
-<li>Extract the daily and hourly information for further analysis.</li>
-</ol>
+<h2 id="news-propression">3.2 News propression</h2>
+<h3 id="text-cleaning">3.2.1 Text cleaning</h3>
+<p>First of all, we need process data cleaning. 1. Load news content and
+and remove the data outside the time frame of our study. 2. Turn the
+Time columns (string) to timetype. 3. Extract the daily and hourly
+information for further analysis.</p>
 <p>Finally we get 24308 news, each item contains nine columns:</p>
 <ul>
 <li>Link: Links to articles;</li>
@@ -346,361 +358,740 @@
 <li>H-M-S: hour-minute-second</li>
 </ul>
 <p>The last five items are show in Table 1:</p>
-<center> Table 1 The last five items of news </center>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>Link</th>
-      <th>No</th>
-      <th>Content</th>
-      <th>Title</th>
-      <th>Author</th>
-      <th>Time</th>
-      <th>Date</th>
-      <th>Hour</th>
-      <th>H-M-S</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>24303</th>
-      <td>https://oilprice.com/Energy/Energy-General/Exx...</td>
-      <td>81</td>
-      <td>Higher oil and gas demand and the best-ever qu...</td>
-      <td>ExxonMobil Beats Earnings Estimates As Its Che...</td>
-      <td>Tsvetana Paraskova</td>
-      <td>2021-07-30 09:00:00</td>
-      <td>2021-07-30</td>
-      <td>9</td>
-      <td>09:00:00</td>
-    </tr>
-    <tr>
-      <th>24304</th>
-      <td>https://oilprice.com/Energy/Natural-Gas/Natura...</td>
-      <td>80</td>
-      <td>Natural gas prices are rising across Europe an...</td>
-      <td>Natural Gas Deficit Causes Prices To Soar</td>
-      <td>Irina Slav</td>
-      <td>2021-07-30 10:00:00</td>
-      <td>2021-07-30</td>
-      <td>10</td>
-      <td>10:00:00</td>
-    </tr>
-    <tr>
-      <th>24305</th>
-      <td>https://oilprice.com/Energy/Oil-Prices/Analyst...</td>
-      <td>79</td>
-      <td>Oil analysts and economists believe that $70 a...</td>
-      <td>Analysts See Oil Trading Closer To $70 Through...</td>
-      <td>Tsvetana Paraskova</td>
-      <td>2021-07-30 11:00:00</td>
-      <td>2021-07-30</td>
-      <td>11</td>
-      <td>11:00:00</td>
-    </tr>
-    <tr>
-      <th>24306</th>
-      <td>https://oilprice.com/Energy/Energy-General/US-...</td>
-      <td>78</td>
-      <td>The number of oil and gas rigs in the United S...</td>
-      <td>U.S. Oil Rig Count Slips Amid Drop In U.S. Oil...</td>
-      <td>Julianne Geiger</td>
-      <td>2021-07-30 12:11:00</td>
-      <td>2021-07-30</td>
-      <td>12</td>
-      <td>12:11:00</td>
-    </tr>
-    <tr>
-      <th>24307</th>
-      <td>https://oilprice.com/Energy/Energy-General/Oil...</td>
-      <td>77</td>
-      <td>Oil prices climbed this week as U.S. inventori...</td>
-      <td>Oil Bulls Remain Confident Despite Covid Concerns</td>
-      <td>Tom Kool</td>
-      <td>2021-07-30 14:00:00</td>
-      <td>2021-07-30</td>
-      <td>14</td>
-      <td>14:00:00</td>
-    </tr>
-  </tbody>
-</table>
-<h3 id="322-load-oil-price"><a class="markdownIt-Anchor" href="#322-load-oil-price"></a> 3.2.2 Load oil price</h3>
-<p>We use WTI future oil price (collecte from Wind database) as the movement index, from 2011.8.1 to 2021.07.30 (7.31 is also non-trading day), 10 years and 2545 samples in total, six samples see Table 2.</p>
-<center> Table 2 The last six item of historical oil price </center>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>Date</th>
-      <th>Price</th>
-      <th>Movement</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>2539</th>
-      <td>2021-07-23</td>
-      <td>72.07</td>
-      <td>1</td>
-    </tr>
-    <tr>
-      <th>2540</th>
-      <td>2021-07-26</td>
-      <td>71.91</td>
-      <td>-1</td>
-    </tr>
-    <tr>
-      <th>2541</th>
-      <td>2021-07-27</td>
-      <td>71.65</td>
-      <td>-1</td>
-    </tr>
-    <tr>
-      <th>2542</th>
-      <td>2021-07-28</td>
-      <td>72.39</td>
-      <td>1</td>
-    </tr>
-    <tr>
-      <th>2543</th>
-      <td>2021-07-29</td>
-      <td>73.62</td>
-      <td>1</td>
-    </tr>
-    <tr>
-      <th>2544</th>
-      <td>2021-07-30</td>
-      <td>73.95</td>
-      <td>1</td>
-    </tr>
-  </tbody>
-</table>
-<h3 id="323-preparation"><a class="markdownIt-Anchor" href="#323-preparation"></a> 3.2.3 Preparation</h3>
-<p>Before carrying out sentiment analysis, we need preprocess the original data. Considering that news information can be published in either trading days or non-trading days, and also can be published in either trading hours or non-trading hours, we need to preprocess the attribution date of news. The specific processing rules are as follows:</p>
-<ul>
-<li>News posted before 17:00 on the same day is classified as the news of the trading day</li>
-<li>The news released after 17:00 on the day is classified as the news of the next trading day</li>
-</ul>
-<p>More details see Fig. 1:</p>
-<img src = 'https://z3.ax1x.com/2021/09/01/hwsS3D.png' style="zoom:80%;" />
-<center> Fig.1 News Timeline </center>
-<p><strong>Note</strong>: This guide describes the news timeline. Considering that the closing/opening time of WTI future oil price is 17:00/18:00 pm EST, so we regard news form 18:00 pm (the T-1 -th day) to 17:00 pm (the T-th day) as news posted on T-th, and the use these news (features information extracted by deep learning technique) to predict oil prices.</p>
-<h4 id="analysis-with-merged-data"><a class="markdownIt-Anchor" href="#analysis-with-merged-data"></a> Analysis with merged data</h4>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">The total number of days news was issued:  3358</span><br><span class="line">The total number of trading days:  2545</span><br><span class="line">Days on which news was issued in non-trading days:  857</span><br><span class="line">Days on which no news issused:  44</span><br><span class="line">The number of news posted on on-trading days: 4274</span><br></pre></td></tr></table></figure>
-<p>From above, we can see that all of 24308 news were issued in 3358 days among 10 years. In total, there are 4274 news posted on non-trading days. Then, we need to:</p>
-<ol>
-<li>
-<p>Classify these news to news trading days.</p>
-</li>
-<li>
-<p>Classify news according to posted hours. If a news is posted after 17:00 PM, we consider to regard this news as next day’s news</p>
-</li>
-</ol>
-<h2 id="33-sentiment-analysis-with-finbert"><a class="markdownIt-Anchor" href="#33-sentiment-analysis-with-finbert"></a> 3.3 Sentiment analysis with FinBERT</h2>
-<h3 id="331-introduction"><a class="markdownIt-Anchor" href="#331-introduction"></a> 3.3.1 Introduction</h3>
-<p>FinBERT is a pre-trained NLP model to analyze sentiment of financial text. It is built by further training the BERT language model in the finance domain, using a large financial corpus and thereby fine-tuning it for financial sentiment classification. <a target="_blank" rel="noopener" href="https://www.researchgate.net/publication/251231107_Good_Debt_or_Bad_Debt_Detecting_Semantic_Orientations_in_Economic_Texts">Financial PhraseBank</a> by Malo et al. (2014) is used for fine-tuning. For more details, please see the paper <a target="_blank" rel="noopener" href="https://arxiv.org/abs/1908.10063">FinBERT: Financial Sentiment Analysis with Pre-trained Language Models</a> and related <a target="_blank" rel="noopener" href="https://medium.com/prosus-ai-tech-blog/finbert-financial-sentiment-analysis-with-bert-b277a3607101">blog</a> post on Medium.</p>
-<p>In this subsection, we ultilize the <a target="_blank" rel="noopener" href="https://huggingface.co/ProsusAI/finbert">Hosted inference API</a> and <a target="_blank" rel="noopener" href="https://github.com/ProsusAI/finBERT">Github project</a> to analysis the sentiment characteristics hidden in the news text.</p>
-<h4 id="data-exploration-to-financial-phrasebank"><a class="markdownIt-Anchor" href="#data-exploration-to-financial-phrasebank"></a> Data exploration to Financial PhraseBank</h4>
-<p>Financial Phrasebank (<a target="_blank" rel="noopener" href="https://www.researchgate.net/publication/251231107_Good_Debt_or_Bad_Debt_Detecting_Semantic_Orientations_in_Economic_Texts">Malo et al. (2014)</a>) consists of 4845 english sentences selected randomly from financial news found on LexisNexis database. These sentences then were annotated by 16 people with background in finance and business. The annotators were asked to give labels according to how they think the information in the sentence might affect the mentioned company stock price. The dataset also includes information regarding the agreement levels on sentences among<br />
-annotators.</p>
-<p><strong>Note</strong>: Please make sure to abid by the license and copyright for the use of the data. Please check with the author.</p>
-<p>Download the data from this <a target="_blank" rel="noopener" href="https://www.researchgate.net/profile/Pekka_Malo/publication/251231364_FinancialPhraseBank-v10/data/0c96051eee4fb1d56e000000/FinancialPhraseBank-v10.zip?origin=publication_list">link</a> and unzip it under <code>finphrase_dir</code> set above.</p>
-<ul>
-<li>
-<p>Data information</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Total number of record <span class="keyword">in</span> the file:  <span class="number">4846</span></span><br><span class="line">Total number of record after dropping duplicates:  <span class="number">4840</span></span><br><span class="line">Missing label:  <span class="number">0</span></span><br></pre></td></tr></table></figure>
-<p>Some samples see Table 3:</p>
-<center> Table 3 Some examples in Financial Phrasebank corpus </center>
+<center>
+Table 1 The last five items of news
+</center>
 <table border="1" class="dataframe">
 <thead>
-  <tr style="text-align: right;">
-    <th></th>
-    <th>sentence</th>
-    <th>label</th>
-  </tr>
+<tr style="text-align: right;">
+<th>
+</th>
+<th>
+Link
+</th>
+<th>
+No
+</th>
+<th>
+Content
+</th>
+<th>
+Title
+</th>
+<th>
+Author
+</th>
+<th>
+Time
+</th>
+<th>
+Date
+</th>
+<th>
+Hour
+</th>
+<th>
+H-M-S
+</th>
+</tr>
 </thead>
 <tbody>
-  <tr>
-    <th>3200</th>
-    <td>The company serves customers in various industries , including process and resources , industrial machinery , architecture , building , construction , electrical , transportation , electronics , chemical , petrochemical , energy , and information technology , as well as catering and households .</td>
-    <td>neutral</td>
-  </tr>
-  <tr>
-    <th>2527</th>
-    <td>Officials did not disclose the contract value .</td>
-    <td>neutral</td>
-  </tr>
-  <tr>
-    <th>4101</th>
-    <td>The extracted filtrates are very high in clarity while the dried filter cakes meet required transport moisture limits (TMLs)for their ore grades .</td>
-    <td>neutral</td>
-  </tr>
-  <tr>
-    <th>1926</th>
-    <td>The tool is a patent pending design that allows consumers to lay out their entire project on a removable plate using multiple clear stamps of any kind .</td>
-    <td>neutral</td>
-  </tr>
-  <tr>
-    <th>1536</th>
-    <td>In Finland , the corresponding service is Alma Media 's Etuovi.com , Finland 's most popular and best known nationwide online service for home and property sales .</td>
-    <td>neutral</td>
-  </tr>
-  </tbody>
+<tr>
+<th>
+24303
+</th>
+<td>
+https://oilprice.com/Energy/Energy-General/Exx...
+</td>
+<td>
+81
+</td>
+<td>
+Higher oil and gas demand and the best-ever qu...
+</td>
+<td>
+ExxonMobil Beats Earnings Estimates As Its Che...
+</td>
+<td>
+Tsvetana Paraskova
+</td>
+<td>
+2021-07-30 09:00:00
+</td>
+<td>
+2021-07-30
+</td>
+<td>
+9
+</td>
+<td>
+09:00:00
+</td>
+</tr>
+<tr>
+<th>
+24304
+</th>
+<td>
+https://oilprice.com/Energy/Natural-Gas/Natura...
+</td>
+<td>
+80
+</td>
+<td>
+Natural gas prices are rising across Europe an...
+</td>
+<td>
+Natural Gas Deficit Causes Prices To Soar
+</td>
+<td>
+Irina Slav
+</td>
+<td>
+2021-07-30 10:00:00
+</td>
+<td>
+2021-07-30
+</td>
+<td>
+10
+</td>
+<td>
+10:00:00
+</td>
+</tr>
+<tr>
+<th>
+24305
+</th>
+<td>
+https://oilprice.com/Energy/Oil-Prices/Analyst...
+</td>
+<td>
+79
+</td>
+<td>
+Oil analysts and economists believe that $70 a...
+</td>
+<td>
+Analysts See Oil Trading Closer To $70 Through...
+</td>
+<td>
+Tsvetana Paraskova
+</td>
+<td>
+2021-07-30 11:00:00
+</td>
+<td>
+2021-07-30
+</td>
+<td>
+11
+</td>
+<td>
+11:00:00
+</td>
+</tr>
+<tr>
+<th>
+24306
+</th>
+<td>
+https://oilprice.com/Energy/Energy-General/US-...
+</td>
+<td>
+78
+</td>
+<td>
+The number of oil and gas rigs in the United S...
+</td>
+<td>
+U.S. Oil Rig Count Slips Amid Drop In U.S. Oil...
+</td>
+<td>
+Julianne Geiger
+</td>
+<td>
+2021-07-30 12:11:00
+</td>
+<td>
+2021-07-30
+</td>
+<td>
+12
+</td>
+<td>
+12:11:00
+</td>
+</tr>
+<tr>
+<th>
+24307
+</th>
+<td>
+https://oilprice.com/Energy/Energy-General/Oil...
+</td>
+<td>
+77
+</td>
+<td>
+Oil prices climbed this week as U.S. inventori...
+</td>
+<td>
+Oil Bulls Remain Confident Despite Covid Concerns
+</td>
+<td>
+Tom Kool
+</td>
+<td>
+2021-07-30 14:00:00
+</td>
+<td>
+2021-07-30
+</td>
+<td>
+14
+</td>
+<td>
+14:00:00
+</td>
+</tr>
+</tbody>
 </table>
-</li>
-<li>
-<p>Histogram</p>
-<p>From Fig. 2, we find that more than 60% of the data are labeled as “neutral”. Sometimes imbalanced data are balanced using methods like resampling (oversampling, under-sampling) as models tend to predict the majority class more. SMOTE or the Synthetic Minority Over-sampling Technique is a popular technique for oversampling but it is a statistical method for numerical data.</p>
-  <img src = 'https://z3.ax1x.com/2021/09/01/hws9jH.md.png' style="zoom:80%;" />
-  <center> Fig.2 The word distribution of Financial PhraseBank </center>
-<p>In addition, this imbalance should be also taken into consideration if this happends in the real world.</p>
-</li>
-<li>
-<p>Word frequency</p>
-<img src="https://z3.ax1x.com/2021/09/01/hwspge.png" alt="png" style="zoom:80%;" />
-<center> Fig.3 The word frequency of Financial PhraseBank </center>
-</li>
-<li>
-<p>Word cloud</p>
-<img src="https://z3.ax1x.com/2021/09/01/hwsFHI.png" alt="png" style="zoom:80%;" />
-<center> Fig.4 The wordcloud of Financial PhraseBank </center>
-</li>
+<h3 id="load-oil-price">3.2.2 Load oil price</h3>
+<p>We use WTI future oil price (collecte from Wind database) as the
+movement index, from 2011.8.1 to 2021.07.30 (7.31 is also non-trading
+day), 10 years and 2545 samples in total, six samples see Table 2.</p>
+<center>
+Table 2 The last six item of historical oil price
+</center>
+<table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th>
+</th>
+<th>
+Date
+</th>
+<th>
+Price
+</th>
+<th>
+Movement
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>
+2539
+</th>
+<td>
+2021-07-23
+</td>
+<td>
+72.07
+</td>
+<td>
+1
+</td>
+</tr>
+<tr>
+<th>
+2540
+</th>
+<td>
+2021-07-26
+</td>
+<td>
+71.91
+</td>
+<td>
+-1
+</td>
+</tr>
+<tr>
+<th>
+2541
+</th>
+<td>
+2021-07-27
+</td>
+<td>
+71.65
+</td>
+<td>
+-1
+</td>
+</tr>
+<tr>
+<th>
+2542
+</th>
+<td>
+2021-07-28
+</td>
+<td>
+72.39
+</td>
+<td>
+1
+</td>
+</tr>
+<tr>
+<th>
+2543
+</th>
+<td>
+2021-07-29
+</td>
+<td>
+73.62
+</td>
+<td>
+1
+</td>
+</tr>
+<tr>
+<th>
+2544
+</th>
+<td>
+2021-07-30
+</td>
+<td>
+73.95
+</td>
+<td>
+1
+</td>
+</tr>
+</tbody>
+</table>
+<h3 id="preparation">3.2.3 Preparation</h3>
+<p>Before carrying out sentiment analysis, we need preprocess the
+original data. Considering that news information can be published in
+either trading days or non-trading days, and also can be published in
+either trading hours or non-trading hours, we need to preprocess the
+attribution date of news. The specific processing rules are as
+follows:</p>
+<ul>
+<li>News posted before 17:00 on the same day is classified as the news
+of the trading day</li>
+<li>The news released after 17:00 on the day is classified as the news
+of the next trading day</li>
 </ul>
-<h3 id="332-load-pre-trained-model"><a class="markdownIt-Anchor" href="#332-load-pre-trained-model"></a> 3.3.2 Load pre-trained model</h3>
-<ol>
-<li>
-<p>Download FinBert model</p>
-</li>
-<li>
-<p>Load dependency files</p>
-</li>
-<li>
-<p>Test:</p>
- <center> Table 4 Two test for FinBERT model </center>
- <table border="1" class="dataframe">
- <thead>
-   <tr style="text-align: right;">
-     <th></th>
-     <th>sentence</th>
-     <th>logit</th>
-     <th>prediction</th>
-     <th>sentiment_score</th>
-   </tr>
- </thead>
- <tbody>
-   <tr>
-     <th>0</th>
-     <td>Stock prices will continue to rise over the ne...</td>
-     <td>[0.84775513, 0.08607003, 0.066174865]</td>
-     <td>positive</td>
-     <td>0.761685</td>
-   </tr>
-   <tr>
-     <th>1</th>
-     <td>Stock prices will continue to fall over the ne...</td>
-     <td>[0.0089766085, 0.9678817, 0.023141773]</td>
-     <td>negative</td>
-     <td>-0.958905</td>
-   </tr>
- </tbody>
- </table>
+<p>More details see Fig. 1:</p>
+<p><img src = 'https://z3.ax1x.com/2021/09/01/hwsS3D.png' style="zoom:80%;" /></p>
+<center>
+Fig.1 News Timeline
+</center>
+<p><strong>Note</strong>: This guide describes the news timeline.
+Considering that the closing/opening time of WTI future oil price is
+17:00/18:00 pm EST, so we regard news form 18:00 pm (the T-1 -th day) to
+17:00 pm (the T-th day) as news posted on T-th, and the use these news
+(features information extracted by deep learning technique) to predict
+oil prices.</p>
+<h4 id="analysis-with-merged-data">Analysis with merged data</h4>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">The total number of days news was issued:  3358</span><br><span class="line">The total number of trading days:  2545</span><br><span class="line">Days on which news was issued in non-trading days:  857</span><br><span class="line">Days on which no news issused:  44</span><br><span class="line">The number of news posted on on-trading days: 4274</span><br></pre></td></tr></table></figure>
+<p>From above, we can see that all of 24308 news were issued in 3358
+days among 10 years. In total, there are 4274 news posted on non-trading
+days. Then, we need to:</p>
+<ol type="1">
+<li><p>Classify these news to news trading days.</p></li>
+<li><p>Classify news according to posted hours. If a news is posted
+after 17:00 PM, we consider to regard this news as next day's
+news</p></li>
+</ol>
+<h2 id="sentiment-analysis-with-finbert">3.3 Sentiment analysis with
+FinBERT</h2>
+<h3 id="introduction-1">3.3.1 Introduction</h3>
+<p>FinBERT is a pre-trained NLP model to analyze sentiment of financial
+text. It is built by further training the BERT language model in the
+finance domain, using a large financial corpus and thereby fine-tuning
+it for financial sentiment classification. <a
+target="_blank" rel="noopener" href="https://www.researchgate.net/publication/251231107_Good_Debt_or_Bad_Debt_Detecting_Semantic_Orientations_in_Economic_Texts">Financial
+PhraseBank</a> by Malo et al. (2014) is used for fine-tuning. For more
+details, please see the paper <a
+target="_blank" rel="noopener" href="https://arxiv.org/abs/1908.10063">FinBERT: Financial Sentiment
+Analysis with Pre-trained Language Models</a> and related <a
+target="_blank" rel="noopener" href="https://medium.com/prosus-ai-tech-blog/finbert-financial-sentiment-analysis-with-bert-b277a3607101">blog</a>
+post on Medium.</p>
+<p>In this subsection, we ultilize the <a
+target="_blank" rel="noopener" href="https://huggingface.co/ProsusAI/finbert">Hosted inference API</a>
+and <a target="_blank" rel="noopener" href="https://github.com/ProsusAI/finBERT">Github project</a> to
+analysis the sentiment characteristics hidden in the news text.</p>
+<h4 id="data-exploration-to-financial-phrasebank">Data exploration to
+Financial PhraseBank</h4>
+<p>Financial Phrasebank (<a
+target="_blank" rel="noopener" href="https://www.researchgate.net/publication/251231107_Good_Debt_or_Bad_Debt_Detecting_Semantic_Orientations_in_Economic_Texts">Malo
+et al. (2014)</a>) consists of 4845 english sentences selected randomly
+from financial news found on LexisNexis database. These sentences then
+were annotated by 16 people with background in finance and business. The
+annotators were asked to give labels according to how they think the
+information in the sentence might affect the mentioned company stock
+price. The dataset also includes information regarding the agreement
+levels on sentences among annotators.</p>
+<p><strong>Note</strong>: Please make sure to abid by the license and
+copyright for the use of the data. Please check with the author.</p>
+<p>Download the data from this <a
+target="_blank" rel="noopener" href="https://www.researchgate.net/profile/Pekka_Malo/publication/251231364_FinancialPhraseBank-v10/data/0c96051eee4fb1d56e000000/FinancialPhraseBank-v10.zip?origin=publication_list">link</a>
+and unzip it under <code>finphrase_dir</code> set above.</p>
+<ul>
+<li><p>Data information</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Total number of record <span class="keyword">in</span> the file:  <span class="number">4846</span></span><br><span class="line">Total number of record after dropping duplicates:  <span class="number">4840</span></span><br><span class="line">Missing label:  <span class="number">0</span></span><br></pre></td></tr></table></figure>
+<p>Some samples see Table 3:</p>
+<center>
+<p>Table 3 Some examples in Financial Phrasebank corpus</p>
+</center>
+<table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th>
+</th>
+<th>
+<p>sentence</p>
+</th>
+<th>
+<p>label</p>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>
+<p>3200</p>
+</th>
+<td>
+<p>The company serves customers in various industries , including
+process and resources , industrial machinery , architecture , building ,
+construction , electrical , transportation , electronics , chemical ,
+petrochemical , energy , and information technology , as well as
+catering and households .</p>
+</td>
+<td>
+<p>neutral</p>
+</td>
+</tr>
+<tr>
+<th>
+<p>2527</p>
+</th>
+<td>
+<p>Officials did not disclose the contract value .</p>
+</td>
+<td>
+<p>neutral</p>
+</td>
+</tr>
+<tr>
+<th>
+<p>4101</p>
+</th>
+<td>
+<p>The extracted filtrates are very high in clarity while the dried
+filter cakes meet required transport moisture limits (TMLs)for their ore
+grades .</p>
+</td>
+<td>
+<p>neutral</p>
+</td>
+</tr>
+<tr>
+<th>
+<p>1926</p>
+</th>
+<td>
+<p>The tool is a patent pending design that allows consumers to lay out
+their entire project on a removable plate using multiple clear stamps of
+any kind .</p>
+</td>
+<td>
+<p>neutral</p>
+</td>
+</tr>
+<tr>
+<th>
+<p>1536</p>
+</th>
+<td>
+<p>In Finland , the corresponding service is Alma Media 's Etuovi.com ,
+Finland 's most popular and best known nationwide online service for
+home and property sales .</p>
+</td>
+<td>
+<p>neutral</p>
+</td>
+</tr>
+</tbody>
+</table></li>
+<li><p>Histogram</p>
+<p>From Fig. 2, we find that more than 60% of the data are labeled as
+"neutral". Sometimes imbalanced data are balanced using methods like
+resampling (oversampling, under-sampling) as models tend to predict the
+majority class more. SMOTE or the Synthetic Minority Over-sampling
+Technique is a popular technique for oversampling but it is a
+statistical method for numerical data.</p>
+<p><img src = 'https://z3.ax1x.com/2021/09/01/hws9jH.md.png' style="zoom:80%;" /></p>
+<center>
+<p>Fig.2 The word distribution of Financial PhraseBank</p>
+</center>
+<p>In addition, this imbalance should be also taken into consideration
+if this happends in the real world.</p></li>
+<li><p>Word frequency</p>
+<p><img src="https://z3.ax1x.com/2021/09/01/hwspge.png" alt="png" style="zoom:80%;" /></p>
+<center>
+<p>Fig.3 The word frequency of Financial PhraseBank</p>
+</center></li>
+<li><p>Word cloud</p>
+<p><img src="https://z3.ax1x.com/2021/09/01/hwsFHI.png" alt="png" style="zoom:80%;" /></p>
+<center>
+<p>Fig.4 The wordcloud of Financial PhraseBank</p>
+</center></li>
+</ul>
+<h3 id="load-pre-trained-model">3.3.2 Load pre-trained model</h3>
+<ol type="1">
+<li><p>Download FinBert model</p></li>
+<li><p>Load dependency files</p></li>
+<li><p>Test:</p>
+<center>
+<p>Table 4 Two test for FinBERT model</p>
+</center>
+<table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th>
+</th>
+<th>
+<p>sentence</p>
+</th>
+<th>
+<p>logit</p>
+</th>
+<th>
+<p>prediction</p>
+</th>
+<th>
+<p>sentiment_score</p>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>
+<p>0</p>
+</th>
+<td>
+<p>Stock prices will continue to rise over the ne...</p>
+</td>
+<td>
+<p>[0.84775513, 0.08607003, 0.066174865]</p>
+</td>
+<td>
+<p>positive</p>
+</td>
+<td>
+<p>0.761685</p>
+</td>
+</tr>
+<tr>
+<th>
+<p>1</p>
+</th>
+<td>
+<p>Stock prices will continue to fall over the ne...</p>
+</td>
+<td>
+<p>[0.0089766085, 0.9678817, 0.023141773]</p>
+</td>
+<td>
+<p>negative</p>
+</td>
+<td>
+<p>-0.958905</p>
+</td>
+</tr>
+</tbody>
+</table>
 <p><strong>Note:</strong></p>
 <ul>
-<li>Because some of the original code didn’t fit perfectly in our prediction work, hence, we made some changes to the source code.</li>
-<li>The initial prediction function did not support input lists of strings (as shown in the following examples), so we made some changes to the original code.</li>
-</ul>
-</li>
+<li>Because some of the original code didn't fit perfectly in our
+prediction work, hence, we made some changes to the source code.</li>
+<li>The initial prediction function did not support input lists of
+strings (as shown in the following examples), so we made some changes to
+the original code.</li>
+</ul></li>
 </ol>
-<h3 id="333-analysis-sentiment-features"><a class="markdownIt-Anchor" href="#333-analysis-sentiment-features"></a> 3.3.3 Analysis sentiment features</h3>
-<p>In this part, we perform sentiment analysis for both news headlines and news bodies, and the output results include five parts:</p>
+<h3 id="analysis-sentiment-features">3.3.3 Analysis sentiment
+features</h3>
+<p>In this part, we perform sentiment analysis for both news headlines
+and news bodies, and the output results include five parts:</p>
 <ul>
-<li>Senti: sentiment score, obatain by subtracting negative prob. from positive prob. (title and full-text)</li>
-<li>Prediction: this item is considered  <code>Positive</code>, <code>neutral</code> or <code>negative</code> by the FinBert (title and full-text).</li>
+<li>Senti: sentiment score, obatain by subtracting negative prob. from
+positive prob. (title and full-text)</li>
+<li>Prediction: this item is considered <code>Positive</code>,
+<code>neutral</code> or <code>negative</code> by the FinBert (title and
+full-text).</li>
 </ul>
-<h2 id="34-subjective-analysis-with-textblob"><a class="markdownIt-Anchor" href="#34-subjective-analysis-with-textblob"></a> 3.4 Subjective analysis with TextBlob</h2>
-<h3 id="341-introduction"><a class="markdownIt-Anchor" href="#341-introduction"></a> 3.4.1 Introduction</h3>
-<p><a target="_blank" rel="noopener" href="https://textblob.readthedocs.io/en/dev/">TextBlob</a> is a Python library for processing textual data. It provides a simple API for diving into common natural language processing (NLP) tasks such as part-of-speech tagging, noun phrase extraction, sentiment analysis, classification, translation, and more. Many scholars used this library to perform textual sentiment analysis, such as, <a target="_blank" rel="noopener" href="https://doi.org/10.1016/j.ijforecast.2018.07.006">Li et al.</a>, <a target="_blank" rel="noopener" href="https://www.sciencedirect.com/science/article/pii/S0169207021001060?via%3Dihub">Bai et al.</a>.</p>
-<p>However, the sentiment analyzers of TextBlod is  the Naive Bayes classifier on the movie review corpus. We know that there are certain ambiguities in language expressions in different fields. Our research fields are finance and economics, so there may be some errors in using this classifier. Therefore, we just ultilize this library to carry out subjective analysis to obtain each new’s subjectivity score according to <code>Title</code> and <code>full-text</code>. Subjectivity scores are values within the range [0.0, 1.0], where 0.0 is very objective and 1.0 is very subjective.</p>
-<h2 id="35-oil-price-trends-with-cnn"><a class="markdownIt-Anchor" href="#35-oil-price-trends-with-cnn"></a> 3.5 Oil price trends with CNN</h2>
-<h3 id="351-introduction"><a class="markdownIt-Anchor" href="#351-introduction"></a> 3.5.1 Introduction</h3>
-<p>In this subsection, we employs a CNN interface from the library, <em>PyTorch</em>, for implementing the prescribed network architecture of <a target="_blank" rel="noopener" href="https://paperswithcode.com/paper/a-sensitivity-analysis-of-and-practitioners">Zhang and Wallace’s (2017)</a> CNN model. This approach is developed specifically for the sentiment analysis of short text.</p>
+<h2 id="subjective-analysis-with-textblob">3.4 Subjective analysis with
+TextBlob</h2>
+<h3 id="introduction-2">3.4.1 Introduction</h3>
+<p><a target="_blank" rel="noopener" href="https://textblob.readthedocs.io/en/dev/">TextBlob</a> is a
+Python library for processing textual data. It provides a simple API for
+diving into common natural language processing (NLP) tasks such as
+part-of-speech tagging, noun phrase extraction, sentiment analysis,
+classification, translation, and more. Many scholars used this library
+to perform textual sentiment analysis, such as, <a
+target="_blank" rel="noopener" href="https://doi.org/10.1016/j.ijforecast.2018.07.006">Li et al.</a>,
+<a
+target="_blank" rel="noopener" href="https://www.sciencedirect.com/science/article/pii/S0169207021001060?via%3Dihub">Bai
+et al.</a>.</p>
+<p>However, the sentiment analyzers of TextBlod is the Naive Bayes
+classifier on the movie review corpus. We know that there are certain
+ambiguities in language expressions in different fields. Our research
+fields are finance and economics, so there may be some errors in using
+this classifier. Therefore, we just ultilize this library to carry out
+subjective analysis to obtain each new's subjectivity score according to
+<code>Title</code> and <code>full-text</code>. Subjectivity scores are
+values within the range [0.0, 1.0], where 0.0 is very objective and 1.0
+is very subjective.</p>
+<h2 id="oil-price-trends-with-cnn">3.5 Oil price trends with CNN</h2>
+<h3 id="introduction-3">3.5.1 Introduction</h3>
+<p>In this subsection, we employs a CNN interface from the library,
+<em>PyTorch</em>, for implementing the prescribed network architecture
+of <a
+target="_blank" rel="noopener" href="https://paperswithcode.com/paper/a-sensitivity-analysis-of-and-practitioners">Zhang
+and Wallace's (2017)</a> CNN model. This approach is developed
+specifically for the sentiment analysis of short text.</p>
 <blockquote>
-<p><strong>Note</strong>： The CNN model begins with a tokenized sentence which is then converted to a sentence matrix, the rows of which are word vector representations of each token. We treat the sentence matrix as an ‘image’, and perform convolution on it via linear filters. The dimensionality of the feature map generated by each filter will vary as a function of the sentence length and the filter region size. Thus, a pooling function is applied to each feature map to induce a fixed-length vector. A common strategy is 1-max pooling (<a target="_blank" rel="noopener" href="https://scholar.google.com/scholar?hl=en&amp;as_sdt=0%2C5&amp;q=A+theoretical+analysis+of+feature+pooling+in+visual+recognition&amp;btnG=">Boureau, Ponce, &amp; LeCun, 2010</a>), which extracts a scalar from each feature map. Together, the outputs generated from the filter maps can be concatenated into a fixed-length, ‘top-level’ feature vector, which is then fed through a softmax function to generate the final classification.</p>
+<p><strong>Note</strong>： The CNN model begins with a tokenized
+sentence which is then converted to a sentence matrix, the rows of which
+are word vector representations of each token. We treat the sentence
+matrix as an ‘image’, and perform convolution on it via linear filters.
+The dimensionality of the feature map generated by each filter will vary
+as a function of the sentence length and the filter region size. Thus, a
+pooling function is applied to each feature map to induce a fixed-length
+vector. A common strategy is 1-max pooling (<a
+target="_blank" rel="noopener" href="https://scholar.google.com/scholar?hl=en&amp;as_sdt=0%2C5&amp;q=A+theoretical+analysis+of+feature+pooling+in+visual+recognition&amp;btnG=">Boureau,
+Ponce, &amp; LeCun, 2010</a>), which extracts a scalar from each feature
+map. Together, the outputs generated from the filter maps can be
+concatenated into a fixed-length, ‘top-level’ feature vector, which is
+then fed through a softmax function to generate the final
+classification.</p>
 </blockquote>
-<p>The advantage of the CNN classifier is based on multi-layer networks and convolution architecture. Since convolutional layers of CNNs apply a convolution operation to the input matrix, they are able to compose different semantic fragments of sentences and learn the interactions between composed fragments, thereby fully exploiting inter-modal semantic relations of crude oil news. Price movements either up or down within the transaction day are used as the output of the CNN classification.</p>
-<p>The outputs of the CNN classification represent the fluctuation of daily crude oil prices, either increase or decrease. Specifically, the price movement <span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>M</mi><mi>t</mi></msub></mrow><annotation encoding="application/x-tex">M_t</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.10903em;">M</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.2805559999999999em;"><span style="top:-2.5500000000000003em;margin-left:-0.10903em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">t</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span> is defined as:</p>
-<p class='katex-block'><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>M</mi><mo>=</mo><mrow><mo fence="true">{</mo><mtable rowspacing="0.15999999999999992em" columnalign="left left" columnspacing="1em"><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mrow><mn>0</mn><mo separator="true">,</mo><mtext> </mtext><msub><mi>P</mi><mi>t</mi></msub><mo>&lt;</mo><msub><mi>P</mi><mrow><mi>t</mi><mo>−</mo><mn>1</mn></mrow></msub></mrow></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mrow><mn>1</mn><mo separator="true">,</mo><mtext> </mtext><msub><mi>p</mi><mi>t</mi></msub><mo>≥</mo><msub><mi>p</mi><mrow><mi>t</mi><mo>−</mo><mn>1</mn></mrow></msub></mrow></mstyle></mtd></mtr></mtable></mrow></mrow><annotation encoding="application/x-tex">M = \left\{
+<p>The advantage of the CNN classifier is based on multi-layer networks
+and convolution architecture. Since convolutional layers of CNNs apply a
+convolution operation to the input matrix, they are able to compose
+different semantic fragments of sentences and learn the interactions
+between composed fragments, thereby fully exploiting inter-modal
+semantic relations of crude oil news. Price movements either up or down
+within the transaction day are used as the output of the CNN
+classification.</p>
+<p>The outputs of the CNN classification represent the fluctuation of
+daily crude oil prices, either increase or decrease. Specifically, the
+price movement <span class="math inline">\(M_t\)</span> is defined
+as:</p>
+<p><span class="math display">\[
+M = \left\{
       \begin{array}{ll}
           0,\ P_t &lt; P_{t-1} \\
           1,\ p_t \geq p_{t-1}
           \end{array}\right.
-</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.10903em;">M</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:2.40003em;vertical-align:-0.95003em;"></span><span class="minner"><span class="mopen delimcenter" style="top:0em;"><span class="delimsizing size3">{</span></span><span class="mord"><span class="mtable"><span class="arraycolsep" style="width:0.5em;"></span><span class="col-align-l"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.45em;"><span style="top:-3.61em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">0</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mspace"> </span><span class="mord"><span class="mord mathdefault" style="margin-right:0.13889em;">P</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.2805559999999999em;"><span style="top:-2.5500000000000003em;margin-left:-0.13889em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">t</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&lt;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.13889em;">P</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.301108em;"><span style="top:-2.5500000000000003em;margin-left:-0.13889em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">t</span><span class="mbin mtight">−</span><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.208331em;"><span></span></span></span></span></span></span></span></span><span style="top:-2.4099999999999997em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">1</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mspace"> </span><span class="mord"><span class="mord mathdefault">p</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.2805559999999999em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">t</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">≥</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mord"><span class="mord mathdefault">p</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.301108em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">t</span><span class="mbin mtight">−</span><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.208331em;"><span></span></span></span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.9500000000000004em;"><span></span></span></span></span></span><span class="arraycolsep" style="width:0.5em;"></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></span></p>
-<p>Where, <span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>p</mi><mi>t</mi></msub></mrow><annotation encoding="application/x-tex">p_t</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="mord"><span class="mord mathdefault">p</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.2805559999999999em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">t</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span> denotes the oil price at the end of day <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>t</mi></mrow><annotation encoding="application/x-tex">t</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.61508em;vertical-align:0em;"></span><span class="mord mathdefault">t</span></span></span></span>.</p>
-<p>In this way, the CNN model is trained to learn hidden patterns embedded within news headlines that affect the oil price. to improve our understanding of the CNN algorithm. The procedures are described as follows:</p>
+\]</span></p>
+<p>Where, <span class="math inline">\(p_t\)</span> denotes the oil price
+at the end of day <span class="math inline">\(t\)</span>.</p>
+<p>In this way, the CNN model is trained to learn hidden patterns
+embedded within news headlines that affect the oil price. to improve our
+understanding of the CNN algorithm. The procedures are described as
+follows:</p>
 <ul>
-<li>
-<p>Step 1: Data preprocessing. The dataset is divided into training data (2011.08.01 - 2018.07.31) and testing data (2018.08.01 - 2021.07.31).</p>
-</li>
-<li>
-<p>Step 2: Text vectorization. Convert news text to word vector with pretrainded word embedding. In this research, we utlize an unsupervised learning algorithm for word representation call GloVe (<a target="_blank" rel="noopener" href="https://scholar.google.com/scholar?hl=en&amp;as_sdt=0%2C5&amp;q=Glove%3A+Global+vectors+for+word+representation.+In+Proceedings+of+the+2014+conference+on+empirical+methods+in+natural+language+processing&amp;btnG=">Pennington et al., 2014</a>) proposed by Stanford University and is a new global log-bilinear regression model that aims to combine the advantages of the global matrix and local context window methods.</p>
+<li><p>Step 1: Data preprocessing. The dataset is divided into training
+data (2011.08.01 - 2018.07.31) and testing data (2018.08.01 -
+2021.07.31).</p></li>
+<li><p>Step 2: Text vectorization. Convert news text to word vector with
+pretrainded word embedding. In this research, we utlize an unsupervised
+learning algorithm for word representation call GloVe (<a
+target="_blank" rel="noopener" href="https://scholar.google.com/scholar?hl=en&amp;as_sdt=0%2C5&amp;q=Glove%3A+Global+vectors+for+word+representation.+In+Proceedings+of+the+2014+conference+on+empirical+methods+in+natural+language+processing&amp;btnG=">Pennington
+et al., 2014</a>) proposed by Stanford University and is a new global
+log-bilinear regression model that aims to combine the advantages of the
+global matrix and local context window methods.</p>
 <blockquote>
-<p>Word embedding is a dimension reduction technique that maps high-dimensional words (unstructured information) to low-dimensional numerical vectors (structured information). In other words, word embedding aims to convert documents into mathematical representations as computer-readable input and thus is essential for text analysis problems (<a target="_blank" rel="noopener" href="https://www.sciencedirect.com/science/article/pii/S0169207021001060?via%3Dihub">Bai et al.</a>).</p>
-</blockquote>
-</li>
-<li>
-<p>Step 3: Train CNN model using the training sample. Word vector is feed into CNN model. The process of CNN model includes “Convolutional operation,” “Max Pooling,” and “Softmax classification”. A concise and complete flowchart is shown in Fig. 4.</p>
-<img src="https://z3.ax1x.com/2021/09/01/hwsiDA.png" alt="png" style="zoom:80%;" />
-<center> Fig.4 The flowchart of CNN model </center>
-</li>
-<li>
-<p>Step 3: Using the best trained CNN model classifies the test sample.</p>
-</li>
+<p>Word embedding is a dimension reduction technique that maps
+high-dimensional words (unstructured information) to low-dimensional
+numerical vectors (structured information). In other words, word
+embedding aims to convert documents into mathematical representations as
+computer-readable input and thus is essential for text analysis problems
+(<a
+target="_blank" rel="noopener" href="https://www.sciencedirect.com/science/article/pii/S0169207021001060?via%3Dihub">Bai
+et al.</a>).</p>
+</blockquote></li>
+<li><p>Step 3: Train CNN model using the training sample. Word vector is
+feed into CNN model. The process of CNN model includes “Convolutional
+operation,” “Max Pooling,” and “Softmax classification”. A concise and
+complete flowchart is shown in Fig. 4.</p>
+<p><img src="https://z3.ax1x.com/2021/09/01/hwsiDA.png" alt="png" style="zoom:80%;" /></p>
+<center>
+<p>Fig.4 The flowchart of CNN model</p>
+</center></li>
+<li><p>Step 3: Using the best trained CNN model classifies the test
+sample.</p></li>
 </ul>
-<p>In this study, CNN is coded by Python 3.8. We employ a Python library, PyTorch, which provides convenient APIs for building Deep learning network.</p>
-<h3 id="352-code-implementation"><a class="markdownIt-Anchor" href="#352-code-implementation"></a> 3.5.2 Code implementation</h3>
-<h4 id="prepare-data"><a class="markdownIt-Anchor" href="#prepare-data"></a> Prepare data</h4>
-<ol>
-<li>
-<p>Import modelus</p>
-</li>
-<li>
-<p>Load data</p>
+<p>In this study, CNN is coded by Python 3.8. We employ a Python
+library, PyTorch, which provides convenient APIs for building Deep
+learning network.</p>
+<h3 id="code-implementation">3.5.2 Code implementation</h3>
+<h4 id="prepare-data">Prepare data</h4>
+<ol type="1">
+<li><p>Import modelus</p></li>
+<li><p>Load data</p>
 <p>Examples for news data and oil price movement, see Table 5:</p>
- <center> Table 5 Examples for news and oil price movement </center>
- <table border="1" class="dataframe">
- <thead>
-   <tr style="text-align: right;">
-     <th></th>
-     <th>Date</th>
-     <th>Movement</th>
-     <th>Title</th>
-   </tr>
- </thead>
- <tbody>
-   <tr>
-     <th>0</th>
-     <td>2011-08-01</td>
-     <td>-1.0</td>
-     <td>Debt Ceiling Agreement Pushes Crude Oil Prices Higher. Biofuels and Tequila: Agave May Make a Suitable Ethanol Crop. Jesters, Economics, and American Dollar Supremacy. Natural Gas Analysis for the Week of August 1, 2011. The Quiet Revolution: Latin America Moving Away from Washingtons Influence</td>
-   </tr>
- </tbody>
- </table>
-</li>
-<li>
-<p>Spilt data into train/valid test</p>
-</li>
-<li>
-<p>Generate dataset</p>
+<center>
+<p>Table 5 Examples for news and oil price movement</p>
+</center>
+<table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th>
+</th>
+<th>
+<p>Date</p>
+</th>
+<th>
+<p>Movement</p>
+</th>
+<th>
+<p>Title</p>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>
+<p>0</p>
+</th>
+<td>
+<p>2011-08-01</p>
+</td>
+<td>
+<p>-1.0</p>
+</td>
+<td>
+<p>Debt Ceiling Agreement Pushes Crude Oil Prices Higher. Biofuels and
+Tequila: Agave May Make a Suitable Ethanol Crop. Jesters, Economics, and
+American Dollar Supremacy. Natural Gas Analysis for the Week of August
+1, 2011. The Quiet Revolution: Latin America Moving Away from
+Washingtons Influence</p>
+</td>
+</tr>
+</tbody>
+</table></li>
+<li><p>Spilt data into train/valid test</p></li>
+<li><p>Generate dataset</p>
 <ul>
-<li>
-<p>Examples for built dataset.</p>
-  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&#123;&#39;text&#39;: [&#39;The&#39;, &#39;Death&#39;, &#39;of&#39;, &#39;the&#39;, &#39;Bond&#39;, &#39;Vigilantes&#39;, &#39;.&#39;, &#39;Promising&#39;,</span><br><span class="line"> &#39;Economic&#39;, &#39;and&#39;, &#39;Environmental&#39;, &#39;Developments&#39;, &#39;in&#39;, &#39;Oil&#39;, &#39;Sands&#39;,</span><br><span class="line"> &#39;Production&#39;, &#39;.&#39;, &#39;Are&#39;, &#39;High&#39;, &#39;Fuel&#39;, &#39;Taxes&#39;, &#39;the&#39;, &#39;Answer&#39;, &#39;to&#39;,</span><br><span class="line"> &#39;Solving&#39;, &#39;our&#39;, &#39;Energy&#39;, &#39;Problems&#39;, &#39;?&#39;, &#39;.&#39;, &#39;Oil&#39;, &#39;and&#39;, &#39;Misinformation&#39;,</span><br><span class="line"> &#39;:&#39;, &#39;The&#39;, &#39;Truth&#39;, &#39;about&#39;, &#39;Oil&#39;, &#39;Companies&#39;, &#39;.&#39;, &#39;Arab&#39;, &#39;Spring&#39;, &#39;Roils&#39;,</span><br><span class="line"> &#39;Israel&#39;, &quot;&#39;s&quot;, &#39;Energy&#39;, &#39;Imports&#39;, &#39;-&#39;, &#39;and&#39;, &#39;Israel&#39;], &#39;label&#39;: &#39;-1.0&#39;&#125;</span><br><span class="line">&#123;&#39;text&#39;: [&#39;Is&#39;, &#39;A&#39;, &#39;Supply&#39;, &#39;Crunch&#39;, &#39;In&#39;, &#39;Oil&#39;, &#39;Markets&#39;, &#39;Inevitable&#39;,</span><br><span class="line"> &#39;?&#39;, &#39;.&#39;, &#39;China&#39;, &#39;Sets&#39;, &#39;Up&#39;, &#39;EV&#39;, &#39;Battery&#39;, &#39;Recycling&#39;, &#39;Scheme&#39;, &#39;.&#39;,</span><br><span class="line"> &#39;U.S.&#39;, &#39;Military&#39;, &#39;Bases&#39;, &#39;In&#39;, &#39;Europe&#39;, &#39;Depend&#39;, &#39;On&#39;, &#39;Russian&#39;, &#39;Energy&#39;,</span><br><span class="line"> &#39;.&#39;, &#39;Russias&#39;, &#39;High&#39;, &#39;Risk&#39;, &#39;Global&#39;, &#39;Oil&#39;, &#39;Strategy&#39;, &#39;.&#39;, &#39;Oil&#39;, &#39;Prices&#39;,</span><br><span class="line"> &#39;Fall&#39;, &#39;After&#39;, &#39;EIA&#39;, &#39;Confirms&#39;, &#39;Crude&#39;, &#39;Inventory&#39;, &#39;Build&#39;, &#39;.&#39;, &#39;Exxons&#39;,</span><br><span class="line"> &#39;Shocking&#39;, &#39;Supply&#39;, &#39;And&#39;, &#39;Demand&#39;, &#39;Predictions&#39;, &#39;.&#39;, &#39;Was&#39;, &#39;The&#39;, &#39;Aramco&#39;,</span><br><span class="line"> &#39;IPO&#39;, &#39;Destined&#39;, &#39;To&#39;, &#39;Fail&#39;, &#39;?&#39;, &#39;.&#39;, &#39;Kuwait&#39;, &#39;Oil&#39;, &#39;Production&#39;, &#39;Hits&#39;,</span><br><span class="line"> &#39;18-Month&#39;, &#39;High&#39;, &#39;.&#39;, &#39;U.S.&#39;, &#39;Oil&#39;, &#39;Production&#39;, &#39;Is&#39;, &#39;nt&#39;, &#39;Growing&#39;, &#39;As&#39;,</span><br><span class="line"> &#39;Fast&#39;, &#39;As&#39;, &#39;Expected&#39;], &#39;label&#39;: &#39;-1.0&#39;&#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-<li>
-<p>Build vocabulary and iterator</p>
+<li><p>Examples for built dataset.</p>
+<p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&#123;&#39;text&#39;: [&#39;The&#39;, &#39;Death&#39;, &#39;of&#39;, &#39;the&#39;, &#39;Bond&#39;, &#39;Vigilantes&#39;, &#39;.&#39;, &#39;Promising&#39;,</span><br><span class="line"> &#39;Economic&#39;, &#39;and&#39;, &#39;Environmental&#39;, &#39;Developments&#39;, &#39;in&#39;, &#39;Oil&#39;, &#39;Sands&#39;,</span><br><span class="line"> &#39;Production&#39;, &#39;.&#39;, &#39;Are&#39;, &#39;High&#39;, &#39;Fuel&#39;, &#39;Taxes&#39;, &#39;the&#39;, &#39;Answer&#39;, &#39;to&#39;,</span><br><span class="line"> &#39;Solving&#39;, &#39;our&#39;, &#39;Energy&#39;, &#39;Problems&#39;, &#39;?&#39;, &#39;.&#39;, &#39;Oil&#39;, &#39;and&#39;, &#39;Misinformation&#39;,</span><br><span class="line"> &#39;:&#39;, &#39;The&#39;, &#39;Truth&#39;, &#39;about&#39;, &#39;Oil&#39;, &#39;Companies&#39;, &#39;.&#39;, &#39;Arab&#39;, &#39;Spring&#39;, &#39;Roils&#39;,</span><br><span class="line"> &#39;Israel&#39;, &quot;&#39;s&quot;, &#39;Energy&#39;, &#39;Imports&#39;, &#39;-&#39;, &#39;and&#39;, &#39;Israel&#39;], &#39;label&#39;: &#39;-1.0&#39;&#125;</span><br><span class="line">&#123;&#39;text&#39;: [&#39;Is&#39;, &#39;A&#39;, &#39;Supply&#39;, &#39;Crunch&#39;, &#39;In&#39;, &#39;Oil&#39;, &#39;Markets&#39;, &#39;Inevitable&#39;,</span><br><span class="line"> &#39;?&#39;, &#39;.&#39;, &#39;China&#39;, &#39;Sets&#39;, &#39;Up&#39;, &#39;EV&#39;, &#39;Battery&#39;, &#39;Recycling&#39;, &#39;Scheme&#39;, &#39;.&#39;,</span><br><span class="line"> &#39;U.S.&#39;, &#39;Military&#39;, &#39;Bases&#39;, &#39;In&#39;, &#39;Europe&#39;, &#39;Depend&#39;, &#39;On&#39;, &#39;Russian&#39;, &#39;Energy&#39;,</span><br><span class="line"> &#39;.&#39;, &#39;Russias&#39;, &#39;High&#39;, &#39;Risk&#39;, &#39;Global&#39;, &#39;Oil&#39;, &#39;Strategy&#39;, &#39;.&#39;, &#39;Oil&#39;, &#39;Prices&#39;,</span><br><span class="line"> &#39;Fall&#39;, &#39;After&#39;, &#39;EIA&#39;, &#39;Confirms&#39;, &#39;Crude&#39;, &#39;Inventory&#39;, &#39;Build&#39;, &#39;.&#39;, &#39;Exxons&#39;,</span><br><span class="line"> &#39;Shocking&#39;, &#39;Supply&#39;, &#39;And&#39;, &#39;Demand&#39;, &#39;Predictions&#39;, &#39;.&#39;, &#39;Was&#39;, &#39;The&#39;, &#39;Aramco&#39;,</span><br><span class="line"> &#39;IPO&#39;, &#39;Destined&#39;, &#39;To&#39;, &#39;Fail&#39;, &#39;?&#39;, &#39;.&#39;, &#39;Kuwait&#39;, &#39;Oil&#39;, &#39;Production&#39;, &#39;Hits&#39;,</span><br><span class="line"> &#39;18-Month&#39;, &#39;High&#39;, &#39;.&#39;, &#39;U.S.&#39;, &#39;Oil&#39;, &#39;Production&#39;, &#39;Is&#39;, &#39;nt&#39;, &#39;Growing&#39;, &#39;As&#39;,</span><br><span class="line"> &#39;Fast&#39;, &#39;As&#39;, &#39;Expected&#39;], &#39;label&#39;: &#39;-1.0&#39;&#125;</span><br></pre></td></tr></table></figure></p></li>
+</ul></li>
+<li><p>Build vocabulary and iterator</p>
 <p>vocabulary size is 11023. And an example:</p>
 <pre><code> torch.Size([4, 125])
  Oil Prices At Risk Of Economic Downturn . Oil Sector Under Fire In Libyan
@@ -712,1164 +1103,2657 @@ annotators.</p>
  August &lt;pad&gt; &lt;pad&gt; &lt;pad&gt; &lt;pad&gt; &lt;pad&gt; &lt;pad&gt; &lt;pad&gt; &lt;pad&gt; &lt;pad&gt; &lt;pad&gt; &lt;pad&gt; &lt;pad&gt;
  &lt;pad&gt; &lt;pad&gt; &lt;pad&gt; &lt;pad&gt; &lt;pad&gt; &lt;pad&gt; &lt;pad&gt; &lt;pad&gt; &lt;pad&gt; &lt;pad&gt; &lt;pad&gt; &lt;pad&gt; &lt;pad&gt;
  &lt;pad&gt; &lt;pad&gt; &lt;pad&gt; &lt;pad&gt; &lt;pad&gt; &lt;pad&gt; &lt;pad&gt; &lt;pad&gt; &lt;pad&gt; &lt;pad&gt; &lt;pad&gt; &lt;pad&gt; &lt;pad&gt;
- 
- 1.0
-</code></pre>
-</li>
-<li>
-<p>The top 20 of most frequents:</p>
- <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[(&#39;.&#39;, 21723), (&#39;Oil&#39;, 10901), (&#39;The&#39;, 6349), (&#39;To&#39;, 4153), (&#39;?&#39;, 3750),</span><br><span class="line">(&#39;In&#39;, 3002), (&#39;Is&#39;, 2705), (&#39;Energy&#39;, 2585), (&#39;Prices&#39;, 2342), (&#39;For&#39;, 2230),</span><br><span class="line">(&#39;A&#39;, 2119), (&#39;U.S.&#39;, 1919), (&#39;:&#39;, 1864), (&#39;Of&#39;, 1840), (&#39;Gas&#39;, 1714),</span><br><span class="line">(&#39;On&#39;, 1697), (&#39;-&#39;, 1629), (&#39;,&#39;, 1474), (&#39;the&#39;, 1422), (&#39;As&#39;, 1395)]</span><br><span class="line">[(&#39;1.0&#39;, 1310), (&#39;-1.0&#39;, 1207)]</span><br></pre></td></tr></table></figure>
-</li>
+
+ 1.0</code></pre></li>
+<li><p>The top 20 of most frequents:</p>
+<p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[(&#39;.&#39;, 21723), (&#39;Oil&#39;, 10901), (&#39;The&#39;, 6349), (&#39;To&#39;, 4153), (&#39;?&#39;, 3750),</span><br><span class="line">(&#39;In&#39;, 3002), (&#39;Is&#39;, 2705), (&#39;Energy&#39;, 2585), (&#39;Prices&#39;, 2342), (&#39;For&#39;, 2230),</span><br><span class="line">(&#39;A&#39;, 2119), (&#39;U.S.&#39;, 1919), (&#39;:&#39;, 1864), (&#39;Of&#39;, 1840), (&#39;Gas&#39;, 1714),</span><br><span class="line">(&#39;On&#39;, 1697), (&#39;-&#39;, 1629), (&#39;,&#39;, 1474), (&#39;the&#39;, 1422), (&#39;As&#39;, 1395)]</span><br><span class="line">[(&#39;1.0&#39;, 1310), (&#39;-1.0&#39;, 1207)]</span><br></pre></td></tr></table></figure></p></li>
 </ol>
-<h4 id="model-specification"><a class="markdownIt-Anchor" href="#model-specification"></a> Model specification</h4>
-<ol>
-<li>
-<p>Model definition</p>
-</li>
-<li>
-<p>Creat CNN model</p>
-</li>
-<li>
-<p>Define metrics</p>
-</li>
-<li>
-<p>Train and evaluation</p>
-</li>
-<li>
-<p>Predict with trained model</p>
+<h4 id="model-specification">Model specification</h4>
+<ol type="1">
+<li><p>Model definition</p></li>
+<li><p>Creat CNN model</p></li>
+<li><p>Define metrics</p></li>
+<li><p>Train and evaluation</p></li>
+<li><p>Predict with trained model</p>
 <ul>
-<li>
-<p>Full-sample evaluation</p>
+<li><p>Full-sample evaluation</p>
 <pre><code>Loss:0.53
 Accuracy:0.83
-  
+
 Classification Report:
               precision    recall  f1-score   support
-  
+
          0.0       0.91      0.70      0.79      1207
          1.0       0.77      0.94      0.85      1310
-  
+
     accuracy                           0.83      2517
    macro avg       0.84      0.82      0.82      2517
-weighted avg       0.84      0.83      0.82      2517
-</code></pre>
-</li>
-<li>
-<p>Out-of-sample evaluation (test dataset)</p>
+weighted avg       0.84      0.83      0.82      2517</code></pre></li>
+<li><p>Out-of-sample evaluation (test dataset)</p>
 <pre><code>Loss:0.58
 Accuracy:0.58
-  
+
 Classification Report:
               precision    recall  f1-score   support
-  
+
          0.0       0.58      0.28      0.38       352
          1.0       0.58      0.83      0.68       418
-  
+
     accuracy                           0.58       770
    macro avg       0.58      0.55      0.53       770
-weighted avg       0.58      0.58      0.54       770
-</code></pre>
-</li>
-<li>
-<p>Examples of trends</p>
+weighted avg       0.58      0.58      0.54       770</code></pre></li>
+<li><p>Examples of trends</p>
 <pre><code>Date
 2011-08-02    0.475409
 2011-08-01    0.533262
 2011-08-01    0.426512
 2011-08-01    0.278523
 2011-08-01    0.662444
-Name: Title, dtype: float64
-</code></pre>
-</li>
-<li>
-<p>Examples of titles</p>
+Name: Title, dtype: float64</code></pre></li>
+<li><p>Examples of titles</p>
 <pre><code>Date
 2014-11-28           Global Energy Advisory  28th November 2014
 2016-02-16       UAE Offers India Free Oil To Ease Storage Woes
 2017-10-09    Oil Stable After OPEC Chief Suggests Extraordi...
 2019-09-17                          Why Oil Prices Just Fell 6%
 2020-05-01             The Oil Nations On The Brink Of Collapse
-Name: Title, dtype: object
-</code></pre>
-</li>
-<li>
-<p>View all data (Table 6)</p>
-<center> Table 6 All processed data </center>
-  <table border="1" class="dataframe">
-    <thead>
-      <tr style="text-align: right;">
-        <th></th>
-        <th>Date</th>
-        <th>Movement</th>
-        <th>Title</th>
-        <th>Prediction</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <th>0</th>
-        <td>2011-08-01</td>
-        <td>0.0</td>
-        <td>Debt Ceiling Agreement Pushes Crude Oil Prices...</td>
-        <td>0.415019</td>
-      </tr>
-      <tr>
-        <th>1</th>
-        <td>2011-08-02</td>
-        <td>0.0</td>
-        <td>The Death of the Bond Vigilantes. Promising Ec...</td>
-        <td>0.247126</td>
-      </tr>
-      <tr>
-        <th>2</th>
-        <td>2011-08-03</td>
-        <td>0.0</td>
-        <td>What the Markets Are Telling Us. Putin Calls U...</td>
-        <td>0.304862</td>
-      </tr>
-      <tr>
-        <th>3</th>
-        <td>2011-08-04</td>
-        <td>0.0</td>
-        <td>China's Rare Earth Industry Coming under Great...</td>
-        <td>0.251284</td>
-      </tr>
-      <tr>
-        <th>4</th>
-        <td>2011-08-05</td>
-        <td>1.0</td>
-        <td>Here is Where to Watch for the Turn. Why High ...</td>
-        <td>0.777504</td>
-      </tr>
-      <tr>
-        <th>...</th>
-        <td>...</td>
-        <td>...</td>
-        <td>...</td>
-        <td>...</td>
-      </tr>
-      <tr>
-        <th>2512</th>
-        <td>2021-07-26</td>
-        <td>0.0</td>
-        <td>Can Iran Avoid A Major National Uprising?. Mid...</td>
-        <td>0.375821</td>
-      </tr>
-      <tr>
-        <th>2513</th>
-        <td>2021-07-27</td>
-        <td>0.0</td>
-        <td>The EV Battery Conundrum: Commodity Rally Coul...</td>
-        <td>0.409420</td>
-      </tr>
-      <tr>
-        <th>2514</th>
-        <td>2021-07-28</td>
-        <td>1.0</td>
-        <td>The Best Risk-Reward Plays In Oil. 5 Reasons W...</td>
-        <td>0.462076</td>
-      </tr>
-      <tr>
-        <th>2515</th>
-        <td>2021-07-29</td>
-        <td>1.0</td>
-        <td>Shrinking Global Populations Poses An Existent...</td>
-        <td>0.644484</td>
-      </tr>
-      <tr>
-        <th>2516</th>
-        <td>2021-07-30</td>
-        <td>1.0</td>
-        <td>Is Americas Oil Industry Too Big To Fail?. Net...</td>
-        <td>0.659020</td>
-      </tr>
-    </tbody>
-  </table>
-  <p>2517 rows × 4 columns</p>
-</li>
-</ul>
-</li>
-</ol>
-<h2 id="36-lda-topic-model"><a class="markdownIt-Anchor" href="#36-lda-topic-model"></a> 3.6 LDA topic model</h2>
-<h3 id="361-introduction"><a class="markdownIt-Anchor" href="#361-introduction"></a> 3.6.1 Introduction</h3>
-<p>Referring to <a target="_blank" rel="noopener" href="https://doi.org/10.1016/j.ijforecast.2018.07.006">Li et al.</a>, We also apply the Latent Dirichlet Allocation (LDA) modelling approach of <a target="_blank" rel="noopener" href="https://scholar.google.com/scholar?hl=en&amp;as_sdt=0%2C5&amp;q=Latent+Dirichlet+allocation.+Journal+of+Machine+Learning+Research&amp;btnG=">Blei, Ng, and Jordan (2003)</a> in order to identify latent topics embedded within the news headlines corpus. We mainly adopt two Python library, <a target="_blank" rel="noopener" href="https://github.com/MIND-Lab/OCTIS/blob/master/octis/evaluation_metrics/diversity_metrics.py#L12">OCITS</a> and <a target="_blank" rel="noopener" href="https://radimrehurek.com/gensim/">gensim</a>, for implementing the LDA model.</p>
-<p>The LDA model is based on the assumption that <strong>each document is a mixture of various topics, and each topic has a corresponding probability distribution for different words.</strong> Each document <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>d</mi></mrow><annotation encoding="application/x-tex">d</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault">d</span></span></span></span> is viewed as a multinomial distribution <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>θ</mi><mo stretchy="false">(</mo><mi>d</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">\theta (d)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">θ</span><span class="mopen">(</span><span class="mord mathdefault">d</span><span class="mclose">)</span></span></span></span> over <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>T</mi></mrow><annotation encoding="application/x-tex">T</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">T</span></span></span></span> topics, and each topic <span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>z</mi><mi>j</mi></msub></mrow><annotation encoding="application/x-tex">z_j</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.716668em;vertical-align:-0.286108em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.04398em;">z</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.311664em;"><span style="top:-2.5500000000000003em;margin-left:-0.04398em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.05724em;">j</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span></span></span></span>, <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>j</mi><mo>=</mo><mn>1</mn><mo>…</mo><mi>T</mi></mrow><annotation encoding="application/x-tex">j = 1 \dots T</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.85396em;vertical-align:-0.19444em;"></span><span class="mord mathdefault" style="margin-right:0.05724em;">j</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord">1</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="minner">…</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">T</span></span></span></span>, is assumed to have a multinomial distribution <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>ϕ</mi><mo stretchy="false">(</mo><mi>j</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">\phi (j)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">ϕ</span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.05724em;">j</span><span class="mclose">)</span></span></span></span> over the set of words <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>W</mi></mrow><annotation encoding="application/x-tex">W</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">W</span></span></span></span>. In order to uncover both the topics that are present and the distribution of these topics in each document from a corpus of documents, <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>D</mi></mrow><annotation encoding="application/x-tex">D</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">D</span></span></span></span>, estimates of <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>θ</mi></mrow><annotation encoding="application/x-tex">\theta</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">θ</span></span></span></span> and <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>ϕ</mi></mrow><annotation encoding="application/x-tex">\phi</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord mathdefault">ϕ</span></span></span></span> are required.</p>
-<p>Previously, topic models are usually compared by fixing their hyperparameters. However, <a target="_blank" rel="noopener" href="https://aclanthology.org/2021.eacl-demos.31/">Terragni et al.</a> points out that choosing the optimal hyperparameter configuration for given dataset and a given evaluation metrics is fundamental to induce each model at the best of its capabilities, and therefore to gurantee a fair comparison with othr models. Therefore, to select a optimal topic number for topic modelling, we employ a unified and open-source evaluation framework, <a target="_blank" rel="noopener" href="https://github.com/MIND-Lab/OCTIS">OCTIS</a> for comparing Topic Models, whose optimal hyper-parameters configuration can be determined according to Bayesian Optimization strategy (<a target="_blank" rel="noopener" href="https://scholar.google.com/scholar?hl=en&amp;as_sdt=0%2C5&amp;q=Bayesian+Optimization+and+Data+Science&amp;btnG=">Archetti and Candelieri, 2019</a>; <a target="_blank" rel="noopener" href="https://proceedings.neurips.cc/paper/2012/hash/05311655a15b75fab86956663e1819cd-Abstract.html">Snoek et al.</a>, 2012; <a target="_blank" rel="noopener" href="https://link.springer.com/article/10.1007/s10287-020-00376-3">Galuzzi et al., 2020</a>). The <a target="_blank" rel="noopener" href="https://scholar.google.com/scholar?hl=en&amp;as_sdt=0%2C5&amp;q=Leveraging+Kullback%E2%80%93Leibler+divergence+measures+and+information-rich+cues+for+speech+summarization&amp;btnG=">Kullback–Leibler (KL)</a> divergence approach was used to determine the topic number <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>T</mi></mrow><annotation encoding="application/x-tex">T</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">T</span></span></span></span>. The results see Table 6.</p>
-<center> Table 6 Topic_KL divergence of topic numbers, ranging from 2 to 19. </center>
+Name: Title, dtype: object</code></pre></li>
+<li><p>View all data (Table 6)</p>
+<center>
+<p>Table 6 All processed data</p>
+</center>
 <table border="1" class="dataframe">
-  <tbody>
-    <tr>
-      <td>Number of topics</td>
-      <td>2</td>
-      <td>3</td>
-      <td><b>4</b></td>
-      <td>5</td>
-      <td>6</td>
-      <td>7</td>
-      <td>8</td>
-      <td>9</td>
-      <td>10</td>      
-    </tr>
-    <tr>
-      <td>Topic_KL divergence</td>
-      <td>0.8879</td>
-      <td>1.0784</td>
-      <td><b>1.0139<b/></td>
-      <td>1.0088</td>
-      <td>0.9177</td>
-      <td>0.7942</td>
-      <td>0.7695</td>
-      <td>0.7423</td>
-      <td>0.627</td>
-    </tr>
-    <tr>
-      <td>Number of topics</td>
-      <td>11</td>
-      <td>12</td>
-      <td>13</td>
-      <td>14</td>
-      <td>15</td>
-      <td>16</td>
-      <td>17</td>
-      <td>18</td>
-      <td>19</td>
-    </tr>
-    <tr>
-      <td>Topic_KL divergence</td>
-      <td>0.5637</td>
-      <td>0.5432</td>
-      <td>0.5194</td>
-      <td>0.4878</td>
-      <td>0.5022</td>
-      <td>0.434</td>
-      <td>0.3936</td>
-      <td>0.3899</td>
-      <td>0.4147</td>
-    </tr>
-  </tbody>
+<thead>
+<tr style="text-align: right;">
+<th>
+</th>
+<th>
+<p>Date</p>
+</th>
+<th>
+<p>Movement</p>
+</th>
+<th>
+<p>Title</p>
+</th>
+<th>
+<p>Prediction</p>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>
+<p>0</p>
+</th>
+<td>
+<p>2011-08-01</p>
+</td>
+<td>
+<p>0.0</p>
+</td>
+<td>
+<p>Debt Ceiling Agreement Pushes Crude Oil Prices...</p>
+</td>
+<td>
+<p>0.415019</p>
+</td>
+</tr>
+<tr>
+<th>
+<p>1</p>
+</th>
+<td>
+<p>2011-08-02</p>
+</td>
+<td>
+<p>0.0</p>
+</td>
+<td>
+<p>The Death of the Bond Vigilantes. Promising Ec...</p>
+</td>
+<td>
+<p>0.247126</p>
+</td>
+</tr>
+<tr>
+<th>
+<p>2</p>
+</th>
+<td>
+<p>2011-08-03</p>
+</td>
+<td>
+<p>0.0</p>
+</td>
+<td>
+<p>What the Markets Are Telling Us. Putin Calls U...</p>
+</td>
+<td>
+<p>0.304862</p>
+</td>
+</tr>
+<tr>
+<th>
+<p>3</p>
+</th>
+<td>
+<p>2011-08-04</p>
+</td>
+<td>
+<p>0.0</p>
+</td>
+<td>
+<p>China's Rare Earth Industry Coming under Great...</p>
+</td>
+<td>
+<p>0.251284</p>
+</td>
+</tr>
+<tr>
+<th>
+<p>4</p>
+</th>
+<td>
+<p>2011-08-05</p>
+</td>
+<td>
+<p>1.0</p>
+</td>
+<td>
+<p>Here is Where to Watch for the Turn. Why High ...</p>
+</td>
+<td>
+<p>0.777504</p>
+</td>
+</tr>
+<tr>
+<th>
+<p>...</p>
+</th>
+<td>
+<p>...</p>
+</td>
+<td>
+<p>...</p>
+</td>
+<td>
+<p>...</p>
+</td>
+<td>
+<p>...</p>
+</td>
+</tr>
+<tr>
+<th>
+<p>2512</p>
+</th>
+<td>
+<p>2021-07-26</p>
+</td>
+<td>
+<p>0.0</p>
+</td>
+<td>
+<p>Can Iran Avoid A Major National Uprising?. Mid...</p>
+</td>
+<td>
+<p>0.375821</p>
+</td>
+</tr>
+<tr>
+<th>
+<p>2513</p>
+</th>
+<td>
+<p>2021-07-27</p>
+</td>
+<td>
+<p>0.0</p>
+</td>
+<td>
+<p>The EV Battery Conundrum: Commodity Rally Coul...</p>
+</td>
+<td>
+<p>0.409420</p>
+</td>
+</tr>
+<tr>
+<th>
+<p>2514</p>
+</th>
+<td>
+<p>2021-07-28</p>
+</td>
+<td>
+<p>1.0</p>
+</td>
+<td>
+<p>The Best Risk-Reward Plays In Oil. 5 Reasons W...</p>
+</td>
+<td>
+<p>0.462076</p>
+</td>
+</tr>
+<tr>
+<th>
+<p>2515</p>
+</th>
+<td>
+<p>2021-07-29</p>
+</td>
+<td>
+<p>1.0</p>
+</td>
+<td>
+<p>Shrinking Global Populations Poses An Existent...</p>
+</td>
+<td>
+<p>0.644484</p>
+</td>
+</tr>
+<tr>
+<th>
+<p>2516</p>
+</th>
+<td>
+<p>2021-07-30</p>
+</td>
+<td>
+<p>1.0</p>
+</td>
+<td>
+<p>Is Americas Oil Industry Too Big To Fail?. Net...</p>
+</td>
+<td>
+<p>0.659020</p>
+</td>
+</tr>
+</tbody>
 </table>
-<p>It can be see that the maximum KL divergence metric value is 1.0139, where the number of topic is 4. Therefore, we believe that the optimal number of topics for LDA model is 4. For each topic during each transaction day, we compute average scores for the results of the sentimentanalysis and CNN classifications, to form sentiment-topic features and CNN-topic features.</p>
+<p>
+<p>2517 rows × 4 columns</p>
+</p></li>
+</ul></li>
+</ol>
+<h2 id="lda-topic-model">3.6 LDA topic model</h2>
+<h3 id="introduction-4">3.6.1 Introduction</h3>
+<p>Referring to <a
+target="_blank" rel="noopener" href="https://doi.org/10.1016/j.ijforecast.2018.07.006">Li et al.</a>,
+We also apply the Latent Dirichlet Allocation (LDA) modelling approach
+of <a
+target="_blank" rel="noopener" href="https://scholar.google.com/scholar?hl=en&amp;as_sdt=0%2C5&amp;q=Latent+Dirichlet+allocation.+Journal+of+Machine+Learning+Research&amp;btnG=">Blei,
+Ng, and Jordan (2003)</a> in order to identify latent topics embedded
+within the news headlines corpus. We mainly adopt two Python library, <a
+target="_blank" rel="noopener" href="https://github.com/MIND-Lab/OCTIS/blob/master/octis/evaluation_metrics/diversity_metrics.py#L12">OCITS</a>
+and <a target="_blank" rel="noopener" href="https://radimrehurek.com/gensim/">gensim</a>, for
+implementing the LDA model.</p>
+<p>The LDA model is based on the assumption that <strong>each document
+is a mixture of various topics, and each topic has a corresponding
+probability distribution for different words.</strong> Each document
+<span class="math inline">\(d\)</span> is viewed as a multinomial
+distribution <span class="math inline">\(\theta (d)\)</span> over <span
+class="math inline">\(T\)</span> topics, and each topic <span
+class="math inline">\(z_j\)</span>, <span class="math inline">\(j = 1
+\dots T\)</span>, is assumed to have a multinomial distribution <span
+class="math inline">\(\phi (j)\)</span> over the set of words <span
+class="math inline">\(W\)</span>. In order to uncover both the topics
+that are present and the distribution of these topics in each document
+from a corpus of documents, <span class="math inline">\(D\)</span>,
+estimates of <span class="math inline">\(\theta\)</span> and <span
+class="math inline">\(\phi\)</span> are required.</p>
+<p>Previously, topic models are usually compared by fixing their
+hyperparameters. However, <a
+target="_blank" rel="noopener" href="https://aclanthology.org/2021.eacl-demos.31/">Terragni et al.</a>
+points out that choosing the optimal hyperparameter configuration for
+given dataset and a given evaluation metrics is fundamental to induce
+each model at the best of its capabilities, and therefore to gurantee a
+fair comparison with othr models. Therefore, to select a optimal topic
+number for topic modelling, we employ a unified and open-source
+evaluation framework, <a
+target="_blank" rel="noopener" href="https://github.com/MIND-Lab/OCTIS">OCTIS</a> for comparing Topic
+Models, whose optimal hyper-parameters configuration can be determined
+according to Bayesian Optimization strategy (<a
+target="_blank" rel="noopener" href="https://scholar.google.com/scholar?hl=en&amp;as_sdt=0%2C5&amp;q=Bayesian+Optimization+and+Data+Science&amp;btnG=">Archetti
+and Candelieri, 2019</a>; <a
+target="_blank" rel="noopener" href="https://proceedings.neurips.cc/paper/2012/hash/05311655a15b75fab86956663e1819cd-Abstract.html">Snoek
+et al.</a>, 2012; <a
+target="_blank" rel="noopener" href="https://link.springer.com/article/10.1007/s10287-020-00376-3">Galuzzi
+et al., 2020</a>). The <a
+target="_blank" rel="noopener" href="https://scholar.google.com/scholar?hl=en&amp;as_sdt=0%2C5&amp;q=Leveraging+Kullback%E2%80%93Leibler+divergence+measures+and+information-rich+cues+for+speech+summarization&amp;btnG=">Kullback–Leibler
+(KL)</a> divergence approach was used to determine the topic number
+<span class="math inline">\(T\)</span>. The results see Table 6.</p>
+<center>
+Table 6 Topic_KL divergence of topic numbers, ranging from 2 to 19.
+</center>
+<table border="1" class="dataframe">
+<tbody>
+<tr>
+<td>
+Number of topics
+</td>
+<td>
+2
+</td>
+<td>
+3
+</td>
+<td>
+<b>4</b>
+</td>
+<td>
+5
+</td>
+<td>
+6
+</td>
+<td>
+7
+</td>
+<td>
+8
+</td>
+<td>
+9
+</td>
+<td>
+10
+</td>
+</tr>
+<tr>
+<td>
+Topic_KL divergence
+</td>
+<td>
+0.8879
+</td>
+<td>
+1.0784
+</td>
+<td>
+<b>1.0139<b/>
+</td>
+<td>
+1.0088
+</td>
+<td>
+0.9177
+</td>
+<td>
+0.7942
+</td>
+<td>
+0.7695
+</td>
+<td>
+0.7423
+</td>
+<td>
+0.627
+</td>
+</tr>
+<tr>
+<td>
+Number of topics
+</td>
+<td>
+11
+</td>
+<td>
+12
+</td>
+<td>
+13
+</td>
+<td>
+14
+</td>
+<td>
+15
+</td>
+<td>
+16
+</td>
+<td>
+17
+</td>
+<td>
+18
+</td>
+<td>
+19
+</td>
+</tr>
+<tr>
+<td>
+Topic_KL divergence
+</td>
+<td>
+0.5637
+</td>
+<td>
+0.5432
+</td>
+<td>
+0.5194
+</td>
+<td>
+0.4878
+</td>
+<td>
+0.5022
+</td>
+<td>
+0.434
+</td>
+<td>
+0.3936
+</td>
+<td>
+0.3899
+</td>
+<td>
+0.4147
+</td>
+</tr>
+</tbody>
+</table>
+<p>It can be see that the maximum KL divergence metric value is 1.0139,
+where the number of topic is 4. Therefore, we believe that the optimal
+number of topics for LDA model is 4. For each topic during each
+transaction day, we compute average scores for the results of the
+sentimentanalysis and CNN classifications, to form sentiment-topic
+features and CNN-topic features.</p>
 <p>These topic features are defined as follows:</p>
 <ul>
-<li>
-<p>Sentiment-topic score of topic <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>k</mi></mrow><annotation encoding="application/x-tex">k</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.03148em;">k</span></span></span></span> on day <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>t</mi></mrow><annotation encoding="application/x-tex">t</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.61508em;vertical-align:0em;"></span><span class="mord mathdefault">t</span></span></span></span>:</p>
-<p class='katex-block'><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>S</mi><msub><mi>E</mi><mrow><mi>k</mi><mo separator="true">,</mo><mi>t</mi></mrow></msub><mo>=</mo><mfrac><mn>1</mn><msub><mi>n</mi><mrow><mi>k</mi><mo separator="true">,</mo><mi>t</mi></mrow></msub></mfrac><mo>∑</mo><mi>S</mi><msub><mi>E</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">SE_{k,t} = \frac{1}{n_{k,t}} \sum SE_i
-</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.969438em;vertical-align:-0.286108em;"></span><span class="mord mathdefault" style="margin-right:0.05764em;">S</span><span class="mord"><span class="mord mathdefault" style="margin-right:0.05764em;">E</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361079999999999em;"><span style="top:-2.5500000000000003em;margin-left:-0.05764em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight" style="margin-right:0.03148em;">k</span><span class="mpunct mtight">,</span><span class="mord mathdefault mtight">t</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:2.293548em;vertical-align:-0.972108em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.32144em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord"><span class="mord mathdefault">n</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361079999999999em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight" style="margin-right:0.03148em;">k</span><span class="mpunct mtight">,</span><span class="mord mathdefault mtight">t</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.972108em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mop op-symbol large-op" style="position:relative;top:-0.000004999999999977245em;">∑</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.05764em;">S</span><span class="mord"><span class="mord mathdefault" style="margin-right:0.05764em;">E</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:-0.05764em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span></span></p>
-</li>
-<li>
-<p>Polarity-topic score of topic <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>k</mi></mrow><annotation encoding="application/x-tex">k</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.03148em;">k</span></span></span></span> on day <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>t</mi></mrow><annotation encoding="application/x-tex">t</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.61508em;vertical-align:0em;"></span><span class="mord mathdefault">t</span></span></span></span>:</p>
-<p class='katex-block'><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>P</mi><mrow><mi>k</mi><mo separator="true">,</mo><mi>t</mi></mrow></msub><mo>=</mo><mfrac><mn>1</mn><msub><mi>n</mi><mrow><mi>k</mi><mo separator="true">,</mo><mi>t</mi></mrow></msub></mfrac><mo>∑</mo><msub><mi>P</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">P_{k,t} = \frac{1}{n_{k,t}} \sum P_i
-</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.969438em;vertical-align:-0.286108em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.13889em;">P</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361079999999999em;"><span style="top:-2.5500000000000003em;margin-left:-0.13889em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight" style="margin-right:0.03148em;">k</span><span class="mpunct mtight">,</span><span class="mord mathdefault mtight">t</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:2.293548em;vertical-align:-0.972108em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.32144em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord"><span class="mord mathdefault">n</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361079999999999em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight" style="margin-right:0.03148em;">k</span><span class="mpunct mtight">,</span><span class="mord mathdefault mtight">t</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.972108em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mop op-symbol large-op" style="position:relative;top:-0.000004999999999977245em;">∑</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.13889em;">P</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:-0.13889em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span></span></p>
-</li>
-<li>
-<p>Subjectivity-topic score of topic <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>k</mi></mrow><annotation encoding="application/x-tex">k</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.03148em;">k</span></span></span></span> on day <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>t</mi></mrow><annotation encoding="application/x-tex">t</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.61508em;vertical-align:0em;"></span><span class="mord mathdefault">t</span></span></span></span>:</p>
-<p class='katex-block'><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>S</mi><msub><mi>U</mi><mrow><mi>k</mi><mo separator="true">,</mo><mi>t</mi></mrow></msub><mo>=</mo><mfrac><mn>1</mn><msub><mi>n</mi><mrow><mi>k</mi><mo separator="true">,</mo><mi>t</mi></mrow></msub></mfrac><mo>∑</mo><mi>S</mi><msub><mi>U</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">SU_{k,t} = \frac{1}{n_{k,t}} \sum SU_i
-</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.969438em;vertical-align:-0.286108em;"></span><span class="mord mathdefault" style="margin-right:0.05764em;">S</span><span class="mord"><span class="mord mathdefault" style="margin-right:0.10903em;">U</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361079999999999em;"><span style="top:-2.5500000000000003em;margin-left:-0.10903em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight" style="margin-right:0.03148em;">k</span><span class="mpunct mtight">,</span><span class="mord mathdefault mtight">t</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:2.293548em;vertical-align:-0.972108em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.32144em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord"><span class="mord mathdefault">n</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361079999999999em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight" style="margin-right:0.03148em;">k</span><span class="mpunct mtight">,</span><span class="mord mathdefault mtight">t</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.972108em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mop op-symbol large-op" style="position:relative;top:-0.000004999999999977245em;">∑</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.05764em;">S</span><span class="mord"><span class="mord mathdefault" style="margin-right:0.10903em;">U</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:-0.10903em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span></span></p>
-</li>
-<li>
-<p>CNN-topic score of topic <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>k</mi></mrow><annotation encoding="application/x-tex">k</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.03148em;">k</span></span></span></span> on day <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>t</mi></mrow><annotation encoding="application/x-tex">t</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.61508em;vertical-align:0em;"></span><span class="mord mathdefault">t</span></span></span></span>:</p>
-<p class='katex-block'><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>C</mi><mrow><mi>k</mi><mo separator="true">,</mo><mi>t</mi></mrow></msub><mo>=</mo><mfrac><mn>1</mn><msub><mi>n</mi><mrow><mi>k</mi><mo separator="true">,</mo><mi>t</mi></mrow></msub></mfrac><mo>∑</mo><msub><mi>C</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">C_{k, t} = \frac{1}{n_{k,t}} \sum C_i
-</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.969438em;vertical-align:-0.286108em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.07153em;">C</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361079999999999em;"><span style="top:-2.5500000000000003em;margin-left:-0.07153em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight" style="margin-right:0.03148em;">k</span><span class="mpunct mtight">,</span><span class="mord mathdefault mtight">t</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:2.293548em;vertical-align:-0.972108em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.32144em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord"><span class="mord mathdefault">n</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361079999999999em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight" style="margin-right:0.03148em;">k</span><span class="mpunct mtight">,</span><span class="mord mathdefault mtight">t</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.972108em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mop op-symbol large-op" style="position:relative;top:-0.000004999999999977245em;">∑</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.07153em;">C</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:-0.07153em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span></span></p>
-<p>Where <span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>n</mi><mrow><mi>k</mi><mo separator="true">,</mo><mi>t</mi></mrow></msub></mrow><annotation encoding="application/x-tex">n_{k, t}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.716668em;vertical-align:-0.286108em;"></span><span class="mord"><span class="mord mathdefault">n</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361079999999999em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight" style="margin-right:0.03148em;">k</span><span class="mpunct mtight">,</span><span class="mord mathdefault mtight">t</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span></span></span></span> is the total number of news headlines (or full-text) from topic <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>k</mi></mrow><annotation encoding="application/x-tex">k</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.03148em;">k</span></span></span></span> on day <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>t</mi></mrow><annotation encoding="application/x-tex">t</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.61508em;vertical-align:0em;"></span><span class="mord mathdefault">t</span></span></span></span>, <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>S</mi><msub><mi>E</mi><mrow><mi>k</mi><mo separator="true">,</mo><mi>t</mi></mrow></msub></mrow><annotation encoding="application/x-tex">SE_{k,t}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.969438em;vertical-align:-0.286108em;"></span><span class="mord mathdefault" style="margin-right:0.05764em;">S</span><span class="mord"><span class="mord mathdefault" style="margin-right:0.05764em;">E</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361079999999999em;"><span style="top:-2.5500000000000003em;margin-left:-0.05764em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight" style="margin-right:0.03148em;">k</span><span class="mpunct mtight">,</span><span class="mord mathdefault mtight">t</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span></span></span></span> is the investor sentiment (including postive, negative and neutral) of news headline (or full-text) <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>i</mi></mrow><annotation encoding="application/x-tex">i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.65952em;vertical-align:0em;"></span><span class="mord mathdefault">i</span></span></span></span> belonging to topic <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>k</mi></mrow><annotation encoding="application/x-tex">k</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.03148em;">k</span></span></span></span> on day <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>t</mi></mrow><annotation encoding="application/x-tex">t</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.61508em;vertical-align:0em;"></span><span class="mord mathdefault">t</span></span></span></span>. <span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>P</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">P_i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.13889em;">P</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:-0.13889em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>, <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>S</mi><msub><mi>U</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">SU_i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="mord mathdefault" style="margin-right:0.05764em;">S</span><span class="mord"><span class="mord mathdefault" style="margin-right:0.10903em;">U</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:-0.10903em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span> are the polarity score and subjectivity score of news headline (or full-text) <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>i</mi></mrow><annotation encoding="application/x-tex">i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.65952em;vertical-align:0em;"></span><span class="mord mathdefault">i</span></span></span></span> belonging to topic <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>k</mi></mrow><annotation encoding="application/x-tex">k</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.03148em;">k</span></span></span></span> on day <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>t</mi></mrow><annotation encoding="application/x-tex">t</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.61508em;vertical-align:0em;"></span><span class="mord mathdefault">t</span></span></span></span>, respectively.</p>
-</li>
+<li><p>Sentiment-topic score of topic <span
+class="math inline">\(k\)</span> on day <span
+class="math inline">\(t\)</span>:</p>
+<p><span class="math display">\[SE_{k,t} = \frac{1}{n_{k,t}} \sum
+SE_i\]</span></p></li>
+<li><p>Polarity-topic score of topic <span
+class="math inline">\(k\)</span> on day <span
+class="math inline">\(t\)</span>:</p>
+<p><span class="math display">\[P_{k,t} = \frac{1}{n_{k,t}} \sum
+P_i\]</span></p></li>
+<li><p>Subjectivity-topic score of topic <span
+class="math inline">\(k\)</span> on day <span
+class="math inline">\(t\)</span>:</p>
+<p><span class="math display">\[SU_{k,t} = \frac{1}{n_{k,t}} \sum
+SU_i\]</span></p></li>
+<li><p>CNN-topic score of topic <span class="math inline">\(k\)</span>
+on day <span class="math inline">\(t\)</span>:</p>
+<p><span class="math display">\[C_{k, t} = \frac{1}{n_{k,t}} \sum
+C_i\]</span></p>
+<p>Where <span class="math inline">\(n_{k, t}\)</span> is the total
+number of news headlines (or full-text) from topic <span
+class="math inline">\(k\)</span> on day <span
+class="math inline">\(t\)</span>, <span
+class="math inline">\(SE_{k,t}\)</span> is the investor sentiment
+(including postive, negative and neutral) of news headline (or
+full-text) <span class="math inline">\(i\)</span> belonging to topic
+<span class="math inline">\(k\)</span> on day <span
+class="math inline">\(t\)</span>. <span
+class="math inline">\(P_i\)</span>, <span
+class="math inline">\(SU_i\)</span> are the polarity score and
+subjectivity score of news headline (or full-text) <span
+class="math inline">\(i\)</span> belonging to topic <span
+class="math inline">\(k\)</span> on day <span
+class="math inline">\(t\)</span>, respectively.</p></li>
 </ul>
-<h3 id="362-code-implementation"><a class="markdownIt-Anchor" href="#362-code-implementation"></a> 3.6.2 Code implementation</h3>
-<h4 id="configurations"><a class="markdownIt-Anchor" href="#configurations"></a> Configurations</h4>
-<ol>
+<h3 id="code-implementation-1">3.6.2 Code implementation</h3>
+<h4 id="configurations">Configurations</h4>
+<ol type="1">
 <li>Import moduls</li>
 <li>Stopwords</li>
 <li>Load data</li>
 <li>Load dataset</li>
 <li>Build vocabulary (vocab size: 7653)</li>
 </ol>
-<h4 id="choosing-the-optimal-topic-numbers-with-octis"><a class="markdownIt-Anchor" href="#choosing-the-optimal-topic-numbers-with-octis"></a> Choosing the optimal topic numbers with OCTIS</h4>
+<h4 id="choosing-the-optimal-topic-numbers-with-octis">Choosing the
+optimal topic numbers with OCTIS</h4>
 <ul>
-<li>
-<p>Calculate KL_divergences, see Table 7:</p>
-  <center> Table 7 KL_divergences for different numbers of topic models </center>
+<li><p>Calculate KL_divergences, see Table 7:</p>
+<center>
+<p>Table 7 KL_divergences for different numbers of topic models</p>
+</center>
 <table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>0</th>
-      <th>1</th>
-      <th>2</th>
-      <th>3</th>
-      <th>4</th>
-      <th>5</th>
-      <th>6</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>Number of topics</td>
-      <td>2</td>
-      <td>3</td>
-      <td>4</td>
-      <td>5</td>
-      <td>6</td>
-      <td>7</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>Topic_KL divergence</td>
-      <td>0.8879</td>
-      <td>1.0784</td>
-      <td>1.0139</td>
-      <td>1.0088</td>
-      <td>0.9177</td>
-      <td>0.7942</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>Number of topics</td>
-      <td>8</td>
-      <td>9</td>
-      <td>10</td>
-      <td>11</td>
-      <td>12</td>
-      <td>13</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>Topic_KL divergence</td>
-      <td>0.7695</td>
-      <td>0.7423</td>
-      <td>0.627</td>
-      <td>0.5637</td>
-      <td>0.5432</td>
-      <td>0.5194</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>Number of topics</td>
-      <td>14</td>
-      <td>15</td>
-      <td>16</td>
-      <td>17</td>
-      <td>18</td>
-      <td>19</td>
-    </tr>
-    <tr>
-      <th>5</th>
-      <td>Topic_KL divergence</td>
-      <td>0.4878</td>
-      <td>0.5022</td>
-      <td>0.434</td>
-      <td>0.3936</td>
-      <td>0.3899</td>
-      <td>0.4147</td>
-    </tr>
-  </tbody>
-  </table>
-<p><strong>Conclusion</strong>: It can be see that the maximum KL divergence metric value is 1.0139, where the number of topic is 4. Therefore, we believe that the optimal number of topics for LDA model is 4.</p>
-</li>
+<thead>
+<tr style="text-align: right;">
+<th>
+</th>
+<th>
+<p>0</p>
+</th>
+<th>
+<p>1</p>
+</th>
+<th>
+<p>2</p>
+</th>
+<th>
+<p>3</p>
+</th>
+<th>
+<p>4</p>
+</th>
+<th>
+<p>5</p>
+</th>
+<th>
+<p>6</p>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>
+<p>0</p>
+</th>
+<td>
+<p>Number of topics</p>
+</td>
+<td>
+<p>2</p>
+</td>
+<td>
+<p>3</p>
+</td>
+<td>
+<p>4</p>
+</td>
+<td>
+<p>5</p>
+</td>
+<td>
+<p>6</p>
+</td>
+<td>
+<p>7</p>
+</td>
+</tr>
+<tr>
+<th>
+<p>1</p>
+</th>
+<td>
+<p>Topic_KL divergence</p>
+</td>
+<td>
+<p>0.8879</p>
+</td>
+<td>
+<p>1.0784</p>
+</td>
+<td>
+<p>1.0139</p>
+</td>
+<td>
+<p>1.0088</p>
+</td>
+<td>
+<p>0.9177</p>
+</td>
+<td>
+<p>0.7942</p>
+</td>
+</tr>
+<tr>
+<th>
+<p>2</p>
+</th>
+<td>
+<p>Number of topics</p>
+</td>
+<td>
+<p>8</p>
+</td>
+<td>
+<p>9</p>
+</td>
+<td>
+<p>10</p>
+</td>
+<td>
+<p>11</p>
+</td>
+<td>
+<p>12</p>
+</td>
+<td>
+<p>13</p>
+</td>
+</tr>
+<tr>
+<th>
+<p>3</p>
+</th>
+<td>
+<p>Topic_KL divergence</p>
+</td>
+<td>
+<p>0.7695</p>
+</td>
+<td>
+<p>0.7423</p>
+</td>
+<td>
+<p>0.627</p>
+</td>
+<td>
+<p>0.5637</p>
+</td>
+<td>
+<p>0.5432</p>
+</td>
+<td>
+<p>0.5194</p>
+</td>
+</tr>
+<tr>
+<th>
+<p>4</p>
+</th>
+<td>
+<p>Number of topics</p>
+</td>
+<td>
+<p>14</p>
+</td>
+<td>
+<p>15</p>
+</td>
+<td>
+<p>16</p>
+</td>
+<td>
+<p>17</p>
+</td>
+<td>
+<p>18</p>
+</td>
+<td>
+<p>19</p>
+</td>
+</tr>
+<tr>
+<th>
+<p>5</p>
+</th>
+<td>
+<p>Topic_KL divergence</p>
+</td>
+<td>
+<p>0.4878</p>
+</td>
+<td>
+<p>0.5022</p>
+</td>
+<td>
+<p>0.434</p>
+</td>
+<td>
+<p>0.3936</p>
+</td>
+<td>
+<p>0.3899</p>
+</td>
+<td>
+<p>0.4147</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Conclusion</strong>: It can be see that the maximum KL
+divergence metric value is 1.0139, where the number of topic is 4.
+Therefore, we believe that the optimal number of topics for LDA model is
+4.</p></li>
 </ul>
-<h4 id="topic-modelling-with-gensim"><a class="markdownIt-Anchor" href="#topic-modelling-with-gensim"></a> Topic modelling with gensim</h4>
-<ol>
-<li>
-<p>Participle</p>
-</li>
-<li>
-<p>Lemmatization</p>
+<h4 id="topic-modelling-with-gensim">Topic modelling with gensim</h4>
+<ol type="1">
+<li><p>Participle</p></li>
+<li><p>Lemmatization</p>
 <p>Results see Table 8:</p>
- <center> Table 8 An example of news after lemmatizing  </center>
- <table border="1" class="dataframe">
-   <thead>
-     <tr style="text-align: right;">
-       <th></th>
-       <th>Date</th>
-       <th>Price</th>
-       <th>Movement</th>
-       <th>Title</th>
-       <th>Time</th>
-       <th>Trends</th>
-       <th>Title_senti</th>
-       <th>Title_Prediction</th>
-       <th>Title_Pos</th>
-       <th>Title_Neg</th>
-       <th>...</th>
-       <th>Content_Pos</th>
-       <th>Content_Neg</th>
-       <th>Content_Neutral</th>
-       <th>Polarity_score</th>
-       <th>Subjectivity_score</th>
-       <th>Content_Polarity_score</th>
-       <th>Content_Subjectivity_score</th>
-       <th>Title_tokenize</th>
-       <th>Title_tokenize_list</th>
-       <th>Lemmatization</th>
-     </tr>
-   </thead>
-   <tbody>
-     <tr>
-       <th>0</th>
-       <td>8/2/2011</td>
-       <td>93.79</td>
-       <td>0</td>
-       <td>The Death of the Bond Vigilantes</td>
-       <td>8/1/2011 18:00</td>
-       <td>0.475409</td>
-       <td>-0.453832</td>
-       <td>negative</td>
-       <td>0.036499</td>
-       <td>0.490331</td>
-       <td>...</td>
-       <td>0.036499</td>
-       <td>0.490331</td>
-       <td>0.47317</td>
-       <td>0.0</td>
-       <td>0.0</td>
-       <td>0.006143</td>
-       <td>0.469498</td>
-       <td>The Death of the Bond Vigilantes</td>
-       <td>[The, Death, of, the, Bond, Vigilantes]</td>
-       <td>[Death, Bond, Vigilantes]</td>
-     </tr>
-   </tbody>
- </table>
- <p><b>Shape</b>: 1 rows × 23 columns</p>
-</li>
-<li>
-<p>Remove stopwords (see Table 9)</p>
- <center> Table 9 5 examples of news after removing stopwords  </center>
- <table border="1" class="dataframe">
-   <thead>
-     <tr style="text-align: right;">
-       <th></th>
-       <th>Date</th>
-       <th>Price</th>
-       <th>Movement</th>
-       <th>Title</th>
-       <th>Time</th>
-       <th>Trends</th>
-       <th>Title_senti</th>
-       <th>Title_Prediction</th>
-       <th>Title_Pos</th>
-       <th>Title_Neg</th>
-       <th>...</th>
-       <th>Content_Neg</th>
-       <th>Content_Neutral</th>
-       <th>Polarity_score</th>
-       <th>Subjectivity_score</th>
-       <th>Content_Polarity_score</th>
-       <th>Content_Subjectivity_score</th>
-       <th>Title_tokenize</th>
-       <th>Title_tokenize_list</th>
-       <th>Lemmatization</th>
-       <th>Lemma_stopwords</th>
-     </tr>
-   </thead>
-   <tbody>
-     <tr>
-       <th>0</th>
-       <td>8/2/2011</td>
-       <td>93.79</td>
-       <td>0</td>
-       <td>The Death of the Bond Vigilantes</td>
-       <td>8/1/2011 18:00</td>
-       <td>0.475409</td>
-       <td>-0.453832</td>
-       <td>negative</td>
-       <td>0.036499</td>
-       <td>0.490331</td>
-       <td>...</td>
-       <td>0.490331</td>
-       <td>0.473170</td>
-       <td>0.000</td>
-       <td>0.00</td>
-       <td>0.006143</td>
-       <td>0.469498</td>
-       <td>The Death of the Bond Vigilantes</td>
-       <td>[The, Death, of, the, Bond, Vigilantes]</td>
-       <td>[Death, Bond, Vigilantes]</td>
-       <td>[Death, Bond, Vigilantes]</td>
-     </tr>
-     <tr>
-       <th>1</th>
-       <td>8/1/2011</td>
-       <td>94.89</td>
-       <td>0</td>
-       <td>Debt Ceiling Agreement Pushes Crude Oil Prices...</td>
-       <td>8/1/2011 08:50</td>
-       <td>0.533262</td>
-       <td>-0.865410</td>
-       <td>negative</td>
-       <td>0.050545</td>
-       <td>0.915956</td>
-       <td>...</td>
-       <td>0.915956</td>
-       <td>0.033499</td>
-       <td>-0.225</td>
-       <td>0.75</td>
-       <td>-0.025652</td>
-       <td>0.416797</td>
-       <td>Debt Ceiling Agreement Pushes Crude Oil Prices...</td>
-       <td>[Debt, Ceiling, Agreement, Pushes, Crude, Oil,...</td>
-       <td>[Debt, Ceiling, Agreement, push, Crude, Oil, p...</td>
-       <td>[Debt, Ceiling, Agreement, push, Crude, price,...</td>
-     </tr>
-     <tr>
-       <th>2</th>
-       <td>8/1/2011</td>
-       <td>94.89</td>
-       <td>0</td>
-       <td>Biofuels and Tequila: Agave May Make a Suitabl...</td>
-       <td>8/1/2011 07:12</td>
-       <td>0.426512</td>
-       <td>0.309331</td>
-       <td>neutral</td>
-       <td>0.316535</td>
-       <td>0.007204</td>
-       <td>...</td>
-       <td>0.007204</td>
-       <td>0.676260</td>
-       <td>0.550</td>
-       <td>0.75</td>
-       <td>0.150435</td>
-       <td>0.560072</td>
-       <td>Biofuels and Tequila : Agave May Make a Suitab...</td>
-       <td>[Biofuels, and, Tequila, :, Agave, May, Make, ...</td>
-       <td>[Biofuels, Tequila, Agave, May, make, suitable...</td>
-       <td>[Biofuels, Tequila, Agave, May, make, suitable...</td>
-     </tr>
-     <tr>
-       <th>3</th>
-       <td>8/1/2011</td>
-       <td>94.89</td>
-       <td>0</td>
-       <td>Jesters, Economics, and American Dollar Supremacy</td>
-       <td>8/1/2011 07:18</td>
-       <td>0.278523</td>
-       <td>0.001767</td>
-       <td>neutral</td>
-       <td>0.038573</td>
-       <td>0.036806</td>
-       <td>...</td>
-       <td>0.036806</td>
-       <td>0.924621</td>
-       <td>0.000</td>
-       <td>0.00</td>
-       <td>0.056149</td>
-       <td>0.392723</td>
-       <td>Jesters , Economics , and American Dollar Supr...</td>
-       <td>[Jesters, ,, Economics, ,, and, American, Doll...</td>
-       <td>[Jesters, Economics, American, Dollar, Supremacy]</td>
-       <td>[Jesters, Economics, American, Dollar, Supremacy]</td>
-     </tr>
-     <tr>
-       <th>4</th>
-       <td>8/1/2011</td>
-       <td>94.89</td>
-       <td>0</td>
-       <td>Natural Gas Analysis for the Week of August 1,...</td>
-       <td>8/1/2011 07:15</td>
-       <td>0.662444</td>
-       <td>-0.032567</td>
-       <td>neutral</td>
-       <td>0.020734</td>
-       <td>0.053301</td>
-       <td>...</td>
-       <td>0.053301</td>
-       <td>0.925965</td>
-       <td>0.100</td>
-       <td>0.40</td>
-       <td>0.099722</td>
-       <td>0.475185</td>
-       <td>Natural Gas Analysis for the Week of August 1 ...</td>
-       <td>[Natural, Gas, Analysis, for, the, Week, of, A...</td>
-       <td>[Natural, Gas, Analysis, Week, August]</td>
-       <td>[Natural, Gas, Analysis, Week, August]</td>
-     </tr>
-   </tbody>
- </table>
- <p><b>Shape</b>: 5 rows × 24 columns</p>
-</li>
-<li>
-<p>Build the bigram</p>
- <center> Table 10 5 examples of news after bigram processing  </center>
- <table border="1" class="dataframe">
-   <thead>
-     <tr style="text-align: right;">
-       <th></th>
-       <th>Date</th>
-       <th>Price</th>
-       <th>Movement</th>
-       <th>Title</th>
-       <th>Time</th>
-       <th>Trends</th>
-       <th>Title_senti</th>
-       <th>Title_Prediction</th>
-       <th>Title_Pos</th>
-       <th>Title_Neg</th>
-       <th>...</th>
-       <th>Polarity_score</th>
-       <th>Subjectivity_score</th>
-       <th>Content_Polarity_score</th>
-       <th>Content_Subjectivity_score</th>
-       <th>Title_tokenize</th>
-       <th>Title_tokenize_list</th>
-       <th>Lemmatization</th>
-       <th>Lemma_stopwords</th>
-       <th>Bigrams</th>
-       <th>Trigrams</th>
-     </tr>
-   </thead>
-   <tbody>
-     <tr>
-       <th>24037</th>
-       <td>7/1/2021</td>
-       <td>75.23</td>
-       <td>1</td>
-       <td>Iraq Uses Controversial Oil Deal To Secure Fun...</td>
-       <td>6/30/2021 18:00</td>
-       <td>0.656656</td>
-       <td>0.642171</td>
-       <td>positive</td>
-       <td>0.657396</td>
-       <td>0.015225</td>
-       <td>...</td>
-       <td>0.475</td>
-       <td>0.775</td>
-       <td>0.037309</td>
-       <td>0.361200</td>
-       <td>Iraq Uses Controversial Oil Deal To Secure Fun...</td>
-       <td>[Iraq, Uses, Controversial, Oil, Deal, To, Sec...</td>
-       <td>[Iraq, use, Controversial, Oil, deal, secure, ...</td>
-       <td>[Iraq, use, Controversial, deal, secure, fundi...</td>
-       <td>[Iraq, use, Controversial, deal, secure, fundi...</td>
-       <td>[Iraq, use, Controversial, deal, secure, fundi...</td>
-     </tr>
-     <tr>
-       <th>8990</th>
-       <td>7/5/2016</td>
-       <td>46.60</td>
-       <td>0</td>
-       <td>U.S. Sees Largest Monthly Production Decline S...</td>
-       <td>7/2/2016 08:27</td>
-       <td>0.475362</td>
-       <td>-0.964390</td>
-       <td>negative</td>
-       <td>0.007528</td>
-       <td>0.971918</td>
-       <td>...</td>
-       <td>0.000</td>
-       <td>0.000</td>
-       <td>0.147672</td>
-       <td>0.551499</td>
-       <td>U.S. Sees Largest Monthly Production Decline S...</td>
-       <td>[U.S., Sees, Largest, Monthly, Production, Dec...</td>
-       <td>[U.S., see, large, monthly, production, declin...</td>
-       <td>[U.S., see, large, monthly, production, declin...</td>
-       <td>[U.S., see, large, monthly, production, declin...</td>
-       <td>[U.S., see, large, monthly, production, declin...</td>
-     </tr>
-     <tr>
-       <th>14319</th>
-       <td>5/7/2018</td>
-       <td>70.73</td>
-       <td>1</td>
-       <td>Banking Giants To Choose Sides In Saudi-Qatar ...</td>
-       <td>5/5/2018 16:00</td>
-       <td>0.713667</td>
-       <td>0.060967</td>
-       <td>neutral</td>
-       <td>0.080845</td>
-       <td>0.019878</td>
-       <td>...</td>
-       <td>0.000</td>
-       <td>0.000</td>
-       <td>0.063642</td>
-       <td>0.385634</td>
-       <td>Banking Giants To Choose Sides In Saudi-Qatar ...</td>
-       <td>[Banking, Giants, To, Choose, Sides, In, Saudi...</td>
-       <td>[banking, giant, choose, side, Saudi, Qatar, R...</td>
-       <td>[banking, giant, choose, side, Saudi, Qatar, R...</td>
-       <td>[banking, giant, choose, side, Saudi, Qatar, R...</td>
-       <td>[banking, giant, choose, side, Saudi, Qatar, R...</td>
-     </tr>
-     <tr>
-       <th>24237</th>
-       <td>7/22/2021</td>
-       <td>71.91</td>
-       <td>1</td>
-       <td>China Taps Into Crude Reserves To Curb Oil Pri...</td>
-       <td>7/22/2021 10:00</td>
-       <td>0.778163</td>
-       <td>0.539656</td>
-       <td>positive</td>
-       <td>0.599639</td>
-       <td>0.059983</td>
-       <td>...</td>
-       <td>-0.700</td>
-       <td>1.000</td>
-       <td>-0.088148</td>
-       <td>0.504259</td>
-       <td>China Taps Into Crude Reserves To Curb Oil Pri...</td>
-       <td>[China, Taps, Into, Crude, Reserves, To, Curb,...</td>
-       <td>[China, tap, crude, reserve, Curb, Oil, Price,...</td>
-       <td>[China, tap, crude, reserve, Curb, Price, Rally]</td>
-       <td>[China, tap, crude, reserve, Curb, Price, Rally]</td>
-       <td>[China, tap, crude, reserve, Curb, Price, Rally]</td>
-     </tr>
-     <tr>
-       <th>22368</th>
-       <td>12/17/2020</td>
-       <td>48.36</td>
-       <td>1</td>
-       <td>An Under-The-Radar Opportunity In LNG</td>
-       <td>12/17/2020 13:00</td>
-       <td>0.293937</td>
-       <td>0.543063</td>
-       <td>positive</td>
-       <td>0.559450</td>
-       <td>0.016386</td>
-       <td>...</td>
-       <td>0.000</td>
-       <td>0.000</td>
-       <td>0.109774</td>
-       <td>0.374197</td>
-       <td>An Under-The-Radar Opportunity In LNG</td>
-       <td>[An, Under-The-Radar, Opportunity, In, LNG]</td>
-       <td>[radar, opportunity, LNG]</td>
-       <td>[radar, opportunity, LNG]</td>
-       <td>[radar, opportunity, LNG]</td>
-       <td>[radar, opportunity, LNG]</td>
-     </tr>
-   </tbody>
- </table>
- <p><b>Shape</b>: 5 rows × 26 columns</p>
-</li>
-<li>
-<p>Creat dictionary (Word2id &amp; id2word)</p>
-</li>
-<li>
-<p>Build LDA model</p>
-<p>We have determined the optimal topic_nums (4) with the help of <code>OCTIS</code> module. So we build a LDA model with 4 topics.</p>
+<center>
+<p>Table 8 An example of news after lemmatizing</p>
+</center>
+<table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th>
+</th>
+<th>
+<p>Date</p>
+</th>
+<th>
+<p>Price</p>
+</th>
+<th>
+<p>Movement</p>
+</th>
+<th>
+<p>Title</p>
+</th>
+<th>
+<p>Time</p>
+</th>
+<th>
+<p>Trends</p>
+</th>
+<th>
+<p>Title_senti</p>
+</th>
+<th>
+<p>Title_Prediction</p>
+</th>
+<th>
+<p>Title_Pos</p>
+</th>
+<th>
+<p>Title_Neg</p>
+</th>
+<th>
+<p>...</p>
+</th>
+<th>
+<p>Content_Pos</p>
+</th>
+<th>
+<p>Content_Neg</p>
+</th>
+<th>
+<p>Content_Neutral</p>
+</th>
+<th>
+<p>Polarity_score</p>
+</th>
+<th>
+<p>Subjectivity_score</p>
+</th>
+<th>
+<p>Content_Polarity_score</p>
+</th>
+<th>
+<p>Content_Subjectivity_score</p>
+</th>
+<th>
+<p>Title_tokenize</p>
+</th>
+<th>
+<p>Title_tokenize_list</p>
+</th>
+<th>
+<p>Lemmatization</p>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>
+<p>0</p>
+</th>
+<td>
+<p>8/2/2011</p>
+</td>
+<td>
+<p>93.79</p>
+</td>
+<td>
+<p>0</p>
+</td>
+<td>
+<p>The Death of the Bond Vigilantes</p>
+</td>
+<td>
+<p>8/1/2011 18:00</p>
+</td>
+<td>
+<p>0.475409</p>
+</td>
+<td>
+<p>-0.453832</p>
+</td>
+<td>
+<p>negative</p>
+</td>
+<td>
+<p>0.036499</p>
+</td>
+<td>
+<p>0.490331</p>
+</td>
+<td>
+<p>...</p>
+</td>
+<td>
+<p>0.036499</p>
+</td>
+<td>
+<p>0.490331</p>
+</td>
+<td>
+<p>0.47317</p>
+</td>
+<td>
+<p>0.0</p>
+</td>
+<td>
+<p>0.0</p>
+</td>
+<td>
+<p>0.006143</p>
+</td>
+<td>
+<p>0.469498</p>
+</td>
+<td>
+<p>The Death of the Bond Vigilantes</p>
+</td>
+<td>
+<p>[The, Death, of, the, Bond, Vigilantes]</p>
+</td>
+<td>
+<p>[Death, Bond, Vigilantes]</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>
+<p><b>Shape</b>: 1 rows × 23 columns</p>
+</p></li>
+<li><p>Remove stopwords (see Table 9)</p>
+<center>
+<p>Table 9 5 examples of news after removing stopwords</p>
+</center>
+<table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th>
+</th>
+<th>
+<p>Date</p>
+</th>
+<th>
+<p>Price</p>
+</th>
+<th>
+<p>Movement</p>
+</th>
+<th>
+<p>Title</p>
+</th>
+<th>
+<p>Time</p>
+</th>
+<th>
+<p>Trends</p>
+</th>
+<th>
+<p>Title_senti</p>
+</th>
+<th>
+<p>Title_Prediction</p>
+</th>
+<th>
+<p>Title_Pos</p>
+</th>
+<th>
+<p>Title_Neg</p>
+</th>
+<th>
+<p>...</p>
+</th>
+<th>
+<p>Content_Neg</p>
+</th>
+<th>
+<p>Content_Neutral</p>
+</th>
+<th>
+<p>Polarity_score</p>
+</th>
+<th>
+<p>Subjectivity_score</p>
+</th>
+<th>
+<p>Content_Polarity_score</p>
+</th>
+<th>
+<p>Content_Subjectivity_score</p>
+</th>
+<th>
+<p>Title_tokenize</p>
+</th>
+<th>
+<p>Title_tokenize_list</p>
+</th>
+<th>
+<p>Lemmatization</p>
+</th>
+<th>
+<p>Lemma_stopwords</p>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>
+<p>0</p>
+</th>
+<td>
+<p>8/2/2011</p>
+</td>
+<td>
+<p>93.79</p>
+</td>
+<td>
+<p>0</p>
+</td>
+<td>
+<p>The Death of the Bond Vigilantes</p>
+</td>
+<td>
+<p>8/1/2011 18:00</p>
+</td>
+<td>
+<p>0.475409</p>
+</td>
+<td>
+<p>-0.453832</p>
+</td>
+<td>
+<p>negative</p>
+</td>
+<td>
+<p>0.036499</p>
+</td>
+<td>
+<p>0.490331</p>
+</td>
+<td>
+<p>...</p>
+</td>
+<td>
+<p>0.490331</p>
+</td>
+<td>
+<p>0.473170</p>
+</td>
+<td>
+<p>0.000</p>
+</td>
+<td>
+<p>0.00</p>
+</td>
+<td>
+<p>0.006143</p>
+</td>
+<td>
+<p>0.469498</p>
+</td>
+<td>
+<p>The Death of the Bond Vigilantes</p>
+</td>
+<td>
+<p>[The, Death, of, the, Bond, Vigilantes]</p>
+</td>
+<td>
+<p>[Death, Bond, Vigilantes]</p>
+</td>
+<td>
+<p>[Death, Bond, Vigilantes]</p>
+</td>
+</tr>
+<tr>
+<th>
+<p>1</p>
+</th>
+<td>
+<p>8/1/2011</p>
+</td>
+<td>
+<p>94.89</p>
+</td>
+<td>
+<p>0</p>
+</td>
+<td>
+<p>Debt Ceiling Agreement Pushes Crude Oil Prices...</p>
+</td>
+<td>
+<p>8/1/2011 08:50</p>
+</td>
+<td>
+<p>0.533262</p>
+</td>
+<td>
+<p>-0.865410</p>
+</td>
+<td>
+<p>negative</p>
+</td>
+<td>
+<p>0.050545</p>
+</td>
+<td>
+<p>0.915956</p>
+</td>
+<td>
+<p>...</p>
+</td>
+<td>
+<p>0.915956</p>
+</td>
+<td>
+<p>0.033499</p>
+</td>
+<td>
+<p>-0.225</p>
+</td>
+<td>
+<p>0.75</p>
+</td>
+<td>
+<p>-0.025652</p>
+</td>
+<td>
+<p>0.416797</p>
+</td>
+<td>
+<p>Debt Ceiling Agreement Pushes Crude Oil Prices...</p>
+</td>
+<td>
+<p>[Debt, Ceiling, Agreement, Pushes, Crude, Oil,...</p>
+</td>
+<td>
+<p>[Debt, Ceiling, Agreement, push, Crude, Oil, p...</p>
+</td>
+<td>
+<p>[Debt, Ceiling, Agreement, push, Crude, price,...</p>
+</td>
+</tr>
+<tr>
+<th>
+<p>2</p>
+</th>
+<td>
+<p>8/1/2011</p>
+</td>
+<td>
+<p>94.89</p>
+</td>
+<td>
+<p>0</p>
+</td>
+<td>
+<p>Biofuels and Tequila: Agave May Make a Suitabl...</p>
+</td>
+<td>
+<p>8/1/2011 07:12</p>
+</td>
+<td>
+<p>0.426512</p>
+</td>
+<td>
+<p>0.309331</p>
+</td>
+<td>
+<p>neutral</p>
+</td>
+<td>
+<p>0.316535</p>
+</td>
+<td>
+<p>0.007204</p>
+</td>
+<td>
+<p>...</p>
+</td>
+<td>
+<p>0.007204</p>
+</td>
+<td>
+<p>0.676260</p>
+</td>
+<td>
+<p>0.550</p>
+</td>
+<td>
+<p>0.75</p>
+</td>
+<td>
+<p>0.150435</p>
+</td>
+<td>
+<p>0.560072</p>
+</td>
+<td>
+<p>Biofuels and Tequila : Agave May Make a Suitab...</p>
+</td>
+<td>
+<p>[Biofuels, and, Tequila, :, Agave, May, Make, ...</p>
+</td>
+<td>
+<p>[Biofuels, Tequila, Agave, May, make, suitable...</p>
+</td>
+<td>
+<p>[Biofuels, Tequila, Agave, May, make, suitable...</p>
+</td>
+</tr>
+<tr>
+<th>
+<p>3</p>
+</th>
+<td>
+<p>8/1/2011</p>
+</td>
+<td>
+<p>94.89</p>
+</td>
+<td>
+<p>0</p>
+</td>
+<td>
+<p>Jesters, Economics, and American Dollar Supremacy</p>
+</td>
+<td>
+<p>8/1/2011 07:18</p>
+</td>
+<td>
+<p>0.278523</p>
+</td>
+<td>
+<p>0.001767</p>
+</td>
+<td>
+<p>neutral</p>
+</td>
+<td>
+<p>0.038573</p>
+</td>
+<td>
+<p>0.036806</p>
+</td>
+<td>
+<p>...</p>
+</td>
+<td>
+<p>0.036806</p>
+</td>
+<td>
+<p>0.924621</p>
+</td>
+<td>
+<p>0.000</p>
+</td>
+<td>
+<p>0.00</p>
+</td>
+<td>
+<p>0.056149</p>
+</td>
+<td>
+<p>0.392723</p>
+</td>
+<td>
+<p>Jesters , Economics , and American Dollar Supr...</p>
+</td>
+<td>
+<p>[Jesters, ,, Economics, ,, and, American, Doll...</p>
+</td>
+<td>
+<p>[Jesters, Economics, American, Dollar, Supremacy]</p>
+</td>
+<td>
+<p>[Jesters, Economics, American, Dollar, Supremacy]</p>
+</td>
+</tr>
+<tr>
+<th>
+<p>4</p>
+</th>
+<td>
+<p>8/1/2011</p>
+</td>
+<td>
+<p>94.89</p>
+</td>
+<td>
+<p>0</p>
+</td>
+<td>
+<p>Natural Gas Analysis for the Week of August 1,...</p>
+</td>
+<td>
+<p>8/1/2011 07:15</p>
+</td>
+<td>
+<p>0.662444</p>
+</td>
+<td>
+<p>-0.032567</p>
+</td>
+<td>
+<p>neutral</p>
+</td>
+<td>
+<p>0.020734</p>
+</td>
+<td>
+<p>0.053301</p>
+</td>
+<td>
+<p>...</p>
+</td>
+<td>
+<p>0.053301</p>
+</td>
+<td>
+<p>0.925965</p>
+</td>
+<td>
+<p>0.100</p>
+</td>
+<td>
+<p>0.40</p>
+</td>
+<td>
+<p>0.099722</p>
+</td>
+<td>
+<p>0.475185</p>
+</td>
+<td>
+<p>Natural Gas Analysis for the Week of August 1 ...</p>
+</td>
+<td>
+<p>[Natural, Gas, Analysis, for, the, Week, of, A...</p>
+</td>
+<td>
+<p>[Natural, Gas, Analysis, Week, August]</p>
+</td>
+<td>
+<p>[Natural, Gas, Analysis, Week, August]</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>
+<p><b>Shape</b>: 5 rows × 24 columns</p>
+</p></li>
+<li><p>Build the bigram</p>
+<center>
+<p>Table 10 5 examples of news after bigram processing</p>
+</center>
+<table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th>
+</th>
+<th>
+<p>Date</p>
+</th>
+<th>
+<p>Price</p>
+</th>
+<th>
+<p>Movement</p>
+</th>
+<th>
+<p>Title</p>
+</th>
+<th>
+<p>Time</p>
+</th>
+<th>
+<p>Trends</p>
+</th>
+<th>
+<p>Title_senti</p>
+</th>
+<th>
+<p>Title_Prediction</p>
+</th>
+<th>
+<p>Title_Pos</p>
+</th>
+<th>
+<p>Title_Neg</p>
+</th>
+<th>
+<p>...</p>
+</th>
+<th>
+<p>Polarity_score</p>
+</th>
+<th>
+<p>Subjectivity_score</p>
+</th>
+<th>
+<p>Content_Polarity_score</p>
+</th>
+<th>
+<p>Content_Subjectivity_score</p>
+</th>
+<th>
+<p>Title_tokenize</p>
+</th>
+<th>
+<p>Title_tokenize_list</p>
+</th>
+<th>
+<p>Lemmatization</p>
+</th>
+<th>
+<p>Lemma_stopwords</p>
+</th>
+<th>
+<p>Bigrams</p>
+</th>
+<th>
+<p>Trigrams</p>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>
+<p>24037</p>
+</th>
+<td>
+<p>7/1/2021</p>
+</td>
+<td>
+<p>75.23</p>
+</td>
+<td>
+<p>1</p>
+</td>
+<td>
+<p>Iraq Uses Controversial Oil Deal To Secure Fun...</p>
+</td>
+<td>
+<p>6/30/2021 18:00</p>
+</td>
+<td>
+<p>0.656656</p>
+</td>
+<td>
+<p>0.642171</p>
+</td>
+<td>
+<p>positive</p>
+</td>
+<td>
+<p>0.657396</p>
+</td>
+<td>
+<p>0.015225</p>
+</td>
+<td>
+<p>...</p>
+</td>
+<td>
+<p>0.475</p>
+</td>
+<td>
+<p>0.775</p>
+</td>
+<td>
+<p>0.037309</p>
+</td>
+<td>
+<p>0.361200</p>
+</td>
+<td>
+<p>Iraq Uses Controversial Oil Deal To Secure Fun...</p>
+</td>
+<td>
+<p>[Iraq, Uses, Controversial, Oil, Deal, To, Sec...</p>
+</td>
+<td>
+<p>[Iraq, use, Controversial, Oil, deal, secure, ...</p>
+</td>
+<td>
+<p>[Iraq, use, Controversial, deal, secure, fundi...</p>
+</td>
+<td>
+<p>[Iraq, use, Controversial, deal, secure, fundi...</p>
+</td>
+<td>
+<p>[Iraq, use, Controversial, deal, secure, fundi...</p>
+</td>
+</tr>
+<tr>
+<th>
+<p>8990</p>
+</th>
+<td>
+<p>7/5/2016</p>
+</td>
+<td>
+<p>46.60</p>
+</td>
+<td>
+<p>0</p>
+</td>
+<td>
+<p>U.S. Sees Largest Monthly Production Decline S...</p>
+</td>
+<td>
+<p>7/2/2016 08:27</p>
+</td>
+<td>
+<p>0.475362</p>
+</td>
+<td>
+<p>-0.964390</p>
+</td>
+<td>
+<p>negative</p>
+</td>
+<td>
+<p>0.007528</p>
+</td>
+<td>
+<p>0.971918</p>
+</td>
+<td>
+<p>...</p>
+</td>
+<td>
+<p>0.000</p>
+</td>
+<td>
+<p>0.000</p>
+</td>
+<td>
+<p>0.147672</p>
+</td>
+<td>
+<p>0.551499</p>
+</td>
+<td>
+<p>U.S. Sees Largest Monthly Production Decline S...</p>
+</td>
+<td>
+<p>[U.S., Sees, Largest, Monthly, Production, Dec...</p>
+</td>
+<td>
+<p>[U.S., see, large, monthly, production, declin...</p>
+</td>
+<td>
+<p>[U.S., see, large, monthly, production, declin...</p>
+</td>
+<td>
+<p>[U.S., see, large, monthly, production, declin...</p>
+</td>
+<td>
+<p>[U.S., see, large, monthly, production, declin...</p>
+</td>
+</tr>
+<tr>
+<th>
+<p>14319</p>
+</th>
+<td>
+<p>5/7/2018</p>
+</td>
+<td>
+<p>70.73</p>
+</td>
+<td>
+<p>1</p>
+</td>
+<td>
+<p>Banking Giants To Choose Sides In Saudi-Qatar ...</p>
+</td>
+<td>
+<p>5/5/2018 16:00</p>
+</td>
+<td>
+<p>0.713667</p>
+</td>
+<td>
+<p>0.060967</p>
+</td>
+<td>
+<p>neutral</p>
+</td>
+<td>
+<p>0.080845</p>
+</td>
+<td>
+<p>0.019878</p>
+</td>
+<td>
+<p>...</p>
+</td>
+<td>
+<p>0.000</p>
+</td>
+<td>
+<p>0.000</p>
+</td>
+<td>
+<p>0.063642</p>
+</td>
+<td>
+<p>0.385634</p>
+</td>
+<td>
+<p>Banking Giants To Choose Sides In Saudi-Qatar ...</p>
+</td>
+<td>
+<p>[Banking, Giants, To, Choose, Sides, In, Saudi...</p>
+</td>
+<td>
+<p>[banking, giant, choose, side, Saudi, Qatar, R...</p>
+</td>
+<td>
+<p>[banking, giant, choose, side, Saudi, Qatar, R...</p>
+</td>
+<td>
+<p>[banking, giant, choose, side, Saudi, Qatar, R...</p>
+</td>
+<td>
+<p>[banking, giant, choose, side, Saudi, Qatar, R...</p>
+</td>
+</tr>
+<tr>
+<th>
+<p>24237</p>
+</th>
+<td>
+<p>7/22/2021</p>
+</td>
+<td>
+<p>71.91</p>
+</td>
+<td>
+<p>1</p>
+</td>
+<td>
+<p>China Taps Into Crude Reserves To Curb Oil Pri...</p>
+</td>
+<td>
+<p>7/22/2021 10:00</p>
+</td>
+<td>
+<p>0.778163</p>
+</td>
+<td>
+<p>0.539656</p>
+</td>
+<td>
+<p>positive</p>
+</td>
+<td>
+<p>0.599639</p>
+</td>
+<td>
+<p>0.059983</p>
+</td>
+<td>
+<p>...</p>
+</td>
+<td>
+<p>-0.700</p>
+</td>
+<td>
+<p>1.000</p>
+</td>
+<td>
+<p>-0.088148</p>
+</td>
+<td>
+<p>0.504259</p>
+</td>
+<td>
+<p>China Taps Into Crude Reserves To Curb Oil Pri...</p>
+</td>
+<td>
+<p>[China, Taps, Into, Crude, Reserves, To, Curb,...</p>
+</td>
+<td>
+<p>[China, tap, crude, reserve, Curb, Oil, Price,...</p>
+</td>
+<td>
+<p>[China, tap, crude, reserve, Curb, Price, Rally]</p>
+</td>
+<td>
+<p>[China, tap, crude, reserve, Curb, Price, Rally]</p>
+</td>
+<td>
+<p>[China, tap, crude, reserve, Curb, Price, Rally]</p>
+</td>
+</tr>
+<tr>
+<th>
+<p>22368</p>
+</th>
+<td>
+<p>12/17/2020</p>
+</td>
+<td>
+<p>48.36</p>
+</td>
+<td>
+<p>1</p>
+</td>
+<td>
+<p>An Under-The-Radar Opportunity In LNG</p>
+</td>
+<td>
+<p>12/17/2020 13:00</p>
+</td>
+<td>
+<p>0.293937</p>
+</td>
+<td>
+<p>0.543063</p>
+</td>
+<td>
+<p>positive</p>
+</td>
+<td>
+<p>0.559450</p>
+</td>
+<td>
+<p>0.016386</p>
+</td>
+<td>
+<p>...</p>
+</td>
+<td>
+<p>0.000</p>
+</td>
+<td>
+<p>0.000</p>
+</td>
+<td>
+<p>0.109774</p>
+</td>
+<td>
+<p>0.374197</p>
+</td>
+<td>
+<p>An Under-The-Radar Opportunity In LNG</p>
+</td>
+<td>
+<p>[An, Under-The-Radar, Opportunity, In, LNG]</p>
+</td>
+<td>
+<p>[radar, opportunity, LNG]</p>
+</td>
+<td>
+<p>[radar, opportunity, LNG]</p>
+</td>
+<td>
+<p>[radar, opportunity, LNG]</p>
+</td>
+<td>
+<p>[radar, opportunity, LNG]</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>
+<p><b>Shape</b>: 5 rows × 26 columns</p>
+</p></li>
+<li><p>Creat dictionary (Word2id &amp; id2word)</p></li>
+<li><p>Build LDA model</p>
+<p>We have determined the optimal topic_nums (4) with the help of
+<code>OCTIS</code> module. So we build a LDA model with 4 topics.</p>
 <ul>
-<li>
-<p>Print topic information:</p>
+<li><p>Print topic information:</p>
 <pre><code>[(0,
-  '0.070*&quot;U.S.&quot; + 0.040*&quot;Energy&quot; + 0.019*&quot;Saudi&quot; + 0.019*&quot;rise&quot; + '
-  '0.018*&quot;Shale&quot; + 0.015*&quot;Crude&quot; + 0.014*&quot;Arabia&quot; + 0.014*&quot;become&quot; + '
-  '0.013*&quot;New&quot; + 0.012*&quot;year&quot;'),
+  &#39;0.070*&quot;U.S.&quot; + 0.040*&quot;Energy&quot; + 0.019*&quot;Saudi&quot; + 0.019*&quot;rise&quot; + &#39;
+  &#39;0.018*&quot;Shale&quot; + 0.015*&quot;Crude&quot; + 0.014*&quot;Arabia&quot; + 0.014*&quot;become&quot; + &#39;
+  &#39;0.013*&quot;New&quot; + 0.012*&quot;year&quot;&#39;),
  (1,
-  '0.039*&quot;demand&quot; + 0.025*&quot;China&quot; + 0.019*&quot;soar&quot; + 0.018*&quot;major&quot; + '
-  '0.016*&quot;energy&quot; + 0.013*&quot;Russia&quot; + 0.012*&quot;cut&quot; + 0.012*&quot;Global&quot; + '
-  '0.011*&quot;renewable&quot; + 0.010*&quot;large&quot;'),
+  &#39;0.039*&quot;demand&quot; + 0.025*&quot;China&quot; + 0.019*&quot;soar&quot; + 0.018*&quot;major&quot; + &#39;
+  &#39;0.016*&quot;energy&quot; + 0.013*&quot;Russia&quot; + 0.012*&quot;cut&quot; + 0.012*&quot;Global&quot; + &#39;
+  &#39;0.011*&quot;renewable&quot; + 0.010*&quot;large&quot;&#39;),
  (2,
-  '0.032*&quot;market&quot; + 0.030*&quot;big&quot; + 0.020*&quot;see&quot; + 0.017*&quot;production&quot; + '
-  '0.017*&quot;stock&quot; + 0.016*&quot;gas&quot; + 0.015*&quot;Industry&quot; + 0.014*&quot;ev&quot; + 0.011*&quot;look&quot; '
-  '+ 0.011*&quot;Boom&quot;'),
+  &#39;0.032*&quot;market&quot; + 0.030*&quot;big&quot; + 0.020*&quot;see&quot; + 0.017*&quot;production&quot; + &#39;
+  &#39;0.017*&quot;stock&quot; + 0.016*&quot;gas&quot; + 0.015*&quot;Industry&quot; + 0.014*&quot;ev&quot; + 0.011*&quot;look&quot; &#39;
+  &#39;+ 0.011*&quot;Boom&quot;&#39;),
  (3,
-  '0.081*&quot;price&quot; + 0.029*&quot;Gas&quot; + 0.020*&quot;OPEC&quot; + 0.018*&quot;Iran&quot; + 0.017*&quot;high&quot; + '
-  '0.016*&quot;boom&quot; + 0.015*&quot;Rig&quot; + 0.014*&quot;Count&quot; + 0.012*&quot;Natural&quot; + '
-  '0.012*&quot;fuel&quot;')]
-</code></pre>
-</li>
-</ul>
-</li>
-<li>
-<p>Topic infomation</p>
+  &#39;0.081*&quot;price&quot; + 0.029*&quot;Gas&quot; + 0.020*&quot;OPEC&quot; + 0.018*&quot;Iran&quot; + 0.017*&quot;high&quot; + &#39;
+  &#39;0.016*&quot;boom&quot; + 0.015*&quot;Rig&quot; + 0.014*&quot;Count&quot; + 0.012*&quot;Natural&quot; + &#39;
+  &#39;0.012*&quot;fuel&quot;&#39;)]</code></pre></li>
+</ul></li>
+<li><p>Topic infomation</p>
 <ul>
-<li>
-<p>View model imformation, see Table 11:</p>
-<center> Table 11 Some samples of news and the topic they belong to   </center>
-  <table border="1" class="dataframe">
-    <thead>
-      <tr style="text-align: right;">
-        <th></th>
-        <th>Document_No</th>
-        <th>Dominant_Topic</th>
-        <th>Topic_Perc_Contrib</th>
-        <th>Keywords</th>
-        <th>Title</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <th>0</th>
-        <td>0</td>
-        <td>0</td>
-        <td>0.2679</td>
-        <td>U.S., Energy, Saudi, rise, Shale, Crude, Arabi...</td>
-        <td>The Death of the Bond Vigilantes</td>
-      </tr>
-      <tr>
-        <th>1</th>
-        <td>1</td>
-        <td>0</td>
-        <td>0.2828</td>
-        <td>U.S., Energy, Saudi, rise, Shale, Crude, Arabi...</td>
-        <td>Debt Ceiling Agreement Pushes Crude Oil Prices...</td>
-      </tr>
-      <tr>
-        <th>2</th>
-        <td>2</td>
-        <td>3</td>
-        <td>0.2836</td>
-        <td>price, Gas, OPEC, Iran, high, boom, Rig, Count...</td>
-        <td>Biofuels and Tequila: Agave May Make a Suitabl...</td>
-      </tr>
-      <tr>
-        <th>3</th>
-        <td>3</td>
-        <td>0</td>
-        <td>0.2724</td>
-        <td>U.S., Energy, Saudi, rise, Shale, Crude, Arabi...</td>
-        <td>Jesters, Economics, and American Dollar Supremacy</td>
-      </tr>
-      <tr>
-        <th>4</th>
-        <td>4</td>
-        <td>0</td>
-        <td>0.2646</td>
-        <td>U.S., Energy, Saudi, rise, Shale, Crude, Arabi...</td>
-        <td>Natural Gas Analysis for the Week of August 1,...</td>
-      </tr>
-      <tr>
-        <th>5</th>
-        <td>5</td>
-        <td>3</td>
-        <td>0.2902</td>
-        <td>price, Gas, OPEC, Iran, high, boom, Rig, Count...</td>
-        <td>The Quiet Revolution: Latin America Moving Awa...</td>
-      </tr>
-      <tr>
-        <th>6</th>
-        <td>6</td>
-        <td>2</td>
-        <td>0.2600</td>
-        <td>market, big, see, production, stock, gas, Indu...</td>
-        <td>Promising Economic and Environmental Developme...</td>
-      </tr>
-      <tr>
-        <th>7</th>
-        <td>7</td>
-        <td>3</td>
-        <td>0.2629</td>
-        <td>price, Gas, OPEC, Iran, high, boom, Rig, Count...</td>
-        <td>Are High Fuel Taxes the Answer to Solving our ...</td>
-      </tr>
-      <tr>
-        <th>8</th>
-        <td>8</td>
-        <td>0</td>
-        <td>0.2719</td>
-        <td>U.S., Energy, Saudi, rise, Shale, Crude, Arabi...</td>
-        <td>Oil and Misinformation: The Truth about Oil Co...</td>
-      </tr>
-      <tr>
-        <th>9</th>
-        <td>9</td>
-        <td>0</td>
-        <td>0.2545</td>
-        <td>U.S., Energy, Saudi, rise, Shale, Crude, Arabi...</td>
-        <td>Arab Spring Roils Israel's Energy Imports - an...</td>
-      </tr>
-    </tbody>
-  </table>
+<li><p>View model imformation, see Table 11:</p>
+<center>
+<p>Table 11 Some samples of news and the topic they belong to</p>
+</center>
+<table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th>
+</th>
+<th>
+<p>Document_No</p>
+</th>
+<th>
+<p>Dominant_Topic</p>
+</th>
+<th>
+<p>Topic_Perc_Contrib</p>
+</th>
+<th>
+<p>Keywords</p>
+</th>
+<th>
+<p>Title</p>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>
+<p>0</p>
+</th>
+<td>
+<p>0</p>
+</td>
+<td>
+<p>0</p>
+</td>
+<td>
+<p>0.2679</p>
+</td>
+<td>
+<p>U.S., Energy, Saudi, rise, Shale, Crude, Arabi...</p>
+</td>
+<td>
+<p>The Death of the Bond Vigilantes</p>
+</td>
+</tr>
+<tr>
+<th>
+<p>1</p>
+</th>
+<td>
+<p>1</p>
+</td>
+<td>
+<p>0</p>
+</td>
+<td>
+<p>0.2828</p>
+</td>
+<td>
+<p>U.S., Energy, Saudi, rise, Shale, Crude, Arabi...</p>
+</td>
+<td>
+<p>Debt Ceiling Agreement Pushes Crude Oil Prices...</p>
+</td>
+</tr>
+<tr>
+<th>
+<p>2</p>
+</th>
+<td>
+<p>2</p>
+</td>
+<td>
+<p>3</p>
+</td>
+<td>
+<p>0.2836</p>
+</td>
+<td>
+<p>price, Gas, OPEC, Iran, high, boom, Rig, Count...</p>
+</td>
+<td>
+<p>Biofuels and Tequila: Agave May Make a Suitabl...</p>
+</td>
+</tr>
+<tr>
+<th>
+<p>3</p>
+</th>
+<td>
+<p>3</p>
+</td>
+<td>
+<p>0</p>
+</td>
+<td>
+<p>0.2724</p>
+</td>
+<td>
+<p>U.S., Energy, Saudi, rise, Shale, Crude, Arabi...</p>
+</td>
+<td>
+<p>Jesters, Economics, and American Dollar Supremacy</p>
+</td>
+</tr>
+<tr>
+<th>
+<p>4</p>
+</th>
+<td>
+<p>4</p>
+</td>
+<td>
+<p>0</p>
+</td>
+<td>
+<p>0.2646</p>
+</td>
+<td>
+<p>U.S., Energy, Saudi, rise, Shale, Crude, Arabi...</p>
+</td>
+<td>
+<p>Natural Gas Analysis for the Week of August 1,...</p>
+</td>
+</tr>
+<tr>
+<th>
+<p>5</p>
+</th>
+<td>
+<p>5</p>
+</td>
+<td>
+<p>3</p>
+</td>
+<td>
+<p>0.2902</p>
+</td>
+<td>
+<p>price, Gas, OPEC, Iran, high, boom, Rig, Count...</p>
+</td>
+<td>
+<p>The Quiet Revolution: Latin America Moving Awa...</p>
+</td>
+</tr>
+<tr>
+<th>
+<p>6</p>
+</th>
+<td>
+<p>6</p>
+</td>
+<td>
+<p>2</p>
+</td>
+<td>
+<p>0.2600</p>
+</td>
+<td>
+<p>market, big, see, production, stock, gas, Indu...</p>
+</td>
+<td>
+<p>Promising Economic and Environmental Developme...</p>
+</td>
+</tr>
+<tr>
+<th>
+<p>7</p>
+</th>
+<td>
+<p>7</p>
+</td>
+<td>
+<p>3</p>
+</td>
+<td>
+<p>0.2629</p>
+</td>
+<td>
+<p>price, Gas, OPEC, Iran, high, boom, Rig, Count...</p>
+</td>
+<td>
+<p>Are High Fuel Taxes the Answer to Solving our ...</p>
+</td>
+</tr>
+<tr>
+<th>
+<p>8</p>
+</th>
+<td>
+<p>8</p>
+</td>
+<td>
+<p>0</p>
+</td>
+<td>
+<p>0.2719</p>
+</td>
+<td>
+<p>U.S., Energy, Saudi, rise, Shale, Crude, Arabi...</p>
+</td>
+<td>
+<p>Oil and Misinformation: The Truth about Oil Co...</p>
+</td>
+</tr>
+<tr>
+<th>
+<p>9</p>
+</th>
+<td>
+<p>9</p>
+</td>
+<td>
+<p>0</p>
+</td>
+<td>
+<p>0.2545</p>
+</td>
+<td>
+<p>U.S., Energy, Saudi, rise, Shale, Crude, Arabi...</p>
+</td>
+<td>
+<p>Arab Spring Roils Israel's Energy Imports - an...</p>
+</td>
+</tr>
+</tbody>
+</table>
 <p>Where,</p>
 <ul>
 <li>Document_No: The id for title;</li>
-<li>Dominant_Topic: The topic to which this title most likely belongs</li>
-<li>Topic_Perc_Contrib: The probability of being classified under this topic</li>
+<li>Dominant_Topic: The topic to which this title most likely
+belongs</li>
+<li>Topic_Perc_Contrib: The probability of being classified under this
+topic</li>
 <li>Keywords: the keywords of the topic</li>
-<li>Text: The title’s content after participle</li>
-</ul>
-</li>
-<li>
-<p>Extract information, see Table 12:</p>
-<center> Table 12 Concatenated table with all features  </center>
+<li>Text: The title's content after participle</li>
+</ul></li>
+<li><p>Extract information, see Table 12:</p>
+<center>
+<p>Table 12 Concatenated table with all features</p>
+</center>
 <table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>Date</th>
-      <th>Price</th>
-      <th>Movement</th>
-      <th>Title</th>
-      <th>Time</th>
-      <th>Trends</th>
-      <th>Title_senti</th>
-      <th>Title_Prediction</th>
-      <th>Title_Pos</th>
-      <th>Title_Neg</th>
-      <th>...</th>
-      <th>Content_Subjectivity_score</th>
-      <th>Title_tokenize</th>
-      <th>Title_tokenize_list</th>
-      <th>Lemmatization</th>
-      <th>Lemma_stopwords</th>
-      <th>Bigrams</th>
-      <th>Trigrams</th>
-      <th>Dominant_Topic</th>
-      <th>Topic_Perc_Contrib</th>
-      <th>Keywords</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>8/2/2011</td>
-      <td>93.79</td>
-      <td>0</td>
-      <td>The Death of the Bond Vigilantes</td>
-      <td>8/1/2011 18:00</td>
-      <td>0.475409</td>
-      <td>-0.453832</td>
-      <td>negative</td>
-      <td>0.036499</td>
-      <td>0.490331</td>
-      <td>...</td>
-      <td>0.469498</td>
-      <td>The Death of the Bond Vigilantes</td>
-      <td>[The, Death, of, the, Bond, Vigilantes]</td>
-      <td>[Death, Bond, Vigilantes]</td>
-      <td>[Death, Bond, Vigilantes]</td>
-      <td>[Death, Bond, Vigilantes]</td>
-      <td>[Death, Bond, Vigilantes]</td>
-      <td>0</td>
-      <td>0.2679</td>
-      <td>U.S., Energy, Saudi, rise, Shale, Crude, Arabi...</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>8/1/2011</td>
-      <td>94.89</td>
-      <td>0</td>
-      <td>Debt Ceiling Agreement Pushes Crude Oil Prices...</td>
-      <td>8/1/2011 08:50</td>
-      <td>0.533262</td>
-      <td>-0.865410</td>
-      <td>negative</td>
-      <td>0.050545</td>
-      <td>0.915956</td>
-      <td>...</td>
-      <td>0.416797</td>
-      <td>Debt Ceiling Agreement Pushes Crude Oil Prices...</td>
-      <td>[Debt, Ceiling, Agreement, Pushes, Crude, Oil,...</td>
-      <td>[Debt, Ceiling, Agreement, Pushes, Crude, Oil,...</td>
-      <td>[Debt, Ceiling, Agreement, Pushes, Crude, pric...</td>
-      <td>[Debt, Ceiling, Agreement, Pushes, Crude, pric...</td>
-      <td>[Debt, Ceiling, Agreement, Pushes, Crude, pric...</td>
-      <td>0</td>
-      <td>0.2828</td>
-      <td>U.S., Energy, Saudi, rise, Shale, Crude, Arabi...</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>8/1/2011</td>
-      <td>94.89</td>
-      <td>0</td>
-      <td>Biofuels and Tequila: Agave May Make a Suitabl...</td>
-      <td>8/1/2011 07:12</td>
-      <td>0.426512</td>
-      <td>0.309331</td>
-      <td>neutral</td>
-      <td>0.316535</td>
-      <td>0.007204</td>
-      <td>...</td>
-      <td>0.560072</td>
-      <td>Biofuels and Tequila : Agave May Make a Suitab...</td>
-      <td>[Biofuels, and, Tequila, :, Agave, May, Make, ...</td>
-      <td>[biofuel, Tequila, Agave, make, suitable, etha...</td>
-      <td>[biofuel, Tequila, Agave, make, suitable, etha...</td>
-      <td>[biofuel, Tequila, Agave, make, suitable, etha...</td>
-      <td>[biofuel, Tequila, Agave, make, suitable, etha...</td>
-      <td>3</td>
-      <td>0.2836</td>
-      <td>price, Gas, OPEC, Iran, high, boom, Rig, Count...</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>8/1/2011</td>
-      <td>94.89</td>
-      <td>0</td>
-      <td>Jesters, Economics, and American Dollar Supremacy</td>
-      <td>8/1/2011 07:18</td>
-      <td>0.278523</td>
-      <td>0.001767</td>
-      <td>neutral</td>
-      <td>0.038573</td>
-      <td>0.036806</td>
-      <td>...</td>
-      <td>0.392723</td>
-      <td>Jesters , Economics , and American Dollar Supr...</td>
-      <td>[Jesters, ,, Economics, ,, and, American, Doll...</td>
-      <td>[Jesters, Economics, American, Dollar, Supremacy]</td>
-      <td>[Jesters, Economics, American, Dollar, Supremacy]</td>
-      <td>[Jesters, Economics, American, Dollar, Supremacy]</td>
-      <td>[Jesters, Economics, American, Dollar, Supremacy]</td>
-      <td>0</td>
-      <td>0.2724</td>
-      <td>U.S., Energy, Saudi, rise, Shale, Crude, Arabi...</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>8/1/2011</td>
-      <td>94.89</td>
-      <td>0</td>
-      <td>Natural Gas Analysis for the Week of August 1,...</td>
-      <td>8/1/2011 07:15</td>
-      <td>0.662444</td>
-      <td>-0.032567</td>
-      <td>neutral</td>
-      <td>0.020734</td>
-      <td>0.053301</td>
-      <td>...</td>
-      <td>0.475185</td>
-      <td>Natural Gas Analysis for the Week of August 1 ...</td>
-      <td>[Natural, Gas, Analysis, for, the, Week, of, A...</td>
-      <td>[Natural, Gas, Analysis, Week, August]</td>
-      <td>[Natural, Gas, Analysis, Week, August]</td>
-      <td>[Natural, Gas, Analysis, Week, August]</td>
-      <td>[Natural, Gas, Analysis, Week, August]</td>
-      <td>0</td>
-      <td>0.2646</td>
-      <td>U.S., Energy, Saudi, rise, Shale, Crude, Arabi...</td>
-    </tr>
-  </tbody>
+<thead>
+<tr style="text-align: right;">
+<th>
+</th>
+<th>
+<p>Date</p>
+</th>
+<th>
+<p>Price</p>
+</th>
+<th>
+<p>Movement</p>
+</th>
+<th>
+<p>Title</p>
+</th>
+<th>
+<p>Time</p>
+</th>
+<th>
+<p>Trends</p>
+</th>
+<th>
+<p>Title_senti</p>
+</th>
+<th>
+<p>Title_Prediction</p>
+</th>
+<th>
+<p>Title_Pos</p>
+</th>
+<th>
+<p>Title_Neg</p>
+</th>
+<th>
+<p>...</p>
+</th>
+<th>
+<p>Content_Subjectivity_score</p>
+</th>
+<th>
+<p>Title_tokenize</p>
+</th>
+<th>
+<p>Title_tokenize_list</p>
+</th>
+<th>
+<p>Lemmatization</p>
+</th>
+<th>
+<p>Lemma_stopwords</p>
+</th>
+<th>
+<p>Bigrams</p>
+</th>
+<th>
+<p>Trigrams</p>
+</th>
+<th>
+<p>Dominant_Topic</p>
+</th>
+<th>
+<p>Topic_Perc_Contrib</p>
+</th>
+<th>
+<p>Keywords</p>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>
+<p>0</p>
+</th>
+<td>
+<p>8/2/2011</p>
+</td>
+<td>
+<p>93.79</p>
+</td>
+<td>
+<p>0</p>
+</td>
+<td>
+<p>The Death of the Bond Vigilantes</p>
+</td>
+<td>
+<p>8/1/2011 18:00</p>
+</td>
+<td>
+<p>0.475409</p>
+</td>
+<td>
+<p>-0.453832</p>
+</td>
+<td>
+<p>negative</p>
+</td>
+<td>
+<p>0.036499</p>
+</td>
+<td>
+<p>0.490331</p>
+</td>
+<td>
+<p>...</p>
+</td>
+<td>
+<p>0.469498</p>
+</td>
+<td>
+<p>The Death of the Bond Vigilantes</p>
+</td>
+<td>
+<p>[The, Death, of, the, Bond, Vigilantes]</p>
+</td>
+<td>
+<p>[Death, Bond, Vigilantes]</p>
+</td>
+<td>
+<p>[Death, Bond, Vigilantes]</p>
+</td>
+<td>
+<p>[Death, Bond, Vigilantes]</p>
+</td>
+<td>
+<p>[Death, Bond, Vigilantes]</p>
+</td>
+<td>
+<p>0</p>
+</td>
+<td>
+<p>0.2679</p>
+</td>
+<td>
+<p>U.S., Energy, Saudi, rise, Shale, Crude, Arabi...</p>
+</td>
+</tr>
+<tr>
+<th>
+<p>1</p>
+</th>
+<td>
+<p>8/1/2011</p>
+</td>
+<td>
+<p>94.89</p>
+</td>
+<td>
+<p>0</p>
+</td>
+<td>
+<p>Debt Ceiling Agreement Pushes Crude Oil Prices...</p>
+</td>
+<td>
+<p>8/1/2011 08:50</p>
+</td>
+<td>
+<p>0.533262</p>
+</td>
+<td>
+<p>-0.865410</p>
+</td>
+<td>
+<p>negative</p>
+</td>
+<td>
+<p>0.050545</p>
+</td>
+<td>
+<p>0.915956</p>
+</td>
+<td>
+<p>...</p>
+</td>
+<td>
+<p>0.416797</p>
+</td>
+<td>
+<p>Debt Ceiling Agreement Pushes Crude Oil Prices...</p>
+</td>
+<td>
+<p>[Debt, Ceiling, Agreement, Pushes, Crude, Oil,...</p>
+</td>
+<td>
+<p>[Debt, Ceiling, Agreement, Pushes, Crude, Oil,...</p>
+</td>
+<td>
+<p>[Debt, Ceiling, Agreement, Pushes, Crude, pric...</p>
+</td>
+<td>
+<p>[Debt, Ceiling, Agreement, Pushes, Crude, pric...</p>
+</td>
+<td>
+<p>[Debt, Ceiling, Agreement, Pushes, Crude, pric...</p>
+</td>
+<td>
+<p>0</p>
+</td>
+<td>
+<p>0.2828</p>
+</td>
+<td>
+<p>U.S., Energy, Saudi, rise, Shale, Crude, Arabi...</p>
+</td>
+</tr>
+<tr>
+<th>
+<p>2</p>
+</th>
+<td>
+<p>8/1/2011</p>
+</td>
+<td>
+<p>94.89</p>
+</td>
+<td>
+<p>0</p>
+</td>
+<td>
+<p>Biofuels and Tequila: Agave May Make a Suitabl...</p>
+</td>
+<td>
+<p>8/1/2011 07:12</p>
+</td>
+<td>
+<p>0.426512</p>
+</td>
+<td>
+<p>0.309331</p>
+</td>
+<td>
+<p>neutral</p>
+</td>
+<td>
+<p>0.316535</p>
+</td>
+<td>
+<p>0.007204</p>
+</td>
+<td>
+<p>...</p>
+</td>
+<td>
+<p>0.560072</p>
+</td>
+<td>
+<p>Biofuels and Tequila : Agave May Make a Suitab...</p>
+</td>
+<td>
+<p>[Biofuels, and, Tequila, :, Agave, May, Make, ...</p>
+</td>
+<td>
+<p>[biofuel, Tequila, Agave, make, suitable, etha...</p>
+</td>
+<td>
+<p>[biofuel, Tequila, Agave, make, suitable, etha...</p>
+</td>
+<td>
+<p>[biofuel, Tequila, Agave, make, suitable, etha...</p>
+</td>
+<td>
+<p>[biofuel, Tequila, Agave, make, suitable, etha...</p>
+</td>
+<td>
+<p>3</p>
+</td>
+<td>
+<p>0.2836</p>
+</td>
+<td>
+<p>price, Gas, OPEC, Iran, high, boom, Rig, Count...</p>
+</td>
+</tr>
+<tr>
+<th>
+<p>3</p>
+</th>
+<td>
+<p>8/1/2011</p>
+</td>
+<td>
+<p>94.89</p>
+</td>
+<td>
+<p>0</p>
+</td>
+<td>
+<p>Jesters, Economics, and American Dollar Supremacy</p>
+</td>
+<td>
+<p>8/1/2011 07:18</p>
+</td>
+<td>
+<p>0.278523</p>
+</td>
+<td>
+<p>0.001767</p>
+</td>
+<td>
+<p>neutral</p>
+</td>
+<td>
+<p>0.038573</p>
+</td>
+<td>
+<p>0.036806</p>
+</td>
+<td>
+<p>...</p>
+</td>
+<td>
+<p>0.392723</p>
+</td>
+<td>
+<p>Jesters , Economics , and American Dollar Supr...</p>
+</td>
+<td>
+<p>[Jesters, ,, Economics, ,, and, American, Doll...</p>
+</td>
+<td>
+<p>[Jesters, Economics, American, Dollar, Supremacy]</p>
+</td>
+<td>
+<p>[Jesters, Economics, American, Dollar, Supremacy]</p>
+</td>
+<td>
+<p>[Jesters, Economics, American, Dollar, Supremacy]</p>
+</td>
+<td>
+<p>[Jesters, Economics, American, Dollar, Supremacy]</p>
+</td>
+<td>
+<p>0</p>
+</td>
+<td>
+<p>0.2724</p>
+</td>
+<td>
+<p>U.S., Energy, Saudi, rise, Shale, Crude, Arabi...</p>
+</td>
+</tr>
+<tr>
+<th>
+<p>4</p>
+</th>
+<td>
+<p>8/1/2011</p>
+</td>
+<td>
+<p>94.89</p>
+</td>
+<td>
+<p>0</p>
+</td>
+<td>
+<p>Natural Gas Analysis for the Week of August 1,...</p>
+</td>
+<td>
+<p>8/1/2011 07:15</p>
+</td>
+<td>
+<p>0.662444</p>
+</td>
+<td>
+<p>-0.032567</p>
+</td>
+<td>
+<p>neutral</p>
+</td>
+<td>
+<p>0.020734</p>
+</td>
+<td>
+<p>0.053301</p>
+</td>
+<td>
+<p>...</p>
+</td>
+<td>
+<p>0.475185</p>
+</td>
+<td>
+<p>Natural Gas Analysis for the Week of August 1 ...</p>
+</td>
+<td>
+<p>[Natural, Gas, Analysis, for, the, Week, of, A...</p>
+</td>
+<td>
+<p>[Natural, Gas, Analysis, Week, August]</p>
+</td>
+<td>
+<p>[Natural, Gas, Analysis, Week, August]</p>
+</td>
+<td>
+<p>[Natural, Gas, Analysis, Week, August]</p>
+</td>
+<td>
+<p>[Natural, Gas, Analysis, Week, August]</p>
+</td>
+<td>
+<p>0</p>
+</td>
+<td>
+<p>0.2646</p>
+</td>
+<td>
+<p>U.S., Energy, Saudi, rise, Shale, Crude, Arabi...</p>
+</td>
+</tr>
+</tbody>
 </table>
+<p>
 <p><b>Shape</b>: 5 rows × 29 columns</p>
-</li>
-<li>
-<p>Find the most representative document for each topic</p>
-<center> Table 13 The most two representative document for each topic  </center>
+</p></li>
+<li><p>Find the most representative document for each topic</p>
+<center>
+<p>Table 13 The most two representative document for each topic</p>
+</center>
 <table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>Topic_Num</th>
-      <th>Topic_Perc_Contrib</th>
-      <th>Keywords</th>
-      <th>Title</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>0.0</td>
-      <td>0.3072</td>
-      <td>U.S., Energy, Saudi, rise, Shale, Crude, Arabi...</td>
-      <td>U.S. Growth Fears Push Crude Oil Futures Close...</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>0.0</td>
-      <td>0.2951</td>
-      <td>U.S., Energy, Saudi, rise, Shale, Crude, Arabi...</td>
-      <td>Britain Opens its First Public Hydrogen Fillin...</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>1.0</td>
-      <td>0.2895</td>
-      <td>demand, China, soar, major, energy, Russia, cu...</td>
-      <td>UK's Largest Coal Power Plant to be Converted ...</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>1.0</td>
-      <td>0.2892</td>
-      <td>demand, China, soar, major, energy, Russia, cu...</td>
-      <td>Russia And Saudi Arabia Consider Even Deeper O...</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>2.0</td>
-      <td>0.2874</td>
-      <td>market, big, see, production, stock, gas, Indu...</td>
-      <td>Energy Storage Tech Finally Starting To Compet...</td>
-    </tr>
-    <tr>
-      <th>5</th>
-      <td>2.0</td>
-      <td>0.2840</td>
-      <td>market, big, see, production, stock, gas, Indu...</td>
-      <td>Is The Bottom Finally In Sight For U.S. Drilli...</td>
-    </tr>
-    <tr>
-      <th>6</th>
-      <td>3.0</td>
-      <td>0.2920</td>
-      <td>price, Gas, OPEC, Iran, high, boom, Rig, Count...</td>
-      <td>New Pipeline from Kurdistan to Turkey Poses Ri...</td>
-    </tr>
-    <tr>
-      <th>7</th>
-      <td>3.0</td>
-      <td>0.2902</td>
-      <td>price, Gas, OPEC, Iran, high, boom, Rig, Count...</td>
-      <td>The Quiet Revolution: Latin America Moving Awa...</td>
-    </tr>
-  </tbody>
-</table>
-</li>
-<li>
-<p>Topic distribution across documents, see Table 13:</p>
-  <center> Table 13 Topic distribution across documents </center>
+<thead>
+<tr style="text-align: right;">
+<th>
+</th>
+<th>
+<p>Topic_Num</p>
+</th>
+<th>
+<p>Topic_Perc_Contrib</p>
+</th>
+<th>
+<p>Keywords</p>
+</th>
+<th>
+<p>Title</p>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>
+<p>0</p>
+</th>
+<td>
+<p>0.0</p>
+</td>
+<td>
+<p>0.3072</p>
+</td>
+<td>
+<p>U.S., Energy, Saudi, rise, Shale, Crude, Arabi...</p>
+</td>
+<td>
+<p>U.S. Growth Fears Push Crude Oil Futures Close...</p>
+</td>
+</tr>
+<tr>
+<th>
+<p>1</p>
+</th>
+<td>
+<p>0.0</p>
+</td>
+<td>
+<p>0.2951</p>
+</td>
+<td>
+<p>U.S., Energy, Saudi, rise, Shale, Crude, Arabi...</p>
+</td>
+<td>
+<p>Britain Opens its First Public Hydrogen Fillin...</p>
+</td>
+</tr>
+<tr>
+<th>
+<p>2</p>
+</th>
+<td>
+<p>1.0</p>
+</td>
+<td>
+<p>0.2895</p>
+</td>
+<td>
+<p>demand, China, soar, major, energy, Russia, cu...</p>
+</td>
+<td>
+<p>UK's Largest Coal Power Plant to be Converted ...</p>
+</td>
+</tr>
+<tr>
+<th>
+<p>3</p>
+</th>
+<td>
+<p>1.0</p>
+</td>
+<td>
+<p>0.2892</p>
+</td>
+<td>
+<p>demand, China, soar, major, energy, Russia, cu...</p>
+</td>
+<td>
+<p>Russia And Saudi Arabia Consider Even Deeper O...</p>
+</td>
+</tr>
+<tr>
+<th>
+<p>4</p>
+</th>
+<td>
+<p>2.0</p>
+</td>
+<td>
+<p>0.2874</p>
+</td>
+<td>
+<p>market, big, see, production, stock, gas, Indu...</p>
+</td>
+<td>
+<p>Energy Storage Tech Finally Starting To Compet...</p>
+</td>
+</tr>
+<tr>
+<th>
+<p>5</p>
+</th>
+<td>
+<p>2.0</p>
+</td>
+<td>
+<p>0.2840</p>
+</td>
+<td>
+<p>market, big, see, production, stock, gas, Indu...</p>
+</td>
+<td>
+<p>Is The Bottom Finally In Sight For U.S. Drilli...</p>
+</td>
+</tr>
+<tr>
+<th>
+<p>6</p>
+</th>
+<td>
+<p>3.0</p>
+</td>
+<td>
+<p>0.2920</p>
+</td>
+<td>
+<p>price, Gas, OPEC, Iran, high, boom, Rig, Count...</p>
+</td>
+<td>
+<p>New Pipeline from Kurdistan to Turkey Poses Ri...</p>
+</td>
+</tr>
+<tr>
+<th>
+<p>7</p>
+</th>
+<td>
+<p>3.0</p>
+</td>
+<td>
+<p>0.2902</p>
+</td>
+<td>
+<p>price, Gas, OPEC, Iran, high, boom, Rig, Count...</p>
+</td>
+<td>
+<p>The Quiet Revolution: Latin America Moving Awa...</p>
+</td>
+</tr>
+</tbody>
+</table></li>
+<li><p>Topic distribution across documents, see Table 13:</p>
+<center>
+<p>Table 13 Topic distribution across documents</p>
+</center>
 <table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>Dominant_Topic</th>
-      <th>Topic_Keywords</th>
-      <th>Num_Documents</th>
-      <th>Perc_Documents</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>0.0</td>
-      <td>U.S., Energy, Saudi, rise, Shale, Crude, Arabi...</td>
-      <td>10673</td>
-      <td>0.4391</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>3.0</td>
-      <td>price, Gas, OPEC, Iran, high, boom, Rig, Count...</td>
-      <td>4010</td>
-      <td>0.1650</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>2.0</td>
-      <td>market, big, see, production, stock, gas, Indu...</td>
-      <td>4030</td>
-      <td>0.1658</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>1.0</td>
-      <td>demand, China, soar, major, energy, Russia, cu...</td>
-      <td>5595</td>
-      <td>0.2302</td>
-    </tr>
-  </tbody>
-</table>
-</li>
-</ul>
-</li>
-<li>
-<p>Evaluation</p>
+<thead>
+<tr style="text-align: right;">
+<th>
+</th>
+<th>
+<p>Dominant_Topic</p>
+</th>
+<th>
+<p>Topic_Keywords</p>
+</th>
+<th>
+<p>Num_Documents</p>
+</th>
+<th>
+<p>Perc_Documents</p>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>
+<p>0</p>
+</th>
+<td>
+<p>0.0</p>
+</td>
+<td>
+<p>U.S., Energy, Saudi, rise, Shale, Crude, Arabi...</p>
+</td>
+<td>
+<p>10673</p>
+</td>
+<td>
+<p>0.4391</p>
+</td>
+</tr>
+<tr>
+<th>
+<p>1</p>
+</th>
+<td>
+<p>3.0</p>
+</td>
+<td>
+<p>price, Gas, OPEC, Iran, high, boom, Rig, Count...</p>
+</td>
+<td>
+<p>4010</p>
+</td>
+<td>
+<p>0.1650</p>
+</td>
+</tr>
+<tr>
+<th>
+<p>2</p>
+</th>
+<td>
+<p>2.0</p>
+</td>
+<td>
+<p>market, big, see, production, stock, gas, Indu...</p>
+</td>
+<td>
+<p>4030</p>
+</td>
+<td>
+<p>0.1658</p>
+</td>
+</tr>
+<tr>
+<th>
+<p>3</p>
+</th>
+<td>
+<p>1.0</p>
+</td>
+<td>
+<p>demand, China, soar, major, energy, Russia, cu...</p>
+</td>
+<td>
+<p>5595</p>
+</td>
+<td>
+<p>0.2302</p>
+</td>
+</tr>
+</tbody>
+</table></li>
+</ul></li>
+<li><p>Evaluation</p>
 <ul>
-<li>
-<p>Compute the perplexity.</p>
-<pre><code>Perplexity:  -11.663989584579646
-</code></pre>
-</li>
-</ul>
-</li>
-<li>
-<p>Visualization</p>
-<p>We can visualize the LDA model with the help of <code>pyLDAvis</code> module, a Python library, see Fig. 5.</p>
- <img src="https://z3.ax1x.com/2021/09/01/hwsPud.png" alt="png" style="zoom:80%;" />
- <center> Fig.5 Visualization of LDA model </center>
-</li>
+<li><p>Compute the perplexity.</p>
+<pre><code>Perplexity:  -11.663989584579646</code></pre></li>
+</ul></li>
+<li><p>Visualization</p>
+<p>We can visualize the LDA model with the help of <code>pyLDAvis</code>
+module, a Python library, see Fig. 5.</p>
+<p><img src="https://z3.ax1x.com/2021/09/01/hwsPud.png" alt="png" style="zoom:80%;" /></p>
+<center>
+<p>Fig.5 Visualization of LDA model</p>
+</center></li>
 </ol>
 
     </div>
@@ -1988,7 +3872,12 @@ Name: Title, dtype: object
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-introduction"><span class="nav-text"> 1. Introduction</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-methodology"><span class="nav-text"> 2. Methodology</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-text-mining"><span class="nav-text"> 3. Text mining</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#31-get-news-information"><span class="nav-text"> 3.1 Get news information</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#311-%E7%88%AC%E5%8F%96%E4%BF%A1%E6%81%AF"><span class="nav-text"> 3.1.1 爬取信息</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#32-news-propression"><span class="nav-text"> 3.2 News propression</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#321-text-cleaning"><span class="nav-text"> 3.2.1 Text cleaning</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#322-load-oil-price"><span class="nav-text"> 3.2.2 Load oil price</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#323-preparation"><span class="nav-text"> 3.2.3 Preparation</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#analysis-with-merged-data"><span class="nav-text"> Analysis with merged data</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#33-sentiment-analysis-with-finbert"><span class="nav-text"> 3.3 Sentiment analysis with FinBERT</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#331-introduction"><span class="nav-text"> 3.3.1 Introduction</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#data-exploration-to-financial-phrasebank"><span class="nav-text"> Data exploration to Financial PhraseBank</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#332-load-pre-trained-model"><span class="nav-text"> 3.3.2 Load pre-trained model</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#333-analysis-sentiment-features"><span class="nav-text"> 3.3.3 Analysis sentiment features</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#34-subjective-analysis-with-textblob"><span class="nav-text"> 3.4 Subjective analysis with TextBlob</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#341-introduction"><span class="nav-text"> 3.4.1 Introduction</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#35-oil-price-trends-with-cnn"><span class="nav-text"> 3.5 Oil price trends with CNN</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#351-introduction"><span class="nav-text"> 3.5.1 Introduction</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#352-code-implementation"><span class="nav-text"> 3.5.2 Code implementation</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#prepare-data"><span class="nav-text"> Prepare data</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#model-specification"><span class="nav-text"> Model specification</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#36-lda-topic-model"><span class="nav-text"> 3.6 LDA topic model</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#361-introduction"><span class="nav-text"> 3.6.1 Introduction</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#362-code-implementation"><span class="nav-text"> 3.6.2 Code implementation</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#configurations"><span class="nav-text"> Configurations</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#choosing-the-optimal-topic-numbers-with-octis"><span class="nav-text"> Choosing the optimal topic numbers with OCTIS</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#topic-modelling-with-gensim"><span class="nav-text"> Topic modelling with gensim</span></a></li></ol></li></ol></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#introduction"><span class="nav-text">1. Introduction</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#methodology"><span class="nav-text">2. Methodology</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#text-mining"><span class="nav-text">3. Text mining</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#get-news-information"><span class="nav-text">3.1 Get news information</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%88%AC%E5%8F%96%E4%BF%A1%E6%81%AF"><span class="nav-text">3.1.1 爬取信息</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#news-propression"><span class="nav-text">3.2 News propression</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#text-cleaning"><span class="nav-text">3.2.1 Text cleaning</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#load-oil-price"><span class="nav-text">3.2.2 Load oil price</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#preparation"><span class="nav-text">3.2.3 Preparation</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#analysis-with-merged-data"><span class="nav-text">Analysis with merged data</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#sentiment-analysis-with-finbert"><span class="nav-text">3.3 Sentiment analysis with
+FinBERT</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#introduction-1"><span class="nav-text">3.3.1 Introduction</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#data-exploration-to-financial-phrasebank"><span class="nav-text">Data exploration to
+Financial PhraseBank</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#load-pre-trained-model"><span class="nav-text">3.3.2 Load pre-trained model</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#analysis-sentiment-features"><span class="nav-text">3.3.3 Analysis sentiment
+features</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#subjective-analysis-with-textblob"><span class="nav-text">3.4 Subjective analysis with
+TextBlob</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#introduction-2"><span class="nav-text">3.4.1 Introduction</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#oil-price-trends-with-cnn"><span class="nav-text">3.5 Oil price trends with CNN</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#introduction-3"><span class="nav-text">3.5.1 Introduction</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#code-implementation"><span class="nav-text">3.5.2 Code implementation</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#prepare-data"><span class="nav-text">Prepare data</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#model-specification"><span class="nav-text">Model specification</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#lda-topic-model"><span class="nav-text">3.6 LDA topic model</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#introduction-4"><span class="nav-text">3.6.1 Introduction</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#code-implementation-1"><span class="nav-text">3.6.2 Code implementation</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#configurations"><span class="nav-text">Configurations</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#choosing-the-optimal-topic-numbers-with-octis"><span class="nav-text">Choosing the
+optimal topic numbers with OCTIS</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#topic-modelling-with-gensim"><span class="nav-text">Topic modelling with gensim</span></a></li></ol></li></ol></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 

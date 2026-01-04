@@ -24,12 +24,12 @@
     var CONFIG = {"hostname":"yangsuoly.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":true},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":true,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="1. Problem  1.1 Introduction of Background 火力发电的基本原理是：颜料燃烧时加热水会生成蒸汽，蒸汽压力推动汽轮机旋转，然后汽轮机带动带动发电机旋转，产生电能。在这一系列的能量转化中，影响发电效率的核心是锅炉的燃烧效率，即燃料燃烧加热水产生高温高压蒸汽。锅炉的燃烧效率的影响因素很多，包括锅炉的可调参数，如燃烧给量，一二次风，引风，返料风，给水水量；以及锅炉">
+  <meta name="description" content="1. Problem 1.1 Introduction of Background 火力发电的基本原理是：颜料燃烧时加热水会生成蒸汽，蒸汽压力推动汽轮机旋转，然后汽轮机带动带动发电机旋转，产生电能。在这一系列的能量转化中，影响发电效率的核心是锅炉的燃烧效率，即燃料燃烧加热水产生高温高压蒸汽。锅炉的燃烧效率的影响因素很多，包括锅炉的可调参数，如燃烧给量，一二次风，引风，返料风，给水水量；以及锅炉的工">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Ensemble-Steam">
 <meta property="og:url" content="http://yangsuoly.com/2021/05/22/Ensemble-Steam/index.html">
 <meta property="og:site_name" content="独孤诗人的学习驿站">
-<meta property="og:description" content="1. Problem  1.1 Introduction of Background 火力发电的基本原理是：颜料燃烧时加热水会生成蒸汽，蒸汽压力推动汽轮机旋转，然后汽轮机带动带动发电机旋转，产生电能。在这一系列的能量转化中，影响发电效率的核心是锅炉的燃烧效率，即燃料燃烧加热水产生高温高压蒸汽。锅炉的燃烧效率的影响因素很多，包括锅炉的可调参数，如燃烧给量，一二次风，引风，返料风，给水水量；以及锅炉">
+<meta property="og:description" content="1. Problem 1.1 Introduction of Background 火力发电的基本原理是：颜料燃烧时加热水会生成蒸汽，蒸汽压力推动汽轮机旋转，然后汽轮机带动带动发电机旋转，产生电能。在这一系列的能量转化中，影响发电效率的核心是锅炉的燃烧效率，即燃料燃烧加热水产生高温高压蒸汽。锅炉的燃烧效率的影响因素很多，包括锅炉的可调参数，如燃烧给量，一二次风，引风，返料风，给水水量；以及锅炉的工">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://z3.ax1x.com/2021/05/22/gO9rZt.png">
 <meta property="og:image" content="https://z3.ax1x.com/2021/05/22/gLjwKx.png">
@@ -313,489 +313,1153 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h1 id="1-problem"><a class="markdownIt-Anchor" href="#1-problem"></a> 1. Problem</h1>
-<h2 id="11-introduction-of-background"><a class="markdownIt-Anchor" href="#11-introduction-of-background"></a> 1.1 Introduction of Background</h2>
+        <h1 id="problem">1. Problem</h1>
+<h2 id="introduction-of-background">1.1 Introduction of Background</h2>
 <p>火力发电的基本原理是：颜料燃烧时加热水会生成蒸汽，蒸汽压力推动汽轮机旋转，然后汽轮机带动带动发电机旋转，产生电能。在这一系列的能量转化中，影响发电效率的核心是锅炉的燃烧效率，即燃料燃烧加热水产生高温高压蒸汽。锅炉的燃烧效率的影响因素很多，包括锅炉的可调参数，如燃烧给量，一二次风，引风，返料风，给水水量；以及锅炉的工况，比如锅炉床温、床压，炉膛温度、压力，过热器的温度等。我们如何使用以上的信息，根据锅炉的工况，预测产生的蒸汽量，来为我国的工业届的产量预测贡献自己的一份力量呢？</p>
 <a id="more"></a>
 <p>此次的案列时使用工业指标的特征，进行蒸汽量的预测。所使用的数据均为脱敏后的数据。</p>
-<h2 id="12-data-source"><a class="markdownIt-Anchor" href="#12-data-source"></a> 1.2 Data source</h2>
-<p>数据分成训练数据（<code>train.txt</code>）和测试数据（<code>test.txt</code>），其中字段 <code>V0-V37</code>，这 <code>38</code> 个字段是作为特征变量，<code>target</code> 作为目标变量。我们需要利用训练数据训练出模型，预测测试数据的目标变量。</p>
-<p>数据包下载地址: <a href="https://yangsuoly.com/file/Data-of-forcasting-Steams.rar">Data of case</a>。</p>
-<h2 id="13-evaluation-metrics"><a class="markdownIt-Anchor" href="#13-evaluation-metrics"></a> 1.3 Evaluation metrics</h2>
-<p>最终的评价指标为均方误差 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>M</mi><mi>S</mi><mi>E</mi></mrow><annotation encoding="application/x-tex">MSE</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.10903em;">M</span><span class="mord mathdefault" style="margin-right:0.05764em;">S</span><span class="mord mathdefault" style="margin-right:0.05764em;">E</span></span></span></span> ，即：<br />
-<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>S</mi><mi>c</mi><mi>o</mi><mi>r</mi><mi>e</mi><mo>=</mo><mfrac><mn>1</mn><mi>n</mi></mfrac><msubsup><mo>∑</mo><mn>1</mn><mi>n</mi></msubsup><mo stretchy="false">(</mo><msub><mi>y</mi><mi>i</mi></msub><mo>−</mo><msup><mi>y</mi><mo>∗</mo></msup><msup><mo stretchy="false">)</mo><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">Score = \frac{1}{n}\sum^n_1 (y_i - y^*)^2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.05764em;">S</span><span class="mord mathdefault">c</span><span class="mord mathdefault">o</span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mord mathdefault">e</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1.190108em;vertical-align:-0.345em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.845108em;"><span style="top:-2.6550000000000002em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">n</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mop"><span class="mop op-symbol small-op" style="position:relative;top:-0.0000050000000000050004em;">∑</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.804292em;"><span style="top:-2.40029em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span><span style="top:-3.2029em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">n</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.29971000000000003em;"><span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord"><span class="mord mathdefault" style="margin-right:0.03588em;">y</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:-0.03588em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1.064108em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.03588em;">y</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.688696em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mbin mtight">∗</span></span></span></span></span></span></span></span><span class="mclose"><span class="mclose">)</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span></span></span></span></p>
-<h1 id="2-data-process"><a class="markdownIt-Anchor" href="#2-data-process"></a> 2. Data process</h1>
-<h2 id="21-load-data"><a class="markdownIt-Anchor" href="#21-load-data"></a> 2.1 Load data</h2>
+<h2 id="data-source">1.2 Data source</h2>
+<p>数据分成训练数据（<code>train.txt</code>）和测试数据（<code>test.txt</code>），其中字段
+<code>V0-V37</code>，这 <code>38</code>
+个字段是作为特征变量，<code>target</code>
+作为目标变量。我们需要利用训练数据训练出模型，预测测试数据的目标变量。</p>
+<p>数据包下载地址: <a
+href="https://yangsuoly.com/file/Data-of-forcasting-Steams.rar">Data of
+case</a>。</p>
+<h2 id="evaluation-metrics">1.3 Evaluation metrics</h2>
+<p>最终的评价指标为均方误差 <span class="math inline">\(MSE\)</span>
+，即： <span class="math inline">\(Score = \frac{1}{n}\sum^n_1 (y_i -
+y^*)^2\)</span></p>
+<h1 id="data-process">2. Data process</h1>
+<h2 id="load-data">2.1 Load data</h2>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"></span><br><span class="line">data_train = pd.read_csv(<span class="string">&#x27;train.txt&#x27;</span>, sep = <span class="string">&#x27;\t&#x27;</span>)</span><br><span class="line">data_test = pd.read_csv(<span class="string">&#x27;test.txt&#x27;</span>, sep = <span class="string">&#x27;\t&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># concantenate</span></span><br><span class="line">data_train[<span class="string">&#x27;oringin&#x27;</span>] = <span class="string">&#x27;train&#x27;</span></span><br><span class="line">data_test[<span class="string">&#x27;oringin&#x27;</span>] = <span class="string">&#x27;test&#x27;</span></span><br><span class="line">data_all = pd.concat([data_train, data_test], axis = <span class="number">0</span>, ignore_index = <span class="literal">True</span>)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 <p>查看合并后的数据信息：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">data_all.head()</span><br></pre></td></tr></table></figure>
 <p>Result:</p>
 <table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>V0</th>
-      <th>V1</th>
-      <th>V2</th>
-      <th>V3</th>
-      <th>V4</th>
-      <th>V5</th>
-      <th>V6</th>
-      <th>V7</th>
-      <th>V8</th>
-      <th>V9</th>
-      <th>...</th>
-      <th>V30</th>
-      <th>V31</th>
-      <th>V32</th>
-      <th>V33</th>
-      <th>V34</th>
-      <th>V35</th>
-      <th>V36</th>
-      <th>V37</th>
-      <th>target</th>
-      <th>oringin</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>0.566</td>
-      <td>0.016</td>
-      <td>-0.143</td>
-      <td>0.407</td>
-      <td>0.452</td>
-      <td>-0.901</td>
-      <td>-1.812</td>
-      <td>-2.360</td>
-      <td>-0.436</td>
-      <td>-2.114</td>
-      <td>...</td>
-      <td>0.109</td>
-      <td>-0.615</td>
-      <td>0.327</td>
-      <td>-4.627</td>
-      <td>-4.789</td>
-      <td>-5.101</td>
-      <td>-2.608</td>
-      <td>-3.508</td>
-      <td>0.175</td>
-      <td>train</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>0.968</td>
-      <td>0.437</td>
-      <td>0.066</td>
-      <td>0.566</td>
-      <td>0.194</td>
-      <td>-0.893</td>
-      <td>-1.566</td>
-      <td>-2.360</td>
-      <td>0.332</td>
-      <td>-2.114</td>
-      <td>...</td>
-      <td>0.124</td>
-      <td>0.032</td>
-      <td>0.600</td>
-      <td>-0.843</td>
-      <td>0.160</td>
-      <td>0.364</td>
-      <td>-0.335</td>
-      <td>-0.730</td>
-      <td>0.676</td>
-      <td>train</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>1.013</td>
-      <td>0.568</td>
-      <td>0.235</td>
-      <td>0.370</td>
-      <td>0.112</td>
-      <td>-0.797</td>
-      <td>-1.367</td>
-      <td>-2.360</td>
-      <td>0.396</td>
-      <td>-2.114</td>
-      <td>...</td>
-      <td>0.361</td>
-      <td>0.277</td>
-      <td>-0.116</td>
-      <td>-0.843</td>
-      <td>0.160</td>
-      <td>0.364</td>
-      <td>0.765</td>
-      <td>-0.589</td>
-      <td>0.633</td>
-      <td>train</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>0.733</td>
-      <td>0.368</td>
-      <td>0.283</td>
-      <td>0.165</td>
-      <td>0.599</td>
-      <td>-0.679</td>
-      <td>-1.200</td>
-      <td>-2.086</td>
-      <td>0.403</td>
-      <td>-2.114</td>
-      <td>...</td>
-      <td>0.417</td>
-      <td>0.279</td>
-      <td>0.603</td>
-      <td>-0.843</td>
-      <td>-0.065</td>
-      <td>0.364</td>
-      <td>0.333</td>
-      <td>-0.112</td>
-      <td>0.206</td>
-      <td>train</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>0.684</td>
-      <td>0.638</td>
-      <td>0.260</td>
-      <td>0.209</td>
-      <td>0.337</td>
-      <td>-0.454</td>
-      <td>-1.073</td>
-      <td>-2.086</td>
-      <td>0.314</td>
-      <td>-2.114</td>
-      <td>...</td>
-      <td>1.078</td>
-      <td>0.328</td>
-      <td>0.418</td>
-      <td>-0.843</td>
-      <td>-0.215</td>
-      <td>0.364</td>
-      <td>-0.280</td>
-      <td>-0.028</td>
-      <td>0.384</td>
-      <td>train</td>
-    </tr>
-  </tbody>
+<thead>
+<tr style="text-align: right;">
+<th>
+</th>
+<th>
+V0
+</th>
+<th>
+V1
+</th>
+<th>
+V2
+</th>
+<th>
+V3
+</th>
+<th>
+V4
+</th>
+<th>
+V5
+</th>
+<th>
+V6
+</th>
+<th>
+V7
+</th>
+<th>
+V8
+</th>
+<th>
+V9
+</th>
+<th>
+...
+</th>
+<th>
+V30
+</th>
+<th>
+V31
+</th>
+<th>
+V32
+</th>
+<th>
+V33
+</th>
+<th>
+V34
+</th>
+<th>
+V35
+</th>
+<th>
+V36
+</th>
+<th>
+V37
+</th>
+<th>
+target
+</th>
+<th>
+oringin
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>
+0
+</th>
+<td>
+0.566
+</td>
+<td>
+0.016
+</td>
+<td>
+-0.143
+</td>
+<td>
+0.407
+</td>
+<td>
+0.452
+</td>
+<td>
+-0.901
+</td>
+<td>
+-1.812
+</td>
+<td>
+-2.360
+</td>
+<td>
+-0.436
+</td>
+<td>
+-2.114
+</td>
+<td>
+...
+</td>
+<td>
+0.109
+</td>
+<td>
+-0.615
+</td>
+<td>
+0.327
+</td>
+<td>
+-4.627
+</td>
+<td>
+-4.789
+</td>
+<td>
+-5.101
+</td>
+<td>
+-2.608
+</td>
+<td>
+-3.508
+</td>
+<td>
+0.175
+</td>
+<td>
+train
+</td>
+</tr>
+<tr>
+<th>
+1
+</th>
+<td>
+0.968
+</td>
+<td>
+0.437
+</td>
+<td>
+0.066
+</td>
+<td>
+0.566
+</td>
+<td>
+0.194
+</td>
+<td>
+-0.893
+</td>
+<td>
+-1.566
+</td>
+<td>
+-2.360
+</td>
+<td>
+0.332
+</td>
+<td>
+-2.114
+</td>
+<td>
+...
+</td>
+<td>
+0.124
+</td>
+<td>
+0.032
+</td>
+<td>
+0.600
+</td>
+<td>
+-0.843
+</td>
+<td>
+0.160
+</td>
+<td>
+0.364
+</td>
+<td>
+-0.335
+</td>
+<td>
+-0.730
+</td>
+<td>
+0.676
+</td>
+<td>
+train
+</td>
+</tr>
+<tr>
+<th>
+2
+</th>
+<td>
+1.013
+</td>
+<td>
+0.568
+</td>
+<td>
+0.235
+</td>
+<td>
+0.370
+</td>
+<td>
+0.112
+</td>
+<td>
+-0.797
+</td>
+<td>
+-1.367
+</td>
+<td>
+-2.360
+</td>
+<td>
+0.396
+</td>
+<td>
+-2.114
+</td>
+<td>
+...
+</td>
+<td>
+0.361
+</td>
+<td>
+0.277
+</td>
+<td>
+-0.116
+</td>
+<td>
+-0.843
+</td>
+<td>
+0.160
+</td>
+<td>
+0.364
+</td>
+<td>
+0.765
+</td>
+<td>
+-0.589
+</td>
+<td>
+0.633
+</td>
+<td>
+train
+</td>
+</tr>
+<tr>
+<th>
+3
+</th>
+<td>
+0.733
+</td>
+<td>
+0.368
+</td>
+<td>
+0.283
+</td>
+<td>
+0.165
+</td>
+<td>
+0.599
+</td>
+<td>
+-0.679
+</td>
+<td>
+-1.200
+</td>
+<td>
+-2.086
+</td>
+<td>
+0.403
+</td>
+<td>
+-2.114
+</td>
+<td>
+...
+</td>
+<td>
+0.417
+</td>
+<td>
+0.279
+</td>
+<td>
+0.603
+</td>
+<td>
+-0.843
+</td>
+<td>
+-0.065
+</td>
+<td>
+0.364
+</td>
+<td>
+0.333
+</td>
+<td>
+-0.112
+</td>
+<td>
+0.206
+</td>
+<td>
+train
+</td>
+</tr>
+<tr>
+<th>
+4
+</th>
+<td>
+0.684
+</td>
+<td>
+0.638
+</td>
+<td>
+0.260
+</td>
+<td>
+0.209
+</td>
+<td>
+0.337
+</td>
+<td>
+-0.454
+</td>
+<td>
+-1.073
+</td>
+<td>
+-2.086
+</td>
+<td>
+0.314
+</td>
+<td>
+-2.114
+</td>
+<td>
+...
+</td>
+<td>
+1.078
+</td>
+<td>
+0.328
+</td>
+<td>
+0.418
+</td>
+<td>
+-0.843
+</td>
+<td>
+-0.215
+</td>
+<td>
+0.364
+</td>
+<td>
+-0.280
+</td>
+<td>
+-0.028
+</td>
+<td>
+0.384
+</td>
+<td>
+train
+</td>
+</tr>
+</tbody>
 </table>
-<p>5 rows × 40 columns</p>
-<h2 id="22-data-exploration"><a class="markdownIt-Anchor" href="#22-data-exploration"></a> 2.2 Data exploration</h2>
-<h3 id="221-eda"><a class="markdownIt-Anchor" href="#221-eda"></a> 2.2.1 EDA</h3>
-<p>由于是传感器数据，所以这些变量都是连续便来给你，故使用 <code>kdeplot</code>（核密度估计图）进行数据的初步分析，即 <code>EDA</code>。</p>
+<p>
+5 rows × 40 columns
+</p>
+<h2 id="data-exploration">2.2 Data exploration</h2>
+<h3 id="eda">2.2.1 EDA</h3>
+<p>由于是传感器数据，所以这些变量都是连续便来给你，故使用
+<code>kdeplot</code>（核密度估计图）进行数据的初步分析，即
+<code>EDA</code>。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">import</span> seaborn <span class="keyword">as</span> sns</span><br><span class="line"></span><br><span class="line">columns = data_all.columns[<span class="number">0</span>:-<span class="number">2</span>]</span><br><span class="line"></span><br><span class="line">num_subfig = <span class="number">6</span> <span class="comment"># 每个大图中有多少小图</span></span><br><span class="line">num_fig = <span class="built_in">len</span>(columns) // num_subfig <span class="comment"># 需要多少个大图</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(num_fig):</span><br><span class="line">    f = plt.figure(figsize = (<span class="number">12</span>, <span class="number">9</span>))</span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(num_subfig):</span><br><span class="line">        column = columns[i*num_subfig+j]</span><br><span class="line">        <span class="comment"># ax = f.add_subplot(4, 3, j+1) # 当 num_subfit = 12 时使用</span></span><br><span class="line">        ax = f.add_subplot(<span class="number">3</span>, <span class="number">2</span>, j+<span class="number">1</span>) <span class="comment"># 当 num_subfit = 6 时使用</span></span><br><span class="line">        sns.kdeplot(data_all[column][(data_all[<span class="string">&quot;oringin&quot;</span>] == <span class="string">&quot;train&quot;</span>)],</span><br><span class="line">                    color=<span class="string">&quot;Red&quot;</span>, shade = <span class="literal">True</span>)</span><br><span class="line">        sns.kdeplot(data_all[column][(data_all[<span class="string">&quot;oringin&quot;</span>] == <span class="string">&quot;test&quot;</span>)],</span><br><span class="line">                    ax = ax, color=<span class="string">&quot;Blue&quot;</span>, shade= <span class="literal">True</span>)</span><br><span class="line">        ax.set_title(<span class="string">&#x27;V&#123;&#125;&#x27;</span>.<span class="built_in">format</span>(i*num_subfig+j), fontsize = <span class="number">16</span>)</span><br><span class="line">        ax.set_xlabel(column)</span><br><span class="line">        ax.set_ylabel(<span class="string">&#x27;Frenquency&#x27;</span>)</span><br><span class="line">        ax.legend([<span class="string">&#x27;Train&#x27;</span>, <span class="string">&#x27;Test&#x27;</span>])</span><br><span class="line">    plt.tight_layout()</span><br><span class="line">    plt.show()</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">2</span>):</span><br><span class="line">    f = plt.figure(figsize = (<span class="number">12</span>, <span class="number">3</span>))</span><br><span class="line">    column = columns[<span class="number">36</span>+i]</span><br><span class="line">    ax = f.add_subplot(<span class="number">1</span>, <span class="number">2</span>, i+<span class="number">1</span>)</span><br><span class="line">    sns.kdeplot(data_all[column][(data_all[<span class="string">&quot;oringin&quot;</span>] == <span class="string">&quot;train&quot;</span>)],</span><br><span class="line">                color=<span class="string">&quot;Red&quot;</span>, shade = <span class="literal">True</span>)</span><br><span class="line">    sns.kdeplot(data_all[column][(data_all[<span class="string">&quot;oringin&quot;</span>] == <span class="string">&quot;test&quot;</span>)],</span><br><span class="line">                ax = ax, color=<span class="string">&quot;Blue&quot;</span>, shade= <span class="literal">True</span>)</span><br><span class="line">    ax.set_title(<span class="string">&#x27;V&#123;&#125;&#x27;</span>.<span class="built_in">format</span>(<span class="number">36</span>+i), fontsize = <span class="number">16</span>)</span><br><span class="line">    ax.set_xlabel(column)</span><br><span class="line">    ax.set_ylabel(<span class="string">&#x27;Frenquency&#x27;</span>)</span><br><span class="line">    ax.legend([<span class="string">&#x27;Train&#x27;</span>, <span class="string">&#x27;Test&#x27;</span>])</span><br><span class="line">plt.tight_layout()</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
-<p><img src="https://z3.ax1x.com/2021/05/22/gO9rZt.png" alt="" /></p>
-<p><img src="https://z3.ax1x.com/2021/05/22/gLjwKx.png" alt="" /></p>
-<p><img src="https://z3.ax1x.com/2021/05/22/gLjBqK.png" alt="" /></p>
-<p><img src="https://z3.ax1x.com/2021/05/22/gLjrVO.png" alt="" /></p>
-<p><img src="https://z3.ax1x.com/2021/05/22/gLj0r6.png" alt="" /></p>
-<p><img src="https://z3.ax1x.com/2021/05/22/gLjyIe.png" alt="" /></p>
-<p><img src="https://z3.ax1x.com/2021/05/22/gLjsaD.png" alt="" /></p>
-<p><img src="https://z3.ax1x.com/2021/05/22/gLjcPH.png" alt="" /></p>
+<p><img src="https://z3.ax1x.com/2021/05/22/gO9rZt.png" /></p>
+<p><img src="https://z3.ax1x.com/2021/05/22/gLjwKx.png" /></p>
+<p><img src="https://z3.ax1x.com/2021/05/22/gLjBqK.png" /></p>
+<p><img src="https://z3.ax1x.com/2021/05/22/gLjrVO.png" /></p>
+<p><img src="https://z3.ax1x.com/2021/05/22/gLj0r6.png" /></p>
+<p><img src="https://z3.ax1x.com/2021/05/22/gLjyIe.png" /></p>
+<p><img src="https://z3.ax1x.com/2021/05/22/gLjsaD.png" /></p>
+<p><img src="https://z3.ax1x.com/2021/05/22/gLjcPH.png" /></p>
 <ul>
-<li>
-<p>Delete variables</p>
-<p>从上述的图中可以看出，特征征 <code>V5</code>, <code>V9</code>, <code>V11</code>, <code>V17</code>, <code>V22</code>, <code>V28</code>中的训练集数据分布和测试集数据分布分布不均，所以我们删除这些特则会给你数据。</p>
+<li><p>Delete variables</p>
+<p>从上述的图中可以看出，特征征 <code>V5</code>, <code>V9</code>,
+<code>V11</code>, <code>V17</code>, <code>V22</code>,
+<code>V28</code>中的训练集数据分布和测试集数据分布分布不均，所以我们删除这些特则会给你数据。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">f = plt.figure(figsize = (<span class="number">12</span>, <span class="number">9</span>))</span><br><span class="line"></span><br><span class="line">drop_columns = [<span class="string">&#x27;V5&#x27;</span>, <span class="string">&#x27;V9&#x27;</span>, <span class="string">&#x27;V11&#x27;</span>, <span class="string">&#x27;V17&#x27;</span>, <span class="string">&#x27;V22&#x27;</span>, <span class="string">&#x27;V28&#x27;</span>]</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">6</span>):</span><br><span class="line">    column = drop_columns[i]</span><br><span class="line">    <span class="comment"># ax = f.add_subplot(4, 3, j+1) # 当 num_subfit = 12 时使用</span></span><br><span class="line">    ax = f.add_subplot(<span class="number">3</span>, <span class="number">2</span>, i+<span class="number">1</span>) <span class="comment"># 当 num_subfit = 6 时使用</span></span><br><span class="line">    sns.kdeplot(data_all[column][(data_all[<span class="string">&quot;oringin&quot;</span>] == <span class="string">&quot;train&quot;</span>)],</span><br><span class="line">                color=<span class="string">&quot;Red&quot;</span>, shade = <span class="literal">True</span>)</span><br><span class="line">    sns.kdeplot(data_all[column][(data_all[<span class="string">&quot;oringin&quot;</span>] == <span class="string">&quot;test&quot;</span>)],</span><br><span class="line">                ax = ax, color=<span class="string">&quot;Blue&quot;</span>, shade= <span class="literal">True</span>)</span><br><span class="line">    ax.set_title(column, fontsize = <span class="number">16</span>)</span><br><span class="line">    ax.set_xlabel(column)</span><br><span class="line">    ax.set_ylabel(<span class="string">&#x27;Frenquency&#x27;</span>)</span><br><span class="line">    ax.legend([<span class="string">&#x27;Train&#x27;</span>, <span class="string">&#x27;Test&#x27;</span>])</span><br><span class="line">plt.tight_layout()</span><br><span class="line">plt.show()</span><br><span class="line"></span><br><span class="line">data_all.drop([<span class="string">&quot;V5&quot;</span>,<span class="string">&quot;V9&quot;</span>,<span class="string">&quot;V11&quot;</span>,<span class="string">&quot;V17&quot;</span>,<span class="string">&quot;V22&quot;</span>,<span class="string">&quot;V28&quot;</span>],axis=<span class="number">1</span>,inplace=<span class="literal">True</span>)</span><br></pre></td></tr></table></figure>
-<p><img src="https://z3.ax1x.com/2021/05/22/gLjax1.png" alt="" /></p>
-</li>
+<p><img src="https://z3.ax1x.com/2021/05/22/gLjax1.png" /></p></li>
 </ul>
-<h3 id="222-dimentsionality"><a class="markdownIt-Anchor" href="#222-dimentsionality"></a> 2.2.2 Dimentsionality</h3>
+<h3 id="dimentsionality">2.2.2 Dimentsionality</h3>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line">data_train1 = data_all[data_all[<span class="string">&quot;oringin&quot;</span>]==<span class="string">&quot;train&quot;</span>].drop(<span class="string">&quot;oringin&quot;</span>,axis=<span class="number">1</span>)</span><br><span class="line">plt.figure(figsize=(<span class="number">20</span>, <span class="number">16</span>)) <span class="comment"># 指定绘图对象宽度和高度</span></span><br><span class="line">colnm = data_train1.columns.tolist() <span class="comment"># 列表头</span></span><br><span class="line">mcorr = data_train1[colnm].corr(method=<span class="string">&quot;spearman&quot;</span>) <span class="comment"># 相关系数矩阵，即给出了任意两个变量之间的相关系数</span></span><br><span class="line">mask = np.zeros_like(mcorr, dtype=np.<span class="built_in">bool</span>) <span class="comment"># 构造与mcorr同维数矩阵 为bool型</span></span><br><span class="line">mask[np.triu_indices_from(mask)] = <span class="literal">True</span> <span class="comment"># 角分线右侧为True</span></span><br><span class="line">cmap = sns.diverging_palette(<span class="number">220</span>, <span class="number">10</span>, as_cmap=<span class="literal">True</span>) <span class="comment"># 返回matplotlib colormap对象，调色板</span></span><br><span class="line">g = sns.heatmap(mcorr, mask=mask, cmap=cmap, square=<span class="literal">True</span>, annot=<span class="literal">True</span>, fmt=<span class="string">&#x27;0.2f&#x27;</span>) <span class="comment"># 热力图（看两两相似度）</span></span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
-<p><img src="https://z3.ax1x.com/2021/05/22/gLjfMt.md.png" alt="" /></p>
+<p><img src="https://z3.ax1x.com/2021/05/22/gLjfMt.md.png" /></p>
 <ul>
-<li>
-<p>降维操作</p>
-<p>可以发现部分特征 (<code>V14, V21, V22, V25, V26, V32, V33, V34, V35</code>) 与 <code>target</code> 的相关性非常小，其中可能包含几乎很少的对target 的预测信息，因此，对这些变量进行剔除。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">threshold = <span class="number">0.1</span></span><br><span class="line">corr_matrix = data_train1.corr().<span class="built_in">abs</span>()</span><br><span class="line">drop_col=corr_matrix[corr_matrix[<span class="string">&quot;target&quot;</span>]&lt;threshold].index</span><br><span class="line">data_all.drop(drop_col,axis=<span class="number">1</span>,inplace=<span class="literal">True</span>)</span><br></pre></td></tr></table></figure>
-</li>
-<li>
-<p>Normalization</p>
+<li><p>降维操作</p>
+<p>可以发现部分特征
+(<code>V14, V21, V22, V25, V26, V32, V33, V34, V35</code>) 与
+<code>target</code> 的相关性非常小，其中可能包含几乎很少的对target
+的预测信息，因此，对这些变量进行剔除。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">threshold = <span class="number">0.1</span></span><br><span class="line">corr_matrix = data_train1.corr().<span class="built_in">abs</span>()</span><br><span class="line">drop_col=corr_matrix[corr_matrix[<span class="string">&quot;target&quot;</span>]&lt;threshold].index</span><br><span class="line">data_all.drop(drop_col,axis=<span class="number">1</span>,inplace=<span class="literal">True</span>)</span><br></pre></td></tr></table></figure></li>
+<li><p>Normalization</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">cols_numeric = <span class="built_in">list</span>(data_all.columns)</span><br><span class="line">cols_numeric.remove(<span class="string">&#x27;oringin&#x27;</span>)</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">scale_minmax</span>(<span class="params">col</span>):</span></span><br><span class="line">    <span class="keyword">return</span> (col - col.<span class="built_in">min</span>())/(col.<span class="built_in">max</span>()-col.<span class="built_in">min</span>())</span><br><span class="line">scale_cols = [col <span class="keyword">for</span> col <span class="keyword">in</span> cols_numeric <span class="keyword">if</span> col != <span class="string">&#x27;target&#x27;</span>]</span><br><span class="line">data_all[scale_cols] = data_all[scale_cols].apply(scale_minmax,axis=<span class="number">0</span>)</span><br><span class="line">data_all[scale_cols].describe()</span><br></pre></td></tr></table></figure>
 <div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
         vertical-align: middle;
     }
-<pre><code>.dataframe tbody tr th &#123;
-    vertical-align: top;
-&#125;
 
-.dataframe thead th &#123;
-    text-align: right;
-&#125;
-</code></pre>
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+
 </style>
 <table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>V0</th>
-      <th>V1</th>
-      <th>V2</th>
-      <th>V3</th>
-      <th>V4</th>
-      <th>V6</th>
-      <th>V7</th>
-      <th>V8</th>
-      <th>V10</th>
-      <th>V12</th>
-      <th>...</th>
-      <th>V20</th>
-      <th>V23</th>
-      <th>V24</th>
-      <th>V27</th>
-      <th>V29</th>
-      <th>V30</th>
-      <th>V31</th>
-      <th>V35</th>
-      <th>V36</th>
-      <th>V37</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>count</th>
-      <td>4813.000000</td>
-      <td>4813.000000</td>
-      <td>4813.000000</td>
-      <td>4813.000000</td>
-      <td>4813.000000</td>
-      <td>4813.000000</td>
-      <td>4813.000000</td>
-      <td>4813.000000</td>
-      <td>4813.000000</td>
-      <td>4813.000000</td>
-      <td>...</td>
-      <td>4813.000000</td>
-      <td>4813.000000</td>
-      <td>4813.000000</td>
-      <td>4813.000000</td>
-      <td>4813.000000</td>
-      <td>4813.000000</td>
-      <td>4813.000000</td>
-      <td>4813.000000</td>
-      <td>4813.000000</td>
-      <td>4813.000000</td>
-    </tr>
-    <tr>
-      <th>mean</th>
-      <td>0.694172</td>
-      <td>0.721357</td>
-      <td>0.602300</td>
-      <td>0.603139</td>
-      <td>0.523743</td>
-      <td>0.748823</td>
-      <td>0.745740</td>
-      <td>0.715607</td>
-      <td>0.348518</td>
-      <td>0.578507</td>
-      <td>...</td>
-      <td>0.456147</td>
-      <td>0.744438</td>
-      <td>0.356712</td>
-      <td>0.881401</td>
-      <td>0.388683</td>
-      <td>0.589459</td>
-      <td>0.792709</td>
-      <td>0.762873</td>
-      <td>0.332385</td>
-      <td>0.545795</td>
-    </tr>
-    <tr>
-      <th>std</th>
-      <td>0.144198</td>
-      <td>0.131443</td>
-      <td>0.140628</td>
-      <td>0.152462</td>
-      <td>0.106430</td>
-      <td>0.132560</td>
-      <td>0.132577</td>
-      <td>0.118105</td>
-      <td>0.134882</td>
-      <td>0.105088</td>
-      <td>...</td>
-      <td>0.134083</td>
-      <td>0.134085</td>
-      <td>0.265512</td>
-      <td>0.128221</td>
-      <td>0.133475</td>
-      <td>0.130786</td>
-      <td>0.102976</td>
-      <td>0.102037</td>
-      <td>0.127456</td>
-      <td>0.150356</td>
-    </tr>
-    <tr>
-      <th>min</th>
-      <td>0.000000</td>
-      <td>0.000000</td>
-      <td>0.000000</td>
-      <td>0.000000</td>
-      <td>0.000000</td>
-      <td>0.000000</td>
-      <td>0.000000</td>
-      <td>0.000000</td>
-      <td>0.000000</td>
-      <td>0.000000</td>
-      <td>...</td>
-      <td>0.000000</td>
-      <td>0.000000</td>
-      <td>0.000000</td>
-      <td>0.000000</td>
-      <td>0.000000</td>
-      <td>0.000000</td>
-      <td>0.000000</td>
-      <td>0.000000</td>
-      <td>0.000000</td>
-      <td>0.000000</td>
-    </tr>
-    <tr>
-      <th>25%</th>
-      <td>0.626676</td>
-      <td>0.679416</td>
-      <td>0.514414</td>
-      <td>0.503888</td>
-      <td>0.478182</td>
-      <td>0.683324</td>
-      <td>0.696938</td>
-      <td>0.664934</td>
-      <td>0.284327</td>
-      <td>0.532892</td>
-      <td>...</td>
-      <td>0.370475</td>
-      <td>0.719362</td>
-      <td>0.040616</td>
-      <td>0.888575</td>
-      <td>0.292445</td>
-      <td>0.550092</td>
-      <td>0.761816</td>
-      <td>0.727273</td>
-      <td>0.270584</td>
-      <td>0.445647</td>
-    </tr>
-    <tr>
-      <th>50%</th>
-      <td>0.729488</td>
-      <td>0.752497</td>
-      <td>0.617072</td>
-      <td>0.614270</td>
-      <td>0.535866</td>
-      <td>0.774125</td>
-      <td>0.771974</td>
-      <td>0.742884</td>
-      <td>0.366469</td>
-      <td>0.591635</td>
-      <td>...</td>
-      <td>0.447305</td>
-      <td>0.788817</td>
-      <td>0.381736</td>
-      <td>0.916015</td>
-      <td>0.375734</td>
-      <td>0.594428</td>
-      <td>0.815055</td>
-      <td>0.800020</td>
-      <td>0.347056</td>
-      <td>0.539317</td>
-    </tr>
-    <tr>
-      <th>75%</th>
-      <td>0.790195</td>
-      <td>0.799553</td>
-      <td>0.700464</td>
-      <td>0.710474</td>
-      <td>0.585036</td>
-      <td>0.842259</td>
-      <td>0.836405</td>
-      <td>0.790835</td>
-      <td>0.432965</td>
-      <td>0.641971</td>
-      <td>...</td>
-      <td>0.522660</td>
-      <td>0.792706</td>
-      <td>0.574728</td>
-      <td>0.932555</td>
-      <td>0.471837</td>
-      <td>0.650798</td>
-      <td>0.852229</td>
-      <td>0.800020</td>
-      <td>0.414861</td>
-      <td>0.643061</td>
-    </tr>
-    <tr>
-      <th>max</th>
-      <td>1.000000</td>
-      <td>1.000000</td>
-      <td>1.000000</td>
-      <td>1.000000</td>
-      <td>1.000000</td>
-      <td>1.000000</td>
-      <td>1.000000</td>
-      <td>1.000000</td>
-      <td>1.000000</td>
-      <td>1.000000</td>
-      <td>...</td>
-      <td>1.000000</td>
-      <td>1.000000</td>
-      <td>1.000000</td>
-      <td>1.000000</td>
-      <td>1.000000</td>
-      <td>1.000000</td>
-      <td>1.000000</td>
-      <td>1.000000</td>
-      <td>1.000000</td>
-      <td>1.000000</td>
-    </tr>
-  </tbody>
+<thead>
+<tr style="text-align: right;">
+<th>
+</th>
+<th>
+<p>V0</p>
+</th>
+<th>
+<p>V1</p>
+</th>
+<th>
+<p>V2</p>
+</th>
+<th>
+<p>V3</p>
+</th>
+<th>
+<p>V4</p>
+</th>
+<th>
+<p>V6</p>
+</th>
+<th>
+<p>V7</p>
+</th>
+<th>
+<p>V8</p>
+</th>
+<th>
+<p>V10</p>
+</th>
+<th>
+<p>V12</p>
+</th>
+<th>
+<p>...</p>
+</th>
+<th>
+<p>V20</p>
+</th>
+<th>
+<p>V23</p>
+</th>
+<th>
+<p>V24</p>
+</th>
+<th>
+<p>V27</p>
+</th>
+<th>
+<p>V29</p>
+</th>
+<th>
+<p>V30</p>
+</th>
+<th>
+<p>V31</p>
+</th>
+<th>
+<p>V35</p>
+</th>
+<th>
+<p>V36</p>
+</th>
+<th>
+<p>V37</p>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>
+<p>count</p>
+</th>
+<td>
+<p>4813.000000</p>
+</td>
+<td>
+<p>4813.000000</p>
+</td>
+<td>
+<p>4813.000000</p>
+</td>
+<td>
+<p>4813.000000</p>
+</td>
+<td>
+<p>4813.000000</p>
+</td>
+<td>
+<p>4813.000000</p>
+</td>
+<td>
+<p>4813.000000</p>
+</td>
+<td>
+<p>4813.000000</p>
+</td>
+<td>
+<p>4813.000000</p>
+</td>
+<td>
+<p>4813.000000</p>
+</td>
+<td>
+<p>...</p>
+</td>
+<td>
+<p>4813.000000</p>
+</td>
+<td>
+<p>4813.000000</p>
+</td>
+<td>
+<p>4813.000000</p>
+</td>
+<td>
+<p>4813.000000</p>
+</td>
+<td>
+<p>4813.000000</p>
+</td>
+<td>
+<p>4813.000000</p>
+</td>
+<td>
+<p>4813.000000</p>
+</td>
+<td>
+<p>4813.000000</p>
+</td>
+<td>
+<p>4813.000000</p>
+</td>
+<td>
+<p>4813.000000</p>
+</td>
+</tr>
+<tr>
+<th>
+<p>mean</p>
+</th>
+<td>
+<p>0.694172</p>
+</td>
+<td>
+<p>0.721357</p>
+</td>
+<td>
+<p>0.602300</p>
+</td>
+<td>
+<p>0.603139</p>
+</td>
+<td>
+<p>0.523743</p>
+</td>
+<td>
+<p>0.748823</p>
+</td>
+<td>
+<p>0.745740</p>
+</td>
+<td>
+<p>0.715607</p>
+</td>
+<td>
+<p>0.348518</p>
+</td>
+<td>
+<p>0.578507</p>
+</td>
+<td>
+<p>...</p>
+</td>
+<td>
+<p>0.456147</p>
+</td>
+<td>
+<p>0.744438</p>
+</td>
+<td>
+<p>0.356712</p>
+</td>
+<td>
+<p>0.881401</p>
+</td>
+<td>
+<p>0.388683</p>
+</td>
+<td>
+<p>0.589459</p>
+</td>
+<td>
+<p>0.792709</p>
+</td>
+<td>
+<p>0.762873</p>
+</td>
+<td>
+<p>0.332385</p>
+</td>
+<td>
+<p>0.545795</p>
+</td>
+</tr>
+<tr>
+<th>
+<p>std</p>
+</th>
+<td>
+<p>0.144198</p>
+</td>
+<td>
+<p>0.131443</p>
+</td>
+<td>
+<p>0.140628</p>
+</td>
+<td>
+<p>0.152462</p>
+</td>
+<td>
+<p>0.106430</p>
+</td>
+<td>
+<p>0.132560</p>
+</td>
+<td>
+<p>0.132577</p>
+</td>
+<td>
+<p>0.118105</p>
+</td>
+<td>
+<p>0.134882</p>
+</td>
+<td>
+<p>0.105088</p>
+</td>
+<td>
+<p>...</p>
+</td>
+<td>
+<p>0.134083</p>
+</td>
+<td>
+<p>0.134085</p>
+</td>
+<td>
+<p>0.265512</p>
+</td>
+<td>
+<p>0.128221</p>
+</td>
+<td>
+<p>0.133475</p>
+</td>
+<td>
+<p>0.130786</p>
+</td>
+<td>
+<p>0.102976</p>
+</td>
+<td>
+<p>0.102037</p>
+</td>
+<td>
+<p>0.127456</p>
+</td>
+<td>
+<p>0.150356</p>
+</td>
+</tr>
+<tr>
+<th>
+<p>min</p>
+</th>
+<td>
+<p>0.000000</p>
+</td>
+<td>
+<p>0.000000</p>
+</td>
+<td>
+<p>0.000000</p>
+</td>
+<td>
+<p>0.000000</p>
+</td>
+<td>
+<p>0.000000</p>
+</td>
+<td>
+<p>0.000000</p>
+</td>
+<td>
+<p>0.000000</p>
+</td>
+<td>
+<p>0.000000</p>
+</td>
+<td>
+<p>0.000000</p>
+</td>
+<td>
+<p>0.000000</p>
+</td>
+<td>
+<p>...</p>
+</td>
+<td>
+<p>0.000000</p>
+</td>
+<td>
+<p>0.000000</p>
+</td>
+<td>
+<p>0.000000</p>
+</td>
+<td>
+<p>0.000000</p>
+</td>
+<td>
+<p>0.000000</p>
+</td>
+<td>
+<p>0.000000</p>
+</td>
+<td>
+<p>0.000000</p>
+</td>
+<td>
+<p>0.000000</p>
+</td>
+<td>
+<p>0.000000</p>
+</td>
+<td>
+<p>0.000000</p>
+</td>
+</tr>
+<tr>
+<th>
+<p>25%</p>
+</th>
+<td>
+<p>0.626676</p>
+</td>
+<td>
+<p>0.679416</p>
+</td>
+<td>
+<p>0.514414</p>
+</td>
+<td>
+<p>0.503888</p>
+</td>
+<td>
+<p>0.478182</p>
+</td>
+<td>
+<p>0.683324</p>
+</td>
+<td>
+<p>0.696938</p>
+</td>
+<td>
+<p>0.664934</p>
+</td>
+<td>
+<p>0.284327</p>
+</td>
+<td>
+<p>0.532892</p>
+</td>
+<td>
+<p>...</p>
+</td>
+<td>
+<p>0.370475</p>
+</td>
+<td>
+<p>0.719362</p>
+</td>
+<td>
+<p>0.040616</p>
+</td>
+<td>
+<p>0.888575</p>
+</td>
+<td>
+<p>0.292445</p>
+</td>
+<td>
+<p>0.550092</p>
+</td>
+<td>
+<p>0.761816</p>
+</td>
+<td>
+<p>0.727273</p>
+</td>
+<td>
+<p>0.270584</p>
+</td>
+<td>
+<p>0.445647</p>
+</td>
+</tr>
+<tr>
+<th>
+<p>50%</p>
+</th>
+<td>
+<p>0.729488</p>
+</td>
+<td>
+<p>0.752497</p>
+</td>
+<td>
+<p>0.617072</p>
+</td>
+<td>
+<p>0.614270</p>
+</td>
+<td>
+<p>0.535866</p>
+</td>
+<td>
+<p>0.774125</p>
+</td>
+<td>
+<p>0.771974</p>
+</td>
+<td>
+<p>0.742884</p>
+</td>
+<td>
+<p>0.366469</p>
+</td>
+<td>
+<p>0.591635</p>
+</td>
+<td>
+<p>...</p>
+</td>
+<td>
+<p>0.447305</p>
+</td>
+<td>
+<p>0.788817</p>
+</td>
+<td>
+<p>0.381736</p>
+</td>
+<td>
+<p>0.916015</p>
+</td>
+<td>
+<p>0.375734</p>
+</td>
+<td>
+<p>0.594428</p>
+</td>
+<td>
+<p>0.815055</p>
+</td>
+<td>
+<p>0.800020</p>
+</td>
+<td>
+<p>0.347056</p>
+</td>
+<td>
+<p>0.539317</p>
+</td>
+</tr>
+<tr>
+<th>
+<p>75%</p>
+</th>
+<td>
+<p>0.790195</p>
+</td>
+<td>
+<p>0.799553</p>
+</td>
+<td>
+<p>0.700464</p>
+</td>
+<td>
+<p>0.710474</p>
+</td>
+<td>
+<p>0.585036</p>
+</td>
+<td>
+<p>0.842259</p>
+</td>
+<td>
+<p>0.836405</p>
+</td>
+<td>
+<p>0.790835</p>
+</td>
+<td>
+<p>0.432965</p>
+</td>
+<td>
+<p>0.641971</p>
+</td>
+<td>
+<p>...</p>
+</td>
+<td>
+<p>0.522660</p>
+</td>
+<td>
+<p>0.792706</p>
+</td>
+<td>
+<p>0.574728</p>
+</td>
+<td>
+<p>0.932555</p>
+</td>
+<td>
+<p>0.471837</p>
+</td>
+<td>
+<p>0.650798</p>
+</td>
+<td>
+<p>0.852229</p>
+</td>
+<td>
+<p>0.800020</p>
+</td>
+<td>
+<p>0.414861</p>
+</td>
+<td>
+<p>0.643061</p>
+</td>
+</tr>
+<tr>
+<th>
+<p>max</p>
+</th>
+<td>
+<p>1.000000</p>
+</td>
+<td>
+<p>1.000000</p>
+</td>
+<td>
+<p>1.000000</p>
+</td>
+<td>
+<p>1.000000</p>
+</td>
+<td>
+<p>1.000000</p>
+</td>
+<td>
+<p>1.000000</p>
+</td>
+<td>
+<p>1.000000</p>
+</td>
+<td>
+<p>1.000000</p>
+</td>
+<td>
+<p>1.000000</p>
+</td>
+<td>
+<p>1.000000</p>
+</td>
+<td>
+<p>...</p>
+</td>
+<td>
+<p>1.000000</p>
+</td>
+<td>
+<p>1.000000</p>
+</td>
+<td>
+<p>1.000000</p>
+</td>
+<td>
+<p>1.000000</p>
+</td>
+<td>
+<p>1.000000</p>
+</td>
+<td>
+<p>1.000000</p>
+</td>
+<td>
+<p>1.000000</p>
+</td>
+<td>
+<p>1.000000</p>
+</td>
+<td>
+<p>1.000000</p>
+</td>
+<td>
+<p>1.000000</p>
+</td>
+</tr>
+</tbody>
 </table>
+<p>
 <p>8 rows × 25 columns</p>
-</li>
+</p></li>
 </ul>
-<h3 id="233-features-engineering"><a class="markdownIt-Anchor" href="#233-features-engineering"></a> 2.3.3 Features engineering</h3>
-<p>绘图显示 <code>Box-Cox</code> 变换对数据分布影响，<code>Box-Cox</code> 用于连续的响应变量不满足正态分布的情况。在进行 <code>Box-Cox</code> 变换之后，可以一定程度上减少不可观测的误差和预测变量的相关性。</p>
-<p><code>quantitle-quantile(q-q)</code> 图，可参考 <a target="_blank" rel="noopener" href="https://blog.csdn.net/u012193416/article/details/83210790">QQ图，stats.probplot</a></p>
+<h3 id="features-engineering">2.3.3 Features engineering</h3>
+<p>绘图显示 <code>Box-Cox</code>
+变换对数据分布影响，<code>Box-Cox</code>
+用于连续的响应变量不满足正态分布的情况。在进行 <code>Box-Cox</code>
+变换之后，可以一定程度上减少不可观测的误差和预测变量的相关性。</p>
+<p><code>quantitle-quantile(q-q)</code> 图，可参考 <a
+target="_blank" rel="noopener" href="https://blog.csdn.net/u012193416/article/details/83210790">QQ图，stats.probplot</a></p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> warnings</span><br><span class="line">warnings.filterwarnings(<span class="string">&quot;ignore&quot;</span>)</span><br><span class="line"><span class="keyword">from</span> scipy <span class="keyword">import</span> stats</span><br><span class="line"></span><br><span class="line">fcols = <span class="number">6</span></span><br><span class="line">frows = <span class="built_in">len</span>(cols_numeric)-<span class="number">1</span></span><br><span class="line">plt.figure(figsize=(<span class="number">4</span>*fcols,<span class="number">4</span>*frows))</span><br><span class="line">i=<span class="number">0</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> var <span class="keyword">in</span> cols_numeric:</span><br><span class="line">    <span class="keyword">if</span> var!=<span class="string">&#x27;target&#x27;</span>:</span><br><span class="line">        dat = data_all[[var, <span class="string">&#x27;target&#x27;</span>]].dropna()</span><br><span class="line"></span><br><span class="line">        i+=<span class="number">1</span></span><br><span class="line">        plt.subplot(frows,fcols,i)</span><br><span class="line">        sns.distplot(dat[var] , fit=stats.norm);</span><br><span class="line">        plt.title(var+<span class="string">&#x27; Original&#x27;</span>)</span><br><span class="line">        plt.xlabel(<span class="string">&#x27;&#x27;</span>)</span><br><span class="line"></span><br><span class="line">        i+=<span class="number">1</span></span><br><span class="line">        plt.subplot(frows,fcols,i)</span><br><span class="line">        _=stats.probplot(dat[var], plot=plt)</span><br><span class="line">        plt.title(<span class="string">&#x27;skew=&#x27;</span>+<span class="string">&#x27;&#123;:.4f&#125;&#x27;</span>.<span class="built_in">format</span>(stats.skew(dat[var])))</span><br><span class="line">        plt.xlabel(<span class="string">&#x27;&#x27;</span>)</span><br><span class="line">        plt.ylabel(<span class="string">&#x27;&#x27;</span>)</span><br><span class="line"></span><br><span class="line">        i+=<span class="number">1</span></span><br><span class="line">        plt.subplot(frows,fcols,i)</span><br><span class="line">        plt.plot(dat[var], dat[<span class="string">&#x27;target&#x27;</span>],<span class="string">&#x27;.&#x27;</span>,alpha=<span class="number">0.5</span>)</span><br><span class="line">        plt.title(<span class="string">&#x27;corr=&#x27;</span>+<span class="string">&#x27;&#123;:.2f&#125;&#x27;</span>.<span class="built_in">format</span>(np.corrcoef(dat[var], dat[<span class="string">&#x27;target&#x27;</span>])[<span class="number">0</span>][<span class="number">1</span>]))</span><br><span class="line"></span><br><span class="line">        i+=<span class="number">1</span></span><br><span class="line">        plt.subplot(frows,fcols,i)</span><br><span class="line">        trans_var, lambda_var = stats.boxcox(dat[var].dropna()+<span class="number">1</span>)</span><br><span class="line">        trans_var = scale_minmax(trans_var)</span><br><span class="line">        sns.distplot(trans_var , fit=stats.norm);</span><br><span class="line">        plt.title(var+<span class="string">&#x27; Tramsformed&#x27;</span>)</span><br><span class="line">        plt.xlabel(<span class="string">&#x27;&#x27;</span>)</span><br><span class="line"></span><br><span class="line">        i+=<span class="number">1</span></span><br><span class="line">        plt.subplot(frows,fcols,i)</span><br><span class="line">        _=stats.probplot(trans_var, plot=plt)</span><br><span class="line">        plt.title(<span class="string">&#x27;skew=&#x27;</span>+<span class="string">&#x27;&#123;:.4f&#125;&#x27;</span>.<span class="built_in">format</span>(stats.skew(trans_var)))</span><br><span class="line">        plt.xlabel(<span class="string">&#x27;&#x27;</span>)</span><br><span class="line">        plt.ylabel(<span class="string">&#x27;&#x27;</span>)</span><br><span class="line"></span><br><span class="line">        i+=<span class="number">1</span></span><br><span class="line">        plt.subplot(frows,fcols,i)</span><br><span class="line">        plt.plot(trans_var, dat[<span class="string">&#x27;target&#x27;</span>],<span class="string">&#x27;.&#x27;</span>,alpha=<span class="number">0.5</span>)</span><br><span class="line">        plt.title(<span class="string">&#x27;corr=&#x27;</span>+<span class="string">&#x27;&#123;:.2f&#125;&#x27;</span>.<span class="built_in">format</span>(np.corrcoef(trans_var,dat[<span class="string">&#x27;target&#x27;</span>])[<span class="number">0</span>][<span class="number">1</span>]))</span><br></pre></td></tr></table></figure>
-<p><img src="https://z3.ax1x.com/2021/05/22/gLjIZ8.md.png" alt="" /></p>
+<p><img src="https://z3.ax1x.com/2021/05/22/gLjIZ8.md.png" /></p>
 <ul>
-<li>
-<p>Box-Cox 变换</p>
+<li><p>Box-Cox 变换</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 进行Box-Cox变换</span></span><br><span class="line">cols_transform=data_all.columns[<span class="number">0</span>:-<span class="number">2</span>]</span><br><span class="line"><span class="keyword">for</span> col <span class="keyword">in</span> cols_transform:</span><br><span class="line">    <span class="comment"># transform column</span></span><br><span class="line">    data_all.loc[:,col], _ = stats.boxcox(data_all.loc[:,col]+<span class="number">1</span>)</span><br><span class="line">print(data_all.target.describe())</span><br><span class="line">plt.figure(figsize=(<span class="number">12</span>,<span class="number">4</span>))</span><br><span class="line">plt.subplot(<span class="number">1</span>,<span class="number">2</span>,<span class="number">1</span>)</span><br><span class="line">sns.distplot(data_all.target.dropna() , fit=stats.norm);</span><br><span class="line">plt.subplot(<span class="number">1</span>,<span class="number">2</span>,<span class="number">2</span>)</span><br><span class="line">_=stats.probplot(data_all.target.dropna(), plot=plt)</span><br></pre></td></tr></table></figure>
-<p>Results:</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">count    <span class="number">2888.000000</span></span><br><span class="line">mean        <span class="number">0.126353</span></span><br><span class="line">std         <span class="number">0.983966</span></span><br><span class="line"><span class="built_in">min</span>        -<span class="number">3.044000</span></span><br><span class="line"><span class="number">25</span>%        -<span class="number">0.350250</span></span><br><span class="line"><span class="number">50</span>%         <span class="number">0.313000</span></span><br><span class="line"><span class="number">75</span>%         <span class="number">0.793250</span></span><br><span class="line"><span class="built_in">max</span>         <span class="number">2.538000</span></span><br><span class="line">Name: target, dtype: float64</span><br></pre></td></tr></table></figure>
-</li>
+<p>Results: <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">count    <span class="number">2888.000000</span></span><br><span class="line">mean        <span class="number">0.126353</span></span><br><span class="line">std         <span class="number">0.983966</span></span><br><span class="line"><span class="built_in">min</span>        -<span class="number">3.044000</span></span><br><span class="line"><span class="number">25</span>%        -<span class="number">0.350250</span></span><br><span class="line"><span class="number">50</span>%         <span class="number">0.313000</span></span><br><span class="line"><span class="number">75</span>%         <span class="number">0.793250</span></span><br><span class="line"><span class="built_in">max</span>         <span class="number">2.538000</span></span><br><span class="line">Name: target, dtype: float64</span><br></pre></td></tr></table></figure></p></li>
 </ul>
-<p><img src="https://z3.ax1x.com/2021/05/22/gLj2RA.png" alt="" /></p>
+<p><img src="https://z3.ax1x.com/2021/05/22/gLj2RA.png" /></p>
 <ul>
-<li>
-<p>对数变换 <code>target</code></p>
-<p>使用对数变换 <code>target</code> 目标提升特征数量的正态性，可以参考知乎文章：<a target="_blank" rel="noopener" href="https://www.zhihu.com/question/22012482">在统计学中为什么要对变量取对数？</a></p>
+<li><p>对数变换 <code>target</code></p>
+<p>使用对数变换 <code>target</code>
+目标提升特征数量的正态性，可以参考知乎文章：<a
+target="_blank" rel="noopener" href="https://www.zhihu.com/question/22012482">在统计学中为什么要对变量取对数？</a></p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">sp = data_train.target</span><br><span class="line">data_train.target1 = np.power(<span class="number">1.5</span>,sp)</span><br><span class="line">print(data_train.target1.describe())</span><br><span class="line"></span><br><span class="line">plt.figure(figsize=(<span class="number">12</span>,<span class="number">4</span>))</span><br><span class="line">plt.subplot(<span class="number">1</span>,<span class="number">2</span>,<span class="number">1</span>)</span><br><span class="line">sns.distplot(data_train.target1.dropna(),fit=stats.norm);</span><br><span class="line">plt.subplot(<span class="number">1</span>,<span class="number">2</span>,<span class="number">2</span>)</span><br><span class="line">_ = stats.probplot(data_train.target1.dropna(), plot=plt)</span><br></pre></td></tr></table></figure>
-<p>Results:</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">count    <span class="number">2888.000000</span></span><br><span class="line">mean        <span class="number">1.129957</span></span><br><span class="line">std         <span class="number">0.394110</span></span><br><span class="line"><span class="built_in">min</span>         <span class="number">0.291057</span></span><br><span class="line"><span class="number">25</span>%         <span class="number">0.867609</span></span><br><span class="line"><span class="number">50</span>%         <span class="number">1.135315</span></span><br><span class="line"><span class="number">75</span>%         <span class="number">1.379382</span></span><br><span class="line"><span class="built_in">max</span>         <span class="number">2.798463</span></span><br><span class="line">Name: target, dtype: float64</span><br></pre></td></tr></table></figure>
-<p><img src="https://z3.ax1x.com/2021/05/22/gLjRxI.png" alt="" /></p>
-</li>
+<p>Results: <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">count    <span class="number">2888.000000</span></span><br><span class="line">mean        <span class="number">1.129957</span></span><br><span class="line">std         <span class="number">0.394110</span></span><br><span class="line"><span class="built_in">min</span>         <span class="number">0.291057</span></span><br><span class="line"><span class="number">25</span>%         <span class="number">0.867609</span></span><br><span class="line"><span class="number">50</span>%         <span class="number">1.135315</span></span><br><span class="line"><span class="number">75</span>%         <span class="number">1.379382</span></span><br><span class="line"><span class="built_in">max</span>         <span class="number">2.798463</span></span><br><span class="line">Name: target, dtype: float64</span><br></pre></td></tr></table></figure></p>
+<p><img src="https://z3.ax1x.com/2021/05/22/gLjRxI.png" /></p></li>
 </ul>
-<h1 id="3-model-construction"><a class="markdownIt-Anchor" href="#3-model-construction"></a> 3. Model construction</h1>
-<h2 id="31-self-definition-fuction"><a class="markdownIt-Anchor" href="#31-self-definition-fuction"></a> 3.1 Self definition fuction</h2>
+<h1 id="model-construction">3. Model construction</h1>
+<h2 id="self-definition-fuction">3.1 Self definition fuction</h2>
 <ul>
-<li>
-<p>Train set and Test set</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.model_selection <span class="keyword">import</span> train_test_split</span><br><span class="line"></span><br><span class="line"><span class="comment"># function to get training samples</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_training_data</span>():</span></span><br><span class="line">    <span class="comment"># extract training samples</span></span><br><span class="line">    df_train = data_all[data_all[<span class="string">&quot;oringin&quot;</span>]==<span class="string">&quot;train&quot;</span>]</span><br><span class="line">    df_train[<span class="string">&quot;label&quot;</span>] = data_train.target1</span><br><span class="line">    <span class="comment"># split SalePrice and features</span></span><br><span class="line">    y = df_train.target</span><br><span class="line">    X = df_train.drop([<span class="string">&quot;oringin&quot;</span>,<span class="string">&quot;target&quot;</span>,<span class="string">&quot;label&quot;</span>], axis=<span class="number">1</span>)</span><br><span class="line">    X_train,X_valid,y_train,y_valid=train_test_split(X,</span><br><span class="line">                        y,test_size=<span class="number">0.3</span>,random_state=<span class="number">100</span>)</span><br><span class="line">    <span class="keyword">return</span> X_train,X_valid,y_train,y_valid</span><br><span class="line">    <span class="comment"># extract test data (without SalePrice)</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_test_data</span>():</span></span><br><span class="line">    df_test = data_all[data_all[<span class="string">&quot;oringin&quot;</span>]==<span class="string">&quot;test&quot;</span>].reset_index(drop=<span class="literal">True</span>)</span><br><span class="line">    <span class="keyword">return</span> df_test.drop([<span class="string">&quot;oringin&quot;</span>,<span class="string">&quot;target&quot;</span>],axis=<span class="number">1</span>)</span><br></pre></td></tr></table></figure>
-</li>
-<li>
-<p>Evaluation metrics</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.metrics <span class="keyword">import</span> make_scorer,mean_squared_error</span><br><span class="line"></span><br><span class="line"><span class="comment"># metric for evaluation</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">rmse</span>(<span class="params">y_true, y_pred</span>):</span></span><br><span class="line">    diff = y_pred - y_true</span><br><span class="line">    sum_sq = <span class="built_in">sum</span>(diff**<span class="number">2</span>)</span><br><span class="line">    n = <span class="built_in">len</span>(y_pred)</span><br><span class="line">    <span class="keyword">return</span> np.sqrt(sum_sq/n)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">mse</span>(<span class="params">y_ture,y_pred</span>):</span></span><br><span class="line">    <span class="keyword">return</span> mean_squared_error(y_ture,y_pred)</span><br><span class="line"></span><br><span class="line"><span class="comment"># scorer to be used in sklearn model fitting</span></span><br><span class="line">rmse_scorer = make_scorer(rmse, greater_is_better=<span class="literal">False</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 输入的score_func为记分函数时，该值为True（默认值）；输入函数为损失函数时，该值为False</span></span><br><span class="line">mse_scorer = make_scorer(mse, greater_is_better=<span class="literal">False</span>)</span><br></pre></td></tr></table></figure>
-</li>
-<li>
-<p>Outliers</p>
+<li><p>Train set and Test set</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.model_selection <span class="keyword">import</span> train_test_split</span><br><span class="line"></span><br><span class="line"><span class="comment"># function to get training samples</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_training_data</span>():</span></span><br><span class="line">    <span class="comment"># extract training samples</span></span><br><span class="line">    df_train = data_all[data_all[<span class="string">&quot;oringin&quot;</span>]==<span class="string">&quot;train&quot;</span>]</span><br><span class="line">    df_train[<span class="string">&quot;label&quot;</span>] = data_train.target1</span><br><span class="line">    <span class="comment"># split SalePrice and features</span></span><br><span class="line">    y = df_train.target</span><br><span class="line">    X = df_train.drop([<span class="string">&quot;oringin&quot;</span>,<span class="string">&quot;target&quot;</span>,<span class="string">&quot;label&quot;</span>], axis=<span class="number">1</span>)</span><br><span class="line">    X_train,X_valid,y_train,y_valid=train_test_split(X,</span><br><span class="line">                        y,test_size=<span class="number">0.3</span>,random_state=<span class="number">100</span>)</span><br><span class="line">    <span class="keyword">return</span> X_train,X_valid,y_train,y_valid</span><br><span class="line">    <span class="comment"># extract test data (without SalePrice)</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_test_data</span>():</span></span><br><span class="line">    df_test = data_all[data_all[<span class="string">&quot;oringin&quot;</span>]==<span class="string">&quot;test&quot;</span>].reset_index(drop=<span class="literal">True</span>)</span><br><span class="line">    <span class="keyword">return</span> df_test.drop([<span class="string">&quot;oringin&quot;</span>,<span class="string">&quot;target&quot;</span>],axis=<span class="number">1</span>)</span><br></pre></td></tr></table></figure></li>
+<li><p>Evaluation metrics</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.metrics <span class="keyword">import</span> make_scorer,mean_squared_error</span><br><span class="line"></span><br><span class="line"><span class="comment"># metric for evaluation</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">rmse</span>(<span class="params">y_true, y_pred</span>):</span></span><br><span class="line">    diff = y_pred - y_true</span><br><span class="line">    sum_sq = <span class="built_in">sum</span>(diff**<span class="number">2</span>)</span><br><span class="line">    n = <span class="built_in">len</span>(y_pred)</span><br><span class="line">    <span class="keyword">return</span> np.sqrt(sum_sq/n)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">mse</span>(<span class="params">y_ture,y_pred</span>):</span></span><br><span class="line">    <span class="keyword">return</span> mean_squared_error(y_ture,y_pred)</span><br><span class="line"></span><br><span class="line"><span class="comment"># scorer to be used in sklearn model fitting</span></span><br><span class="line">rmse_scorer = make_scorer(rmse, greater_is_better=<span class="literal">False</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 输入的score_func为记分函数时，该值为True（默认值）；输入函数为损失函数时，该值为False</span></span><br><span class="line">mse_scorer = make_scorer(mse, greater_is_better=<span class="literal">False</span>)</span><br></pre></td></tr></table></figure></li>
+<li><p>Outliers</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.linear_model <span class="keyword">import</span> Ridge</span><br><span class="line"></span><br><span class="line"><span class="comment"># function to detect outliers based on the predictions of a model</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">find_outliers</span>(<span class="params">model, X, y, sigma=<span class="number">3</span></span>):</span></span><br><span class="line">    <span class="comment"># predict y values using model</span></span><br><span class="line">    model.fit(X,y)</span><br><span class="line">    y_pred = pd.Series(model.predict(X), index=y.index)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># calculate residuals between the model prediction and true y values</span></span><br><span class="line">    resid = y - y_pred</span><br><span class="line">    mean_resid = resid.mean()</span><br><span class="line">    std_resid = resid.std()</span><br><span class="line"></span><br><span class="line">    <span class="comment"># calculate z statistic, define outliers to be where |z|&gt;sigma</span></span><br><span class="line">    z = (resid - mean_resid)/std_resid</span><br><span class="line">    outliers = z[<span class="built_in">abs</span>(z)&gt;sigma].index</span><br><span class="line"></span><br><span class="line">    <span class="comment"># print and plot the results</span></span><br><span class="line">    print(<span class="string">&#x27;R2=&#x27;</span>,model.score(X,y))</span><br><span class="line">    print(<span class="string">&#x27;rmse=&#x27;</span>,rmse(y, y_pred))</span><br><span class="line">    print(<span class="string">&quot;mse=&quot;</span>,mean_squared_error(y,y_pred))</span><br><span class="line">    print(<span class="string">&#x27;---------------------------------------&#x27;</span>)</span><br><span class="line"></span><br><span class="line">    print(<span class="string">&#x27;mean of residuals:&#x27;</span>,mean_resid)</span><br><span class="line">    print(<span class="string">&#x27;std of residuals:&#x27;</span>,std_resid)</span><br><span class="line">    print(<span class="string">&#x27;---------------------------------------&#x27;</span>)</span><br><span class="line"></span><br><span class="line">    print(<span class="built_in">len</span>(outliers),<span class="string">&#x27;outliers:&#x27;</span>)</span><br><span class="line">    print(outliers.tolist())</span><br><span class="line"></span><br><span class="line">    plt.figure(figsize=(<span class="number">15</span>,<span class="number">5</span>))</span><br><span class="line">    ax_131 = plt.subplot(<span class="number">1</span>,<span class="number">3</span>,<span class="number">1</span>)</span><br><span class="line">    plt.plot(y,y_pred,<span class="string">&#x27;.&#x27;</span>)</span><br><span class="line">    plt.plot(y.loc[outliers],y_pred.loc[outliers],<span class="string">&#x27;ro&#x27;</span>)</span><br><span class="line">    plt.legend([<span class="string">&#x27;Accepted&#x27;</span>,<span class="string">&#x27;Outlier&#x27;</span>])</span><br><span class="line">    plt.xlabel(<span class="string">&#x27;y&#x27;</span>)</span><br><span class="line">    plt.ylabel(<span class="string">&#x27;y_pred&#x27;</span>);</span><br><span class="line"></span><br><span class="line">    ax_132=plt.subplot(<span class="number">1</span>,<span class="number">3</span>,<span class="number">2</span>)</span><br><span class="line">    plt.plot(y,y-y_pred,<span class="string">&#x27;.&#x27;</span>)</span><br><span class="line">    plt.plot(y.loc[outliers],y.loc[outliers]-y_pred.loc[outliers],<span class="string">&#x27;ro&#x27;</span>)</span><br><span class="line">    plt.legend([<span class="string">&#x27;Accepted&#x27;</span>,<span class="string">&#x27;Outlier&#x27;</span>])</span><br><span class="line">    plt.xlabel(<span class="string">&#x27;y&#x27;</span>)</span><br><span class="line">    plt.ylabel(<span class="string">&#x27;y - y_pred&#x27;</span>);</span><br><span class="line"></span><br><span class="line">    ax_133=plt.subplot(<span class="number">1</span>,<span class="number">3</span>,<span class="number">3</span>)</span><br><span class="line">    z.plot.hist(bins=<span class="number">50</span>,ax=ax_133)</span><br><span class="line">    z.loc[outliers].plot.hist(color=<span class="string">&#x27;r&#x27;</span>,bins=<span class="number">50</span>,ax=ax_133)</span><br><span class="line">    plt.legend([<span class="string">&#x27;Accepted&#x27;</span>,<span class="string">&#x27;Outlier&#x27;</span>])</span><br><span class="line">    plt.xlabel(<span class="string">&#x27;z&#x27;</span>)</span><br><span class="line">    <span class="keyword">return</span> outliers</span><br><span class="line"></span><br><span class="line"><span class="comment"># get training data</span></span><br><span class="line">X_train, X_valid,y_train,y_valid = get_training_data()</span><br><span class="line">test=get_test_data()</span><br><span class="line"></span><br><span class="line"><span class="comment"># find and remove outliers using a Ridge model</span></span><br><span class="line">outliers = find_outliers(Ridge(), X_train, y_train)</span><br><span class="line">X_outliers=X_train.loc[outliers]</span><br><span class="line">y_outliers=y_train.loc[outliers]</span><br><span class="line">X_t=X_train.drop(outliers)</span><br><span class="line">y_t=y_train.drop(outliers)</span><br></pre></td></tr></table></figure>
-<p>Results:</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">R2= <span class="number">0.8760125992975717</span></span><br><span class="line">rmse= <span class="number">0.3499365298917651</span></span><br><span class="line">mse= <span class="number">0.12245557495269015</span></span><br><span class="line">---------------------------------------</span><br><span class="line">mean of residuals: -<span class="number">3.28946831838468e-16</span></span><br><span class="line">std of residuals: <span class="number">0.3500231371273175</span></span><br><span class="line">---------------------------------------</span><br><span class="line"><span class="number">21</span> outliers:</span><br><span class="line">[<span class="number">2655</span>, <span class="number">2159</span>, <span class="number">1164</span>, <span class="number">2863</span>, <span class="number">1145</span>, <span class="number">2697</span>, <span class="number">2528</span>, <span class="number">2645</span>, <span class="number">691</span>, <span class="number">1874</span>,</span><br><span class="line"><span class="number">2647</span>, <span class="number">884</span>, <span class="number">2696</span>, <span class="number">2668</span>, <span class="number">1310</span>, <span class="number">1901</span>, <span class="number">1458</span>, <span class="number">2769</span>, <span class="number">2002</span>, <span class="number">2669</span>, <span class="number">1972</span>]</span><br></pre></td></tr></table></figure>
-<p><img src="https://z3.ax1x.com/2021/05/22/gLjhsP.png" alt="" /></p>
-</li>
+<p>Results: <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">R2= <span class="number">0.8760125992975717</span></span><br><span class="line">rmse= <span class="number">0.3499365298917651</span></span><br><span class="line">mse= <span class="number">0.12245557495269015</span></span><br><span class="line">---------------------------------------</span><br><span class="line">mean of residuals: -<span class="number">3.28946831838468e-16</span></span><br><span class="line">std of residuals: <span class="number">0.3500231371273175</span></span><br><span class="line">---------------------------------------</span><br><span class="line"><span class="number">21</span> outliers:</span><br><span class="line">[<span class="number">2655</span>, <span class="number">2159</span>, <span class="number">1164</span>, <span class="number">2863</span>, <span class="number">1145</span>, <span class="number">2697</span>, <span class="number">2528</span>, <span class="number">2645</span>, <span class="number">691</span>, <span class="number">1874</span>,</span><br><span class="line"><span class="number">2647</span>, <span class="number">884</span>, <span class="number">2696</span>, <span class="number">2668</span>, <span class="number">1310</span>, <span class="number">1901</span>, <span class="number">1458</span>, <span class="number">2769</span>, <span class="number">2002</span>, <span class="number">2669</span>, <span class="number">1972</span>]</span><br></pre></td></tr></table></figure></p>
+<p><img src="https://z3.ax1x.com/2021/05/22/gLjhsP.png" /></p></li>
 </ul>
-<h2 id="32-model-training"><a class="markdownIt-Anchor" href="#32-model-training"></a> 3.2 Model training</h2>
+<h2 id="model-training">3.2 Model training</h2>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_trainning_data_omitoutliers</span>():</span></span><br><span class="line">    <span class="comment">#获取训练数据省略异常值</span></span><br><span class="line">    y=y_t.copy()</span><br><span class="line">    X=X_t.copy()</span><br><span class="line">    <span class="keyword">return</span> X,y</span><br></pre></td></tr></table></figure>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">train_model</span>(<span class="params">model, param_grid=[], X=[], y=[],</span></span></span><br><span class="line"><span class="function"><span class="params">                splits=<span class="number">5</span>, repeats=<span class="number">5</span></span>):</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 获取数据</span></span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">len</span>(y)==<span class="number">0</span>:</span><br><span class="line">        X,y = get_trainning_data_omitoutliers()</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 交叉验证</span></span><br><span class="line">    rkfold = RepeatedKFold(n_splits=splits, n_repeats=repeats)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 网格搜索最佳参数</span></span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">len</span>(param_grid)&gt;<span class="number">0</span>:</span><br><span class="line">        gsearch = GridSearchCV(model, param_grid, cv=rkfold,</span><br><span class="line">        scoring=<span class="string">&quot;neg_mean_squared_error&quot;</span>,</span><br><span class="line">        verbose=<span class="number">1</span>, return_train_score=<span class="literal">True</span>)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 训练</span></span><br><span class="line">        gsearch.fit(X,y)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 最好的模型</span></span><br><span class="line">        model = gsearch.best_estimator_</span><br><span class="line">        best_idx = gsearch.best_index_</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 获取交叉验证评价指标</span></span><br><span class="line">        grid_results = pd.DataFrame(gsearch.cv_results_)</span><br><span class="line">        cv_mean = <span class="built_in">abs</span>(grid_results.loc[best_idx,<span class="string">&#x27;mean_test_score&#x27;</span>])</span><br><span class="line">        cv_std = grid_results.loc[best_idx,<span class="string">&#x27;std_test_score&#x27;</span>]</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 没有网格搜索</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        grid_results = []</span><br><span class="line">        cv_results = cross_val_score(model, X, y, scoring=<span class="string">&quot;neg_mean_squared_error&quot;</span>, cv=rkfold)</span><br><span class="line">        cv_mean = <span class="built_in">abs</span>(np.mean(cv_results))</span><br><span class="line">        cv_std = np.std(cv_results)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 合并数据</span></span><br><span class="line">    cv_score = pd.Series(&#123;<span class="string">&#x27;mean&#x27;</span>:cv_mean,<span class="string">&#x27;std&#x27;</span>:cv_std&#125;)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 预测</span></span><br><span class="line">    y_pred = model.predict(X)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 模型性能的统计数据</span></span><br><span class="line">    print(<span class="string">&#x27;----------------------&#x27;</span>)</span><br><span class="line">    print(model)</span><br><span class="line">    print(<span class="string">&#x27;----------------------&#x27;</span>)</span><br><span class="line">    print(<span class="string">&#x27;score=&#x27;</span>,model.score(X,y))</span><br><span class="line">    print(<span class="string">&#x27;rmse=&#x27;</span>,rmse(y, y_pred))</span><br><span class="line">    print(<span class="string">&#x27;mse=&#x27;</span>,mse(y, y_pred))</span><br><span class="line">    print(<span class="string">&#x27;cross_val: mean=&#x27;</span>,cv_mean,<span class="string">&#x27;, std=&#x27;</span>,cv_std)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 残差分析与可视化</span></span><br><span class="line">    y_pred = pd.Series(y_pred,index=y.index)</span><br><span class="line">    resid = y - y_pred</span><br><span class="line">    mean_resid = resid.mean()</span><br><span class="line">    std_resid = resid.std()</span><br><span class="line">    z = (resid - mean_resid)/std_resid</span><br><span class="line">    n_outliers = <span class="built_in">sum</span>(<span class="built_in">abs</span>(z)&gt;<span class="number">3</span>)</span><br><span class="line">    outliers = z[<span class="built_in">abs</span>(z)&gt;<span class="number">3</span>].index</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> model, cv_score, grid_results</span><br></pre></td></tr></table></figure>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.model_selection <span class="keyword">import</span> GridSearchCV, RepeatedKFold, cross_val_score,cross_val_predict,KFold</span><br><span class="line"><span class="keyword">from</span> sklearn.linear_model <span class="keyword">import</span> Ridge</span><br><span class="line"></span><br><span class="line"><span class="comment"># 定义训练变量存储数据</span></span><br><span class="line">opt_models = <span class="built_in">dict</span>()</span><br><span class="line">score_models = pd.DataFrame(columns=[<span class="string">&#x27;mean&#x27;</span>,<span class="string">&#x27;std&#x27;</span>])</span><br><span class="line">splits=<span class="number">5</span></span><br><span class="line">repeats=<span class="number">5</span></span><br><span class="line"></span><br><span class="line">model = <span class="string">&#x27;Ridge&#x27;</span></span><br><span class="line">opt_models[model] = Ridge()</span><br><span class="line">alph_range = np.arange(<span class="number">0.25</span>,<span class="number">6</span>,<span class="number">0.25</span>)</span><br><span class="line">param_grid = &#123;<span class="string">&#x27;alpha&#x27;</span>: alph_range&#125;</span><br><span class="line"></span><br><span class="line">opt_models[model],cv_score,grid_results = train_model(opt_models[model],</span><br><span class="line">                    param_grid=param_grid, splits=splits, repeats=repeats)</span><br><span class="line"></span><br><span class="line">cv_score.name = model</span><br><span class="line">score_models = score_models.append(cv_score)</span><br><span class="line"></span><br><span class="line">plt.figure()</span><br><span class="line">plt.errorbar(alph_range, <span class="built_in">abs</span>(grid_results[<span class="string">&#x27;mean_test_score&#x27;</span>]),</span><br><span class="line">        <span class="built_in">abs</span>(grid_results[<span class="string">&#x27;std_test_score&#x27;</span>])/np.sqrt(splits*repeats))</span><br><span class="line">plt.xlabel(<span class="string">&#x27;alpha&#x27;</span>)</span><br><span class="line">plt.ylabel(<span class="string">&#x27;score&#x27;</span>)</span><br></pre></td></tr></table></figure>
@@ -809,16 +1473,13 @@ rmse= 0.32638045120253134
 mse= 0.1065241989271679
 cross_val: mean= 0.11019851747204477 , std= 0.006413351282774973
 
-Text(0, 0.5, 'score')
-</code></pre>
-<p><img src="https://z3.ax1x.com/2021/05/22/gLj4qf.png" alt="" /></p>
+Text(0, 0.5, &#39;score&#39;)</code></pre>
+<p><img src="https://z3.ax1x.com/2021/05/22/gLj4qf.png" /></p>
 <ul>
-<li>
-<p>Forecasting function</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 预测函数</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">model_predict</span>(<span class="params">test_data,test_y=[]</span>):</span></span><br><span class="line">    i=<span class="number">0</span></span><br><span class="line">    y_predict_total=np.zeros((test_data.shape[<span class="number">0</span>],))</span><br><span class="line">    <span class="keyword">for</span> model <span class="keyword">in</span> opt_models.keys():</span><br><span class="line">        <span class="keyword">if</span> model!=<span class="string">&quot;LinearSVR&quot;</span> <span class="keyword">and</span> model!=<span class="string">&quot;KNeighbors&quot;</span>:</span><br><span class="line">            y_predict=opt_models[model].predict(test_data)</span><br><span class="line">            y_predict_total+=y_predict</span><br><span class="line">            i+=<span class="number">1</span></span><br><span class="line">        <span class="keyword">if</span> <span class="built_in">len</span>(test_y)&gt;<span class="number">0</span>:</span><br><span class="line">            print(<span class="string">&quot;&#123;&#125;_mse:&quot;</span>.<span class="built_in">format</span>(model),mean_squared_error(y_predict,test_y))</span><br><span class="line"></span><br><span class="line">    y_predict_mean=np.<span class="built_in">round</span>(y_predict_total/i,<span class="number">6</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">len</span>(test_y)&gt;<span class="number">0</span>:</span><br><span class="line">        print(<span class="string">&quot;mean_mse:&quot;</span>,mean_squared_error(y_predict_mean,test_y))</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        y_predict_mean=pd.Series(y_predict_mean)</span><br><span class="line">        <span class="keyword">return</span> y_predict_mean</span><br></pre></td></tr></table></figure>
-</li>
+<li><p>Forecasting function</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 预测函数</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">model_predict</span>(<span class="params">test_data,test_y=[]</span>):</span></span><br><span class="line">    i=<span class="number">0</span></span><br><span class="line">    y_predict_total=np.zeros((test_data.shape[<span class="number">0</span>],))</span><br><span class="line">    <span class="keyword">for</span> model <span class="keyword">in</span> opt_models.keys():</span><br><span class="line">        <span class="keyword">if</span> model!=<span class="string">&quot;LinearSVR&quot;</span> <span class="keyword">and</span> model!=<span class="string">&quot;KNeighbors&quot;</span>:</span><br><span class="line">            y_predict=opt_models[model].predict(test_data)</span><br><span class="line">            y_predict_total+=y_predict</span><br><span class="line">            i+=<span class="number">1</span></span><br><span class="line">        <span class="keyword">if</span> <span class="built_in">len</span>(test_y)&gt;<span class="number">0</span>:</span><br><span class="line">            print(<span class="string">&quot;&#123;&#125;_mse:&quot;</span>.<span class="built_in">format</span>(model),mean_squared_error(y_predict,test_y))</span><br><span class="line"></span><br><span class="line">    y_predict_mean=np.<span class="built_in">round</span>(y_predict_total/i,<span class="number">6</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">len</span>(test_y)&gt;<span class="number">0</span>:</span><br><span class="line">        print(<span class="string">&quot;mean_mse:&quot;</span>,mean_squared_error(y_predict_mean,test_y))</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        y_predict_mean=pd.Series(y_predict_mean)</span><br><span class="line">        <span class="keyword">return</span> y_predict_mean</span><br></pre></td></tr></table></figure></li>
 </ul>
-<h3 id="33-预测并保存结果"><a class="markdownIt-Anchor" href="#33-预测并保存结果"></a> 3.3 预测并保存结果</h3>
+<h3 id="预测并保存结果">3.3 预测并保存结果</h3>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">y_ = model_predict(test)</span><br><span class="line">y_.to_csv(<span class="string">&#x27;predict.txt&#x27;</span>,header = <span class="literal">None</span>,index = <span class="literal">False</span>)</span><br></pre></td></tr></table></figure>
 
     </div>
@@ -938,7 +1599,7 @@ Text(0, 0.5, 'score')
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-problem"><span class="nav-text"> 1. Problem</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#11-introduction-of-background"><span class="nav-text"> 1.1 Introduction of Background</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#12-data-source"><span class="nav-text"> 1.2 Data source</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#13-evaluation-metrics"><span class="nav-text"> 1.3 Evaluation metrics</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-data-process"><span class="nav-text"> 2. Data process</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#21-load-data"><span class="nav-text"> 2.1 Load data</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#22-data-exploration"><span class="nav-text"> 2.2 Data exploration</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#221-eda"><span class="nav-text"> 2.2.1 EDA</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#222-dimentsionality"><span class="nav-text"> 2.2.2 Dimentsionality</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#233-features-engineering"><span class="nav-text"> 2.3.3 Features engineering</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-model-construction"><span class="nav-text"> 3. Model construction</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#31-self-definition-fuction"><span class="nav-text"> 3.1 Self definition fuction</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#32-model-training"><span class="nav-text"> 3.2 Model training</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#33-%E9%A2%84%E6%B5%8B%E5%B9%B6%E4%BF%9D%E5%AD%98%E7%BB%93%E6%9E%9C"><span class="nav-text"> 3.3 预测并保存结果</span></a></li></ol></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#problem"><span class="nav-text">1. Problem</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#introduction-of-background"><span class="nav-text">1.1 Introduction of Background</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#data-source"><span class="nav-text">1.2 Data source</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#evaluation-metrics"><span class="nav-text">1.3 Evaluation metrics</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#data-process"><span class="nav-text">2. Data process</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#load-data"><span class="nav-text">2.1 Load data</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#data-exploration"><span class="nav-text">2.2 Data exploration</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#eda"><span class="nav-text">2.2.1 EDA</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#dimentsionality"><span class="nav-text">2.2.2 Dimentsionality</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#features-engineering"><span class="nav-text">2.3.3 Features engineering</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#model-construction"><span class="nav-text">3. Model construction</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#self-definition-fuction"><span class="nav-text">3.1 Self definition fuction</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#model-training"><span class="nav-text">3.2 Model training</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%A2%84%E6%B5%8B%E5%B9%B6%E4%BF%9D%E5%AD%98%E7%BB%93%E6%9E%9C"><span class="nav-text">3.3 预测并保存结果</span></a></li></ol></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 

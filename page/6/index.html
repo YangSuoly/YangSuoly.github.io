@@ -286,8 +286,8 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="1-problem"><a class="markdownIt-Anchor" href="#1-problem"></a> 1. Problem</h1>
-<h2 id="11-introduction-of-background"><a class="markdownIt-Anchor" href="#11-introduction-of-background"></a> 1.1 Introduction of Background</h2>
+          <h1 id="problem">1. Problem</h1>
+<h2 id="introduction-of-background">1.1 Introduction of Background</h2>
 <p>火力发电的基本原理是：颜料燃烧时加热水会生成蒸汽，蒸汽压力推动汽轮机旋转，然后汽轮机带动带动发电机旋转，产生电能。在这一系列的能量转化中，影响发电效率的核心是锅炉的燃烧效率，即燃料燃烧加热水产生高温高压蒸汽。锅炉的燃烧效率的影响因素很多，包括锅炉的可调参数，如燃烧给量，一二次风，引风，返料风，给水水量；以及锅炉的工况，比如锅炉床温、床压，炉膛温度、压力，过热器的温度等。我们如何使用以上的信息，根据锅炉的工况，预测产生的蒸汽量，来为我国的工业届的产量预测贡献自己的一份力量呢？</p>
           <!--noindex-->
             <div class="post-button">
@@ -395,8 +395,8 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="1-problem"><a class="markdownIt-Anchor" href="#1-problem"></a> 1. Problem</h1>
-<h2 id="11-introduction-of-background"><a class="markdownIt-Anchor" href="#11-introduction-of-background"></a> 1.1 Introduction of background</h2>
+          <h1 id="problem">1. Problem</h1>
+<h2 id="introduction-of-background">1.1 Introduction of background</h2>
 <p>幸福感是一个古老而深刻的话题，是人类世代追求的方向。与幸福感相关的因素成千上万，这些错综复杂的因素中，我们能找到其中的共性，一窥幸福感的要义吗？</p>
           <!--noindex-->
             <div class="post-button">
@@ -500,8 +500,10 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="1-introduction"><a class="markdownIt-Anchor" href="#1-introduction"></a> 1. Introduction</h1>
-<p>Blending 集成方法的学习过程中，可以发现 Blending 在集成过程中只使用到了验证集的数据，这就造成了很大的浪费。因此可以靠用使用 Stacking 集成方法进行改进。</p>
+          <h1 id="introduction">1. Introduction</h1>
+<p>Blending 集成方法的学习过程中，可以发现 Blending
+在集成过程中只使用到了验证集的数据，这就造成了很大的浪费。因此可以靠用使用
+Stacking 集成方法进行改进。</p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2021/05/13/Ensemble-Stacking/#more" rel="contents">
@@ -604,8 +606,11 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="1-introduction"><a class="markdownIt-Anchor" href="#1-introduction"></a> 1. Introduction</h1>
-<p>Blending 方法可以看是一个简化版的 Stacking 方法，blend 的中文意思是 “混合”，这就很好地诠释了 Blending 方法的思想 —— 不同模型的混合，也就是集成的本意。该方法仅在验证集中进行预测，如下为 Blending 的步骤：</p>
+          <h1 id="introduction">1. Introduction</h1>
+<p>Blending 方法可以看是一个简化版的 Stacking 方法，blend 的中文意思是
+“混合”，这就很好地诠释了 Blending 方法的思想 ——
+不同模型的混合，也就是集成的本意。该方法仅在验证集中进行预测，如下为
+Blending 的步骤：</p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2021/05/11/Ensemble-Blending/#more" rel="contents">
@@ -693,14 +698,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">Symbols count in article: </span>
-              <span>23k</span>
+              <span>22k</span>
             </span>
             <span class="post-meta-item" title="Reading time">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">Reading time &asymp;</span>
-              <span>21 mins.</span>
+              <span>20 mins.</span>
             </span>
 
         </div>
@@ -712,17 +717,13 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="1-pytorch-brief"><a class="markdownIt-Anchor" href="#1-pytorch-brief"></a> 1 Pytorch brief</h1>
-<h2 id="11-create-tensor"><a class="markdownIt-Anchor" href="#11-create-tensor"></a> 1.1 Create Tensor</h2>
+          <h1 id="pytorch-brief">1 Pytorch brief</h1>
+<h2 id="create-tensor">1.1 Create Tensor</h2>
 <ul>
-<li>
-<p><code>empty</code></p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> torch</span><br><span class="line">x1 = torch.empty(<span class="number">5</span>, <span class="number">3</span>) <span class="comment"># 构造未初始化的矩阵</span></span><br></pre></td></tr></table></figure>
-</li>
-<li>
-<p><code>rand</code></p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">x2 = torch.rand(<span class="number">5</span>, <span class="number">3</span>) <span class="comment"># 构造随机初始化的正态分布矩阵</span></span><br></pre></td></tr></table></figure>
-</li>
+<li><p><code>empty</code></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> torch</span><br><span class="line">x1 = torch.empty(<span class="number">5</span>, <span class="number">3</span>) <span class="comment"># 构造未初始化的矩阵</span></span><br></pre></td></tr></table></figure></li>
+<li><p><code>rand</code></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">x2 = torch.rand(<span class="number">5</span>, <span class="number">3</span>) <span class="comment"># 构造随机初始化的正态分布矩阵</span></span><br></pre></td></tr></table></figure></li>
 </ul>
           <!--noindex-->
             <div class="post-button">
@@ -826,20 +827,17 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="1-stata-data-operation"><a class="markdownIt-Anchor" href="#1-stata-data-operation"></a> 1 Stata data operation</h1>
-<h2 id="11-data-operation"><a class="markdownIt-Anchor" href="#11-data-operation"></a> 1.1 Data Operation</h2>
-<h3 id="111-browse-data"><a class="markdownIt-Anchor" href="#111-browse-data"></a> 1.1.1 Browse data</h3>
+          <h1 id="stata-data-operation">1 Stata data operation</h1>
+<h2 id="data-operation">1.1 Data Operation</h2>
+<h3 id="browse-data">1.1.1 Browse data</h3>
 <ul>
-<li>
-<p>browse / edit</p>
-<p><code>browse</code> 用于打开或编辑数据浏览器，相当于单击数据浏览器或编辑按钮。命令格式:</p>
-<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">browse</span>/<span class="keyword">edit</span> [<span class="keyword">varlist</span>] [<span class="keyword">if</span>] [<span class="keyword">in</span>]</span><br></pre></td></tr></table></figure>
-</li>
-<li>
-<p>rename</p>
+<li><p>browse / edit</p>
+<p><code>browse</code>
+用于打开或编辑数据浏览器，相当于单击数据浏览器或编辑按钮。命令格式:</p>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">browse</span>/<span class="keyword">edit</span> [<span class="keyword">varlist</span>] [<span class="keyword">if</span>] [<span class="keyword">in</span>]</span><br></pre></td></tr></table></figure></li>
+<li><p>rename</p>
 <p><code>rename</code> 用于对变量重新命名。格式：</p>
-<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">rename</span> (oldname) (newname)</span><br></pre></td></tr></table></figure>
-</li>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">rename</span> (oldname) (newname)</span><br></pre></td></tr></table></figure></li>
 </ul>
           <!--noindex-->
             <div class="post-button">
@@ -943,7 +941,8 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="1-recognize-latex"><a class="markdownIt-Anchor" href="#1-recognize-latex"></a> 1 Recognize <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mtext>LaTeX</mtext></mrow><annotation encoding="application/x-tex">\LaTeX</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.89883em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">L</span><span class="mspace" style="margin-right:-0.36em;"></span><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.68333em;"><span style="top:-2.904999em;"><span class="pstrut" style="height:2.7em;"></span><span class="mord text"><span class="mord textrm sizing reset-size6 size3">A</span></span></span></span></span></span><span class="mspace" style="margin-right:-0.15em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.46782999999999997em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord text"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span></span></h1>
+          <h1 id="recognize-latex">1 Recognize <span
+class="math inline">\(\LaTeX\)</span></h1>
 <p>通过更换文档类型，可以正确显示中文。</p>
           <!--noindex-->
             <div class="post-button">
@@ -1022,7 +1021,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">Symbols count in article: </span>
-              <span>1.2k</span>
+              <span>1.1k</span>
             </span>
             <span class="post-meta-item" title="Reading time">
               <span class="post-meta-item-icon">
@@ -1041,10 +1040,10 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="markdown"><a class="markdownIt-Anchor" href="#markdown"></a> Markdown</h1>
-<h2 id="1-title"><a class="markdownIt-Anchor" href="#1-title"></a> 1. Title</h2>
-<h3 id="三级标题"><a class="markdownIt-Anchor" href="#三级标题"></a> 三级标题</h3>
-<h4 id="四级标题"><a class="markdownIt-Anchor" href="#四级标题"></a> 四级标题</h4>
+          <h1 id="markdown">Markdown</h1>
+<h2 id="title">1. Title</h2>
+<h3 id="三级标题">三级标题</h3>
+<h4 id="四级标题">四级标题</h4>
 <p>格式及快捷键如下：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Markdown</span></span><br><span class="line"></span><br><span class="line"><span class="comment">## 1. Title</span></span><br><span class="line"></span><br><span class="line"><span class="comment">### 三级标题</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#### 四级标题</span></span><br></pre></td></tr></table></figure>
           <!--noindex-->
@@ -1153,8 +1152,10 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="1-引言"><a class="markdownIt-Anchor" href="#1-引言"></a> 1. 引言</h1>
-<p>影响力，一般认为指的是用一种为别人所乐于接受的方式，改变他人所乐于接受的方式，改变他人的思想和行动的能力。该书由著名社会心理学家 Robert B. Cialdini 所著， Cialdini 倾其职业生涯来研究影响力，在说服、顺从和谈判领域享有广泛的国际声誉。因其在商业道德和政策运用方面所作的前沿研究，常被称为“影响力教父”。</p>
+          <h1 id="引言">1. 引言</h1>
+<p>影响力，一般认为指的是用一种为别人所乐于接受的方式，改变他人所乐于接受的方式，改变他人的思想和行动的能力。该书由著名社会心理学家
+Robert B. Cialdini 所著， Cialdini
+倾其职业生涯来研究影响力，在说服、顺从和谈判领域享有广泛的国际声誉。因其在商业道德和政策运用方面所作的前沿研究，常被称为“影响力教父”。</p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2021/01/18/Influence-1/#more" rel="contents">
@@ -1257,14 +1258,15 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="1-stata-operation"><a class="markdownIt-Anchor" href="#1-stata-operation"></a> 1 Stata operation</h1>
-<h2 id="11-import-data"><a class="markdownIt-Anchor" href="#11-import-data"></a> 1.1 Import data</h2>
+          <h1 id="stata-operation">1 Stata operation</h1>
+<h2 id="import-data">1.1 Import data</h2>
 <ul>
-<li>
-<p>use</p>
-<p><code>grilic_small.dta</code> 文件的目录请根据自己的文件目录填写，数据文件可在陈强老师的网站下载，<a target="_blank" rel="noopener" href="http://www.econometrics-stata.com/col.jsp?id=101">Click here</a>，选择《计量经济学及Stata应用》中的数据集下载。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">use <span class="string">&quot;D:\Demo\University\XMU\Class_files\Econometrics\Econometrics and Stata application\Data-Finished-bachelor\grilic_small.dta&quot;</span>, clear</span><br></pre></td></tr></table></figure>
-</li>
+<li><p>use</p>
+<p><code>grilic_small.dta</code>
+文件的目录请根据自己的文件目录填写，数据文件可在陈强老师的网站下载，<a
+target="_blank" rel="noopener" href="http://www.econometrics-stata.com/col.jsp?id=101">Click
+here</a>，选择《计量经济学及Stata应用》中的数据集下载。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">use <span class="string">&quot;D:\Demo\University\XMU\Class_files\Econometrics\Econometrics and Stata application\Data-Finished-bachelor\grilic_small.dta&quot;</span>, clear</span><br></pre></td></tr></table></figure></li>
 </ul>
           <!--noindex-->
             <div class="post-button">

@@ -263,14 +263,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">Symbols count in article: </span>
-              <span>37k</span>
+              <span>33k</span>
             </span>
             <span class="post-meta-item" title="Reading time">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">Reading time &asymp;</span>
-              <span>34 mins.</span>
+              <span>30 mins.</span>
             </span>
 
         </div>
@@ -282,7 +282,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="1-introduction"><a class="markdownIt-Anchor" href="#1-introduction"></a> 1 Introduction</h1>
+          <h1 id="introduction">1 Introduction</h1>
 <p>本文为参考洪永淼老师《高级计量学》复习高级计量经济学的学习笔记。</p>
           <!--noindex-->
             <div class="post-button">
@@ -386,13 +386,11 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="1-markov-model"><a class="markdownIt-Anchor" href="#1-markov-model"></a> 1 Markov model</h1>
-<h2 id="11-preparation-and-definition"><a class="markdownIt-Anchor" href="#11-preparation-and-definition"></a> 1.1 Preparation and definition</h2>
+          <h1 id="markov-model">1 Markov model</h1>
+<h2 id="preparation-and-definition">1.1 Preparation and definition</h2>
 <ul>
-<li>
-<p>Import  modules</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="keyword">from</span> numpy <span class="keyword">import</span> linalg <span class="keyword">as</span> la</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> sklearn.metrics <span class="keyword">import</span> mean_absolute_error, r2_score</span><br><span class="line"><span class="keyword">from</span> sklearn.metrics <span class="keyword">import</span> mean_squared_error</span><br><span class="line"></span><br><span class="line"><span class="comment"># Plot module</span></span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line">plt.rcParams[<span class="string">&#x27;font.sans-serif&#x27;</span>] = [<span class="string">&#x27;SimHei&#x27;</span>]</span><br><span class="line"><span class="comment"># Microsoft YaHei, Times New Roman</span></span><br><span class="line">plt.rcParams[<span class="string">&#x27;axes.unicode_minus&#x27;</span>] = <span class="literal">False</span></span><br></pre></td></tr></table></figure>
-</li>
+<li><p>Import modules</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="keyword">from</span> numpy <span class="keyword">import</span> linalg <span class="keyword">as</span> la</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> sklearn.metrics <span class="keyword">import</span> mean_absolute_error, r2_score</span><br><span class="line"><span class="keyword">from</span> sklearn.metrics <span class="keyword">import</span> mean_squared_error</span><br><span class="line"></span><br><span class="line"><span class="comment"># Plot module</span></span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line">plt.rcParams[<span class="string">&#x27;font.sans-serif&#x27;</span>] = [<span class="string">&#x27;SimHei&#x27;</span>]</span><br><span class="line"><span class="comment"># Microsoft YaHei, Times New Roman</span></span><br><span class="line">plt.rcParams[<span class="string">&#x27;axes.unicode_minus&#x27;</span>] = <span class="literal">False</span></span><br></pre></td></tr></table></figure></li>
 </ul>
           <!--noindex-->
             <div class="post-button">
@@ -477,14 +475,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">Symbols count in article: </span>
-              <span>12k</span>
+              <span>9.4k</span>
             </span>
             <span class="post-meta-item" title="Reading time">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">Reading time &asymp;</span>
-              <span>11 mins.</span>
+              <span>9 mins.</span>
             </span>
 
         </div>
@@ -496,13 +494,15 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="1-differential-equation-model"><a class="markdownIt-Anchor" href="#1-differential-equation-model"></a> 1 Differential equation model</h1>
-<h2 id="11-introduction"><a class="markdownIt-Anchor" href="#11-introduction"></a> 1.1 Introduction</h2>
+          <h1 id="differential-equation-model">1 Differential equation model</h1>
+<h2 id="introduction">1.1 Introduction</h2>
 <ul>
 <li>特点</li>
 </ul>
-<p>当描述实际对象的某些特征随时间（或空间）而演变的过程、分析它的变化规律、预测它的未来形态、研究它的控制手段时，通常需要建立对象的 <strong>动态微分方程模型</strong>。</p>
-<p>微分模型求解的结果就是问题的答案，该答案是 <strong>唯一</strong> 的。</p>
+<p>当描述实际对象的某些特征随时间（或空间）而演变的过程、分析它的变化规律、预测它的未来形态、研究它的控制手段时，通常需要建立对象的
+<strong>动态微分方程模型</strong>。</p>
+<p>微分模型求解的结果就是问题的答案，该答案是 <strong>唯一</strong>
+的。</p>
 <ul>
 <li>典型的模型：
 <ul>
@@ -512,8 +512,7 @@
 <li>药物在体内的分布于排除预测模型</li>
 <li>人口的预测模型</li>
 <li>烟雾的扩散与消失模型</li>
-</ul>
-</li>
+</ul></li>
 </ul>
 <p>模型的基本规律随着时间的增长趋势呈指数形式，根据变量的个数建立微分方程。</p>
           <!--noindex-->
@@ -608,7 +607,8 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <div class="group-picture"><div class="group-picture-container"><div class="group-picture-row"><div class="group-picture-column" style="width: 50%;"><img src="https://s3.ax1x.com/2020/11/30/DgWRZ6.png" alt="" /></div><div class="group-picture-column" style="width: 50%;"><img src="https://s3.ax1x.com/2020/11/30/DgWA8H.png" alt="" /></div></div><div class="group-picture-row"><div class="group-picture-column" style="width: 100%;"><img src="https://s3.ax1x.com/2020/11/30/DgWA8H.png" alt="" /></div></div><div class="group-picture-row"><div class="group-picture-column" style="width: 50%;"><img src="https://s3.ax1x.com/2020/11/30/DgWA8H.png" alt="" /></div><div class="group-picture-column" style="width: 50%;"><img src="https://s3.ax1x.com/2020/11/30/DgWA8H.png" alt="" /></div></div></div></div>
+          <div class="group-picture"><div class="group-picture-container"><div class="group-picture-row"><div class="group-picture-column" style="width: 50%;"><img src="https://s3.ax1x.com/2020/11/30/DgWRZ6.png" /></div><div class="group-picture-column" style="width: 50%;"><img src="https://s3.ax1x.com/2020/11/30/DgWA8H.png" /></div></div><div class="group-picture-row"><div class="group-picture-column" style="width: 100%;"><img src="https://s3.ax1x.com/2020/11/30/DgWA8H.png" /></div></div><div class="group-picture-row"><div class="group-picture-column" style="width: 50%;"><img src="https://s3.ax1x.com/2020/11/30/DgWA8H.png" /></div><div class="group-picture-column" style="width: 50%;"><img src="https://s3.ax1x.com/2020/11/30/DgWA8H.png" /></div></div></div></div>
+
       
     </div>
 
@@ -810,11 +810,12 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="1-introduction"><a class="markdownIt-Anchor" href="#1-introduction"></a> 1 Introduction</h1>
+          <h1 id="introduction">1 Introduction</h1>
 <ul>
 <li>中文显示乱码问题</li>
 </ul>
-<p>Matplotlib 库缺少中文字体，因此在图标上显示中文会出现乱码，解决办法：</p>
+<p>Matplotlib
+库缺少中文字体，因此在图标上显示中文会出现乱码，解决办法：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pyplt <span class="keyword">import</span> mpl</span><br><span class="line">mpl.rcParams[<span class="string">&#x27;font.sans-serif&#x27;</span>] = [<span class="string">&#x27;SimHei&#x27;</span>]</span><br><span class="line">mpl.rcParams[<span class="string">&#x27;axes.unicode_minus&#x27;</span>] = <span class="literal">False</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 或</span></span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line">plt.rcParams[<span class="string">&#x27;font.sans-serif&#x27;</span>] = [<span class="string">&#x27;SimHei&#x27;</span>]</span><br><span class="line">plt.rcParams[<span class="string">&#x27;axes.unicode_minus&#x27;</span>] = <span class="literal">False</span></span><br></pre></td></tr></table></figure>
           <!--noindex-->
             <div class="post-button">
@@ -914,8 +915,8 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="1-python-数据类型"><a class="markdownIt-Anchor" href="#1-python-数据类型"></a> 1. Python 数据类型</h1>
-<h2 id="11-string"><a class="markdownIt-Anchor" href="#11-string"></a> 1.1 String</h2>
+          <h1 id="python-数据类型">1. Python 数据类型</h1>
+<h2 id="string">1.1 String</h2>
 <ul>
 <li>字符串的换行</li>
 </ul>
@@ -1026,9 +1027,10 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="1-numpy-version"><a class="markdownIt-Anchor" href="#1-numpy-version"></a> 1 NumPy version</h1>
+          <h1 id="numpy-version">1 NumPy version</h1>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line">print(np.__version__) <span class="comment"># 查看 numpy 版本</span></span><br></pre></td></tr></table></figure>
-<p>NumPy( Numerical Python) 是 Python 数值计算最重要的基础库，核心是 N 维数组对象 ndarray ( N-dimensional array )。</p>
+<p>NumPy( Numerical Python) 是 Python 数值计算最重要的基础库，核心是 N
+维数组对象 ndarray ( N-dimensional array )。</p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2020/11/29/Numpy/#more" rel="contents">
@@ -1135,19 +1137,15 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="1-series"><a class="markdownIt-Anchor" href="#1-series"></a> 1 Series</h1>
-<h2 id="11-preparation"><a class="markdownIt-Anchor" href="#11-preparation"></a> 1.1 Preparation</h2>
+          <h1 id="series">1 Series</h1>
+<h2 id="preparation">1.1 Preparation</h2>
 <ul>
-<li>Import modules<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br></pre></td></tr></table></figure>
-</li>
+<li>Import modules <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br></pre></td></tr></table></figure></li>
 </ul>
-<h2 id="12-different-data-type"><a class="markdownIt-Anchor" href="#12-different-data-type"></a> 1.2 Different data type</h2>
+<h2 id="different-data-type">1.2 Different data type</h2>
 <ul>
-<li>
-<p>Time type</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>t = pd.Timestamp(<span class="string">&#x27;20180901&#x27;</span>) <span class="comment"># time type</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>t</span><br><span class="line">Timestamp(<span class="string">&#x27;2018-09-01 00:00:00&#x27;</span>)</span><br></pre></td></tr></table></figure>
-<p>Created by means of <code>data_range</code>.</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>dates = pd.date_range(<span class="string">&#x27;20200101&#x27;</span>, periods = <span class="number">6</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>dates</span><br><span class="line">DatetimeIndex([<span class="string">&#x27;2020-01-01&#x27;</span>, <span class="string">&#x27;2020-01-02&#x27;</span>, <span class="string">&#x27;2020-01-03&#x27;</span>,</span><br><span class="line">          <span class="string">&#x27;2020-01-04&#x27;</span>,<span class="string">&#x27;2020-01-05&#x27;</span>, <span class="string">&#x27;2020-01-06&#x27;</span>],</span><br><span class="line">           dtype=<span class="string">&#x27;datetime64[ns]&#x27;</span>, freq=<span class="string">&#x27;D&#x27;</span>)</span><br></pre></td></tr></table></figure>
+<li><p>Time type <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>t = pd.Timestamp(<span class="string">&#x27;20180901&#x27;</span>) <span class="comment"># time type</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>t</span><br><span class="line">Timestamp(<span class="string">&#x27;2018-09-01 00:00:00&#x27;</span>)</span><br></pre></td></tr></table></figure></p>
+<p>Created by means of <code>data_range</code>. <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>dates = pd.date_range(<span class="string">&#x27;20200101&#x27;</span>, periods = <span class="number">6</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>dates</span><br><span class="line">DatetimeIndex([<span class="string">&#x27;2020-01-01&#x27;</span>, <span class="string">&#x27;2020-01-02&#x27;</span>, <span class="string">&#x27;2020-01-03&#x27;</span>,</span><br><span class="line">          <span class="string">&#x27;2020-01-04&#x27;</span>,<span class="string">&#x27;2020-01-05&#x27;</span>, <span class="string">&#x27;2020-01-06&#x27;</span>],</span><br><span class="line">           dtype=<span class="string">&#x27;datetime64[ns]&#x27;</span>, freq=<span class="string">&#x27;D&#x27;</span>)</span><br></pre></td></tr></table></figure>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2020/11/27/Pandas/#more" rel="contents">
@@ -1250,8 +1248,9 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="1-show-channel"><a class="markdownIt-Anchor" href="#1-show-channel"></a> 1 Show channel</h1>
-<p><code>conda config --show</code>显示所有的 conda 的config 信息，<code>conda config --show channels</code>显示所有 channel 信息</p>
+          <h1 id="show-channel">1 Show channel</h1>
+<p><code>conda config --show</code>显示所有的 conda 的config
+信息，<code>conda config --show channels</code>显示所有 channel 信息</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>conda config --show channels</span><br><span class="line">channels:</span><br><span class="line">  - https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/main/</span><br><span class="line">  - https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free/</span><br><span class="line">  - https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/pytorch/win-<span class="number">64</span>/</span><br><span class="line">  - defaults</span><br></pre></td></tr></table></figure>
           <!--noindex-->
             <div class="post-button">
