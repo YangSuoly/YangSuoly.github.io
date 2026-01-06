@@ -24,15 +24,15 @@
     var CONFIG = {"hostname":"yangsuoly.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":true},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":true,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="02-Claude Code 核心功能全解析  Skills + CLAUDE.md + Memory 三大法宝  📝 前言 上回书说到，咱们用智谱 GLM-4.7 把 Claude Code 配起来了，也能跑起来了。但说实话，那只是&quot;能用&quot;，离&quot;好用&quot;还有一定距离。 真正让我觉得&quot;真香&quot;的，是 Claude Code 的三大核心功能：  Skills 系统 - 就像给 Claude 装了各种专">
+  <meta name="description" content="02-Claude Code 核心功能全解析  Skills + CLAUDE.md + Memory 三大法宝   📝 前言 上回书说到，咱们用智谱 GLM-4.7 把 Claude Code 配起来了，也能跑起来了。但说实话，那只是&quot;能用&quot;，离&quot;好用&quot;还有一定距离。 真正让我觉得&quot;真香&quot;的，是 Claude Code 的三大核心功">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Claude-code-2-advanced">
 <meta property="og:url" content="http://yangsuoly.com/2026/01/04/Claude-code-2-advanced/index.html">
 <meta property="og:site_name" content="独孤诗人的学习驿站">
-<meta property="og:description" content="02-Claude Code 核心功能全解析  Skills + CLAUDE.md + Memory 三大法宝  📝 前言 上回书说到，咱们用智谱 GLM-4.7 把 Claude Code 配起来了，也能跑起来了。但说实话，那只是&quot;能用&quot;，离&quot;好用&quot;还有一定距离。 真正让我觉得&quot;真香&quot;的，是 Claude Code 的三大核心功能：  Skills 系统 - 就像给 Claude 装了各种专">
+<meta property="og:description" content="02-Claude Code 核心功能全解析  Skills + CLAUDE.md + Memory 三大法宝   📝 前言 上回书说到，咱们用智谱 GLM-4.7 把 Claude Code 配起来了，也能跑起来了。但说实话，那只是&quot;能用&quot;，离&quot;好用&quot;还有一定距离。 真正让我觉得&quot;真香&quot;的，是 Claude Code 的三大核心功">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2026-01-04T05:59:04.000Z">
-<meta property="article:modified_time" content="2026-01-05T04:06:47.503Z">
+<meta property="article:modified_time" content="2026-01-06T07:39:37.877Z">
 <meta property="article:author" content="YangSu">
 <meta property="article:tag" content="Tool">
 <meta property="article:tag" content="Claude-Code">
@@ -244,7 +244,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2026-01-05 12:06:47" itemprop="dateModified" datetime="2026-01-05T12:06:47+08:00">2026-01-05</time>
+                <time title="Modified: 2026-01-06 15:39:37" itemprop="dateModified" datetime="2026-01-06T15:39:37+08:00">2026-01-06</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -253,6 +253,10 @@
               <span class="post-meta-item-text">In</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
                   <a href="/Categories/Notes/" itemprop="url" rel="index"><span itemprop="name">Notes</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/Categories/Notes/Claude-Code/" itemprop="url" rel="index"><span itemprop="name">Claude-Code</span></a>
                 </span>
             </span>
 
@@ -288,52 +292,42 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h1 id="claude-code-核心功能全解析">02-Claude Code 核心功能全解析</h1>
+        <h1 id="02-claude-code-核心功能全解析"><a class="markdownIt-Anchor" href="#02-claude-code-核心功能全解析"></a> 02-Claude Code 核心功能全解析</h1>
 <blockquote>
-<p>Skills + CLAUDE.md + Memory 三大法宝</p>
+<p>Skills + <a target="_blank" rel="noopener" href="http://CLAUDE.md">CLAUDE.md</a> + Memory 三大法宝</p>
 </blockquote>
-<h2 id="前言">📝 前言</h2>
-<p>上回书说到，咱们用智谱 GLM-4.7 把 Claude Code
-配起来了，也能跑起来了。但说实话，那只是"能用"，离"好用"还有一定距离。</p>
-<p>真正让我觉得"真香"的，是 Claude Code 的三大核心功能：</p>
+<h2 id="前言"><a class="markdownIt-Anchor" href="#前言"></a> 📝 前言</h2>
+<p>上回书说到，咱们用智谱 GLM-4.7 把 Claude Code 配起来了，也能跑起来了。但说实话，那只是&quot;能用&quot;，离&quot;好用&quot;还有一定距离。</p>
+<p>真正让我觉得&quot;真香&quot;的，是 Claude Code 的三大核心功能：</p>
 <ul>
 <li><strong>Skills 系统</strong> - 就像给 Claude 装了各种专业插件</li>
-<li><strong>CLAUDE.md</strong> - 每个项目都配一本专属使用说明书</li>
+<li><strong><a target="_blank" rel="noopener" href="http://CLAUDE.md">CLAUDE.md</a></strong> - 每个项目都配一本专属使用说明书</li>
 <li><strong>Memory</strong> - 让 Claude 记住你的偏好和习惯</li>
 </ul>
-<p>这三样东西配合起来，Claude
-就从一个"通用聊天机器人"变成了"懂你、懂项目、懂专业领域"的超级助手。说实话，用了一段时间后，再回到普通
-ChatGPT 真是各种不习惯。</p>
+<p>这三样东西配合起来，Claude 就从一个&quot;通用聊天机器人&quot;变成了&quot;懂你、懂项目、懂专业领域&quot;的超级助手。说实话，用了一段时间后，再回到普通 ChatGPT 真是各种不习惯。</p>
 <p>这篇笔记咱们就把这三样东西彻底搞清楚，保证看完就能上手，上手就能提升效率。</p>
 <a id="more"></a>
-<h2 id="第一部分skills-系统---给-claude-装插件">第一部分：Skills 系统 -
-给 Claude 装插件</h2>
-<h3 id="什么是-skill">1.1 什么是 Skill？</h3>
-<p><strong>Skill 就像 Claude
-的"插件"或"扩展包"</strong>。你可以把它理解成一组预定义的工作流程，让
-Claude 能够以特定的方式完成特定类型的任务。</p>
-<p><strong>⚠️ 注意</strong>：Skills 是
-<strong>model-invoked（模型自主调用）</strong>，Claude
-会根据你的需求描述自动识别并调用合适的 Skill。</p>
+<h2 id="第一部分skills-系统-给-claude-装插件"><a class="markdownIt-Anchor" href="#第一部分skills-系统-给-claude-装插件"></a> 第一部分：Skills 系统 - 给 Claude 装插件</h2>
+<h3 id="11-什么是-skill"><a class="markdownIt-Anchor" href="#11-什么是-skill"></a> 1.1 什么是 Skill？</h3>
+<p><strong>Skill 就像 Claude 的&quot;插件&quot;或&quot;扩展包&quot;</strong>。你可以把它理解成一组预定义的工作流程，让 Claude 能够以特定的方式完成特定类型的任务。</p>
+<p><strong>⚠️ 注意</strong>：Skills 是 <strong>model-invoked（模型自主调用）</strong>，Claude 会根据你的需求描述自动识别并调用合适的 Skill。</p>
 <blockquote>
 <p><strong>💡 怎么让 Claude 调用 Skill？</strong></p>
 <p>直接描述你的需求即可：</p>
 <ul>
-<li>"请帮我审查一下 <code>src/utils/helpers.py</code>
-这个文件的代码质量"</li>
-<li>"能不能为这个函数生成一些测试用例？"</li>
-<li>"帮我优化这段代码的性能"</li>
+<li>“请帮我审查一下 <code>src/utils/helpers.py</code> 这个文件的代码质量”</li>
+<li>“能不能为这个函数生成一些测试用例？”</li>
+<li>“帮我优化这段代码的性能”</li>
 </ul>
 <p>Claude 会根据你的描述，自动匹配合适的 Skill 并执行！</p>
 </blockquote>
 <p>举个例子：</p>
 <ul>
-<li>没有 Skill：你说"帮我审查代码"，Claude 会随意看看，然后给点建议</li>
-<li>有 <code>code-review</code> Skill：你说"请审查我的代码质量"，Claude
-会按照<strong>固定模板</strong>检查代码质量、安全性、性能、错误处理等，输出<strong>标准化报告</strong></li>
+<li>没有 Skill：你说&quot;帮我审查代码&quot;，Claude 会随意看看，然后给点建议</li>
+<li>有 <code>code-review</code> Skill：你说&quot;请审查我的代码质量&quot;，Claude 会按照<strong>固定模板</strong>检查代码质量、安全性、性能、错误处理等，输出<strong>标准化报告</strong></li>
 </ul>
-<p>也就是说，<strong>Skill 把"随意发挥"变成了"专业化流程"</strong>。</p>
-<h3 id="skills-工作流程图">1.1.1 Skills 工作流程图</h3>
+<p>也就是说，<strong>Skill 把&quot;随意发挥&quot;变成了&quot;专业化流程&quot;</strong>。</p>
+<h3 id="111-skills-工作流程图"><a class="markdownIt-Anchor" href="#111-skills-工作流程图"></a> 1.1.1 Skills 工作流程图</h3>
 <pre class="mermaid">flowchart LR
     A[用户描述需求] --> B[Claude 识别需求类型]
     B --> C{匹配对应 Skill}
@@ -352,17 +346,11 @@ Claude 能够以特定的方式完成特定类型的任务。</p>
     style A fill:#e1f5ff
     style I fill:#c8e6c9
     style C fill:#fff9c4</pre>
-<center>
-Fig.1 Skill 工作流程图
-</center>
-<p><strong>可以发现</strong>，这个流程就像一个智能路由器，你的需求描述进去，自动匹配到专业的
-Skill，最后输出标准化结果。再也不用每次都跟 Claude
-解释"怎么审查代码"了！</p>
-<h3 id="常用自定义-skills-介绍">1.2 常用自定义 Skills 介绍</h3>
-<p>以下是我常用的几个自定义 Skills（<strong>配置方法见后文"<a
-target="_blank" rel="noopener" href="https://www.yangsuoly.com/2026/01/04/Claude-code-2-advanced/#自定义-skill-入门">1.4
-创建自定义 Skill</a>"</strong>），它们让 Claude Code 变得更强大：</p>
-<h4 id="code-review---代码审查专家">📋 code-review - 代码审查专家</h4>
+<center> Fig.1 Skill 工作流程图</center>
+<p><strong>可以发现</strong>，这个流程就像一个智能路由器，你的需求描述进去，自动匹配到专业的 Skill，最后输出标准化结果。再也不用每次都跟 Claude 解释&quot;怎么审查代码&quot;了！</p>
+<h3 id="12-常用自定义-skills-介绍"><a class="markdownIt-Anchor" href="#12-常用自定义-skills-介绍"></a> 1.2 常用自定义 Skills 介绍</h3>
+<p>以下是我常用的几个自定义 Skills（<strong>配置方法见后文&quot;<a target="_blank" rel="noopener" href="https://www.yangsuoly.com/2026/01/04/Claude-code-2-advanced/#%E8%87%AA%E5%AE%9A%E4%B9%89-skill-%E5%85%A5%E9%97%A8">1.4 创建自定义 Skill</a>&quot;</strong>），它们让 Claude Code 变得更强大：</p>
+<h4 id="code-review-代码审查专家"><a class="markdownIt-Anchor" href="#code-review-代码审查专家"></a> 📋 code-review - 代码审查专家</h4>
 <p><strong>作用</strong>：全面审查代码，检查质量、安全性和最佳实践</p>
 <p><strong>怎么用</strong>：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 直接描述需求，Claude 会自动调用 code-review Skill</span></span><br><span class="line">&quot;请帮我审查 src/utils/helpers.py 的代码质量&quot;</span><br><span class="line">&quot;全面检查一下这个文件的安全性、性能和错误处理&quot;</span><br></pre></td></tr></table></figure>
@@ -380,7 +368,7 @@ target="_blank" rel="noopener" href="https://www.yangsuoly.com/2026/01/04/Claude
 <li>Code Review 前的预审</li>
 <li>学习最佳实践</li>
 </ul>
-<h4 id="test-gen---测试用例生成器">🧪 test-gen - 测试用例生成器</h4>
+<h4 id="test-gen-测试用例生成器"><a class="markdownIt-Anchor" href="#test-gen-测试用例生成器"></a> 🧪 test-gen - 测试用例生成器</h4>
 <p><strong>作用</strong>：自动为代码生成单元测试和集成测试</p>
 <p><strong>怎么用</strong>：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 直接描述需求，Claude 会自动调用 test-gen Skill</span></span><br><span class="line"><span class="string">&quot;为 src/services/user.py 生成测试用例&quot;</span></span><br><span class="line"><span class="string">&quot;帮我写一下这个函数的单元测试&quot;</span></span><br></pre></td></tr></table></figure>
@@ -399,20 +387,19 @@ target="_blank" rel="noopener" href="https://www.yangsuoly.com/2026/01/04/Claude
 </ul>
 <p><strong>测试模板示例</strong>（Python pytest）：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pytest</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">test_normal_case</span>():</span></span><br><span class="line">    <span class="string">&quot;&quot;&quot;测试正常情况&quot;&quot;&quot;</span></span><br><span class="line">    result = function_name(<span class="string">&quot;test&quot;</span>)</span><br><span class="line">    <span class="keyword">assert</span> result == <span class="string">&quot;expected&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">test_edge_case</span>():</span></span><br><span class="line">    <span class="string">&quot;&quot;&quot;测试边界情况&quot;&quot;&quot;</span></span><br><span class="line">    result = function_name(<span class="string">&quot;&quot;</span>)</span><br><span class="line">    <span class="keyword">assert</span> result == <span class="string">&quot;&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">test_invalid_input</span>():</span></span><br><span class="line">    <span class="string">&quot;&quot;&quot;测试异常输入&quot;&quot;&quot;</span></span><br><span class="line">    <span class="keyword">with</span> pytest.raises(ValueError):</span><br><span class="line">        function_name(<span class="literal">None</span>)</span><br></pre></td></tr></table></figure>
-<h4 id="doc-gen---文档生成助手">📚 doc-gen - 文档生成助手</h4>
+<h4 id="doc-gen-文档生成助手"><a class="markdownIt-Anchor" href="#doc-gen-文档生成助手"></a> 📚 doc-gen - 文档生成助手</h4>
 <p><strong>作用</strong>：为代码生成完整的文档注释和 API 文档</p>
 <p><strong>怎么用</strong>：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 直接描述需求，Claude 会自动调用 doc-gen Skill</span></span><br><span class="line"><span class="string">&quot;为 src/api/user.py 生成文档注释&quot;</span></span><br><span class="line"><span class="string">&quot;帮我完善这个函数的 docstring&quot;</span></span><br></pre></td></tr></table></figure>
 <p><strong>生成的文档风格</strong>（Python Docstring）：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">create_user</span>(<span class="params">username: <span class="built_in">str</span>, email: <span class="built_in">str</span></span>) -&gt; User:</span></span><br><span class="line">    <span class="string">&quot;&quot;&quot;创建新用户</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    详细说明函数的功能、使用场景和注意事项。</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    Args:</span></span><br><span class="line"><span class="string">        username: 用户名，3-20个字符</span></span><br><span class="line"><span class="string">        email: 邮箱地址，必须符合邮箱格式</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    Returns:</span></span><br><span class="line"><span class="string">        创建的用户对象</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    Raises:</span></span><br><span class="line"><span class="string">        ValueError: 用户名或邮箱格式不正确</span></span><br><span class="line"><span class="string">        UserExistsError: 用户已存在</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    Examples:</span></span><br><span class="line"><span class="string">        &gt;&gt;&gt; user = create_user(&quot;alice&quot;, &quot;alice@example.com&quot;)</span></span><br><span class="line"><span class="string">        &gt;&gt;&gt; print(user.id)</span></span><br><span class="line"><span class="string">        123</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">    <span class="keyword">pass</span></span><br></pre></td></tr></table></figure>
-<h4 id="todo-sync---任务同步器">✅ todo-sync - 任务同步器</h4>
-<p><strong>作用</strong>：自动将当前的 todos 同步到 TODO.md 文件中</p>
+<h4 id="todo-sync-任务同步器"><a class="markdownIt-Anchor" href="#todo-sync-任务同步器"></a> ✅ todo-sync - 任务同步器</h4>
+<p><strong>作用</strong>：自动将当前的 todos 同步到 <a target="_blank" rel="noopener" href="http://TODO.md">TODO.md</a> 文件中</p>
 <p><strong>怎么用</strong>：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 直接描述需求，Claude 会自动调用 todo-sync Skill</span></span><br><span class="line"><span class="string">&quot;把当前的待办事项同步到 TODO.md&quot;</span></span><br><span class="line"><span class="string">&quot;更新一下项目的任务列表&quot;</span></span><br></pre></td></tr></table></figure>
-<p><strong>生成的 TODO.md</strong>：</p>
+<p><strong>生成的 <a target="_blank" rel="noopener" href="http://TODO.md">TODO.md</a></strong>：</p>
 <figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="section"># 项目待办事项</span></span><br><span class="line"></span><br><span class="line"><span class="quote">&gt; 最后更新：2025-12-26 18:00:00</span></span><br><span class="line"></span><br><span class="line"><span class="section">## 进行中</span></span><br><span class="line"></span><br><span class="line"><span class="bullet">-</span> [ ] 实现用户认证功能</span><br><span class="line"></span><br><span class="line"><span class="section">## 待处理</span></span><br><span class="line"></span><br><span class="line"><span class="bullet">-</span> [ ] 编写单元测试</span><br><span class="line"><span class="bullet">-</span> [ ] 优化数据库查询</span><br><span class="line"></span><br><span class="line"><span class="section">## 已完成</span></span><br><span class="line"></span><br><span class="line"><span class="bullet">-</span> [x] 搭建项目框架</span><br><span class="line"><span class="bullet">-</span> [x] 配置开发环境</span><br><span class="line"></span><br><span class="line">---</span><br><span class="line"></span><br><span class="line"><span class="section">## 统计</span></span><br><span class="line"><span class="bullet">-</span> 总计：5</span><br><span class="line"><span class="bullet">-</span> 待处理：2</span><br><span class="line"><span class="bullet">-</span> 进行中：1</span><br><span class="line"><span class="bullet">-</span> 已完成：2</span><br></pre></td></tr></table></figure>
-<h4 id="llm-prompt-review---提示词优化师">🔒 llm-prompt-review -
-提示词优化师</h4>
+<h4 id="llm-prompt-review-提示词优化师"><a class="markdownIt-Anchor" href="#llm-prompt-review-提示词优化师"></a> 🔒 llm-prompt-review - 提示词优化师</h4>
 <p><strong>作用</strong>：审查 LLM 提示词的质量、安全性和有效性</p>
 <p><strong>怎么用</strong>：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 直接描述需求，Claude 会自动调用 llm-prompt-review Skill</span></span><br><span class="line"><span class="string">&quot;帮我审查一下这个提示词的质量&quot;</span></span><br><span class="line"><span class="string">&quot;检查 prompts/chat.txt 有没有安全风险&quot;</span></span><br></pre></td></tr></table></figure>
@@ -425,11 +412,9 @@ target="_blank" rel="noopener" href="https://www.yangsuoly.com/2026/01/04/Claude
 <li>优化建议</li>
 </ul>
 <blockquote>
-<p><strong>💡 小贴士</strong>：这个 Skill 特别适合用来优化你发给 AI
-的提示词，能省不少 token 钱！</p>
+<p><strong>💡 小贴士</strong>：这个 Skill 特别适合用来优化你发给 AI 的提示词，能省不少 token 钱！</p>
 </blockquote>
-<h3 id="实战案例用-skills-完成一个完整开发流程">1.3 实战案例：用 Skills
-完成一个完整开发流程</h3>
+<h3 id="13-实战案例用-skills-完成一个完整开发流程"><a class="markdownIt-Anchor" href="#13-实战案例用-skills-完成一个完整开发流程"></a> 1.3 实战案例：用 Skills 完成一个完整开发流程</h3>
 <p><strong>场景</strong>：开发一个用户注册功能</p>
 <pre class="mermaid">flowchart LR
     A[编写代码] --> B[生成文档<br/>doc-gen]
@@ -442,71 +427,67 @@ target="_blank" rel="noopener" href="https://www.yangsuoly.com/2026/01/04/Claude
     style C fill:#f3e5f5
     style D fill:#ffebee
     style E fill:#e8f5e9</pre>
-<center>
-Fig.2 开发案例流程
-</center>
+<center> Fig.2 开发案例流程</center>
 <ul>
-<li><p>步骤 1：编写代码</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># src/services/user_service.py</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">register_user</span>(<span class="params">username: <span class="built_in">str</span>, email: <span class="built_in">str</span>, password: <span class="built_in">str</span></span>):</span></span><br><span class="line">    <span class="comment"># 实现用户注册</span></span><br><span class="line">    <span class="keyword">pass</span></span><br></pre></td></tr></table></figure></li>
-<li><p>步骤 2：生成文档</p>
+<li>
+<p>步骤 1：编写代码</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># src/services/user_service.py</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">register_user</span>(<span class="params">username: <span class="built_in">str</span>, email: <span class="built_in">str</span>, password: <span class="built_in">str</span></span>):</span></span><br><span class="line">    <span class="comment"># 实现用户注册</span></span><br><span class="line">    <span class="keyword">pass</span></span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>步骤 2：生成文档</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&quot;为 src/services/user_service.py 生成文档注释&quot;</span><br></pre></td></tr></table></figure>
-<p><strong>结果</strong>：Claude 自动调用 doc-gen Skill，添加完整的
-Docstring</p></li>
-<li><p>步骤 3：生成测试</p>
+<p><strong>结果</strong>：Claude 自动调用 doc-gen Skill，添加完整的 Docstring</p>
+</li>
+<li>
+<p>步骤 3：生成测试</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot;为这个用户注册函数生成测试用例&quot;</span></span><br></pre></td></tr></table></figure>
-<p><strong>结果</strong>：生成 tests/test_user_service.py</p></li>
-<li><p>步骤 4：代码审查</p>
+<p><strong>结果</strong>：生成 tests/test_user_service.py</p>
+</li>
+<li>
+<p>步骤 4：代码审查</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot;请审查 src/services/user_service.py 的代码质量，重点关注安全性&quot;</span></span><br></pre></td></tr></table></figure>
-<p><strong>结果</strong>：Claude 自动调用 code-review
-Skill，发现安全问题（密码未加密），给出修复建议</p></li>
-<li><p>步骤 5：同步任务</p>
+<p><strong>结果</strong>：Claude 自动调用 code-review Skill，发现安全问题（密码未加密），给出修复建议</p>
+</li>
+<li>
+<p>步骤 5：同步任务</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot;把当前的待办事项同步到 TODO.md&quot;</span></span><br></pre></td></tr></table></figure>
-<p><strong>结果</strong>：更新 TODO.md，标记已完成任务</p></li>
+<p><strong>结果</strong>：更新 <a target="_blank" rel="noopener" href="http://TODO.md">TODO.md</a>，标记已完成任务</p>
+</li>
 </ul>
 <p><strong>这一个流程走下来，代码质量、文档、测试都有了，还省了不少时间！</strong></p>
-<h3 id="自定义-skill-入门">1.4 自定义 Skill 入门</h3>
-<p><strong>重要说明</strong>：前面提到的
-<code>code-review</code>、<code>test-gen</code>、<code>doc-gen</code>、<code>todo-sync</code>、<code>llm-prompt-review</code>
-等都是<strong>自定义 Skills</strong>，需要你自己配置才能使用。</p>
+<h3 id="14-自定义-skill-入门"><a class="markdownIt-Anchor" href="#14-自定义-skill-入门"></a> 1.4 自定义 Skill 入门</h3>
+<p><strong>重要说明</strong>：前面提到的 <code>code-review</code>、<code>test-gen</code>、<code>doc-gen</code>、<code>todo-sync</code>、<code>llm-prompt-review</code> 等都是<strong>自定义 Skills</strong>，需要你自己配置才能使用。</p>
 <p>下面介绍如何配置这些常用 Skills。</p>
-<h4 id="skill-文件结构">1.4.1 Skill 文件结构</h4>
+<h4 id="141-skill-文件结构"><a class="markdownIt-Anchor" href="#141-skill-文件结构"></a> 1.4.1 Skill 文件结构</h4>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">.claude/skills/my-custom-skill/</span><br><span class="line">├── SKILL.md       # Skill 定义文件（必须）</span><br><span class="line">├── index.js       # 可选的脚本文件</span><br><span class="line">└── package.json   # Node 依赖（如果需要脚本）</span><br></pre></td></tr></table></figure>
-<h4 id="配置常用-skills">1.4.2 配置常用 Skills</h4>
+<h4 id="142-配置常用-skills"><a class="markdownIt-Anchor" href="#142-配置常用-skills"></a> 1.4.2 配置常用 Skills</h4>
 <p><strong>方法一：手动创建（推荐学习）</strong></p>
-<p>在项目根目录创建 <code>.claude/skills/</code> 目录，然后为每个 Skill
-创建 <code>SKILL.md</code> 文件。</p>
-<h5 id="code-review---代码审查-skill">1. code-review - 代码审查
-Skill</h5>
+<p>在项目根目录创建 <code>.claude/skills/</code> 目录，然后为每个 Skill 创建 <code>SKILL.md</code> 文件。</p>
+<h5 id="1-code-review-代码审查-skill"><a class="markdownIt-Anchor" href="#1-code-review-代码审查-skill"></a> 1. code-review - 代码审查 Skill</h5>
 <p>创建 <code>.claude/skills/code-review/SKILL.md</code>：</p>
 <figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">name: code-review</span><br><span class="line">description: &quot;对代码进行全面审查，检查质量、安全性和最佳实践&quot;</span><br><span class="line">license: MIT</span><br><span class="line">---</span><br><span class="line"></span><br><span class="line"><span class="section"># 技能：代码审查</span></span><br><span class="line"></span><br><span class="line">对代码进行全面审查，检查质量、安全性和最佳实践。</span><br><span class="line"></span><br><span class="line"><span class="section">## 审查检查项</span></span><br><span class="line"></span><br><span class="line"><span class="bullet">-</span> 代码质量（命名、逻辑、冗余）</span><br><span class="line"><span class="bullet">-</span> 安全性（注入漏洞、敏感数据）</span><br><span class="line"><span class="bullet">-</span> 性能（循环、内存、查询优化）</span><br><span class="line"><span class="bullet">-</span> 错误处理（异常捕获、日志记录）</span><br><span class="line"><span class="bullet">-</span> 测试覆盖（单元测试、边界情况）</span><br><span class="line"></span><br><span class="line"><span class="section">## 输出格式</span></span><br><span class="line"></span><br><span class="line"><span class="section">### 文件：xxx.ts/xxx.py</span></span><br><span class="line"></span><br><span class="line"><span class="section">#### 发现的问题</span></span><br><span class="line"><span class="bullet">1.</span> <span class="strong">**[严重]**</span> 问题描述</span><br><span class="line"><span class="bullet">   -</span> 位置：第 X 行</span><br><span class="line"><span class="bullet">   -</span> 建议：修复方案</span><br><span class="line"></span><br><span class="line"><span class="bullet">2.</span> <span class="strong">**[警告]**</span> 问题描述</span><br><span class="line"><span class="bullet">   -</span> 位置：第 X 行</span><br><span class="line"></span><br><span class="line"><span class="section">#### 优点</span></span><br><span class="line"><span class="bullet">-</span> 列出代码的优点</span><br><span class="line"></span><br><span class="line"><span class="section">#### 总体评分：B+</span></span><br></pre></td></tr></table></figure>
-<h5 id="test-gen---测试生成-skill">2. test-gen - 测试生成 Skill</h5>
+<h5 id="2-test-gen-测试生成-skill"><a class="markdownIt-Anchor" href="#2-test-gen-测试生成-skill"></a> 2. test-gen - 测试生成 Skill</h5>
 <p>创建 <code>.claude/skills/test-gen/SKILL.md</code>：</p>
 <figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">name: test-gen</span><br><span class="line">description: &quot;为代码自动生成单元测试和集成测试&quot;</span><br><span class="line">license: MIT</span><br><span class="line">---</span><br><span class="line"></span><br><span class="line"><span class="section"># 技能：测试生成</span></span><br><span class="line"></span><br><span class="line">为代码生成完整的单元测试和集成测试。</span><br><span class="line"></span><br><span class="line"><span class="section">## 测试类型</span></span><br><span class="line"></span><br><span class="line"><span class="bullet">-</span> 正常情况测试</span><br><span class="line"><span class="bullet">-</span> 边界情况测试</span><br><span class="line"><span class="bullet">-</span> 异常处理测试</span><br><span class="line"><span class="bullet">-</span> 覆盖率目标建议</span><br><span class="line"></span><br><span class="line"><span class="section">## 输出格式</span></span><br><span class="line"></span><br><span class="line">使用标准测试框架（pytest/unittest/jest），生成可运行的测试代码。</span><br><span class="line"></span><br><span class="line">每个测试函数需要：</span><br><span class="line"><span class="bullet">1.</span> 清晰的函数名（test<span class="emphasis">_xxx）</span></span><br><span class="line"><span class="emphasis">2. 完整的 docstring</span></span><br><span class="line"><span class="emphasis">3. 断言（assert）</span></span><br></pre></td></tr></table></figure>
-<h5 id="doc-gen---文档生成-skill">3. doc-gen - 文档生成 Skill</h5>
+<h5 id="3-doc-gen-文档生成-skill"><a class="markdownIt-Anchor" href="#3-doc-gen-文档生成-skill"></a> 3. doc-gen - 文档生成 Skill</h5>
 <p>创建 <code>.claude/skills/doc-gen/SKILL.md</code>：</p>
 <figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">name: doc-gen</span><br><span class="line">description: &quot;为代码生成完整的文档注释和 API 文档&quot;</span><br><span class="line">license: MIT</span><br><span class="line">---</span><br><span class="line"></span><br><span class="line"><span class="section"># 技能：文档生成</span></span><br><span class="line"></span><br><span class="line">为代码生成完整的文档注释和 API 文档。</span><br><span class="line"></span><br><span class="line"><span class="section">## 文档风格</span></span><br><span class="line"></span><br><span class="line"><span class="bullet">-</span> Python：Google Style Docstring</span><br><span class="line"><span class="bullet">-</span> JavaScript/TypeScript：JSDoc</span><br><span class="line"><span class="bullet">-</span> Go：Go Doc</span><br><span class="line"></span><br><span class="line"><span class="section">## 文档内容</span></span><br><span class="line"></span><br><span class="line">每个函数/类必须包含：</span><br><span class="line"><span class="bullet">1.</span> 功能描述</span><br><span class="line"><span class="bullet">2.</span> 参数说明（Args/Parameters）</span><br><span class="line"><span class="bullet">3.</span> 返回值说明（Returns）</span><br><span class="line"><span class="bullet">4.</span> 异常说明（Raises/Throws）</span><br><span class="line"><span class="bullet">5.</span> 使用示例（Examples）</span><br></pre></td></tr></table></figure>
-<h5 id="todo-sync---任务同步-skill">4. todo-sync - 任务同步 Skill</h5>
+<h5 id="4-todo-sync-任务同步-skill"><a class="markdownIt-Anchor" href="#4-todo-sync-任务同步-skill"></a> 4. todo-sync - 任务同步 Skill</h5>
 <p>创建 <code>.claude/skills/todo-sync/SKILL.md</code>：</p>
 <figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">name: todo-sync</span><br><span class="line">description: &quot;将当前的待办事项同步到 TODO.md 文件中&quot;</span><br><span class="line">license: MIT</span><br><span class="line">---</span><br><span class="line"></span><br><span class="line"><span class="section"># 技能：任务同步</span></span><br><span class="line"></span><br><span class="line">自动将当前的待办事项同步到 TODO.md 文件中。</span><br><span class="line"></span><br><span class="line"><span class="section">## 输出格式</span></span><br><span class="line"></span><br><span class="line"><span class="code">```markdown</span></span><br><span class="line"><span class="code"># 项目待办事项</span></span><br><span class="line"><span class="code"></span></span><br><span class="line"><span class="code">&gt; 最后更新：时间戳</span></span><br><span class="line"><span class="code"></span></span><br><span class="line"><span class="code">## 进行中</span></span><br><span class="line"><span class="code">- [ ] 任务描述</span></span><br><span class="line"><span class="code"></span></span><br><span class="line"><span class="code">## 待处理</span></span><br><span class="line"><span class="code">- [ ] 任务描述</span></span><br><span class="line"><span class="code"></span></span><br><span class="line"><span class="code">## 已完成</span></span><br><span class="line"><span class="code">- [x] 任务描述</span></span><br><span class="line"><span class="code">##### 5. llm-prompt-review - 提示词审查 Skill</span></span><br><span class="line"><span class="code"></span></span><br><span class="line"><span class="code">创建 `.claude/skills/llm-prompt-review/SKILL.md`：</span></span><br><span class="line"><span class="code"></span></span><br><span class="line"><span class="code">```markdown</span></span><br><span class="line"><span class="code">---</span></span><br><span class="line"><span class="code">name: llm-prompt-review</span></span><br><span class="line"><span class="code">description: &quot;审查 LLM 提示词的质量、安全性和有效性&quot;</span></span><br><span class="line"><span class="code">license: MIT</span></span><br><span class="line"><span class="code">---</span></span><br><span class="line"><span class="code"></span></span><br><span class="line"><span class="code"># 技能：提示词审查</span></span><br><span class="line"><span class="code"></span></span><br><span class="line"><span class="code">审查 LLM 提示词的质量、安全性和有效性。</span></span><br><span class="line"><span class="code"></span></span><br><span class="line"><span class="code">## 审查内容</span></span><br><span class="line"><span class="code"></span></span><br><span class="line"><span class="code">- 目标是否清晰</span></span><br><span class="line"><span class="code">- 指令是否具体</span></span><br><span class="line"><span class="code">- 注入风险检查</span></span><br><span class="line"><span class="code">- Token 使用效率</span></span><br><span class="line"><span class="code">- 优化建议</span></span><br><span class="line"><span class="code"></span></span><br><span class="line"><span class="code">## 输出格式</span></span><br><span class="line"><span class="code"></span></span><br><span class="line"><span class="code">按以下格式输出审查结果：</span></span><br><span class="line"><span class="code"></span></span><br><span class="line"><span class="code">### 评估结果</span></span><br><span class="line"><span class="code">- **目标清晰度**：评分 + 说明</span></span><br><span class="line"><span class="code">- **指令具体性**：评分 + 说明</span></span><br><span class="line"><span class="code">- **安全性**：风险等级 + 说明</span></span><br><span class="line"><span class="code">- **Token 效率**：评估 + 说明</span></span><br><span class="line"><span class="code"></span></span><br><span class="line"><span class="code">### 优化建议</span></span><br><span class="line"><span class="code">1. 具体建议</span></span><br><span class="line"><span class="code">2. 优化后的提示词示例</span></span><br></pre></td></tr></table></figure>
 <p><strong>方法二：使用配置包（推荐快速上手）</strong></p>
-<p>我已经准备好了完整的 Skills 配置包，包含上面提到的 5 个常用
-Skills。</p>
+<p>我已经准备好了完整的 Skills 配置包，包含上面提到的 5 个常用 Skills。</p>
 <p><strong>下载和安装</strong>：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 1. 克隆或下载配置包</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 假设配置包在当前目录的 skills-package/ 目录下</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 2. 复制到项目目录（推荐）</span></span><br><span class="line">cp -r skills-package/* .claude/skills/</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 3. 验证配置</span></span><br><span class="line">ls -la .claude/skills/</span><br><span class="line"><span class="meta">#</span><span class="bash"> 应该看到：code-review/, test-gen/, doc-gen/, todo-sync/, llm-prompt-review/</span></span><br></pre></td></tr></table></figure>
 <p><strong>配置包位置</strong>：</p>
 <ul>
-<li>教程仓库：<a
-href="https://yangsuoly.com/file/skills-package.zip">skills-package</a>
-<a id="download" href="https://yangsuoly.com/file/skills-package.zip" target="_blank"><i class="fa fa-download"></i><span>
-Download Now </span> </a></li>
-<li>包含：5 个常用 Skills 的完整 SKILL.md 文件</li>
+<li>教程仓库：<a href="https://yangsuoly.com/file/skills-package.zip">skills-package</a> <a id="download" href="https://yangsuoly.com/file/skills-package.zip" target="_blank"><i class="fa fa-download"></i><span> Download Now </span> </a></li>
+<li>包含：5 个常用 Skills 的完整 <a target="_blank" rel="noopener" href="http://SKILL.md">SKILL.md</a> 文件</li>
 </ul>
 <blockquote>
-<p><strong>💡 小贴士</strong>：配置包里的 Skills
-可以直接使用，也可以根据自己的需求修改 SKILL.md
-文件中的检查项和输出格式。</p>
+<p><strong>💡 小贴士</strong>：配置包里的 Skills 可以直接使用，也可以根据自己的需求修改 <a target="_blank" rel="noopener" href="http://SKILL.md">SKILL.md</a> 文件中的检查项和输出格式。</p>
 </blockquote>
-<h4 id="最简单的-skill-示例">1.4.3最简单的 Skill 示例</h4>
+<h4 id="143最简单的-skill-示例"><a class="markdownIt-Anchor" href="#143最简单的-skill-示例"></a> 1.4.3最简单的 Skill 示例</h4>
 <p>如果你想从零开始创建一个简单的 Skill（纯提示词）：</p>
 <p>创建文件：<code>.claude/skills/my-review/SKILL.md</code></p>
 <figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">name: my-review</span><br><span class="line">description: &quot;按照我的个人代码风格审查代码&quot;</span><br><span class="line">license: MIT</span><br><span class="line">---</span><br><span class="line"></span><br><span class="line"><span class="section"># 技能：个性化代码审查</span></span><br><span class="line"></span><br><span class="line"><span class="section">## 我的代码风格要求</span></span><br><span class="line"></span><br><span class="line"><span class="bullet">-</span> 使用 4 空格缩进</span><br><span class="line"><span class="bullet">-</span> 函数不超过 50 行</span><br><span class="line"><span class="bullet">-</span> 变量名用 snake<span class="emphasis">_case</span></span><br><span class="line"><span class="emphasis">- 每个函数必须有 docstring</span></span><br><span class="line"><span class="emphasis"></span></span><br><span class="line"><span class="emphasis">## 使用方法</span></span><br><span class="line"><span class="emphasis"></span></span><br><span class="line"><span class="emphasis">```bash</span></span><br><span class="line"><span class="emphasis">/skill my-review --file <span class="xml"><span class="tag">&lt;<span class="name">filename</span>&gt;</span></span></span></span><br><span class="line"><span class="emphasis">```</span></span><br><span class="line"><span class="emphasis"></span></span><br><span class="line"><span class="emphasis">## 输出格式</span></span><br><span class="line"><span class="emphasis"></span></span><br><span class="line"><span class="emphasis">按以下格式输出审查结果：</span></span><br><span class="line"><span class="emphasis"></span></span><br><span class="line"><span class="emphasis">1. <span class="strong">**风格问题**</span></span></span><br><span class="line"><span class="emphasis">   - 位置：第 X 行</span></span><br><span class="line"><span class="emphasis">   - 问题：...</span></span><br><span class="line"><span class="emphasis">   - 建议：...</span></span><br><span class="line"><span class="emphasis">2. <span class="strong">**命名问题**</span></span></span><br><span class="line"><span class="emphasis">   - 位置：第 X 行</span></span><br><span class="line"><span class="emphasis">   - 问题：...</span></span><br><span class="line"><span class="emphasis">   - 建议：...</span></span><br></pre></td></tr></table></figure>
@@ -514,31 +495,31 @@ Download Now </span> </a></li>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&quot;用我的个人代码风格审查 src/utils/helpers.py&quot;</span><br></pre></td></tr></table></figure>
 <p>Claude 会自动识别并调用 <code>my-review</code> Skill！</p>
 <blockquote>
-<p><strong>💡 小贴士</strong>：自定义 Skill 不需要写代码也能用！SKILL.md
-本身就是一个"提示词模板"，Claude 会按照你定义的格式执行任务。</p>
+<p><strong>💡 小贴士</strong>：自定义 Skill 不需要写代码也能用！<a target="_blank" rel="noopener" href="http://SKILL.md">SKILL.md</a> 本身就是一个&quot;提示词模板&quot;，Claude 会按照你定义的格式执行任务。</p>
 </blockquote>
-<h3 id="skills-避坑指南">1.5 Skills 避坑指南</h3>
-<h4 id="坑-1-skill-不生效">坑 1： Skill 不生效</h4>
+<h3 id="15-skills-避坑指南"><a class="markdownIt-Anchor" href="#15-skills-避坑指南"></a> 1.5 Skills 避坑指南</h3>
+<h4 id="坑-1-skill-不生效"><a class="markdownIt-Anchor" href="#坑-1-skill-不生效"></a> 坑 1： Skill 不生效</h4>
 <p><strong>症状</strong>：描述了需求，但 Claude 没有调用预期的 Skill</p>
-<p><strong>可能原因</strong>： 1. SKILL.md 文件的 front matter 格式错误
-2. skill 目录名和 SKILL.md 里的 name 不一致 3. description
-描述不够清晰，Claude 无法匹配</p>
-<p><strong>检查方法</strong>： <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 检查 Skill 文件格式</span></span><br><span class="line">cat ~/.claude/skills/my-skill/SKILL.md</span><br><span class="line"></span><br><span class="line"><span class="comment"># 正确的格式：</span></span><br><span class="line">---</span><br><span class="line">name: my-skill        <span class="comment"># 要和目录名一致</span></span><br><span class="line">description: <span class="string">&quot;清晰描述这个 Skill 的用途，让 Claude 能准确匹配&quot;</span></span><br><span class="line">license: MIT</span><br><span class="line">---</span><br></pre></td></tr></table></figure></p>
-<h4 id="坑-2找不到-skill">坑 2：找不到 Skill</h4>
+<p><strong>可能原因</strong>：</p>
+<ol>
+<li><a target="_blank" rel="noopener" href="http://SKILL.md">SKILL.md</a> 文件的 front matter 格式错误</li>
+<li>skill 目录名和 <a target="_blank" rel="noopener" href="http://SKILL.md">SKILL.md</a> 里的 name 不一致</li>
+<li>description 描述不够清晰，Claude 无法匹配</li>
+</ol>
+<p><strong>检查方法</strong>：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 检查 Skill 文件格式</span></span><br><span class="line">cat ~/.claude/skills/my-skill/SKILL.md</span><br><span class="line"></span><br><span class="line"><span class="comment"># 正确的格式：</span></span><br><span class="line">---</span><br><span class="line">name: my-skill        <span class="comment"># 要和目录名一致</span></span><br><span class="line">description: <span class="string">&quot;清晰描述这个 Skill 的用途，让 Claude 能准确匹配&quot;</span></span><br><span class="line">license: MIT</span><br><span class="line">---</span><br></pre></td></tr></table></figure>
+<h4 id="坑-2找不到-skill"><a class="markdownIt-Anchor" href="#坑-2找不到-skill"></a> 坑 2：找不到 Skill</h4>
 <p><strong>症状</strong>：Claude 提示找不到 Skill</p>
-<p><strong>原因</strong>：Skill 不在 <code>.claude/skills/</code>
-目录下</p>
+<p><strong>原因</strong>：Skill 不在 <code>.claude/skills/</code> 目录下</p>
 <p><strong>解决</strong>：</p>
 <ul>
 <li>全局 Skill：放在 <code>~/.claude/skills/</code></li>
 <li>项目 Skill：放在 <code>项目根目录/.claude/skills/</code></li>
 </ul>
-<h2 id="第二部分claude.md---项目专属使用说明书">第二部分：CLAUDE.md -
-项目专属使用说明书</h2>
-<h3 id="什么是-claude.md">2.1 什么是 CLAUDE.md？</h3>
-<p><strong>CLAUDE.md 就像是给 Claude 写的"项目 README"</strong>。</p>
-<p>每次你在一个项目里使用 Claude Code 时，它会自动读取项目根目录下的
-<code>CLAUDE.md</code> 文件，了解：</p>
+<h2 id="第二部分claudemd-项目专属使用说明书"><a class="markdownIt-Anchor" href="#第二部分claudemd-项目专属使用说明书"></a> 第二部分：<a target="_blank" rel="noopener" href="http://CLAUDE.md">CLAUDE.md</a> - 项目专属使用说明书</h2>
+<h3 id="21-什么是-claudemd"><a class="markdownIt-Anchor" href="#21-什么是-claudemd"></a> 2.1 什么是 <a target="_blank" rel="noopener" href="http://CLAUDE.md">CLAUDE.md</a>？</h3>
+<p><strong><a target="_blank" rel="noopener" href="http://CLAUDE.md">CLAUDE.md</a> 就像是给 Claude 写的&quot;项目 README&quot;</strong>。</p>
+<p>每次你在一个项目里使用 Claude Code 时，它会自动读取项目根目录下的 <code>CLAUDE.md</code> 文件，了解：</p>
 <ul>
 <li>这个项目是干什么的</li>
 <li>用了什么技术栈</li>
@@ -546,8 +527,7 @@ Download Now </span> </a></li>
 <li>你有哪些个人偏好</li>
 <li>常用命令有哪些</li>
 </ul>
-<p><strong>有了 CLAUDE.md，Claude
-就从"陌生人"变成了"团队老成员"</strong>。</p>
+<p><strong>有了 <a target="_blank" rel="noopener" href="http://CLAUDE.md">CLAUDE.md</a>，Claude 就从&quot;陌生人&quot;变成了&quot;团队老成员&quot;</strong>。</p>
 <pre class="mermaid">graph TD
     A[CLAUDE.md] --> B[项目概述]
     A --> C[开发规范]
@@ -576,10 +556,8 @@ Download Now </span> </a></li>
     style D fill:#c8e6c9
     style E fill:#b2dfdb
     style F fill:#e1bee7</pre>
-<center>
-Fig.3 CLAUDE.md 结构示意图
-</center>
-<h3 id="claude.md-的作用">2.2 CLAUDE.md 的作用</h3>
+<center> Fig.3 CLAUDE.md 结构示意图</center>
+<h3 id="22-claudemd-的作用"><a class="markdownIt-Anchor" href="#22-claudemd-的作用"></a> 2.2 <a target="_blank" rel="noopener" href="http://CLAUDE.md">CLAUDE.md</a> 的作用</h3>
 <ul>
 <li><strong>作用 1：项目上下文管理</strong></li>
 </ul>
@@ -600,77 +578,78 @@ Fig.3 CLAUDE.md 结构示意图
 </ul>
 <p>告诉 Claude 你希望它怎么配合工作：</p>
 <figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">## Claude Code 交互偏好</span></span><br><span class="line"></span><br><span class="line"><span class="section">### 工作流程</span></span><br><span class="line"></span><br><span class="line"><span class="bullet">1.</span> <span class="strong">**开发新功能前**</span>: 先使用 Spec Kit 编写规范</span><br><span class="line"><span class="bullet">2.</span> <span class="strong">**实现功能时**</span>: 参考 <span class="code">`.specify/specs/`</span> 中的规范</span><br><span class="line"><span class="bullet">3.</span> <span class="strong">**代码审查**</span>: 说&quot;请审查代码质量&quot;，Claude 自动调用 code-review</span><br><span class="line"><span class="bullet">4.</span> <span class="strong">**测试生成**</span>: 说&quot;为这个函数生成测试&quot;，Claude 自动调用 test-gen</span><br><span class="line"><span class="bullet">5.</span> <span class="strong">**文档生成**</span>: 说&quot;生成文档注释&quot;，Claude 自动调用 doc-gen</span><br><span class="line"></span><br><span class="line"><span class="section">### 权限配置</span></span><br><span class="line"></span><br><span class="line">允许的命令：</span><br><span class="line"><span class="bullet">-</span> Python: <span class="code">`python*`</span>, <span class="code">`pip*`</span>, <span class="code">`pytest*`</span></span><br><span class="line"><span class="bullet">-</span> 代码检查: <span class="code">`ruff*`</span>, <span class="code">`black*`</span>, <span class="code">`isort*`</span>, <span class="code">`mypy*`</span></span><br><span class="line"><span class="bullet">-</span> Git: <span class="code">`git:*`</span></span><br></pre></td></tr></table></figure>
-<h3 id="实战案例python-ai-项目-claude.md-配置">2.3 实战案例：Python AI
-项目 CLAUDE.md 配置</h3>
-<p>下面是一个完整的 Python AI 项目 CLAUDE.md 示例：</p>
+<h3 id="23-实战案例python-ai-项目-claudemd-配置"><a class="markdownIt-Anchor" href="#23-实战案例python-ai-项目-claudemd-配置"></a> 2.3 实战案例：Python AI 项目 <a target="_blank" rel="noopener" href="http://CLAUDE.md">CLAUDE.md</a> 配置</h3>
+<p>下面是一个完整的 Python AI 项目 <a target="_blank" rel="noopener" href="http://CLAUDE.md">CLAUDE.md</a> 示例：</p>
 <figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br></pre></td><td class="code"><pre><span class="line"><span class="section"># Claude Code 配置 - Python AI 项目</span></span><br><span class="line"></span><br><span class="line"><span class="section">## 项目概述</span></span><br><span class="line"></span><br><span class="line"><span class="strong">**项目名称**</span>: AI Chatbot</span><br><span class="line"><span class="strong">**项目类型**</span>: Python AI/LLM 应用</span><br><span class="line"><span class="strong">**主要技术栈**</span>:</span><br><span class="line"><span class="bullet">-</span> Python 3.10+</span><br><span class="line"><span class="bullet">-</span> LangChain</span><br><span class="line"><span class="bullet">-</span> OpenAI API</span><br><span class="line"><span class="bullet">-</span> FastAPI</span><br><span class="line"><span class="bullet">-</span> SQLAlchemy</span><br><span class="line"></span><br><span class="line"><span class="strong">**沟通语言**</span>: 中文</span><br><span class="line"><span class="strong">**代码注释**</span>: 中文 docstring</span><br><span class="line"></span><br><span class="line">---</span><br><span class="line"></span><br><span class="line"><span class="section">## 开发规范</span></span><br><span class="line"></span><br><span class="line"><span class="section">### 代码风格</span></span><br><span class="line"></span><br><span class="line"><span class="bullet">-</span> <span class="strong">**缩进**</span>: 4 空格</span><br><span class="line"><span class="bullet">-</span> <span class="strong">**命名**</span>: snake<span class="emphasis">_case（变量/函数），PascalCase（类）</span></span><br><span class="line"><span class="emphasis">- <span class="strong">**文档**</span>: Google Style Docstrings</span></span><br><span class="line"><span class="emphasis">- <span class="strong">**类型注解**</span>: 必须添加</span></span><br><span class="line"><span class="emphasis"></span></span><br><span class="line"><span class="emphasis">### AI/LLM 特定规范</span></span><br><span class="line"><span class="emphasis"></span></span><br><span class="line"><span class="emphasis">- <span class="strong">**API Key**</span>: 使用环境变量，不写死在代码里</span></span><br><span class="line"><span class="emphasis">- <span class="strong">**重试机制**</span>: 实现指数退避重试</span></span><br><span class="line"><span class="emphasis">- <span class="strong">**提示词管理**</span>: 放在 `prompts/` 目录</span></span><br><span class="line"><span class="emphasis">- <span class="strong">**数据隐私**</span>: 敏感数据脱敏处理</span></span><br><span class="line"><span class="emphasis"></span></span><br><span class="line"><span class="emphasis">---</span></span><br><span class="line"><span class="emphasis"></span></span><br><span class="line"><span class="emphasis">## 常用命令</span></span><br><span class="line"><span class="emphasis"></span></span><br><span class="line"><span class="emphasis">### 开发</span></span><br><span class="line"><span class="emphasis"></span></span><br><span class="line"><span class="emphasis">```bash</span></span><br><span class="line"><span class="emphasis"># 环境管理</span></span><br><span class="line"><span class="emphasis">source .venv/bin/activate</span></span><br><span class="line"><span class="emphasis">pip install -r requirements.txt</span></span><br><span class="line"><span class="emphasis"></span></span><br><span class="line"><span class="emphasis"># 代码质量</span></span><br><span class="line"><span class="emphasis">ruff check .</span></span><br><span class="line"><span class="emphasis">ruff check --fix .</span></span><br><span class="line"><span class="emphasis">black .</span></span><br><span class="line"><span class="emphasis">isort .</span></span><br><span class="line"><span class="emphasis">```</span></span><br><span class="line"><span class="emphasis"></span></span><br><span class="line"><span class="emphasis">### 测试</span></span><br><span class="line"><span class="emphasis">```</span></span><br><span class="line"><span class="emphasis">pytest                          # 运行测试</span></span><br><span class="line"><span class="emphasis">pytest -v                       # 详细输出</span></span><br><span class="line"><span class="emphasis">pytest --cov=src                # 覆盖率</span></span><br><span class="line"><span class="emphasis">```</span></span><br><span class="line"><span class="emphasis"></span></span><br><span class="line"><span class="emphasis"></span></span><br><span class="line"><span class="emphasis">## 项目结构</span></span><br><span class="line"><span class="emphasis">```</span></span><br><span class="line"><span class="emphasis">project-root/</span></span><br><span class="line"><span class="emphasis">├── src/</span></span><br><span class="line"><span class="emphasis">│   ├── agents/         # AI Agents</span></span><br><span class="line"><span class="emphasis">│   ├── chains/         # LangChain chains</span></span><br><span class="line"><span class="emphasis">│   ├── prompts/        # 提示词模板</span></span><br><span class="line"><span class="emphasis">│   ├── tools/          # 自定义工具</span></span><br><span class="line"><span class="emphasis">│   └── api/            # FastAPI 路由</span></span><br><span class="line"><span class="emphasis">├── tests/</span></span><br><span class="line"><span class="emphasis">│   ├── unit/           # 单元测试</span></span><br><span class="line"><span class="emphasis">│   └── integration/    # 集成测试</span></span><br><span class="line"><span class="emphasis">├── data/               # 数据文件</span></span><br><span class="line"><span class="emphasis">├── .claude/            # Claude Code 配置</span></span><br><span class="line"><span class="emphasis">└── CLAUDE.md           # 本文件</span></span><br><span class="line"><span class="emphasis">```</span></span><br><span class="line"><span class="emphasis"></span></span><br><span class="line"><span class="emphasis">## Claude Code 交互偏好</span></span><br><span class="line"><span class="emphasis"></span></span><br><span class="line"><span class="emphasis">### 工作流程</span></span><br><span class="line"><span class="emphasis"></span></span><br><span class="line"><span class="emphasis">1. <span class="strong">**开发新功能前**</span>: 先编写规范文档</span></span><br><span class="line"><span class="emphasis">2. <span class="strong">**实现功能时**</span>: 参考规范，生成代码</span></span><br><span class="line"><span class="emphasis">3. <span class="strong">**代码审查**</span>: 说&quot;请审查代码质量&quot;，Claude 自动调用 code-review</span></span><br><span class="line"><span class="emphasis">4. <span class="strong">**测试生成**</span>: 说&quot;为这个函数生成测试&quot;，Claude 自动调用 test-gen</span></span><br><span class="line"><span class="emphasis">5. <span class="strong">**文档生成**</span>: 说&quot;生成文档注释&quot;，Claude 自动调用 doc-gen</span></span><br><span class="line"><span class="emphasis"></span></span><br><span class="line"><span class="emphasis">### 允许的命令</span></span><br><span class="line"><span class="emphasis"></span></span><br><span class="line"><span class="emphasis">- Python: `python*`, `pip*`, `pytest*`</span></span><br><span class="line"><span class="emphasis">- 代码检查: `ruff*`, `black*`, `isort*`, `mypy*`</span></span><br><span class="line"><span class="emphasis">- Git: `git:*`</span></span><br><span class="line"><span class="emphasis"></span></span><br></pre></td></tr></table></figure>
-<p><strong>有了这个配置，Claude
-生成的代码就会自动遵守你的规范，不用每次都重复说明了！</strong></p>
-<h3 id="开箱即用-claude.md-模板">2.4 开箱即用 CLAUDE.md 模板</h3>
+<p><strong>有了这个配置，Claude 生成的代码就会自动遵守你的规范，不用每次都重复说明了！</strong></p>
+<h3 id="24-开箱即用-claudemd-模板"><a class="markdownIt-Anchor" href="#24-开箱即用-claudemd-模板"></a> 2.4 开箱即用 <a target="_blank" rel="noopener" href="http://CLAUDE.md">CLAUDE.md</a> 模板</h3>
 <p>我整理了一个通用模板，可以根据项目类型调整：</p>
 <figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">title: Claude Code 项目配置</span><br><span class="line">date: 2025-12-26</span><br><span class="line">---</span><br><span class="line"></span><br><span class="line"><span class="section"># Claude Code 配置</span></span><br><span class="line"></span><br><span class="line"><span class="section">## 项目概述</span></span><br><span class="line"></span><br><span class="line"><span class="strong">**项目名称**</span>: [项目名称]</span><br><span class="line"><span class="strong">**项目类型**</span>: [Web/AI/数据科学/脚本工具]</span><br><span class="line"><span class="strong">**主要技术栈**</span>:</span><br><span class="line"><span class="bullet">-</span> [技术栈 1]</span><br><span class="line"><span class="bullet">-</span> [技术栈 2]</span><br><span class="line"><span class="bullet">-</span> [技术栈 3]</span><br><span class="line"></span><br><span class="line"><span class="strong">**沟通语言**</span>: 中文</span><br><span class="line"><span class="strong">**代码注释**</span>: 中文/英文</span><br><span class="line"></span><br><span class="line">---</span><br><span class="line"></span><br><span class="line"><span class="section">## 开发规范</span></span><br><span class="line"></span><br><span class="line"><span class="section">### 代码风格</span></span><br><span class="line"></span><br><span class="line"><span class="bullet">-</span> <span class="strong">**缩进**</span>: 2 / 4 空格（Tab）</span><br><span class="line"><span class="bullet">-</span> <span class="strong">**命名**</span>:</span><br><span class="line"><span class="bullet">  -</span> 变量/函数: <span class="code">`snake_case`</span> / <span class="code">`camelCase`</span></span><br><span class="line"><span class="bullet">  -</span> 类: <span class="code">`PascalCase`</span></span><br><span class="line"><span class="bullet">  -</span> 常量: <span class="code">`UPPER_SNAKE_CASE`</span></span><br><span class="line"><span class="bullet">-</span> <span class="strong">**文档**</span>: JSDoc / Docstring / 注释</span><br><span class="line"><span class="bullet">-</span> <span class="strong">**类型注解**</span>: 是 / 否</span><br><span class="line"></span><br><span class="line"><span class="section">### 特定规范</span></span><br><span class="line"></span><br><span class="line"><span class="bullet">-</span> [ ] [规范 1]</span><br><span class="line"><span class="bullet">-</span> [ ] [规范 2]</span><br><span class="line"><span class="bullet">-</span> [ ] [规范 3]</span><br><span class="line"></span><br><span class="line">---</span><br><span class="line"></span><br><span class="line"><span class="section">## 常用命令</span></span><br><span class="line"></span><br><span class="line"><span class="section">### 开发</span></span><br><span class="line"></span><br><span class="line"><span class="code">```bash</span></span><br><span class="line"><span class="code"># [命令说明]</span></span><br><span class="line"><span class="code">命令</span></span><br><span class="line"><span class="code">```</span></span><br><span class="line"></span><br><span class="line"><span class="section">###测试</span></span><br><span class="line"></span><br><span class="line"><span class="code">```</span></span><br><span class="line"><span class="code"># [命令说明]</span></span><br><span class="line"><span class="code">命令</span></span><br><span class="line"><span class="code">```</span></span><br><span class="line"></span><br><span class="line"><span class="section">## 项目结构</span></span><br><span class="line"></span><br><span class="line"><span class="code">```</span></span><br><span class="line"><span class="code">project-root/</span></span><br><span class="line"><span class="code">├── src/              # 源代码</span></span><br><span class="line"><span class="code">├── tests/            # 测试</span></span><br><span class="line"><span class="code">├── docs/             # 文档</span></span><br><span class="line"><span class="code">├── .claude/          # Claude Code 配置</span></span><br><span class="line"><span class="code">└── CLAUDE.md         # 本文件</span></span><br><span class="line"><span class="code">```</span></span><br><span class="line"></span><br><span class="line"><span class="section">## Claude Code 交互偏好</span></span><br><span class="line"></span><br><span class="line"><span class="section">### 工作流程</span></span><br><span class="line"></span><br><span class="line"><span class="bullet">1.</span> [步骤 1]</span><br><span class="line"><span class="bullet">2.</span> [步骤 2]</span><br><span class="line"><span class="bullet">3.</span> [步骤 3]</span><br><span class="line"></span><br><span class="line"><span class="section">### 允许的命令</span></span><br></pre></td></tr></table></figure>
-<h3 id="claude.md-避坑指南">2.5 CLAUDE.md 避坑指南</h3>
-<h4 id="坑-1claude.md-不生效">坑 1：CLAUDE.md 不生效</h4>
-<p><strong>症状</strong>：Claude 好像没看到 CLAUDE.md</p>
-<p><strong>原因</strong>： 1. 文件不在项目根目录 2. 文件名不是
-<code>CLAUDE.md</code>（必须全大写） 3. 没有在项目目录下启动 Claude
-Code</p>
-<p><strong>解决</strong>： <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 确保文件位置正确</span></span><br><span class="line">ls CLAUDE.md  <span class="comment"># 必须在项目根目录</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 在项目目录下启动 Claude Code</span></span><br><span class="line"><span class="built_in">cd</span> /path/to/project</span><br><span class="line">claude</span><br></pre></td></tr></table></figure></p>
-<h4 id="坑-2claude-不遵守规范">坑 2：Claude 不遵守规范</h4>
-<p><strong>症状</strong>：CLAUDE.md 写了规范，Claude 还是不按规范来</p>
+<h3 id="25-claudemd-避坑指南"><a class="markdownIt-Anchor" href="#25-claudemd-避坑指南"></a> 2.5 <a target="_blank" rel="noopener" href="http://CLAUDE.md">CLAUDE.md</a> 避坑指南</h3>
+<h4 id="坑-1claudemd-不生效"><a class="markdownIt-Anchor" href="#坑-1claudemd-不生效"></a> 坑 1：<a target="_blank" rel="noopener" href="http://CLAUDE.md">CLAUDE.md</a> 不生效</h4>
+<p><strong>症状</strong>：Claude 好像没看到 <a target="_blank" rel="noopener" href="http://CLAUDE.md">CLAUDE.md</a></p>
+<p><strong>原因</strong>：</p>
+<ol>
+<li>文件不在项目根目录</li>
+<li>文件名不是 <code>CLAUDE.md</code>（必须全大写）</li>
+<li>没有在项目目录下启动 Claude Code</li>
+</ol>
+<p><strong>解决</strong>：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 确保文件位置正确</span></span><br><span class="line">ls CLAUDE.md  <span class="comment"># 必须在项目根目录</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 在项目目录下启动 Claude Code</span></span><br><span class="line"><span class="built_in">cd</span> /path/to/project</span><br><span class="line">claude</span><br></pre></td></tr></table></figure>
+<h4 id="坑-2claude-不遵守规范"><a class="markdownIt-Anchor" href="#坑-2claude-不遵守规范"></a> 坑 2：Claude 不遵守规范</h4>
+<p><strong>症状</strong>：<a target="_blank" rel="noopener" href="http://CLAUDE.md">CLAUDE.md</a> 写了规范，Claude 还是不按规范来</p>
 <p><strong>原因</strong>：规范描述不够具体</p>
 <p><strong>解决</strong>：</p>
 <figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">## 不好 ❌</span></span><br><span class="line">&quot;代码要规范&quot;</span><br><span class="line"></span><br><span class="line"><span class="section">## 好 ✅</span></span><br><span class="line">&quot;代码风格：</span><br><span class="line"><span class="bullet">-</span> 使用 4 空格缩进</span><br><span class="line"><span class="bullet">-</span> 变量名用 snake<span class="emphasis">_case</span></span><br><span class="line"><span class="emphasis">- 每个函数必须有 docstring</span></span><br><span class="line"><span class="emphasis">- 行宽不超过 100 字符&quot;</span></span><br></pre></td></tr></table></figure>
-<h4 id="坑-3不同项目-claude.md-冲突">坑 3：不同项目 CLAUDE.md 冲突</h4>
-<p><strong>症状</strong>：多个项目的 CLAUDE.md 互相干扰</p>
+<h4 id="坑-3不同项目-claudemd-冲突"><a class="markdownIt-Anchor" href="#坑-3不同项目-claudemd-冲突"></a> 坑 3：不同项目 <a target="_blank" rel="noopener" href="http://CLAUDE.md">CLAUDE.md</a> 冲突</h4>
+<p><strong>症状</strong>：多个项目的 <a target="_blank" rel="noopener" href="http://CLAUDE.md">CLAUDE.md</a> 互相干扰</p>
 <p><strong>解决</strong>：</p>
 <ul>
-<li>每个 CLAUDE.md 只放<strong>项目特定</strong>的内容</li>
+<li>每个 <a target="_blank" rel="noopener" href="http://CLAUDE.md">CLAUDE.md</a> 只放<strong>项目特定</strong>的内容</li>
 <li>通用规范可以提取到 <code>~/.claude/CLAUDE.md</code>（全局配置）</li>
 </ul>
-<h2 id="第三部分memory---让-claude-记住你">第三部分：Memory - 让 Claude
-记住你</h2>
-<h3 id="memory-vs-claude.md-的区别">3.1 Memory vs CLAUDE.md 的区别</h3>
-<p>很多人搞不清 Memory 和 CLAUDE.md 的区别，我简单解释一下：</p>
+<h2 id="第三部分memory-让-claude-记住你"><a class="markdownIt-Anchor" href="#第三部分memory-让-claude-记住你"></a> 第三部分：Memory - 让 Claude 记住你</h2>
+<h3 id="31-memory-vs-claudemd-的区别"><a class="markdownIt-Anchor" href="#31-memory-vs-claudemd-的区别"></a> 3.1 Memory vs <a target="_blank" rel="noopener" href="http://CLAUDE.md">CLAUDE.md</a> 的区别</h3>
+<p>很多人搞不清 Memory 和 <a target="_blank" rel="noopener" href="http://CLAUDE.md">CLAUDE.md</a> 的区别，我简单解释一下：</p>
 <table>
 <thead>
-<tr class="header">
+<tr>
 <th><strong>特性</strong></th>
-<th><strong>CLAUDE.md</strong></th>
+<th><strong><a target="_blank" rel="noopener" href="http://CLAUDE.md">CLAUDE.md</a></strong></th>
 <th><strong>Memory</strong></th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td><strong>作用域</strong></td>
 <td>项目级</td>
 <td>全局</td>
 </tr>
-<tr class="even">
+<tr>
 <td><strong>内容</strong></td>
 <td>项目相关的规范和信息</td>
 <td>个人偏好和跨项目知识</td>
 </tr>
-<tr class="odd">
+<tr>
 <td><strong>位置</strong></td>
 <td>项目根目录</td>
 <td>Claude 全局存储</td>
 </tr>
-<tr class="even">
+<tr>
 <td><strong>更新频率</strong></td>
 <td>很少更新</td>
 <td>经常更新</td>
 </tr>
-<tr class="odd">
+<tr>
 <td><strong>示例</strong></td>
-<td>"这个项目用 Python"</td>
-<td>"我喜欢 4 空格缩进"</td>
+<td>“这个项目用 Python”</td>
+<td>“我喜欢 4 空格缩进”</td>
 </tr>
 </tbody>
 </table>
 <p><strong>简单来说</strong>：</p>
 <ul>
-<li><strong>CLAUDE.md</strong> = 项目说明书（每个项目都不一样）</li>
+<li><strong><a target="_blank" rel="noopener" href="http://CLAUDE.md">CLAUDE.md</a></strong> = 项目说明书（每个项目都不一样）</li>
 <li><strong>Memory</strong> = 个人偏好设置（所有项目通用）</li>
 </ul>
 <pre class="mermaid">flowchart LR
@@ -687,10 +666,8 @@ Code</p>
     style A fill:#e1f5ff
     style H fill:#c8e6c9
     style C fill:#fff9c4</pre>
-<center>
-Fig.4 Memory 使用流程图
-</center>
-<h3 id="memory-常用命令">3.2 Memory 常用命令</h3>
+<center> Fig.4 Memory 使用流程图</center>
+<h3 id="32-memory-常用命令"><a class="markdownIt-Anchor" href="#32-memory-常用命令"></a> 3.2 Memory 常用命令</h3>
 <ul>
 <li>记住信息</li>
 </ul>
@@ -707,35 +684,33 @@ Fig.4 Memory 使用流程图
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/memory search &quot;API&quot;</span><br></pre></td></tr></table></figure>
 <p>输出：</p>
 <figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">找到 3 条相关记忆：</span><br><span class="line"><span class="bullet">1.</span> 项目使用 LangChain + OpenAI API</span><br><span class="line"><span class="bullet">2.</span> 我的 API Key 存在环境变量里</span><br><span class="line"><span class="bullet">3.</span> 使用的模型：gpt-4</span><br></pre></td></tr></table></figure>
-<h3 id="实战案例初始化项目-memory">3.3 实战案例：初始化项目 Memory</h3>
+<h3 id="33-实战案例初始化项目-memory"><a class="markdownIt-Anchor" href="#33-实战案例初始化项目-memory"></a> 3.3 实战案例：初始化项目 Memory</h3>
 <p>假设你刚接手一个新项目，可以这样初始化 Memory：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 1. 记住项目基本信息</span></span><br><span class="line">/memory remember <span class="string">&quot;项目名称：AI Chatbot&quot;</span></span><br><span class="line">/memory remember <span class="string">&quot;技术栈：Python 3.10 + LangChain + FastAPI&quot;</span></span><br><span class="line">/memory remember <span class="string">&quot;数据库：PostgreSQL 14&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 2. 记住开发规范</span></span><br><span class="line">/memory remember <span class="string">&quot;代码风格：4 空格缩进，snake_case 命名&quot;</span></span><br><span class="line">/memory remember <span class="string">&quot;必须写类型注解和 docstring&quot;</span></span><br><span class="line">/memory remember <span class="string">&quot;函数不超过 50 行&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 3. 记住个人偏好</span></span><br><span class="line">/memory remember <span class="string">&quot;我喜欢详细的注释&quot;</span></span><br><span class="line">/memory remember <span class="string">&quot;错误处理要完整&quot;</span></span><br><span class="line">/memory remember <span class="string">&quot;测试覆盖率要达到 80%&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 4. 记住常用命令</span></span><br><span class="line">/memory remember <span class="string">&quot;运行测试：pytest&quot;</span></span><br><span class="line">/memory remember <span class="string">&quot;代码检查：ruff check .&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 5. 记住特殊注意事项</span></span><br><span class="line">/memory remember <span class="string">&quot;API Key 不能写死在代码里&quot;</span></span><br><span class="line">/memory remember <span class="string">&quot;用户数据必须脱敏处理&quot;</span></span><br></pre></td></tr></table></figure>
-<p><strong>初始化完成后，Claude
-在整个项目中都会遵守这些设置！</strong></p>
-<h3 id="memory-最佳实践">3.4 Memory 最佳实践</h3>
-<h4 id="实践-1分层管理-memory">实践 1：分层管理 Memory</h4>
+<p><strong>初始化完成后，Claude 在整个项目中都会遵守这些设置！</strong></p>
+<h3 id="34-memory-最佳实践"><a class="markdownIt-Anchor" href="#34-memory-最佳实践"></a> 3.4 Memory 最佳实践</h3>
+<h4 id="实践-1分层管理-memory"><a class="markdownIt-Anchor" href="#实践-1分层管理-memory"></a> 实践 1：分层管理 Memory</h4>
 <p>把 Memory 分成几个类别：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 全局偏好（一次设置，所有项目通用）</span></span><br><span class="line">/memory remember <span class="string">&quot;编码风格：4 空格，snake_case&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 项目特定（每个项目都不同）</span></span><br><span class="line">/memory remember <span class="string">&quot;当前项目使用 FastAPI&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 临时信息（用完可以删）</span></span><br><span class="line">/memory remember <span class="string">&quot;今天在修用户登录的 bug&quot;</span></span><br></pre></td></tr></table></figure>
-<h4 id="实践-2定期清理-memory">实践 2：定期清理 Memory</h4>
+<h4 id="实践-2定期清理-memory"><a class="markdownIt-Anchor" href="#实践-2定期清理-memory"></a> 实践 2：定期清理 Memory</h4>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看所有记忆</span></span><br><span class="line">/memory view</span><br><span class="line"></span><br><span class="line"><span class="comment"># 删除过期记忆</span></span><br><span class="line">/memory forget <span class="string">&quot;今天在修用户登录的 bug&quot;</span></span><br></pre></td></tr></table></figure>
-<h4 id="实践-3和-claude.md-配合使用">实践 3：和 CLAUDE.md 配合使用</h4>
+<h4 id="实践-3和-claudemd-配合使用"><a class="markdownIt-Anchor" href="#实践-3和-claudemd-配合使用"></a> 实践 3：和 <a target="_blank" rel="noopener" href="http://CLAUDE.md">CLAUDE.md</a> 配合使用</h4>
 <ul>
-<li><strong>CLAUDE.md</strong>：放项目静态信息（技术栈、目录结构）</li>
+<li><strong><a target="_blank" rel="noopener" href="http://CLAUDE.md">CLAUDE.md</a></strong>：放项目静态信息（技术栈、目录结构）</li>
 <li><strong>Memory</strong>：放动态信息（当前任务、临时偏好）</li>
 </ul>
-<h3 id="memory-避坑指南">3.5 Memory 避坑指南</h3>
-<h4 id="坑-1memory-丢失">坑 1：Memory 丢失</h4>
+<h3 id="35-memory-避坑指南"><a class="markdownIt-Anchor" href="#35-memory-避坑指南"></a> 3.5 Memory 避坑指南</h3>
+<h4 id="坑-1memory-丢失"><a class="markdownIt-Anchor" href="#坑-1memory-丢失"></a> 坑 1：Memory 丢失</h4>
 <p><strong>症状</strong>：之前记住的东西，Claude 忘了</p>
 <p><strong>原因</strong>：</p>
-<ol type="1">
+<ol>
 <li>Memory 存储在本地，换了电脑就没了</li>
 <li>长时间不用，Memory 可能被清理</li>
 </ol>
 <p><strong>解决</strong>：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 定期导出 Memory</span></span><br><span class="line">/memory <span class="built_in">export</span> &gt; memory-backup.txt</span><br><span class="line"></span><br><span class="line"><span class="comment"># 需要时导入</span></span><br><span class="line">/memory import &lt; memory-backup.txt</span><br></pre></td></tr></table></figure>
-<h4 id="坑-2memory-太多太乱">坑 2：Memory 太多太乱</h4>
-<p><strong>症状</strong>：<code>/memory view</code>
-输出一大堆，找不到有用的</p>
+<h4 id="坑-2memory-太多太乱"><a class="markdownIt-Anchor" href="#坑-2memory-太多太乱"></a> 坑 2：Memory 太多太乱</h4>
+<p><strong>症状</strong>：<code>/memory view</code> 输出一大堆，找不到有用的</p>
 <p><strong>原因</strong>：啥都往 Memory 里塞</p>
 <p><strong>解决</strong>：</p>
 <ul>
@@ -744,61 +719,45 @@ Fig.4 Memory 使用流程图
 <li>使用分类前缀方便搜索</li>
 </ul>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 好的做法 ✅</span></span><br><span class="line">/memory remember <span class="string">&quot;[偏好] 4 空格缩进&quot;</span></span><br><span class="line">/memory remember <span class="string">&quot;[项目] 使用 FastAPI&quot;</span></span><br><span class="line">/memory remember <span class="string">&quot;[临时] 今天修登录 bug&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 不好的做法 ❌</span></span><br><span class="line">/memory remember <span class="string">&quot;我觉得今天天气不错&quot;</span>  <span class="comment"># Claude 用不上</span></span><br></pre></td></tr></table></figure>
-<h4 id="坑-3memory-和-claude.md-重复">坑 3：Memory 和 CLAUDE.md
-重复</h4>
+<h4 id="坑-3memory-和-claudemd-重复"><a class="markdownIt-Anchor" href="#坑-3memory-和-claudemd-重复"></a> 坑 3：Memory 和 <a target="_blank" rel="noopener" href="http://CLAUDE.md">CLAUDE.md</a> 重复</h4>
 <p><strong>症状</strong>：同样的内容两边都写了</p>
 <p><strong>建议</strong>：</p>
 <ul>
-<li><strong>项目信息</strong> → CLAUDE.md</li>
+<li><strong>项目信息</strong> → <a target="_blank" rel="noopener" href="http://CLAUDE.md">CLAUDE.md</a></li>
 <li><strong>个人偏好</strong> → Memory</li>
 </ul>
-<h2 id="三大功能联动使用">三大功能联动使用</h2>
+<h2 id="三大功能联动使用"><a class="markdownIt-Anchor" href="#三大功能联动使用"></a> 三大功能联动使用</h2>
 <p>最后，咱们来看看这三大功能怎么配合使用：</p>
-<h3 id="场景新项目开发第一天">场景：新项目开发第一天</h3>
-<h4 id="创建-claude.md">1. 创建 CLAUDE.md</h4>
+<h3 id="场景新项目开发第一天"><a class="markdownIt-Anchor" href="#场景新项目开发第一天"></a> 场景：新项目开发第一天</h3>
+<h4 id="1-创建-claudemd"><a class="markdownIt-Anchor" href="#1-创建-claudemd"></a> 1. 创建 <a target="_blank" rel="noopener" href="http://CLAUDE.md">CLAUDE.md</a></h4>
 <figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="section"># 在项目根目录创建 CLAUDE.md</span></span><br><span class="line"><span class="section"># 配置项目信息、技术栈、开发规范</span></span><br></pre></td></tr></table></figure>
-<h4 id="初始化-memory">2. 初始化 Memory</h4>
+<h4 id="2-初始化-memory"><a class="markdownIt-Anchor" href="#2-初始化-memory"></a> 2. 初始化 Memory</h4>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">/memory remember <span class="string">&quot;新项目：AI Chatbot&quot;</span></span><br><span class="line">/memory remember <span class="string">&quot;当前任务：搭建项目框架&quot;</span></span><br><span class="line">/memory remember <span class="string">&quot;使用 FastAPI + LangChain&quot;</span></span><br></pre></td></tr></table></figure>
-<h4 id="使用-skills-开发">3. 使用 Skills 开发</h4>
+<h4 id="3-使用-skills-开发"><a class="markdownIt-Anchor" href="#3-使用-skills-开发"></a> 3. 使用 Skills 开发</h4>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot;帮我生成文档&quot;</span></span><br><span class="line"><span class="string">&quot;为这个函数生成测试&quot;</span></span><br><span class="line"><span class="string">&quot;审查代码质量&quot;</span></span><br></pre></td></tr></table></figure>
 <p>Claude 会自动调用相应的 Skill！</p>
-<h4 id="同步任务">4. 同步任务</h4>
+<h4 id="4-同步任务"><a class="markdownIt-Anchor" href="#4-同步任务"></a> 4. 同步任务</h4>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot;更新 TODO.md 任务列表&quot;</span></span><br></pre></td></tr></table></figure>
-<p>👉 <strong>下一篇预告：<a
-target="_blank" rel="noopener" href="https://www.yangsuoly.com/2026/01/04/Claude-code-3-spec-kit/">03-Spec
-Kit 规范驱动开发：从零到一完整项目实战</a></strong></p>
-<h2 id="参考来源">📚 参考来源</h2>
+<p>👉 <strong>下一篇预告：<a target="_blank" rel="noopener" href="https://www.yangsuoly.com/2026/01/04/Claude-code-3-spec-kit/">03-Spec Kit 规范驱动开发：从零到一完整项目实战</a></strong></p>
+<h2 id="参考来源"><a class="markdownIt-Anchor" href="#参考来源"></a> 📚 参考来源</h2>
 <p>本文内容基于以下官方文档和社区资源整理：</p>
-<h3 id="官方文档">官方文档</h3>
+<h3 id="官方文档"><a class="markdownIt-Anchor" href="#官方文档"></a> 官方文档</h3>
 <ul>
-<li><a
-target="_blank" rel="noopener" href="https://docs.anthropic.com/zh-CN/docs/claude-code/skills">Claude
-Code 官方文档 - Skills 系统</a></li>
-<li><a
-target="_blank" rel="noopener" href="https://docs.anthropic.com/zh-CN/docs/claude-code/project-instructions">Claude
-Code 官方文档 - CLAUDE.md 项目配置</a></li>
-<li><a
-target="_blank" rel="noopener" href="https://docs.anthropic.com/zh-CN/docs/claude-code/memory">Claude
-Code 官方文档 - Memory 功能</a></li>
-<li><a
-target="_blank" rel="noopener" href="https://docs.anthropic.com/zh-CN/docs/claude-code/built-in-skills">Claude
-Code 官方文档 - 内置 Skills</a></li>
+<li><a target="_blank" rel="noopener" href="https://docs.anthropic.com/zh-CN/docs/claude-code/skills">Claude Code 官方文档 - Skills 系统</a></li>
+<li><a target="_blank" rel="noopener" href="https://docs.anthropic.com/zh-CN/docs/claude-code/project-instructions">Claude Code 官方文档 - CLAUDE.md 项目配置</a></li>
+<li><a target="_blank" rel="noopener" href="https://docs.anthropic.com/zh-CN/docs/claude-code/memory">Claude Code 官方文档 - Memory 功能</a></li>
+<li><a target="_blank" rel="noopener" href="https://docs.anthropic.com/zh-CN/docs/claude-code/built-in-skills">Claude Code 官方文档 - 内置 Skills</a></li>
 </ul>
-<h3 id="社区资源">社区资源</h3>
+<h3 id="社区资源"><a class="markdownIt-Anchor" href="#社区资源"></a> 社区资源</h3>
 <ul>
-<li><a target="_blank" rel="noopener" href="https://github.com/anthropics/claude-code">Claude Code
-GitHub 仓库</a></li>
-<li><a target="_blank" rel="noopener" href="https://github.com/anthropics/claude-code-recipes">Claude
-Code Recipes - 实用技巧集合</a></li>
-<li><a target="_blank" rel="noopener" href="https://open.bigmodel.cn/">智谱 AI 开放平台 - GLM Coding
-Plan</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/anthropics/claude-code">Claude Code GitHub 仓库</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/anthropics/claude-code-recipes">Claude Code Recipes - 实用技巧集合</a></li>
+<li><a target="_blank" rel="noopener" href="https://open.bigmodel.cn/">智谱 AI 开放平台 - GLM Coding Plan</a></li>
 </ul>
-<h3 id="相关工具">相关工具</h3>
+<h3 id="相关工具"><a class="markdownIt-Anchor" href="#相关工具"></a> 相关工具</h3>
 <ul>
-<li><a target="_blank" rel="noopener" href="https://github.com/github/spec-kit">Spec Kit -
-规范驱动开发工具</a></li>
-<li><a target="_blank" rel="noopener" href="https://www.langchain.com/">LangChain - LLM
-应用开发框架</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/github/spec-kit">Spec Kit - 规范驱动开发工具</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.langchain.com/">LangChain - LLM 应用开发框架</a></li>
 </ul>
 
     </div>
@@ -917,14 +876,7 @@ Plan</a></li>
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#claude-code-%E6%A0%B8%E5%BF%83%E5%8A%9F%E8%83%BD%E5%85%A8%E8%A7%A3%E6%9E%90"><span class="nav-text">02-Claude Code 核心功能全解析</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-text">📝 前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E4%B8%80%E9%83%A8%E5%88%86skills-%E7%B3%BB%E7%BB%9F---%E7%BB%99-claude-%E8%A3%85%E6%8F%92%E4%BB%B6"><span class="nav-text">第一部分：Skills 系统 -
-给 Claude 装插件</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF-skill"><span class="nav-text">1.1 什么是 Skill？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#skills-%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B%E5%9B%BE"><span class="nav-text">1.1.1 Skills 工作流程图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8%E8%87%AA%E5%AE%9A%E4%B9%89-skills-%E4%BB%8B%E7%BB%8D"><span class="nav-text">1.2 常用自定义 Skills 介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#code-review---%E4%BB%A3%E7%A0%81%E5%AE%A1%E6%9F%A5%E4%B8%93%E5%AE%B6"><span class="nav-text">📋 code-review - 代码审查专家</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#test-gen---%E6%B5%8B%E8%AF%95%E7%94%A8%E4%BE%8B%E7%94%9F%E6%88%90%E5%99%A8"><span class="nav-text">🧪 test-gen - 测试用例生成器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#doc-gen---%E6%96%87%E6%A1%A3%E7%94%9F%E6%88%90%E5%8A%A9%E6%89%8B"><span class="nav-text">📚 doc-gen - 文档生成助手</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#todo-sync---%E4%BB%BB%E5%8A%A1%E5%90%8C%E6%AD%A5%E5%99%A8"><span class="nav-text">✅ todo-sync - 任务同步器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#llm-prompt-review---%E6%8F%90%E7%A4%BA%E8%AF%8D%E4%BC%98%E5%8C%96%E5%B8%88"><span class="nav-text">🔒 llm-prompt-review -
-提示词优化师</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9E%E6%88%98%E6%A1%88%E4%BE%8B%E7%94%A8-skills-%E5%AE%8C%E6%88%90%E4%B8%80%E4%B8%AA%E5%AE%8C%E6%95%B4%E5%BC%80%E5%8F%91%E6%B5%81%E7%A8%8B"><span class="nav-text">1.3 实战案例：用 Skills
-完成一个完整开发流程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89-skill-%E5%85%A5%E9%97%A8"><span class="nav-text">1.4 自定义 Skill 入门</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#skill-%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84"><span class="nav-text">1.4.1 Skill 文件结构</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE%E5%B8%B8%E7%94%A8-skills"><span class="nav-text">1.4.2 配置常用 Skills</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9C%80%E7%AE%80%E5%8D%95%E7%9A%84-skill-%E7%A4%BA%E4%BE%8B"><span class="nav-text">1.4.3最简单的 Skill 示例</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#skills-%E9%81%BF%E5%9D%91%E6%8C%87%E5%8D%97"><span class="nav-text">1.5 Skills 避坑指南</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9D%91-1-skill-%E4%B8%8D%E7%94%9F%E6%95%88"><span class="nav-text">坑 1： Skill 不生效</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9D%91-2%E6%89%BE%E4%B8%8D%E5%88%B0-skill"><span class="nav-text">坑 2：找不到 Skill</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86claude.md---%E9%A1%B9%E7%9B%AE%E4%B8%93%E5%B1%9E%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E%E4%B9%A6"><span class="nav-text">第二部分：CLAUDE.md -
-项目专属使用说明书</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF-claude.md"><span class="nav-text">2.1 什么是 CLAUDE.md？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#claude.md-%E7%9A%84%E4%BD%9C%E7%94%A8"><span class="nav-text">2.2 CLAUDE.md 的作用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9E%E6%88%98%E6%A1%88%E4%BE%8Bpython-ai-%E9%A1%B9%E7%9B%AE-claude.md-%E9%85%8D%E7%BD%AE"><span class="nav-text">2.3 实战案例：Python AI
-项目 CLAUDE.md 配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BC%80%E7%AE%B1%E5%8D%B3%E7%94%A8-claude.md-%E6%A8%A1%E6%9D%BF"><span class="nav-text">2.4 开箱即用 CLAUDE.md 模板</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#claude.md-%E9%81%BF%E5%9D%91%E6%8C%87%E5%8D%97"><span class="nav-text">2.5 CLAUDE.md 避坑指南</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9D%91-1claude.md-%E4%B8%8D%E7%94%9F%E6%95%88"><span class="nav-text">坑 1：CLAUDE.md 不生效</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9D%91-2claude-%E4%B8%8D%E9%81%B5%E5%AE%88%E8%A7%84%E8%8C%83"><span class="nav-text">坑 2：Claude 不遵守规范</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9D%91-3%E4%B8%8D%E5%90%8C%E9%A1%B9%E7%9B%AE-claude.md-%E5%86%B2%E7%AA%81"><span class="nav-text">坑 3：不同项目 CLAUDE.md 冲突</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E4%B8%89%E9%83%A8%E5%88%86memory---%E8%AE%A9-claude-%E8%AE%B0%E4%BD%8F%E4%BD%A0"><span class="nav-text">第三部分：Memory - 让 Claude
-记住你</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#memory-vs-claude.md-%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-text">3.1 Memory vs CLAUDE.md 的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#memory-%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4"><span class="nav-text">3.2 Memory 常用命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9E%E6%88%98%E6%A1%88%E4%BE%8B%E5%88%9D%E5%A7%8B%E5%8C%96%E9%A1%B9%E7%9B%AE-memory"><span class="nav-text">3.3 实战案例：初始化项目 Memory</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#memory-%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5"><span class="nav-text">3.4 Memory 最佳实践</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%9E%E8%B7%B5-1%E5%88%86%E5%B1%82%E7%AE%A1%E7%90%86-memory"><span class="nav-text">实践 1：分层管理 Memory</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%9E%E8%B7%B5-2%E5%AE%9A%E6%9C%9F%E6%B8%85%E7%90%86-memory"><span class="nav-text">实践 2：定期清理 Memory</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%9E%E8%B7%B5-3%E5%92%8C-claude.md-%E9%85%8D%E5%90%88%E4%BD%BF%E7%94%A8"><span class="nav-text">实践 3：和 CLAUDE.md 配合使用</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#memory-%E9%81%BF%E5%9D%91%E6%8C%87%E5%8D%97"><span class="nav-text">3.5 Memory 避坑指南</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9D%91-1memory-%E4%B8%A2%E5%A4%B1"><span class="nav-text">坑 1：Memory 丢失</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9D%91-2memory-%E5%A4%AA%E5%A4%9A%E5%A4%AA%E4%B9%B1"><span class="nav-text">坑 2：Memory 太多太乱</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9D%91-3memory-%E5%92%8C-claude.md-%E9%87%8D%E5%A4%8D"><span class="nav-text">坑 3：Memory 和 CLAUDE.md
-重复</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89%E5%A4%A7%E5%8A%9F%E8%83%BD%E8%81%94%E5%8A%A8%E4%BD%BF%E7%94%A8"><span class="nav-text">三大功能联动使用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9C%BA%E6%99%AF%E6%96%B0%E9%A1%B9%E7%9B%AE%E5%BC%80%E5%8F%91%E7%AC%AC%E4%B8%80%E5%A4%A9"><span class="nav-text">场景：新项目开发第一天</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA-claude.md"><span class="nav-text">1. 创建 CLAUDE.md</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%9D%E5%A7%8B%E5%8C%96-memory"><span class="nav-text">2. 初始化 Memory</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8-skills-%E5%BC%80%E5%8F%91"><span class="nav-text">3. 使用 Skills 开发</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%90%8C%E6%AD%A5%E4%BB%BB%E5%8A%A1"><span class="nav-text">4. 同步任务</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E6%9D%A5%E6%BA%90"><span class="nav-text">📚 参考来源</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%98%E6%96%B9%E6%96%87%E6%A1%A3"><span class="nav-text">官方文档</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A4%BE%E5%8C%BA%E8%B5%84%E6%BA%90"><span class="nav-text">社区资源</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%9B%B8%E5%85%B3%E5%B7%A5%E5%85%B7"><span class="nav-text">相关工具</span></a></li></ol></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#02-claude-code-%E6%A0%B8%E5%BF%83%E5%8A%9F%E8%83%BD%E5%85%A8%E8%A7%A3%E6%9E%90"><span class="nav-text"> 02-Claude Code 核心功能全解析</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-text"> 📝 前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E4%B8%80%E9%83%A8%E5%88%86skills-%E7%B3%BB%E7%BB%9F-%E7%BB%99-claude-%E8%A3%85%E6%8F%92%E4%BB%B6"><span class="nav-text"> 第一部分：Skills 系统 - 给 Claude 装插件</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#11-%E4%BB%80%E4%B9%88%E6%98%AF-skill"><span class="nav-text"> 1.1 什么是 Skill？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#111-skills-%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B%E5%9B%BE"><span class="nav-text"> 1.1.1 Skills 工作流程图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#12-%E5%B8%B8%E7%94%A8%E8%87%AA%E5%AE%9A%E4%B9%89-skills-%E4%BB%8B%E7%BB%8D"><span class="nav-text"> 1.2 常用自定义 Skills 介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#code-review-%E4%BB%A3%E7%A0%81%E5%AE%A1%E6%9F%A5%E4%B8%93%E5%AE%B6"><span class="nav-text"> 📋 code-review - 代码审查专家</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#test-gen-%E6%B5%8B%E8%AF%95%E7%94%A8%E4%BE%8B%E7%94%9F%E6%88%90%E5%99%A8"><span class="nav-text"> 🧪 test-gen - 测试用例生成器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#doc-gen-%E6%96%87%E6%A1%A3%E7%94%9F%E6%88%90%E5%8A%A9%E6%89%8B"><span class="nav-text"> 📚 doc-gen - 文档生成助手</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#todo-sync-%E4%BB%BB%E5%8A%A1%E5%90%8C%E6%AD%A5%E5%99%A8"><span class="nav-text"> ✅ todo-sync - 任务同步器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#llm-prompt-review-%E6%8F%90%E7%A4%BA%E8%AF%8D%E4%BC%98%E5%8C%96%E5%B8%88"><span class="nav-text"> 🔒 llm-prompt-review - 提示词优化师</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#13-%E5%AE%9E%E6%88%98%E6%A1%88%E4%BE%8B%E7%94%A8-skills-%E5%AE%8C%E6%88%90%E4%B8%80%E4%B8%AA%E5%AE%8C%E6%95%B4%E5%BC%80%E5%8F%91%E6%B5%81%E7%A8%8B"><span class="nav-text"> 1.3 实战案例：用 Skills 完成一个完整开发流程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#14-%E8%87%AA%E5%AE%9A%E4%B9%89-skill-%E5%85%A5%E9%97%A8"><span class="nav-text"> 1.4 自定义 Skill 入门</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#141-skill-%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84"><span class="nav-text"> 1.4.1 Skill 文件结构</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#142-%E9%85%8D%E7%BD%AE%E5%B8%B8%E7%94%A8-skills"><span class="nav-text"> 1.4.2 配置常用 Skills</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#143%E6%9C%80%E7%AE%80%E5%8D%95%E7%9A%84-skill-%E7%A4%BA%E4%BE%8B"><span class="nav-text"> 1.4.3最简单的 Skill 示例</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#15-skills-%E9%81%BF%E5%9D%91%E6%8C%87%E5%8D%97"><span class="nav-text"> 1.5 Skills 避坑指南</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9D%91-1-skill-%E4%B8%8D%E7%94%9F%E6%95%88"><span class="nav-text"> 坑 1： Skill 不生效</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9D%91-2%E6%89%BE%E4%B8%8D%E5%88%B0-skill"><span class="nav-text"> 坑 2：找不到 Skill</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86claudemd-%E9%A1%B9%E7%9B%AE%E4%B8%93%E5%B1%9E%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E%E4%B9%A6"><span class="nav-text"> 第二部分：CLAUDE.md - 项目专属使用说明书</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#21-%E4%BB%80%E4%B9%88%E6%98%AF-claudemd"><span class="nav-text"> 2.1 什么是 CLAUDE.md？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#22-claudemd-%E7%9A%84%E4%BD%9C%E7%94%A8"><span class="nav-text"> 2.2 CLAUDE.md 的作用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#23-%E5%AE%9E%E6%88%98%E6%A1%88%E4%BE%8Bpython-ai-%E9%A1%B9%E7%9B%AE-claudemd-%E9%85%8D%E7%BD%AE"><span class="nav-text"> 2.3 实战案例：Python AI 项目 CLAUDE.md 配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#24-%E5%BC%80%E7%AE%B1%E5%8D%B3%E7%94%A8-claudemd-%E6%A8%A1%E6%9D%BF"><span class="nav-text"> 2.4 开箱即用 CLAUDE.md 模板</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#25-claudemd-%E9%81%BF%E5%9D%91%E6%8C%87%E5%8D%97"><span class="nav-text"> 2.5 CLAUDE.md 避坑指南</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9D%91-1claudemd-%E4%B8%8D%E7%94%9F%E6%95%88"><span class="nav-text"> 坑 1：CLAUDE.md 不生效</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9D%91-2claude-%E4%B8%8D%E9%81%B5%E5%AE%88%E8%A7%84%E8%8C%83"><span class="nav-text"> 坑 2：Claude 不遵守规范</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9D%91-3%E4%B8%8D%E5%90%8C%E9%A1%B9%E7%9B%AE-claudemd-%E5%86%B2%E7%AA%81"><span class="nav-text"> 坑 3：不同项目 CLAUDE.md 冲突</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E4%B8%89%E9%83%A8%E5%88%86memory-%E8%AE%A9-claude-%E8%AE%B0%E4%BD%8F%E4%BD%A0"><span class="nav-text"> 第三部分：Memory - 让 Claude 记住你</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#31-memory-vs-claudemd-%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-text"> 3.1 Memory vs CLAUDE.md 的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#32-memory-%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4"><span class="nav-text"> 3.2 Memory 常用命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#33-%E5%AE%9E%E6%88%98%E6%A1%88%E4%BE%8B%E5%88%9D%E5%A7%8B%E5%8C%96%E9%A1%B9%E7%9B%AE-memory"><span class="nav-text"> 3.3 实战案例：初始化项目 Memory</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#34-memory-%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5"><span class="nav-text"> 3.4 Memory 最佳实践</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%9E%E8%B7%B5-1%E5%88%86%E5%B1%82%E7%AE%A1%E7%90%86-memory"><span class="nav-text"> 实践 1：分层管理 Memory</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%9E%E8%B7%B5-2%E5%AE%9A%E6%9C%9F%E6%B8%85%E7%90%86-memory"><span class="nav-text"> 实践 2：定期清理 Memory</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%9E%E8%B7%B5-3%E5%92%8C-claudemd-%E9%85%8D%E5%90%88%E4%BD%BF%E7%94%A8"><span class="nav-text"> 实践 3：和 CLAUDE.md 配合使用</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#35-memory-%E9%81%BF%E5%9D%91%E6%8C%87%E5%8D%97"><span class="nav-text"> 3.5 Memory 避坑指南</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9D%91-1memory-%E4%B8%A2%E5%A4%B1"><span class="nav-text"> 坑 1：Memory 丢失</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9D%91-2memory-%E5%A4%AA%E5%A4%9A%E5%A4%AA%E4%B9%B1"><span class="nav-text"> 坑 2：Memory 太多太乱</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9D%91-3memory-%E5%92%8C-claudemd-%E9%87%8D%E5%A4%8D"><span class="nav-text"> 坑 3：Memory 和 CLAUDE.md 重复</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89%E5%A4%A7%E5%8A%9F%E8%83%BD%E8%81%94%E5%8A%A8%E4%BD%BF%E7%94%A8"><span class="nav-text"> 三大功能联动使用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9C%BA%E6%99%AF%E6%96%B0%E9%A1%B9%E7%9B%AE%E5%BC%80%E5%8F%91%E7%AC%AC%E4%B8%80%E5%A4%A9"><span class="nav-text"> 场景：新项目开发第一天</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E5%88%9B%E5%BB%BA-claudemd"><span class="nav-text"> 1. 创建 CLAUDE.md</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E5%88%9D%E5%A7%8B%E5%8C%96-memory"><span class="nav-text"> 2. 初始化 Memory</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-%E4%BD%BF%E7%94%A8-skills-%E5%BC%80%E5%8F%91"><span class="nav-text"> 3. 使用 Skills 开发</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-%E5%90%8C%E6%AD%A5%E4%BB%BB%E5%8A%A1"><span class="nav-text"> 4. 同步任务</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E6%9D%A5%E6%BA%90"><span class="nav-text"> 📚 参考来源</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%98%E6%96%B9%E6%96%87%E6%A1%A3"><span class="nav-text"> 官方文档</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A4%BE%E5%8C%BA%E8%B5%84%E6%BA%90"><span class="nav-text"> 社区资源</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%9B%B8%E5%85%B3%E5%B7%A5%E5%85%B7"><span class="nav-text"> 相关工具</span></a></li></ol></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -947,7 +899,7 @@ Plan</a></li>
       <div class="site-state-item site-state-categories">
             <a href="/Categories/">
           
-        <span class="site-state-item-count">37</span>
+        <span class="site-state-item-count">38</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
