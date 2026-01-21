@@ -235,7 +235,7 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2026-01-21 19:19:41 / Modified: 19:29:24" itemprop="dateCreated datePublished" datetime="2026-01-21T19:19:41+08:00">2026-01-21</time>
+              <time title="Created: 2026-01-21 19:19:41 / Modified: 19:41:23" itemprop="dateCreated datePublished" datetime="2026-01-21T19:19:41+08:00">2026-01-21</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -257,14 +257,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">Symbols count in article: </span>
-              <span>5.1k</span>
+              <span>6.2k</span>
             </span>
             <span class="post-meta-item" title="Reading time">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">Reading time &asymp;</span>
-              <span>5 mins.</span>
+              <span>6 mins.</span>
             </span>
 
         </div>
@@ -280,23 +280,15 @@
 GLM-4.7 + Composio 打造本地化 Cowork 开发环境</h1>
 <h2 id="前言为什么要做这次心脏移植">1.
 前言：为什么要做这次“心脏移植”？</h2>
-<p>大家都知道，Anthropic 的 Claude 3.5 Sonnet 虽然强，但 API
-调用成本和网络门槛对国内开发者来说始终是个痛点。</p>
-<p>最近我在玩 <strong><code>open-claude-cowork</code></strong>
+<p>最近想玩玩 cowork ，但是 Anthropic 中只有 Pro 和 Max
+用户可以使用。因此在考虑用其他方式平替，刚好发现
+<strong><code>open-claude-cowork</code></strong>
 这个开源项目，它提供了一个非常棒的 Electron 客户端，能让你像用 IDE
 一样开发 AI Agent。但是，它默认绑定了 Claude 的 API。</p>
 <p><strong>这就引出了今天的实战目标</strong>：</p>
-<p>能不能把它的“心脏”（Claude API）换成国产的 <strong>智谱
-GLM-4.7</strong>，同时保留它强大的 <strong>Composio</strong>
-工具集成能力？</p>
-<p>答案是：<strong>必须能！</strong> 而且改完之后：</p>
-<ul>
-<li>🚀 <strong>速度起飞</strong>：本地直连，低延迟。</li>
-<li>💰 <strong>成本打骨折</strong>：智谱 API 的价格你懂的，真香。</li>
-<li>🛠️ <strong>工具依然强</strong>：依然可以调用 GitHub、Gmail 等 500+
-工具。</li>
-</ul>
-<p>今天就带大家手把手完成这次“本地化手术”。</p>
+<p>借助国产的 <strong>智谱 GLM-4.7</strong>，同时保留强大的
+<strong>Composio</strong> 工具集成能力？进而实现一个本地化的
+Cowork工具。</p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2026/01/21/open-claude-cowork/#more" rel="contents">
