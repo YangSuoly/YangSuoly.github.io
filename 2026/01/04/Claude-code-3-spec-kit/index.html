@@ -24,12 +24,12 @@
     var CONFIG = {"hostname":"yangsuoly.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":true},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":true,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="03-Spec Kit 规范驱动开发：从零到一完整项目实战  📝 前言  痛点：AI 总是“听不懂人话”？ 你有没有遇到过这种情况：每次让 AI 写代码，它总是&quot;自作聪明&quot;地按它的理解来，结果和自己想的南辕北辙。 问题不在 AI，在于我们没把“图纸”画清楚。 在建筑行业，建筑图纸是建筑师的&quot;语言&quot;，没人会不看图纸直接砌墙。同样，代码规范就是咱们和 AI">
+  <meta name="description" content="03-Spec Kit 规范驱动开发：从零到一完整项目实战 📝 前言 痛点：AI 总是“听不懂人话”？ 你有没有遇到过这种情况：每次让 AI 写代码，它总是&quot;自作聪明&quot;地按它的理解来，结果和自己想的南辕北辙。 问题不在 AI，在于我们没把“图纸”画清楚。 在建筑行业，建筑图纸是建筑师的&quot;语言&quot;，没人会不看图纸直接砌墙。同样，代码规范就是咱们和 AI 沟通的&quot;语言&quot;。Spec Kit 就是帮咱们快">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Claude-code-3-spec-kit">
 <meta property="og:url" content="http://yangsuoly.com/2026/01/04/Claude-code-3-spec-kit/index.html">
 <meta property="og:site_name" content="独孤诗人的学习驿站">
-<meta property="og:description" content="03-Spec Kit 规范驱动开发：从零到一完整项目实战  📝 前言  痛点：AI 总是“听不懂人话”？ 你有没有遇到过这种情况：每次让 AI 写代码，它总是&quot;自作聪明&quot;地按它的理解来，结果和自己想的南辕北辙。 问题不在 AI，在于我们没把“图纸”画清楚。 在建筑行业，建筑图纸是建筑师的&quot;语言&quot;，没人会不看图纸直接砌墙。同样，代码规范就是咱们和 AI">
+<meta property="og:description" content="03-Spec Kit 规范驱动开发：从零到一完整项目实战 📝 前言 痛点：AI 总是“听不懂人话”？ 你有没有遇到过这种情况：每次让 AI 写代码，它总是&quot;自作聪明&quot;地按它的理解来，结果和自己想的南辕北辙。 问题不在 AI，在于我们没把“图纸”画清楚。 在建筑行业，建筑图纸是建筑师的&quot;语言&quot;，没人会不看图纸直接砌墙。同样，代码规范就是咱们和 AI 沟通的&quot;语言&quot;。Spec Kit 就是帮咱们快">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2026-01-04T09:01:09.000Z">
 <meta property="article:modified_time" content="2026-01-06T07:39:34.822Z">
@@ -292,21 +292,31 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h1 id="03-spec-kit-规范驱动开发从零到一完整项目实战"><a class="markdownIt-Anchor" href="#03-spec-kit-规范驱动开发从零到一完整项目实战"></a> 03-Spec Kit 规范驱动开发：从零到一完整项目实战</h1>
-<h2 id="前言"><a class="markdownIt-Anchor" href="#前言"></a> 📝 前言</h2>
-<h3 id="痛点ai-总是听不懂人话"><a class="markdownIt-Anchor" href="#痛点ai-总是听不懂人话"></a> 痛点：AI 总是“听不懂人话”？</h3>
-<p>你有没有遇到过这种情况：每次让 AI 写代码，它总是&quot;自作聪明&quot;地按它的理解来，结果和自己想的南辕北辙。</p>
+        <h1 id="spec-kit-规范驱动开发从零到一完整项目实战">03-Spec Kit
+规范驱动开发：从零到一完整项目实战</h1>
+<h2 id="前言">📝 前言</h2>
+<h3 id="痛点ai-总是听不懂人话">痛点：AI 总是“听不懂人话”？</h3>
+<p>你有没有遇到过这种情况：每次让 AI
+写代码，它总是"自作聪明"地按它的理解来，结果和自己想的南辕北辙。</p>
 <p><strong>问题不在 AI，在于我们没把“图纸”画清楚。</strong></p>
-<p>在建筑行业，建筑图纸是建筑师的&quot;语言&quot;，没人会不看图纸直接砌墙。同样，代码规范就是咱们和 AI 沟通的&quot;语言&quot;。Spec Kit 就是帮咱们快速生成这份&quot;图纸&quot;的工具——先设计，再施工，避免了&quot;边盖边改&quot;的尴尬。</p>
-<p>本篇我们将<strong>从零开发一个完整的 Todo API</strong>，带你体验效率起飞的感觉。</p>
+<p>在建筑行业，建筑图纸是建筑师的"语言"，没人会不看图纸直接砌墙。同样，代码规范就是咱们和
+AI 沟通的"语言"。Spec Kit
+就是帮咱们快速生成这份"图纸"的工具——先设计，再施工，避免了"边盖边改"的尴尬。</p>
+<p>本篇我们将<strong>从零开发一个完整的 Todo
+API</strong>，带你体验效率起飞的感觉。</p>
 <a id="more"></a>
-<h2 id="一-核心理念为什么我们需要-sdd"><a class="markdownIt-Anchor" href="#一-核心理念为什么我们需要-sdd"></a> 一、 核心理念：为什么我们需要 SDD？</h2>
-<h3 id="11-spec-kit-简介"><a class="markdownIt-Anchor" href="#11-spec-kit-简介"></a> 1.1 Spec Kit 简介</h3>
-<p><strong>Spec Kit</strong> 是一个规范驱动开发（Specification-Driven Development, SDD）工具，由 GitHub 开源。它的核心理念特别简单：</p>
+<h2 id="一-核心理念为什么我们需要-sdd">一、 核心理念：为什么我们需要
+SDD？</h2>
+<h3 id="spec-kit-简介">1.1 Spec Kit 简介</h3>
+<p><strong>Spec Kit</strong> 是一个规范驱动开发（Specification-Driven
+Development, SDD）工具，由 GitHub 开源。它的核心理念特别简单：</p>
 <blockquote>
-<p><strong>先写规范，再写代码。规范就是最好的文档，也是最好的 AI 提示词。</strong></p>
+<p><strong>先写规范，再写代码。规范就是最好的文档，也是最好的 AI
+提示词。</strong></p>
 </blockquote>
-<p>在传统模式下，我们往往习惯直接让 AI 写代码，结果就是陷入“生成 -&gt; 报错/不符预期 -&gt; 修补 -&gt; 再修补”的死循环。而 SDD 的核心逻辑是：<strong>代码是规范的实现，规范是代码的契约。</strong></p>
+<p>在传统模式下，我们往往习惯直接让 AI 写代码，结果就是陷入“生成 -&gt;
+报错/不符预期 -&gt; 修补 -&gt; 再修补”的死循环。而 SDD
+的核心逻辑是：<strong>代码是规范的实现，规范是代码的契约。</strong></p>
 <p>我们可以通过一张流程图来对比这两种模式：</p>
 <pre class="mermaid">graph TD
     subgraph 传统模式 ["🚫 传统模式 (容易返工)"]
@@ -327,13 +337,18 @@
     style 传统模式 fill:#fff0f0,stroke:#ffcccc
     style SDD模式 fill:#f0fff4,stroke:#ccffcc</pre>
 <p><strong>SDD 的三大好处</strong>：</p>
-<ol>
-<li><strong>效率提升</strong>：规范写好后，AI 可以一次性生成符合要求的代码，减少反复修改</li>
+<ol type="1">
+<li><strong>效率提升</strong>：规范写好后，AI
+可以一次性生成符合要求的代码，减少反复修改</li>
 <li><strong>质量保证</strong>：规范中包含测试策略，代码生成后可以自动验证</li>
 <li><strong>协作友好</strong>：规范就是文档，团队成员可以快速理解功能设计</li>
 </ol>
-<h3 id="12-spec-kit-claude-code-的化学反应"><a class="markdownIt-Anchor" href="#12-spec-kit-claude-code-的化学反应"></a> 1.2 Spec Kit + Claude Code 的化学反应</h3>
-<p>Claude Code 本身就很聪明，但如果有个清晰的&quot;说明书&quot;，它能更精准地理解你的需求。Spec Kit 生成的规范文件（Markdown 格式）可以直接被 Claude Code 读取，作为上下文来生成代码。</p>
+<h3 id="spec-kit-claude-code-的化学反应">1.2 Spec Kit + Claude Code
+的化学反应</h3>
+<p>Claude Code
+本身就很聪明，但如果有个清晰的"说明书"，它能更精准地理解你的需求。Spec
+Kit 生成的规范文件（Markdown 格式）可以直接被 Claude Code
+读取，作为上下文来生成代码。</p>
 <p><strong>工作流程是这样的</strong>：</p>
 <pre class="mermaid">graph LR
     A[创建规范] --> B[编辑规范文件]
@@ -349,63 +364,83 @@
 <p><strong>实际使用示例</strong>：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 步骤1：创建规范</span></span><br><span class="line">specify add rag-feature --<span class="built_in">type</span> llm-feature</span><br><span class="line"></span><br><span class="line"><span class="comment"># 步骤2：编写规范（编辑 .specify/specs/rag-feature.md）</span></span><br><span class="line">vim .specify/specs/rag-feature.md</span><br><span class="line"></span><br><span class="line"><span class="comment"># 步骤3：告诉 Claude Code 根据规范生成代码</span></span><br><span class="line">claude-code  <span class="comment"># 启动 Claude Code</span></span><br><span class="line">&gt; <span class="string">&quot;根据 .specify/specs/rag-feature.md 规范，帮我实现 RAG 功能&quot;</span></span><br></pre></td></tr></table></figure>
 <p>就这么简单！✨ 真的是一试就知道有多香。</p>
-<h3 id="13-安装与初始化"><a class="markdownIt-Anchor" href="#13-安装与初始化"></a> 1.3 安装与初始化</h3>
+<h3 id="安装与初始化">1.3 安装与初始化</h3>
 <p>Spec Kit 是一个基于 Node.js 的工具，安装非常简单：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># 全局安装 Spec Kit CLI</span><br><span class="line">npm install -g @github&#x2F;spec-kit</span><br><span class="line"></span><br><span class="line"># 验证安装</span><br><span class="line">specify --version</span><br></pre></td></tr></table></figure>
 <blockquote>
 <p><strong>💡 踩坑经验</strong>：</p>
-<p>如果你在国内，npm 安装可能会很慢（我第一次装就等了半天），建议使用淘宝镜像：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm config <span class="built_in">set</span> registry https://registry.npmmirror.com</span><br></pre></td></tr></table></figure>
+<p>如果你在国内，npm
+安装可能会很慢（我第一次装就等了半天），建议使用淘宝镜像：
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm config <span class="built_in">set</span> registry https://registry.npmmirror.com</span><br></pre></td></tr></table></figure></p>
 <p>设置之后，速度起飞！🚀</p>
 </blockquote>
-<h3 id="14-初始化-spec-kit-项目"><a class="markdownIt-Anchor" href="#14-初始化-spec-kit-项目"></a> 1.4 初始化 Spec Kit 项目</h3>
+<h3 id="初始化-spec-kit-项目">1.4 初始化 Spec Kit 项目</h3>
 <p>在项目根目录执行初始化，</p>
 <p>在项目根目录执行：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 初始化 Spec Kit 配置</span></span><br><span class="line"></span><br><span class="line">specify init</span><br></pre></td></tr></table></figure>
 <p>它会交互式地询问你项目类型：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;</span><span class="bash">&gt;&gt; specify init</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 交互式问答：</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> ? 项目名称: todo-api</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> ? 项目描述: 智能 Todo API</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> ? 输出目录: src</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> ? 是否包含测试: Yes</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> ? 测试框架: pytest</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 执行后会创建：</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> .specify/</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> ├── config.yaml          <span class="comment"># Spec Kit 配置</span></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> ├── templates/           <span class="comment"># 规范模板</span></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> │   ├── llm-feature.md</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> │   ├── api-endpoint.md</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> │   └── data-pipeline.md</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> └── specs/               <span class="comment"># 存放功能规范</span></span></span><br><span class="line"><span class="meta">#</span><span class="bash">     └── README.md</span></span><br></pre></td></tr></table></figure>
-<p>初始化完成后，你的项目里会多出一个 <code>.specify</code> 文件夹，里面包含了配置和核心模板。</p>
-<h4 id="配置文件详解-configyaml"><a class="markdownIt-Anchor" href="#配置文件详解-configyaml"></a> 配置文件详解 config.yaml</h4>
+<p>初始化完成后，你的项目里会多出一个 <code>.specify</code>
+文件夹，里面包含了配置和核心模板。</p>
+<h4 id="配置文件详解-config.yaml">配置文件详解 config.yaml</h4>
 <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Spec Kit 项目配置</span></span><br><span class="line"><span class="attr">project:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">&quot;tutor-python-ai&quot;</span></span><br><span class="line">  <span class="attr">version:</span> <span class="string">&quot;1.0.0&quot;</span></span><br><span class="line">  <span class="attr">description:</span> <span class="string">&quot;Python AI/LLM 应用学习项目&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 规范配置</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">dir:</span> <span class="string">&quot;.specify&quot;</span>              <span class="comment"># Spec Kit 根目录</span></span><br><span class="line">  <span class="attr">specs_dir:</span> <span class="string">&quot;.specify/specs&quot;</span>  <span class="comment"># 规范文件目录</span></span><br><span class="line">  <span class="attr">template_dir:</span> <span class="string">&quot;.specify/templates&quot;</span>  <span class="comment"># 模板目录</span></span><br><span class="line">  <span class="attr">output_dir:</span> <span class="string">&quot;src&quot;</span>            <span class="comment"># 代码输出目录</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># AI 配置（Claude Code 会读取这些配置）</span></span><br><span class="line"><span class="attr">ai:</span></span><br><span class="line">  <span class="attr">provider:</span> <span class="string">anthropic</span>          <span class="comment"># 提供商：anthropic / openai</span></span><br><span class="line">  <span class="attr">model:</span> <span class="string">claude-3-5-sonnet-20241022</span>  <span class="comment"># 模型版本</span></span><br><span class="line">  <span class="attr">temperature:</span> <span class="number">0.1</span>             <span class="comment"># 温度参数（越低越确定性）</span></span><br><span class="line">  <span class="attr">max_tokens:</span> <span class="number">4000</span>             <span class="comment"># 最大 Token 数</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 生成配置</span></span><br><span class="line"><span class="attr">generation:</span></span><br><span class="line">  <span class="attr">override:</span> <span class="literal">false</span>              <span class="comment"># 是否覆盖已存在的文件</span></span><br><span class="line">  <span class="attr">include_tests:</span> <span class="literal">true</span>          <span class="comment"># 是否生成测试文件</span></span><br><span class="line">  <span class="attr">include_docs:</span> <span class="literal">true</span>           <span class="comment"># 是否生成文档</span></span><br><span class="line">  <span class="attr">test_framework:</span> <span class="string">pytest</span>       <span class="comment"># 测试框架</span></span><br><span class="line">  <span class="attr">docstring_style:</span> <span class="string">google</span>      <span class="comment"># 文档字符串风格</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 验证配置</span></span><br><span class="line"><span class="attr">validation:</span></span><br><span class="line">  <span class="attr">strict:</span> <span class="literal">false</span>                <span class="comment"># 严格模式（规范与代码不一致时是否报错）</span></span><br><span class="line">  <span class="attr">check_consistency:</span> <span class="literal">true</span>      <span class="comment"># 检查一致性</span></span><br><span class="line">  <span class="attr">check_type_annotations:</span> <span class="literal">true</span> <span class="comment"># 检查类型注解</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Python 特定配置</span></span><br><span class="line"><span class="attr">python:</span></span><br><span class="line">  <span class="attr">version:</span> <span class="string">&quot;3.10&quot;</span>              <span class="comment"># Python 版本</span></span><br><span class="line">  <span class="attr">use_type_hints:</span> <span class="literal">true</span>         <span class="comment"># 使用类型提示</span></span><br><span class="line">  <span class="attr">use_async:</span> <span class="literal">true</span>              <span class="comment"># 使用异步语法</span></span><br></pre></td></tr></table></figure>
 <blockquote>
-<p><strong>💡 小贴士</strong>：<code>temperature</code> 参数很重要！</p>
-<ul>
-<li><code>0.1-0.3</code>：适合生成代码（稳定、确定性高）</li>
-<li><code>0.7-0.9</code>：适合创意写作（多样性高）</li>
-</ul>
+<p><strong>💡 小贴士</strong>：<code>temperature</code> 参数很重要！ -
+<code>0.1-0.3</code>：适合生成代码（稳定、确定性高） -
+<code>0.7-0.9</code>：适合创意写作（多样性高）</p>
 </blockquote>
-<h3 id="13-核心概念规范模板-the-blueprint"><a class="markdownIt-Anchor" href="#13-核心概念规范模板-the-blueprint"></a> 1.3 核心概念：规范模板 (The Blueprint)</h3>
-<p>Spec Kit 的强大之处在于它预置了许多模板（位于 <code>.specify/templates/</code>），这比我们手写 Prompt 强太多了：</p>
+<h3 id="核心概念规范模板-the-blueprint">1.3 核心概念：规范模板 (The
+Blueprint)</h3>
+<p>Spec Kit 的强大之处在于它预置了许多模板（位于
+<code>.specify/templates/</code>），这比我们手写 Prompt 强太多了：</p>
 <ul>
-<li><strong><code>llm-feature.md</code></strong>: 专门用来定义 RAG、对话、分类等 AI 功能。</li>
-<li><strong><code>api-endpoint.md</code></strong>: 定义 REST API 接口（输入输出、错误码、数据模型）。</li>
-<li><strong><code>data-pipeline.md</code></strong>: 定义数据处理流（ETL）。</li>
+<li><strong><code>llm-feature.md</code></strong>: 专门用来定义
+RAG、对话、分类等 AI 功能。</li>
+<li><strong><code>api-endpoint.md</code></strong>: 定义 REST API
+接口（输入输出、错误码、数据模型）。</li>
+<li><strong><code>data-pipeline.md</code></strong>:
+定义数据处理流（ETL）。</li>
 </ul>
-<h4 id="131-模板-1llm-featuremd-llm-功能规范"><a class="markdownIt-Anchor" href="#131-模板-1llm-featuremd-llm-功能规范"></a> 1.3.1 模板 1：<a target="_blank" rel="noopener" href="http://llm-feature.md">llm-feature.md</a> - LLM 功能规范</h4>
-<p><strong>适用场景</strong>：需要调用 LLM API 的功能（如对话、摘要、翻译等）</p>
+<h4 id="模板-1llm-feature.md---llm-功能规范">1.3.1 模板
+1：llm-feature.md - LLM 功能规范</h4>
+<p><strong>适用场景</strong>：需要调用 LLM API
+的功能（如对话、摘要、翻译等）</p>
 <figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">spec<span class="emphasis">_version: &quot;1.0&quot;</span></span><br><span class="line"><span class="emphasis">type: llm-feature</span></span><br><span class="line"><span class="emphasis">priority: high</span></span><br><span class="line"><span class="emphasis">---</span></span><br><span class="line"><span class="emphasis"></span></span><br><span class="line"><span class="emphasis"># [功能名称]</span></span><br><span class="line"><span class="emphasis"></span></span><br><span class="line"><span class="emphasis">## 概述</span></span><br><span class="line"><span class="emphasis">[功能描述，说明这个 LLM 功能的用途]</span></span><br><span class="line"><span class="emphasis"></span></span><br><span class="line"><span class="emphasis">## LLM 配置</span></span><br><span class="line"><span class="emphasis"></span></span><br><span class="line"><span class="emphasis">### 模型选择</span></span><br><span class="line"><span class="emphasis">- <span class="strong">**提供商**</span>: OpenAI / Anthropic / 本地模型</span></span><br><span class="line"><span class="emphasis">- <span class="strong">**模型名称**</span>: gpt-4 / claude-3-opus-200k</span></span><br><span class="line"><span class="emphasis">- <span class="strong">**温度**</span>: 0.7</span></span><br><span class="line"><span class="emphasis">- <span class="strong">**最大 Token**</span>: 2000</span></span><br><span class="line"><span class="emphasis"></span></span><br><span class="line"><span class="emphasis">### 提示词策略</span></span><br><span class="line"><span class="emphasis">- <span class="strong">**提示词文件**</span>: `prompts/[feature_</span>name].txt`</span><br><span class="line"><span class="bullet">-</span> <span class="strong">**变量**</span>: [列出需要替换的变量]</span><br><span class="line"><span class="bullet">-</span> <span class="strong">**版本**</span>: v1.0</span><br><span class="line"></span><br><span class="line"><span class="section">## 功能需求</span></span><br><span class="line"><span class="bullet">-</span> [需求1]</span><br><span class="line"><span class="bullet">-</span> [需求2]</span><br><span class="line"></span><br><span class="line"><span class="section">## 数据流</span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">pre</span> <span class="attr">class</span>=<span class="string">&quot;mermaid&quot;</span>&gt;</span></span>graph LR</span><br><span class="line"><span class="code">    A[输入] --&gt; B[预处理]</span></span><br><span class="line"><span class="code">    B --&gt; C[LLM 调用]</span></span><br><span class="line"><span class="code">    C --&gt; D[后处理]</span></span><br><span class="line"><span class="code">    D --&gt; E[输出]&lt;/pre&gt;</span></span><br><span class="line"><span class="code"></span></span><br><span class="line"><span class="code">## API 端点（如果适用）</span></span><br><span class="line"><span class="code">| 方法 | 路径 | 说明 |</span></span><br><span class="line"><span class="code">|------|------|------|</span></span><br><span class="line"><span class="code">| POST | /api/[feature] | [说明] |</span></span><br><span class="line"><span class="code"></span></span><br><span class="line"><span class="code">## 错误处理</span></span><br><span class="line"><span class="code">- API 调用失败：[处理策略]</span></span><br><span class="line"><span class="code">- 超时处理：[超时时间，重试次数]</span></span><br><span class="line"><span class="code">- 成本控制：[预算限制]</span></span><br><span class="line"><span class="code"></span></span><br><span class="line"><span class="code">## 测试策略</span></span><br><span class="line"><span class="code">- 单元测试：[测试内容]</span></span><br><span class="line"><span class="code">- 集成测试：[测试内容]</span></span><br><span class="line"><span class="code">- 提示词测试：[测试用例]</span></span><br><span class="line"><span class="code"></span></span><br><span class="line"><span class="code">## 成本估算</span></span><br><span class="line"><span class="code">- 预估 Token/请求：[数量]</span></span><br><span class="line"><span class="code">- 预估成本/请求：[金额]</span></span><br><span class="line"><span class="code">- 预估日请求量：[数量]</span></span><br><span class="line"><span class="code"></span></span><br><span class="line"><span class="code">## 实现</span></span><br><span class="line"><span class="code">### 文件结构</span></span><br><span class="line"><span class="code">```</span></span><br><span class="line"><span class="code">src/</span></span><br><span class="line"><span class="code">├── prompts/</span></span><br><span class="line"><span class="code">│   └── [feature_name].txt</span></span><br><span class="line"><span class="code">├── chains/</span></span><br><span class="line"><span class="code">│   └── [feature_name]_chain.py</span></span><br><span class="line"><span class="code">└── api/</span></span><br><span class="line"><span class="code">    └── [feature_name]_routes.py</span></span><br><span class="line"><span class="code">```</span></span><br><span class="line"><span class="code"></span></span><br><span class="line"><span class="code">### 关键函数</span></span><br><span class="line"><span class="code">- `process_[feature](input)`: [说明]</span></span><br><span class="line"><span class="code">- `[feature]_chain()`: [说明]</span></span><br></pre></td></tr></table></figure>
-<h4 id="132-模板-2api-endpointmd-api-端点规范"><a class="markdownIt-Anchor" href="#132-模板-2api-endpointmd-api-端点规范"></a> 1.3.2 模板 2：<a target="_blank" rel="noopener" href="http://api-endpoint.md">api-endpoint.md</a> - API 端点规范</h4>
+<h4 id="模板-2api-endpoint.md---api-端点规范">1.3.2 模板
+2：api-endpoint.md - API 端点规范</h4>
 <p><strong>适用场景</strong>：REST API 端点设计（CRUD 操作等）</p>
 <figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">spec<span class="emphasis">_version: &quot;1.0&quot;</span></span><br><span class="line"><span class="emphasis">type: api-endpoint</span></span><br><span class="line"><span class="emphasis">priority: medium</span></span><br><span class="line"><span class="emphasis">---</span></span><br><span class="line"><span class="emphasis"></span></span><br><span class="line"><span class="emphasis"># [API 端点名称]</span></span><br><span class="line"><span class="emphasis"></span></span><br><span class="line"><span class="emphasis">## 概述</span></span><br><span class="line"><span class="emphasis">[API 端点的功能描述]</span></span><br><span class="line"><span class="emphasis"></span></span><br><span class="line"><span class="emphasis">## API 定义</span></span><br><span class="line"><span class="emphasis"></span></span><br><span class="line"><span class="emphasis">### 端点信息</span></span><br><span class="line"><span class="emphasis">| 项目 | 值 |</span></span><br><span class="line"><span class="emphasis">|------|-----|</span></span><br><span class="line"><span class="emphasis">| 方法 | POST / GET / PUT / DELETE |</span></span><br><span class="line"><span class="emphasis">| 路径 | `/api/[resource]` |</span></span><br><span class="line"><span class="emphasis">| 认证 | Bearer Token / API Key |</span></span><br><span class="line"><span class="emphasis"></span></span><br><span class="line"><span class="emphasis">### 请求格式</span></span><br><span class="line"><span class="emphasis">```json</span></span><br><span class="line"><span class="emphasis">&#123;</span></span><br><span class="line"><span class="emphasis">  &quot;field1&quot;: &quot;value1&quot;,</span></span><br><span class="line"><span class="emphasis">  &quot;field2&quot;: &quot;value2&quot;</span></span><br><span class="line"><span class="emphasis">&#125;</span></span><br><span class="line"><span class="emphasis">```</span></span><br><span class="line"><span class="emphasis"></span></span><br><span class="line"><span class="emphasis">### 响应格式</span></span><br><span class="line"><span class="emphasis">```json</span></span><br><span class="line"><span class="emphasis">&#123;</span></span><br><span class="line"><span class="emphasis">  &quot;success&quot;: true,</span></span><br><span class="line"><span class="emphasis">  &quot;data&quot;: &#123;&#125;,</span></span><br><span class="line"><span class="emphasis">  &quot;message&quot;: &quot;操作成功&quot;</span></span><br><span class="line"><span class="emphasis">&#125;</span></span><br><span class="line"><span class="emphasis">```</span></span><br><span class="line"><span class="emphasis"></span></span><br><span class="line"><span class="emphasis">## 数据模型</span></span><br><span class="line"><span class="emphasis">```python</span></span><br><span class="line"><span class="emphasis">from pydantic import BaseModel</span></span><br><span class="line"><span class="emphasis"></span></span><br><span class="line"><span class="emphasis">class RequestModel(BaseModel):</span></span><br><span class="line"><span class="emphasis">    &quot;&quot;&quot;请求模型&quot;&quot;&quot;</span></span><br><span class="line"><span class="emphasis">    field1: str</span></span><br><span class="line"><span class="emphasis">    field2: int</span></span><br><span class="line"><span class="emphasis"></span></span><br><span class="line"><span class="emphasis">class ResponseModel(BaseModel):</span></span><br><span class="line"><span class="emphasis">    &quot;&quot;&quot;响应模型&quot;&quot;&quot;</span></span><br><span class="line"><span class="emphasis">    success: bool</span></span><br><span class="line"><span class="emphasis">    data: dict</span></span><br><span class="line"><span class="emphasis">    message: str</span></span><br><span class="line"><span class="emphasis">```</span></span><br><span class="line"><span class="emphasis"></span></span><br><span class="line"><span class="emphasis">## 业务逻辑</span></span><br><span class="line"><span class="emphasis">1. [步骤1]</span></span><br><span class="line"><span class="emphasis">2. [步骤2]</span></span><br><span class="line"><span class="emphasis">3. [步骤3]</span></span><br><span class="line"><span class="emphasis"></span></span><br><span class="line"><span class="emphasis">## 错误处理</span></span><br><span class="line"><span class="emphasis">| 状态码 | 场景 | 处理方式 |</span></span><br><span class="line"><span class="emphasis">|--------|------|----------|</span></span><br><span class="line"><span class="emphasis">| 400 | 请求参数错误 | 返回错误信息 |</span></span><br><span class="line"><span class="emphasis">| 401 | 未认证 | 返回认证错误 |</span></span><br><span class="line"><span class="emphasis">| 500 | 服务器错误 | 记录日志并返回通用错误 |</span></span><br><span class="line"><span class="emphasis"></span></span><br><span class="line"><span class="emphasis">## 测试用例</span></span><br><span class="line"><span class="emphasis">```python</span></span><br><span class="line"><span class="emphasis">def test_</span>api<span class="emphasis">_endpoint():</span></span><br><span class="line"><span class="emphasis">    &quot;&quot;&quot;测试 API 端点&quot;&quot;&quot;</span></span><br><span class="line"><span class="emphasis">    response = client.post(&quot;/api/[resource]&quot;, json=&#123;&#125;)</span></span><br><span class="line"><span class="emphasis">    assert response.status_</span>code == 200</span><br><span class="line"><span class="code">```</span></span><br><span class="line"><span class="code"></span></span><br><span class="line"><span class="code">## 实现</span></span><br><span class="line"><span class="code">### 文件位置</span></span><br><span class="line"><span class="code">```</span></span><br><span class="line">src/api/</span><br><span class="line">└── [resource]<span class="emphasis">_routes.py</span></span><br><span class="line"><span class="emphasis">```</span></span><br><span class="line"><span class="emphasis"></span></span><br><span class="line"><span class="emphasis">### 路由定义</span></span><br><span class="line"><span class="emphasis">```python</span></span><br><span class="line"><span class="emphasis">from fastapi import APIRouter</span></span><br><span class="line"><span class="emphasis"></span></span><br><span class="line"><span class="emphasis">router = APIRouter(prefix=&quot;/api/[resource]&quot;, tags=[&quot;[Resource]&quot;])</span></span><br><span class="line"><span class="emphasis"></span></span><br><span class="line"><span class="emphasis">@router.post(&quot;/&quot;)</span></span><br><span class="line"><span class="emphasis">async def create_</span>[<span class="string">resource</span>](<span class="link">request: RequestModel</span>):</span><br><span class="line"><span class="code">    &quot;&quot;&quot;创建 [资源]&quot;&quot;&quot;</span></span><br><span class="line"><span class="code">    pass</span></span><br></pre></td></tr></table></figure>
-<h4 id="133-模板-3data-pipelinemd-数据管道规范"><a class="markdownIt-Anchor" href="#133-模板-3data-pipelinemd-数据管道规范"></a> 1.3.3 模板 3：<a target="_blank" rel="noopener" href="http://data-pipeline.md">data-pipeline.md</a> - 数据管道规范</h4>
+<h4 id="模板-3data-pipeline.md---数据管道规范">1.3.3 模板
+3：data-pipeline.md - 数据管道规范</h4>
 <p><strong>适用场景</strong>：数据处理流程（ETL、数据清洗、向量化等）</p>
-<p>完整模板内容可以参考项目中的 <code>.specify/templates/data-pipeline.md</code>。<a href="https://yangsuoly.com/file/spec-kit-package.zip">spec-package</a> <a id="download" href="https://yangsuoly.com/file/spec-kit-package.zip" target="_blank"><i class="fa fa-download"></i><span> Download Now </span> </a></p>
-<h2 id="二-实战演练开发一个智能-todo-api"><a class="markdownIt-Anchor" href="#二-实战演练开发一个智能-todo-api"></a> 二、 实战演练：开发一个智能 Todo API</h2>
-<p>光说不练假把式。我们来从零开发一个 <strong>带有 AI 自动分类功能的 Todo API</strong>。</p>
-<p><strong>技术栈</strong>：FastAPI + SQLite (SQLAlchemy Async) + 智谱 GLM-4.7</p>
-<h3 id="21-第一步配置项目上下文-claudemd"><a class="markdownIt-Anchor" href="#21-第一步配置项目上下文-claudemd"></a> 2.1 第一步：配置项目上下文 (<code>CLAUDE.md</code>)</h3>
-<p>首先，在项目根目录创建 <code>CLAUDE.md</code>，锁定技术栈。这一步至关重要，防止 Claude 放飞自我。</p>
+<p>完整模板内容可以参考项目中的
+<code>.specify/templates/data-pipeline.md</code>。<a
+href="https://yangsuoly.com/file/spec-kit-package.zip">spec-package</a>
+<a id="download" href="https://yangsuoly.com/file/spec-kit-package.zip" target="_blank"><i class="fa fa-download"></i><span>
+Download Now </span> </a></p>
+<h2 id="二-实战演练开发一个智能-todo-api">二、 实战演练：开发一个智能
+Todo API</h2>
+<p>光说不练假把式。我们来从零开发一个 <strong>带有 AI 自动分类功能的
+Todo API</strong>。</p>
+<p><strong>技术栈</strong>：FastAPI + SQLite (SQLAlchemy Async) + 智谱
+GLM-4.7</p>
+<h3 id="第一步配置项目上下文-claude.md">2.1 第一步：配置项目上下文
+(<code>CLAUDE.md</code>)</h3>
+<p>首先，在项目根目录创建
+<code>CLAUDE.md</code>，锁定技术栈。这一步至关重要，防止 Claude
+放飞自我。</p>
 <figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="section"># Todo API 项目配置</span></span><br><span class="line"></span><br><span class="line"><span class="strong">**技术栈**</span>:</span><br><span class="line"><span class="bullet">-</span> Python 3.10+</span><br><span class="line"><span class="bullet">-</span> FastAPI 0.104+</span><br><span class="line"><span class="bullet">-</span> SQLAlchemy (Async / aiosqlite)</span><br><span class="line"><span class="bullet">-</span> 智谱 GLM-4.7 (通过 Claude Code 调用)</span><br><span class="line"></span><br><span class="line"><span class="strong">**开发规范**</span>:</span><br><span class="line"><span class="bullet">-</span> 代码必须符合 Pydantic V2 标准。</span><br><span class="line"><span class="bullet">-</span> 数据库操作<span class="strong">**必须**</span>使用异步 (async/await)。</span><br><span class="line"><span class="bullet">-</span> 提示词文件放在 <span class="code">`src/prompts/`</span> 目录。</span><br><span class="line"><span class="bullet">-</span> 所有的 API 必须有 Swagger 文档注释。</span><br></pre></td></tr></table></figure>
 <p>然后，初始化 Memory，让 Claude 记住项目背景：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">claude</span><br><span class="line"><span class="meta">&gt;</span><span class="bash">&gt; /memory remember <span class="string">&quot;这是一个 Todo List 项目，核心功能包含 CRUD 和基于 LLM 的任务智能分类&quot;</span></span></span><br></pre></td></tr></table></figure>
-<h3 id="22-第二步编写-crud-规范"><a class="markdownIt-Anchor" href="#22-第二步编写-crud-规范"></a> 2.2 第二步：编写 CRUD 规范</h3>
+<h3 id="第二步编写-crud-规范">2.2 第二步：编写 CRUD 规范</h3>
 <p>使用 Spec Kit 添加一个 API 规范：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">specify add todo-crud --type api-endpoint</span><br></pre></td></tr></table></figure>
-<p>然后编辑生成的 <code>.specify/specs/todo-crud.md</code>。<strong>这一步是质量的关键，写得越细，生成的代码越完美。</strong></p>
+<p>然后编辑生成的
+<code>.specify/specs/todo-crud.md</code>。<strong>这一步是质量的关键，写得越细，生成的代码越完美。</strong></p>
 <figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">spec<span class="emphasis">_version: &quot;1.0&quot;</span></span><br><span class="line"><span class="emphasis">type: api-endpoint</span></span><br><span class="line"><span class="emphasis">---</span></span><br><span class="line"><span class="emphasis"></span></span><br><span class="line"><span class="emphasis"># Todo CRUD 功能</span></span><br><span class="line"><span class="emphasis"></span></span><br><span class="line"><span class="emphasis">## 数据模型</span></span><br><span class="line"><span class="emphasis">```python</span></span><br><span class="line"><span class="emphasis">class TodoCreate(BaseModel):</span></span><br><span class="line"><span class="emphasis">    title: str = Field(..., min_</span>length=1, max<span class="emphasis">_length=200)</span></span><br><span class="line"><span class="emphasis">    description: Optional[str] = Field(None)</span></span><br><span class="line"><span class="emphasis">    # 允许为空，为空时触发自动分类</span></span><br><span class="line"><span class="emphasis">    category: Optional[Literal[&quot;工作&quot;, &quot;生活&quot;, &quot;学习&quot;]] = None</span></span><br><span class="line"><span class="emphasis">    priority: Literal[&quot;高&quot;, &quot;中&quot;, &quot;低&quot;] = &quot;中&quot;</span></span><br><span class="line"><span class="emphasis">```</span></span><br><span class="line"><span class="emphasis"></span></span><br><span class="line"><span class="emphasis">## API 接口定义</span></span><br><span class="line"><span class="emphasis">1. <span class="strong">**POST /api/todos**</span> (创建任务):</span></span><br><span class="line"><span class="emphasis">   - 验证请求参数。</span></span><br><span class="line"><span class="emphasis">   - 如果 `category` 为空，<span class="strong">**必须调用 LLM Service**</span> 进行自动分类。</span></span><br><span class="line"><span class="emphasis">   - 存入 SQLite 数据库。</span></span><br><span class="line"><span class="emphasis">   - 返回 201 Created。</span></span><br><span class="line"><span class="emphasis">2. <span class="strong">**GET /api/todos**</span> (获取列表):</span></span><br><span class="line"><span class="emphasis">   - 支持 `category` 查询参数过滤。</span></span><br><span class="line"><span class="emphasis">   - 按 `created_</span>at` 倒序排列。</span><br><span class="line"><span class="bullet">3.</span> <span class="strong">**PUT /api/todos/&#123;id&#125;**</span> (更新任务):</span><br><span class="line"><span class="bullet">   -</span> 支持部分更新 (PATCH 逻辑)。</span><br><span class="line"></span><br><span class="line"><span class="section">## 错误处理</span></span><br><span class="line"></span><br><span class="line">| <span class="strong">**状态码**</span> | <span class="strong">**场景**</span>                      |</span><br><span class="line">| ---------- | ----------------------------- |</span><br><span class="line">| 404        | Todo ID 不存在                |</span><br><span class="line">| 500        | 数据库连接失败或 LLM 服务超时 |</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<h3 id="23-第三步编写-llm-智能分类规范"><a class="markdownIt-Anchor" href="#23-第三步编写-llm-智能分类规范"></a> 2.3 第三步：编写 LLM 智能分类规范</h3>
-<p>我们需要一个 AI 服务，根据任务标题自动分类。</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">specify add todo-llm --type llm-feature</span><br></pre></td></tr></table></figure>
+<h3 id="第三步编写-llm-智能分类规范">2.3 第三步：编写 LLM
+智能分类规范</h3>
+<p>我们需要一个 AI 服务，根据任务标题自动分类。 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">specify add todo-llm --type llm-feature</span><br></pre></td></tr></table></figure></p>
 <p>编辑 <code>.specify/specs/todo-llm.md</code>：</p>
 <figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="section"># 规范：智能分类服务</span></span><br><span class="line"></span><br><span class="line"><span class="section">## 功能描述</span></span><br><span class="line">输入任务标题和描述，输出 [&quot;工作&quot;, &quot;生活&quot;, &quot;学习&quot;] 三者之一。</span><br><span class="line"></span><br><span class="line"><span class="section">## 提示词策略 (Prompt Engineering)</span></span><br><span class="line"><span class="bullet">-</span> <span class="strong">**文件**</span>: <span class="code">`src/prompts/classify_todo.txt`</span></span><br><span class="line"><span class="bullet">-</span> <span class="strong">**模型**</span>: glm-4-plus (智谱 GLM-4.7)</span><br><span class="line"><span class="bullet">-</span> <span class="strong">**温度 (Temperature)**</span>: 0.1 (我们需要稳定的输出，不要发散)</span><br><span class="line"></span><br><span class="line"><span class="section">## 提示词模板</span></span><br><span class="line"><span class="code">```text</span></span><br><span class="line"><span class="code">你是一个任务分类助手。请根据以下任务标题，将其分类为 [工作, 生活, 学习] 之一。</span></span><br><span class="line"><span class="code">只返回类别名称，不要返回任何其他字符。</span></span><br><span class="line"><span class="code"></span></span><br><span class="line"><span class="code">任务标题: &#123;title&#125;</span></span><br><span class="line"><span class="code">任务描述: &#123;description&#125;</span></span><br><span class="line"><span class="code">```</span></span><br><span class="line"></span><br><span class="line"><span class="section">## 容错机制</span></span><br><span class="line"></span><br><span class="line"><span class="bullet">-</span> 设置 5 秒超时。</span><br><span class="line"><span class="bullet">-</span> 增加 2 次重试机制 (Exponential Backoff)。</span><br><span class="line"><span class="bullet">-</span> 如果 LLM 彻底失败，默认返回 <span class="code">`None`</span> (由前端处理)。</span><br></pre></td></tr></table></figure>
 <p>我在规范里特别强调了<strong>容错处理</strong>：</p>
@@ -425,48 +460,60 @@
     Model-->>LLM_Service: 返回 "工作/生活/学习"
     LLM_Service-->>API: 补全分类字段
     API-->>User: 返回完整 Todo</pre>
-<h3 id="24-第四步见证奇迹的时刻-ai-coding"><a class="markdownIt-Anchor" href="#24-第四步见证奇迹的时刻-ai-coding"></a> 2.4 第四步：见证奇迹的时刻 (AI Coding)</h3>
+<h3 id="第四步见证奇迹的时刻-ai-coding">2.4 第四步：见证奇迹的时刻 (AI
+Coding)</h3>
 <p>现在“图纸”画好了，让 Claude Code 开工！</p>
-<p><strong>在 Claude CLI 中输入：</strong></p>
-<blockquote>
-<p>“根据 .specify/specs/todo-crud.md 和 <a target="_blank" rel="noopener" href="http://todo-llm.md">todo-llm.md</a> 的规范，帮我实现整个后端代码。包括 Models、API 路由、LLM 服务层和 <a target="_blank" rel="noopener" href="http://main.py">main.py</a>。”</p>
-</blockquote>
-<p><strong>Claude 的执行逻辑：</strong></p>
-<ol>
-<li>读取 <code>todo-crud.md</code> -&gt; 生成 Pydantic 模型和 SQLAlchemy Table。</li>
-<li>读取 <code>todo-llm.md</code> -&gt; 生成 <code>classify_todo</code> 函数，包含重试逻辑和 Prompt 加载逻辑。</li>
-<li>组合代码 -&gt; 生成 <code>main.py</code> 和路由。</li>
-</ol>
+<p><strong>在 Claude CLI 中输入：</strong> &gt; “根据
+.specify/specs/todo-crud.md 和 todo-llm.md
+的规范，帮我实现整个后端代码。包括 Models、API 路由、LLM 服务层和
+main.py。”</p>
+<p><strong>Claude 的执行逻辑：</strong> 1. 读取
+<code>todo-crud.md</code> -&gt; 生成 Pydantic 模型和 SQLAlchemy Table。
+2. 读取 <code>todo-llm.md</code> -&gt; 生成 <code>classify_todo</code>
+函数，包含重试逻辑和 Prompt 加载逻辑。 3. 组合代码 -&gt; 生成
+<code>main.py</code> 和路由。</p>
 <p>你会发现，生成的代码<strong>完全对应你的规范</strong>，连重试次数和超时时间都一模一样。</p>
-<h3 id="25-第五步测试与验证"><a class="markdownIt-Anchor" href="#25-第五步测试与验证"></a> 2.5 第五步：测试与验证</h3>
-<p>让 AI 生成测试代码：</p>
-<blockquote>
-<p>“根据规范中的测试用例章节，为 src/api/todo_routes.py 生成 pytest 测试，使用 <code>TestClient</code>。”</p>
-</blockquote>
-<p>运行测试：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pytest -v</span><br></pre></td></tr></table></figure>
-<h2 id="三-总结"><a class="markdownIt-Anchor" href="#三-总结"></a> 三、 总结</h2>
-<p><strong>规范驱动开发 (SDD)</strong> 加上 <strong>AI 编程助手</strong>，简直是绝配。</p>
+<h3 id="第五步测试与验证">2.5 第五步：测试与验证</h3>
+<p>让 AI 生成测试代码： &gt; “根据规范中的测试用例章节，为
+src/api/todo_routes.py 生成 pytest 测试，使用
+<code>TestClient</code>。”</p>
+<p>运行测试： <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pytest -v</span><br></pre></td></tr></table></figure></p>
+<h2 id="三-总结">三、 总结</h2>
+<p><strong>规范驱动开发 (SDD)</strong> 加上 <strong>AI
+编程助手</strong>，简直是绝配。</p>
 <ul>
-<li><strong>以前</strong>：你脑子里有个想法 -&gt; AI 瞎猜 -&gt; 你改 Bug。</li>
-<li><strong>现在</strong>：你写好 Spec 文档 -&gt; AI 照着写 -&gt; 一次跑通。</li>
+<li><strong>以前</strong>：你脑子里有个想法 -&gt; AI 瞎猜 -&gt; 你改
+Bug。</li>
+<li><strong>现在</strong>：你写好 Spec 文档 -&gt; AI 照着写 -&gt;
+一次跑通。</li>
 </ul>
-<p>这不仅提升了代码质量，更重要的是——<strong>文档和代码永远是同步的</strong>。Spec Kit + Claude Code 的组合，本质上是把<strong>写代码</strong>变成了<strong>写文档</strong>。</p>
+<p>这不仅提升了代码质量，更重要的是——<strong>文档和代码永远是同步的</strong>。Spec
+Kit + Claude Code
+的组合，本质上是把<strong>写代码</strong>变成了<strong>写文档</strong>。</p>
 <ul>
-<li>如果你不仅想做一个 Coder，更想做一个 Designer，这套工作流绝对适合你。</li>
+<li>如果你不仅想做一个 Coder，更想做一个
+Designer，这套工作流绝对适合你。</li>
 <li>规范越详细，AI 的“幻觉”就越少。</li>
 <li><strong>磨刀不误砍柴工</strong>，古人诚不欺我。</li>
 </ul>
 <blockquote>
-<p><strong>下一步</strong>：如果你对如何让 Claude Code 变得更智能（比如自己查资料、操作 Git）感兴趣，请移步阅读下一篇《Agent 系统与 MCP 高级玩法》。</p>
+<p><strong>下一步</strong>：如果你对如何让 Claude Code
+变得更智能（比如自己查资料、操作 Git）感兴趣，请移步阅读下一篇《Agent
+系统与 MCP 高级玩法》。</p>
 </blockquote>
-<p>下一篇，我们将进入真正的高级玩家领域：<strong>Agent 系统与 MCP 协议</strong>。我们要让 Claude 连上网、连上数据库，自己去干活！</p>
-<h2 id="参考来源"><a class="markdownIt-Anchor" href="#参考来源"></a> 📖 参考来源</h2>
+<p>下一篇，我们将进入真正的高级玩家领域：<strong>Agent 系统与 MCP
+协议</strong>。我们要让 Claude 连上网、连上数据库，自己去干活！</p>
+<h2 id="参考来源">📖 参考来源</h2>
 <ul>
-<li><a target="_blank" rel="noopener" href="https://github.com/github/spec-kit">Spec Kit 官方文档</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/github/spec-kit">Spec Kit
+官方文档</a></li>
 <li><a target="_blank" rel="noopener" href="https://fastapi.tiangolo.com/zh/">FastAPI 官方文档</a></li>
-<li><a target="_blank" rel="noopener" href="https://docs.sqlalchemy.org/en/20/orm/extensions/asyncio.html">SQLAlchemy 异步文档</a></li>
-<li><a target="_blank" rel="noopener" href="https://docs.anthropic.com/zh-CN/docs/claude-code/spec-kit">Claude Code + Spec Kit 集成指南</a></li>
+<li><a
+target="_blank" rel="noopener" href="https://docs.sqlalchemy.org/en/20/orm/extensions/asyncio.html">SQLAlchemy
+异步文档</a></li>
+<li><a
+target="_blank" rel="noopener" href="https://docs.anthropic.com/zh-CN/docs/claude-code/spec-kit">Claude
+Code + Spec Kit 集成指南</a></li>
 </ul>
 
     </div>
@@ -519,7 +566,10 @@
     <a href="/2026/01/04/Claude-code-2-advanced/" rel="prev" title="Claude-code-2-advanced">
       <i class="fa fa-chevron-left"></i> Claude-code-2-advanced
     </a></div>
-      <div class="post-nav-item"></div>
+      <div class="post-nav-item">
+    <a href="/2026/01/21/open-claude-cowork/" rel="next" title="open-claude-cowork">
+      open-claude-cowork <i class="fa fa-chevron-right"></i>
+    </a></div>
     </div>
       </footer>
     
@@ -582,7 +632,18 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#03-spec-kit-%E8%A7%84%E8%8C%83%E9%A9%B1%E5%8A%A8%E5%BC%80%E5%8F%91%E4%BB%8E%E9%9B%B6%E5%88%B0%E4%B8%80%E5%AE%8C%E6%95%B4%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%88%98"><span class="nav-text"> 03-Spec Kit 规范驱动开发：从零到一完整项目实战</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-text"> 📝 前言</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%97%9B%E7%82%B9ai-%E6%80%BB%E6%98%AF%E5%90%AC%E4%B8%8D%E6%87%82%E4%BA%BA%E8%AF%9D"><span class="nav-text"> 痛点：AI 总是“听不懂人话”？</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80-%E6%A0%B8%E5%BF%83%E7%90%86%E5%BF%B5%E4%B8%BA%E4%BB%80%E4%B9%88%E6%88%91%E4%BB%AC%E9%9C%80%E8%A6%81-sdd"><span class="nav-text"> 一、 核心理念：为什么我们需要 SDD？</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#11-spec-kit-%E7%AE%80%E4%BB%8B"><span class="nav-text"> 1.1 Spec Kit 简介</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#12-spec-kit-claude-code-%E7%9A%84%E5%8C%96%E5%AD%A6%E5%8F%8D%E5%BA%94"><span class="nav-text"> 1.2 Spec Kit + Claude Code 的化学反应</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#13-%E5%AE%89%E8%A3%85%E4%B8%8E%E5%88%9D%E5%A7%8B%E5%8C%96"><span class="nav-text"> 1.3 安装与初始化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#14-%E5%88%9D%E5%A7%8B%E5%8C%96-spec-kit-%E9%A1%B9%E7%9B%AE"><span class="nav-text"> 1.4 初始化 Spec Kit 项目</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E8%AF%A6%E8%A7%A3-configyaml"><span class="nav-text"> 配置文件详解 config.yaml</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#13-%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5%E8%A7%84%E8%8C%83%E6%A8%A1%E6%9D%BF-the-blueprint"><span class="nav-text"> 1.3 核心概念：规范模板 (The Blueprint)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#131-%E6%A8%A1%E6%9D%BF-1llm-featuremd-llm-%E5%8A%9F%E8%83%BD%E8%A7%84%E8%8C%83"><span class="nav-text"> 1.3.1 模板 1：llm-feature.md - LLM 功能规范</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#132-%E6%A8%A1%E6%9D%BF-2api-endpointmd-api-%E7%AB%AF%E7%82%B9%E8%A7%84%E8%8C%83"><span class="nav-text"> 1.3.2 模板 2：api-endpoint.md - API 端点规范</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#133-%E6%A8%A1%E6%9D%BF-3data-pipelinemd-%E6%95%B0%E6%8D%AE%E7%AE%A1%E9%81%93%E8%A7%84%E8%8C%83"><span class="nav-text"> 1.3.3 模板 3：data-pipeline.md - 数据管道规范</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C-%E5%AE%9E%E6%88%98%E6%BC%94%E7%BB%83%E5%BC%80%E5%8F%91%E4%B8%80%E4%B8%AA%E6%99%BA%E8%83%BD-todo-api"><span class="nav-text"> 二、 实战演练：开发一个智能 Todo API</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#21-%E7%AC%AC%E4%B8%80%E6%AD%A5%E9%85%8D%E7%BD%AE%E9%A1%B9%E7%9B%AE%E4%B8%8A%E4%B8%8B%E6%96%87-claudemd"><span class="nav-text"> 2.1 第一步：配置项目上下文 (CLAUDE.md)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#22-%E7%AC%AC%E4%BA%8C%E6%AD%A5%E7%BC%96%E5%86%99-crud-%E8%A7%84%E8%8C%83"><span class="nav-text"> 2.2 第二步：编写 CRUD 规范</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#23-%E7%AC%AC%E4%B8%89%E6%AD%A5%E7%BC%96%E5%86%99-llm-%E6%99%BA%E8%83%BD%E5%88%86%E7%B1%BB%E8%A7%84%E8%8C%83"><span class="nav-text"> 2.3 第三步：编写 LLM 智能分类规范</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#24-%E7%AC%AC%E5%9B%9B%E6%AD%A5%E8%A7%81%E8%AF%81%E5%A5%87%E8%BF%B9%E7%9A%84%E6%97%B6%E5%88%BB-ai-coding"><span class="nav-text"> 2.4 第四步：见证奇迹的时刻 (AI Coding)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#25-%E7%AC%AC%E4%BA%94%E6%AD%A5%E6%B5%8B%E8%AF%95%E4%B8%8E%E9%AA%8C%E8%AF%81"><span class="nav-text"> 2.5 第五步：测试与验证</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89-%E6%80%BB%E7%BB%93"><span class="nav-text"> 三、 总结</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E6%9D%A5%E6%BA%90"><span class="nav-text"> 📖 参考来源</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#spec-kit-%E8%A7%84%E8%8C%83%E9%A9%B1%E5%8A%A8%E5%BC%80%E5%8F%91%E4%BB%8E%E9%9B%B6%E5%88%B0%E4%B8%80%E5%AE%8C%E6%95%B4%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%88%98"><span class="nav-text">03-Spec Kit
+规范驱动开发：从零到一完整项目实战</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-text">📝 前言</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%97%9B%E7%82%B9ai-%E6%80%BB%E6%98%AF%E5%90%AC%E4%B8%8D%E6%87%82%E4%BA%BA%E8%AF%9D"><span class="nav-text">痛点：AI 总是“听不懂人话”？</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80-%E6%A0%B8%E5%BF%83%E7%90%86%E5%BF%B5%E4%B8%BA%E4%BB%80%E4%B9%88%E6%88%91%E4%BB%AC%E9%9C%80%E8%A6%81-sdd"><span class="nav-text">一、 核心理念：为什么我们需要
+SDD？</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#spec-kit-%E7%AE%80%E4%BB%8B"><span class="nav-text">1.1 Spec Kit 简介</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#spec-kit-claude-code-%E7%9A%84%E5%8C%96%E5%AD%A6%E5%8F%8D%E5%BA%94"><span class="nav-text">1.2 Spec Kit + Claude Code
+的化学反应</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85%E4%B8%8E%E5%88%9D%E5%A7%8B%E5%8C%96"><span class="nav-text">1.3 安装与初始化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%9D%E5%A7%8B%E5%8C%96-spec-kit-%E9%A1%B9%E7%9B%AE"><span class="nav-text">1.4 初始化 Spec Kit 项目</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E8%AF%A6%E8%A7%A3-config.yaml"><span class="nav-text">配置文件详解 config.yaml</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5%E8%A7%84%E8%8C%83%E6%A8%A1%E6%9D%BF-the-blueprint"><span class="nav-text">1.3 核心概念：规范模板 (The
+Blueprint)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A8%A1%E6%9D%BF-1llm-feature.md---llm-%E5%8A%9F%E8%83%BD%E8%A7%84%E8%8C%83"><span class="nav-text">1.3.1 模板
+1：llm-feature.md - LLM 功能规范</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A8%A1%E6%9D%BF-2api-endpoint.md---api-%E7%AB%AF%E7%82%B9%E8%A7%84%E8%8C%83"><span class="nav-text">1.3.2 模板
+2：api-endpoint.md - API 端点规范</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A8%A1%E6%9D%BF-3data-pipeline.md---%E6%95%B0%E6%8D%AE%E7%AE%A1%E9%81%93%E8%A7%84%E8%8C%83"><span class="nav-text">1.3.3 模板
+3：data-pipeline.md - 数据管道规范</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C-%E5%AE%9E%E6%88%98%E6%BC%94%E7%BB%83%E5%BC%80%E5%8F%91%E4%B8%80%E4%B8%AA%E6%99%BA%E8%83%BD-todo-api"><span class="nav-text">二、 实战演练：开发一个智能
+Todo API</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC%E4%B8%80%E6%AD%A5%E9%85%8D%E7%BD%AE%E9%A1%B9%E7%9B%AE%E4%B8%8A%E4%B8%8B%E6%96%87-claude.md"><span class="nav-text">2.1 第一步：配置项目上下文
+(CLAUDE.md)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC%E4%BA%8C%E6%AD%A5%E7%BC%96%E5%86%99-crud-%E8%A7%84%E8%8C%83"><span class="nav-text">2.2 第二步：编写 CRUD 规范</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC%E4%B8%89%E6%AD%A5%E7%BC%96%E5%86%99-llm-%E6%99%BA%E8%83%BD%E5%88%86%E7%B1%BB%E8%A7%84%E8%8C%83"><span class="nav-text">2.3 第三步：编写 LLM
+智能分类规范</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC%E5%9B%9B%E6%AD%A5%E8%A7%81%E8%AF%81%E5%A5%87%E8%BF%B9%E7%9A%84%E6%97%B6%E5%88%BB-ai-coding"><span class="nav-text">2.4 第四步：见证奇迹的时刻 (AI
+Coding)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC%E4%BA%94%E6%AD%A5%E6%B5%8B%E8%AF%95%E4%B8%8E%E9%AA%8C%E8%AF%81"><span class="nav-text">2.5 第五步：测试与验证</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89-%E6%80%BB%E7%BB%93"><span class="nav-text">三、 总结</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E6%9D%A5%E6%BA%90"><span class="nav-text">📖 参考来源</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -598,7 +659,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">75</span>
+          <span class="site-state-item-count">76</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -611,7 +672,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/Tags/">
           
-        <span class="site-state-item-count">44</span>
+        <span class="site-state-item-count">45</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>

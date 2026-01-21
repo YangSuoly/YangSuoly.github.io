@@ -285,135 +285,152 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h1 id="1-关于mermaid"><a class="markdownIt-Anchor" href="#1-关于mermaid"></a> 1. 关于Mermaid</h1>
-<p>最近在使用Markdown写文章过程中，遇到了画流程图的问题，最后发现可以用 <code>mermaid</code> 完美实现，于是记录下学习笔记。</p>
+        <h1 id="关于mermaid">1. 关于Mermaid</h1>
+<p>最近在使用Markdown写文章过程中，遇到了画流程图的问题，最后发现可以用
+<code>mermaid</code> 完美实现，于是记录下学习笔记。</p>
 <p><strong>Mermaid 允许使用文本和代码创建图表和可视化。</strong></p>
 <blockquote>
-<p>官网：<a target="_blank" rel="noopener" href="https://mermaidjs.github.io/">https://mermaidjs.github.io/</a><br />
-<a target="_blank" rel="noopener" href="https://so.csdn.net/so/search?q=Github&amp;spm=1001.2101.3001.7020">Github</a> 项目地址：<a target="_blank" rel="noopener" href="https://github.com/knsv/mermaid">https://github.com/knsv/mermaid</a></p>
+<p>官网：https://mermaidjs.github.io/ <a
+target="_blank" rel="noopener" href="https://so.csdn.net/so/search?q=Github&amp;spm=1001.2101.3001.7020">Github</a>
+项目地址：https://github.com/knsv/mermaid</p>
 </blockquote>
 <a id="more"></a>
-<p>它是一个基于 JavaScript 的图表绘制工具，可渲染 Markdown 启发的文本定义以动态创建和修改图表。</p>
+<p>它是一个基于 JavaScript 的图表绘制工具，可渲染 Markdown
+启发的文本定义以动态创建和修改图表。</p>
 <blockquote>
-<p>如果你熟悉 Markdown，那么学习 <a target="_blank" rel="noopener" href="https://mermaid.nodejs.cn/intro/syntax-reference.html">Mermaid 的语法</a> 应该没有问题。</p>
+<p>如果你熟悉 Markdown，那么学习 <a
+target="_blank" rel="noopener" href="https://mermaid.nodejs.cn/intro/syntax-reference.html">Mermaid
+的语法</a> 应该没有问题。</p>
 </blockquote>
 <p>图表和文档会耗费开发者宝贵的时间，并且很快就会过时。但是，没有图表或文档会破坏生产力并损害组织学习。</p>
-<p>Mermaid 通过使用户能够创建易于修改的图表来解决这个问题，它也可以成为生产脚本（和其他代码片段）的一部分。</p>
-<p>Mermaid 甚至可以让非程序员通过 <a target="_blank" rel="noopener" href="https://mermaid-live.nodejs.cn/">Mermaid 在线编辑器</a> 轻松创建详细图和图表。<a target="_blank" rel="noopener" href="https://mermaid.nodejs.cn/ecosystem/tutorials.html">教程</a> 有视频教程。</p>
-<p>将 Mermaid 与你最喜欢的应用一起使用，查看 <a target="_blank" rel="noopener" href="https://mermaid.nodejs.cn/ecosystem/integrations-community.html">社区集成</a> 的列表。</p>
-<p>有关 Mermaid 及其一些更基本用途的更详细介绍，请参阅 <a target="_blank" rel="noopener" href="https://mermaid.nodejs.cn/intro/getting-started.html">初学者指南</a> 和 <a target="_blank" rel="noopener" href="https://mermaid.nodejs.cn/config/usage.html">用法</a>。</p>
-<h1 id="2-实用教程"><a class="markdownIt-Anchor" href="#2-实用教程"></a> 2. 实用教程</h1>
-<p>Mermaid 是一个用于画流程图、状态图、时序图、甘特图的库，使用 JS 进行本地渲染，广泛集成于许多 Markdown 编辑器中。</p>
-<p>Mermaid 作为一个使用 JS 渲染的库，生成的不是一个“图片”，而是一段 HTML 代码，因此安全许多。</p>
-<h2 id="21-流程图的参数"><a class="markdownIt-Anchor" href="#21-流程图的参数"></a> 2.1 流程图的参数</h2>
-<h4 id="图表方向"><a class="markdownIt-Anchor" href="#图表方向"></a> <strong>图表方向</strong></h4>
+<p>Mermaid
+通过使用户能够创建易于修改的图表来解决这个问题，它也可以成为生产脚本（和其他代码片段）的一部分。</p>
+<p>Mermaid 甚至可以让非程序员通过 <a
+target="_blank" rel="noopener" href="https://mermaid-live.nodejs.cn/">Mermaid 在线编辑器</a>
+轻松创建详细图和图表。<a
+target="_blank" rel="noopener" href="https://mermaid.nodejs.cn/ecosystem/tutorials.html">教程</a>
+有视频教程。</p>
+<p>将 Mermaid 与你最喜欢的应用一起使用，查看 <a
+target="_blank" rel="noopener" href="https://mermaid.nodejs.cn/ecosystem/integrations-community.html">社区集成</a>
+的列表。</p>
+<p>有关 Mermaid 及其一些更基本用途的更详细介绍，请参阅 <a
+target="_blank" rel="noopener" href="https://mermaid.nodejs.cn/intro/getting-started.html">初学者指南</a>
+和 <a target="_blank" rel="noopener" href="https://mermaid.nodejs.cn/config/usage.html">用法</a>。</p>
+<h1 id="实用教程">2. 实用教程</h1>
+<p>Mermaid 是一个用于画流程图、状态图、时序图、甘特图的库，使用 JS
+进行本地渲染，广泛集成于许多 Markdown 编辑器中。</p>
+<p>Mermaid 作为一个使用 JS 渲染的库，生成的不是一个“图片”，而是一段 HTML
+代码，因此安全许多。</p>
+<h2 id="流程图的参数">2.1 流程图的参数</h2>
+<h4 id="图表方向"><strong>图表方向</strong></h4>
 <p><code>mermaid</code> 支持多种图表的方向， 语法如下：</p>
 <figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">graph 方向描述</span><br><span class="line"><span class="code">    图表中的其他语句...</span></span><br></pre></td></tr></table></figure>
 <p>其中“方向描述”为</p>
 <table>
 <thead>
-<tr>
+<tr class="header">
 <th>用词</th>
 <th>含义</th>
 </tr>
 </thead>
 <tbody>
-<tr>
+<tr class="odd">
 <td><code>TB</code></td>
 <td>从上到下</td>
 </tr>
-<tr>
+<tr class="even">
 <td><code>BT</code></td>
 <td>从下到上</td>
 </tr>
-<tr>
+<tr class="odd">
 <td><code>RL</code></td>
 <td>从右到左</td>
 </tr>
-<tr>
+<tr class="even">
 <td><code>LR</code></td>
 <td>从左到右</td>
 </tr>
 </tbody>
 </table>
-<h4 id="节点定义"><a class="markdownIt-Anchor" href="#节点定义"></a> <strong>节点定义</strong></h4>
-<p>即流程图中每个文本块，包括开始、结束、处理、判断等。Mermaid 中每个节点都有一个 id，以及节点的文字。</p>
+<h4 id="节点定义"><strong>节点定义</strong></h4>
+<p>即流程图中每个文本块，包括开始、结束、处理、判断等。Mermaid
+中每个节点都有一个 id，以及节点的文字。</p>
 <table>
 <thead>
-<tr>
+<tr class="header">
 <th>表述</th>
 <th>说明</th>
 </tr>
 </thead>
 <tbody>
-<tr>
+<tr class="odd">
 <td><code>id[文字]</code></td>
 <td>矩形节点</td>
 </tr>
-<tr>
+<tr class="even">
 <td><code>id(文字)</code></td>
 <td>圆角矩形节点</td>
 </tr>
-<tr>
+<tr class="odd">
 <td><code>id((文字))</code></td>
 <td>圆形节点</td>
 </tr>
-<tr>
+<tr class="even">
 <td><code>id&gt;文字]</code></td>
 <td>右向旗帜状节点</td>
 </tr>
-<tr>
+<tr class="odd">
 <td><code>id&#123;文字&#125;</code></td>
 <td>菱形节点</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Note</strong>：如果节点的文字中包含标点符号，需要时用双引号包裹起来。另外如果希望在文字中使用换行，请使用<code>&lt;br&gt;</code>替换换行</p>
-<h4 id="节点连线"><a class="markdownIt-Anchor" href="#节点连线"></a> 节点连线</h4>
+<h4 id="节点连线">节点连线</h4>
 <table>
 <thead>
-<tr>
+<tr class="header">
 <th>表述</th>
 <th>说明</th>
 </tr>
 </thead>
 <tbody>
-<tr>
+<tr class="odd">
 <td><code>&gt;</code></td>
 <td>添加尾部箭头</td>
 </tr>
-<tr>
+<tr class="even">
 <td><code>-</code></td>
 <td>不添加尾部箭头</td>
 </tr>
-<tr>
+<tr class="odd">
 <td><code>--</code></td>
 <td>单线</td>
 </tr>
-<tr>
+<tr class="even">
 <td><code>--text--</code></td>
 <td>单线上加文字</td>
 </tr>
-<tr>
+<tr class="odd">
 <td><code>==</code></td>
 <td>粗线</td>
 </tr>
-<tr>
+<tr class="even">
 <td><code>==text==</code></td>
 <td>粗线加文字</td>
 </tr>
-<tr>
+<tr class="odd">
 <td><code>-.-</code></td>
 <td>虚线</td>
 </tr>
-<tr>
+<tr class="even">
 <td><code>-.text.-</code></td>
 <td>虚线加文字</td>
 </tr>
 </tbody>
 </table>
-<h2 id="22-复杂案列"><a class="markdownIt-Anchor" href="#22-复杂案列"></a> 2.2 复杂案列</h2>
-<ol>
+<h2 id="复杂案列">2.2 复杂案列</h2>
+<ol type="1">
 <li><strong>线形的思维导图</strong> <code>mindmap</code>:</li>
 </ol>
 <figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">graph LR</span><br><span class="line">A[判定三角形全等] --&gt; B2[已知一边一角];</span><br><span class="line">B2 --&gt; B21&gt;边为角的对边];</span><br><span class="line">B21 --&gt; B211&gt;找任意一角 AAS];</span><br><span class="line">B2 --&gt; B22[边为角的邻边];</span><br><span class="line">B22 --&gt; B221&gt;找角的另一邻边 SAS];</span><br><span class="line">B22 --&gt; B222&gt;找边的另一邻角 ASA];</span><br><span class="line">B22 --&gt; B223&gt;找边的对角 AAS];</span><br><span class="line">A --&gt; B3[已知两角];</span><br><span class="line">B3 --&gt; B31&gt;找夹边 ASA];</span><br><span class="line">B3 --&gt; B32&gt;找角的对边 AAS];</span><br></pre></td></tr></table></figure>
@@ -429,7 +446,7 @@ B22 --> B223>找边的对角 AAS];
 A --> B3[已知两角];
 B3 --> B31>找夹边 ASA];
 B3 --> B32>找角的对边 AAS];</pre>
-<ol start="2">
+<ol start="2" type="1">
 <li><strong>流程图</strong>：</li>
 </ol>
 <figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">graph TB</span><br><span class="line"><span class="code">    id1(圆角矩形)--普通线--&gt;id2[矩形]</span></span><br><span class="line"><span class="code">    subgraph 子图表</span></span><br><span class="line"><span class="code">        id2==粗线==&gt;id3&#123;菱形&#125;</span></span><br><span class="line"><span class="code">        id3-.虚线.-&gt;id4&gt;右向旗帜]</span></span><br><span class="line"><span class="code">        id3--无箭头---id5((圆形))</span></span><br><span class="line"><span class="code">    end</span></span><br></pre></td></tr></table></figure>
@@ -441,9 +458,12 @@ B3 --> B32>找角的对边 AAS];</pre>
         id3-.虚线.->id4>右向旗帜]
         id3--无箭头---id5((圆形))
     end</pre>
-<h1 id="3-图表类型"><a class="markdownIt-Anchor" href="#3-图表类型"></a> 3. 图表类型</h1>
-<p><code>Mermaid</code> 在 <code>Markdown</code> 中的使用也颇为简单，只需要在代码块中使用 <code>mermaid</code> 即可渲染。</p>
-<h3 id="31-流程图"><a class="markdownIt-Anchor" href="#31-流程图"></a> 3.1 <a target="_blank" rel="noopener" href="https://mermaid.nodejs.cn/syntax/flowchart.html?id=flowcharts-basic-syntax">流程图</a></h3>
+<h1 id="图表类型">3. 图表类型</h1>
+<p><code>Mermaid</code> 在 <code>Markdown</code>
+中的使用也颇为简单，只需要在代码块中使用 <code>mermaid</code>
+即可渲染。</p>
+<h3 id="流程图">3.1 <a
+target="_blank" rel="noopener" href="https://mermaid.nodejs.cn/syntax/flowchart.html?id=flowcharts-basic-syntax">流程图</a></h3>
 <p>代码:</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;pre class&#x3D;&quot;mermaid&quot;&gt;  graph TD;</span><br><span class="line">      A--&gt;B;</span><br><span class="line">      A--&gt;C;</span><br><span class="line">      B--&gt;D;</span><br><span class="line">      C--&gt;D;&lt;&#x2F;pre&gt;</span><br></pre></td></tr></table></figure>
 <pre class="mermaid">graph TD;
@@ -451,7 +471,8 @@ B3 --> B32>找角的对边 AAS];</pre>
     A-->C;
     B-->D;
     C-->D;</pre>
-<h3 id="32-时序图"><a class="markdownIt-Anchor" href="#32-时序图"></a> 3.2 <a target="_blank" rel="noopener" href="https://mermaid.nodejs.cn/syntax/sequenceDiagram.html">时序图</a></h3>
+<h3 id="时序图">3.2 <a
+target="_blank" rel="noopener" href="https://mermaid.nodejs.cn/syntax/sequenceDiagram.html">时序图</a></h3>
 <p>代码:</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">sequenceDiagram</span><br><span class="line">    participant Alice</span><br><span class="line">    participant Bob</span><br><span class="line">    Alice-&gt;&gt;John: Hello John, how are you?</span><br><span class="line">    loop HealthCheck</span><br><span class="line">        John-&gt;&gt;John: Fight against hypochondria</span><br><span class="line">    end</span><br><span class="line">    Note right of John: Rational thoughts &lt;br&#x2F;&gt;prevail!</span><br><span class="line">    John--&gt;&gt;Alice: Great!</span><br><span class="line">    John-&gt;&gt;Bob: How about you?</span><br><span class="line">    Bob--&gt;&gt;John: Jolly good!</span><br></pre></td></tr></table></figure>
 <p>Results:</p>
@@ -466,7 +487,8 @@ B3 --> B32>找角的对边 AAS];</pre>
     John-->>Alice: Great!
     John->>Bob: How about you?
     Bob-->>John: Jolly good!</pre>
-<h3 id="33-甘特图"><a class="markdownIt-Anchor" href="#33-甘特图"></a> 3.3 <a target="_blank" rel="noopener" href="https://mermaid.nodejs.cn/syntax/gantt.html">甘特图</a></h3>
+<h3 id="甘特图">3.3 <a
+target="_blank" rel="noopener" href="https://mermaid.nodejs.cn/syntax/gantt.html">甘特图</a></h3>
 <p>代码:</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">gantt</span><br><span class="line">dateFormat  YYYY-MM-DD</span><br><span class="line">title Adding GANTT diagram to mermaid</span><br><span class="line">excludes weekdays 2014-01-10</span><br><span class="line"></span><br><span class="line">section A section</span><br><span class="line">Completed task            :done,    des1, 2014-01-06,2014-01-08</span><br><span class="line">Active task               :active,  des2, 2014-01-09, 3d</span><br><span class="line">Future task               :         des3, after des2, 5d</span><br><span class="line">Future task2               :         des4, after des3, 5d</span><br></pre></td></tr></table></figure>
 <p>Reesult:</p>
@@ -480,7 +502,8 @@ Completed task            :done,    des1, 2014-01-06,2014-01-08
 Active task               :active,  des2, 2014-01-09, 3d
 Future task               :         des3, after des2, 5d
 Future task2               :         des4, after des3, 5d</pre>
-<h3 id="34-类图"><a class="markdownIt-Anchor" href="#34-类图"></a> 3.4 <a target="_blank" rel="noopener" href="https://mermaid.nodejs.cn/syntax/classDiagram.html">类图</a></h3>
+<h3 id="类图">3.4 <a
+target="_blank" rel="noopener" href="https://mermaid.nodejs.cn/syntax/classDiagram.html">类图</a></h3>
 <p>代码:</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">classDiagram</span><br><span class="line">Class01 &lt;|-- AveryLongClass : Cool</span><br><span class="line">Class03 *-- Class04</span><br><span class="line">Class05 o-- Class06</span><br><span class="line">Class07 .. Class08</span><br><span class="line">Class09 --&gt; C2 : Where am i?</span><br><span class="line">Class09 --* C3</span><br><span class="line">Class09 --|&gt; Class07</span><br><span class="line">Class07 : equals()</span><br><span class="line">Class07 : Object[] elementData</span><br><span class="line">Class01 : size()</span><br><span class="line">Class01 : int chimp</span><br><span class="line">Class01 : int gorilla</span><br><span class="line">Class08 &lt;--&gt; C2: Cool label</span><br></pre></td></tr></table></figure>
 <p>Results:</p>
@@ -498,7 +521,9 @@ Class01 : size()
 Class01 : int chimp
 Class01 : int gorilla
 Class08 <--> C2: Cool label</pre>
-<h3 id="35实体关系图-实验"><a class="markdownIt-Anchor" href="#35实体关系图-实验"></a> 3.5<a target="_blank" rel="noopener" href="https://mermaid.nodejs.cn/syntax/entityRelationshipDiagram.html">实体关系图 - ❗实验</a></h3>
+<h3 id="实体关系图---实验">3.5<a
+target="_blank" rel="noopener" href="https://mermaid.nodejs.cn/syntax/entityRelationshipDiagram.html">实体关系图
+- ❗实验</a></h3>
 <p>代码:</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">erDiagram</span><br><span class="line">    CUSTOMER ||--o&#123; ORDER : places</span><br><span class="line">    ORDER ||--|&#123; LINE-ITEM : contains</span><br><span class="line">    CUSTOMER &#125;|..|&#123; DELIVERY-ADDRESS : uses</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 <p>Results:</p>
@@ -506,7 +531,8 @@ Class08 <--> C2: Cool label</pre>
     CUSTOMER ||--o{ ORDER : places
     ORDER ||--|{ LINE-ITEM : contains
     CUSTOMER }|..|{ DELIVERY-ADDRESS : uses</pre>
-<h3 id="36-用户旅程图"><a class="markdownIt-Anchor" href="#36-用户旅程图"></a> 3.6 <a target="_blank" rel="noopener" href="https://mermaid.nodejs.cn/syntax/userJourney.html">用户旅程图</a></h3>
+<h3 id="用户旅程图">3.6 <a
+target="_blank" rel="noopener" href="https://mermaid.nodejs.cn/syntax/userJourney.html">用户旅程图</a></h3>
 <p>代码:</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">journey</span><br><span class="line">    title My working day</span><br><span class="line">    section Go to work</span><br><span class="line">      Make tea: 5: Me</span><br><span class="line">      Go upstairs: 3: Me</span><br><span class="line">      Do work: 1: Me, Cat</span><br><span class="line">    section Go home</span><br><span class="line">      Go downstairs: 5: Me</span><br><span class="line">      Sit down: 5: Me</span><br></pre></td></tr></table></figure>
 <p>Results:</p>
@@ -635,7 +661,8 @@ Class08 <--> C2: Cool label</pre>
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-%E5%85%B3%E4%BA%8Emermaid"><span class="nav-text"> 1. 关于Mermaid</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-%E5%AE%9E%E7%94%A8%E6%95%99%E7%A8%8B"><span class="nav-text"> 2. 实用教程</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#21-%E6%B5%81%E7%A8%8B%E5%9B%BE%E7%9A%84%E5%8F%82%E6%95%B0"><span class="nav-text"> 2.1 流程图的参数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9B%BE%E8%A1%A8%E6%96%B9%E5%90%91"><span class="nav-text"> 图表方向</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%8A%82%E7%82%B9%E5%AE%9A%E4%B9%89"><span class="nav-text"> 节点定义</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%8A%82%E7%82%B9%E8%BF%9E%E7%BA%BF"><span class="nav-text"> 节点连线</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#22-%E5%A4%8D%E6%9D%82%E6%A1%88%E5%88%97"><span class="nav-text"> 2.2 复杂案列</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-%E5%9B%BE%E8%A1%A8%E7%B1%BB%E5%9E%8B"><span class="nav-text"> 3. 图表类型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#31-%E6%B5%81%E7%A8%8B%E5%9B%BE"><span class="nav-text"> 3.1 流程图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#32-%E6%97%B6%E5%BA%8F%E5%9B%BE"><span class="nav-text"> 3.2 时序图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#33-%E7%94%98%E7%89%B9%E5%9B%BE"><span class="nav-text"> 3.3 甘特图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#34-%E7%B1%BB%E5%9B%BE"><span class="nav-text"> 3.4 类图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#35%E5%AE%9E%E4%BD%93%E5%85%B3%E7%B3%BB%E5%9B%BE-%E5%AE%9E%E9%AA%8C"><span class="nav-text"> 3.5实体关系图 - ❗实验</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#36-%E7%94%A8%E6%88%B7%E6%97%85%E7%A8%8B%E5%9B%BE"><span class="nav-text"> 3.6 用户旅程图</span></a></li></ol></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%85%B3%E4%BA%8Emermaid"><span class="nav-text">1. 关于Mermaid</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%9E%E7%94%A8%E6%95%99%E7%A8%8B"><span class="nav-text">2. 实用教程</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B5%81%E7%A8%8B%E5%9B%BE%E7%9A%84%E5%8F%82%E6%95%B0"><span class="nav-text">2.1 流程图的参数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9B%BE%E8%A1%A8%E6%96%B9%E5%90%91"><span class="nav-text">图表方向</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%8A%82%E7%82%B9%E5%AE%9A%E4%B9%89"><span class="nav-text">节点定义</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%8A%82%E7%82%B9%E8%BF%9E%E7%BA%BF"><span class="nav-text">节点连线</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%8D%E6%9D%82%E6%A1%88%E5%88%97"><span class="nav-text">2.2 复杂案列</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9B%BE%E8%A1%A8%E7%B1%BB%E5%9E%8B"><span class="nav-text">3. 图表类型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B5%81%E7%A8%8B%E5%9B%BE"><span class="nav-text">3.1 流程图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%97%B6%E5%BA%8F%E5%9B%BE"><span class="nav-text">3.2 时序图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%94%98%E7%89%B9%E5%9B%BE"><span class="nav-text">3.3 甘特图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%B1%BB%E5%9B%BE"><span class="nav-text">3.4 类图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9E%E4%BD%93%E5%85%B3%E7%B3%BB%E5%9B%BE---%E5%AE%9E%E9%AA%8C"><span class="nav-text">3.5实体关系图
+- ❗实验</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%94%A8%E6%88%B7%E6%97%85%E7%A8%8B%E5%9B%BE"><span class="nav-text">3.6 用户旅程图</span></a></li></ol></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -651,7 +678,7 @@ Class08 <--> C2: Cool label</pre>
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">75</span>
+          <span class="site-state-item-count">76</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -664,7 +691,7 @@ Class08 <--> C2: Cool label</pre>
       <div class="site-state-item site-state-tags">
             <a href="/Tags/">
           
-        <span class="site-state-item-count">44</span>
+        <span class="site-state-item-count">45</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
