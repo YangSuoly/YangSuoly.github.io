@@ -26,20 +26,20 @@
 
   <meta name="description" content="用智谱 GLM-4.7 + Composio 打造本地化 Cowork 开发环境 1. 前言：为什么要做这次“心脏移植”？ 最近想玩玩 cowork ，但是 Anthropic 中只有 Pro 和 Max 用户可以使用。因此在考虑用其他方式平替，刚好发现 open-claude-cowork 这个开源项目，它提供了一个非常棒的 Electron 客户端，能让你像用 IDE 一样开发 AI Agen">
 <meta property="og:type" content="article">
-<meta property="og:title" content="open-claude-cowork">
-<meta property="og:url" content="http://yangsuoly.com/2026/01/21/open-claude-cowork/index.html">
+<meta property="og:title" content="Open-claude-cowork">
+<meta property="og:url" content="http://yangsuoly.com/2026/01/21/Open-claude-cowork/index.html">
 <meta property="og:site_name" content="独孤诗人的学习驿站">
 <meta property="og:description" content="用智谱 GLM-4.7 + Composio 打造本地化 Cowork 开发环境 1. 前言：为什么要做这次“心脏移植”？ 最近想玩玩 cowork ，但是 Anthropic 中只有 Pro 和 Max 用户可以使用。因此在考虑用其他方式平替，刚好发现 open-claude-cowork 这个开源项目，它提供了一个非常棒的 Electron 客户端，能让你像用 IDE 一样开发 AI Agen">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2026-01-21T11:19:41.000Z">
-<meta property="article:modified_time" content="2026-01-21T11:41:23.110Z">
+<meta property="article:modified_time" content="2026-01-21T11:45:16.578Z">
 <meta property="article:author" content="YangSu">
 <meta property="article:tag" content="Tool">
 <meta property="article:tag" content="Claude-Code">
 <meta property="article:tag" content="Cowork">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://yangsuoly.com/2026/01/21/open-claude-cowork/">
+<link rel="canonical" href="http://yangsuoly.com/2026/01/21/Open-claude-cowork/">
 
 
 <script id="page-configurations">
@@ -52,7 +52,7 @@
   };
 </script>
 
-  <title>open-claude-cowork | 独孤诗人的学习驿站</title>
+  <title>Open-claude-cowork | 独孤诗人的学习驿站</title>
   
 
 
@@ -215,7 +215,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yangsuoly.com/2026/01/21/open-claude-cowork/">
+    <link itemprop="mainEntityOfPage" href="http://yangsuoly.com/2026/01/21/Open-claude-cowork/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/YangSu.jpg">
@@ -228,7 +228,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          open-claude-cowork
+          Open-claude-cowork
         </h1>
 
         <div class="post-meta">
@@ -239,7 +239,7 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2026-01-21 19:19:41 / Modified: 19:41:23" itemprop="dateCreated datePublished" datetime="2026-01-21T19:19:41+08:00">2026-01-21</time>
+              <time title="Created: 2026-01-21 19:19:41 / Modified: 19:45:16" itemprop="dateCreated datePublished" datetime="2026-01-21T19:19:41+08:00">2026-01-21</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -302,12 +302,8 @@ GLM-4.7 + Composio 打造本地化 Cowork 开发环境</h1>
 Cowork工具。</p>
 <a id="more"></a>
 <p>今天就带大家手把手完成这次“本地化手术”。下面是实现后的效果：</p>
-<figure>
-<img
-src="https://cdn.jsdelivr.net/gh/YangSuoly/Images/Claude-code/202601211935247.png"
-alt="image.png" />
-<figcaption aria-hidden="true">image.png</figcaption>
-</figure>
+<p><img
+src="https://cdn.jsdelivr.net/gh/YangSuoly/Images/Claude-code/202601211935247.png" /></p>
 <h2 id="准备工作">2. 准备工作</h2>
 <p>在动手术前，我们需要准备好手术台和工具。</p>
 <h3 id="必需软件">2.1 必需软件</h3>
@@ -368,12 +364,8 @@ Composio，否则就优雅地跳过，而不是报错。</p>
 <p>如果它回答“我是 Claude...”，别担心，这是因为系统提示词里写死了。</p>
 <p>关键看后台日志，如果请求发往了
 <code>open.bigmodel.cn</code>，说明替换成功！</p>
-<figure>
-<img
-src="https://cdn.jsdelivr.net/gh/YangSuoly/Images/Claude-code/202601211940784.png"
-alt="image.png" />
-<figcaption aria-hidden="true">image.png</figcaption>
-</figure>
+<p><img
+src="https://cdn.jsdelivr.net/gh/YangSuoly/Images/Claude-code/202601211940784.png" /></p>
 <figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><span class="line">你好！让我来介绍一下自己：</span><br><span class="line"></span><br><span class="line">🤖 我是谁</span><br><span class="line">我是 Claude，由 Anthropic 开发的 AI 助手。我可以通过 Claude Code 这个 CLI 工具与你交互，帮助你完成各种编程和日常任务。</span><br><span class="line"></span><br><span class="line">💡 我的核心功能</span><br><span class="line"><span class="bullet">1.</span> 代码开发与编辑</span><br><span class="line">✍️ 编写代码 - 支持各种编程语言（Python、JavaScript、TypeScript、Go、Rust 等）</span><br><span class="line">📝 编辑文件 - 读取、修改、创建项目文件</span><br><span class="line">🔍 代码搜索 - 使用 Grep/Glob 快速查找代码和文件</span><br><span class="line">🐛 调试问题 - 分析错误、修复 bug</span><br><span class="line"></span><br><span class="line"><span class="bullet">2.</span> 项目操作</span><br><span class="line">📂 探索代码库 - 理解项目结构和架构</span><br><span class="line">🏗️ 实现新功能 - 设计并添加新模块、API、组件</span><br><span class="line">🔄 重构代码 - 优化现有代码结构</span><br><span class="line">📋 任务管理 - 使用 TodoList 跟踪多步骤任务</span><br><span class="line"></span><br><span class="line"><span class="bullet">3.</span> Git 与版本控制</span><br><span class="line">🔀 Git 操作 - 提交代码、创建分支、查看状态</span><br><span class="line">📌 创建 Pull Request - 自动生成 PR 描述</span><br><span class="line">📜 查看历史 - 浏览提交记录和变更</span><br><span class="line"></span><br><span class="line"><span class="bullet">4.</span> 终端与命令执行</span><br><span class="line">⚡ 运行命令 - 执行 bash 命令（npm、git、docker 等）</span><br><span class="line">🧪 运行测试 - 执行单元测试、集成测试</span><br><span class="line">🔨 构建项目 - 编译、打包项目</span><br><span class="line"></span><br><span class="line"><span class="bullet">5.</span> 智能代理</span><br><span class="line">🤖 子代理系统 - 可启动专门的代理处理复杂任务</span><br><span class="line">📚 通用研究 - 搜索信息、分析问题</span><br><span class="line">🗺️ 架构规划 - 为复杂功能设计实现方案</span><br><span class="line">🌍 网页搜索 - 获取最新信息（如刚才的 iPhone 价格查询）</span><br><span class="line"></span><br><span class="line"><span class="bullet">6.</span> 其他能力</span><br><span class="line">📊 读取图片/PDF - 支持多模态内容理解</span><br><span class="line">📓 Jupyter Notebook - 编辑 .ipynb 文件</span><br><span class="line">🖼️ 图片分析 - 分析远程 URL 图片</span><br><span class="line">🌐 网页抓取 - 读取网页内容</span><br><span class="line">🎯 我可以帮你做什么？</span><br><span class="line"></span><br><span class="line">编程相关</span><br><span class="line"><span class="bullet">  -</span> &quot;帮我实现用户登录功能&quot;</span><br><span class="line"><span class="bullet">  -</span> &quot;修复这个 bug: xxx&quot;</span><br><span class="line"><span class="bullet">  -</span> &quot;重构这段代码&quot;</span><br><span class="line"><span class="bullet">  -</span> &quot;写一个 Python 脚本处理数据&quot;</span><br><span class="line"><span class="bullet">  -</span> &quot;解释这段代码的作用&quot;</span><br><span class="line"></span><br><span class="line">项目管理</span><br><span class="line"><span class="bullet">  -</span> &quot;创建一个 git commit&quot;</span><br><span class="line"><span class="bullet">  -</span> &quot;查看项目结构&quot;</span><br><span class="line"><span class="bullet">  -</span> &quot;搜索所有包含 &#x27;config&#x27; 的文件&quot;</span><br><span class="line"><span class="bullet">  -</span> &quot;运行测试&quot;</span><br><span class="line"></span><br><span class="line">信息查询</span><br><span class="line"><span class="bullet">  -</span> &quot;搜索最新的 React 文档&quot;</span><br><span class="line"><span class="bullet">  -</span> &quot;查找 Python 如何处理日期&quot;</span><br><span class="line">  </span><br><span class="line">💡 特点</span><br><span class="line">🔐 安全优先 - 执行危险操作前会询问你</span><br><span class="line">📋 任务追踪 - 自动管理复杂任务列表</span><br><span class="line">🤝 协作模式 - 遇到模糊需求会主动询问</span><br><span class="line">🧠 上下文记忆 - 记住对话中的信息</span><br><span class="line">有什么我可以帮你的吗？ 😊</span><br></pre></td></tr></table></figure>
 <h3 id="进阶测试联网搜索-websearch">4.2 进阶测试：联网搜索
 (WebSearch)</h3>
@@ -385,12 +377,8 @@ alt="image.png" />
 <li>Composio 抓取 Google/Bing 结果。</li>
 <li>GLM 总结结果并返回给你。</li>
 </ol>
-<figure>
-<img
-src="https://cdn.jsdelivr.net/gh/YangSuoly/Images/Claude-code/202601211938021.png"
-alt="image.png" />
-<figcaption aria-hidden="true">image.png</figcaption>
-</figure>
+<p><img
+src="https://cdn.jsdelivr.net/gh/YangSuoly/Images/Claude-code/202601211938021.png" /></p>
 <h3 id="高级测试本地文件操作-file-edit">4.3 高级测试：本地文件操作 (File
 Edit)</h3>
 <p>输入：“在当前目录创建一个 <code>hello_glm.py</code>，内容是打印 1 到
@@ -465,7 +453,7 @@ Hacking! 👨‍💻</p>
   </li>
   <li class="post-copyright-link">
     <strong>Post link: </strong>
-    <a href="http://yangsuoly.com/2026/01/21/open-claude-cowork/" title="open-claude-cowork">http://yangsuoly.com/2026/01/21/open-claude-cowork/</a>
+    <a href="http://yangsuoly.com/2026/01/21/Open-claude-cowork/" title="Open-claude-cowork">http://yangsuoly.com/2026/01/21/Open-claude-cowork/</a>
   </li>
 </ul>
 </div>
@@ -814,7 +802,7 @@ if (document.querySelectorAll('pre.mermaid').length) {
       quicklink({
         timeout : 3000,
         priority: true,
-        ignores : [uri => uri.includes('#'),uri => uri === 'http://yangsuoly.com/2026/01/21/open-claude-cowork/',]
+        ignores : [uri => uri.includes('#'),uri => uri === 'http://yangsuoly.com/2026/01/21/Open-claude-cowork/',]
       });
       });
   </script>
