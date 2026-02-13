@@ -1,0 +1,1181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/blog-logo-32px.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/blog-logo-16px.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <link rel="manifest" href="/images/manifest.json">
+  <meta name="msapplication-config" content="/images/browserconfig.xml">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yangsuoly.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":true},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":true,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="7. 模型训练 上一章讨论了大语言模型 Transformer 的模型结构，本章节将讨论如何训练大语言模型，主要包含 目标函数 和 优化算法 两部分。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Large-lm-6-Training">
+<meta property="og:url" content="http://yangsuoly.com/2023/09/16/Large-lm-6-Training/index.html">
+<meta property="og:site_name" content="独孤诗人的学习驿站">
+<meta property="og:description" content="7. 模型训练 上一章讨论了大语言模型 Transformer 的模型结构，本章节将讨论如何训练大语言模型，主要包含 目标函数 和 优化算法 两部分。">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/YangSuoly/Images/Large-LM/202309161629809.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/YangSuoly/Images/Large-LM/202309161647208.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/YangSuoly/Images/Large-LM/202309161649991.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/YangSuoly/Images/Large-LM/202309161650263.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/YangSuoly/Images/Large-LM/202309161655620.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/YangSuoly/Images/Large-LM/202309161724301.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/YangSuoly/Images/Large-LM/202309161725253.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/YangSuoly/Images/Large-LM/202309161728370.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/YangSuoly/Images/Large-LM/202309161730896.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/YangSuoly/Images/Large-LM/202309161733607.png">
+<meta property="article:published_time" content="2023-09-16T08:07:10.000Z">
+<meta property="article:modified_time" content="2023-09-16T09:34:28.676Z">
+<meta property="article:author" content="YangSu">
+<meta property="article:tag" content="LM">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/YangSuoly/Images/Large-LM/202309161629809.png">
+
+<link rel="canonical" href="http://yangsuoly.com/2023/09/16/Large-lm-6-Training/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>Large-lm-6-Training | 独孤诗人的学习驿站</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?f59f5fb59d32ec3903088b0f976956d1";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta custom-logo">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">独孤诗人的学习驿站</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">生活就是一半烟火，一半诗意。手执烟火谋生活，心怀诗意谋未来……</p>
+      <a>
+        <img class="custom-logo-image" src="/images/logo@2x.png" alt="独孤诗人的学习驿站">
+      </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/Tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/Categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+  <a href="https://github.com/YangSuoly" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yangsuoly.com/2023/09/16/Large-lm-6-Training/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/YangSu.jpg">
+      <meta itemprop="name" content="YangSu">
+      <meta itemprop="description" content="A blog for recording learning notes...">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="独孤诗人的学习驿站">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Large-lm-6-Training
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2023-09-16 16:07:10 / Modified: 17:34:28" itemprop="dateCreated datePublished" datetime="2023-09-16T16:07:10+08:00">2023-09-16</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/Categories/DataWhale/" itemprop="url" rel="index"><span itemprop="name">DataWhale</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/Categories/DataWhale/Large-LM/" itemprop="url" rel="index"><span itemprop="name">Large LM</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="Views" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span><br>
+            <span class="post-meta-item" title="Symbols count in article">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">Symbols count in article: </span>
+              <span>8.4k</span>
+            </span>
+            <span class="post-meta-item" title="Reading time">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">Reading time &asymp;</span>
+              <span>8 mins.</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="模型训练">7. 模型训练</h1>
+<p>上一章讨论了大语言模型 <code>Transformer</code>
+的模型结构，本章节将讨论如何训练大语言模型，主要包含
+<strong>目标函数</strong> 和 <strong>优化算法</strong> 两部分。</p>
+<a id="more"></a>
+<h2 id="目标函数">7.1 目标函数</h2>
+<p>我们研究三类语言模型的目标函数：</p>
+<ol type="1">
+<li>只包含解码器（Decoder-only）的模型（例如，GPT-3）：计算单向上下文嵌入（contextual
+embeddings），一次生成一个token</li>
+<li>只包含编码器（Encoder-only）的模型（例如，BERT）：计算双向上下文嵌入</li>
+<li>编码器解码器（Encoder-decoder）模型（例如，T5）：编码输入，解码输出</li>
+</ol>
+<p>我们可以使用任何模型将 <code>token</code>
+序列映射到上下文嵌入中：</p>
+<p><span class="math display">
+\phi : V^L \to \mathbb{R}^{d \times L}.
+</span></p>
+<p><span class="math display">
+\left[\text{the}, \text{mouse}, \text{ate}, \text{the},
+\text{cheese}\right] \stackrel{\phi}{\Rightarrow} \left[\binom{1}{0.1},
+\binom{0}{1}, \binom{1}{1}, \binom{1}{-0.1}, \binom{0}{-1} \right].
+</span></p>
+<h3 id="decode-only-模型">7.1.1 Decode-only 模型</h3>
+<p>在自回归语言模型中，我们定义了一个条件分布： <span
+class="math display">
+p(x_i \mid x_{1:i-1}).
+</span> 其定义如下：</p>
+<ul>
+<li>将 <span class="math inline">x_{1:i-1}</span> 映射到上下文嵌入 <span
+class="math inline">\phi(x_{1:i-1})</span>。</li>
+<li>应用嵌入矩阵 <span class="math inline">E \in \R^{V \times d}</span>
+来获得每个 <code>token</code> 的得分 <span class="math inline">E
+\phi(x_{1:i-1})_{i-1}</span>。</li>
+<li>对其进行指数化和归一化，得到预测 <span
+class="math inline">x_i</span> 的分布。</li>
+</ul>
+<p>简洁地： <span class="math display">
+p(x_{i+1} \mid x_{1:i}) = softmax(E \phi(x_{1:i})_i).
+</span> 设 <span class="math inline">\theta</span>
+是大语言模型的所有参数，<span class="math inline">D</span>
+是由一组序列组成的训练数据。然后，借助最大似然原理，可以定义以下负对数似然目标函数：
+<span class="math display">
+O(\theta) = \sum_{x \in D} - \log p_\theta(x) = \sum_{x \in D}
+\sum_{i=1}^L -\log p_\theta(x_i \mid x_{1:i-1}).
+</span></p>
+<h3 id="encoder-only-模型">7.1.2 Encoder-only 模型</h3>
+<h4 id="bert-模型">7.1.2.1 BERT 模型</h4>
+<p>此处我们介绍 <a target="_blank" rel="noopener" href="https://arxiv.org/pdf/1810.04805.pdf">BERT</a>
+的目标函数，它包含两个部分：</p>
+<ul>
+<li>掩码语言模型（Masked language modeling）</li>
+<li>下一句预测（Next sentence prediction）</li>
+</ul>
+<p>以自然语言推理（预测隐含、矛盾或中性）任务中的序列为例： <span
+class="math display">
+x_{1:L} = [\text{[CLS]}, \text{all}, \text{animals}, \text{breathe},
+\text{[SEP]}, \text{cats}, \text{breathe}].
+</span> 其中有两个特殊的token：</p>
+<ul>
+<li><span
+class="math inline">\text{[CLS]}</span>：包含用于驱动分类任务的嵌入</li>
+<li><span
+class="math inline">\text{[SEP]}</span>：用于告诉模型第一个序列（例如，前提）与第二个序列（例如，假设）的位置。</li>
+</ul>
+<p><span class="math inline">\text{SentenceEmbedding}(x_{1:L})</span>
+根据序列返回以下两个矢量之一</p>
+<ul>
+<li>对于<span class="math inline">\text{[SEP]}</span>左边的，返回 <span
+class="math inline">e_A \in \mathbb{R}^d</span></li>
+<li>对于<span class="math inline">\text{[SEP]}</span>右边的，返回 <span
+class="math inline">e_B \in \mathbb{R}^d</span></li>
+</ul>
+<p><img src="https://cdn.jsdelivr.net/gh/YangSuoly/Images/Large-LM/202309161629809.png" style="zoom:75%;" /></p>
+<p><strong>Note</strong>：<code>BERT-large</code> 有 <span
+class="math inline">n_\text{heads} = 16</span> 个注意头，并且 <span
+class="math inline">d_\text{model} = 1024</span>，总共355M 个参数。</p>
+<h4 id="掩码语言模型">7.1.2.2 掩码语言模型</h4>
+<p>掩码语言模型的基本思想是通过 <strong>加噪</strong>
+然后预测来进行训练：</p>
+<p><span class="math display">
+[\text{the}, \text{[MASK]}, \text{ate}, \text{[MASK]}, \text{cheese}]
+\Rightarrow [\text{the}, \text{mouse}, \text{ate}, \text{the},
+\text{cheese}].
+</span></p>
+<p>更普遍地说，我们可以将其视为类似于
+<strong>去噪自动编码器</strong>，其中我们映射有噪声/不完整版本 <span
+class="math inline">\tilde x_{1:L}</span>，并尝试重建原始 <span
+class="math inline">x_{1:L}</span>。</p>
+<p><span class="math display">
+\tilde x_{1:L} \Rightarrow x_{1:L}.
+</span></p>
+<p><strong>建模</strong>：首先定义模型分布。给定输入 <span
+class="math inline">\tilde x_{1:L}</span>
+及其上下文嵌入，模型独立地预测每个 <code>token</code>： <span
+class="math display">
+p(x_i | \tilde x_{1:L}) = \text{softmax}(E \phi(\tilde x_{1:L})_i).
+</span></p>
+<p><strong>掩码：</strong>定义一个（随机）噪声函数 <span
+class="math inline">A(\tilde x_{1:L} \mid x_{1:L})</span>： <span
+class="math display">
+\underbrace{x_{1:L}}_\text{original} \stackrel{A}{\Rightarrow}
+\underbrace{\tilde x_{1:L}}_\text{noised}.
+</span></p>
+<p>其中，<span class="math inline">A</span> 的定义如下：</p>
+<ul>
+<li>假设 <span class="math inline">I \subset \{1, \dots, L\}</span>
+代表所有位置中随机的 <span class="math inline">15\%</span>。</li>
+<li>对于每个 <span class="math inline">i \in I</span>：
+<ul>
+<li>以 <code>0.8</code> 的概率，<span class="math inline">\tilde x_i
+\leftarrow \text{[MASK]}</span></li>
+<li>以 <code>0.1</code> 的概率，<span class="math inline">\tilde x_i
+\leftarrow x_i</span></li>
+<li>以 <code>0.1</code> 的概率，<span class="math inline">\tilde x_i
+\leftarrow \text{random word from } \mathcal{V}</span></li>
+</ul></li>
+</ul>
+<p><strong>减少分布偏移：</strong> 如果我们总是使用 <span
+class="math inline">\text{[MASK]}</span> 来替换 <span
+class="math inline">I</span> 中选定的 <code>token</code>，则：</p>
+<ul>
+<li>在训练期间，输入到 <code>BERT</code> 的都是带 <span
+class="math inline">\text{[MASK]}</span> 的序列。</li>
+<li>而在测试时，我们会输入没有 <span
+class="math inline">\text{[MASK]}</span>
+的句子，这将导致分布发生变化。一种启发式的解决方法是在 <span
+class="math inline">20\%</span> 的时间内用真实单词替换。</li>
+</ul>
+<h4 id="预测下一句">7.1.2.3 预测下一句</h4>
+<p>由于 <code>BERT</code>
+是在拼接好的成对句子上训练的，因下一句预测的目标是预测第二句是否跟随第一句：
+$$ <span class="math display">\begin{align*}
+[\text{[CLS]}, \text{the}, \text{mouse}, \text{ate}, \text{the},
+\text{cheese}, \text{[SEP]}, \text{it}, \text{was}, \text{full}]
+&amp;\Rightarrow 1. \\
+
+[\text{[CLS]}, \text{the}, \text{mouse}, \text{ate}, \text{the},
+\text{cheese}, \text{[SEP]}, \text{hello}, \text{world}]
+&amp;\Rightarrow 0.
+\end{align*}</span> $$</p>
+<p>然后使用 <span class="math inline">\text{[CLS]}</span>
+的嵌入来做二分类。</p>
+<h4 id="数据集">7.1.2.4 数据集</h4>
+<p><span class="math inline">\mathcal{D}</span>
+是按如下方式构造的一组样本 <span class="math inline">(x_{1:L},
+c)</span>：</p>
+<ul>
+<li>令 <span class="math inline">A</span> 是语料库中的一个句子。</li>
+<li>以 <code>0.5</code> 的概率，<span class="math inline">B</span>
+是下一个橘子。</li>
+<li>以 <code>0.5</code> 的概率，<span class="math inline">B</span>
+是语料库中的一个随机句子。</li>
+<li>令 <span class="math inline">x_{1:L} = [\text{[CLS]}, A,
+\text{[SEP]}, B]</span></li>
+<li>令 <span class="math inline">c</span> 表示 <span
+class="math inline">B</span> 是否是下一句。</li>
+</ul>
+<h4 id="训练目标">7.1.2.5 训练目标</h4>
+<p><code>BERT</code> 的训练目标是： <span class="math display">
+\mathcal{O}(\theta) = \sum_{(x_{1:L},c) \in \mathcal{D}}
+\underbrace{\mathbb{E}_{I, \tilde x_{1:L} \sim A(\cdot \mid x_{1:L},
+I)}[\sum_{i \in I} -\log p_\theta(\tilde x_i | x_{1:L})]}_\text{masked
+language modeling} + \underbrace{-\log p(c |
+\phi(x_{1:L})_1)}_\text{next sentence prediction}.
+</span></p>
+<h4 id="总结">7.1.2.6 总结</h4>
+<ul>
+<li><code>BERT</code>（以及 <code>ELMo</code> 和
+<code>ULMFiT</code>）表明，一个统一的体系结构（Transformer）可以用于多个分类任务。</li>
+<li><code>BERT</code> 真正将 <code>NLP</code>
+社区转变为预培训+微调的范式。</li>
+<li><code>BERT</code>
+显示了深度双向上下文嵌入的重要性，尽管通过模型大小和微调策略可能会弥补这一点（<a
+target="_blank" rel="noopener" href="https://arxiv.org/pdf/2103.10385.pdf">p-tuning</a>）。</li>
+</ul>
+<p>相对于传统的 <code>BERT</code> 模型，<a
+target="_blank" rel="noopener" href="https://arxiv.org/pdf/1907.11692.pdf">RoBERTa</a>
+进行了以下改进：</p>
+<ul>
+<li>删除了下一句预测这一目标函数（发现它没有帮助）。</li>
+<li>使用更多数据训练（16GB文本 <span class="math inline">\to</span>
+160GB文本）。</li>
+<li>训练时间更长。</li>
+</ul>
+<p>通过上述努力，<code>RoBERTa</code> 在各种基准上显著提高了
+<code>BERT</code> 的准确性，如在 <code>SQuAD</code> 上： <span
+class="math inline">81.8 \to 89.4</span>。</p>
+<h3 id="encoder-decoder-模型">7.1.3 Encoder-decoder 模型</h3>
+<p>任务示例（表格生成文本）： <span class="math display">
+[\text{name}, \text{:}, \text{Clowns}, \text{|}, \text{eatType},
+\text{:}, \text{coffee}, \text{shop}] \rightarrow [\text{Clowns},
+\text{is}, \text{a}, \text{coffee}, \text{shop}].
+</span></p>
+<h4 id="bart-bidirectional-auto-regressive-transformers">7.1.3.1 BART
+(Bidirectional Auto-Regressive Transformers)</h4>
+<p><code>BART</code> (<a
+target="_blank" rel="noopener" href="https://arxiv.org/pdf/1910.13461.pdf">Lewis et al. 2019</a>)
+是基于 <code>Transformer</code> 的编码器-解码器模型。</p>
+<ul>
+<li>使用与 <code>RoBERTa</code>
+相同的编码器架构（12层，隐藏维度1024）。</li>
+<li>使用与 <code>RoBERTa</code> 相同的数据进行训练（160GB 文本）。</li>
+</ul>
+<p><code>BART</code> 使用了以下变换 <span class="math inline">A(\tilde
+x_{1:L} \mid x_{1:L})</span>：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/YangSuoly/Images/Large-LM/202309161647208.png" style="zoom:75%;" /></p>
+<p>基于 <code>BERT</code> 的实验，最终模型进行以下了变换：</p>
+<ul>
+<li>掩码文档中 <span class="math inline">30\%</span> 的
+<code>token</code></li>
+<li>将所有子句打乱</li>
+</ul>
+<p>最后，通过微调，<code>BART</code>
+在分类和生成任务上都展示了强大的效果。</p>
+<h4 id="t5-text-to-text-transfer-transformer">7.1.3.2 T5 (Text-to-Text
+Transfer Transformer)</h4>
+<p>T5 (<a target="_blank" rel="noopener" href="https://arxiv.org/pdf/1910.10683.pdf">Raffel et al.,
+2020</a>) 是另一种基于 <code>Transformer</code>
+的编码器-解码器模型。</p>
+<p>预训练任务： 给定一段文本，在随机位置将其分割为输入和输出： <span
+class="math display">
+[\text{the}, \text{mouse}] \Rightarrow [\text{ate}, \text{the},
+\text{cheese}].
+</span></p>
+<p>论文尝试了许多不同的无监督目标：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/YangSuoly/Images/Large-LM/202309161649991.png" style="zoom:80%;" /></p>
+<p>并发现 “i.i.d. noise, replace spans”
+效果最好（尽管许多目标相似）。论文还将所有经典的 <code>NLP</code>
+任务放在一个统一的框架中，称为 <code>Text-to-Text</code> 任务：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/YangSuoly/Images/Large-LM/202309161650263.png" style="zoom:75%;" /></p>
+<p>以分类任务任务为例，不同模型的差异如下：</p>
+<ul>
+<li><code>BERT</code> 使用 <span class="math inline">\text{[CLS]}</span>
+的嵌入来预测。</li>
+<li>T5、GPT-2、GPT-3 等（生成模型）将分类任务转换成自然语言生成。</li>
+</ul>
+<p>注意：</p>
+<ul>
+<li>论文对整个 <code>pipline</code>
+的许多方面（数据集、模型大小、训练目标等）进行了深入研究。</li>
+<li>基于这些见解，他们训练了一个 <code>11B</code> 的模型。</li>
+</ul>
+<h2 id="优化算法">7.2 优化算法</h2>
+<p>现在，我们将注意力转向如何优化目标函数。</p>
+<p>为了简单起见，让我们以自回归语言模型为例： <span
+class="math display">
+O(\theta) = \sum_{x \in D} -\log p_\theta(x).
+</span></p>
+<h2 id="随机梯度下降sgd">7.2.1 随机梯度下降（SGD）</h2>
+<p>最简单的优化算法是用小批量进行随机梯度下降，该算法的步骤如下：</p>
+<ul>
+<li><p>初始化参数 <span class="math inline">\theta_0</span></p></li>
+<li><p>重复以下步骤：</p>
+<ul>
+<li>采样小批量 <span class="math inline">B_t \subset D</span></li>
+<li>根据梯度更新参数：</li>
+</ul>
+<p><span class="math display">
+\theta_t \leftarrow \theta_{t-1} - \eta \frac{1}{|B_t|} \sum_{x \in B_t}
+\nabla_\theta (-\log p_\theta(x)).
+</span></p></li>
+</ul>
+<p>关键目标是：</p>
+<ol type="1">
+<li>希望参数 <span class="math inline">\theta</span> 可以快速收敛</li>
+<li>希望优化在数值上是稳定的</li>
+<li>希望内存高效（尤其是对于大模型）</li>
+</ol>
+<p>这些点往往相互矛盾（例如，通过低精度训练，可以实现快速收敛、减少内存占用，但是会导致训练不稳定）</p>
+<p>因此，可以从几个层次来进行优化：</p>
+<ol type="1">
+<li>针对经典优化：二阶方法、约束优化等。</li>
+<li>针对机器学习：随机方法、隐式正则化+早停法</li>
+<li>针对深度学习：初始化、归一化（更改模型架构）</li>
+<li>针对大语言模型：由于稳定性问题，学习率和一些直觉（例如，二阶方法）仍然有用，但要使大语言模型有效训练，还需要克服许多其他独特的挑战。不幸的是，其中大部分内容都是特别的，人们对此了解甚少。</li>
+</ol>
+<h2 id="adam-adaptive-moment-estimation">7.2.2 Adam (adaptive moment
+estimation)</h2>
+<p><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/1412.6980.pdf">Adam</a>
+算法拥有以下两个创新：</p>
+<ol type="1">
+<li>引入动量（继续朝同一方向移动）。</li>
+<li>参数 <span class="math inline">\theta_0</span>
+的每个维度都有一个自适应（不同）的步长（受二阶方法启发）。</li>
+</ol>
+<p>它的步骤如下：</p>
+<ul>
+<li><p>初始化参数 <span class="math inline">\theta_0</span></p></li>
+<li><p>初始化动量 <span class="math inline">m_0, v_0 \leftarrow
+0</span></p></li>
+<li><p>重复以下步骤：</p>
+<ul>
+<li><p>采样小批量 <span class="math inline">B_t \subset
+D</span></p></li>
+<li><p>按照如下步骤更新参数：</p>
+<ul>
+<li>计算梯度</li>
+</ul>
+<p><span class="math display">
+g_t \leftarrow \frac{1}{|B_t|} \sum_{x \in B_t} \nabla_\theta (-\log
+p_\theta(x)).
+</span></p>
+<ul>
+<li>更新一阶、二阶动量</li>
+</ul>
+<p><span class="math display">
+m_t \leftarrow \beta_1 m_{t-1} + (1 - \beta_1) g_t \\
+v_t \leftarrow \beta_2 v_{t-1} + (1 - \beta_2) g_t^2
+</span></p>
+<ul>
+<li>对偏差进行修正</li>
+</ul>
+<p><span class="math display">
+\hat m_t \leftarrow m_t / (1 - \beta_1^t) \\
+\hat v_t \leftarrow v_t / (1 - \beta_2^t)
+</span></p>
+<ul>
+<li>更新参数</li>
+</ul>
+<p><span class="math display">
+\theta_t \leftarrow \theta_{t-1} - \eta \, \hat m_t / (\sqrt{\hat v_t} +
+\epsilon).
+</span></p></li>
+</ul></li>
+</ul>
+<p>存储占用分析：</p>
+<p><code>Adam</code> 将存储从 2 倍的模型参数（<span
+class="math inline">\theta_t,g_t</span>）增加到了4倍（<span
+class="math inline">\theta_t,g_t,m_t,v_t</span>）。</p>
+<h2 id="adafactor">7.2.3 AdaFactor</h2>
+<p><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/1804.04235.pdf">AdaFactor</a>
+是一种为减少存储占用的优化算法。它有如下特点：</p>
+<ul>
+<li>它不储存 <span class="math inline">m_t,v_t</span> 这样的 <span
+class="math inline">O(m \times n)</span> 矩阵，而是存储行和列的和 <span
+class="math inline">O(m + n)</span> 并重构矩阵</li>
+<li>去除动量</li>
+<li>它被用来训练 <code>T5</code></li>
+<li><code>AdaFactor</code> 可能使训练变得困难（see <a
+target="_blank" rel="noopener" href="https://twitter.com/_arohan_/status/1468673364889726985?s=20&amp;t=i7E0NN5ytysukMGVWG7lfQ">Twitter
+thread</a> and <a target="_blank" rel="noopener" href="https://blog.ceshine.net/post/adafactor/">blog
+post</a>）</li>
+</ul>
+<h2 id="混合精度训练">7.2.4 混合精度训练</h2>
+<p><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/1710.03740.pdf">混合精度训练</a>
+是另一种减少存储的方法</p>
+<ul>
+<li>通常来说，默认的精度是：FP32（32位浮点）</li>
+<li>其他可选精度：FP16（16位浮点），但问题是任何小于 <span
+class="math inline">2^{-24}</span> 的值都会变为 <code>0</code>。</li>
+<li>解决方案：将主权重存储在 FP32 中，并在 FP16
+中执行其他所有操作。</li>
+<li>损失缩放：按比例放大损失，以避免梯度数值太小。</li>
+<li>结果：存储减少了一半。</li>
+</ul>
+<p><img src="https://cdn.jsdelivr.net/gh/YangSuoly/Images/Large-LM/202309161655620.png" style="zoom:80%;" /></p>
+<h2 id="学习率">7.2.5 学习率</h2>
+<ul>
+<li>通常情况下，学习率会随着时间的推移而衰减。</li>
+<li>对于 <code>Transformer</code>
+模型，我们实际上需要通过预热（warmup）提高学习率。</li>
+<li><a
+target="_blank" rel="noopener" href="https://www.cs.toronto.edu/~mvolkovs/ICML22020_tfixup.pdf">Huang
+et al. (2020)</a> 表明，一个潜在的原因是防止层归一化的梯度消失，导致使用
+<code>Adam</code>优化器训练时不稳定。</li>
+</ul>
+<h2 id="初始化">7.2.6 初始化</h2>
+<ul>
+<li>给定矩阵 <span class="math inline">W \in \mathbb{R}^{m \times
+n}</span>，标准初始化（即，xavier 初始化）为 <span
+class="math inline">W_{ij} \sim N(0, 1/n)</span>。</li>
+<li>GPT-2 和 GPT-3 通过额外的 <span
+class="math inline">\frac{1}{\sqrt{N}}</span> 缩放权重，其中 <span
+class="math inline">N</span> 是残差层的数量。</li>
+<li>T5将注意力矩阵增加一个<span
+class="math inline">\frac{1}{\sqrt{d}}</span>（<a
+target="_blank" rel="noopener" href="https://github.com/tensorflow/mesh/blob/master/mesh_tensorflow/transformer/attention.py#L459">代码</a>）。</li>
+</ul>
+<p>以 GPT-3 为例，使用的参数如下：</p>
+<ul>
+<li>Adam参数：<span class="math inline">\beta_1 = 0.9, \beta_2 = 0.95,
+\epsilon = 10^{-8}</span></li>
+<li>批量小：320万个token（约 1500 个序列）</li>
+<li>使用梯度剪裁（<span class="math inline">g_t \leftarrow g_t / \min(1,
+\|g\|_2)</span>）</li>
+<li>线性学习率预热（前3.75亿个token）</li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/1608.03983v5.pdf">余弦学习率</a>
+衰减到 <span class="math inline">10\%</span></li>
+<li>逐渐增加批大小</li>
+<li>权重衰减设为 0.1</li>
+</ul>
+<h2 id="reference">7.3 Reference</h2>
+<ul>
+<li><a
+target="_blank" rel="noopener" href="https://lilianweng.github.io/lil-log/2021/09/24/train-large-neural-networks.html#mixed-precision-training">混合精度训练</a></li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/1711.05101.pdf">Fixing Weight Decay
+Regularization in Adam</a>. I. Loshchilov, F. Hutter. 2017.
+介绍了AdamW</li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2003.10555.pdf">ELECTRA: Pre-training
+Text Encoders as Discriminators Rather Than Generators</a>. Kevin Clark,
+Minh-Thang Luong, Quoc V. Le, Christopher D. Manning. ICLR 2020.</li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2006.03654.pdf">DeBERTa:
+Decoding-enhanced BERT with Disentangled Attention</a>. Pengcheng He,
+Xiaodong Liu, Jianfeng Gao, Weizhu Chen. ICLR 2020.</li>
+</ul>
+<h1 id="分布式训练">8. 分布式训练</h1>
+<p>近年来，深度学习被广泛应用到各个领域，包括计算机视觉、语言理解、语音识别、广告推荐等。不同的领域下的模型规模越来越大，比如
+GPT-3 模型的参数量达到 1750 亿。即使用 1024 张 80 GB 的
+A100，那么完整训练 GPT-3 的时长都需要1个月。</p>
+<p>模型规模的扩大，对硬件（算力、内存）的发展提出要求。然而，因为 <a
+target="_blank" rel="noopener" href="https://oneflow.org/a/share/jishuboke/75.html">内存墙</a>
+的存在，单一设备的算力及容量，受限于物理定律，持续提高芯片的集成越来越困难，难以跟上模型扩大的需求。为了解决算力增速不足的问题，人们考虑用多节点集群进行分布式训练，以提升算力。因此分布式训练势在必行，也成为近些年来的流行方案。</p>
+<h2 id="常见的并行策略">8.1 常见的并行策略</h2>
+<p>简单的机器堆叠并不一定会带来算力的增长。因为神经网络的训练不仅需要多个设备进行计算，还涉及到设备之间的数据传输，只有协调好集群中的计算与通信，才能做高效的分布式训练。</p>
+<p>我们将以矩阵乘法的例子，解释数据并行、模型并行的区别。先了解以下逻辑上的矩阵乘法例子：</p>
+<p>假设神经网络中某一层是做矩阵乘法，其中的输入 <span
+class="math inline">x</span> 的形状为 <span
+class="math inline">4\times5</span>，模型参数 <span
+class="math inline">w</span> 的形状为<span
+class="math inline">5\times8</span>，那么，矩阵乘法输出形状为 <span
+class="math inline">4\times8</span>。示意图如下：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/YangSuoly/Images/Large-LM/202309161724301.png" style="zoom:80%;" /></p>
+<p>单机单卡的训练中，以上矩阵乘法，先计算得到 <span
+class="math inline">out</span>，并将 <span
+class="math inline">out</span> 传递给下一层，并最终计算得到<span
+class="math inline">loss</span>，然后在反向传播过程中，得到 <span
+class="math inline">\frac{\partial loss}{\partial w}</span>，用于更新
+<span class="math inline">w</span>。</p>
+<p>分布式训练中，依据是切分 <span class="math inline">x</span> 还是
+<span class="math inline">w</span>
+的不同，分为“数据并行”和“模型并行”策略。接下来，我们介绍常见的并行策略。</p>
+<h3 id="数据并行">8.2.1 数据并行</h3>
+<p>数据并行，就是将数据 <span class="math inline">x</span>
+进行切分，而每个设备上的模型 <span class="math inline">w</span>
+是相同的。如下图所示，<span class="math inline">x</span> 被按照第 <span
+class="math inline">0</span> 维度平均切分到 <span
+class="math inline">2</span> 个设备上，两个设备上都有完整的 <span
+class="math inline">w</span>。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/YangSuoly/Images/Large-LM/202309161725253.png" style="zoom:80%;" /></p>
+<p>这样，在两台设备上，分别得到的输出，都只是逻辑上输出的一半（形状为
+<span
+class="math inline">2\times8</span>），将两个设备上的输出拼接到一起，才能得到逻辑上完整的输出。</p>
+<p><strong>Note</strong>：因为数据被分发到了 <span
+class="math inline">2</span>
+个设备上，因此反向传播过程，各自设备上得到的 <span
+class="math inline">\frac{\partial loss}{\partial w}</span>
+会不一样，如果直接使用各个设备上的梯度更新各自的模型，会造成 <span
+class="math inline">2</span>
+个设备上的模型不一致，训练就失去了意义（到底用哪个模型好呢？）。</p>
+<p>因此，数据并行策略下，在反向传播过程中，需要对各个设备上的梯度进行 <a
+target="_blank" rel="noopener" href="https://docs.nvidia.com/deeplearning/nccl/user-guide/docs/usage/collectives.html#allreduce">AllReduce</a>，以确保各个设备上的模型始终保持一致。</p>
+<ul>
+<li>当数据集较大，模型较小时，由于反向过程中为同步梯度产生的通信代价较小，此时选择数据并行一般比较有优势，常见的视觉分类模型，如
+<code>ResNet50</code>，比较适合采用数据并行。</li>
+</ul>
+<h3 id="模型并行">8.2.2 模型并行</h3>
+<p>当神经网络非常巨大，数据并行同步梯度的代价就会很大，甚至网络可能巨大到无法存放到单一计算设备中，这时候，可以采用模型并行策略解决问题。</p>
+<p><strong>模型并行</strong> 指每个设备上的数据是完整的、一致的，而模型
+<span class="math inline">w</span>
+被切分到了各个设备上，每个设备只拥有模型的一部分，所有计算设备上的模型拼在一起，才是完整的模型。
+如下图所示，<span class="math inline">w</span> 被按照第 <span
+class="math inline">1</span> 维度平均切分到 <span
+class="math inline">2</span> 个设备上，两个设备上都有完整的 <span
+class="math inline">x</span>。两个设备上的输出也需要通过拼接才能得到逻辑上的输出。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/YangSuoly/Images/Large-LM/202309161728370.png" style="zoom:80%;" /></p>
+<ul>
+<li>优点：省去了多个设备之间的梯度 <code>AllReduce</code>；</li>
+<li>缺点：由于每个设备都需要完整的数据输入，因此，数据会在多个设备之间进行广播，产生通信代价。</li>
+</ul>
+<p>比如，上图中的最终得到的 <span
+class="math inline">out~(4\times8)</span>
+，如果它作为下一层网络的输入，那么它就需要被广播发送到两个设备上。语言模型，如
+<code>BERT</code>，常采用模型并行。</p>
+<h3 id="流水并行">8.2.3 流水并行</h3>
+<p>当神经网络过于巨大，无法在一个设备上存放时，除了上述的模型并行的策略外，还可以选择流水并行。</p>
+<p><strong>流水并行</strong>
+指将网络切为多个阶段，并分发到不同的计算设备上，各个计算设备之间以“接力”的方式完成训练。</p>
+<p>如下图，展示了一个逻辑上的 4 层网络 (T1至T4) 是如何做流水并行的。4
+层网络被切分到 2 个计算设备上，其中 <code>GPU0</code> 上进行 T1 与 T2
+的运算，GPU1 上进行 T3 与 T4 的计算。GPU0
+上完成前两层的计算后，它的输出被当作 GPU1
+的输入，继续进行后两层的计算。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/YangSuoly/Images/Large-LM/202309161730896.png" style="zoom:80%;" /></p>
+<h3 id="混合并行">8.2.4 混合并行</h3>
+<p>网络的训练中，也可以将多种并行策略混用，以 GPT-3
+为例，以下是它训练时的设备并行方案： 它首先被分为 64
+个阶段，进行流水并行。每个阶段都运行在 6 台 DGX-A100
+主机上。在6台主机之间，进行的是数据并行训练；每台主机有 8 张 GPU
+显卡，同一台机器上的8张 GPU 显卡之间是进行模型并行训练。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/YangSuoly/Images/Large-LM/202309161733607.png" style="zoom:75%;" /></p>
+<p>并行策略的选择影响着训练效率，框架对并行训练的接口支持程度，决定了算法工程师的开发效率。</p>
+<h2 id="reference-1">8.3 Reference</h2>
+<ul>
+<li><a
+target="_blank" rel="noopener" href="https://docs.oneflow.org/master/parallelism/01_introduction.html">常见的分布式并行策略</a></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">
+            -------------This blog is over!
+            <i class="fa fa-eye"></i>
+            Thanks for your reading-------------
+        </div>
+    
+</div>
+      
+    </div>
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>Post author:  </strong>YangSu
+  </li>
+  <li class="post-copyright-link">
+    <strong>Post link: </strong>
+    <a href="http://yangsuoly.com/2023/09/16/Large-lm-6-Training/" title="Large-lm-6-Training">http://yangsuoly.com/2023/09/16/Large-lm-6-Training/</a>
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/Tags/LM/" rel="tag"><i class="fa fa-tag"></i> LM</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2023/09/16/Large-lm-5-Framework/" rel="prev" title="Large-lm-5-Framework">
+      <i class="fa fa-chevron-left"></i> Large-lm-5-Framework
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2023/09/16/Large-lm-7-Mixed-Framework/" rel="next" title="Large-lm-7-Mixed-Framework">
+      Large-lm-7-Mixed-Framework <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div id="music163player">
+      <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=1317956275&auto=0&height=66"></iframe>
+      </iframe>
+    </div>
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%A8%A1%E5%9E%8B%E8%AE%AD%E7%BB%83"><span class="nav-text">7. 模型训练</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%9B%AE%E6%A0%87%E5%87%BD%E6%95%B0"><span class="nav-text">7.1 目标函数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#decode-only-%E6%A8%A1%E5%9E%8B"><span class="nav-text">7.1.1 Decode-only 模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#encoder-only-%E6%A8%A1%E5%9E%8B"><span class="nav-text">7.1.2 Encoder-only 模型</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#bert-%E6%A8%A1%E5%9E%8B"><span class="nav-text">7.1.2.1 BERT 模型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%8E%A9%E7%A0%81%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B"><span class="nav-text">7.1.2.2 掩码语言模型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%A2%84%E6%B5%8B%E4%B8%8B%E4%B8%80%E5%8F%A5"><span class="nav-text">7.1.2.3 预测下一句</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E9%9B%86"><span class="nav-text">7.1.2.4 数据集</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%AE%AD%E7%BB%83%E7%9B%AE%E6%A0%87"><span class="nav-text">7.1.2.5 训练目标</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-text">7.1.2.6 总结</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#encoder-decoder-%E6%A8%A1%E5%9E%8B"><span class="nav-text">7.1.3 Encoder-decoder 模型</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#bart-bidirectional-auto-regressive-transformers"><span class="nav-text">7.1.3.1 BART
+(Bidirectional Auto-Regressive Transformers)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#t5-text-to-text-transfer-transformer"><span class="nav-text">7.1.3.2 T5 (Text-to-Text
+Transfer Transformer)</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BC%98%E5%8C%96%E7%AE%97%E6%B3%95"><span class="nav-text">7.2 优化算法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%9A%8F%E6%9C%BA%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8Dsgd"><span class="nav-text">7.2.1 随机梯度下降（SGD）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#adam-adaptive-moment-estimation"><span class="nav-text">7.2.2 Adam (adaptive moment
+estimation)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#adafactor"><span class="nav-text">7.2.3 AdaFactor</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B7%B7%E5%90%88%E7%B2%BE%E5%BA%A6%E8%AE%AD%E7%BB%83"><span class="nav-text">7.2.4 混合精度训练</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AD%A6%E4%B9%A0%E7%8E%87"><span class="nav-text">7.2.5 学习率</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%9D%E5%A7%8B%E5%8C%96"><span class="nav-text">7.2.6 初始化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#reference"><span class="nav-text">7.3 Reference</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%88%86%E5%B8%83%E5%BC%8F%E8%AE%AD%E7%BB%83"><span class="nav-text">8. 分布式训练</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B8%B8%E8%A7%81%E7%9A%84%E5%B9%B6%E8%A1%8C%E7%AD%96%E7%95%A5"><span class="nav-text">8.1 常见的并行策略</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E5%B9%B6%E8%A1%8C"><span class="nav-text">8.2.1 数据并行</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A8%A1%E5%9E%8B%E5%B9%B6%E8%A1%8C"><span class="nav-text">8.2.2 模型并行</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B5%81%E6%B0%B4%E5%B9%B6%E8%A1%8C"><span class="nav-text">8.2.3 流水并行</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B7%B7%E5%90%88%E5%B9%B6%E8%A1%8C"><span class="nav-text">8.2.4 混合并行</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#reference-1"><span class="nav-text">8.3 Reference</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="YangSu"
+      src="/images/YangSu.jpg">
+  <p class="site-author-name" itemprop="name">YangSu</p>
+  <div class="site-description" itemprop="description">A blog for recording learning notes...</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">78</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/Categories/">
+          
+        <span class="site-state-item-count">40</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/Tags/">
+          
+        <span class="site-state-item-count">49</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/YangSuoly" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;YangSuoly" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://gitee.com/yangsuoly" title="Gitee → https:&#x2F;&#x2F;gitee.com&#x2F;yangsuoly" rel="noopener" target="_blank"><i class="fab fa-github-square fa-fw"></i>Gitee</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://space.bilibili.com/64518717" title="B 站 → https:&#x2F;&#x2F;space.bilibili.com&#x2F;64518717" rel="noopener" target="_blank"><i class="fa fa-play-circle fa-fw"></i>B 站</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Related links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://www.58pic.com/u/19637930/" title="https:&#x2F;&#x2F;www.58pic.com&#x2F;u&#x2F;19637930&#x2F;" rel="noopener" target="_blank">千图网</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js" integrity="sha384-g7c+Jr9ZivxKLnZTDUhnkOnsh30B4H0rpLUpJ4jAIKs4fnJI+sEnkvrMWph2EDg4" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/auto-render.min.js" integrity="sha384-mll67QQFJfxn0IYznZYonOWZ644AWYC+Pt2cHqMaRhXVrursRwvLnLaebdGIlYNa" crossorigin="anonymous"
+        onload="renderMathInElement(document.body);"></script>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2026</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">YangSu</span>
+</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="Total Visitors">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="Total Views">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script size="300" alpha="0.6" zIndex="-1" src="/lib/canvas-ribbon/canvas-ribbon.js"></script>
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+<script>
+document.querySelectorAll('.pdfobject-container').forEach(element => {
+  let url = element.dataset.target;
+  let pdfOpenParams = {
+    navpanes : 0,
+    toolbar  : 0,
+    statusbar: 0,
+    pagemode : 'thumbs',
+    view     : 'FitH'
+  };
+  let pdfOpenFragment = '#' + Object.entries(pdfOpenParams).map(([key, value]) => `${key}=${encodeURIComponent(value)}`).join('&');
+  let fullURL = `/lib/pdf/web/viewer.html?file=${encodeURIComponent(url)}${pdfOpenFragment}`;
+
+  if (NexT.utils.supportsPDFs()) {
+    element.innerHTML = `<embed class="pdfobject" src="${url + pdfOpenFragment}" type="application/pdf" style="height: ${element.dataset.height};">`;
+  } else {
+    element.innerHTML = `<iframe src="${fullURL}" style="height: ${element.dataset.height};" frameborder="0"></iframe>`;
+  }
+});
+</script>
+
+
+<script>
+if (document.querySelectorAll('pre.mermaid').length) {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js', () => {
+    mermaid.initialize({
+      theme    : 'forest',
+      logLevel : 3,
+      flowchart: { curve     : 'linear' },
+      gantt    : { axisFormat: '%m/%d/%Y' },
+      sequence : { actorMargin: 50 }
+    });
+  }, window.mermaid);
+}
+</script>
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+  <script src="//cdn.jsdelivr.net/npm/quicklink@1/dist/quicklink.umd.js"></script>
+  <script>
+      window.addEventListener('load', () => {
+      quicklink({
+        timeout : 3000,
+        priority: true,
+        ignores : [uri => uri.includes('#'),uri => uri === 'http://yangsuoly.com/2023/09/16/Large-lm-6-Training/',]
+      });
+      });
+  </script>
+
+  
+  <script id="ribbon" src="js/canvas-ribbon.js"></script>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/22.2017.cba-normal.model.json"},"display":{"position":"right","width":300,"height":450},"mobile":{"show":false},"react":{"opacity":0.7},"log":false});</script></body>
+</html>

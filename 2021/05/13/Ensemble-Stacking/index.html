@@ -1,0 +1,791 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/blog-logo-32px.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/blog-logo-16px.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <link rel="manifest" href="/images/manifest.json">
+  <meta name="msapplication-config" content="/images/browserconfig.xml">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yangsuoly.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":true},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":true,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="1. Introduction Blending 集成方法的学习过程中，可以发现 Blending 在集成过程中只使用到了验证集的数据，这就造成了很大的浪费。因此可以靠用使用 Stacking 集成方法进行改进。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Ensemble-Stacking">
+<meta property="og:url" content="http://yangsuoly.com/2021/05/13/Ensemble-Stacking/index.html">
+<meta property="og:site_name" content="独孤诗人的学习驿站">
+<meta property="og:description" content="1. Introduction Blending 集成方法的学习过程中，可以发现 Blending 在集成过程中只使用到了验证集的数据，这就造成了很大的浪费。因此可以靠用使用 Stacking 集成方法进行改进。">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://z3.ax1x.com/2021/05/13/g0zJv4.png">
+<meta property="article:published_time" content="2021-05-13T03:33:45.000Z">
+<meta property="article:modified_time" content="2022-02-06T06:22:42.779Z">
+<meta property="article:author" content="YangSu">
+<meta property="article:tag" content="Python">
+<meta property="article:tag" content="Ensemble">
+<meta property="article:tag" content="Sklearn">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://z3.ax1x.com/2021/05/13/g0zJv4.png">
+
+<link rel="canonical" href="http://yangsuoly.com/2021/05/13/Ensemble-Stacking/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>Ensemble-Stacking | 独孤诗人的学习驿站</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?f59f5fb59d32ec3903088b0f976956d1";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta custom-logo">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">独孤诗人的学习驿站</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">生活就是一半烟火，一半诗意。手执烟火谋生活，心怀诗意谋未来……</p>
+      <a>
+        <img class="custom-logo-image" src="/images/logo@2x.png" alt="独孤诗人的学习驿站">
+      </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/Tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/Categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+  <a href="https://github.com/YangSuoly" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yangsuoly.com/2021/05/13/Ensemble-Stacking/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/YangSu.jpg">
+      <meta itemprop="name" content="YangSu">
+      <meta itemprop="description" content="A blog for recording learning notes...">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="独孤诗人的学习驿站">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Ensemble-Stacking
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-05-13 11:33:45" itemprop="dateCreated datePublished" datetime="2021-05-13T11:33:45+08:00">2021-05-13</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-02-06 14:22:42" itemprop="dateModified" datetime="2022-02-06T14:22:42+08:00">2022-02-06</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/Categories/DataWhale/" itemprop="url" rel="index"><span itemprop="name">DataWhale</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/Categories/DataWhale/Ensemble/" itemprop="url" rel="index"><span itemprop="name">Ensemble</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="Views" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span><br>
+            <span class="post-meta-item" title="Symbols count in article">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">Symbols count in article: </span>
+              <span>4.7k</span>
+            </span>
+            <span class="post-meta-item" title="Reading time">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">Reading time &asymp;</span>
+              <span>4 mins.</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="introduction">1. Introduction</h1>
+<p>Blending 集成方法的学习过程中，可以发现 Blending
+在集成过程中只使用到了验证集的数据，这就造成了很大的浪费。因此可以靠用使用
+Stacking 集成方法进行改进。</p>
+<a id="more"></a>
+<p>Blending
+产生验证集的方式是使用分割的方式，产生一组训练集和验证集，那么是否可以将这种方式改进为交叉验证的方式呢？于是就有了如下的
+Stacking 集成方法，其步骤如下：</p>
+<ol type="1">
+<li>记初始训练集为 <code>Train set</code>，测试集为
+<code>Test set</code>，shape 分别为 <code>(train_size, 1)</code> 和
+<code>(test_size, 1)</code>。 将 <code>Train set</code>
+划分为多个部分（如 10 个），如下图 (Source: <a
+target="_blank" rel="noopener" href="https://courses.analyticsvidhya.com/courses/take/ensemble-learning-and-ensemble-learning-techniques/texts/11125921-stacking">Analytics
+Vidhya</a>)；</li>
+</ol>
+<p><img src="https://z3.ax1x.com/2021/05/13/g0zJv4.png" /></p>
+<ol start="2" type="1">
+<li>用划分后的的 9/10 作为训练集 (<code>train_set</code>) 训练基准模型
+(如决策树)，并用训练好的模型对剩下的 1/10 数据 (验证集,
+<code>val_set</code>) 和测试集 (<code>Test_set</code>) 来预测数据；</li>
+<li>重复迭代训练 10 次直到所有数据都作为 <code>val_set</code>，并将
+<code>val_set</code> 的 10 份预测的数据拼接为一个 shape 为
+(<code>train_size</code>, 1) 的矩阵 (记为 <code>Trainset</code>)。</li>
+<li>对迭代过程中得到的 10 份测试集 (<code>Test set</code>)
+的预测数据取加权平均，得到一个shape 为 (<code>test_size</code>,
+1)的矩阵。</li>
+<li>重复步骤 2-4 训练其他基准模型 (如 knn) : <img
+src="https://z3.ax1x.com/2021/05/13/g0ztKJ.png" /></li>
+<li>将上述训练得到的一系列 Trainset 串联，得到一个形状为
+<code>(train_size, num_features)</code>
+的矩阵，并用该矩阵训练第二层的模型，然后用训练好的新模型来做测试集的预测，并作为最终预测结果。</li>
+</ol>
+<p>下面借助实例来体验 Stacking 的魅力（参考案例：<a
+target="_blank" rel="noopener" href="https://www.cnblogs.com/Christina-Notebook/p/10063146.html">cnblogs</a>）：
+注：<code>sklearn</code> 模块并没有 <code>Stacking</code>
+的方法，因此需要使用 <code>mlxtend</code> 工具包。</p>
+<h1 id="a-example-of-stacking-model">2. A example of stacking model</h1>
+<h2 id="data-process">2.1 Data process</h2>
+<ul>
+<li><p>Import modules <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> sklearn.model_selection <span class="keyword">import</span> cross_val_score</span><br><span class="line"><span class="keyword">from</span> sklearn.linear_model <span class="keyword">import</span> LogisticRegression</span><br><span class="line"><span class="keyword">from</span> sklearn.neighbors <span class="keyword">import</span> KNeighborsClassifier</span><br><span class="line"><span class="keyword">from</span> sklearn.naive_bayes <span class="keyword">import</span> GaussianNB</span><br><span class="line"><span class="keyword">from</span> sklearn.ensemble <span class="keyword">import</span> RandomForestClassifier</span><br><span class="line"><span class="keyword">from</span> mlxtend.classifier <span class="keyword">import</span> StackingCVClassifier</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> sklearn.metrics <span class="keyword">import</span> accuracy_score <span class="keyword">as</span> ac</span><br><span class="line"><span class="keyword">from</span> sklearn.model_selection <span class="keyword">import</span> train_test_split</span><br><span class="line">%matplotlib inline</span><br></pre></td></tr></table></figure></p></li>
+<li><p>Load data 本案例使用了 <code>Kaggle</code>
+比赛中的一份泰坦尼克号乘客的数据来进行处理，下载链接：<a
+href="https://yangsuoly.com/file/titanic-data.csv">Titanic-data.csv</a>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">data = pd.read_csv(<span class="string">&#x27;./titanic-data.csv&#x27;</span>)</span><br></pre></td></tr></table></figure> <strong>Information</strong>:</p>
+<ul>
+<li>PassengerId：乘客ID</li>
+<li>Survived：是否获救，用1和Rescued表示获救,用0或者not
+saved表示没有获救</li>
+<li>Pclass：乘客等级，“1”表示Upper，“2”表示Middle，“3”表示Lower</li>
+<li>Name：乘客姓名</li>
+<li>Sex：性别</li>
+<li>Age：年龄</li>
+<li>SibSp：乘客在船上的配偶数量或兄弟姐妹数量）</li>
+<li>Parch：乘客在船上的父母或子女数量</li>
+<li>Ticket：船票信息</li>
+<li>Fare：票价</li>
+<li>Cabin：是否住在独立的房间，“1”表示是，“0”为否</li>
+<li>embarked：表示乘客上船的码头距离泰坦尼克出发码头的距离，数值越大表示距离越远</li>
+</ul></li>
+<li><p>Statistical description <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">data.info() <span class="comment"># See datatype</span></span><br></pre></td></tr></table></figure> Results:
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">&lt;<span class="class"><span class="keyword">class</span> &#x27;<span class="title">pandas</span>.<span class="title">core</span>.<span class="title">frame</span>.<span class="title">DataFrame</span>&#x27;&gt;</span></span><br><span class="line"><span class="class"><span class="title">RangeIndex</span>:</span> <span class="number">891</span> entries, <span class="number">0</span> to <span class="number">890</span></span><br><span class="line">Data columns (total <span class="number">12</span> columns):</span><br><span class="line"> <span class="comment">#   Column       Non-Null Count  Dtype  </span></span><br><span class="line">---  ------       --------------  -----  </span><br><span class="line"> <span class="number">0</span>   PassengerId  <span class="number">891</span> non-null    int64  </span><br><span class="line"> <span class="number">1</span>   Survived     <span class="number">891</span> non-null    int64  </span><br><span class="line"> <span class="number">2</span>   Pclass       <span class="number">891</span> non-null    int64  </span><br><span class="line"> <span class="number">3</span>   Name         <span class="number">891</span> non-null    <span class="built_in">object</span></span><br><span class="line"> <span class="number">4</span>   Sex          <span class="number">891</span> non-null    <span class="built_in">object</span></span><br><span class="line"> <span class="number">5</span>   Age          <span class="number">714</span> non-null    float64</span><br><span class="line"> <span class="number">6</span>   SibSp        <span class="number">891</span> non-null    int64  </span><br><span class="line"> <span class="number">7</span>   Parch        <span class="number">891</span> non-null    int64  </span><br><span class="line"> <span class="number">8</span>   Ticket       <span class="number">891</span> non-null    <span class="built_in">object</span></span><br><span class="line"> <span class="number">9</span>   Fare         <span class="number">891</span> non-null    float64</span><br><span class="line"> <span class="number">10</span>  Cabin        <span class="number">204</span> non-null    <span class="built_in">object</span></span><br><span class="line"> <span class="number">11</span>  Embarked     <span class="number">889</span> non-null    <span class="built_in">object</span></span><br><span class="line">dtypes: float64(<span class="number">2</span>), int64(<span class="number">5</span>), <span class="built_in">object</span>(<span class="number">5</span>)</span><br><span class="line">memory usage: <span class="number">83.7</span>+ KB</span><br></pre></td></tr></table></figure></p></li>
+<li><p>Missing values processing</p>
+<ul>
+<li><p>Embarked</p>
+<p>Embarked 列仅有两个缺失值，而 'S' 占比最高，故将缺失值用 'S' 填充；
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">data[<span class="string">&#x27;Embarked&#x27;</span>] = data[<span class="string">&#x27;Embarked&#x27;</span>].fillna(<span class="string">&#x27;S&#x27;</span>)</span><br></pre></td></tr></table></figure></p></li>
+<li><p>Age</p>
+<p>Age 包含较多缺失值，用均值填充； <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">dmean_age = data[<span class="string">&#x27;Age&#x27;</span>].mean()</span><br><span class="line">data[<span class="string">&#x27;Age&#x27;</span>] = data[<span class="string">&#x27;Age&#x27;</span>].fillna(mean_age)</span><br></pre></td></tr></table></figure></p></li>
+<li><p>Cabin</p>
+<p>Cabin
+值缺失过多，且每位乘客房间号均不一样，且无规律，故舍去。</p></li>
+</ul></li>
+<li><p>Datatype transformation</p>
+<ul>
+<li><p>Sex 将性别转换未数值型数据，用 0 表示男性，1 表示女性</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">data.loc[data[<span class="string">&#x27;Sex&#x27;</span>] == <span class="string">&#x27;male&#x27;</span>, <span class="string">&#x27;Sex&#x27;</span>] = <span class="number">0</span> <span class="comment"># &#x27;male&#x27; -&gt; 0</span></span><br><span class="line">data.loc[data[<span class="string">&#x27;Sex&#x27;</span>] == <span class="string">&#x27;female&#x27;</span>, <span class="string">&#x27;Sex&#x27;</span>] = <span class="number">1</span> <span class="comment"># &#x27;female&#x27; -&gt; 1</span></span><br></pre></td></tr></table></figure></li>
+<li><p>Embarked</p>
+<p>将 'C' 所在位置的值改为 1, 'S' 所在位置的值改为 2, 'Q'
+所在位置的值改为 3；</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">data.loc[data[<span class="string">&#x27;Embarked&#x27;</span>] == <span class="string">&#x27;C&#x27;</span>, <span class="string">&#x27;Embarked&#x27;</span>] = <span class="number">1</span> <span class="comment"># &#x27;C&#x27; -&gt; 1</span></span><br><span class="line">data.loc[data[<span class="string">&#x27;Embarked&#x27;</span>] == <span class="string">&#x27;S&#x27;</span>, <span class="string">&#x27;Embarked&#x27;</span>] = <span class="number">2</span> <span class="comment"># &#x27;S&#x27; -&gt; 2</span></span><br><span class="line">data.loc[data[<span class="string">&#x27;Embarked&#x27;</span>] == <span class="string">&#x27;Q&#x27;</span>, <span class="string">&#x27;Embarked&#x27;</span>] = <span class="number">3</span> <span class="comment"># &#x27;Q&#x27; -&gt; 3</span></span><br></pre></td></tr></table></figure></li>
+<li><p>Drop irrelevant variables</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">columns = data.columns</span><br><span class="line">columns = columns.drop([<span class="string">&#x27;PassengerId&#x27;</span>, <span class="string">&#x27;Cabin&#x27;</span>, <span class="string">&#x27;Name&#x27;</span>, <span class="string">&#x27;Ticket&#x27;</span>])</span><br><span class="line">data = data.loc[:, columns]</span><br></pre></td></tr></table></figure></li>
+</ul></li>
+<li><p>Parameters setting 可以直到 data的列名称为
+<code>['Survived', 'Pclass', 'Sex', 'Age', 'SibSp', 'Parch', 'Fare', 'Embarked']</code>。选择最后一列作为分类标准。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">test_percent = <span class="number">0.10</span> <span class="comment"># 测试集大小</span></span><br><span class="line"></span><br><span class="line">train_X = train.loc[:, data.columns[<span class="number">1</span>:]]</span><br><span class="line">train_Y = train.loc[:, data.columns[<span class="number">0</span>]].values.reshape(-<span class="number">1</span>,)</span><br><span class="line">test_X = test.loc[:, data.columns[<span class="number">1</span>:]]</span><br><span class="line">test_Y = test.loc[:, data.columns[<span class="number">0</span>]].values.reshape(-<span class="number">1</span>,)</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="creating-stacking-model">2.2 Creating Stacking model</h2>
+<ul>
+<li><p>Stacking <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">RANDOM_SEED = <span class="number">42</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># The first layer</span></span><br><span class="line">clf1 = KNeighborsClassifier(n_neighbors=<span class="number">1</span>)</span><br><span class="line">clf2 = RandomForestClassifier(random_state=RANDOM_SEED)</span><br><span class="line">clf3 = GaussianNB()</span><br><span class="line">lr = LogisticRegression()</span><br><span class="line"></span><br><span class="line"><span class="comment"># Starting from v0.16.0, StackingCVRegressor supports</span></span><br><span class="line"><span class="comment"># `random_state` to get deterministic result.</span></span><br><span class="line">sclf = StackingCVClassifier(</span><br><span class="line">      classifiers=[clf1, clf2, clf3],  <span class="comment"># The first layer</span></span><br><span class="line">      meta_classifier=lr,   <span class="comment"># THe second layer</span></span><br><span class="line">      random_state=RANDOM_SEED)</span><br><span class="line"></span><br><span class="line">print(<span class="string">&#x27;3-fold cross validation:\n&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> clf, label <span class="keyword">in</span> <span class="built_in">zip</span>([clf1, clf2, clf3, sclf], [<span class="string">&#x27;KNN&#x27;</span>, <span class="string">&#x27;Random Forest&#x27;</span>, <span class="string">&#x27;Naive Bayes&#x27;</span>,<span class="string">&#x27;StackingClassifier&#x27;</span>]):</span><br><span class="line">    scores = cross_val_score(clf, train_X, train_Y,</span><br><span class="line">              cv=<span class="number">3</span>, scoring=<span class="string">&#x27;accuracy&#x27;</span>)</span><br><span class="line">    print(<span class="string">&quot;Accuracy: %0.2f (+/- %0.2f) [%s]&quot;</span> % (scores.mean(),</span><br><span class="line">               scores.std(), label))</span><br></pre></td></tr></table></figure> Result: <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">3</span>-fold cross validation:</span><br><span class="line"></span><br><span class="line">Accuracy: <span class="number">0.70</span> (+/- <span class="number">0.02</span>) [KNN]</span><br><span class="line">Accuracy: <span class="number">0.80</span> (+/- <span class="number">0.01</span>) [Random Forest]</span><br><span class="line">Accuracy: <span class="number">0.76</span> (+/- <span class="number">0.02</span>) [Naive Bayes]</span><br><span class="line">Accuracy: <span class="number">0.79</span> (+/- <span class="number">0.01</span>) [StackingClassifier]</span><br></pre></td></tr></table></figure></p></li>
+<li><p>Ploting decision region
+由于使用了多维数据，决策边界暂无法成功绘制，有时间了再琢磨。</p></li>
+</ul>
+<h1 id="conclusion">3. Conclusion</h1>
+<h2 id="blending-和-stacking-对比">3.1 Blending 和 Stacking 对比</h2>
+<ul>
+<li>Blending 优点：
+<ul>
+<li>比 Stacking 简单，不用进行 <code>K</code> 次的交叉验证来获得 stacker
+feature</li>
+</ul></li>
+<li>缺点：
+<ul>
+<li>在训练第二层的模型的时候，仅使用了很少的数据；</li>
+<li>由于第二层训练数据较少，容易导致过拟合</li>
+<li>stacking 使用多测的 CV 会比较文件。</li>
+</ul></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">
+            -------------This blog is over!
+            <i class="fa fa-eye"></i>
+            Thanks for your reading-------------
+        </div>
+    
+</div>
+      
+    </div>
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>Post author:  </strong>YangSu
+  </li>
+  <li class="post-copyright-link">
+    <strong>Post link: </strong>
+    <a href="http://yangsuoly.com/2021/05/13/Ensemble-Stacking/" title="Ensemble-Stacking">http://yangsuoly.com/2021/05/13/Ensemble-Stacking/</a>
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/Tags/Python/" rel="tag"><i class="fa fa-tag"></i> Python</a>
+              <a href="/Tags/Ensemble/" rel="tag"><i class="fa fa-tag"></i> Ensemble</a>
+              <a href="/Tags/Sklearn/" rel="tag"><i class="fa fa-tag"></i> Sklearn</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/05/11/Ensemble-Blending/" rel="prev" title="Ensemble-Blending">
+      <i class="fa fa-chevron-left"></i> Ensemble-Blending
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/05/18/Ensemble-Happiness/" rel="next" title="Ensemble-happiness">
+      Ensemble-happiness <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div id="music163player">
+      <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=1317956275&auto=0&height=66"></iframe>
+      </iframe>
+    </div>
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#introduction"><span class="nav-text">1. Introduction</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#a-example-of-stacking-model"><span class="nav-text">2. A example of stacking model</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#data-process"><span class="nav-text">2.1 Data process</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#creating-stacking-model"><span class="nav-text">2.2 Creating Stacking model</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#conclusion"><span class="nav-text">3. Conclusion</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#blending-%E5%92%8C-stacking-%E5%AF%B9%E6%AF%94"><span class="nav-text">3.1 Blending 和 Stacking 对比</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="YangSu"
+      src="/images/YangSu.jpg">
+  <p class="site-author-name" itemprop="name">YangSu</p>
+  <div class="site-description" itemprop="description">A blog for recording learning notes...</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">78</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/Categories/">
+          
+        <span class="site-state-item-count">40</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/Tags/">
+          
+        <span class="site-state-item-count">49</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/YangSuoly" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;YangSuoly" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://gitee.com/yangsuoly" title="Gitee → https:&#x2F;&#x2F;gitee.com&#x2F;yangsuoly" rel="noopener" target="_blank"><i class="fab fa-github-square fa-fw"></i>Gitee</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://space.bilibili.com/64518717" title="B 站 → https:&#x2F;&#x2F;space.bilibili.com&#x2F;64518717" rel="noopener" target="_blank"><i class="fa fa-play-circle fa-fw"></i>B 站</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Related links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://www.58pic.com/u/19637930/" title="https:&#x2F;&#x2F;www.58pic.com&#x2F;u&#x2F;19637930&#x2F;" rel="noopener" target="_blank">千图网</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js" integrity="sha384-g7c+Jr9ZivxKLnZTDUhnkOnsh30B4H0rpLUpJ4jAIKs4fnJI+sEnkvrMWph2EDg4" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/auto-render.min.js" integrity="sha384-mll67QQFJfxn0IYznZYonOWZ644AWYC+Pt2cHqMaRhXVrursRwvLnLaebdGIlYNa" crossorigin="anonymous"
+        onload="renderMathInElement(document.body);"></script>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2026</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">YangSu</span>
+</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="Total Visitors">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="Total Views">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script size="300" alpha="0.6" zIndex="-1" src="/lib/canvas-ribbon/canvas-ribbon.js"></script>
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+<script>
+document.querySelectorAll('.pdfobject-container').forEach(element => {
+  let url = element.dataset.target;
+  let pdfOpenParams = {
+    navpanes : 0,
+    toolbar  : 0,
+    statusbar: 0,
+    pagemode : 'thumbs',
+    view     : 'FitH'
+  };
+  let pdfOpenFragment = '#' + Object.entries(pdfOpenParams).map(([key, value]) => `${key}=${encodeURIComponent(value)}`).join('&');
+  let fullURL = `/lib/pdf/web/viewer.html?file=${encodeURIComponent(url)}${pdfOpenFragment}`;
+
+  if (NexT.utils.supportsPDFs()) {
+    element.innerHTML = `<embed class="pdfobject" src="${url + pdfOpenFragment}" type="application/pdf" style="height: ${element.dataset.height};">`;
+  } else {
+    element.innerHTML = `<iframe src="${fullURL}" style="height: ${element.dataset.height};" frameborder="0"></iframe>`;
+  }
+});
+</script>
+
+
+<script>
+if (document.querySelectorAll('pre.mermaid').length) {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js', () => {
+    mermaid.initialize({
+      theme    : 'forest',
+      logLevel : 3,
+      flowchart: { curve     : 'linear' },
+      gantt    : { axisFormat: '%m/%d/%Y' },
+      sequence : { actorMargin: 50 }
+    });
+  }, window.mermaid);
+}
+</script>
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+  <script src="//cdn.jsdelivr.net/npm/quicklink@1/dist/quicklink.umd.js"></script>
+  <script>
+      window.addEventListener('load', () => {
+      quicklink({
+        timeout : 3000,
+        priority: true,
+        ignores : [uri => uri.includes('#'),uri => uri === 'http://yangsuoly.com/2021/05/13/Ensemble-Stacking/',]
+      });
+      });
+  </script>
+
+  
+  <script id="ribbon" src="js/canvas-ribbon.js"></script>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/22.2017.cba-normal.model.json"},"display":{"position":"right","width":300,"height":450},"mobile":{"show":false},"react":{"opacity":0.7},"log":false});</script></body>
+</html>

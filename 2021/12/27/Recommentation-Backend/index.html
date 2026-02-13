@@ -1,0 +1,765 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/blog-logo-32px.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/blog-logo-16px.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <link rel="manifest" href="/images/manifest.json">
+  <meta name="msapplication-config" content="/images/browserconfig.xml">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yangsuoly.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":true},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":true,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="本文属于新闻推荐实战—前后端基础及交互—前后端交互部分。在前两节，我们分别简单的介绍了与本项目相关的前后的基础知识，目的是为了让大家更加细致的了解整个系统的前后端交互细节，以及更全面的了解一个推荐系统所需的组成部分。本文将从前后端的交互逻辑出发，更加全面的为大家讲解系统的每个细节，了解一个简单的推荐系统内的内部组成。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Recommentation-Backend">
+<meta property="og:url" content="http://yangsuoly.com/2021/12/27/Recommentation-Backend/index.html">
+<meta property="og:site_name" content="独孤诗人的学习驿站">
+<meta property="og:description" content="本文属于新闻推荐实战—前后端基础及交互—前后端交互部分。在前两节，我们分别简单的介绍了与本项目相关的前后的基础知识，目的是为了让大家更加细致的了解整个系统的前后端交互细节，以及更全面的了解一个推荐系统所需的组成部分。本文将从前后端的交互逻辑出发，更加全面的为大家讲解系统的每个细节，了解一个简单的推荐系统内的内部组成。">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://ryluo.oss-cn-chengdu.aliyuncs.com/图片image-20211203154557244.png">
+<meta property="og:image" content="http://ryluo.oss-cn-chengdu.aliyuncs.com/图片image-20211203155028564.png">
+<meta property="og:image" content="http://ryluo.oss-cn-chengdu.aliyuncs.com/图片image-20211203155058020.png">
+<meta property="article:published_time" content="2021-12-27T06:33:33.000Z">
+<meta property="article:modified_time" content="2021-12-27T06:50:52.447Z">
+<meta property="article:author" content="YangSu">
+<meta property="article:tag" content="Python">
+<meta property="article:tag" content="Recommentation">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://ryluo.oss-cn-chengdu.aliyuncs.com/图片image-20211203154557244.png">
+
+<link rel="canonical" href="http://yangsuoly.com/2021/12/27/Recommentation-Backend/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>Recommentation-Backend | 独孤诗人的学习驿站</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?f59f5fb59d32ec3903088b0f976956d1";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta custom-logo">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">独孤诗人的学习驿站</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">生活就是一半烟火，一半诗意。手执烟火谋生活，心怀诗意谋未来……</p>
+      <a>
+        <img class="custom-logo-image" src="/images/logo@2x.png" alt="独孤诗人的学习驿站">
+      </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/Tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/Categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+  <a href="https://github.com/YangSuoly" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yangsuoly.com/2021/12/27/Recommentation-Backend/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/YangSu.jpg">
+      <meta itemprop="name" content="YangSu">
+      <meta itemprop="description" content="A blog for recording learning notes...">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="独孤诗人的学习驿站">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Recommentation-Backend
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2021-12-27 14:33:33 / Modified: 14:50:52" itemprop="dateCreated datePublished" datetime="2021-12-27T14:33:33+08:00">2021-12-27</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/Categories/DataWhale/" itemprop="url" rel="index"><span itemprop="name">DataWhale</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/Categories/DataWhale/Recommentation/" itemprop="url" rel="index"><span itemprop="name">Recommentation</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="Views" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span><br>
+            <span class="post-meta-item" title="Symbols count in article">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">Symbols count in article: </span>
+              <span>14k</span>
+            </span>
+            <span class="post-meta-item" title="Reading time">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">Reading time &asymp;</span>
+              <span>13 mins.</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>本文属于新闻推荐实战—前后端基础及交互—前后端交互部分。在前两节，我们分别简单的介绍了与本项目相关的前后的基础知识，目的是为了让大家更加细致的了解整个系统的前后端交互细节，以及更全面的了解一个推荐系统所需的组成部分。本文将从前后端的交互逻辑出发，更加全面的为大家讲解系统的每个细节，了解一个简单的推荐系统内的内部组成。</p>
+<a id="more"></a>
+<h3 id="项目样式展现">项目样式展现</h3>
+<p>下面主要展现的是项目的整体部分，主要分为推荐页，热门页以及新闻详情页。</p>
+<p><img src="http://ryluo.oss-cn-chengdu.aliyuncs.com/图片image-20211203154557244.png" alt="image-20211203154557244" style="zoom:70%;" /><img src="http://ryluo.oss-cn-chengdu.aliyuncs.com/图片image-20211203155028564.png" alt="image-20211203155028564" style="zoom:70%;" /><img src="http://ryluo.oss-cn-chengdu.aliyuncs.com/图片image-20211203155058020.png" alt="image-20211203155058020" style="zoom:70%;" /></p>
+<h2 id="后端目录结构">后端目录结构</h2>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">news_rec_sys&#x2F;</span><br><span class="line">    conf&#x2F;</span><br><span class="line">    	dao_config.py</span><br><span class="line">    controller&#x2F;  </span><br><span class="line">    dao&#x2F;</span><br><span class="line">    materials&#x2F;</span><br><span class="line">    	news_scrapy&#x2F;</span><br><span class="line">    	user_proccess&#x2F;</span><br><span class="line">    	material_proccess</span><br><span class="line">    recpocess&#x2F;</span><br><span class="line">    	recall&#x2F;</span><br><span class="line">    	rank&#x2F;</span><br><span class="line">    	online.py</span><br><span class="line">    	offline.py</span><br><span class="line">    scheduler&#x2F;</span><br><span class="line">    server.py</span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong>conf/dao_config.py: 候选整体配置文件</strong></li>
+<li><strong>controller/ : 项目中用于操作数据库的接口</strong></li>
+<li><strong>dao/ : 项目的实体类，对应数据库表</strong></li>
+<li><strong>materials/:
+项目的物料部分，主要用户爬取物料以及处理用户画像和新闻画像</strong></li>
+<li><strong>recpocess/:
+项目的推荐模块，主要包含召回和排序，以及一些线上服务和线下处理部分</strong></li>
+<li>scheduler: 项目的定时任务的脚本部分，</li>
+<li>server.py: 项目后端的入口部分，主要包含项目整体的后端接口部分。</li>
+</ul>
+<p>在该项目中，前端主要使用的是Vue框架+mint-ui，后端主要使用的是Flask+Mysql+Mongodb+Redis来完成的，并且前后端采用分离的额方式，通过json的数据格式进行数据传递。其中该项目后端的主要逻辑在在server.py中，其中主要包含用户注册，登录，推荐列表，热门列表，获取新闻详情页以及用户的行为等功能。接下来将主要按照这几部分详细的介绍一下前后端是如何进行交互。</p>
+<h3 id="用户注册登录">1、用户注册登录</h3>
+<p>为了能够对用户进行千人千面的推荐，因此需要每个使用该系统的人都需要明确先进行注册登入，为每个用户生成唯一的用户id，根据用户的历史行为，实现对用户进行个性化推荐的效果。</p>
+<p>​ <strong>注册部分：</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">register</span>():</span></span><br><span class="line">    <span class="string">&quot;&quot;&quot;用户注册&quot;&quot;&quot;</span></span><br><span class="line">    request_str = request.get_data()</span><br><span class="line">    request_dict = json.loads(request_str)</span><br><span class="line">    </span><br><span class="line">    user = RegisterUser()</span><br><span class="line">    user.username = request_dict[<span class="string">&quot;username&quot;</span>]</span><br><span class="line">    user.passwd = request_dict[<span class="string">&quot;passwd&quot;</span>]</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 查询当前用户名是否已经被用过了</span></span><br><span class="line">    result = UserAction().user_is_exist(user, <span class="string">&quot;register&quot;</span>)</span><br><span class="line">    <span class="keyword">if</span> result != <span class="number">0</span>:</span><br><span class="line">        <span class="keyword">return</span> jsonify(&#123;<span class="string">&quot;code&quot;</span>: <span class="number">500</span>, <span class="string">&quot;mgs&quot;</span>: <span class="string">&quot;this username is exists&quot;</span>&#125;)</span><br><span class="line"></span><br><span class="line">    user.userid = snowflake.client.get_guid() <span class="comment"># 雪花算法生成唯一的用户id</span></span><br><span class="line">    </span><br><span class="line">    user.age = request_dict[<span class="string">&quot;age&quot;</span>]</span><br><span class="line">    user.gender = request_dict[<span class="string">&quot;gender&quot;</span>]</span><br><span class="line">    user.city = request_dict[<span class="string">&quot;city&quot;</span>]</span><br><span class="line"></span><br><span class="line">    save_res = UserAction().save_user(user)   <span class="comment"># 将注册用户信息加入mysql</span></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> save_res:</span><br><span class="line">        <span class="keyword">return</span> jsonify(&#123;<span class="string">&quot;code&quot;</span>: <span class="number">500</span>, <span class="string">&quot;mgs&quot;</span>: <span class="string">&quot;register fail.&quot;</span>&#125;)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> jsonify(&#123;<span class="string">&quot;code&quot;</span>: <span class="number">200</span>, <span class="string">&quot;msg&quot;</span>: <span class="string">&quot;register success.&quot;</span>&#125;)</span><br></pre></td></tr></table></figure>
+<p>可以看到，上面的注册部分主要是记录一些用户的一些基础属性，并将用户的注册信息写入msyql表当中。值得注意的是，为了防止并发问题导致用户id出现冲负问题，因此这里采用了Twitter的雪花算法来为给每个用户生成一个唯一的id。</p>
+<p>​ <strong>登录部分：</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@app.route(<span class="params"><span class="string">&#x27;/recsys/login&#x27;</span>, methods=[<span class="string">&quot;POST&quot;</span>]</span>)</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">login</span>():</span></span><br><span class="line">    <span class="string">&quot;&quot;&quot;用户登录</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">    request_str = request.get_data()</span><br><span class="line">    request_dict = json.loads(request_str)</span><br><span class="line">    </span><br><span class="line">    user = RegisterUser()</span><br><span class="line">    user.username = request_dict[<span class="string">&quot;username&quot;</span>]</span><br><span class="line">    user.passwd = request_dict[<span class="string">&quot;passwd&quot;</span>]</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 查询数据库中的用户名或者密码是否存在</span></span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        result = UserAction().user_is_exist(user, <span class="string">&quot;login&quot;</span>)</span><br><span class="line">        <span class="comment"># print(result,&quot;login&quot;)</span></span><br><span class="line">        <span class="keyword">if</span> result == <span class="number">1</span>:</span><br><span class="line">            <span class="keyword">return</span> jsonify(&#123;<span class="string">&quot;code&quot;</span>: <span class="number">200</span>, <span class="string">&quot;msg&quot;</span>: <span class="string">&quot;login success&quot;</span>&#125;)</span><br><span class="line">        <span class="keyword">elif</span> result == <span class="number">2</span>:</span><br><span class="line">            <span class="comment"># 密码错误</span></span><br><span class="line">            <span class="keyword">return</span> jsonify(&#123;<span class="string">&quot;code&quot;</span>: <span class="number">500</span>, <span class="string">&quot;msg&quot;</span>: <span class="string">&quot;passwd is error&quot;</span>&#125;)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">return</span> jsonify(&#123;<span class="string">&quot;code&quot;</span>: <span class="number">500</span>, <span class="string">&quot;msg&quot;</span>: <span class="string">&quot;this username is not exist!&quot;</span>&#125;)</span><br><span class="line">    <span class="keyword">except</span> Exception <span class="keyword">as</span> e:</span><br><span class="line">        <span class="keyword">return</span> jsonify(&#123;<span class="string">&quot;code&quot;</span>: <span class="number">500</span>, <span class="string">&quot;mgs&quot;</span>: <span class="string">&quot;login fail.&quot;</span>&#125;)</span><br></pre></td></tr></table></figure>
+<p>用户登陆部分，前端通过将输入的账号密码通过POST请求传给
+/recsys/login，通过UserAction().user_is_exist()方法查询数据库中的用户名或者密码是否存在，其中1表示账号密码正确，2表示密码错误，0表示用户不存在。</p>
+<h3 id="推荐页列表">2、推荐页列表</h3>
+<p>在项目样式展现的部分中，第一附图就是推荐页列表的样式，通过瀑布流的方式将新闻内容进行展现。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@app.route(<span class="params"><span class="string">&#x27;/recsys/rec_list&#x27;</span>, methods=[<span class="string">&quot;GET&quot;</span>]</span>)</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">rec_list</span>():</span></span><br><span class="line">    <span class="string">&quot;&quot;&quot;推荐页&quot;&quot;&quot;</span></span><br><span class="line">    user_name = request.args.get(<span class="string">&#x27;user_id&#x27;</span>)</span><br><span class="line">    page_id = request.args.get(<span class="string">&#x27;page_id&#x27;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 查询用户的id</span></span><br><span class="line">    user_id = UserAction().get_user_id_by_name(user_name)  </span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> user_id:</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> user_id <span class="keyword">is</span> <span class="literal">None</span> <span class="keyword">or</span> page_id <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">        <span class="keyword">return</span> jsonify(&#123;<span class="string">&quot;code&quot;</span>: <span class="number">2000</span>, <span class="string">&quot;msg&quot;</span>: <span class="string">&quot;user_id or page_id is none!&quot;</span>&#125;) </span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        <span class="comment"># 获取推荐列表新闻信息</span></span><br><span class="line">        rec_news_list = recsys_server.get_rec_list(user_id, page_id)</span><br><span class="line">        <span class="keyword">if</span> <span class="built_in">len</span>(rec_news_list) == <span class="number">0</span>:</span><br><span class="line">            <span class="keyword">return</span> jsonify(&#123;<span class="string">&quot;code&quot;</span>: <span class="number">500</span>, <span class="string">&quot;msg&quot;</span>: <span class="string">&quot;rec_list data is empty.&quot;</span>&#125;)</span><br><span class="line">        <span class="keyword">return</span> jsonify(&#123;<span class="string">&quot;code&quot;</span>: <span class="number">200</span>, <span class="string">&quot;msg&quot;</span>: <span class="string">&quot;request rec_list success.&quot;</span>, <span class="string">&quot;data&quot;</span>: rec_news_list, <span class="string">&quot;user_id&quot;</span>: user_id&#125;)</span><br><span class="line">    <span class="keyword">except</span> Exception <span class="keyword">as</span> e:</span><br><span class="line">        print(<span class="built_in">str</span>(e))</span><br><span class="line">        <span class="keyword">return</span> jsonify(&#123;<span class="string">&quot;code&quot;</span>: <span class="number">500</span>, <span class="string">&quot;msg&quot;</span>: <span class="string">&quot;redis fail.&quot;</span>&#125;) </span><br></pre></td></tr></table></figure>
+<p>该部分的主要逻辑是前端通过请求 "/recsys/rec_list"
+接口，后端通过前端传递过来的用户姓名，从数据库中获取用户id，再根据用户id去推荐服务(recsys_server)中获取到推荐列表。</p>
+<h4 id="获取用户推荐列表">2.1、获取用户推荐列表</h4>
+<p>我们知道用户的推荐列表是通过推荐服务的 get_rec_list(user_id, page_id)
+接口获取到的。其中需要两个参数：</p>
+<ul>
+<li>user_id：通过用户id，我们可以去redis中查找已经给用户构建好的新闻列表，将新闻信息返回给前端。</li>
+<li>page_id：通过page
+id定位到目前已经给用户推荐到列表的位置，然后在从该位置之后去新的新闻内容。</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_rec_list</span>(<span class="params">self, user_id, page_id</span>):</span></span><br><span class="line">    <span class="string">&quot;&quot;&quot;给定页面的展示范围进行展示  user_id 后面做个性化推荐的时候需要用到&quot;&quot;&quot;</span></span><br><span class="line">    <span class="comment"># 根据page id计算需要获取redis中哪些范围的news_id, 假设每一页展示10个新闻</span></span><br><span class="line">    s = (<span class="built_in">int</span>(page_id) - <span class="number">1</span>) * <span class="number">10</span></span><br><span class="line">    e = s + <span class="number">9</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 返回的是一个news_id列表</span></span><br><span class="line">    news_id_list = self.reclist_redis_db.zrange(<span class="string">&quot;rec_list&quot;</span>, start=s, end=e) </span><br><span class="line"></span><br><span class="line">    <span class="comment"># 根据news_id获取新闻的具体内容，并返回一个列表，列表中的元素是按照顺序展示的新闻信息字典</span></span><br><span class="line">    news_info_list = []</span><br><span class="line">    news_expose_list = []</span><br><span class="line">    <span class="keyword">for</span> news_id <span class="keyword">in</span> news_id_list:</span><br><span class="line">        news_info_dict = self._get_news_simple(news_id)</span><br><span class="line">        news_info_list.append(news_info_dict)</span><br><span class="line">        news_expose_list.append(news_info_dict[<span class="string">&quot;news_id&quot;</span>])  <span class="comment"># 记录在用户曝光表上[user_exposure]</span></span><br><span class="line"></span><br><span class="line">    self._save_user_exposure(user_id,news_expose_list)  <span class="comment"># 曝光落表</span></span><br><span class="line">    <span class="keyword">return</span> news_info_list</span><br></pre></td></tr></table></figure>
+<p>这里的逻辑，主要是先根据page
+id，计算从redis中推荐列表取的范围。在得到新闻id列表之后，通过_get_news_simple()
+方法从mysql何redis中获取新闻列表所需的展现内容。</p>
+<p>为了提高用户体验，这里考虑将已经在推荐列表中给用户曝光过的新闻，当天内不会再通过热门页对用户进行曝光。因此这里需要利用_save_user_exposure()方法来将已经曝光过的新闻存储到redis中，这样在热门推荐中，针对用户的曝光会对热门推荐的内容进行过滤。</p>
+<p>返回的数据格式如下：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">&quot;data&quot;: [</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="attr">&quot;news_id&quot;</span>: <span class="string">&quot;4bfb8aab-bcd8-4c74-b7fd-92b28ca5df69&quot;</span>, </span><br><span class="line">      <span class="attr">&quot;cate&quot;</span>: <span class="string">&quot;国内&quot;</span>, </span><br><span class="line">      <span class="attr">&quot;read_num&quot;</span>: <span class="number">0</span>,</span><br><span class="line">      <span class="attr">&quot;likes&quot;</span>: <span class="number">0</span>, </span><br><span class="line">      <span class="attr">&quot;collections&quot;</span>: <span class="number">0</span>, </span><br><span class="line">      <span class="attr">&quot;ctime&quot;</span>: <span class="string">&quot;2021-11-30 12:07&quot;</span>, </span><br><span class="line">      <span class="attr">&quot;title&quot;</span>: <span class="string">&quot;北京市政协十三届五次会议将于2022年1月5日召开&quot;</span></span><br><span class="line">    &#125;,</span><br><span class="line">        ...</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="attr">&quot;news_id&quot;</span>: <span class="string">&quot;4ded60ac-aa2f-408b-af4d-09ca0c58b50a&quot;</span>, </span><br><span class="line">      <span class="attr">&quot;cate&quot;</span>: <span class="string">&quot;国内&quot;</span>, </span><br><span class="line">      <span class="attr">&quot;read_num&quot;</span>: <span class="number">6</span>, </span><br><span class="line">      <span class="attr">&quot;likes&quot;</span>: <span class="number">1</span>, </span><br><span class="line">      <span class="attr">&quot;collections&quot;</span>: <span class="number">0</span>, </span><br><span class="line">      <span class="attr">&quot;ctime&quot;</span>: <span class="string">&quot;2021-11-30 10:44&quot;</span>, </span><br><span class="line">      <span class="attr">&quot;title&quot;</span>: <span class="string">&quot;江西万载县委原书记胡全顺获刑十一年六个月&quot;</span></span><br><span class="line">    &#125;]</span><br></pre></td></tr></table></figure>
+<h3 id="热门推荐页">3、热门推荐页</h3>
+<p>热门推荐页部分，前端通过请求'/recsys/hot_list'接口，通过传递用户姓名和当前页号来获取热门新闻列表。主要的逻辑和获取推荐页相同，区别在于热门新闻信息主要是通过推荐服务(recsys_server)中的get_hot_list()方法来获取到热门新闻推荐列表。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@app.route(<span class="params"><span class="string">&#x27;/recsys/hot_list&#x27;</span>, methods=[<span class="string">&quot;GET&quot;</span>]</span>)</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">hot_list</span>():</span></span><br><span class="line">    <span class="string">&quot;&quot;&quot;热门页面&quot;&quot;&quot;</span></span><br><span class="line">    <span class="keyword">if</span> request.method == <span class="string">&quot;GET&quot;</span>:</span><br><span class="line">        user_name = request.args.get(<span class="string">&#x27;user_id&#x27;</span>)</span><br><span class="line">        page_id = request.args.get(<span class="string">&#x27;page_id&#x27;</span>)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> user_name <span class="keyword">is</span> <span class="literal">None</span> <span class="keyword">or</span> page_id <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">            <span class="keyword">return</span> jsonify(&#123;<span class="string">&quot;code&quot;</span>: <span class="number">2000</span>, <span class="string">&quot;msg&quot;</span>: <span class="string">&quot;user_name or page_id is none!&quot;</span>&#125;) </span><br><span class="line"></span><br><span class="line">        <span class="comment"># 查询用户的id</span></span><br><span class="line">        user_id = UserAction().get_user_id_by_name(user_name)  </span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> user_id:</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        <span class="comment"># # 获取热门列表新闻信息</span></span><br><span class="line">        rec_news_list = recsys_server.get_hot_list(user_id) </span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> <span class="built_in">len</span>(rec_news_list) == <span class="number">0</span>:</span><br><span class="line">            <span class="keyword">return</span> jsonify(&#123;<span class="string">&quot;code&quot;</span>: <span class="number">200</span>, <span class="string">&quot;msg&quot;</span>: <span class="string">&quot;request redis data fail.&quot;</span>&#125;)</span><br><span class="line">        <span class="comment"># rec_news_list = recsys_server.get_hot_list(user_id, page_id)</span></span><br><span class="line">        <span class="keyword">return</span> jsonify(&#123;<span class="string">&quot;code&quot;</span>: <span class="number">200</span>, <span class="string">&quot;msg&quot;</span>: <span class="string">&quot;request hot_list success.&quot;</span>, <span class="string">&quot;data&quot;</span>: rec_news_list, <span class="string">&quot;user_id&quot;</span>: user_id&#125;)</span><br><span class="line">    <span class="keyword">except</span> Exception <span class="keyword">as</span> e:</span><br><span class="line">        print(<span class="built_in">str</span>(e))</span><br><span class="line">        <span class="keyword">return</span> jsonify(&#123;<span class="string">&quot;code&quot;</span>: <span class="number">2000</span>, <span class="string">&quot;msg&quot;</span>: <span class="string">&quot;request hot_list fail.&quot;</span>&#125;) </span><br></pre></td></tr></table></figure>
+<p>可以看到这里其实在后端逻辑上和推荐列表部分相似，主要在于get_hot_list()和get_rec_list()的区别；而热门推荐部分内在的细节内容，将会在后面详细介绍，这里不再赘述。</p>
+<h3 id="新闻详情页">4、 新闻详情页</h3>
+<p>在项目样式展现的部分中，第三附图就是新闻详情页的样式。该部分主要包含一些新闻的详细信息，其中还有两个按钮，用于收集用户的显性反馈，用户可以根据自己对该文章的喜好程度进行喜欢和收藏的反馈内容。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@app.route(<span class="params"><span class="string">&#x27;/recsys/news_detail&#x27;</span>, methods=[<span class="string">&quot;GET&quot;</span>]</span>)</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">news_detail</span>():</span></span><br><span class="line">    <span class="string">&quot;&quot;&quot;一篇文章的详细信息&quot;&quot;&quot;</span></span><br><span class="line">    user_name = request.args.get(<span class="string">&#x27;user_name&#x27;</span>)</span><br><span class="line">    news_id = request.args.get(<span class="string">&#x27;news_id&#x27;</span>)</span><br><span class="line">    </span><br><span class="line">    user_id = UserAction().get_user_id_by_name(user_name)  </span><br><span class="line"></span><br><span class="line">    <span class="comment"># if news_id is None or user_id is None:</span></span><br><span class="line">    <span class="keyword">if</span> news_id <span class="keyword">is</span> <span class="literal">None</span> <span class="keyword">or</span> user_name <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">        <span class="keyword">return</span> jsonify(&#123;<span class="string">&quot;code&quot;</span>: <span class="number">2000</span>, <span class="string">&quot;msg&quot;</span>: <span class="string">&quot;news_id is none or user_name is none!&quot;</span>&#125;) </span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        news_detail = recsys_server.get_news_detail(news_id)</span><br><span class="line">  </span><br><span class="line">        <span class="keyword">if</span> UserAction().get_likes_counts_by_user(user_id,news_id) &gt; <span class="number">0</span>:</span><br><span class="line">            news_detail[<span class="string">&quot;likes&quot;</span>] = <span class="literal">True</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            news_detail[<span class="string">&quot;likes&quot;</span>] = <span class="literal">False</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> UserAction().get_coll_counts_by_user(user_id,news_id) &gt; <span class="number">0</span>:</span><br><span class="line">            news_detail[<span class="string">&quot;collections&quot;</span>] = <span class="literal">True</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            news_detail[<span class="string">&quot;collections&quot;</span>] = <span class="literal">False</span></span><br><span class="line">        <span class="comment"># print(&quot;test&quot;,news_detail)</span></span><br><span class="line">        <span class="keyword">return</span> jsonify(&#123;<span class="string">&quot;code&quot;</span>: <span class="number">0</span>, <span class="string">&quot;msg&quot;</span>: <span class="string">&quot;request news_detail success.&quot;</span>, <span class="string">&quot;data&quot;</span>: news_detail&#125;)</span><br><span class="line">    <span class="keyword">except</span> Exception <span class="keyword">as</span> e:</span><br><span class="line">        print(<span class="built_in">str</span>(e))</span><br><span class="line">        <span class="keyword">return</span> jsonify(&#123;<span class="string">&quot;code&quot;</span>: <span class="number">2000</span>, <span class="string">&quot;msg&quot;</span>: <span class="string">&quot;error&quot;</span>&#125;) </span><br></pre></td></tr></table></figure>
+<p>上面就是详情页的后端逻辑，通过用户名字从mysql中获取用户id信息。防止用户id或者
+page
+id出现空值的情况，需要进行判断。紧接着通过recsys_server服务的get_news_detail()方法，根据新闻的id进行获取内容。</p>
+<p>如果用户对该新闻之前点击过喜欢或收藏，再次点击该新闻应该在喜欢或收藏按钮应该是点亮状态，因此还需要根据mysql中再次查询用户与该新闻是否存在记录，并将结果返回给前端，将其进行点亮展示。这里采用两个字段likes和collections，通过True，False来判断用户对该文章之前是否点击过喜欢或收藏。</p>
+<p>返回的数据格式如下：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">&quot;code&quot;</span>: <span class="number">0</span>, </span><br><span class="line">  <span class="attr">&quot;data&quot;</span>: &#123;</span><br><span class="line">  	<span class="attr">&quot;news_id&quot;</span>: <span class="string">&quot;4ded60ac-aa2f-408b-af4d-09ca0c58b50a&quot;</span>, </span><br><span class="line">    <span class="attr">&quot;cate&quot;</span>: <span class="string">&quot;军事&quot;</span>, </span><br><span class="line">    <span class="attr">&quot;title&quot;</span>: <span class="string">&quot;运-20加油机首次现身台海上空 堪称“战力倍增器”&quot;</span>, </span><br><span class="line">    <span class="attr">&quot;content&quot;</span>: <span class="string">&quot;原标题：视频丨运-20加油机首次现身台海上空，堪称“战力倍增器”据台湾“中央社”报道，台防务部门晚间发布最新动态，11月28日白天解放军空军有27架次多型战机出现在了台湾所谓“西南空域”。首度被台媒披露现身台海的运油-20，是以国产运-20大型远程运输机为平台改装的空中加油机。据媒体测算，运油-20加油机装载燃油超过100吨，能大幅提升战机的空中续航能力，堪称“战力倍增器”。&quot;</span>, </span><br><span class="line">    <span class="attr">&quot;collections&quot;</span>: <span class="literal">true</span>, </span><br><span class="line">    <span class="attr">&quot;read_num&quot;</span>: <span class="number">6</span>, </span><br><span class="line">    <span class="attr">&quot;likes&quot;</span>: <span class="literal">true</span>, </span><br><span class="line">    <span class="attr">&quot;ctime&quot;</span>: <span class="string">&quot;2021-11-30 10:44&quot;</span>, </span><br><span class="line">    <span class="attr">&quot;url&quot;</span>: <span class="string">&quot;https://news.sina.com.cn/c/2021-11-30/doc-ikyakumx1093113.shtml&quot;</span></span><br><span class="line">  &#125;, </span><br><span class="line">  <span class="attr">&quot;msg&quot;</span>: <span class="string">&quot;request news_detail success.&quot;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="用户的行为">5、用户的行为</h3>
+<p>在该系统中，用户在看新闻时主要会留下三种用户行为：一是阅读，即用户在点击一篇新闻的详细页时，用户产生的行为；二是喜欢，在新闻详情页下面会存在喜欢按钮，用户可以通过点击按钮触发系统记录该行为；三是收藏，和喜欢行为同理，需要通过用户主动的方式来触发。</p>
+<p>因此在用户点进一篇新闻的详情页时候，前端会发送一个请求，并给后端传递一个json格式数据：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">	<span class="attr">&quot;user_name&quot;</span>:<span class="string">&quot;wang&quot;</span>,</span><br><span class="line">	<span class="attr">&quot;news_id&quot;</span>:<span class="string">&quot;0a745412-db48-4e37-bf13-9a5b56028f7e&quot;</span>,</span><br><span class="line">	<span class="attr">&quot;action_time&quot;</span>:<span class="number">1638532127190</span>,</span><br><span class="line">	<span class="attr">&quot;action_type&quot;</span>:<span class="string">&quot;read&quot;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在点击喜欢或收藏按钮的时候同样会产生一个请求，并发送json数据：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//点击喜欢</span></span><br><span class="line">&#123;</span><br><span class="line">	<span class="attr">&quot;user_name&quot;</span>:<span class="string">&quot;wang&quot;</span>,</span><br><span class="line">	<span class="attr">&quot;news_id&quot;</span>:<span class="string">&quot;0a745412-db48-4e37-bf13-9a5b56028f7e&quot;</span>,</span><br><span class="line">	<span class="attr">&quot;action_time&quot;</span>:<span class="number">1638532127190</span>,</span><br><span class="line">	<span class="attr">&quot;action_type&quot;</span>:<span class="string">&quot;like:ture&quot;</span> </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//点击收藏</span></span><br><span class="line">&#123;</span><br><span class="line">	<span class="attr">&quot;user_name&quot;</span>:<span class="string">&quot;wang&quot;</span>,</span><br><span class="line">	<span class="attr">&quot;news_id&quot;</span>:<span class="string">&quot;0a745412-db48-4e37-bf13-9a5b56028f7e&quot;</span>,</span><br><span class="line">	<span class="attr">&quot;action_time&quot;</span>:<span class="number">1638532127190</span>,</span><br><span class="line">	<span class="attr">&quot;action_type&quot;</span>:<span class="string">&quot;collections:true&quot;</span> </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>通过前端的传递的数据，后端对应的接口可以通过传递的参数对用户行为进行记录：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@app.route(<span class="params"><span class="string">&#x27;/recsys/action&#x27;</span>, methods=[<span class="string">&quot;POST&quot;</span>]</span>)</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">actions</span>():</span></span><br><span class="line">    <span class="string">&quot;&quot;&quot;用户的行为：阅读，点赞，收藏&quot;&quot;&quot;</span></span><br><span class="line">    request_str = request.get_data()</span><br><span class="line">    request_dict = json.loads(request_str)</span><br><span class="line">    </span><br><span class="line">    username = request_dict.get(<span class="string">&#x27;user_name&#x27;</span>)</span><br><span class="line">    newsid = request_dict.get(<span class="string">&#x27;news_id&#x27;</span>)</span><br><span class="line">    actiontype = request_dict.get(<span class="string">&quot;action_type&quot;</span>)</span><br><span class="line">    actiontime = request_dict.get(<span class="string">&quot;action_time&quot;</span>)</span><br><span class="line"></span><br><span class="line">    userid = UserAction().get_user_id_by_name(username)   <span class="comment"># 获取用户 id</span></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> userid:</span><br><span class="line">        <span class="keyword">return</span> jsonify(&#123;<span class="string">&quot;code&quot;</span>: <span class="number">2000</span>, <span class="string">&quot;msg&quot;</span>: <span class="string">&quot;user not register&quot;</span>&#125;)</span><br><span class="line"></span><br><span class="line">    action_type_list = actiontype.split(<span class="string">&quot;:&quot;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">len</span>(action_type_list) == <span class="number">2</span>:</span><br><span class="line">        _action_type = action_type_list[<span class="number">0</span>]</span><br><span class="line">        <span class="keyword">if</span> action_type_list[<span class="number">1</span>] == <span class="string">&quot;false&quot;</span>: <span class="comment"># 如果这个参数为false的话, 表示数据库中存在记录  需要删除数据 </span></span><br><span class="line">            <span class="keyword">if</span> _action_type==<span class="string">&quot;likes&quot;</span>: </span><br><span class="line">                UserAction().del_likes_by_user(userid,newsid)    <span class="comment"># 删除用户喜欢记录</span></span><br><span class="line">            <span class="keyword">elif</span> _action_type==<span class="string">&quot;collections&quot;</span>:</span><br><span class="line">                UserAction().del_coll_by_user(userid,newsid)     <span class="comment"># 删除用户收藏记录 </span></span><br><span class="line">        <span class="keyword">else</span>: </span><br><span class="line">            <span class="keyword">if</span> _action_type==<span class="string">&quot;likes&quot;</span>:  <span class="comment"># 如果这个参数为true的话, 表示数据库中不存在记录  需要添加数据 </span></span><br><span class="line">                userlikes = UserLikes()</span><br><span class="line">                userlikes.new(userid,username,newsid)</span><br><span class="line">                UserAction().save_one_action(userlikes)       <span class="comment"># 记录用户喜欢记录</span></span><br><span class="line">            <span class="keyword">elif</span> _action_type==<span class="string">&quot;collections&quot;</span>:</span><br><span class="line">                usercollections = UserCollections()</span><br><span class="line">                usercollections.new(userid,username,newsid)</span><br><span class="line">                UserAction().save_one_action(usercollections)   <span class="comment"># 记录用户收藏记录 </span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        <span class="comment"># 落日志</span></span><br><span class="line">        logitem = LogItem()</span><br><span class="line">        logitem.new(userid,newsid,action_type_list[<span class="number">0</span>])</span><br><span class="line">        LogController().save_one_log(logitem)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 更新redis中的展示数据   新闻侧</span></span><br><span class="line">        recsys_server.update_news_dynamic_info(news_id=newsid,action_type=action_type_list)</span><br><span class="line">        <span class="keyword">return</span> jsonify(&#123;<span class="string">&quot;code&quot;</span>: <span class="number">200</span>, <span class="string">&quot;msg&quot;</span>: <span class="string">&quot;action success&quot;</span>&#125;)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">except</span> Exception <span class="keyword">as</span> e:</span><br><span class="line">        print(<span class="built_in">str</span>(e))</span><br><span class="line">        <span class="keyword">return</span> jsonify(&#123;<span class="string">&quot;code&quot;</span>: <span class="number">2000</span>, <span class="string">&quot;msg&quot;</span>: <span class="string">&quot;action error&quot;</span>&#125;)</span><br></pre></td></tr></table></figure>
+<p>上述代码中主要存在三部分内容：</p>
+<p><strong>用户行为记录：</strong></p>
+<p>在前端传递过来的数据中存在一个字段 "action_type":"like:ture" 或
+"action_type":"like:false"（收藏行为类似），对于action_type参数，其值会是一个组合字符串，冒号前面表示用户的具体行为，冒号后面表示用户当前的行为是点击喜欢还是取消喜欢（例如用户误触导致，用户再次点击则会取消）。</p>
+<p>通过<strong>true</strong>和<strong>false</strong>我们不仅可以知道当前用户是点击还是取消，其实还可以知道在数据库中是否存在该用户对该新闻的行为记录。原因是当传递来的是<strong>false</strong>时，表明<strong>like</strong>的状态是从<strong>true</strong>变为<strong>false</strong>，因此数据库中肯定会存在该记录，如果是<strong>true</strong>，表明like的状态是从<strong>false</strong>变为<strong>true</strong>，表明此时数据库中不存在该用户对该新闻的行为记录。通过这样的方式，我们可以比较简单的对数据库进行操作，记录用户的行为。</p>
+<p><strong>用户行为落日志：</strong></p>
+<p>在企业中，任何系统都会有日志的存在，其中最主要的作用是，日志相当于一个监控器，可以随时监测系统是否出现故障，通过日志可以及时定位系统中可能存在的问题。但是我们说的日志还有所区别，我们这里所说的日志主要是记录的一些线上信息，通过日志的方式进行记录，类似于我们这个系统，用户线上存在的行为，对于我们来说是十分具有意义的，我们需要通过分析这样的用户行为来更好的了解用户兴趣，从而进行更加个性化的推荐。因此我们可以借助日志的方式来记录有意义的用户数据，通过日志数据去分析数据，构建模型，这对于一个算法工程师来说是十分重要的内容。</p>
+<p>当然在我们这个新闻推荐系统中，我们这么做的原因有一下几点：</p>
+<ul>
+<li>通过这样的方式让大家体会到日志的意义，我们可以直接通过日志获取一些线上有意义的用户数据。</li>
+<li>通过日志数据，可以帮助我们更新用户画像中的一些动态特征。</li>
+<li>在后面构建模型时，我们也能获取到用户的一些点击率，收藏率的建模，为后面的工作提供数据基础。</li>
+</ul>
+<p>上诉代码中，我们通过 LogController() 的 save_one_log()
+方法对数据进行了存储到了mysql中。</p>
+<p><strong>新闻动态数据更新</strong></p>
+<p>由于我们在展现时会显示该新闻的阅读人数、喜欢人数和收藏人数，因此用户的行为实际上会改变新闻这三个属性。因此我们需要更新redis中新闻的这些动态的数据。</p>
+<p>主要是通过推荐服务里面的 update_news_dynamic_info()方法进行更新。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">update_news_dynamic_info</span>(<span class="params">self, news_id,action_type</span>):</span></span><br><span class="line">    <span class="string">&quot;&quot;&quot;更新新闻展示的详细信息&quot;&quot;&quot;</span></span><br><span class="line">    news_dynamic_info_str = self.dynamic_news_info_redis_db.get(<span class="string">&quot;dynamic_news_detail:&quot;</span> + news_id)</span><br><span class="line">    news_dynamic_info_str = news_dynamic_info_str.replace(<span class="string">&quot;&#x27;&quot;</span>, <span class="string">&#x27;&quot;&#x27;</span> ) <span class="comment"># 将单引号都替换成双引号</span></span><br><span class="line">    news_dynamic_info_dict = json.loads(news_dynamic_info_str)</span><br><span class="line"> </span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">len</span>(action_type) == <span class="number">2</span>:</span><br><span class="line">        <span class="keyword">if</span> action_type[<span class="number">1</span>] == <span class="string">&quot;true&quot;</span>:</span><br><span class="line">            news_dynamic_info_dict[action_type[<span class="number">0</span>]] +=<span class="number">1</span></span><br><span class="line">        <span class="keyword">elif</span> action_type[<span class="number">1</span>] == <span class="string">&quot;false&quot;</span>:</span><br><span class="line">            news_dynamic_info_dict[action_type[<span class="number">0</span>]] -=<span class="number">1</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        news_dynamic_info_dict[<span class="string">&quot;read_num&quot;</span>] +=<span class="number">1</span></span><br><span class="line"> </span><br><span class="line">    news_dynamic_info_str = json.dumps(news_dynamic_info_dict)</span><br><span class="line"> </span><br><span class="line">    news_dynamic_info_str = news_dynamic_info_str.replace(<span class="string">&#x27;&quot;&#x27;</span>, <span class="string">&quot;&#x27;&quot;</span> )</span><br><span class="line">    res = self.dynamic_news_info_redis_db.<span class="built_in">set</span>(<span class="string">&quot;dynamic_news_detail:&quot;</span> + news_id, news_dynamic_info_str)</span><br><span class="line">    <span class="keyword">return</span> res</span><br></pre></td></tr></table></figure>
+<p>上述代码主要是新闻动态特征更新的部分，主要是获取redis中的信息，根据前端传递过来的行为来更新对用新闻属性的值。更改完之后，从新将新的结果从新存储到redis中。</p>
+
+    </div>
+
+    
+    
+    
+
+    <div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">
+            -------------This blog is over!
+            <i class="fa fa-eye"></i>
+            Thanks for your reading-------------
+        </div>
+    
+</div>
+      
+    </div>
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>Post author:  </strong>YangSu
+  </li>
+  <li class="post-copyright-link">
+    <strong>Post link: </strong>
+    <a href="http://yangsuoly.com/2021/12/27/Recommentation-Backend/" title="Recommentation-Backend">http://yangsuoly.com/2021/12/27/Recommentation-Backend/</a>
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/Tags/Python/" rel="tag"><i class="fa fa-tag"></i> Python</a>
+              <a href="/Tags/Recommentation/" rel="tag"><i class="fa fa-tag"></i> Recommentation</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/12/22/Recommentation-Materials/" rel="prev" title="Recommentation-Materials">
+      <i class="fa fa-chevron-left"></i> Recommentation-Materials
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/12/30/Recommentation-Construct/" rel="next" title="Recommentation-Construct">
+      Recommentation-Construct <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div id="music163player">
+      <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=1317956275&auto=0&height=66"></iframe>
+      </iframe>
+    </div>
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%A1%B9%E7%9B%AE%E6%A0%B7%E5%BC%8F%E5%B1%95%E7%8E%B0"><span class="nav-text">项目样式展现</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%90%8E%E7%AB%AF%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84"><span class="nav-text">后端目录结构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%94%A8%E6%88%B7%E6%B3%A8%E5%86%8C%E7%99%BB%E5%BD%95"><span class="nav-text">1、用户注册登录</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8E%A8%E8%8D%90%E9%A1%B5%E5%88%97%E8%A1%A8"><span class="nav-text">2、推荐页列表</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%8E%B7%E5%8F%96%E7%94%A8%E6%88%B7%E6%8E%A8%E8%8D%90%E5%88%97%E8%A1%A8"><span class="nav-text">2.1、获取用户推荐列表</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%83%AD%E9%97%A8%E6%8E%A8%E8%8D%90%E9%A1%B5"><span class="nav-text">3、热门推荐页</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%B0%E9%97%BB%E8%AF%A6%E6%83%85%E9%A1%B5"><span class="nav-text">4、 新闻详情页</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%94%A8%E6%88%B7%E7%9A%84%E8%A1%8C%E4%B8%BA"><span class="nav-text">5、用户的行为</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="YangSu"
+      src="/images/YangSu.jpg">
+  <p class="site-author-name" itemprop="name">YangSu</p>
+  <div class="site-description" itemprop="description">A blog for recording learning notes...</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">78</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/Categories/">
+          
+        <span class="site-state-item-count">40</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/Tags/">
+          
+        <span class="site-state-item-count">49</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/YangSuoly" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;YangSuoly" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://gitee.com/yangsuoly" title="Gitee → https:&#x2F;&#x2F;gitee.com&#x2F;yangsuoly" rel="noopener" target="_blank"><i class="fab fa-github-square fa-fw"></i>Gitee</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://space.bilibili.com/64518717" title="B 站 → https:&#x2F;&#x2F;space.bilibili.com&#x2F;64518717" rel="noopener" target="_blank"><i class="fa fa-play-circle fa-fw"></i>B 站</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Related links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://www.58pic.com/u/19637930/" title="https:&#x2F;&#x2F;www.58pic.com&#x2F;u&#x2F;19637930&#x2F;" rel="noopener" target="_blank">千图网</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js" integrity="sha384-g7c+Jr9ZivxKLnZTDUhnkOnsh30B4H0rpLUpJ4jAIKs4fnJI+sEnkvrMWph2EDg4" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/auto-render.min.js" integrity="sha384-mll67QQFJfxn0IYznZYonOWZ644AWYC+Pt2cHqMaRhXVrursRwvLnLaebdGIlYNa" crossorigin="anonymous"
+        onload="renderMathInElement(document.body);"></script>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2026</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">YangSu</span>
+</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="Total Visitors">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="Total Views">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script size="300" alpha="0.6" zIndex="-1" src="/lib/canvas-ribbon/canvas-ribbon.js"></script>
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+<script>
+document.querySelectorAll('.pdfobject-container').forEach(element => {
+  let url = element.dataset.target;
+  let pdfOpenParams = {
+    navpanes : 0,
+    toolbar  : 0,
+    statusbar: 0,
+    pagemode : 'thumbs',
+    view     : 'FitH'
+  };
+  let pdfOpenFragment = '#' + Object.entries(pdfOpenParams).map(([key, value]) => `${key}=${encodeURIComponent(value)}`).join('&');
+  let fullURL = `/lib/pdf/web/viewer.html?file=${encodeURIComponent(url)}${pdfOpenFragment}`;
+
+  if (NexT.utils.supportsPDFs()) {
+    element.innerHTML = `<embed class="pdfobject" src="${url + pdfOpenFragment}" type="application/pdf" style="height: ${element.dataset.height};">`;
+  } else {
+    element.innerHTML = `<iframe src="${fullURL}" style="height: ${element.dataset.height};" frameborder="0"></iframe>`;
+  }
+});
+</script>
+
+
+<script>
+if (document.querySelectorAll('pre.mermaid').length) {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js', () => {
+    mermaid.initialize({
+      theme    : 'forest',
+      logLevel : 3,
+      flowchart: { curve     : 'linear' },
+      gantt    : { axisFormat: '%m/%d/%Y' },
+      sequence : { actorMargin: 50 }
+    });
+  }, window.mermaid);
+}
+</script>
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+  <script src="//cdn.jsdelivr.net/npm/quicklink@1/dist/quicklink.umd.js"></script>
+  <script>
+      window.addEventListener('load', () => {
+      quicklink({
+        timeout : 3000,
+        priority: true,
+        ignores : [uri => uri.includes('#'),uri => uri === 'http://yangsuoly.com/2021/12/27/Recommentation-Backend/',]
+      });
+      });
+  </script>
+
+  
+  <script id="ribbon" src="js/canvas-ribbon.js"></script>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/22.2017.cba-normal.model.json"},"display":{"position":"right","width":300,"height":450},"mobile":{"show":false},"react":{"opacity":0.7},"log":false});</script></body>
+</html>

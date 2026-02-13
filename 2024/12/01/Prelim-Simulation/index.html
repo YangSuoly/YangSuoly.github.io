@@ -1,0 +1,2216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/blog-logo-32px.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/blog-logo-16px.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <link rel="manifest" href="/images/manifest.json">
+  <meta name="msapplication-config" content="/images/browserconfig.xml">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yangsuoly.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":true},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":true,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="This blog is the learning notes for preparing the preliminary exams of Queue theory, referring to Simulation modeling and analysis  Law, A. M., Kelton, W. D., &amp; Kelton, W. D. (2014). Simulation mo">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Prelim-Simulation">
+<meta property="og:url" content="http://yangsuoly.com/2024/12/01/Prelim-Simulation/index.html">
+<meta property="og:site_name" content="独孤诗人的学习驿站">
+<meta property="og:description" content="This blog is the learning notes for preparing the preliminary exams of Queue theory, referring to Simulation modeling and analysis  Law, A. M., Kelton, W. D., &amp; Kelton, W. D. (2014). Simulation mo">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2024-12-01T02:25:04.000Z">
+<meta property="article:modified_time" content="2024-12-01T04:46:52.748Z">
+<meta property="article:author" content="YangSu">
+<meta property="article:tag" content="Simulation">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://yangsuoly.com/2024/12/01/Prelim-Simulation/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>Prelim-Simulation | 独孤诗人的学习驿站</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?f59f5fb59d32ec3903088b0f976956d1";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta custom-logo">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">独孤诗人的学习驿站</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">生活就是一半烟火，一半诗意。手执烟火谋生活，心怀诗意谋未来……</p>
+      <a>
+        <img class="custom-logo-image" src="/images/logo@2x.png" alt="独孤诗人的学习驿站">
+      </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/Tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/Categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+  <a href="https://github.com/YangSuoly" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yangsuoly.com/2024/12/01/Prelim-Simulation/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/YangSu.jpg">
+      <meta itemprop="name" content="YangSu">
+      <meta itemprop="description" content="A blog for recording learning notes...">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="独孤诗人的学习驿站">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Prelim-Simulation
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2024-12-01 10:25:04 / Modified: 12:46:52" itemprop="dateCreated datePublished" datetime="2024-12-01T10:25:04+08:00">2024-12-01</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/Categories/Class-Notes/" itemprop="url" rel="index"><span itemprop="name">Class Notes</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/Categories/Class-Notes/Prelim/" itemprop="url" rel="index"><span itemprop="name">Prelim</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="Views" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span><br>
+            <span class="post-meta-item" title="Symbols count in article">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">Symbols count in article: </span>
+              <span>49k</span>
+            </span>
+            <span class="post-meta-item" title="Reading time">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">Reading time &asymp;</span>
+              <span>44 mins.</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>This blog is the learning notes for preparing the preliminary exams
+of Queue theory, referring to <em>Simulation modeling and
+analysis</em></p>
+<ul>
+<li>Law, A. M., Kelton, W. D., &amp; Kelton, W. D. (2014).
+<em>Simulation modeling and analysis</em> (Vol. 3). New York:
+Mcgraw-hill.</li>
+</ul>
+<h1 id="basic-simulation-modeling">1 Basic Simulation Modeling</h1>
+<p>Basic Simulation Modeling</p>
+<h2 id="the-nature-of-simulation">1.1 The Nature of Simulation</h2>
+<blockquote>
+<p>Lectures: - <a
+target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1RR4y1A7of/?spm_id_from=333.337.search-card.all.click&amp;vd_source=ed04dacb9e3f8845a9f0fa7b8130e4f1">Simulation
+and modeling of natural processes | 自然过程的仿真与建模 | Python |
+ABM_哔哩哔哩_bilibili</a></p>
+</blockquote>
+<p>This is a book about techniques for using computers to imitate, or
+simulate, the operations of various kinds of real-world facilities or
+processes.</p>
+<p>analytic solution: 解析解</p>
+<a id="more"></a>
+<blockquote>
+<p>Note: 本文文字部分借助 <code>obsidian</code> + <code>Annotator</code>
+插件（<code>Annotator</code> 介绍见 <a
+target="_blank" rel="noopener" href="https://github.com/elias-sundqvist/obsidian-annotator">obsidian-annotator</a>)，实现
+<code>pdf</code> 文档标注及文字时时提取功能，能够将所有标注的文字提取到
+<code>markdown</code> 文件中。图片部分借助
+<code>Image auto upload plugin</code> 插件 （见 <a
+target="_blank" rel="noopener" href="https://github.com/renmu123/obsidian-image-auto-upload-plugin">Link</a>
+）和 <code>PicGo</code> 实现图片自动上传到 <code>GitHub</code>
+图床。然后借助 <code>python</code>
+实现简单的文本内容提取，就可以得到纯净的笔记内容。具体
+操作和实现流程，见之前博客<a
+target="_blank" rel="noopener" href="https://www.yangsuoly.com/2023/01/20/Photography-is-simple/">Photography-is-simple/</a>的引言部分教程。</p>
+<p>完整笔记链接见：<a
+href="https://yangsuoly.com/file/Prelim-Simulation.pdf"><i class="fa fa-download"></i>
+Download Now</a></p>
+</blockquote>
+<p>Application areas for simulation are numerous and diverse
+<em>Application areas for simulation</em>:</p>
+<ul>
+<li>Designing and analyzing manufacturing systems
+(制造系统的设计与分析)；</li>
+<li>Evaluating military weapons systems or their logistics requirements
+(军用武器系统及其后勤保障的评估)；</li>
+<li>Determining hardware requirements or protocols for communications
+networks (通信网络中硬件需求或协议的确定)；</li>
+<li>Determining hardware and software requirements for a computer system
+(计算机系统软硬件需求的确定)；</li>
+<li>Designing and operating transportation systems such as airports,
+freeways, ports, and subways
+(运输系统（如机场、高速公路、港口、地铁等）的设计与运营)：</li>
+<li>Evaluating designs for service organizations such as call centers,
+fast-food restaurants, hospitals, and post offices
+(服务组织（如呼叫中心、快餐店、医院、邮局等）的评估设计)；</li>
+<li>Reengineering of business processes (业务流程的重组)；</li>
+<li>Analyzing supply chains (供应链分析)；</li>
+<li>Determining ordering policies for an inventory system
+(库存系统订货策略的确定)；</li>
+<li>Analyzing mining operations (采矿作业的分析)。</li>
+</ul>
+<p>most real-world systems are too complex to allow realistic models to
+be evaluated analytically, and these models must be studied by means of
+simulation.</p>
+<p>careful simulation study could shed some light on the question</p>
+<p>One indication of this is the Winter Simulation Conference, which
+attracts 600 to 800 people every year.</p>
+<p>several impediments to even wider acceptance and usefulness of
+simulation <em>缺点</em>： - 用于大规模系统的模型变得非常复杂 -
+仿真往往需要耗费大量时间。但随着计算机运行速度的不断加快，费用逐渐降低，逐渐迎难而解。</p>
+<p>First, models used to study large-scale systems tend to be very
+complex</p>
+<p>A second problem with simulation of complex systems is that a large
+amount of computer time is some-times required.</p>
+<p>Finally, there appears to be an unfortunate impression that
+simulation is just an exercise in computer programming, albeit a
+complicated one</p>
+<p>Perspectives on the historical evolution of simulation modeling may
+be found in Nance and Sargent (2002).</p>
+<p>All of the computer code shown in this chapter can be downloaded from
+www.mhhe.com/law.</p>
+<h2 id="systems-models-and-simulation">1.2 Systems, Models, and
+Simulation</h2>
+<p><em>系统分类</em>： -
+离散系统：状态变量在一些离散时间点上瞬时变化的系统； -
+连续系统：状态变量随时间变化而变化的系统。</p>
+<p>We categorize systems to be of two types, discrete and
+continuous.</p>
+<p>A discrete system is one for which the state variables change
+instantaneously at separated points in time</p>
+<p>A continuous system is one for which the state variables change
+continuously with respect to time.</p>
+<p>Ways to study a system.</p>
+<p><strong>Ways to study a system</strong> -
+用<em>实际系统</em>的实验与用<em>系统模型</em>的实验 (Experiment with
+the Actual System vs. Experiment with a Model of the System) -
+<em>物理模型</em>与<em>数学模型</em> (Physical Model vs. Mathematical
+Model). - <em>解析解</em>与<em>仿真</em> (Analytical Solution vs.
+Simulation).</p>
+<p>classify simulation models along three different dimensions: Classify
+simulation models along three different dimensions: -
+<em>静态</em>与<em>动态</em>仿真模型 (Static vs. Dynamic Simulation
+Models) - <em>确定的</em>与<em>随机的</em>仿真模型 (Deterministic vs.
+Stochastic Simulation Models) - <em>连续的</em>与<em>离散</em>仿真模型
+(Continuous vs. Discrete Simulation Models).</p>
+<p><em>The disadvantage of simulation</em>: Stochastic simulation models
+produce output that is itself random, and must therefore be treated as
+only an estimate of the true characteristics of the model;</p>
+<h2 id="discrete-event-simulation">1.3 Discrete Event Simulation</h2>
+<p>Discrete-event simulation concerns the modeling of a system as it
+evolves over time by a representation in which the state variables
+change instantaneously at separate points in time.</p>
+<p>We call the variable in a simulation model that gives the current
+value of simulated time the simulation clock
+<em>仿真钟</em>：仿真模型中给出仿真时间当前值的这个变量</p>
+<p>two principal approaches have been suggested for advancing the
+simulation clock: next-event time advance and fi xed-increment time
+advance.0</p>
+<p>the following components will be found in most discrete-event
+simula-tion models 离散事件仿真模型的组件： -
+系统秋态：播述在某一特定时刻系统所必需的一组状态变量的集合。 -
+伤真钟：给出仿真时间当前值的变量。 -
+事件表：包含下一次每类事件发生时间的表。 -
+统计计数器：用于存储系统性能统计信息的变量。 -
+初始化例程：零时刻对伤真模型进行初始化的子程序。 -
+定时例程：用于从事件表中确定下一事件并将伤真钟推进到该下一事件发生时间的一个子程序。
+-
+事件例程；当某一特定类型事件发生时更新系统状态的子程序（每类事件有一个事作例程）。
+-
+库例程：根据确定的概率分布产生随机观测值的一组子程序，作为仿真模型的部分。
+-
+报告生成器：计算性能期望度量的估计值（通过统计计数器），并在仿真结束时生成一个报告的一个子程序。
+-
+主程序：调用定时例程来确定下一事件，然后将控制转移到相应的事件例程以适当更新系统状态的一个子程序。主程序还可以检查终止条件并在终止时调用报告生成器。</p>
+<h2 id="simulation-of-a-single-server-queueing-system">1.4 Simulation of
+a Single-server Queueing System</h2>
+<p>To measure the performance of this system, we will look at estimates
+of three quantities. To measure the performance of the discrete
+simulation system: - <em>平均延误时间的期望值</em>：First, we will
+estimate the expected average delay in queue of the n customers
+completing their delays during the simulation; we denote this quantity
+by <span class="math inline">d(n)</span>. -
+<em>队列中顾客平均数的期望值</em>： the expected average number of
+customers in the queue (but not being served), denoted by <span
+class="math inline">q(n)</span>. - <em>服务台的期望利用率</em>：The
+expected utilization of the server is the expected proportion of time
+during the simulation.</p>
+<p>First, we will estimate the expected average delay in queue of the n
+cus-tomers completing their delays during the simulation; we denote this
+quantity by d(n).</p>
+<p>the expected average number of customers in the queue (but not being
+served), denoted by q(n),</p>
+<p>The expected utilization of the server is the expected pro-portion of
+time during the simulation [from time 0 to time T(n)]</p>
+<p>To recap, the three measures of performance are the average delay in
+queue dˆ(n), the time-average number of customers in queue qˆ (n), and
+the proportion of time the server is busy uˆ (n).</p>
+<h2 id="simulation-of-an-inventory-system">1.5 Simulation of An
+Inventory System</h2>
+<h2
+id="paralleldistributed-simulation-and-the-high-level-architecture">1.6
+Parallel/Distributed Simulation and The High Level Architecture</h2>
+<p>logic is executed in order of the events’ simulated time of
+occurrence; i.e., the simu-lation is sequential. sequential. a.
+串行的</p>
+<h2 id="steps-in-a-sound-simulation-study">1.7 Steps in a Sound
+Simulation Study</h2>
+<p>As one proceeds with the study, it may be necessary to go back to a
+previous step. <img
+src="https://cdn.jsdelivr.net/gh/YangSuoly/Images/Prelim/202412011124703.png"
+alt="Pasted image 20240929092453" /></p>
+<p><em>Steps</em>: 1. 问题形式化与制定研究计划 2. 收集数据并定义模型 3.
+假设文档是有效的吗 4. 编制计算机程序并校验 5. 进行操控运行 6.
+编程模型有效吗 7. 设计实验 8. 进行批次运行 9. 分析输出数据 10.
+形成文件，提交及使用结果</p>
+<h2 id="advantages-disadvantages-and-pitfalls-of-simulation">1.8
+Advantages, Disadvantages and Pitfalls of Simulation</h2>
+<p>Some possible advantages of simulation that may account for its
+widespread appeal are the following.</p>
+<p>Most complex, real-world systems with stochastic elements cannot be
+accurately described by a mathematical model that can be evaluated
+analytically</p>
+<p>Simulation is not without its drawbacks. Some disadvantages are as
+follows</p>
+<h1 id="chapter-2-modeling-complex-systems">2. Chapter 2 Modeling
+Complex Systems</h1>
+<p>Most real-world systems, however, are quite complex, and coding them
+without supporting software can be a diffi cult and time-consuming
+task</p>
+<h2 id="list-processing-in-simulation">2.2 List Processing in
+Simulation</h2>
+<p>two approaches to storing lists of records in a computer—sequential
+and linked allocation <em>存储记录表的两种方式</em>： - 顺序分配
+(Sequential allocation) - 链式分配 (Linked allocation)</p>
+<h1 id="simulation-software">3. Simulation Software</h1>
+<h2 id="introduction">3.1 Introduction</h2>
+<p>several features needed in programming most discrete-event simulation
+models, including: several features needed in programming most
+discrete-event simulation models, including: •</p>
+<p>• - Generating random numbers, that is, observations from a <span
+class="math inline">U(0,1)</span> probability distribution
+(产生随机数，即均匀概率分布 <span class="math inline">U(0,1)</span>
+的观测值)； - Generating random variates from a specified probability
+distribution (e.g., exponential)
+(产生一个特定概率分布（例如，指数分布）的随机变量)； - Advancing
+simulated time (推进仿真时间)； - Determining the next event from the
+event list and passing control to the appropriate block of code
+(从事件表中确定下一事件，并将控制权转交给适当的代码块)； - Adding
+records to, or deleting records from a list
+(向一个表添加记录或从表中删除记录)； - Collecting output statistics and
+reporting the results (搜集输出统计信息并生成结果报告)； - Detecting
+error conditions (探测错误发生的条件)。</p>
+<p>Section 3.5 gives brief descriptions of Arena, ExtendSim, and Simio,
+which are popular general-purpose simulation packages</p>
+<h2 id="classification-of-simulation-software">3.3 Classification of
+Simulation Software</h2>
+<p>There are two main types of simulation packages for discrete-event
+simulation, namely, general-purpose simulation software and
+application-oriented simulation software.</p>
+<p>e used the event-scheduling approach to discrete-event simulation
+modeling</p>
+<h1 id="review-of-basic-probability-and-statistics">4. Review of Basic
+Probability and Statistics</h1>
+<h2 id="introduction-1">4.1 Introduction</h2>
+<p>The use of probability and statistics is such an integral part of a
+simulation study</p>
+<p>In this chapter we establish statistical notation used throughout the
+book and review some basic probability and statistics particularly
+relevant to simulation.</p>
+<h2 id="random-variables-and-their-properties">4.2 Random Variables and
+Their Properties</h2>
+<p><strong>Notations</strong>: - Sample space <span
+class="math inline">S</span>: The set of all possible outcomes of an
+experiment - Random variable: a function (or rule) that assigns a real
+number (any number greater than <span class="math inline">-\infty</span>
+and less than <span class="math inline">\infty</span> ) to each point in
+the sample space <span class="math inline">S</span> &gt; In general, we
+denote random variables by capital letters such as <span
+class="math inline">X, Y, Z</span> and the values that random variables
+take on by lowercase letters such as <span class="math inline">x, y,
+z</span>.</p>
+<ul>
+<li>Distribution function (sometimes called the cumulative distribution
+function) <span class="math inline">F(x)</span>.</li>
+<li>Joint probability mass function <span class="math inline">p(x,
+y)</span></li>
+<li>Joint probability density function <span class="math inline">(f(x,
+y)</span></li>
+<li>(Marginal) Probability density function <span
+class="math inline">f_X (x)</span></li>
+<li>Mean or Expected value of <span class="math inline">X_i</span> is
+<span class="math inline">\mu_i</span> or <span
+class="math inline">\mathbb{E}(X_i)</span></li>
+<li>Variance <span class="math inline">\sigma_i^2</span> or <span
+class="math inline">\text{Var}(X_i)</span></li>
+</ul>
+<p>A distribution function F(x) has the following properties
+<em>Properties</em>: - <span class="math inline">0 \leq F(x) \leq 1,
+\forall x</span> - If <span class="math inline">x_1 &lt; x_2</span>,
+then <span class="math inline">F(x_1) \leq F(x_2)</span> - <span
+class="math inline">\lim_{x\to \infty} F(x) = 1</span> and <span
+class="math inline">\lim_{x\to 0} F(x) = 0</span></p>
+<p>p(x, y) is called the joint probability mass function</p>
+<p>joint probability density function</p>
+<p>(marginal) probability density functions of X and Y <span
+class="math display">
+\begin{align*}
+f_X (x) =  \int_{-\infty}^{\infty} f(x, y) \text{ d} y \\
+f_Y (y) =  \int_{-\infty}^{\infty} f(x, y) \text{ d} x
+\end{align*}
+</span></p>
+<p>The mean or expected value of the random variable Xi Then the
+following are important properties of means:<br />
+1. <span class="math inline">\mathbb{E}(cX) = c \mathbb{E}(X)</span>. 2.
+<span class="math inline">\mathbb{E}(\sum\limits_{i=1}^n c_i X_i) =
+\sum\limits_{i=1}^n c_i \mathbb{E} (X_i)</span> even if the <span
+class="math inline">X_i</span>’s are dependent (相关的).</p>
+<p>hen the following are important properties of means</p>
+<p>The variance of the random variable Xi will be denoted by s2i or
+Var(Xi)</p>
+<p>The variance has the following properties: Properties of variance: -
+<span class="math inline">\text{Var}(X_i) \ge 0</span> - <span
+class="math inline">\text{Var}(c X_i) = c^2 \text{Var}(X_i)</span> -
+<span class="math inline">\text{Var}(\sum\limits_{i=1}^n X_i) =
+\sum\limits_{i=1}^n \text{Var}(X_i)</span> if the Xi’s are independent
+(or uncorrelated, as discussed below).</p>
+<p>In particular, suppose that Xi has a normal distribution with mean
+<span class="math inline">\mu_i</span> and standard deviation <span
+class="math inline">\sigma_i</span>. In this case, for example, the
+probability that <span class="math inline">X_i</span> is between <span
+class="math inline">\mu_i - 1.96\sigma_i</span> and <span
+class="math inline">\mu_i + 1.96\sigma_i</span> is 0.95.</p>
+<p>In particular, suppose that Xi has a normal dis-tribution with mean
+mi and standard deviation si. In this case, for example, the
+prob-ability that Xi is between mi 2 1.96si and mi 1 1.96si is 0.95</p>
+<p>he covariance between the random variables Xi and Xj (where i 5 1, 2,
+. . . , n; j 5 1, 2, . . . , n) <em>Covariance</em>: <span
+class="math display">
+C_{ij} = \mathbb{E}\left[(X_i - \mu_i )(X_j - \mu_j)\right] =
+\mathbb{E}(X_i X_j) - \mu_i\mu_j
+</span></p>
+<p><em>Note</em>: covariances are symmetric, that is, <span
+class="math inline">C_{ij} = C_{ji}</span>, and if <span
+class="math inline">i=j</span>, then <span
+class="math inline">C_{ij}=C_{ji}=\sigma_i^2</span>.</p>
+<p>If <span class="math inline">Cij =0</span>, the random variables Xi
+and Xj are said to be uncorrelated.</p>
+<p>As a result, we use the correlation rij, defi ned b
+<em>Correlation</em> <span class="math inline">\rho_{ij}</span> or <span
+class="math inline">\text{Cor} (X_i, X_j)</span>: <span
+class="math display">
+\rho_{ij} = \frac{C_{ij}}{\sqrt{\sigma_i^2 \sigma_j^2}}
+</span></p>
+<h2 id="simulation-output-data-and-stochastic-process">4.3 Simulation
+Output Data and Stochastic Process</h2>
+<p>A stochastic process is a collection of “similar” random variables
+ordered over time, which are all defi ned on a common sample space. The
+set of all possible val-ues that these random variables can take on is
+called the state space <em>Note</em>:
+随机过程是按时间排序的“类似的”随机变量的几何，随机变量全部定义在共同样本空间上。这些随机变量可以取的所有可能值的集合称为状态空间。</p>
+<p><em>Example</em>: For a single-server queueing system, e.g., <span
+class="math inline">M / M /1</span> queue, with IID inter-arrival times
+<span class="math inline">A_1, A_2, \cdots</span>, IID service times
+<span class="math inline">S_1, S_2, \cdots</span> and customers served
+in a FIFO manner. 定义在队列中的延误时间 (delays in queue) <span
+class="math inline">D_1, D_2, \cdots</span> as follows:</p>
+<p><span class="math display">
+\begin{align}
+D_1 &amp;= 0 \\ \\
+D_{i+1} &amp;= \max\{D_i + S_i - A_{i+1}, 0\}  \quad \text{for} i =
+1,2,\cdots
+\end{align}
+</span> <em>Note</em>: <span class="math inline">D_i</span> and <span
+class="math inline">D_{i+1}</span> are positively correlated. - 令 <span
+class="math inline">Q(t)</span> 为在 <span class="math inline">t</span>
+时刻在队列中的顾客数，则 <span class="math inline">\{Q(t), t \ge
+0\}</span> 是一个连续时间随机过程，其状态空间为 <span
+class="math inline">\{0, 1,2, \cdots \}</span> - 令 <span
+class="math inline">C_i</span> 为第 <span class="math inline">i</span>
+个月的总成本（如订货、存储和缺货成本的总和），则 <span
+class="math inline">C_1, C_2, \cdots</span>
+是一个离散时间随机过程，其状态空间为非负实数。</p>
+<p>To draw inferences about an underlying stochastic process from a set
+of simula-tion output data, one must sometimes make assumptions about
+the stochastic proces</p>
+<p>. A discrete-time stochastic process X1, X2, . . . is said to be
+covariance-stationary
+一个常见的例子是假设随机过程是协方差平稳的。<em>Definition</em>: <span
+class="math display">
+\begin{align}
+\mu_i = \mu \quad \text{for } i =1,2,\cdots \text{ and } - \infty &lt;
+\mu &lt; \infty \\ \\
+\sigma_i^2 = \sigma^2 \quad \text{for } i =1,2,\cdots \text{ and }
+\sigma^2 &lt; \infty
+\end{align}
+</span>
+因此，对于一个协方差平稳过程，均值和方差是不随时间变化而变化的，且两个观测值
+<span class="math inline">X_i</span> 和 <span
+class="math inline">X_{i+j}</span> 之间的协方差仅仅取决于间隔 <span
+class="math inline">j</span>，而不取决于实际时间值 <span
+class="math inline">i</span> 和 <span
+class="math inline">i+j</span>。</p>
+<p>For a covariance-stationary process, For a covariance-stationary
+process, we denote the covariance and correlation between <span
+class="math inline">X_i</span> and <span
+class="math inline">X_{i+j}</span> by <span
+class="math inline">C_j</span> and <span
+class="math inline">\rho_j</span>, respectively, where <span
+class="math display">
+\rho_j=\frac{C_{i, i+j}}{\sqrt{\sigma_i^2
+\sigma_{i+j}^2}}=\frac{C_j}{\sigma^2}=\frac{C_j}{C_0} \quad \text { for
+} j=0,1,2, \ldots
+</span></p>
+<h2 id="estimation-of-means-variances-and-correlations">4.4 Estimation
+of Means, Variances, and Correlations</h2>
+<p>our primary objec-tive is to estimate m; For IID random variables -
+Sample mean <span class="math display">
+\bar{X}(n)=\frac{\sum\limits_{i=1}^nX_i}{n}
+</span> - Sample variance <span class="math display">
+S^2(n) = \frac{\sum\limits_{i=1}^n\left[X_i-\bar{X}(n)\right]^2}{n-1}
+</span></p>
+<ul>
+<li><p>Variance of sample mean <span class="math display">
+\operatorname{Var}[\bar{X}(n)]= \frac{\sigma^2}{n}
+</span></p></li>
+<li><p>Unbiased estimator of <span
+class="math inline">\operatorname{Var}[\bar{X}(n)]</span> <span
+class="math display">
+\widehat{\operatorname{Var}}[\bar{X}(n)]=\frac{S^2(n)}{n}=\frac{\sum_{i=1}^n\left[X_i-\bar{X}(n)\right]^2}{n(n-1)}
+</span></p></li>
+</ul>
+<p>For <em>covariance-stationary stochastic process</em> - Sample
+variance</p>
+<p><span class="math display">
+\operatorname{E}[S^2(n)]=\sigma^2 \left[1 - 2\frac{
+\sum\limits_{j=1}^{n-1}(1-j / n) \rho_j}{n-1}\right]
+</span></p>
+<ul>
+<li>Variance of the sample mean <span class="math display">
+\operatorname{Var}[\bar{X}(n)]=\sigma^2 \frac{\left[1+2
+\sum\limits_{j=1}^{n-1}(1-j / n) \rho_j\right]}{n}
+</span></li>
+</ul>
+<p>covariance-stationary stochastic process</p>
+<p>there are two sources of error: the bias in S 2(n) as an estimator of
+s2 and the negligence of the correlation terms</p>
+<h2 id="confidence-intervals-and-hypothesis-tests-for-the-mean">4.5
+Confidence Intervals and Hypothesis Tests for the Mean</h2>
+<p>standard normal random variable; - <em>Standard normal random
+variable</em>: <span class="math display">
+\Phi(z) = \frac{1}{\sqrt{2\pi}} \int_{-\infty}^z e^\frac{-y^2
+}{2}\operatorname d y \qquad -\infty&lt;z&lt;\infty
+</span></p>
+<p>a particular n, coverage decreases as the skewness of the
+distribution gets larger - <em>skewness</em> <span class="math display">
+\nu=\frac{E\left[(X-\mu)^3\right]}{\left(\sigma^2\right)^{3 / 2}}
+\quad-\infty&lt;\nu&lt;\infty
+</span></p>
+<h1
+id="building-valid-credible-and-appropriately-detailed-simulation-models">5.
+Building Valid, Credible, and Appropriately Detailed Simulation
+Models</h1>
+<h2 id="introduction-and-definitions">5.1 Introduction and
+Definitions</h2>
+<p>One of the most diffi cult problems facing a simulation analyst is
+that of trying to determine whether a simulation model is an accurate
+representation of the actual system being studied, i.e., whether the
+model is valid</p>
+<p>We begin by defining the important terms used in this chapter,
+including verifica-tion, validation, and credibility. - Verification is
+concerned with determining whether the “assumptions document” -
+Validation is the process of determining whether a simulation model is
+an accurate representation of the system, for the particular objectives
+of the study. - A simulation model and its results have credibility if
+the manager and other key project personnel accept them as
+“correct.”</p>
+<figure>
+<img
+src="https://cdn.jsdelivr.net/gh/YangSuoly/Images/Prelim/202412011124705.png"
+alt="Pasted image 20240930141217" />
+<figcaption aria-hidden="true">Pasted image 20240930141217</figcaption>
+</figure>
+<h2 id="guidelines-for-determining-the-level-of-model-detail">5.2
+Guidelines for Determining the Level of Model Detail</h2>
+<p>We now present some general guidelines for determining the level of
+detail required by a simulation model
+确定仿真模型所需详细程度的某些一般准则： -
+认真定义要研究的问题的细节以及将用于评估的性能度量； -
+实体通过放着呢模型并不总是必须于是提通过对应系统相同； - 使用主题专家
+(SME) 和灵敏度分析来帮助决定模型的详细程度； -
+建模初学者常犯的错误是模型的细节过多； -
+在模型中不要有比解决关注的问题所必须的更多细节，前提是模型必须足够详细保证其是可信的；
+- 模型的详细程度应该与可用数据的类型相一致； -
+在实际的所有仿真研究中，时间和经费约束是确定模型详细程度的主要因素； -
+如果要研究的因素过多，则使用一个“粗”仿真模型或者一个解析模型来识别哪些因素对于系统性能有重大影响。</p>
+<h2 id="verification-of-simulation-computer-programs">5.3 Verification
+of Simulation Computer Programs</h2>
+<p>In this section we discuss eight techniques that can be used to debug
+the computer program of a simulation model</p>
+<h2 id="techniques-for-increasing-model-validity-and-credibility">5.4
+Techniques for Increasing Model Validity and Credibility</h2>
+<p>Collect High-Quality Information and Data on the System Collect
+High-Quality Information and Data on the System: - Conversations with
+subject-matter experts - Observations of the system - Existing theory -
+Relevant results from similar simulation studies - Experience and
+intuition of the modelers</p>
+<p>Interact with the Manager on a Regular Basis</p>
+<h1 id="selecting-input-probability-distributions">6. Selecting Input
+Probability Distributions</h1>
+<h2 id="introductions">6.1 Introductions</h2>
+<p>To carry out a simulation using random inputs such as interarrival
+times or demand sizes, we have to specify their probability
+distributions.</p>
+<p>If it is possible to collect data on an input random variable of
+interest, these data can be used in one of the following approaches to
+specify a distributio
+如果可能收集到相关的输入随机变量数据，这些数据可用于以下的方法之一，以确定一个分布：
+1.
+在仿真钟直接使用数据值本身。例如，如果用数据代表服务时间，那么仿真中一旦需要服务时间就使用一个数据值。这有时叫做
+<em>跟踪驱动仿真 (Trace-driven simulation)</em> 2.
+以某种方式使用数据值本身来定义一个经验分布函数 (seeing <a
+href="Prelim-Simulation#6.2%20Useful%20Probability%20Distributions">Sec
+6.2</a>)。如果这些数据代表服务时间，当仿真中需要服务时间时，就可以从该分布中取样。
+3. 使用统计推理的标准方法对数据 “拟合”
+一个理论分布形式，例如指数分布或者泊松分布，并进行假设检验以确定你和的优良度。</p>
+<p>Two drawbacks of approach 1 are that the simulation can only
+reproduce what has happened historically and that there is seldom enough
+data to make all the de-sired simulation runs.</p>
+<h2 id="useful-probability-distributions">6.2 Useful Probability
+Distributions</h2>
+<h3 id="parameterization-of-continuous-distributions">6.2.1
+Parameterization of Continuous Distributions</h3>
+<p>However, if the parameters are defi ned correctly, they can be
+classifi ed, on the basis of their physical or geometric interpretation,
+as being one of three basic types: location, scale, or shape parameters.
+可以将参数归类为三种基本类型中的一类： - Location parametere <span
+class="math inline">\gamma</span> : 制定了分布取值范围的横坐标 (absciss,
+<span class="math inline">x</span>
+轴）位置点，通常是分布的范围的中点（如正态分布的均值 <span
+class="math inline">\mu</span> ） 或者下端点； - Scale parametere <span
+class="math inline">\beta</span> :
+决定了分布范围取值的测量比例，或单位，标准差 <span
+class="math inline">\sigma</span> 是标准正态分布的比例参数； - Shape
+parameter <span class="math inline">\alpha</span> :
+决定了相关分布一般类型内的基本形状。<span
+class="math inline">\alpha</span>
+的变化一般会改变分布的性质（如斜歪），较之于位移或者比例参数，其变化是更根本性的。注：有些分布（如
+<em>指数分布</em> 或 <em>正态分布</em> ）没有形状参数，有些分布（如
+<em>贝塔分布</em> ）可以有两个形状参数。</p>
+<h3 id="continuous-distributions">6.2.2 Continuous Distributions</h3>
+<p>Table 6.3 gives information relevant to simulation modeling
+applications for 13 con-tinuous distributions. Possible applications are
+given fi rst to indicate some (certainly not all) uses of the
+distribution 13 个连续分布 - 均匀分布 Uniform - 指数分布 Exponential -
+伽马分布 Gamma - 韦布尔分布 Weibull - 正态分布 Normal - 对数正态分布
+Lognormal - 贝塔分布 Beta - 皮尔逊 V 型分布 Pearson type V - 皮尔逊 VI
+型分布 Pearson type VI - 对数逻辑斯蒂分布 Log-logistic - 约翰逊 <span
+class="math inline">S_B</span> 分布 Johnson <span
+class="math inline">S_B</span> - 三角分布 Triangular</p>
+<h3 id="discrete-distribution">6.2.3 Discrete Distribution</h3>
+<p>The descriptions of the six discrete distributions in Table 6.4
+六个离散分布： - 伯努利分布 Bernoulli - 离散均匀分布 Discrete Uniform -
+二项分布 Binomial - 几何分布 Geometric - 负二项分布 negative binomial -
+泊松分布 Poisson</p>
+<h3 id="empirical-distribution">6.2.4 Empirical Distribution</h3>
+<p>In some situations we might want to use the observed data themselves
+to specify directly (in some sense) a distribution, called an empirical
+distribution <em>经验分布</em>：
+使用观测数据本身直接（在某种意义下）定义一个分布，这称为经验分布</p>
+<p>For continuous random variables, the type of empirical distribution
+that can be defi ned depends on whether we have the actual values of the
+individual original observations X1, X2, . . . , Xn rather than only the
+number of Xi’s that fall into each of several specifi ed intervals. (The
+latter case is called grouped data or data in the form of a histogram.)
+对于连续随机变量，能定义的经验分布的类型依赖于我们是否具有单个原始观测
+<span class="math inline">X_1, X_2, \cdots, X_n</span>
+的实际值，而不是只有 <span class="math inline">X_i</span>
+落到若干规定的区间的个数 （后者称为 <em>分组数据</em> ，或者称为
+<em>直方图形式数据</em> ）</p>
+<p>s is also the way we would like a con-tinuous distribution</p>
+<p>The random values generated from this distribution, however, will
+still be bounded both below (by a0) and above (by ak);</p>
+<h2 id="techniques-for-assessing-sample-independence">6.3 Techniques for
+Assessing Sample Independence</h2>
+<p>前文讨论的很多统计方法都有一个重要的假设， 那就是观测值 <span
+class="math inline">X_1, X_2, \cdots, X_n</span>
+是某个基本分布的独立的（或随机的）样本。例如最大似然估计（Seeing sec
+6.5）和 <span class="math inline">\chi^2</span> 检验 (Seeing 6.6.2)
+都假设了独立性。</p>
+<p>如果关于独立性的假设不成立，那么这些统计方法也许是无效的。</p>
+<p>If the assumption of independence is not satisfi ed, then these
+statistical techniques may not be valid We now describe two graphical
+techniques for informally assessing whether the data X1, X2, . . . , Xn
+(listed in time order of collection) are independent. 非正式评估数据
+<span class="math inline">X_1, X_2, \cdots,</span> 是否独立
+(independent) 的两种图形方法： - 相关系数图 correlation
+plot。如果样本相关系数 <span class="math inline">\hat \rho_j</span> 与 0
+有很大的数量差异，那么这是 <span class="math inline">X_i</span>
+非独立的有力证书 - 观测数据 <span class="math inline">X_1, X_2,
+\cdots</span> 关于 <span class="math inline">(X_i, X_{i+1})</span>
+点对的散点图 scatter plot。如果 <span class="math inline">X_i</span>
+是独立的，则期望点 <span class="math inline">(X_i, X_{i+1})</span>
+会随机地分布在 <span class="math inline">(X_i, X_{i+1})</span>
+平面的第一象限。如果<em>正相关</em>，则点会呈现一条正斜率的直线；否则呈现
+<em>负斜率</em> 的直线。</p>
+<p>其他的参数（即对 <span class="math inline">X_i</span>
+的分布不做假设）统计检验方法，可以用于正式地检验 <span
+class="math inline">X_1, X_2, \cdots， X_n</span> 是否独立。 -
+冯·诺伊曼比率的排序版本 (A a rank version of Von Neumann's
+ratio)。一个潜在的缺陷就是该检验方法假设数据之间没有“粘性”（即对于 <span
+class="math inline">i\neq j,
+X_i=X_j</span>）。对于离散数据来说，这个要求一般是不满足的。</p>
+<p>There are also several nonparametric (i.e., no assumptions are made
+about the distributions of the <span class="math inline">X_i</span>’s)
+statistical tests that can be used to test formally whether <span
+class="math inline">X_1, X_2, \cdots, X_n</span> are independent.</p>
+<h2 id="activity-1-hypothesizing-families-of-distributions">6.4 Activity
+1: Hypothesizing Families of Distributions</h2>
+<p>The fi rst step in selecting a particular input distribution is to
+decide what general families
+选择特定输入分布的第一步就是要决定哪些类常用分布形状上与其相似，而不考虑这些类别的具体参数值。</p>
+<h3 id="summary-statistics">6.4.1 Summary Statistics</h3>
+<ul>
+<li>Useful summary statistics</li>
+</ul>
+<figure>
+<img
+src="https://cdn.jsdelivr.net/gh/YangSuoly/Images/Prelim/202412011124706.png"
+alt="Pasted image 20241001182617" />
+<figcaption aria-hidden="true">Pasted image 20241001182617</figcaption>
+</figure>
+<p>In particular, <span class="math inline">cv =1</span> for the
+exponential distribution, regardless of the scale parameter <span
+class="math inline">\beta</span></p>
+<p>For a discrete distribution, the lexis ratio <span
+class="math inline">\tau</span> plays the same role that the coefficient
+of variation does for a continuous distribution.</p>
+<p>The skewness <span class="math inline">\nu</span> is a measure of the
+symmetry of a distribution.</p>
+<h3 id="histograms">6.4.2 Histograms</h3>
+<p>The quantile summary [see, for example, Tukey (1970)] is a synopsis
+of the sample that is useful for determining whether the underlying
+probability density function or probability mass function is symmetric
+or skewed to the right or to the left</p>
+<h2 id="activity-ii-estimation-of-parameters">6.5 Activity II:
+Estimation of Parameters</h2>
+<ul>
+<li>Estimating the parameters from the data</li>
+</ul>
+<p>we must somehow specify the values of their parameters in order to
+have completely specifi ed distributions for possible use in the
+simulation</p>
+<p>We shall consider explicitly only one type, maximum-likelihood
+estimators (MLEs), for three reasons: We shall consider explicitly only
+one type, maximum-likelihood estimators (MLEs), for three reasons:<br />
+- MLEs have several desirable properties often not enjoyed by
+alternative methods of estimation, e.g., least-squares estimators,
+unbiased estimators, and the method of moments; - The use of MLEs turns
+out to be important in justifying the chi-square <span
+class="math inline">\chi^2</span> goodness-of-fit test (see Sec. 6.6.2);
+- The central idea of maximum-likelihood estimation has a strong
+intuitive appeal.</p>
+<p>MLEs have several desirable statistical properties, some of which are
+as follows MLE 具有一些很理想的统计性质，包括： -
+对于大多数常用的分布，MLE 是唯一的；也就是说，对于其他任何的 <span
+class="math inline">\theta</span> 值，<span class="math inline">L(\hat
+\theta)</span> 都严格大于 <span class="math inline">L(\theta)</span>; -
+虽然 MLE 不必是无偏的，一般情况下，<span class="math inline">\hat
+\theta</span> 的渐进分布 <span class="math inline">(n \to
++\infty)</span> 的均值等于 <span class="math inline">\theta</span> - MLE
+具有不变性（invariant）。如果对于某个函数 <span class="math inline">h,
+\varphi = h(\theta)</span>, 那么 <span
+class="math inline">\varphi</span> 的 MLE 为 <span
+class="math inline">h(\hat \theta)</span> （无偏性不是不变性）； - MLE
+是渐进正态分布的； - MLE 是强一致性的，即 <span
+class="math inline">\lim\limits_{n \to + \infty} \hat \theta = \theta,
+w.p. 1</span></p>
+<p>if the simulation appeared to be sensitive to u, we might seek a
+better estimate of u; <em>模型不确定性</em> 和 <em>参数不确定性</em></p>
+<p>When we choose the distributions to use for a simulation model, we
+generally don’t know with absolute certainty whether these are the
+correct distributions to use, and this lack of complete knowledge
+results in what we might call model uncertainty</p>
+<p>given that cer-tain input distributions have been selected, we
+typically do not know with com-plete certainty what parameters to use
+for these distributions, and we might call this parameter
+uncertainty.</p>
+<p>There have been a number of methods suggested for addressing the
+problem of input-model uncertainty, including the following [see Barton
+(2012) and Henderson (2003)] There have been a number of methods
+suggested for addressing the problem of<br />
+input-model uncertainty, including the following [see Barton (2012) and
+Henderson (2003)]:<br />
+- 贝叶斯模型平均值方法 (Bayesian model averaging) [Chick (2001), Zouaoui
+and Wilson (2003, 2004)]<br />
+- Delta 方法 (Delta-method approaches) [Cheng and Holland (1997, 1998,
+2004)] - 元模型辅助的自举方法 (Metamodel-assisted bootstrapping) [Barton
+et al. (2013), Chapter 12]; see Cheng (2006) and Efron and Tibshirani
+(1993) for a discussion of bootstrap resampling<br />
+- 非参数的自举方法 (Nonparametic bootstrapping) [Barton and Schruben
+(1993, 2001)] - 基于随机效用模型的快速方法 (Quick method based on a
+random-effects model) [Ankenman and Nelson (2012)]</p>
+<p>Unfortunately, most of these methods are reasonably complicated and
+make assumptions that may not always be satisfi ed in practice</p>
+<h2
+id="activity-iii-determining-how-representative-the-fitted-distributions-are">6.6
+Activity III: Determining How Representative The Fitted Distributions
+Are</h2>
+<p>After determining one or more probability distributions that might fi
+t our observed data in Activities I and II, we must now closely examine
+these distributions to see how well they represent the true underlying
+distribution for our data 评估拟合的分布的质量的方法： - 启发式方法（
+Heuristic procedures ） - 拟合优良度假设检验法（ Goodness-of-fit
+hypothesis tests ）</p>
+<p>五个启发式方法： - 密度直方图和频率比较 - 分布函数差图 -
+概率图（quantile–quantile ( Q–Q) plot、probability–probability (P–P)
+plot）</p>
+<p>For discrete data, a frequency comparison is a graphical comparison
+of a histo-gram of the data with the mass function pˆ ( x) of a fi tted
+distribution</p>
+<p>quantile–quantile ( Q–Q) plot</p>
+<p>probability–probability (P–P) plot</p>
+<h3 id="goodness-of-fit-tests">6.6.2 Goodness-of-Fit Tests</h3>
+<p>A goodness-of-fit test is a statistical hypothesis test (see [[#4.5
+Confidence Intervals and Hypothesis Tests for the Mean|Sec. 4.5]]) that
+is used to assess formally whether the observations <span
+class="math inline">X_1, X_2, \cdots , X_n</span> are an independent
+sample from a particular distribution with distribution function <span
+class="math inline">\hat F</span>.
+拟合优良度检验可以用于检验下面的原假设：</p>
+<p><em>Note</em>: 未能拒绝 <span class="math inline">H_0</span>
+并不意味着“接受 <span class="math inline">H_0</span> 为真“</p>
+<p>First, failure to reject H0 should not be interpreted as “accepting
+H0 as being true.” 具体的拟合优良度检验方法： - <span
+class="math inline">\chi^2</span> 检验 - 科尔莫戈罗夫-斯米尔洛夫检验 -
+安德森-达林检验 - 泊松过程检验</p>
+<p>Kolmogorov-Smirnov (K-S) tests for goodness of fi t, on the other
+hand, compare an empirical distribution function with the distribution
+function Fˆ of the hypothesized distribution
+正如我们刚刚看到的一样，<span class="math inline">\chi^2</span>
+检验可以看做将数据直方图与拟合分布的密度函数或者质量函数进行比较正式的对比。在连续情况下应用
+<span class="math inline">\chi^2</span>
+检验的一个实际困难，即如何确定区间。另一方面，拟合优良度的科尔莫戈罗夫-斯米尔洛夫（Kolmogorov-Smirnor,
+K-S）检验将经验分布函数与假设分布的分布函数 <span
+class="math inline">\hat F</span> 作对比。正如我们将要看到的一样，K-S
+检验不需要以任何形式对数据分组，因此没有任何信息丢失；这些解决了区间划分这个麻烦问题。K-S检验另一个优点就是，它们对于任意样本大小
+<span
+class="math inline">n</span>（在所有参数都已知的情况下）都是（严格）有效的，而x检验只在渐近意义上有效。最后，在很多可选分布的情况下，K-S检验能力比
+<span class="math inline">\chi^2</span>
+检验强；参见，例如，Stephens（1974）。</p>
+<p>Nevertheless, K-S tests do have some drawbacks, at least at present.
+Most seri-ously, their range of applicability is more limited than that
+for chi-square tests.</p>
+<h2
+id="specifying-multivariate-distributions-correlations-and-stochastic-processes">6.10
+Specifying Multivariate Distributions Correlations, and Stochastic
+Processes</h2>
+<p>So far in this chapter we have considered only the specifi cation and
+estimation of the distribution of a single, univariate random variable
+at a time
+本章目前为止，讨论的知识每次确定和估计单个、单随机变量的分布。如果仿真模型需要的输入只是标量随机变量，而且如果他们在模型之间相互独立，那么对每个输入重复地使用至今讨论的方法就足够了。</p>
+<p>There are systems, however, in which the input random variables are
+statisti-cally related to each other in some way:
+然而，有些系统的输入随机变量之间以某种方式统计相关： -
+有些输入随机变量共同形成一个随机向量，具有某种多元（或联合）概率分布，需要建模着确定。
+Some of the input random variables together form a random vector with
+some multivariate (or joint) probability distribution (see <a
+href="#4.2%20Random%20Variables%20and%20Their%20Properties">Sec.
+4.2</a>) to be specified by the modeler.</p>
+<h3
+id="specifying-arbitrary-marginal-distributions-and-correlations">6.10.2
+Specifying Arbitrary Marginal Distributions and Correlations</h3>
+<p>In each of these cases, the fi tted member of the multivariate
+distribution family involved (normal, lognormal, Johnson, or Bézier)
+determined the correlation between pairs of the component random
+variables in the vector, as well as their marginal distributions;</p>
+<p>We may want to allow for pos-sible correlation between various pairs
+of input random variables to our simulation model,</p>
+<h3 id="specifying-stochastic-process">6.10.3 Specifying Stochastic
+Process</h3>
+<p>there are situations in which a sequence of input random vari-ables
+on the same phenomenon are appropriately modeled as being draws from the
+same (marginal) distribution, yet might exhibit some autocorrelation
+between themselves within the sequence 平稳随机过程： - AR 和 ARMA 过程
+- 伽马过程 - ARTA 过程 - VARTA 过程</p>
+<p>Standard autoregressive (AR) or autoregressive moving-average (ARMA)
+models,</p>
+<h2 id="selecting-a-distribution-in-the-absence-of-data">6.11 Selecting
+a Distribution in the Absence of Data</h2>
+<p>In some simulation studies it may not be possible to collect data on
+the random variables of interest, so the techniques of Secs. 6.4 through
+6.6 are not applicable to the problem of selecting corresponding
+probability distributions.</p>
+<h2 id="models-of-arrival-processes">6.12 Models of Arrival
+Processes</h2>
+<p>We call the stochastic process {N(t), t $ 0} an arrival process
+since, - Arrival process</p>
+<h3 id="poisson-processes">6.12.1 Poisson Processes</h3>
+<p>defi ne a Poisson process, state some of its important properties
+<em>Definition</em>: - 顾客每次到达一个； - <span
+class="math inline">N(t+s) - N(t)</span> (在时间区间 <span
+class="math inline">(t, T+s]</span> 上到达的个数) 独立于 <span
+class="math inline">\{N(u), 0 \leq u \leq t\}</span>； - 对于所有 <span
+class="math inline">t, s \ge 0</span>，分布 <span
+class="math inline">N(t+s) -N(t)</span> 独立于 <span
+class="math inline">t</span>。</p>
+<p>the number of arrivals in the interval (t, t 1 s] is independent of
+the number of arrivals in the earlier time interval [0, t] and also of
+the times at which these arrivals occur</p>
+<p>The following theorem, <em>定理1</em>: 如果 <span
+class="math inline">\{N(t), t\ge 0\}</span> 是一个泊松过程，那么在长度为
+<span class="math inline">s</span> 的任意时间区间上到达的数目是参数为
+<span class="math inline">\lambda s</span> ( <span
+class="math inline">\lambda</span> 为正实数) 的柏松随机变量。即： <span
+class="math display">
+P\left[N(t+s) - N(t) = k\right] = \frac{e^{-\lambda s} (\lambda
+s)^k}{k!} \quad k=0, 1,\cdots, \text{and } t,s \ge 0
+</span> 因此，<span class="math inline">\mathbb{E} [N(s)] = \lambda
+s</span> (See <a href="#6.2.3%20Discrete%20Distribution">Sec 6.2.3</a>
+)， 且，<span class="math inline">\mathbb{E} [N(1)] = \lambda</span>
+。因此 <span class="math inline">\lambda</span> 是长度为 1
+的任意区间内到达的期望数目，称之为过程的速率。</p>
+<p><em>定理2</em>: 如果 <span class="math inline">\{N(t), t\ge
+0\}</span> 是速率为 <span class="math inline">\lambda</span>
+的泊松过程，那么它对应的到达间隔时间 <span class="math inline">A_1, A_2,
+\cdots</span> 为 IID 指数随机变量，均值为 <span
+class="math inline">1/\lambda</span>.</p>
+<h3 id="nonstationary-poisson-processes">6.12.2 Nonstationary Poisson
+Processes</h3>
+<p>本节讨论普遍使用的具有时变到达速率的到达过程的模型。</p>
+<p>随机过程 <span class="math inline">\{N(t), t\ge 0\}</span>
+是一个非平稳泊松过程，如果： - 顾客每次到达一个； - <span
+class="math inline">N(t+s) - N(t)</span> 独立于 <span
+class="math inline">\{N(u), 0 \leq u \leq 0 \}</span></p>
+<p>令 <span class="math inline">\Lambda (t) = \mathbb E
+[N(t)]</span>，对于所有 <span class="math inline">t \ge
+0</span>，如果对于特定的 <span class="math inline">t</span> 值 <span
+class="math inline">\Lambda (t)</span> 可微 (differentiable) ，将 <span
+class="math inline">\lambda(t)</span> 为： <span class="math display">
+\lambda (t) = \frac{\operatorname d}{\operatorname d t} \Lambda(t)
+</span> 直观来看，在到达的期望数目大的区间 <span
+class="math inline">\lambda(t)</span> 将会很大，分别称 <span
+class="math inline">\Lambda(t)</span> 和 <span
+class="math inline">\lambda(t)</span> 为非平稳泊松过程的
+<em>期望函数</em> 和 <em>速率函数</em> 。</p>
+<p>We call L(t) and l(t) the expectation function and the rate function,
+re-spectively, for the nonstationary Poisson process.
+<em>定理3</em>：如果 <span class="math inline">\{N(t), t\ge 0\}</span>
+为具有连续的期望函数 <span class="math inline">\Lambda(t)</span>
+的非平稳泊松过程，那么：</p>
+<p><span class="math display">
+P[N(t+s)-N(t)=k]=\frac{e^{-b(t, s)}[b(t, s)]^k}{k!} \quad \text { for }
+k=0,1,2, \ldots \text { and } t, s \ge 0
+</span> 其中，<span class="math inline">b(t, s)= \Lambda(t+s) -
+\Lambda(t) = \int_t^{t+s} \lambda(y) \operatorname d y</span>, 对于
+<span class="math inline">[t, t+s]</span> 上所有但有限多个点，如果 <span
+class="math inline">\operatorname d (\Lambda(t))/\operatorname d
+t</span> 在 <span class="math inline">[t, t+s]</span> 上是有界的且如果
+<span class="math inline">\operatorname d (\Lambda(t))/\operatorname d
+t</span> 存在并连续，那么最后一个等式成立。</p>
+<p>T H E O R E M 6 . 3 . If {N(t), t $ 0} is a nonstationary Poisson
+process with continuous expectation function L(t), then</p>
+<p>it does require somewhat arbitrary judgment about the boundaries and
+widths of the constant-rate time intervals</p>
+<h3 id="batch-arrivals">6.12.3 Batch Arrivals</h3>
+<p>For some real-world systems, customers arrive in batches, or groups,
+so that property 1 of the Poisson process and of the nonstationary
+Poisson process is violated</p>
+<p>Let <span class="math inline">N(t)</span> now be the number of
+batches of individual customers that have arrived by time <span
+class="math inline">t</span></p>
+<p>If <span class="math inline">X(t)</span> is the total number of
+individual customers to arrive by time <span
+class="math inline">t</span>, and if <span
+class="math inline">B_i</span> is the number of customers in the <span
+class="math inline">i</span>th batch,</p>
+<h2 id="assessing-the-homogeneity-of-different-data-sets">6.13 Assessing
+the Homogeneity of Different Data Sets</h2>
+<p>有时分析人员对一个随机现象独立地收集了 <span
+class="math inline">k</span>
+组观测值，他想知道这些数据集是否同质从而能合并。</p>
+<p>Sometimes an analyst collects k sets of observations on a random
+phenomenon in-dependently and would like to know whether these data sets
+are homogeneous and thus can be merged 本节讨论同质性的克鲁斯卡-沃尔斯
+(Kruskal-Wallis)
+假设检验。由于对数据的分布不做假设，这是非参数化检验。</p>
+<p>we discuss the Kruskal-Wallis hypothe-sis test for homogeneity.</p>
+<h1 id="random-number-generators">7. Random-Number Generators</h1>
+<h2 id="introduction-2">7.1 Introduction</h2>
+<p>A simulation of any system or process in which there are inherently
+random components requires a method of generating or obtaining numbers
+that are random, in some sense.</p>
+<p>So as to avoid speaking of “generating random variables,” which would
+not be strictly correct since a random variable is defined in
+mathematical probability theory as a function satisfying certain
+conditions, we will adopt more precise terminology and speak of
+“generating random variates.” 本章致力于讨论由 <span
+class="math inline">[0, 1]</span>
+区间上的均匀分布产生随机变数的方法。</p>
+<p>This entire chapter is devoted to methods of generating random
+variates from the uniform distribution on the interval [0, 1];</p>
+<p>This prominent role of the U(0, 1) distribution stems from the fact
+that random vari-ates from all other distributions (normal, gamma,
+binomial, etc.) and realizations of various random processes (e.g., a
+nonstationary Poisson process) can be obtained by transforming IID
+random numbers in a way determined by the desired distribution or
+process.</p>
+<p>One possibility would be to hook up an electronic random-number
+machine, such as ERNIE, directly to the computer. This has several
+disadvantages, chiefl y that we could not reproduce a previously
+generated random-number stream exactly.</p>
+<p>Intuitively the midsquare method seems to provide a good scrambling
+of one number to obtain the next, and so we might think that such a
+haphazard rule would provide a fairly good way of generating random
+numbers</p>
+<p>In fact, it does not work very well at all. One serious problem
+(among others) is that it has a strong tendency to degenerate fairly
+rapidly to zero, where it will stay forever.</p>
+<p>A more fundamental objection to the midsquare method is that it is
+not “random” at all, in the sense of being unpredictable.</p>
+<p>Sometimes arithmetic generators are called pseudorandom, an awkward
+term that we avoid, even though it is probably more accurate.</p>
+<p>who developed what is probably still the most widely used class of
+techniques for random-number</p>
+<p>if designed carefully, can produce numbers that appear to be
+independent draws from the U(0, 1) distribution, in that they pass a
+series of statistical tests</p>
+<p>A “good” arithmetic random-number generator should possess several
+properties: 一个“好的”算数随机数发生器应当具备以下属性： -
+所产生的数字应当呈现出在 <span class="math inline">[0,1]</span>
+区间上是均匀分布的，
+并且相互之间不应存在相关性；否则仿真的结果将会完全无效； -
+从实用的角度来说，我们希望发生器具有速度快，并且不需要过的的存储空间； -
+我们要能严格地重复生成一个给定的随机数流，原因至少有二。1）这有时可能使得调试或校验计算机程序更容易；2）我们可能需要使用一组同样的随机数仿真不同的系统以便得到更为精确的比较；
+- 发生器应当具备有易于长生分开的随机数流； -
+我们希望发生器是方便的，即对所有标准的编译器和计算机来说，产生相同的随机数序列。</p>
+<p>The ability to create separate streams for a generator is facilitated
+if there is an effi cient way to jump from the ith random number to the
+(i 1 k)th random number for large values of k.</p>
+<p>Furthermore, most generators now have the facility for multiple
+streams in some way, especially those generators included in modern
+simulation packages, satisfying point 4</p>
+<p>Unfortunately, there are also some generators that fail to satisfy
+the uniformity and independence criteria of point 1 above, which are
+absolutely necessary if one hopes to obtain correct simulation
+results.</p>
+<h2 id="linear-congruential-generators">7.2 Linear Congruential
+Generators</h2>
+<p>Many random-number generators in use today are linear congruential
+generators (LCGs), introduced by Lehmer (1951). 整数 <span
+class="math inline">Z_1, Z_2, \cdots</span>
+序列由下面的迭代公式定义：</p>
+<p><span class="math display">
+Z_i = (a Z_{i-1} +c) \quad \text{(对 $m$ 取模)}
+</span> 其中，<span class="math inline">m</span> 表示 模数
+(<em>modulus</em> ), <span class="math inline">a</span> 表示 乘子
+<em>multiplier</em>, <span class="math inline">c</span> 表示增量
+<em>increment</em> ，以及 <span class="math inline">Z_0</span>
+表示种子或初始值 <em>seed</em> 都是非负整数。并且，<span
+class="math inline">0&lt;m, a&lt;m, c&lt;m, Z_0&lt;m</span>.</p>
+<p>Immediately, two objections could be raised against LCGs.
+线性同余发生器 <code>LCG</code> 的两个缺点： -
+所有（伪）随机数发生器共同的问题，即上述公式定义的 <span
+class="math inline">Z_i</span> 根本不是真正的随机数。 - <span
+class="math inline">U_i</span> 的取值只能是有理值 <span
+class="math inline">0, 1/m, 2/m, \cdots, (m-1)/m</span>， 事实上，<span
+class="math inline">U_i</span> 实际只会取其中的一部分，这依赖于 <span
+class="math inline">m, a, c, Z_0</span> 之间的规定，以及 <span
+class="math inline">m</span> 浮点除的性质。</p>
+<p>The length of a cycle is called the period of a generator. For LCGs,
+Zi depends only on the previous integer <span
+class="math inline">Z_{i_1}</span>, and since <span
+class="math inline">0 \leq Z_i \leq m-1</span>, it is clear that the
+period is at most <span class="math inline">m</span>; if it is in fact
+<span class="math inline">m</span>, the LCG is said to have full
+period.</p>
+<p>Since large-scale simulation projects can use millions of random
+numbers, it is manifestly desirable to have LCGs with long periods.</p>
+<p>since we are assured that every integer between 0 and m 2 1 will
+occur exactly once in each cycle, which should contribute to the
+unifor-mity of the Ui’s.
+因为大规榄系统仿真项目可能使用几百万个随机数，显然希望具有长周期的
+<code>LCG</code>，进一步，最好是
+<em>满周期</em>，因为我们就能保证在每个循环中 <span
+class="math inline">0\sim m一1</span>
+之间的每个整数將份好出现一次，这会有助于 <span
+class="math inline">U_i</span> 的均匀性（但是，即使是满周期的
+<code>LCG</code>，按一个循环的段来说，也可能呈现出非均匀性。</p>
+<p>所以，了解如何选择参数 <span class="math inline">m</span>、<span
+class="math inline">a</span>和 <span
+class="math inline">c</span>。使得相应的 <code>LCG</code>
+具有满周期是有用的。下面的定理给出了这种特征描述。</p>
+<p><em>定理7.1</em> 由 <code>LCG</code> 的定义的 <code>LCG</code>
+具有全周期，当且仅当下列三个条件成立： 1. <span
+class="math inline">m</span> 和 <span class="math inline">c</span>
+能够同时被整除的正整数只有 <span class="math inline">1</span>，即 <span
+class="math inline">m</span> 与 <span class="math inline">c</span>
+互质； 2. 如果 <span class="math inline">q</span> 为整除 <span
+class="math inline">m</span> 的素数（只能被 <span
+class="math inline">1</span> 和其自身整除），则 <span
+class="math inline">q</span> 能整除 <span
+class="math inline">a一1</span>； 3. 如果 <span
+class="math inline">4</span> 整除 <span class="math inline">m</span>，则
+<span class="math inline">4</span> 整除 <span
+class="math inline">a一1</span>。</p>
+<p>定理7.1中的条件（a）通常表述为“m与c互质。”</p>
+<p>日者满周期（盐老至心具长周期）示具好的iCC 的一个所杀胡的从</p>
+<p>中指出的，希望好的统斗性料</p>
+<p>he following theorem, proved by Hull and Dobell (1962), gives such a
+characterization</p>
+<p>we also want good statistical properties (such as apparent
+independence), computational and storage effi ciency, reproducibility,
+facilities for separate streams, and portability (see Sec. 7.2.2).
+在上述定理中的条件 1，我们知道 <span class="math inline">c&gt;0</span>
+（称为混合 <code>LCG</code>）与 <span
+class="math inline">c=0</span>（称为乘
+<code>LCG</code>）将会有不同的表现。</p>
+<h3 id="mixed-generators">7.2.1 Mixed Generators</h3>
+<p>most computers and compilers have 32-bit words, the leftmost bit
+being a sign bit, so b 5 31 and m 5 231 . 2.1 billion</p>
+<p>choosing m 5 2b does allow us to avoid explicit division by m on most
+computers by taking advantage of integer overfl ow</p>
+<h3 id="multiplicative-generators">7.2.2 Multiplicative generators</h3>
+<p>#乘法发生器 #乘LCG</p>
+<p>Multiplicative LCGs are advantageous in that the addition of <span
+class="math inline">c</span> is not needed, but they cannot have full
+period since condition (a) of Theorem 7.1 cannot be satisfied</p>
+<p>however, it is possible to obtain period <span class="math inline">m-
+1</span> if <span class="math inline">m</span> and <span
+class="math inline">a</span> are chosen carefully</p>
+<p>As with mixed generators, it’s still computationally efficient to
+choose <span class="math inline">m = 2^b</span> and thus avoid explicit
+division 与混合发生器一样，取 <span
+class="math inline">m=2^b</span>，计算效率仍然高且避免显式除法。但是在这种情况下，其周期最多为
+<span class="math inline">2^{b-2}</span>，也就是说，<span
+class="math inline">Z_i</span> 所能取得数值的个数仅仅为 <span
+class="math inline">0\sim m-1</span> 之间所有整数个数的四分之一。</p>
+<p>In fact, the period is 2^{b-2} if Z_0 is odd and <span
+class="math inline">a</span> is of the form <span class="math inline">8k
++ 3</span> or <span class="math inline">8k +5</span> for some <span
+class="math inline">k=0, 1, \cdots</span></p>
+<p>he generator usually known as RANDU is of this form (<span
+class="math inline">m=2^{31}, a = 2^{16}+3=65 539, c=0</span>) and has
+been shown to have very undesirable statistical properties (see Sec.
+7.4). 普遍熟知的发生器 <code>RANDU</code> 就是这样的形式，即 <span
+class="math inline">m=2^{31}, a = 2^{16}+3=65 539,
+c=0</span>，而且已经证明，这个发生器具有
+<em>不尽如人意的统计特性</em>。</p>
+<p>Because of these difficulties associated with choosing <span
+class="math inline">m = 2^b</span> in multiplicative LCGs, attention was
+paid to finding other ways of specifying <span
+class="math inline">m</span>. 由于在乘 <code>LCG</code> 中选 <span
+class="math inline">m=2^b</span>
+带来的这些困难，人们将注意力放在寻找其他方法来规定 <span
+class="math inline">m</span> 值。不是令 <span
+class="math inline">m=2^b</span>，而建议 <span
+class="math inline">m</span> 取小于 <span class="math inline">2^b</span>
+的最大素数。例如，在 <span class="math inline">b=31</span> 的情形，小于
+<span class="math inline">2^{31}</span> 的最大素数非常容易得到 <span
+class="math inline">2^{31}—1=2147483647</span>。现在，对于素数<span
+class="math inline">m</span>，可以证明，如果 <span
+class="math inline">a</span> 为模 <span class="math inline">m</span> 的
+<em>素元</em> (primitive element modulo)，则周期为 <span
+class="math inline">m一1</span>，即使 <span class="math inline">a^l
+-1</span> 能被 <span class="math inline">m</span> 整除的最小整数是 <span
+class="math inline">l=m-1</span>。</p>
+<p>对于以这种方法选择的 <span class="math inline">m</span> 和 <span
+class="math inline">a</span>，我们得到每个整数 <span
+class="math inline">1，2, \cdots，m-1</span>
+在每个循环内正好出现一次，所以 <span class="math inline">Z_0</span>
+可以是 <span class="math inline">1 \sim m一1</span>
+的任意整数，得到的周期仍是 <span
+class="math inline">m-1</span>。这称为<em>素数取模乘 LCG</em>（ prime
+modulus multiplicative LCGs, PMMLCGs)。</p>
+<p>These are called prime modulus multiplicative LCGs (PMMLCGs)</p>
+<p>Two issues immediately arise concerning PMMLCGs: 与
+<code>PMMLCGs</code> 相关的两个问题随即产生： 1. 如何得到模 <span
+class="math inline">m</span> 的素元？将通过讨论下面两个广泛使用的
+<code>PMMLCG</code> 在本质上解决这一点； 2. 由于不选 <span
+class="math inline">m=2^b</span>，再也不能直接使用 <em>整数溢出</em>
+机制来达到取 <span class="math inline">m</span>
+模除法的效果。这种情况下，避免显式除法的方法也适用一类溢出，称为
+<em>仿真除</em> ( simulated division)。</p>
+<p>Considerable work has been directed toward identifying good
+multipliers a for PMMLCGs t</p>
+<p>Two particular values of a that have been widely used for the modulus
+m* are <span class="math inline">a_1 = 7^5 = 16807</span> and <span
+class="math inline">a_2 = 630,360,016</span>, both of which are
+primitive elements modulo m* 对于模数 <span
+class="math inline">m^*</span>，已经取得广泛使用的 <span
+class="math inline">a</span> 的两个特定乘数值为 <span
+class="math inline">a_1 = 7^5 = 16807</span> 和 <span
+class="math inline">a_2 = 630,360,016</span>, 这两个都是取模 <span
+class="math inline">m^*</span> 的素元。</p>
+<p>The multiplier a1 was originally suggested by Lewis, Goodman, and
+Miller (1969), and it was used by Schrage (1979) in a clever FORTRAN
+implementation using simulated division. The importance of Schrage’s
+code was that it provided at that time a reasonably good and portable
+random-number generator.</p>
+<p>However, many experts [see, e.g., L’Ecuyer, Simard, Chen, and Kelton
+(2002) and Gentle (2010, p. 21)] recommend that LCGs with a modulus of
+around 231 should no longer be used as the random-number generator in a
+general-purpose software package</p>
+<p>Not only can the period of the generator be exhausted in a few
+minutes on many computers, but, more importantly, the relatively poor
+statistical properties of these generators can bias simulation results
+for sample sizes that are much smaller than the period of the generator
+不建议作为通用仿真软件包中的随机数发生器： 1.
+一个周期的随机数在很多计算机上往往在几分钟内就被用尽； 2.
+这些随机数相对较差的统计性会使得仿真结果偏离样本长度，后者较发生器周期要小很多。</p>
+<h2 id="other-kinds-of-generators">7.3 Other Kinds of Generators</h2>
+<p>Although LCGs are probably the most widely used and best understood
+kind of random-number generator, there are many alternative types.
+开发其他类型发生器的主要目的是要得到更长的周期和更好的统计特性。</p>
+<h3 id="more-general-congruences">7.3.1 More General Congruences</h3>
+<p>LCGs can be thought of as a special case of generators defined
+by:</p>
+<p><span class="math display">
+Z_i = g(Z_{i-1}, Z_{i-2}, \cdots) (\operatorname{mod}m)
+</span> where <span class="math inline">g</span> is a fixed
+deterministic function of previous <span
+class="math inline">Z_j</span>'s.</p>
+<p>两种推广： - 二次同余发生器 (quadratic congruential generator) -
+多重递归发生器 (multiple recursive generator, MRG)</p>
+<p>One obvious generalization of LCGs would be to let g(Zi21, Zi22, . .
+.) 5 a9Z2i21 1 aZi21 1 c, which produces a quadratic congruential
+generator</p>
+<p>A different choice of the function g is to maintain linearity but to
+use earlier Zj’s; this gives rise to generators called multiple
+recursive generators (MRGs)</p>
+<h3 id="composite-generators">7.3.2 Composite Generators</h3>
+<p>Several researchers have developed methods that take two or more
+separate genera-tors and combine them in some way to generate the fi nal
+random numbers.
+<em>复合发生器</em>：将两个或多个单独的发生器以某种方式结合起来生成最终的随机数。期望这种组合发生器较之组成它的任何单个发生器有更长的周期，更好地统计性能。<em>缺点</em>：代价大于单独使用一个发生器。</p>
+<p>The disadvantage in using a composite generator is, of course, that
+the cost of obtaining each <span class="math inline">U_i</span> is more
+than that of using one of the simple generators alone.</p>
+<p>Wichmann and Hill (1982) proposed the following idea for combining
+three generators, again striving for long period, portability, speed,
+and usability on small computers</p>
+<h3 id="feedback-shift-register-generators">7,3,3 Feedback Shift
+Register Generators</h3>
+<ul>
+<li>线性反馈移位寄存器 (Linear feedback shift register, LFSR)</li>
+</ul>
+<p>The original motivation for suggesting that the bi’s be used as a
+source of U(0, 1) random numbers came from the observation that the
+recurrence given by Eq. (7.4) can be implemented on a binary computer
+using a switching circuit called a linear feedback shift register
+(LFSR)</p>
+<p>Unfortunately, LFSR generators are known to have statistical defi
+ciencies, - <em>广义反馈移位寄存器</em> (Generalized feedback shift
+register, GFSR) - <em>旋转的广义反馈移位寄存器</em> (twisted generalized
+feedback shift register, TGFSR)</p>
+<p>With suitable choices for <span class="math inline">r</span>, <span
+class="math inline">q</span>, and <span class="math inline">A</span>, a
+TGFSR generator can have a maximum period of <span
+class="math inline">2^{ql}-1</span> as compared with <span
+class="math inline">2^{q}-1</span> for a GFSR generator (both require
+<span class="math inline">ql</span> bits to store the state of the
+generator).</p>
+<h2 id="testing-random-number-generators">7.4 Testing Random Number
+Generators</h2>
+<p>As we have seen in Secs. 7.1 through 7.3, all random-number
+generators currently used in computer simulation are actually completely
+deterministic. Thus, we can only hope that the <span
+class="math inline">U_i</span>’s generated appear as if they were IID
+<span class="math inline">U(0, 1)</span> random variates</p>
+<p>Before such a generator is actually used in a simulation, we strongly
+recommend that one identify exactly what kind of generator it is and
+what its nu-merical parameters are.</p>
+<h3 id="empirical-tests">7.4.1Empirical Tests</h3>
+<p>Perhaps the most direct way to test a generator is to use it to
+generate some <span class="math inline">U_i’</span>s, which are then
+examined statistically to see how closely they resemble IID <span
+class="math inline">U(0, 1)</span> random variates
+本节将讨论四种实验检验方法，统计检查随机数类似 <span
+class="math inline">U(0, 1)</span> 随机数的紧密程度。 1. 所有参数已知的
+<span class="math inline">\chi^2</span> 检验的特殊情形； 2.
+连续检验，实际上是把 <span class="math inline">\chi^2</span>
+检验推广到高维； 3.
+游程（或上升游程）检验，是对独立性假设的更直接检验（实际上，它只检验独立性，即把特别是不检验均匀性）；
+4. 用直接的方法以评价所产生的 <span class="math inline">U_i</span>
+是否存在可辨别的相关性：对于某个 <span
+class="math inline">l</span>，只计算其滞后 <span class="math inline">j =
+1,2,\cdots</span> 的滞后 <span class="math inline">j</span>
+的相关系数的估计。</p>
+<p>Why should we care about this kind of uniformity in higher
+dimensions? If the individual <span class="math inline">U_i</span>’s are
+correlated, the distribution of the d-vectors <span
+class="math inline">U_i</span> will deviate from <span
+class="math inline">d</span>-dimensional uniformity; thus, the serial
+test provides an indirect check on the assumption that the individual
+<span class="math inline">U_i</span>’s are independent.</p>
+<p>The third empirical test we consider, the runs (or runs-up) test, is
+a more di-rect test of the independence assumption.</p>
+<p>As mentioned above, these are just four of the many possible
+empirical tests. For example, the Kolmogorov-Smirnov test discussed in
+Sec. 6.6.2</p>
+<p>RANDU is a fatally fl awed generator, due primarily to its utter
+failure in three dimensions;</p>
+<p>One potential disadvantage of empirical tests is that they are only
+local; i.e., only that segment of a cycle (for LCGs, for example) that
+was actually used to generate the Ui’s for the test is examined, so we
+cannot say anything about how the generator might perform in other
+segments of the cycle.
+<strong>实验检验的缺陷</strong>：他们总是局部的，也就是说，仅仅对循环中的一段进行了检验，这一段实际上是用于产生检验用的
+<span class="math inline">U_i</span>。</p>
+<h3 id="theoretical-tests">7.4.2 Theoretical Tests</h3>
+<p>We now discuss theoretical tests for random-number generators. Since
+these tests are quite sophisticated and mathematically complex, we shall
+describe them somewhat qualitatively;</p>
+<p>as mentioned earlier, theoretical tests do not re-quire that we
+generate any <span class="math inline">U_i</span>’s at all but are a
+priori in that they indicate how well a generator can perform by looking
+at its structure and defining constant</p>
+<p>Theoretical tests also differ from empirical tests in that they are
+global; i.e., a genera-tor’s behavior over its entire cycle is
+examined.</p>
+<p>global tests have a natural appeal but do not generally indicate how
+well a specifi c segment of a cycle will behave</p>
+<h3 id="some-general-observations-on-testing">7.4.3 Some General
+Observations on Testing</h3>
+<p>One piece of advice that is often offered, however, is that a
+random-number generator should be tested in a way that is consistent
+with its intended use.</p>
+<h1 id="generating-random-variables">8. Generating Random Variables</h1>
+<h2 id="introduction-3">8.1 Introduction</h2>
+<p>A simulation that has any random aspects at all must involve
+sampling, or generat-ing, random variates from probability
+distributions.</p>
+<p>These distri-butions are often specifi ed as a result of fi tting
+some appropriate distributional form, e.g., exponential, gamma, or
+Poisson, to observed data, as discussed in Chap. 6</p>
+<p>we address the issue of how we can gen-erate random variates with
+this distribution in order to run the simulation model.</p>
+<p>the basic ingredient needed for every method of generating random
+variates from any distribution or random process is a source of IID
+<span class="math inline">U(0, 1)</span> random variates</p>
+<p>Without an ac-ceptable random-number generator, it is impossible to
+generate random variates correctly from any distribution</p>
+<p>several factors should be considered when choosing which algorithm to
+use in a particular simulation study. Unfortu-nately, these different
+factors often confl ict with each other, so the analyst’s judg-ment of
+which algorithm to use must involve a number of tradeoffs
+选择什么算法来生成随机变量，应该考虑多种因素： - 准确性 - 效率 - 复杂性
+- 技术</p>
+<p>The fi rst issue is exactness. We feel that, if possible, one should
+use an algo-rithm that results in random variates with exactly the
+desired distribution, within the unavoidable external limitations of
+machine accuracy and exactness of the U(0, 1) random-number
+generator</p>
+<p>Given that we have a choice, then, of alternative exact algorithms,
+we would clearly like to use one that is effi cient, in terms of both
+storage space and execution time.</p>
+<p>A somewhat subjective issue in choosing an algorithm is its overall
+complexity, including conceptual as well as implementational
+factors.</p>
+<p>Finally, there are a few issues of a more technical nature. Some
+algorithms rely on a source of random variates from distributions other
+than U(0, 1), which is unde-sirable, other things being equal.</p>
+<p>used variance-reduction techniques (common random numbers and
+antithetic vari-ates) require synchronization of the basic U(0, 1) input
+random variates used in the simulation of the system(s) under study, and
+this synchronization is more easily accomplished for certain types of
+random-variate generation algorithms</p>
+<p>generat-ing correlated random variates and generating realizations of
+both stationary and non-stationary arrival processes</p>
+<h2 id="general-approaches-to-generating-random-variates">8.2 General
+Approaches to Generating Random Variates</h2>
+<p>There are many techniques for generating random variates, and the
+particular algorithm used must, of course, depend on the distribution
+from which we wish to generate; however, nearly all these techniques can
+be classifi ed according to their theoretical basis</p>
+<h3 id="inverse-transform">8.2.1 Inverse Transform</h3>
+<p>Then an algorithm for generating a random variate <span
+class="math inline">X</span> having distribution function <span
+class="math inline">F</span> is as follows (recall that , <span
+class="math inline">\sim</span> is read “is distributed as”):
+假定要产生一个连续随机变量 <span class="math inline">X</span> (See <a
+href="#4.2%20Random%20Variables%20and%20Their%20Properties">Sec
+4.2</a>)，<span class="math inline">X</span> 有分布函数 <span
+class="math inline">F</span>，当 <span
+class="math inline">0&lt;F(x)&lt;1</span> 时，<span
+class="math inline">F</span> 是连续的且严格递增的（这意味着如果 <span
+class="math inline">x_1 &lt; x_2</span> 且 <span class="math inline">0
+&lt; F(x_1) \leq F(x_2) &lt; 1</span> ，则事实上 <span
+class="math inline">F(x_1) &lt; F(x_2)</span>）。</p>
+<p>令 <span class="math inline">F^{-1}</span> 表示函数 <span
+class="math inline">F</span> 的逆，则生成具有分布函数 <span
+class="math inline">F</span> 的随机变量 <span
+class="math inline">X</span> 的算法如下： 1. 产生 <span
+class="math inline">U \sim U(0,1)</span> 2. 返回 <span
+class="math inline">X = F^{-1}(U)</span></p>
+<ul>
+<li><em>通用反变换法</em> (General inverse-transform method)</li>
+</ul>
+<p>To show that the value X returned by the above algorithm, called the
+general inverse-transform method, - <strong>Transformer uniform
+distribution to exponential distribution</strong></p>
+<figure>
+<img
+src="https://cdn.jsdelivr.net/gh/YangSuoly/Images/Prelim/202412011124707.png"
+alt="Pasted image 20241004181728" />
+<figcaption aria-hidden="true">Pasted image 20241004181728</figcaption>
+</figure>
+<p><em>eg.1</em> 令 <span class="math inline">X</span> 具有均值为 <span
+class="math inline">\beta</span> 的指数分布，其分布函数为： <span
+class="math display">
+F(x)=\left\{
+\begin{array}{ll}
+1-e^{-x / \beta} &amp; \text { if } x \ge 0 \\
+0 &amp; \text { otherwise }
+\end{array}
+\right.
+</span> 则为得到 <span class="math inline">F^{-1}</span>，设 <span
+class="math inline">u = F(x)</span> 并求解 <span
+class="math inline">x</span>，以得到： <span class="math display">
+x = F^{-1}(u) = - \beta \ln(1-u)
+</span> 因此，要生成所要求的随机变量，首先生成一个 <span
+class="math inline">U \sim U(0,1)</span>，而后令 <span
+class="math inline">X = -\beta \ln U</span>。</p>
+<p>The inverse-transform method’s validity in the continuous case was
+demon-strated mathematically above, but there is also a strong intuitive
+appeal</p>
+<p>The inverse-transform method can also be used when X is discrete.</p>
+<p>Generalization, Advantages, and Disadvantages of the
+Inverse-Transform Method</p>
+<p>Let us now consider some general advantages and disadvantages of the
+inverse-transform method in both the continuous and discrete cases.
+反变换法的 <em>缺点</em>： -
+在连续情况下应用这种方法可能的问题是需要计算 <span
+class="math inline">F^{-1}(U)</span>，由于无法以闭合形式写出所要求的分布的
+<span class="math inline">F^{-1}</span>
+的公式（如正态分布和伽马分布），因此有时候简单的反变换法不一定可行； -
+对于给定分布，反变换法或许不是生成相应随机变量的最快速方法。</p>
+<p><em>优点</em>： -
+易于使用方差缩减技术。依赖于引进随机变量间的相关性，如公共随机数法和对偶变量法
+( antithetic variates) - 易于从截断分布中产生随机变量。</p>
+<p>Despite these possible drawbacks, there are some important advantages
+in using the inverse-transform method.</p>
+<p>Then an algorithm for generating an X having dis-tribution function
+F* is as follows:</p>
+<h3 id="composition">8.2.2 Composition</h3>
+<p>The composition technique applies when the distribution function
+<span class="math inline">F</span> from which we wish to generate can be
+expressed as a convex combination of other distribution functions <span
+class="math inline">F_1, F_2, \cdots</span>. We would hope to be able to
+sample from the <span class="math inline">F_j</span>’s more easily than
+from the original <span class="math inline">F</span></p>
+<h3 id="convolution">8.2.3 Convolution</h3>
+<p>For several important distributions, the desired random variable
+<span class="math inline">X</span> can be expressed as a sum of other
+random variables that are IID and can be generated more readily than
+direct generation of <span class="math inline">X</span>.</p>
+<p>X is called the m-fold convolution of the distribution of a <span
+class="math inline">Y_j</span>. <em>组合法和卷积法的区别</em>： -
+<em>卷积法</em>：假定随机变量 <span class="math inline">X</span>
+可以表示为其他随机变量的和‘ - <em>组合法</em>：假设 <span
+class="math inline">X</span> 的 <em>分布函数</em>
+可以表示为其他分布函数的 <em>（加权）和</em></p>
+<p>Convolution is really an example of a more general idea, that of
+transforming some intermediate random variates into a fi nal variate
+that has the desired distribu-tion;</p>
+<h3 id="acceptance-rejection">8.2.4 Acceptance-Rejection</h3>
+<p>前面三种方法（反变换法、组合法和卷积法）都是直接方法，即直接面对所要求的分布或随机变量。而可用于
+<em>直接方法无效或者效率不佳</em> 的情形的方法： - <em>舍取法</em>
+另外两种方法： - 均匀比法 - 特性法</p>
+<p>The principle of acceptance-rejection is quite general, and looking
+at the above algorithm in a slightly different way clarifi es how it can
+be extended to generation</p>
+<h2 id="generating-continuous-random-variates">8.3 Generating Continuous
+Random Variates</h2>
+<p>In this section we discuss particular algorithms for generating
+random variates from several commonly occurring continuous
+distributions;</p>
+<p>n deciding which algorithm to present, we have tried to choose those
+that are simple to describe and implement, and are reasonably effi cient
+as well. We also give only exact (up to machine accuracy) methods, as
+opposed to approximations 1. Uniform 均匀分布</p>
+<p>8.3.1 Uniform 2. Exponential</p>
+<p>8.3.2 Exponential 3. <span class="math inline">m</span>-Erlang</p>
+<p>8.3.3 m -Erlang</p>
+<p>Fortunately, the m-Erlang dis-tribution is a special case of the
+gamma distribution (with shape parameter a equal to the integer m), so
+that we can use one of the methods for generating gamma ran-dom variates
+here as well (see Sec. 8.3.4 for discussion of gamma generation). 4.
+Gamma</p>
+<p>8.3.4 Gamma 5. Weibull</p>
+<p>8.3.5 Weibull 6. Normal</p>
+<p>8.3.6 Normal</p>
+<p>It does have the advantage, however, of maintaining a one-to-one
+correspondence between the random numbers used and the N(0, 1) random
+vari-ates produced</p>
+<p>there is a serious diffi culty if <span
+class="math inline">U_1</span> and <span class="math inline">U_2</span>
+are actually adjacent random numbers produced by a linear congruential
+generator (see Sec. 7.2), 极坐标法 <em>Polar method</em></p>
+<p>An improvement to the Box and Muller method, which eliminates the
+trigono-metric calculations and was described in Marsaglia and Bray
+(1964), has become known as the polar method 7. Lognormal</p>
+<p>8.3.7 Lognormal 8. Beta</p>
+<p>8.3.8 Beta</p>
+<h2 id="generating-discrete-random-variates">8.4 Generating Discrete
+Random Variates</h2>
+<p>discusses particular algorithms for generating random variates from
+various discrete distributions that might be useful in a simulation
+study</p>
+<p>The discrete inverse-transform method, as described in Sec. 8.2.1,
+can be used for any discrete distribution, whether the range of possible
+values is fi nite or (count-ably) infi nite - <em>别名法 (alias
+method)</em></p>
+<p>One other general approach should be mentioned here, which can be
+used for generating any discrete random variate having a fi nite range
+of values. This is the alias method, 1. Bernoulli 2. Discrete Uniform 3.
+Arbitrary Discrete Distribution 4. Binomial 5. Geometric 6. Negative
+Binomial 7. Poisson</p>
+<p>Although the alias method is limited to discrete random variables
+with a fi nite range, it can be used indirectly for discrete
+distributions with an infi nite range, such as the geometric, negative
+binomial, or Poisson</p>
+<h2
+id="generating-random-vectors-correlated-random-variates-and-stochastic-processes">8.5
+Generating Random Vectors, Correlated Random Variates, and Stochastic
+Processes</h2>
+<p>So far in this chapter we have really considered generation of only a
+single random variate at a time from various univariate distributions
+本章到目前为止，实际考虑的只是从各种 <em>单变量</em>
+分布中每次产生单个随机变量。利用随机数组重复应用这些方法的一种由所要求的分布产生一串独立同分布的随机变量。</p>
+<ol type="1">
+<li>Using Conditional Distributions</li>
+</ol>
+<p>As general as this approach may be, its practical utility is probably
+quite limited. 2. Multivariate Normal and Multivariate Lognormal</p>
+<p>Since <span class="math inline">\Sigma</span> is symmetric and
+positive definite, we can factor it uniquely as <span
+class="math inline">\Sigma = CC^T</span> (called the Cholesky
+decomposition), where the <span class="math inline">d \times d</span>
+matrix <span class="math inline">C</span> is lower triangular</p>
+<p>Note that <span class="math inline">\mu</span> and <span
+class="math inline">\Sigma</span> are not the mean vector and covariance
+matrix of the desired multivariate lognormal random vector <span
+class="math inline">X</span>, but rather are the mean and covariance
+matrix of the corresponding multivariate normal random vector <span
+class="math inline">Y</span>. 3. Correlated Gamma Random Variates</p>
+<p>we cannot write the entire joint distribution but only specify the
+marginal distributions (gamma) and the correlations between the
+com-ponent random variables of the <span class="math inline">X</span>
+vector. 4. Generating from Multivariate Families 5. Generating Random
+Vectors with Arbitrarily Specified Marginal Distributions and
+Correlations</p>
+<p>we noted the need to model some input random variables as a random
+vector with fairly arbitrary marginal distributions and correlation
+structure, rather than specifying and controlling their entire joint
+distribution as a member of some multivariate parametric family like
+normal, lognormal, Johnson, or Bézier</p>
+<p>The only constraint is that the correlation structure between them be
+inter-nally consistent with the form and parameters of the marginal
+distributions, as dis-cussed by Whitt (1976), i.e., that the correlation
+structure specifi ed be feasible</p>
+<p>They present specifi c examples through dimension d 5 3 when the
+marginal distributions are uniform, exponential, and discrete uniform 6.
+Generating Stochastic Processes</p>
+<p>some applications require that we generate observa-tions of the
+“same” random variable as it is observed through time.
+常见随机过程的产生： - AR 和 ARMA 过程 - 伽马过程 - ARTA 过程 - VARTA
+过程</p>
+<h2 id="generating-arrival-processes">8.6 Generating Arrival
+Processes</h2>
+<ol type="1">
+<li>泊松过程</li>
+<li>非平稳泊松分布</li>
+</ol>
+<h1 id="output-data-analysis-for-a-single-system">9. Output Data
+Analysis for a Single System</h1>
+<h2 id="introduction-4">9.1 Introduction</h2>
+<p>As a matter of fact, a common mode of operation is to make a single
+simulation run of somewhat arbitrary length and then to treat the
+resulting simulation estimates as the “true” model characteristics.</p>
+<h2 id="transient-and-steady-state-behavior-of-a-stochastic-process">9.2
+Transient and Steady-state Behavior of a Stochastic Process</h2>
+<p>For fixed <span class="math inline">y</span> and <span
+class="math inline">I</span>, the probabilities <span
+class="math inline">F_1(y|I), F_2(y|I ), \cdots</span> are just a
+sequence of numbers. If <span class="math inline">F_i( y|I)</span> as
+<span class="math inline">i\to \infty</span> for all <span
+class="math inline">y</span> and for any initial conditions <span
+class="math inline">I</span>, then <span class="math inline">F(y)</span>
+is called the steady-state distribution of the output process <span
+class="math inline">Y_1, Y_2, \cdots</span>, <em>Note</em>：
+稳态并不意味着在一次特定的仿真中随机变量 <span
+class="math inline">Y_{k+1}, Y_{k+2}, \cdots</span>
+都取相同的值，而是意味着它们都 <em>近似地</em>
+具有相同的分布。进一步，这些随机变量之间并不独立，但近似一个
+<em>方差平稳</em> 的随机过程。</p>
+<h3 id="types-of-simulations-with-regard-to-output-analysis">9.3 Types
+of Simulations with Regard to Output Analysis</h3>
+<p>The options available in designing and analyzing simulation
+experiments depend on the type of simulation at hand, as depicted in
+Fig. 9.4 - 终止型仿真 <em>terminating simulation</em></p>
+<p>The event E often occurs at a time point when the system is “cleaned
+out” (see Example 9.4), at a time point beyond which no useful
+information is obtained (see Example 9.5), or at a time point specifi ed
+by management mandate - 非终止型仿真 <em>nonterminating
+simulation</em></p>
+<p>A nonterminating simulation is one for which there is no natural
+event E to specify the length of a run.</p>
+<p>It should be mentioned that stochastic processes for most real
+systems do not have steady-state distributions, since the
+characteristics of the system change over time</p>
+<p>On the other hand, a simulation model (which is an abstraction of
+reality) may have steady-state distributions, since characteristics of
+the model are often assumed not to change over time. When we have new
+information on the characteristics of the system, we can redo our
+steady-state analysis.</p>
+<p>For a nonterminating simulation, suppose that the stochastic process
+Y1, Y2, . . . does not have a steady-state distribution, and that there
+is no appropriate cycle defi -nition such that the corresponding process
+Y1C, Y2C, . . . has a steady-state distribu-tion</p>
+<p>In these cases, however, there will typically be a fi xed amount of
+data describing how input parameters change over time</p>
+<h2 id="statistical-analysis-for-terminating-simulations">9.4
+Statistical Analysis for Terminating Simulations</h2>
+<p>Suppose that we make <span class="math inline">n</span> independent
+replications of a terminating simulation, where each replication is
+terminated by the event <span class="math inline">E</span> and is begun
+with the “same” initial conditions - Obtaining a specified precision</p>
+<p>One disadvantage of the fixed-sample-size procedure based on n
+replications is that the analyst has no control over the
+confidence-interval half-length (or the precision of <span
+class="math inline">X(n)</span>); for fixed <span
+class="math inline">n</span>, the half-length will depend on Var(<span
+class="math inline">X</span>), the population variance of the <span
+class="math inline">X_j</span>’s</p>
+
+    </div>
+
+    
+    
+    
+
+    <div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">
+            -------------This blog is over!
+            <i class="fa fa-eye"></i>
+            Thanks for your reading-------------
+        </div>
+    
+</div>
+      
+    </div>
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>Post author:  </strong>YangSu
+  </li>
+  <li class="post-copyright-link">
+    <strong>Post link: </strong>
+    <a href="http://yangsuoly.com/2024/12/01/Prelim-Simulation/" title="Prelim-Simulation">http://yangsuoly.com/2024/12/01/Prelim-Simulation/</a>
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/Tags/Simulation/" rel="tag"><i class="fa fa-tag"></i> Simulation</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2024/12/01/Prelim-OR/" rel="prev" title="Prelim-OR">
+      <i class="fa fa-chevron-left"></i> Prelim-OR
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2024/12/01/Prelim-Queue/" rel="next" title="Prelim-Queue">
+      Prelim-Queue <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div id="music163player">
+      <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=1317956275&auto=0&height=66"></iframe>
+      </iframe>
+    </div>
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#basic-simulation-modeling"><span class="nav-text">1 Basic Simulation Modeling</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#the-nature-of-simulation"><span class="nav-text">1.1 The Nature of Simulation</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#systems-models-and-simulation"><span class="nav-text">1.2 Systems, Models, and
+Simulation</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#discrete-event-simulation"><span class="nav-text">1.3 Discrete Event Simulation</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#simulation-of-a-single-server-queueing-system"><span class="nav-text">1.4 Simulation of
+a Single-server Queueing System</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#simulation-of-an-inventory-system"><span class="nav-text">1.5 Simulation of An
+Inventory System</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#paralleldistributed-simulation-and-the-high-level-architecture"><span class="nav-text">1.6
+Parallel&#x2F;Distributed Simulation and The High Level Architecture</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#steps-in-a-sound-simulation-study"><span class="nav-text">1.7 Steps in a Sound
+Simulation Study</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#advantages-disadvantages-and-pitfalls-of-simulation"><span class="nav-text">1.8
+Advantages, Disadvantages and Pitfalls of Simulation</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#chapter-2-modeling-complex-systems"><span class="nav-text">2. Chapter 2 Modeling
+Complex Systems</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#list-processing-in-simulation"><span class="nav-text">2.2 List Processing in
+Simulation</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#simulation-software"><span class="nav-text">3. Simulation Software</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#introduction"><span class="nav-text">3.1 Introduction</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#classification-of-simulation-software"><span class="nav-text">3.3 Classification of
+Simulation Software</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#review-of-basic-probability-and-statistics"><span class="nav-text">4. Review of Basic
+Probability and Statistics</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#introduction-1"><span class="nav-text">4.1 Introduction</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#random-variables-and-their-properties"><span class="nav-text">4.2 Random Variables and
+Their Properties</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#simulation-output-data-and-stochastic-process"><span class="nav-text">4.3 Simulation
+Output Data and Stochastic Process</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#estimation-of-means-variances-and-correlations"><span class="nav-text">4.4 Estimation
+of Means, Variances, and Correlations</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#confidence-intervals-and-hypothesis-tests-for-the-mean"><span class="nav-text">4.5
+Confidence Intervals and Hypothesis Tests for the Mean</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#building-valid-credible-and-appropriately-detailed-simulation-models"><span class="nav-text">5.
+Building Valid, Credible, and Appropriately Detailed Simulation
+Models</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#introduction-and-definitions"><span class="nav-text">5.1 Introduction and
+Definitions</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#guidelines-for-determining-the-level-of-model-detail"><span class="nav-text">5.2
+Guidelines for Determining the Level of Model Detail</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#verification-of-simulation-computer-programs"><span class="nav-text">5.3 Verification
+of Simulation Computer Programs</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#techniques-for-increasing-model-validity-and-credibility"><span class="nav-text">5.4
+Techniques for Increasing Model Validity and Credibility</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#selecting-input-probability-distributions"><span class="nav-text">6. Selecting Input
+Probability Distributions</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#introductions"><span class="nav-text">6.1 Introductions</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#useful-probability-distributions"><span class="nav-text">6.2 Useful Probability
+Distributions</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#parameterization-of-continuous-distributions"><span class="nav-text">6.2.1
+Parameterization of Continuous Distributions</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#continuous-distributions"><span class="nav-text">6.2.2 Continuous Distributions</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#discrete-distribution"><span class="nav-text">6.2.3 Discrete Distribution</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#empirical-distribution"><span class="nav-text">6.2.4 Empirical Distribution</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#techniques-for-assessing-sample-independence"><span class="nav-text">6.3 Techniques for
+Assessing Sample Independence</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#activity-1-hypothesizing-families-of-distributions"><span class="nav-text">6.4 Activity
+1: Hypothesizing Families of Distributions</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#summary-statistics"><span class="nav-text">6.4.1 Summary Statistics</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#histograms"><span class="nav-text">6.4.2 Histograms</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#activity-ii-estimation-of-parameters"><span class="nav-text">6.5 Activity II:
+Estimation of Parameters</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#activity-iii-determining-how-representative-the-fitted-distributions-are"><span class="nav-text">6.6
+Activity III: Determining How Representative The Fitted Distributions
+Are</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#goodness-of-fit-tests"><span class="nav-text">6.6.2 Goodness-of-Fit Tests</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#specifying-multivariate-distributions-correlations-and-stochastic-processes"><span class="nav-text">6.10
+Specifying Multivariate Distributions Correlations, and Stochastic
+Processes</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#specifying-arbitrary-marginal-distributions-and-correlations"><span class="nav-text">6.10.2
+Specifying Arbitrary Marginal Distributions and Correlations</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#specifying-stochastic-process"><span class="nav-text">6.10.3 Specifying Stochastic
+Process</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#selecting-a-distribution-in-the-absence-of-data"><span class="nav-text">6.11 Selecting
+a Distribution in the Absence of Data</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#models-of-arrival-processes"><span class="nav-text">6.12 Models of Arrival
+Processes</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#poisson-processes"><span class="nav-text">6.12.1 Poisson Processes</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#nonstationary-poisson-processes"><span class="nav-text">6.12.2 Nonstationary Poisson
+Processes</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#batch-arrivals"><span class="nav-text">6.12.3 Batch Arrivals</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#assessing-the-homogeneity-of-different-data-sets"><span class="nav-text">6.13 Assessing
+the Homogeneity of Different Data Sets</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#random-number-generators"><span class="nav-text">7. Random-Number Generators</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#introduction-2"><span class="nav-text">7.1 Introduction</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#linear-congruential-generators"><span class="nav-text">7.2 Linear Congruential
+Generators</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#mixed-generators"><span class="nav-text">7.2.1 Mixed Generators</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#multiplicative-generators"><span class="nav-text">7.2.2 Multiplicative generators</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#other-kinds-of-generators"><span class="nav-text">7.3 Other Kinds of Generators</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#more-general-congruences"><span class="nav-text">7.3.1 More General Congruences</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#composite-generators"><span class="nav-text">7.3.2 Composite Generators</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#feedback-shift-register-generators"><span class="nav-text">7,3,3 Feedback Shift
+Register Generators</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#testing-random-number-generators"><span class="nav-text">7.4 Testing Random Number
+Generators</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#empirical-tests"><span class="nav-text">7.4.1Empirical Tests</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#theoretical-tests"><span class="nav-text">7.4.2 Theoretical Tests</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#some-general-observations-on-testing"><span class="nav-text">7.4.3 Some General
+Observations on Testing</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#generating-random-variables"><span class="nav-text">8. Generating Random Variables</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#introduction-3"><span class="nav-text">8.1 Introduction</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#general-approaches-to-generating-random-variates"><span class="nav-text">8.2 General
+Approaches to Generating Random Variates</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#inverse-transform"><span class="nav-text">8.2.1 Inverse Transform</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#composition"><span class="nav-text">8.2.2 Composition</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#convolution"><span class="nav-text">8.2.3 Convolution</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#acceptance-rejection"><span class="nav-text">8.2.4 Acceptance-Rejection</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#generating-continuous-random-variates"><span class="nav-text">8.3 Generating Continuous
+Random Variates</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#generating-discrete-random-variates"><span class="nav-text">8.4 Generating Discrete
+Random Variates</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#generating-random-vectors-correlated-random-variates-and-stochastic-processes"><span class="nav-text">8.5
+Generating Random Vectors, Correlated Random Variates, and Stochastic
+Processes</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#generating-arrival-processes"><span class="nav-text">8.6 Generating Arrival
+Processes</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#output-data-analysis-for-a-single-system"><span class="nav-text">9. Output Data
+Analysis for a Single System</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#introduction-4"><span class="nav-text">9.1 Introduction</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#transient-and-steady-state-behavior-of-a-stochastic-process"><span class="nav-text">9.2
+Transient and Steady-state Behavior of a Stochastic Process</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#types-of-simulations-with-regard-to-output-analysis"><span class="nav-text">9.3 Types
+of Simulations with Regard to Output Analysis</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#statistical-analysis-for-terminating-simulations"><span class="nav-text">9.4
+Statistical Analysis for Terminating Simulations</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="YangSu"
+      src="/images/YangSu.jpg">
+  <p class="site-author-name" itemprop="name">YangSu</p>
+  <div class="site-description" itemprop="description">A blog for recording learning notes...</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">78</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/Categories/">
+          
+        <span class="site-state-item-count">40</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/Tags/">
+          
+        <span class="site-state-item-count">49</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/YangSuoly" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;YangSuoly" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://gitee.com/yangsuoly" title="Gitee → https:&#x2F;&#x2F;gitee.com&#x2F;yangsuoly" rel="noopener" target="_blank"><i class="fab fa-github-square fa-fw"></i>Gitee</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://space.bilibili.com/64518717" title="B 站 → https:&#x2F;&#x2F;space.bilibili.com&#x2F;64518717" rel="noopener" target="_blank"><i class="fa fa-play-circle fa-fw"></i>B 站</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Related links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://www.58pic.com/u/19637930/" title="https:&#x2F;&#x2F;www.58pic.com&#x2F;u&#x2F;19637930&#x2F;" rel="noopener" target="_blank">千图网</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js" integrity="sha384-g7c+Jr9ZivxKLnZTDUhnkOnsh30B4H0rpLUpJ4jAIKs4fnJI+sEnkvrMWph2EDg4" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/auto-render.min.js" integrity="sha384-mll67QQFJfxn0IYznZYonOWZ644AWYC+Pt2cHqMaRhXVrursRwvLnLaebdGIlYNa" crossorigin="anonymous"
+        onload="renderMathInElement(document.body);"></script>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2026</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">YangSu</span>
+</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="Total Visitors">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="Total Views">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script size="300" alpha="0.6" zIndex="-1" src="/lib/canvas-ribbon/canvas-ribbon.js"></script>
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+<script>
+document.querySelectorAll('.pdfobject-container').forEach(element => {
+  let url = element.dataset.target;
+  let pdfOpenParams = {
+    navpanes : 0,
+    toolbar  : 0,
+    statusbar: 0,
+    pagemode : 'thumbs',
+    view     : 'FitH'
+  };
+  let pdfOpenFragment = '#' + Object.entries(pdfOpenParams).map(([key, value]) => `${key}=${encodeURIComponent(value)}`).join('&');
+  let fullURL = `/lib/pdf/web/viewer.html?file=${encodeURIComponent(url)}${pdfOpenFragment}`;
+
+  if (NexT.utils.supportsPDFs()) {
+    element.innerHTML = `<embed class="pdfobject" src="${url + pdfOpenFragment}" type="application/pdf" style="height: ${element.dataset.height};">`;
+  } else {
+    element.innerHTML = `<iframe src="${fullURL}" style="height: ${element.dataset.height};" frameborder="0"></iframe>`;
+  }
+});
+</script>
+
+
+<script>
+if (document.querySelectorAll('pre.mermaid').length) {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js', () => {
+    mermaid.initialize({
+      theme    : 'forest',
+      logLevel : 3,
+      flowchart: { curve     : 'linear' },
+      gantt    : { axisFormat: '%m/%d/%Y' },
+      sequence : { actorMargin: 50 }
+    });
+  }, window.mermaid);
+}
+</script>
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+  <script src="//cdn.jsdelivr.net/npm/quicklink@1/dist/quicklink.umd.js"></script>
+  <script>
+      window.addEventListener('load', () => {
+      quicklink({
+        timeout : 3000,
+        priority: true,
+        ignores : [uri => uri.includes('#'),uri => uri === 'http://yangsuoly.com/2024/12/01/Prelim-Simulation/',]
+      });
+      });
+  </script>
+
+  
+  <script id="ribbon" src="js/canvas-ribbon.js"></script>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/22.2017.cba-normal.model.json"},"display":{"position":"right","width":300,"height":450},"mobile":{"show":false},"react":{"opacity":0.7},"log":false});</script></body>
+</html>

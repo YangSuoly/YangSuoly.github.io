@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/blog-logo-32px.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/blog-logo-16px.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <link rel="manifest" href="/images/manifest.json">
+  <meta name="msapplication-config" content="/images/browserconfig.xml">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yangsuoly.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":true},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":true,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="1. Python 解析和处理 xml 文件 1.1 SAX知识了解 SAX (simple API for XML) 有解析器和事件处理器：  解析器：负责读取XML文档，并向事件处理器发送事件，如元素开始跟元素结束事件。 事件处理器：则负责对事件作出响应，对传递的XML数据进行处理。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Analysis-xml">
+<meta property="og:url" content="http://yangsuoly.com/2024/05/07/Analysis-xml/index.html">
+<meta property="og:site_name" content="独孤诗人的学习驿站">
+<meta property="og:description" content="1. Python 解析和处理 xml 文件 1.1 SAX知识了解 SAX (simple API for XML) 有解析器和事件处理器：  解析器：负责读取XML文档，并向事件处理器发送事件，如元素开始跟元素结束事件。 事件处理器：则负责对事件作出响应，对传递的XML数据进行处理。">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2024-05-07T09:02:12.000Z">
+<meta property="article:modified_time" content="2024-05-07T09:11:53.625Z">
+<meta property="article:author" content="YangSu">
+<meta property="article:tag" content="Data analysis">
+<meta property="article:tag" content="Python">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://yangsuoly.com/2024/05/07/Analysis-xml/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>Analysis-xml | 独孤诗人的学习驿站</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?f59f5fb59d32ec3903088b0f976956d1";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta custom-logo">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">独孤诗人的学习驿站</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">生活就是一半烟火，一半诗意。手执烟火谋生活，心怀诗意谋未来……</p>
+      <a>
+        <img class="custom-logo-image" src="/images/logo@2x.png" alt="独孤诗人的学习驿站">
+      </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/Tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/Categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+  <a href="https://github.com/YangSuoly" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yangsuoly.com/2024/05/07/Analysis-xml/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/YangSu.jpg">
+      <meta itemprop="name" content="YangSu">
+      <meta itemprop="description" content="A blog for recording learning notes...">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="独孤诗人的学习驿站">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Analysis-xml
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2024-05-07 17:02:12 / Modified: 17:11:53" itemprop="dateCreated datePublished" datetime="2024-05-07T17:02:12+08:00">2024-05-07</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/Categories/Notes/" itemprop="url" rel="index"><span itemprop="name">Notes</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/Categories/Notes/Python-module/" itemprop="url" rel="index"><span itemprop="name">Python module</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/Categories/Notes/Python-module/xml/" itemprop="url" rel="index"><span itemprop="name">xml</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="Views" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span><br>
+            <span class="post-meta-item" title="Symbols count in article">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">Symbols count in article: </span>
+              <span>14k</span>
+            </span>
+            <span class="post-meta-item" title="Reading time">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">Reading time &asymp;</span>
+              <span>13 mins.</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="python-解析和处理-xml-文件">1. Python 解析和处理 xml 文件</h1>
+<h2 id="sax知识了解">1.1 SAX知识了解</h2>
+<p><code>SAX</code> (simple API for XML) 有解析器和事件处理器：</p>
+<ul>
+<li>解析器：负责读取XML文档，并向事件处理器发送事件，如元素开始跟元素结束事件。</li>
+<li>事件处理器：则负责对事件作出响应，对传递的XML数据进行处理。</li>
+</ul>
+<a id="more"></a>
+<p><code>sax</code> 主要借助 <code>ContentHandler</code> 来进行
+<code>xml</code> 文件解析。其包含如下方法：</p>
+<ul>
+<li><code>startDocument()</code> : 文档启动的时候调用。</li>
+<li><code>endDocument()</code> : 解析器到达文档结尾时调用。</li>
+<li><code>startElement(name, attrs)</code>: 遇到 <code>XML</code>
+开始标签时调用，<code>name</code> 是标签的名字，<code>attrs</code>
+是标签的属性值字典。</li>
+<li><code>endElement(name)</code> : 遇到 <code>XML</code>
+结束标签时调用。</li>
+<li><code>characters</code>
+:内容处理。解析器将调用此方法来报告每个字符数据块。SAX
+解析器可以在单个块中返回所有连续字符数据，也可以将其拆分为多个块；但是，任何单个事件中的所有字符都必须来自同一个外部实体，以便定位器提供有用的信息。</li>
+<li><code>make_parser</code> : 创建一个解释器对象并返回</li>
+<li><code>parser</code> : 解析 <code>XML</code></li>
+</ul>
+<blockquote>
+<p>ref：<a
+target="_blank" rel="noopener" href="https://blog.csdn.net/qq_33210042/article/details/117706970">python
+使用sax 解析xml 文件</a></p>
+</blockquote>
+<p><code>ContentHandler</code> 类的帮助文档如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">help</span>(xml.sax.ContentHandler)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br></pre></td><td class="code"><pre><span class="line">Help on <span class="class"><span class="keyword">class</span> <span class="title">ContentHandler</span> <span class="title">in</span> <span class="title">module</span> <span class="title">xml</span>.<span class="title">sax</span>.<span class="title">handler</span>:</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ContentHandler</span>(<span class="params">builtins.<span class="built_in">object</span></span>)</span></span><br><span class="line"><span class="class"> |  <span class="title">Interface</span> <span class="title">for</span> <span class="title">receiving</span> <span class="title">logical</span> <span class="title">document</span> <span class="title">content</span> <span class="title">events</span>.</span></span><br><span class="line"><span class="class"> |  </span></span><br><span class="line"> |  This is the main callback interface in SAX, and the one most</span><br><span class="line"> |  important to applications. The order of events <span class="keyword">in</span> this interface</span><br><span class="line"> |  mirrors the order of the information <span class="keyword">in</span> the document.</span><br><span class="line"> |  </span><br><span class="line"> |  Methods defined here:</span><br><span class="line"> |  </span><br><span class="line"> |  __init__(self)</span><br><span class="line"> |      Initialize self.  See <span class="built_in">help</span>(<span class="built_in">type</span>(self)) <span class="keyword">for</span> accurate signature.</span><br><span class="line"> |  </span><br><span class="line"> |  characters(self, content)</span><br><span class="line"> |      Receive notification of character data.</span><br><span class="line"> |      </span><br><span class="line"> |      The Parser will call this method to report each chunk of</span><br><span class="line"> |      character data. SAX parsers may <span class="keyword">return</span> <span class="built_in">all</span> contiguous</span><br><span class="line"> |      character data <span class="keyword">in</span> a single chunk, <span class="keyword">or</span> they may split it into</span><br><span class="line"> |      several chunks; however, <span class="built_in">all</span> of the characters <span class="keyword">in</span> <span class="built_in">any</span> single</span><br><span class="line"> |      event must come <span class="keyword">from</span> the same external entity so that the</span><br><span class="line"> |      Locator provides useful information.</span><br><span class="line"> |  </span><br><span class="line"> |  endDocument(self)</span><br><span class="line"> |      Receive notification of the end of a document.</span><br><span class="line"> |      </span><br><span class="line"> |      The SAX parser will invoke this method only once, <span class="keyword">and</span> it will</span><br><span class="line"> |      be the last method invoked during the parse. The parser shall</span><br><span class="line"> |      <span class="keyword">not</span> invoke this method until it has either abandoned parsing</span><br><span class="line"> |      (because of an unrecoverable error) <span class="keyword">or</span> reached the end of</span><br><span class="line"> |      <span class="built_in">input</span>.</span><br><span class="line"> |  </span><br><span class="line"> |  endElement(self, name)</span><br><span class="line"> |      Signals the end of an element <span class="keyword">in</span> non-namespace mode.</span><br><span class="line"> |      </span><br><span class="line"> |      The name parameter contains the name of the element <span class="built_in">type</span>, just</span><br><span class="line"> |      <span class="keyword">as</span> <span class="keyword">with</span> the startElement event.</span><br><span class="line"> |  </span><br><span class="line"> |  endElementNS(self, name, qname)</span><br><span class="line"> |      Signals the end of an element <span class="keyword">in</span> namespace mode.</span><br><span class="line"> |      </span><br><span class="line"> |      The name parameter contains the name of the element <span class="built_in">type</span>, just</span><br><span class="line"> |      <span class="keyword">as</span> <span class="keyword">with</span> the startElementNS event.</span><br><span class="line"> |  </span><br><span class="line"> |  endPrefixMapping(self, prefix)</span><br><span class="line"> |      End the scope of a prefix-URI mapping.</span><br><span class="line"> |      </span><br><span class="line"> |      See startPrefixMapping <span class="keyword">for</span> details. This event will always</span><br><span class="line"> |      occur after the corresponding endElement event, but the order</span><br><span class="line"> |      of endPrefixMapping events <span class="keyword">is</span> <span class="keyword">not</span> otherwise guaranteed.</span><br><span class="line"> |  </span><br><span class="line"> |  ignorableWhitespace(self, whitespace)</span><br><span class="line"> |      Receive notification of ignorable whitespace <span class="keyword">in</span> element content.</span><br><span class="line"> |      </span><br><span class="line"> |      Validating Parsers must use this method to report each chunk</span><br><span class="line"> |      of ignorable whitespace (see the W3C XML <span class="number">1.0</span> recommendation,</span><br><span class="line"> |      section <span class="number">2.10</span>): non-validating parsers may also use this method</span><br><span class="line"> |      <span class="keyword">if</span> they are capable of parsing <span class="keyword">and</span> using content models.</span><br><span class="line"> |      </span><br><span class="line"> |      SAX parsers may <span class="keyword">return</span> <span class="built_in">all</span> contiguous whitespace <span class="keyword">in</span> a single</span><br><span class="line"> |      chunk, <span class="keyword">or</span> they may split it into several chunks; however, <span class="built_in">all</span></span><br><span class="line"> |      of the characters <span class="keyword">in</span> <span class="built_in">any</span> single event must come <span class="keyword">from</span> the same</span><br><span class="line"> |      external entity, so that the Locator provides useful</span><br><span class="line"> |      information.</span><br><span class="line"> |  </span><br><span class="line"> |  processingInstruction(self, target, data)</span><br><span class="line"> |      Receive notification of a processing instruction.</span><br><span class="line"> |      </span><br><span class="line"> |      The Parser will invoke this method once <span class="keyword">for</span> each processing</span><br><span class="line"> |      instruction found: note that processing instructions may occur</span><br><span class="line"> |      before <span class="keyword">or</span> after the main document element.</span><br><span class="line"> |      </span><br><span class="line"> |      A SAX parser should never report an XML declaration (XML <span class="number">1.0</span>,</span><br><span class="line"> |      section <span class="number">2.8</span>) <span class="keyword">or</span> a text declaration (XML <span class="number">1.0</span>, section <span class="number">4.3</span><span class="number">.1</span>)</span><br><span class="line"> |      using this method.</span><br><span class="line"> |  </span><br><span class="line"> |  setDocumentLocator(self, locator)</span><br><span class="line"> |      Called by the parser to give the application a locator <span class="keyword">for</span></span><br><span class="line"> |      locating the origin of document events.</span><br><span class="line"> |      </span><br><span class="line"> |      SAX parsers are strongly encouraged (though <span class="keyword">not</span> absolutely</span><br><span class="line"> |      required) to supply a locator: <span class="keyword">if</span> it does so, it must supply</span><br><span class="line"> |      the locator to the application by invoking this method before</span><br><span class="line"> |      invoking <span class="built_in">any</span> of the other methods <span class="keyword">in</span> the DocumentHandler</span><br><span class="line"> |      interface.</span><br><span class="line"> |      </span><br><span class="line"> |      The locator allows the application to determine the end</span><br><span class="line"> |      position of <span class="built_in">any</span> document-related event, even <span class="keyword">if</span> the parser <span class="keyword">is</span></span><br><span class="line"> |      <span class="keyword">not</span> reporting an error. Typically, the application will use</span><br><span class="line"> |      this information <span class="keyword">for</span> reporting its own errors (such <span class="keyword">as</span></span><br><span class="line"> |      character content that does <span class="keyword">not</span> match an application<span class="string">&#x27;s</span></span><br><span class="line"><span class="string"> |      business rules). The information returned by the locator is</span></span><br><span class="line"><span class="string"> |      probably not sufficient for use with a search engine.</span></span><br><span class="line"><span class="string"> |      </span></span><br><span class="line"><span class="string"> |      Note that the locator will return correct information only</span></span><br><span class="line"><span class="string"> |      during the invocation of the events in this interface. The</span></span><br><span class="line"><span class="string"> |      application should not attempt to use it at any other time.</span></span><br><span class="line"><span class="string"> |  </span></span><br><span class="line"><span class="string"> |  skippedEntity(self, name)</span></span><br><span class="line"><span class="string"> |      Receive notification of a skipped entity.</span></span><br><span class="line"><span class="string"> |      </span></span><br><span class="line"><span class="string"> |      The Parser will invoke this method once for each entity</span></span><br><span class="line"><span class="string"> |      skipped. Non-validating processors may skip entities if they</span></span><br><span class="line"><span class="string"> |      have not seen the declarations (because, for example, the</span></span><br><span class="line"><span class="string"> |      entity was declared in an external DTD subset). All processors</span></span><br><span class="line"><span class="string"> |      may skip external entities, depending on the values of the</span></span><br><span class="line"><span class="string"> |      http://xml.org/sax/features/external-general-entities and the</span></span><br><span class="line"><span class="string"> |      http://xml.org/sax/features/external-parameter-entities</span></span><br><span class="line"><span class="string"> |      properties.</span></span><br><span class="line"><span class="string"> |  </span></span><br><span class="line"><span class="string"> |  startDocument(self)</span></span><br><span class="line"><span class="string"> |      Receive notification of the beginning of a document.</span></span><br><span class="line"><span class="string"> |      </span></span><br><span class="line"><span class="string"> |      The SAX parser will invoke this method only once, before any</span></span><br><span class="line"><span class="string"> |      other methods in this interface or in DTDHandler (except for</span></span><br><span class="line"><span class="string"> |      setDocumentLocator).</span></span><br><span class="line"><span class="string"> |  </span></span><br><span class="line"><span class="string"> |  startElement(self, name, attrs)</span></span><br><span class="line"><span class="string"> |      Signals the start of an element in non-namespace mode.</span></span><br><span class="line"><span class="string"> |      </span></span><br><span class="line"><span class="string"> |      The name parameter contains the raw XML 1.0 name of the</span></span><br><span class="line"><span class="string"> |      element type as a string and the attrs parameter holds an</span></span><br><span class="line"><span class="string"> |      instance of the Attributes class containing the attributes of</span></span><br><span class="line"><span class="string"> |      the element.</span></span><br><span class="line"><span class="string"> |  </span></span><br><span class="line"><span class="string"> |  startElementNS(self, name, qname, attrs)</span></span><br><span class="line"><span class="string"> |      Signals the start of an element in namespace mode.</span></span><br><span class="line"><span class="string"> |      </span></span><br><span class="line"><span class="string"> |      The name parameter contains the name of the element type as a</span></span><br><span class="line"><span class="string"> |      (uri, localname) tuple, the qname parameter the raw XML 1.0</span></span><br><span class="line"><span class="string"> |      name used in the source document, and the attrs parameter</span></span><br><span class="line"><span class="string"> |      holds an instance of the Attributes class containing the</span></span><br><span class="line"><span class="string"> |      attributes of the element.</span></span><br><span class="line"><span class="string"> |      </span></span><br><span class="line"><span class="string"> |      The uri part of the name tuple is None for elements which have</span></span><br><span class="line"><span class="string"> |      no namespace.</span></span><br><span class="line"><span class="string"> |  </span></span><br><span class="line"><span class="string"> |  startPrefixMapping(self, prefix, uri)</span></span><br><span class="line"><span class="string"> |      Begin the scope of a prefix-URI Namespace mapping.</span></span><br><span class="line"><span class="string"> |      </span></span><br><span class="line"><span class="string"> |      The information from this event is not necessary for normal</span></span><br><span class="line"><span class="string"> |      Namespace processing: the SAX XML reader will automatically</span></span><br><span class="line"><span class="string"> |      replace prefixes for element and attribute names when the</span></span><br><span class="line"><span class="string"> |      http://xml.org/sax/features/namespaces feature is true (the</span></span><br><span class="line"><span class="string"> |      default).</span></span><br><span class="line"><span class="string"> |      </span></span><br><span class="line"><span class="string"> |      There are cases, however, when applications need to use</span></span><br><span class="line"><span class="string"> |      prefixes in character data or in attribute values, where they</span></span><br><span class="line"><span class="string"> |      cannot safely be expanded automatically; the</span></span><br><span class="line"><span class="string"> |      start/endPrefixMapping event supplies the information to the</span></span><br><span class="line"><span class="string"> |      application to expand prefixes in those contexts itself, if</span></span><br><span class="line"><span class="string"> |      necessary.</span></span><br><span class="line"><span class="string"> |      </span></span><br><span class="line"><span class="string"> |      Note that start/endPrefixMapping events are not guaranteed to</span></span><br><span class="line"><span class="string"> |      be properly nested relative to each-other: all</span></span><br><span class="line"><span class="string"> |      startPrefixMapping events will occur before the corresponding</span></span><br><span class="line"><span class="string"> |      startElement event, and all endPrefixMapping events will occur</span></span><br><span class="line"><span class="string"> |      after the corresponding endElement event, but their order is</span></span><br><span class="line"><span class="string"> |      not guaranteed.</span></span><br><span class="line"><span class="string"> |  </span></span><br><span class="line"><span class="string"> |  ----------------------------------------------------------------------</span></span><br></pre></td></tr></table></figure>
+<h2 id="demo-for-analysis-xml">1.2 Demo for analysis xml</h2>
+<h3 id="读取只有标签的-xml">1.2.1 读取只有标签的 xml</h3>
+<p>创建有一个 <code>config1.xml</code> 的文件内容如下：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">config_content</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">lib</span> <span class="attr">name</span>=<span class="string">&quot;a&quot;</span> <span class="attr">path</span>=<span class="string">&quot;a的路径&quot;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">lib</span> <span class="attr">name</span>=<span class="string">&quot;b&quot;</span> <span class="attr">path</span>=<span class="string">&quot;b的路径&quot;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">lib</span> <span class="attr">name</span>=<span class="string">&quot;c&quot;</span> <span class="attr">path</span>=<span class="string">&quot;c的路径&quot;</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">config_content</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>set data path</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">data_dir = <span class="string">&#x27;./data/test_data/&#x27;</span></span><br><span class="line">data_test_path = data_dir + <span class="string">&#x27;config1.xml&#x27;</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>导入模块及预览文件</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> codecs</span><br><span class="line"></span><br><span class="line"><span class="comment"># 打开XML文件并添加BOM</span></span><br><span class="line"><span class="keyword">with</span> codecs.<span class="built_in">open</span>(data_test_path, <span class="string">&#x27;r&#x27;</span>, encoding=<span class="string">&#x27;utf-8&#x27;</span>) <span class="keyword">as</span> f:</span><br><span class="line">    xml_data = f.read()</span><br><span class="line">    </span><br><span class="line">print(xml_data)</span><br></pre></td></tr></table></figure>
+<p>Results:</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">config_content</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">lib</span> <span class="attr">name</span>=<span class="string">&quot;a&quot;</span> <span class="attr">path</span>=<span class="string">&quot;a的路径&quot;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">lib</span> <span class="attr">name</span>=<span class="string">&quot;b&quot;</span> <span class="attr">path</span>=<span class="string">&quot;b的路径&quot;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">lib</span> <span class="attr">name</span>=<span class="string">&quot;c&quot;</span> <span class="attr">path</span>=<span class="string">&quot;c的路径&quot;</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">config_content</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>借助 <code>xml.sax</code> 解析：</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> xml.sax</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ConfigHandler</span>(<span class="params">xml.sax.ContentHandler</span>):</span></span><br><span class="line"> </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self</span>):</span></span><br><span class="line">        self.tag = <span class="string">&quot;&quot;</span></span><br><span class="line">        self.name = <span class="string">&quot;&quot;</span></span><br><span class="line">        self.path = <span class="string">&quot;&quot;</span></span><br><span class="line"> </span><br><span class="line">    <span class="comment"># 启动文档</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">startDocument</span>(<span class="params">self</span>):</span></span><br><span class="line">        print(<span class="string">&quot;******解析配置文件开始******&quot;</span>)</span><br><span class="line"> </span><br><span class="line">    <span class="comment"># 开始解析xml</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">startElement</span>(<span class="params">self, name, attributes</span>):</span></span><br><span class="line">        self.tag = name</span><br><span class="line">        <span class="keyword">if</span> name == <span class="string">&quot;lib&quot;</span>:</span><br><span class="line">            self.name = attributes[<span class="string">&quot;name&quot;</span>]</span><br><span class="line">            self.path = attributes[<span class="string">&quot;path&quot;</span>]</span><br><span class="line">            print(self.name)</span><br><span class="line">            print(self.path)</span><br><span class="line"> </span><br><span class="line">    <span class="comment"># xml内容事件处理</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">characters</span>(<span class="params">self, content</span>):</span></span><br><span class="line">        <span class="keyword">pass</span></span><br><span class="line"> </span><br><span class="line">    <span class="comment"># 结束解析xml</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">endElement</span>(<span class="params">self, name</span>):</span></span><br><span class="line">        <span class="keyword">pass</span></span><br><span class="line"> </span><br><span class="line">    <span class="comment"># xml结束标签调用</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">endDocument</span>(<span class="params">self</span>):</span></span><br><span class="line">        print(<span class="string">&quot;******配置文件解析结束******&quot;</span>)</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&quot;__main__&quot;</span>:</span><br><span class="line">    <span class="comment"># 创建一个 XMLReader</span></span><br><span class="line">    parser = xml.sax.make_parser()</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># turn off namepsaces</span></span><br><span class="line">    parser.setFeature(xml.sax.handler.feature_namespaces, <span class="number">0</span>)</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 重写 ContextHandler</span></span><br><span class="line">    Handler = ConfigHandler()</span><br><span class="line">    parser.setContentHandler(Handler)</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 解析 xml 这里可以写xml 的具体路径,为了简单放在了同一个文件夹里面了</span></span><br><span class="line">    parser.parse(data_test_path)</span><br></pre></td></tr></table></figure>
+<p>Results:</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="strong">****</span><span class="strong">**解析配置文件开始**</span><span class="strong">****</span></span><br><span class="line">a</span><br><span class="line">a的路径</span><br><span class="line">b</span><br><span class="line">b的路径</span><br><span class="line">c</span><br><span class="line">c的路径</span><br><span class="line"><span class="strong">****</span><span class="strong">**配置文件解析结束**</span><span class="strong">****</span></span><br></pre></td></tr></table></figure>
+<p>由于读取的 <code>xml</code>
+只有标签，这里内容处理和结束的时候并没有做其他的操作。如果我们要使用读取的数据,可以把数据存放到
+<code>list</code> 中或者存放到字典中,如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ConfigHandler</span>(<span class="params">xml.sax.ContentHandler</span>):</span></span><br><span class="line">    config_map = &#123;&#125;</span><br><span class="line">    config_name_list = []</span><br><span class="line">    config_path_list = []</span><br><span class="line"> </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self</span>):</span></span><br><span class="line">        self.tag = <span class="string">&quot;&quot;</span></span><br><span class="line">        self.name = <span class="string">&quot;&quot;</span></span><br><span class="line">        self.path = <span class="string">&quot;&quot;</span></span><br><span class="line"> </span><br><span class="line">    <span class="comment"># 启动文档</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">startDocument</span>(<span class="params">self</span>):</span></span><br><span class="line">        print(<span class="string">&quot;******解析配置文件开始******&quot;</span>)</span><br><span class="line"> </span><br><span class="line">    <span class="comment"># 开始解析xml</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">startElement</span>(<span class="params">self, name, attributes</span>):</span></span><br><span class="line">        self.tag = name</span><br><span class="line">        <span class="keyword">if</span> name == <span class="string">&quot;lib&quot;</span>:</span><br><span class="line">            self.name = attributes[<span class="string">&quot;name&quot;</span>]</span><br><span class="line">            self.path = attributes[<span class="string">&quot;path&quot;</span>]</span><br><span class="line">            <span class="comment"># print(self.name)</span></span><br><span class="line">            <span class="comment"># print(self.path)</span></span><br><span class="line">            self.config_name_list.append(self.name)</span><br><span class="line">            print(self.config_name_list)</span><br><span class="line">            self.config_path_list.append(self.path)</span><br><span class="line">            print(self.config_path_list)</span><br><span class="line">            self.config_map.update(&#123;self.name: self.path&#125;)</span><br><span class="line">            print(self.config_map)</span><br><span class="line"> </span><br><span class="line">    <span class="comment"># xml内容事件处理</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">characters</span>(<span class="params">self, content</span>):</span></span><br><span class="line">        <span class="keyword">pass</span></span><br><span class="line"> </span><br><span class="line">    <span class="comment"># 结束解析xml</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">endElement</span>(<span class="params">self, name</span>):</span></span><br><span class="line">        <span class="keyword">pass</span></span><br><span class="line">    <span class="comment"># xml结束标签调用</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">endDocument</span>(<span class="params">self</span>):</span></span><br><span class="line">        print(<span class="string">&quot;******配置文件解析结束******&quot;</span>)</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&quot;__main__&quot;</span>:</span><br><span class="line">    <span class="comment"># 创建一个 XMLReader</span></span><br><span class="line">    parser = xml.sax.make_parser()</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># turn off namepsaces</span></span><br><span class="line">    parser.setFeature(xml.sax.handler.feature_namespaces, <span class="number">0</span>)</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 重写 ContextHandler</span></span><br><span class="line">    Handler = ConfigHandler()</span><br><span class="line">    parser.setContentHandler(Handler)</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 解析 xml 这里可以写xml 的具体路径,为了简单放在了同一个文件夹里面了</span></span><br><span class="line">    parser.parse(data_test_path)</span><br></pre></td></tr></table></figure>
+<p>Results:</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="strong">****</span><span class="strong">**解析配置文件开始**</span><span class="strong">****</span></span><br><span class="line">[&#x27;a&#x27;]</span><br><span class="line">[&#x27;a的路径&#x27;]</span><br><span class="line">&#123;&#x27;a&#x27;: &#x27;a的路径&#x27;&#125;</span><br><span class="line">[&#x27;a&#x27;, &#x27;b&#x27;]</span><br><span class="line">[&#x27;a的路径&#x27;, &#x27;b的路径&#x27;]</span><br><span class="line">&#123;&#x27;a&#x27;: &#x27;a的路径&#x27;, &#x27;b&#x27;: &#x27;b的路径&#x27;&#125;</span><br><span class="line">[&#x27;a&#x27;, &#x27;b&#x27;, &#x27;c&#x27;]</span><br><span class="line">[&#x27;a的路径&#x27;, &#x27;b的路径&#x27;, &#x27;c的路径&#x27;]</span><br><span class="line">&#123;&#x27;a&#x27;: &#x27;a的路径&#x27;, &#x27;b&#x27;: &#x27;b的路径&#x27;, &#x27;c&#x27;: &#x27;c的路径&#x27;&#125;</span><br><span class="line"><span class="strong">****</span><span class="strong">**配置文件解析结束**</span><span class="strong">****</span></span><br></pre></td></tr></table></figure>
+<h3 id="读取同标签不同内容">1.2.2 读取同标签不同内容</h3>
+<p>创建 <code>config2.xml</code> 文件，包含一下内容：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">config_content</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">type</span> <span class="attr">class</span>=<span class="string">&quot;3年级&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">lib</span> <span class="attr">name</span>=<span class="string">&quot;体育&quot;</span>&gt;</span>优秀<span class="tag">&lt;/<span class="name">lib</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">lib</span> <span class="attr">name</span>=<span class="string">&quot;语文&quot;</span>&gt;</span>一般<span class="tag">&lt;/<span class="name">lib</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">lib</span> <span class="attr">name</span>=<span class="string">&quot;数学&quot;</span>&gt;</span>优秀<span class="tag">&lt;/<span class="name">lib</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">type</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">type</span> <span class="attr">class</span>=<span class="string">&quot;5年级&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">lib</span> <span class="attr">name</span>=<span class="string">&quot;体育&quot;</span>&gt;</span>一般<span class="tag">&lt;/<span class="name">lib</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">lib</span> <span class="attr">name</span>=<span class="string">&quot;语文&quot;</span>&gt;</span>优秀<span class="tag">&lt;/<span class="name">lib</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">lib</span> <span class="attr">name</span>=<span class="string">&quot;数学&quot;</span>&gt;</span>良好<span class="tag">&lt;/<span class="name">lib</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">type</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">config_content</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>set data path</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">data_test_path = data_dir + <span class="string">&#x27;config2.xml&#x27;</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>Analysis</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> xml.sax</span><br><span class="line"> </span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ConfigHandler</span>(<span class="params">xml.sax.ContentHandler</span>):</span></span><br><span class="line"> </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self</span>):</span></span><br><span class="line">        self.tag = <span class="string">&quot;&quot;</span></span><br><span class="line">        self.name = <span class="string">&quot;&quot;</span></span><br><span class="line">        self.label = <span class="string">&quot;&quot;</span></span><br><span class="line">        self.content = <span class="string">&quot;&quot;</span></span><br><span class="line"> </span><br><span class="line">    <span class="comment"># 启动文档</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">startDocument</span>(<span class="params">self</span>):</span></span><br><span class="line">        print(<span class="string">&quot;******解析配置文件开始******&quot;</span>)</span><br><span class="line"> </span><br><span class="line">    <span class="comment"># 开始解析xml</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">startElement</span>(<span class="params">self, name, attributes</span>):</span></span><br><span class="line">        self.tag = name</span><br><span class="line">        <span class="keyword">if</span> name == <span class="string">&quot;type&quot;</span>:</span><br><span class="line">            self.name = attributes[<span class="string">&quot;class&quot;</span>]</span><br><span class="line">            print(self.name)</span><br><span class="line">        <span class="keyword">if</span> name == <span class="string">&quot;lib&quot;</span>:</span><br><span class="line">            self.label = attributes[<span class="string">&quot;name&quot;</span>]</span><br><span class="line">            print(self.label)</span><br><span class="line"> </span><br><span class="line">    <span class="comment"># xml内容事件处理</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">characters</span>(<span class="params">self, content</span>):</span></span><br><span class="line">        self.content = content</span><br><span class="line"> </span><br><span class="line">    <span class="comment"># 结束解析xml</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">endElement</span>(<span class="params">self, name</span>):</span></span><br><span class="line">        <span class="keyword">if</span> name == <span class="string">&quot;lib&quot;</span>:</span><br><span class="line">            print(self.content)</span><br><span class="line"> </span><br><span class="line">    <span class="comment"># xml结束标签调用</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">endDocument</span>(<span class="params">self</span>):</span></span><br><span class="line">        print(<span class="string">&quot;******配置文件解析结束******&quot;</span>)</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&quot;__main__&quot;</span>:</span><br><span class="line">    <span class="comment"># 创建一个 XMLReader</span></span><br><span class="line">    parser = xml.sax.make_parser()</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># turn off namepsaces</span></span><br><span class="line">    parser.setFeature(xml.sax.handler.feature_namespaces, <span class="number">0</span>)</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 重写 ContextHandler</span></span><br><span class="line">    Handler = ConfigHandler()</span><br><span class="line">    parser.setContentHandler(Handler)</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 解析 xml 这里可以写xml 的具体路径,为了简单放在了同一个文件夹里面了</span></span><br><span class="line">    parser.parse(data_test_path)</span><br></pre></td></tr></table></figure>
+<p>Results:</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="strong">****</span><span class="strong">**解析配置文件开始**</span><span class="strong">****</span></span><br><span class="line">3年级</span><br><span class="line">体育</span><br><span class="line">优秀</span><br><span class="line">语文</span><br><span class="line">一般</span><br><span class="line">数学</span><br><span class="line">优秀</span><br><span class="line">5年级</span><br><span class="line">体育</span><br><span class="line">一般</span><br><span class="line">语文</span><br><span class="line">优秀</span><br><span class="line">数学</span><br><span class="line">良好</span><br><span class="line"><span class="strong">****</span><span class="strong">**配置文件解析结束**</span><span class="strong">****</span></span><br></pre></td></tr></table></figure>
+<h3 id="读取想同标签多个标题">1.2.3 读取想同标签多个标题</h3>
+<p>创建 <code>config3.xml</code> 文件，包含一下内容：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">config_content</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">school</span> <span class="attr">name</span>=<span class="string">&quot;第六中学&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">type</span> <span class="attr">class</span>=<span class="string">&quot;2年级&quot;</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">Language</span>&gt;</span>优秀<span class="tag">&lt;/<span class="name">Language</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">Math</span>&gt;</span>一般<span class="tag">&lt;/<span class="name">Math</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">English</span>&gt;</span>优秀<span class="tag">&lt;/<span class="name">English</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">type</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">type</span> <span class="attr">class</span>=<span class="string">&quot;5年级&quot;</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">Language</span>&gt;</span>优秀<span class="tag">&lt;/<span class="name">Language</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">Math</span>&gt;</span>一般<span class="tag">&lt;/<span class="name">Math</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">English</span>&gt;</span>优秀<span class="tag">&lt;/<span class="name">English</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">type</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">school</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">school</span> <span class="attr">name</span>=<span class="string">&quot;第九中学&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">type</span> <span class="attr">class</span>=<span class="string">&quot;1年级&quot;</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">Language</span>&gt;</span>优秀<span class="tag">&lt;/<span class="name">Language</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">Math</span>&gt;</span>一般<span class="tag">&lt;/<span class="name">Math</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">English</span>&gt;</span>优秀<span class="tag">&lt;/<span class="name">English</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">type</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">type</span> <span class="attr">class</span>=<span class="string">&quot;3年级&quot;</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">Language</span>&gt;</span>优秀<span class="tag">&lt;/<span class="name">Language</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">Math</span>&gt;</span>一般<span class="tag">&lt;/<span class="name">Math</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">English</span>&gt;</span>优秀<span class="tag">&lt;/<span class="name">English</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">type</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">school</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">config_content</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>set data path</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">data_test_path = data_dir + <span class="string">&#x27;config3.xml&#x27;</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>analysis</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> xml.sax</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ConfigHandler</span>(<span class="params">xml.sax.ContentHandler</span>):</span></span><br><span class="line"> </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self</span>):</span></span><br><span class="line">        self.tag = <span class="string">&quot;&quot;</span></span><br><span class="line">        self.name = <span class="string">&quot;&quot;</span></span><br><span class="line">        self.label = <span class="string">&quot;&quot;</span></span><br><span class="line">        self.content = <span class="string">&quot;&quot;</span></span><br><span class="line"> </span><br><span class="line">    <span class="comment"># 启动文档</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">startDocument</span>(<span class="params">self</span>):</span></span><br><span class="line">        print(<span class="string">&quot;******解析配置文件开始******&quot;</span>)</span><br><span class="line"> </span><br><span class="line">    <span class="comment"># 开始解析xml</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">startElement</span>(<span class="params">self, name, attributes</span>):</span></span><br><span class="line">        self.tag = name</span><br><span class="line">        <span class="keyword">if</span> name == <span class="string">&quot;school&quot;</span>:</span><br><span class="line">            self.name = attributes[<span class="string">&quot;name&quot;</span>]</span><br><span class="line">            print(self.name)</span><br><span class="line">        <span class="keyword">if</span> name == <span class="string">&quot;type&quot;</span>:</span><br><span class="line">            self.label = attributes[<span class="string">&quot;class&quot;</span>]</span><br><span class="line">            print(self.label)</span><br><span class="line"> </span><br><span class="line">    <span class="comment"># xml内容事件处理</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">characters</span>(<span class="params">self, content</span>):</span></span><br><span class="line">        self.content = content</span><br><span class="line"> </span><br><span class="line">    <span class="comment"># 结束解析xml</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">endElement</span>(<span class="params">self, name</span>):</span></span><br><span class="line">        <span class="keyword">if</span> name == <span class="string">&quot;Language&quot;</span>:</span><br><span class="line">            print(self.content)</span><br><span class="line">        <span class="keyword">elif</span> name == <span class="string">&quot;Math&quot;</span>:</span><br><span class="line">            print(self.content)</span><br><span class="line">        <span class="keyword">elif</span> name == <span class="string">&quot;English&quot;</span>:</span><br><span class="line">            print(self.content)</span><br><span class="line"> </span><br><span class="line">    <span class="comment"># xml结束标签调用</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">endDocument</span>(<span class="params">self</span>):</span></span><br><span class="line">        print(<span class="string">&quot;******配置文件解析结束******&quot;</span>)</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&quot;__main__&quot;</span>:</span><br><span class="line">    <span class="comment"># 创建一个 XMLReader</span></span><br><span class="line">    parser = xml.sax.make_parser()</span><br><span class="line">    <span class="comment"># turn off namepsaces</span></span><br><span class="line">    parser.setFeature(xml.sax.handler.feature_namespaces, <span class="number">0</span>)</span><br><span class="line">    <span class="comment"># 重写 ContextHandler</span></span><br><span class="line">    Handler = ConfigHandler()</span><br><span class="line">    parser.setContentHandler(Handler)</span><br><span class="line">    <span class="comment"># 解析 xml 这里可以写xml 的具体路径,为了简单放在了同一个文件夹里面了</span></span><br><span class="line">    parser.parse(data_test_path)</span><br></pre></td></tr></table></figure>
+<p>Results:</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="strong">****</span><span class="strong">**解析配置文件开始**</span><span class="strong">****</span></span><br><span class="line">第六中学</span><br><span class="line">2年级</span><br><span class="line">优秀</span><br><span class="line">一般</span><br><span class="line">优秀</span><br><span class="line">5年级</span><br><span class="line">优秀</span><br><span class="line">一般</span><br><span class="line">优秀</span><br><span class="line">第九中学</span><br><span class="line">1年级</span><br><span class="line">优秀</span><br><span class="line">一般</span><br><span class="line">优秀</span><br><span class="line">3年级</span><br><span class="line">优秀</span><br><span class="line">一般</span><br><span class="line">优秀</span><br><span class="line"><span class="strong">****</span><span class="strong">**配置文件解析结束**</span><span class="strong">****</span></span><br></pre></td></tr></table></figure>
+
+    </div>
+
+    
+    
+    
+
+    <div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">
+            -------------This blog is over!
+            <i class="fa fa-eye"></i>
+            Thanks for your reading-------------
+        </div>
+    
+</div>
+      
+    </div>
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>Post author:  </strong>YangSu
+  </li>
+  <li class="post-copyright-link">
+    <strong>Post link: </strong>
+    <a href="http://yangsuoly.com/2024/05/07/Analysis-xml/" title="Analysis-xml">http://yangsuoly.com/2024/05/07/Analysis-xml/</a>
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/Tags/Data-analysis/" rel="tag"><i class="fa fa-tag"></i> Data analysis</a>
+              <a href="/Tags/Python/" rel="tag"><i class="fa fa-tag"></i> Python</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2024/01/26/hexo-blog/" rel="prev" title="Hexo-blog">
+      <i class="fa fa-chevron-left"></i> Hexo-blog
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2024/05/10/Mac-lid-sleep/" rel="next" title="Mac-lid-sleep">
+      Mac-lid-sleep <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div id="music163player">
+      <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=1317956275&auto=0&height=66"></iframe>
+      </iframe>
+    </div>
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#python-%E8%A7%A3%E6%9E%90%E5%92%8C%E5%A4%84%E7%90%86-xml-%E6%96%87%E4%BB%B6"><span class="nav-text">1. Python 解析和处理 xml 文件</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#sax%E7%9F%A5%E8%AF%86%E4%BA%86%E8%A7%A3"><span class="nav-text">1.1 SAX知识了解</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#demo-for-analysis-xml"><span class="nav-text">1.2 Demo for analysis xml</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AF%BB%E5%8F%96%E5%8F%AA%E6%9C%89%E6%A0%87%E7%AD%BE%E7%9A%84-xml"><span class="nav-text">1.2.1 读取只有标签的 xml</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AF%BB%E5%8F%96%E5%90%8C%E6%A0%87%E7%AD%BE%E4%B8%8D%E5%90%8C%E5%86%85%E5%AE%B9"><span class="nav-text">1.2.2 读取同标签不同内容</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AF%BB%E5%8F%96%E6%83%B3%E5%90%8C%E6%A0%87%E7%AD%BE%E5%A4%9A%E4%B8%AA%E6%A0%87%E9%A2%98"><span class="nav-text">1.2.3 读取想同标签多个标题</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="YangSu"
+      src="/images/YangSu.jpg">
+  <p class="site-author-name" itemprop="name">YangSu</p>
+  <div class="site-description" itemprop="description">A blog for recording learning notes...</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">78</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/Categories/">
+          
+        <span class="site-state-item-count">40</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/Tags/">
+          
+        <span class="site-state-item-count">49</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/YangSuoly" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;YangSuoly" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://gitee.com/yangsuoly" title="Gitee → https:&#x2F;&#x2F;gitee.com&#x2F;yangsuoly" rel="noopener" target="_blank"><i class="fab fa-github-square fa-fw"></i>Gitee</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://space.bilibili.com/64518717" title="B 站 → https:&#x2F;&#x2F;space.bilibili.com&#x2F;64518717" rel="noopener" target="_blank"><i class="fa fa-play-circle fa-fw"></i>B 站</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Related links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://www.58pic.com/u/19637930/" title="https:&#x2F;&#x2F;www.58pic.com&#x2F;u&#x2F;19637930&#x2F;" rel="noopener" target="_blank">千图网</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js" integrity="sha384-g7c+Jr9ZivxKLnZTDUhnkOnsh30B4H0rpLUpJ4jAIKs4fnJI+sEnkvrMWph2EDg4" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/auto-render.min.js" integrity="sha384-mll67QQFJfxn0IYznZYonOWZ644AWYC+Pt2cHqMaRhXVrursRwvLnLaebdGIlYNa" crossorigin="anonymous"
+        onload="renderMathInElement(document.body);"></script>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2026</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">YangSu</span>
+</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="Total Visitors">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="Total Views">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script size="300" alpha="0.6" zIndex="-1" src="/lib/canvas-ribbon/canvas-ribbon.js"></script>
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+<script>
+document.querySelectorAll('.pdfobject-container').forEach(element => {
+  let url = element.dataset.target;
+  let pdfOpenParams = {
+    navpanes : 0,
+    toolbar  : 0,
+    statusbar: 0,
+    pagemode : 'thumbs',
+    view     : 'FitH'
+  };
+  let pdfOpenFragment = '#' + Object.entries(pdfOpenParams).map(([key, value]) => `${key}=${encodeURIComponent(value)}`).join('&');
+  let fullURL = `/lib/pdf/web/viewer.html?file=${encodeURIComponent(url)}${pdfOpenFragment}`;
+
+  if (NexT.utils.supportsPDFs()) {
+    element.innerHTML = `<embed class="pdfobject" src="${url + pdfOpenFragment}" type="application/pdf" style="height: ${element.dataset.height};">`;
+  } else {
+    element.innerHTML = `<iframe src="${fullURL}" style="height: ${element.dataset.height};" frameborder="0"></iframe>`;
+  }
+});
+</script>
+
+
+<script>
+if (document.querySelectorAll('pre.mermaid').length) {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js', () => {
+    mermaid.initialize({
+      theme    : 'forest',
+      logLevel : 3,
+      flowchart: { curve     : 'linear' },
+      gantt    : { axisFormat: '%m/%d/%Y' },
+      sequence : { actorMargin: 50 }
+    });
+  }, window.mermaid);
+}
+</script>
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+  <script src="//cdn.jsdelivr.net/npm/quicklink@1/dist/quicklink.umd.js"></script>
+  <script>
+      window.addEventListener('load', () => {
+      quicklink({
+        timeout : 3000,
+        priority: true,
+        ignores : [uri => uri.includes('#'),uri => uri === 'http://yangsuoly.com/2024/05/07/Analysis-xml/',]
+      });
+      });
+  </script>
+
+  
+  <script id="ribbon" src="js/canvas-ribbon.js"></script>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/22.2017.cba-normal.model.json"},"display":{"position":"right","width":300,"height":450},"mobile":{"show":false},"react":{"opacity":0.7},"log":false});</script></body>
+</html>

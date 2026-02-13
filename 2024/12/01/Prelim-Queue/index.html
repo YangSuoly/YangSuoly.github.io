@@ -1,0 +1,1519 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/blog-logo-32px.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/blog-logo-16px.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <link rel="manifest" href="/images/manifest.json">
+  <meta name="msapplication-config" content="/images/browserconfig.xml">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yangsuoly.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":true},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":true,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="This blog is the learning notes for preparing the preliminary exams of Queue theory, referring to Fundamentals of queueing theory  Shortle, J. F., Thompson, J. M., Gross, D., &amp; Harris, C. M. (2018">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Prelim-Queue">
+<meta property="og:url" content="http://yangsuoly.com/2024/12/01/Prelim-Queue/index.html">
+<meta property="og:site_name" content="独孤诗人的学习驿站">
+<meta property="og:description" content="This blog is the learning notes for preparing the preliminary exams of Queue theory, referring to Fundamentals of queueing theory  Shortle, J. F., Thompson, J. M., Gross, D., &amp; Harris, C. M. (2018">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2024-12-01T03:30:10.000Z">
+<meta property="article:modified_time" content="2024-12-01T04:46:05.975Z">
+<meta property="article:author" content="YangSu">
+<meta property="article:tag" content="OR">
+<meta property="article:tag" content="Queue">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://yangsuoly.com/2024/12/01/Prelim-Queue/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>Prelim-Queue | 独孤诗人的学习驿站</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?f59f5fb59d32ec3903088b0f976956d1";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta custom-logo">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">独孤诗人的学习驿站</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">生活就是一半烟火，一半诗意。手执烟火谋生活，心怀诗意谋未来……</p>
+      <a>
+        <img class="custom-logo-image" src="/images/logo@2x.png" alt="独孤诗人的学习驿站">
+      </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/Tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/Categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+  <a href="https://github.com/YangSuoly" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yangsuoly.com/2024/12/01/Prelim-Queue/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/YangSu.jpg">
+      <meta itemprop="name" content="YangSu">
+      <meta itemprop="description" content="A blog for recording learning notes...">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="独孤诗人的学习驿站">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Prelim-Queue
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2024-12-01 11:30:10 / Modified: 12:46:05" itemprop="dateCreated datePublished" datetime="2024-12-01T11:30:10+08:00">2024-12-01</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/Categories/Class-Notes/" itemprop="url" rel="index"><span itemprop="name">Class Notes</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/Categories/Class-Notes/Prelim/" itemprop="url" rel="index"><span itemprop="name">Prelim</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="Views" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span><br>
+            <span class="post-meta-item" title="Symbols count in article">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">Symbols count in article: </span>
+              <span>26k</span>
+            </span>
+            <span class="post-meta-item" title="Reading time">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">Reading time &asymp;</span>
+              <span>23 mins.</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>This blog is the learning notes for preparing the preliminary exams
+of Queue theory, referring to <em>Fundamentals of queueing
+theory</em></p>
+<ul>
+<li>Shortle, J. F., Thompson, J. M., Gross, D., &amp; Harris, C. M.
+(2018). <em>Fundamentals of queueing theory</em> (Vol. 399). John Wiley
+&amp; Sons.</li>
+</ul>
+<h1 id="introduction">1. Introduction</h1>
+<p>Queueing theory attempts to answer these questions through detailed
+mathematical analysis</p>
+<p>There are many valuable applications of queueing theory including
+traffic flow(vehicles, aircraft, people, communications), scheduling
+(patients in hospitals, jobson machines, programs on a computer), and
+facility design (banks, post offices, amusement parks, fast-food
+restaurants).</p>
+<a id="more"></a>
+<blockquote>
+<p>Note: 本文文字部分借助 <code>obsidian</code> + <code>Annotator</code>
+插件（<code>Annotator</code> 介绍见 <a
+target="_blank" rel="noopener" href="https://github.com/elias-sundqvist/obsidian-annotator">obsidian-annotator</a>)，实现
+<code>pdf</code> 文档标注及文字时时提取功能，能够将所有标注的文字提取到
+<code>markdown</code> 文件中。图片部分借助
+<code>Image auto upload plugin</code> 插件 （见 <a
+target="_blank" rel="noopener" href="https://github.com/renmu123/obsidian-image-auto-upload-plugin">Link</a>
+）和 <code>PicGo</code> 实现图片自动上传到 <code>GitHub</code>
+图床。然后借助 <code>python</code>
+实现简单的文本内容提取，就可以得到纯净的笔记内容。具体
+操作和实现流程，见之前博客<a
+target="_blank" rel="noopener" href="https://www.yangsuoly.com/2023/01/20/Photography-is-simple/">Photography-is-simple/</a>的引言部分教程。</p>
+<p>完整笔记链接见：<a
+href="https://yangsuoly.com/file/Prelim-Queue.pdf"><i class="fa fa-download"></i>
+Download Now</a></p>
+</blockquote>
+<h2 id="measures-of-system-performance">1.1 Measures of System
+Performance</h2>
+<p>Figure 1.1 shows a typical queueing system: Customers arrive, wait
+for service, receive service, and then leave the system. What might one
+like to know about the effectiveness of a queueing system? Generally
+there are three types of system responses of interest:</p>
+<ol type="1">
+<li>顾客的<em>等待时间</em>：waiting time that a typical customer might
+endure,</li>
+<li>队列或系统中<em>累积的顾客数</em>：the number of customers that may
+accumulate in the queue or system,</li>
+<li>服务员的<em>空闲时间</em>：idle time of the servers.</li>
+</ol>
+<p>Since most queueing systems have stochastic elements, these measures
+are often random variables, so their probability distributions – or at
+least their expected values – are sought</p>
+<p>waiting times, there are two types – the time a customer spends in
+the queue and the total time a customer spends in the system (queue plus
+service) <strong>Notation</strong>: - <span
+class="math inline">W_q</span> : The average waiting time of a typical
+customer in queue; - <span class="math inline">W</span> : The average
+waiting time in the system; - <span class="math inline">L_q</span> : The
+average number of customers in the queue; - <span
+class="math inline">L</span> : The average number of customers in the
+systems;</p>
+<p>there are two customer accumulation measures – the number of
+customers in the queue and the total number of customers in the
+system</p>
+<p>The task of the queueing analyst is generally one of two things – to
+determine some measures of effectiveness for a given process or to
+design an “optimal” system according to some criterion.</p>
+<p>To design the waiting facility, it is necessary to have information
+regarding the possible size of the queue .</p>
+<p>Ultimately, the issue generally comes down to a trade-off between
+better customer service and the expense of providing more service
+capability, that is, determining the increase i ninvestment of service
+for a corresponding decrease in customer delay</p>
+<h2 id="characteristics-of-queueing-system">1.2 Characteristics of
+Queueing System</h2>
+<p>A quantitative evaluation of a queueing system requires a
+mathematical characterization of the underlying processes. In many
+cases, six basic characteristics provide an adequate description of the
+system: In many cases, six basic characteristics provide an adequate
+description of the system: 1. 顾客的到达过程 Arrival pattern of
+customers<br />
+2. 服务员的服务过程 Service pattern of servers<br />
+3. 服务员的数量和服务通道的数量 Number of servers and service
+channels<br />
+4. 排队规则 System capacity<br />
+5. 系统容量 Queue discipline<br />
+6. 服务阶段的数量 Number of service stages</p>
+<h3 id="arrival-pattern-of-customers">1.2.1 Arrival Pattern of
+Customers</h3>
+<p>A common arrival process is the Poisson pro-cess, which will be
+described in Section 2.2</p>
+<p>An arrivalpattern that does not change with time (i.e., the
+probability distribution describingthe input process is
+time-independent) is called a stationary arrival pattern. Onethat is not
+time-independent is called nonstationary. - <em>止步</em> (balked)</p>
+<p>If a customerdecides not to enter the queue upon arrival, the
+customer is said to have balked. - <em>中途退出</em> （Reneged)</p>
+<p>Acustomer may enter the queue, but after a time lose patience and
+decide to leave. Inthis case, the customer is said to have reneged -
+<em>换队</em> (jockey)</p>
+<p>In the event that there are two or moreparallel waiting lines,
+customers may switch from one to another, that is, jockey
+forposition</p>
+<h2 id="service-patterns">1.2.2 Service Patterns</h2>
+<p>One generally thinks of one customer beingserved at a time by a given
+server, but there are many situations where customersmay be served
+simultaneously by the same server - <em>状态相依服务</em>
+(state-dependent service)</p>
+<p>The situation in which service depends on the number ofcustomers
+waiting is referred to as state-dependent service</p>
+<h3 id="number-of-servers">1.2.3 Number of Servers</h3>
+<p>Thus, when specifying the number ofparallel servers, we typically
+assume that the servers are fed by a single line. Also,it is generally
+assumed that the servers operate independently of each other.</p>
+<h3 id="queue-discipline">1.2.4 Queue Discipline</h3>
+<p>Queue discipline refers to the manner in which customers are selected
+for servicewhen a queue has formed. 常见的排队规则： - <em>FCFS</em> :
+first come first served 先到先服务 - <em>LCFS</em> : last come first
+served 后到先服务 - <em>RSS</em> : random selection for service 随机服务
+- <em>PS</em> : processor sharing 处理器共享 - <em>pooling</em> :
+轮询（一个服务员
+为多个序列的顾客提供服务，先服务第一队列的顾客吗，然后服务第二个队列的顾客，以此类推）</p>
+<p>There are two general situations in priority disciplines, preemptive
+andnonpreemptive. - 非抢占情形
+具有最高优先级的顾客排在队列的最前面，但要一直等到当前正在服务的顾客的服务结束后，顾客才能接受服务，即使正在接受服务的顾客优先级更低；
+- 抢占情形
+即使优先级较低的顾客已经在接受服务，也允许优先级较高的顾客在到达时立即接受服务，中断服务员对该优先级顾客的服务，只有高优先级顾客接受完成服务后，该低优先级顾客才能继续接受服务。这时又有两种情形：
+- 该顾客可以从被抢占的时刻继续接受服务； - 重新开始接受服务</p>
+<h3 id="system-capacity">1.2.5 System Capacity</h3>
+<p>These are referred to as finite queueingsituations; that is, there is
+a finite limit to the maximum system size.</p>
+<h3 id="stages-of-service">1.2.6 Stages of Service</h3>
+<p>Recycling is commonin manufacturing processes, where quality control
+inspections are performed aftercertain stages, and parts that do not
+meet quality standards are sent back for repro-cessing.</p>
+<h3 id="notation">1.2.7 Notation</h3>
+<p>As shorthand for describing queueing processes, a notation has
+evolved, due for themost part to Kendall (1953), which is now rather
+standard throughout the queueingliterature A queueing process described
+by a series of symbols and slashes (斜线) <span
+class="math inline">A/B/X/Y/Z</span> : - <span
+class="math inline">A</span> : denotes the inter-arrival time
+distribution (到达时间间隔分布) - <span class="math inline">B</span> :
+service time distribution (服务时间分布)</p>
+<figure>
+<img
+src="https://cdn.jsdelivr.net/gh/YangSuoly/Images/Prelim/202412011132773.png"
+alt="Pasted image 20241010194614" />
+<figcaption aria-hidden="true">Pasted image 20241010194614</figcaption>
+</figure>
+<ul>
+<li>例子</li>
+</ul>
+<p>通常，如果系统容量没有限制，即 <span class="math inline">Y
+=\infty</span>），则省略系统容量的符号；如果排队规则是先到先服务（Z=FCFS），则省略排队规则的符号。因此
+<span class="math inline">M/D/2/\infty/\text{FCFS}</span> 和 <span
+class="math inline">M/D/2</span> 表达的含义相同。</p>
+<p>Rather, M is used, standing for the Markovian or memoryless
+propertyof the exponential (described in Section 2.1)</p>
+<h3 id="model-selection">1.2.8 Model Selection</h3>
+<p>If customers choose a checkout counter on a purely random basis
+(withoutregard to the queue length in front of each counter) and never
+switch lines (nojockeying), then we have c independent single-server
+models.</p>
+<p>As jockeying is rather easy to accomplish in supermarkets, the
+c-servermodel with one queue may be more appropriate and realistic than
+c independentsingle-server models, which one might have been tempted to
+choose initially prior togiving much thought to the process.</p>
+<h3 id="the-experience-of-waiting">1.3 The Experience of Waiting</h3>
+<p>This section summarizes several principles, proposed by Maister
+(1984),related to the experience or psychology of waiting. 1. Unoccupied
+time feels longer than occupied time. 2. Pre-process wait feels longer
+than in-process wait. 3. Anxiety makes waiting seem longer. 4. Uncertain
+waits are longer than known, finite waits. 5. Unexplained waits are
+longer than explained waits. 6. Unfair waits are longer than equitable
+waits. 7. Longer waits are tolerable for more valuable service. 8. Solo
+waits feel longer than group waits.</p>
+<h2 id="littles-law">1.4 Little's Law</h2>
+<p>A fundamental relationship that is used extensively in queueing
+theory and throughoutthis text is Little’s law. Little’s law provides a
+relationship between three fundamental quantities: The average rate
+<span class="math inline">λ</span> that customers arrive to a system,
+the average time <span class="math inline">W</span> that a customer
+spends in the system, and the average number <span
+class="math inline">L</span> of customers in the<br />
+system. <span class="math display">
+L = \lambda W
+</span></p>
+<p>The second limit W is thelong-run average time spent in the system
+per customer. The third limit L is thelong-run average number of
+customers in the system</p>
+<p>Theorem 1.1 [Little’s law] If the limits <span
+class="math inline">λ</span> and W in (1.1) exist and are finite,
+thenthe limit <span class="math inline">L</span> exists and</p>
+<p>Before giving examples, we make some general remarks about Little’s
+law.</p>
+<p>在给出例子之前，需要对 Little 法则进行一些一般性的解释说明： 1.
+定理用于计算长期平均值，即式中的 <span class="math inline">L, \lambda,
+W</span> 被定义为无穷极限； 2. 定理要求 <span
+class="math inline">\lambda</span> 和 <span class="math inline">W</span>
+有极限存在，这就排除了当时间无限增长时系统的指标无界的情况； 3.
+定理没有要求必须存在一个队列，但要求存在一个系统，顾客可以到达和离开该系统。</p>
+<h3 id="geometric-illustration-of-littles-law">1.4.1 Geometric
+Illustration of Little's Law</h3>
+<p>We now give a geometric “proof” of Little’s law. This is not a
+rigorous proof, butrather a rough argument showing the main ideas behind
+Little’s law.</p>
+<h1 id="review-of-stochastic-processes">2. Review of Stochastic
+Processes</h1>
+<p>This chapter provides an overview of key concepts in stochastic
+processes usedthroughout this text</p>
+<h2 id="the-exponential-distribution">2.1 The Exponential
+Distribution</h2>
+<p>In queueing theory, the exponential distribution is often used to
+model the time until aparticular event occurs</p>
+<p>We will see (Section 2.2) that the exponential distribution isclosely
+connected with the Poisson process, another widely used model in
+queueingtheory.
+<strong>定义</strong>：服从指数分布的随机变量是连续型随机变量，其
+<em>概率密度函数</em> pdf 为： <span class="math display">
+f(t) = \lambda e^{-\lambda t}
+</span> 服从指数分布的随机变量 <span class="math inline">T</span> 的
+<em>累积分布函数</em> (cumulative distribution function,
+CDF)、<em>互补累积分布函数</em> (complementary cumulative distribution
+function, CCDF)、期望和方差可以通过其概率密度函数求得，分别表示为：</p>
+<p><span class="math display">
+\begin{array}{l}
+F(t) \equiv \operatorname{Pr}\{T \leq t\}=1-e^{-\lambda t} \\
+\bar{F}(t) \equiv \operatorname{Pr}\{T&gt;t\}=e^{-\lambda t} \\
+\mathrm{E}[T]=\frac{1}{\lambda}, \quad
+\operatorname{Var}[T]=\frac{1}{\lambda^2}
+\end{array}
+</span></p>
+<p>Definition 2.1 An exponential random variable is a continuous random
+variablewith probability density function (PDF): <span
+class="math display">
+Pr\{T&gt;t+s|T&gt;s\} = Pr\{T&gt;t\}\quad (s, t \ge 0)
+</span></p>
+<p>Theorem 2.1 An exponential random variable has the memoryless
+property</p>
+<p>Note that <span class="math inline">Pr\{T &gt; t + s, T &gt; s\}=
+Pr\{T &gt; t + s\}</span> (if T is bigger than <span
+class="math inline">t + s</span>, then it is also bigger than <span
+class="math inline">s</span>).</p>
+<p>Theorem 2.4 Let <span class="math inline">T_1,\cdots,T_n</span> be
+independent exponential random variables with rates <span
+class="math inline">λ_1,\cdots,λ_n</span>, respectively. Then <span
+class="math display">
+Pr\{ T_i = \min \{T_1, \cdots ,T_n\}\} = \frac{\lambda_i}{\lambda_1 +
+\cdots+ \lambda_n}
+</span></p>
+<p>Theorem 2.5 Let T1,...,Tn be independent exponential random variables
+withrates λ1,...,λn, and let T = min{T1,...,Tn}. Then the event {Ti = T}
+isindependent of T</p>
+<h2 id="the-poisson-process">2.2 The Poisson Process</h2>
+<p>The Poisson process is a common process for modeling arrivals to a
+queueing system.Intuitively, the process can be thought of describing
+events that occur “randomly” intime. - <em>Stochastic process</em>
+(随机过程) <span class="math inline">\{N(t), t\ge 0\}</span> : a
+collation of random variables indexed by time. - <em>Counting
+process</em> (记数过程) : a stochastic process in which <span
+class="math inline">N(t)</span> takes on nonnegative integer values and
+is nondecreasing in time.</p>
+<p>A counting process typicallyrepresents the cumulative number of
+events that have occurred by time t. With thesepreliminaries, we give a
+definition of the Poisson process</p>
+<p>Definition 2.3 A Poisson process with rate <span
+class="math inline">λ &gt; 0</span> is a counting process <span
+class="math inline">N(t)</span> with the following properties:
+到达速率为 <span class="math inline">\lambda &gt;0</span>
+的泊松过程，满足以下性： 1. <span class="math inline">N(0)=0</span> 2.
+<span class="math inline">Pr\{\text{1 event between} t \text{ and } t +
+∆t\}= λ∆t + o(∆t)</span>. 3. <span class="math inline">Pr\{\text{2 or
+more events between} t \text{ and } t + ∆t\}= o(∆t)</span>. 4. The
+numbers of events in nonoverlapping intervals are statistically
+independent; that is, the process has independent increments
+(独立增量过程).</p>
+<p>Definition 2.4 A Poisson random variable is a discrete random
+variable with prob-ability mass function
+泊松随机变量是离散随机变量，其概率质量函数为： <span
+class="math display">
+p^n = e^{-A} \frac{A^n}{n!}, \quad n =0,1,2, \cdots
+</span> 其中，<span class="math inline">A</span> 是大于 0
+的常熟，泊松随机变量 <span class="math inline">X</span>
+的期望和方差分别为 <span class="math display">
+\mathbb {E} [X] = A, Var[X] = A
+</span></p>
+<p>Poisson processes have a number of interesting additional properties,
+which arestated in the following theorems. The first result is that a
+Poisson process hasstationary increments. This means that the
+distribution of the number of events ina given time interval (i.e., an
+increment) depends on the length of the interval butdoes not depend on
+the absolute location of the interval in time</p>
+<p>he notion that event times are “completely random” comes from the
+factthat they are uniformly distributed in time. However, we must be
+precise about whatwe mean by “event times.” Specifically, we must
+distinguish between ordered and un-ordered event times.</p>
+<p>One important consequence of the uniform property of the Poisson
+process is thatthe outcomes of random observations of a stochastic
+process X(t) have the sameprobabilities as if the scans were taken at
+Poisson-selected points</p>
+<p>Theorem 2.10 (Splitting)</p>
+<p>Theorem 2.11 (Superposition)</p>
+<h3 id="generalizations-of-the-poisson-process">2.2.1 Generalizations of
+the Poisson Process</h3>
+<p>The first generalization considered is a nonhomogeneous Poisson
+process (NHPP).A NHPP can be thought of as a Poisson process where the
+arrival rate λ is replaced bya time-dependent function λ(t)</p>
+<p>Definition 2.5 A nonhomogeneous (or nonstationary) Poisson process is
+a Poissonprocess (Definition 2.3) in which assumption 2 is replaced by
+the following <strong>非齐次泊松过程</strong> 的定义为： <span
+class="math display">
+Pr\{1 \text{ arrival between } t \text{ and } t+\Delta t \} = \lambda
+(t) \Delta t +o(\Delta t)
+</span> 从定义中可以发现，其到达速率 <span class="math inline">\lambda
+(t)</span> 在一天中随时间 <span class="math inline">t</span> 变化。
+<em>Note</em> : 当非齐次泊松过程的到达速率 <span
+class="math inline">\lambda(t)</span>
+是<em>常数</em>时，可将非齐次泊松过程视为标准泊松过程。</p>
+<p><strong>Theorem 2.12</strong> For a non-homogeneous Poisson process
+<span class="math inline">N(t)</span> with mean event<br />
+rate <span class="math inline">λ(t)</span>, the number of events in a
+time interval <span class="math inline">(s,t]</span> is a Poisson random
+variable with mean <span class="math inline">m(t) −m(s)</span>, where
+<span class="math display">
+m(t) \equiv \int_0^t \lambda(u) \operatorname u
+</span></p>
+<p>The difference <span class="math inline">m(t) - m(s)</span> can be
+computed by integrating <span class="math inline">\lambda (u)</span>
+<span class="math inline">@a</span></p>
+<p>The function <span class="math inline">m(t)</span> is sometimes
+called the mean value function It represents the cumulative expected
+number of events by time <span class="math inline">t</span>. -
+<em>CPP</em> : compound Poisson process 复合泊松分布</p>
+<p>The next generalization is a compound Poisson process (CPP).
+复合泊松分布类似于标准泊松分布，但在复合泊松分布过程中，事件按批次发生。</p>
+<p>Definition 2.6 Let <span class="math inline">M(t)</span> be a Poisson
+process, and let <span class="math inline">{Y_n}</span> be an i.i.d.
+sequence of strictly positive integer random variables that are
+independent of <span class="math inline">M(t)</span>. Then Formulation:
+<span class="math display">
+N(t) \equiv \sum\limits_{n=1} ^{M(t)} Y_n
+</span> <em>Example</em> :
+将一辆公交车视为一个批次，车上所有乘客在同一批次到达下一个站点。<em>批次数</em>
+（如到达站点的公交车数） 服从泊松分布，则 <em>到达的顾客数</em>
+（如公交车上的乘客数）服从 <em>复合泊松分布</em>。其中 <span
+class="math inline">M(t)</span> 表示时刻 <span
+class="math inline">t</span> 前到达的公交车数，<span
+class="math inline">Y_n</span> 表示第 <span class="math inline">n</span>
+亮公交车上的乘客数，<span class="math inline">N(t)</span> 表示时刻 <span
+class="math inline">t</span> 前到达的总乘客数。</p>
+<p>For a given value of t,N(t) is a compound Poisson random variable,
+since the number of terms in the sumis random and follows a Poisson
+distribution (and this number is independent of Yn)
+与标准泊松过程相比，复合泊松过程具有独立且平稳的增量，但不具有
+<em>有序性</em>，即复合泊松过程是将 <a
+href="#2.2%20The%20Poisson%20Process">Sec 2.2</a>
+定义中的性质（2）和性质（3）替换为以下性质的泊松过程： <span
+class="math display">
+Pr{i \text{ arrivals in } (t,t + ∆t]}= λi ∆t + o(∆t) \quad (i =
+1,2,...),
+</span> 其中，<span class="math inline">\lambda_i \equiv c_i
+\lambda</span> 是大小为 <span class="math inline">i</span> 的批次的
+<em>有效到达速率</em>。</p>
+<p>For a CPP, it is relatively straightforward to derive the mean and
+variance of N(t)(e.g., Ross, 2014): Mean and variance of <span
+class="math inline">N(t)</span>: <span class="math display">
+\begin{align}
+\mathbb{E}[N(t)] &amp;= \lambda t \mathbb{E}[Y_n] \\
+\text{Var}[N(t)]  &amp; = \lambda t \mathbb{E}[Y_n^2]
+\end{align}
+</span></p>
+<ul>
+<li><strong>Renewal Process</strong> : 更新过程 更新过程是
+<em>非负独立同分布</em>
+随机变量的集合，这些随机变量表示连续发生的事件之间的事件间隔。</li>
+</ul>
+<p>The Poisson process is special case of a larger class of problems
+called renewalprocesses. A renewal process arises from a sequence of
+nonnegative IID randomvariables denoting times between successive
+events.</p>
+<p>For a Poisson process, theinter-event times are exponential, but for
+a renewal process, they follow an arbitrarydistribution G.</p>
+<p>A strong argument in favor of exponential inputs is the one that
+often occurs in thecontext of reliability.</p>
+<p>Here, the exponential appears quite frequently as the
+limitingdistribution of the (normalized) first-order statistic of random
+samples drawn fromcontinuous populations (see Problem 1.10 for one such
+example).</p>
+<p>It is that the exponentialdistribution is the one that provides the
+least information, where information content 指数分布 <span
+class="math inline">f(x)</span> 的信息量或负熵被定义为： <span
+class="math display">
+\int f(x) \log f(x) \operatorname d x
+</span></p>
+<h2 id="discrete-time-markov-chains">2.3 Discrete-Time Markov
+Chains</h2>
+<p>In this section, we consider a class of models in which the system
+transitions amonga discrete set of states at various points in time</p>
+<p>Inqueueing applications, the system state is often defined as the
+number of customers inthe system, in which case the state space is the
+set of nonnegative integers 0,1,2,... 马尔可夫链的基本假设是具有
+<em>马尔可夫性</em>，即 <span class="math display">
+Pr\{X_{n+1} = j|X_0 =i_0, X_1=i_1, \cdots, X_n =i_n \} = Pr\{
+X_{n+1}=j|X_n=i_n\}
+</span></p>
+<p>Intuitively, the Markov property states that if the “present” state
+of the system <span class="math inline">(Xn)</span> is known, then the
+“future” <span class="math inline">(X_{n+1})</span> is independent of
+the “past” <span class="math inline">(X_0,...X_{n−1})</span></p>
+<p>The conditional probabilities <span class="math inline">Pr\{Xn+1 =
+j|Xn = i\}</span> are called the single-step transition probabilities or
+just the transition probabilities.</p>
+<p>For a Markov chain, one may be interested in the m-step transition
+probabilities,defined as the probability of being in state <span
+class="math inline">j</span> exactly <span class="math inline">m</span>
+steps after being in state <span class="math inline">i</span></p>
+<p>Let <span class="math inline">P^{(m)}</span> be the matrix formed by
+the elements <span class="math inline">p^{(m)}_{ij}</span> .From the
+basic laws of probability</p>
+<ul>
+<li><em>CK</em> equation: 查普曼-科尔莫戈罗夫方程 (Chapman-Kolmogorov
+equation)</li>
+</ul>
+<p>This is the matrix equivalent of thewell-known Chapman Kolmogorov
+(CK) equations for this Markov process</p>
+<h3 id="properties-of-markov-chains">2.3.1 Properties of Markov
+Chains</h3>
+<p>State <span class="math inline">j</span> is accessiblefrom state
+<span class="math inline">i (i \to j)</span> if there exists an n ≥ 0
+such that <span class="math inline">p^{(n)}_{ij} &gt; 0</span>. That is,
+there is some path from i to j with nonzero probability 1. 如果存在
+<span class="math inline">n\ge 0</span>，使得 <span
+class="math inline">p^{(n)}_{ij} &gt;0</span>， 则系统可以从状态 <span
+class="math inline">i</span> 到达状态 <span class="math inline">j</span>
+(<span class="math inline">i \to j</span>)，即存在从状态 <span
+class="math inline">i</span> 到状态 <span class="math inline">j</span>
+的非零概率路径。 2. <em>连通</em> (cummunicate)：如果 <span
+class="math inline">i\to j</span> 且 <span class="math inline">j \to
+i</span>，则称状态 <span class="math inline">i</span> 和状态 <span
+class="math inline">j</span> 是连通的 <span class="math inline">i
+\leftrightarrow j</span>。 3. <em>等价类</em> (communication
+class)：性质2 将马尔可夫链的状态划分为多个互不相交的子集，被称为等价类。
+-
+一个等价类中的所有状态都是连通的，并且该等价类中的状态不与任何其他等价类中的状态想连通。
+4. <em>不可约的</em>
+(irreducible)：如果一个马尔可夫链的所有状态都是连通的，系统可以从任意状态到达任意其他状态，则称为不可约，否则，称为
+<em>可约的</em> (reducible) 5. <em>常返的</em> (recurrent) ：从状态
+<span class="math inline">j</span> 除法，返回状态 <span
+class="math inline">j</span> 的概率为 1；否则称状态 <span
+class="math inline">j</span> 为 <em>瞬时的</em> (transient)</p>
+<p>More precisely, let <span class="math inline">f^{(n)}_{jj}</span> be
+the probability that a chain starting in state <span
+class="math inline">j</span> returns for the first time to <span
+class="math inline">j</span> in n transitions. The probabilitythat the
+chain ever returns to <span class="math inline">j</span> is
+设马尔可夫链从状态 <span class="math inline">j</span> 除法，转移 <span
+class="math inline">n</span> 步之后首次返回状态 <span
+class="math inline">j</span> 的概率为 <span
+class="math inline">f^{(n)}_{jj}</span>，则该链返回状态 <span
+class="math inline">j</span> 的状态之和为 <span class="math display">
+f_{jj} = \sum\limits_{n=1}^\infty f^{(n)}_{jj}
+</span> 如果 <span class="math inline">f_{jj}=1</span>，则状态 <span
+class="math inline">j</span> 是常返的；如果 <span
+class="math inline">f_{jj}&lt;1</span> ，则状态 <span
+class="math inline">j</span> 是瞬时的。当 <span
+class="math inline">f_{jj} = 0</span> 时， <span class="math display">
+m_{jj} = \sum\limits_{i=1}^\infty nf^{(n)}_{jj}
+</span> 表示 <em>平均回转时间</em> (mean recurrence
+time)。此时，又有以下分类： 7. <em>正常返的</em> (positive recurrent)
+：<span class="math inline">m_{jj}&lt;\infty</span> 8. 零常返的*
+(positive recurrent) ：<span
+class="math inline">m_{jj}=\infty</span></p>
+<p>The period of astate j is the greatest common divisor of integers m
+such that p(m)jj &gt; 0. A state withperiod 1 is said to be aperiodic
+状态 <span class="math inline">j</span> 的 <em>周期</em> (period) 是满足
+<span class="math inline">p_{jj}^{(m)}&gt;0</span> 的所有正整数 <span
+class="math inline">m</span> 的最大公约数。周期为 1 的状态是
+<em>非周期的</em> (aperiodic)</p>
+<h2 id="long-run-behavior">2.3.2 Long-Run Behavior</h2>
+<p>the limiting matrix has the property that the rows are the same.
+Thismeans that, a long time into the future, the probability of being in
+a particular statedoes not depend on the starting state.</p>
+<p>This particular behavior does not hold for all Markov chains.
+<em>Note</em> : 但并不是所有的马尔可夫链都有这种特殊的行为。因为 1.
+<span class="math inline">n \to \infty</span> 时，<span
+class="math inline">P^n</span> 并非总是收敛的； 2. 如果 <span
+class="math inline">p^n</span> 收敛，矩阵每行的元素可能并不相同。
+由此，可以引出马尔可夫链的长期行为相关的 3 个概念： - 极限分布 (limiting
+distributions) - 平稳分布 (stationary distributions) - 遍历性
+(ergodicity)</p>
+<p>This motivates discussion of three related concepts having to do
+withlong-run behavior, limiting distributions, stationary distributions,
+and ergodicity.</p>
+<p>We start by defining the limiting probabilities of a Markov chain as
+马尔可夫链的极限概率为： <span class="math display">
+\pi_j \equiv\lim_{n\to \infty} p^{(n)}_{ij}
+</span></p>
+<p>The step of rearranging the brackets requires switching a limit and a
+sum. If theMarkov chain has an infinite number of states (i.e., P is an
+infinite-dimensionalmatrix), then this step must be justified more
+carefully</p>
+<p>Theorem 2.13 An irreducible and positive recurrent discrete-time
+Markov chainhas a unique solution to the stationary equations
+<strong>定理</strong>
+对于一个不可约且正常返的离散时间马尔可夫链，一下平稳方程组有唯一解：
+<span class="math display">
+\pi = \pi P \quad \text{and} \quad \sum\limits_j \pi_j = 1
+</span> 即 <span class="math inline">\pi_j =
+1/m_{jj}</span>，如果该马尔可夫链是非周期性的，则极限分布存在并且与平稳分布相同。</p>
+<p>By this theorem, there are two main ways to interpret the value of
+<span class="math inline">π_j</span></p>
+<p>he firstinterpretation is that πj is the the long-run fraction of
+time spent in state j. This comesfrom the fact that πj = 1/mjj</p>
+<p>The second interpretation is that πj is the probabilityof being in
+state j a long time from now <strong>Example</strong></p>
+<figure>
+<img
+src="https://cdn.jsdelivr.net/gh/YangSuoly/Images/Prelim/202412011132774.png"
+alt="Pasted image 20241011171252" />
+<figcaption aria-hidden="true">Pasted image 20241011171252</figcaption>
+</figure>
+<p>因为所有的状态都是连通的，所以该马尔可夫链是 <em>不可约</em> 的，且是
+<em>正常返的</em>。<strong>具有有限状态数的不可约马尔可夫链一定是正常返的</strong>。带入上式中的平稳方程组可得：
+<span class="math display">
+\begin{cases}
+\pi_0 = 0.3 \pi_2 \\
+\pi_1 = 0.2 \pi_0 + 0.6 \pi_2 \\
+\pi_2 = 0.8 \pi_0 + \pi_1 + 0.1 \pi_2 \\
+\pi_0 + \pi_1 + \pi_2 =1
+\end{cases}
+</span></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line">p = np.array([[<span class="number">0</span>, <span class="number">0.2</span>, <span class="number">0.8</span>],[<span class="number">0</span>,<span class="number">0</span>,<span class="number">1</span>],[<span class="number">0.3</span>,<span class="number">0.6</span>,<span class="number">0.1</span>]])</span><br><span class="line">np.linalg.matrix_power(p,<span class="number">10</span>)</span><br><span class="line">np.linalg.matrix_power(p,<span class="number">40</span>)</span><br></pre></td></tr></table></figure>
+<p>Results:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">array([[0.17133537, 0.36886623, 0.4597984 ],</span><br><span class="line">       [0.18579266, 0.39428656, 0.41992079],</span><br><span class="line">       [0.12597624, 0.289111  , 0.58491276]])</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">array([[0.15312356, 0.3368443 , 0.51003214],</span><br><span class="line">       [0.15317288, 0.33693102, 0.50989611],</span><br><span class="line">       [0.15296883, 0.33657224, 0.51045893]])</span><br></pre></td></tr></table></figure>
+<p><img
+src="https://cdn.jsdelivr.net/gh/YangSuoly/Images/Prelim/202412011132775.png"
+alt="Pasted image 20241011192915" /> 状态转移图</p>
+<p>This chain is the embedded discrete-time Markov chain for the <span
+class="math inline">M/M/1</span>queue (see Example 2.15), where the
+state of the system is measured onlywhen an arrival or departure
+occurs</p>
+<p>The chain is irreducible and positive recurrent, so it has a unique
+solution tothe stationary equations.</p>
+<p>Theorem 2.14 An irreducible, aperiodic chain is positive recurrent if
+there exists anonnegative solution of the system</p>
+<h3 id="ergodicity">2.3.3 Ergodicity</h3>
+<p>Closely associated with the concepts of limiting and stationary
+distributions is theidea of ergodicity, which has to do with the
+information contained in one infinitelylong sample path of a process</p>
+<p>Ergodicity is important in that itdeals with the problem of
+determining measures of a stochastic process X(t) from asingle
+realization, as is often done in analyzing simulation output
+遍历性可以帮助我们基于过程的单个样本实现来确定随机过程 <span
+class="math inline">X(t)</span>的统计指标。如果 <span
+class="math inline">X(t)</span> 的所有指标都可以基于过程的单个样本实现
+<span class="math inline">X_0(t)</span> 来确定或较为准确地估算，那么
+<span class="math inline">X(t)</span> 在一般意义上是
+<em>遍历的。</em></p>
+<p>ince statistical measures of theprocess are usually expressed as time
+averages, this is often stated as follows: X(t)is ergodic if time
+averages equal ensemble averages.</p>
+<p>For a nonstationary process, the ensemble average m(t) might be
+different atdifferent values of t. For example, if a queueing system
+starts in an empty state, thenthe ensemble average at t = 0 will be
+different than the ensemble average at somelarge value of t, where the
+system is in steady state</p>
+<p>That is, the ensemble average m(t) converges to a limit as <span
+class="math inline">t → ∞</span> and this limitingvalue equals the time
+average</p>
+<p>We now discuss the link between a limiting distribution, a stationary
+distribution, and ergodicity. Consider a DTMC that is irreducible and
+positive recurrent. Such a chain has a unique stationary distribution
+{<span class="math inline">π_i</span>} by Theorem 2.13</p>
+<h2 id="continuous-time-markov-chains">2.4 Continuous Time Markov
+Chains</h2>
+<h3 id="embedded-markov-chains">2.4.1 Embedded Markov Chains</h3>
+<p>A (time-homogeneous) continuous-time Markov chain (CTMC) is a
+stochastic pro-<br />
+cess {<span class="math inline">X(t),t \ge 0</span>} with a countable
+state space, such that:<br />
+1. Each time the process enters state <span
+class="math inline">i</span>, it remains in that state for a period of
+time that is exponentially distributed with rate <span
+class="math inline">v_i</span> (independent of the past).<br />
+2. When the process departs state <span class="math inline">i</span>, it
+goes to state <span class="math inline">j \neq i</span> with probability
+<span class="math inline">p_{ij}</span> (independent of the past).</p>
+<p><em>Note</em> : <em>连续时间（齐次）马尔可夫</em>
+（CTMC）从一个状态转移到另一个状态的过程与<em>离散时间马尔可夫链</em>
+（DTMC）相似，但是 CTMC 在每个状态停留的时间是
+<em>连续型指数随机变量</em>。由 <em>转移矩阵</em> <span
+class="math inline">\{ p_{ij}\}</span> 定义的 DTMC
+被称为嵌入离散时间马尔可夫链（embedded discrete-time Markov
+chain）。</p>
+<p>In continuous time, the Markov property can be stated as
+在连续时间上， 马尔可夫性可以表述为： <span class="math display">
+Pr\{ X(t+s) = j | X(t)=i, X(u), 0\leq u&lt;t\} = Pr \{X(t+s) = j|X(t) =
+i\}
+</span></p>
+<h3 id="embedded-markov-chains-1">2.4.1 Embedded Markov Chains</h3>
+<p>In many of the situations in this text requiring the use of a
+continuous-time queueingmodel, we can often get satisfactory results by
+looking at the state of the systemonly at certain selected times
+在许多场景中，要求使用连续时间排队模型，在这些场景下，通常需要在特定时间点观察系统的状态，由此，引入
+<em>嵌入离散时间马尔可夫链</em> 来解决此类问题。</p>
+<p>As discussed previously, if the system is in state i ≥1, the next
+event is an arrival with probability λ/(λ+μ) and a service completion
+with probability μ/(λ+μ).</p>
+<p>More generally, there are some continuous-time processes that arenot
+CTMCs but still have embedded discrete-time Markov chains.</p>
+<h3 id="chapman-kolmogoroc-equations">2.4.2 Chapman-Kolmogoroc
+Equations</h3>
+<p>For a DTMC, we were able to determine the n-step transition
+probabilities via theChapman–Kolmogorov equations.</p>
+<p>Theorem 2.15 Let <span class="math inline">p_i(t)</span> be the
+probability that the system is in state i at time <span
+class="math inline">t</span>, let <span class="math inline">p(t)</span>
+be the vector (<span class="math inline">p_0(t),p_1(t),\cdots</span>),
+and let p′(t) be the vector of its derivatives.Then
+<strong>定理</strong> 设 <span class="math inline">p_i(t)</span>
+为系统在时刻 <span class="math inline">t</span> 处于状态 <span
+class="math inline">i</span> 的概率， <span
+class="math inline">p(t)</span> 表示向量 <span
+class="math inline">(p_0(t),p_1(t),\cdots)</span>，且 <span
+class="math inline">p^\prime(t)</span> 为 <span
+class="math inline">p(t)</span> 的导数，则： <span class="math display">
+p^\prime(t) = p(t) Q
+</span> 其分量形式为： <span class="math display">
+p_j^\prime(t) = -v_j p_j(t) + \sum\limits_{r\neq j} p_r(t) q_{rj}
+</span></p>
+<h3 id="long-run-behavior-1">2.4.3 Long-Run Behavior</h3>
+<p>The same concepts of stationarity and steady state apply for the
+continuous-timecase, with t replacing n in the limiting process.</p>
+<p>Theorem 2.16 For a continuous-time Markov chain, if the embedded
+discrete-timechain is irreducible and positive recurrent, then there is
+a unique solution to the <strong>定理 2.16</strong>
+对于一个连续时间马尔可夫链，如果其对应的嵌入离散时间马尔可夫链是不可约且正常返的，那么以下平稳方程组存在唯一解：
+<span class="math display">
+\begin{cases}
+0 = pQ\\
+\sum\limits_j p_j =1
+\end{cases}
+</span> 其中，<span class="math inline">0</span> 是零向量。</p>
+<p>Compared to a discrete-time chain (Theorem 2.13), aperiodicity is not
+required forthe limiting distribution to exist in a continuous-time
+Markov chain</p>
+<h1 id="simple-markovian-queueing-models">3. Simple Markovian Queueing
+Models</h1>
+<p>Recall that a birth death process is a specific type
+ofcontinuous-time Markov chain whose structure leads to a
+straightforward solutionfor the steady-state probabilities {<span
+class="math inline">p_n</span>}</p>
+<p>Webegin with the general theory of birth death process. Then we apply
+these results toobtain measures of effectiveness for the queueing
+systems given above</p>
+<h2 id="birth-death-processes">3.1 Birth-Death Processes</h2>
+<p>A birth death process consists of a set of states {0, 1, 2, . . . },
+typically denoting the“population" of some system <img
+src="https://cdn.jsdelivr.net/gh/YangSuoly/Images/Prelim/202412011132776.png"
+alt="Pasted image 20241011204336" /></p>
+<p>从 <a href="#2.4.3%20Long-Run%20Behavior">Sec 2.4.3</a> 定理2.16
+中可知，该系统存在一个解，基于 <span
+class="math inline">0=pQ</span>，且当 <span
+class="math inline">\lambda_n</span> 和 <span
+class="math inline">\mu_n</span>
+有一定的条件限制时，可以求得该解。对于生灭过程，向量矩阵的分量形式为：
+<span class="math display">
+\begin{align}
+0  &amp; = -(\lambda_n +\mu_n) p_n +\lambda_{n-1} p_{n-1} + \mu_{n+1}
+p_{n+1} \\
+0 &amp; =-\lambda_0 p_0 + \mu_1 p_1
+\end{align}
+</span> 也可以写为（流量平衡，flow balance）： <span
+class="math display">
+\begin{align}
+(\lambda_n +\mu_n) p_n &amp; =\lambda_{n-1} p_{n-1} + \mu_{n+1} p_{n+1}
+\\
+0 &amp; =-\lambda_0 p_0 + \mu_1 p_1
+\end{align}
+</span> 第一个式子左边表示从状态 <span class="math inline">n</span> 转移
+<em>出去</em> 的速率，右边表示从其他状态 <em>进入</em> 状态 <span
+class="math inline">n</span> 的速率。</p>
+<p>These equations can also be obtained using the concept of flow
+balance. The basicidea is this: In steady state, the rate of transitions
+out of a given state must equal therate of transitions into that state.
+求解可以得到： <span class="math display">
+p_n= \frac{\lambda_{n-1} \lambda_{n-1}\cdots
+\lambda_0}{\mu_n\mu_{n-1}\cdots\mu_1} p_0 = p_0 \prod_{i=1}^n
+\frac{\lambda_{i-1}}{\mu_i} ,\quad n\ge 1
+</span> 进而可以求解得到： <span class="math display">p_o = \left(
+1+\sum\limits_{n=1}^\infty \prod_{i=1}^n
+\frac{\lambda_{i-1}}{\mu_i}\right)^{-1}</span></p>
+<p>we see that a necessary and sufficient condition for the existence of
+asteady-state solution is the convergence of the infinite serie
+可以发现，稳态存在解的充要条件是以下无穷级数收敛： <span
+class="math display">
+1+\sum\limits_{n=1}^\infty \prod_{i=1}^n \frac{\lambda_{i-1}}{\mu_i}
+</span></p>
+<p>The equations in (3.1) are called global balance equations, since
+they equate the total mean flow into each state with the total mean flow
+out of that state 两种不同思路： - 上述方法称为 <em>整体平衡方程</em>
+(global balance equation) - <em>局部平衡方程</em> (detailed balance
+equation) 。正如稳态时 <em>流入和流出</em>
+一个状态的平均流量必须相等，稳态时向左和向右通过分界线的平均流量也必须相等。如下图</p>
+<figure>
+<img
+src="https://cdn.jsdelivr.net/gh/YangSuoly/Images/Prelim/202412011132777.png"
+alt="Pasted image 20241011215314" />
+<figcaption aria-hidden="true">Pasted image 20241011215314</figcaption>
+</figure>
+<p>we can know: <span class="math display">
+\begin{align}
+\lambda_{n-1} p_{n-1} &amp;= \mu_n p_n \\
+p_n  &amp; = \frac{\lambda_{n-1}}{\mu_n} p_{n-1}
+\end{align}
+</span></p>
+<p>Just as mean flows into and out of a state must be equal in steady
+state, so alsomean flows across the barrier must be equal in steady
+state. - 可逆性 (reversibility)</p>
+<p>It is not true for all Markov chains that the mean flows between two
+states areequal.</p>
+<p>The equating of these adjacent flows relates to something called
+reversibility,a concept that becomes particularly useful later in our
+work on queueing networks</p>
+<p>or more general Markovian models, this is not necessarilytrue.
+However, for all Markovian models, equating the total flow out of a
+state withthe total flow into the state always yields the global balance
+equations <em>Note</em> : 并非所有马尔可夫链的两个状态之间的
+<em>平均流量</em> 都想等 （与 <em>可逆性</em>
+有关）。但是，对于所有马尔可夫过程，流出一个状态的总流量与流入该状态的总流量想等，所以<strong>一定可以得到整体平衡方程</strong>，从而可以求得
+<span class="math inline">\{p_n\}</span>。</p>
+<h2 id="single-server-queues-mm1">3.2 Single Server Queues (<span
+class="math inline">M/M/1</span>)</h2>
+<p>更多知识查看：<a
+target="_blank" rel="noopener" href="https://www.yangsuoly.com/2024/12/01/Queue-Theory/">Queue-Theory</a></p>
+<p>有三种方法求解 <span class="math inline">\{p_n\}</span>： 1. 迭代法
+<em>Iterative Method</em> 2. 母函数法 <em>Generating Functions</em> 3.
+线性算子 <em>Operators</em></p>
+<p>In summary, the full steady-state solution for theM/M/1 system is the
+geometric probability function 得到 <span
+class="math inline">\{p_n\}</span> 为 <span class="math display">
+p_n = (1-\rho) \rho^n
+</span></p>
+<p>We emphasize that the existence of a steady-state solution depends on
+the conditionthat ρ &lt; 1, or equivalently, λ &lt; μ .</p>
+<p>Finally, we note that for some models, it is relatively easy to find
+a closed expression for <span class="math inline">P(z)</span>, but quite
+difficult to find its series expansion to obtain the {<span
+class="math inline">p_n</span>}</p>
+<h3 id="measures-of-effectiveness">3.2.4 Measures of Effectiveness</h3>
+<p>The steady-state probability distribution for the system size allows
+us to calculatethe system’s measures of effectiveness. -
+<em>系统中平均顾客数</em> <span class="math inline">L</span>
+可以根据系统的稳定概率分布来计算系统的效益指标。首先考虑当系统处于稳态时，系统中顾客数的期望和队列中顾客数的期望。</p>
+<p>设随机变量 <span class="math inline">N</span>
+表示稳态时系统中的顾客数，<span class="math inline">L</span>
+表示其期望，则 <span class="math display">
+\begin{align}
+L  &amp;= \mathbb{E}[N] = \sum\limits_{n=0}^\infty n p_n \\
+&amp; = (1-\rho)\sum\limits_{n=0}^\infty n \rho^n \\ \\
+&amp; =\rho(1-\rho) \sum\limits_{n=0}^\infty n \rho^{n-1} \\
+&amp; = \rho(1-\rho) \left(\frac{1}{1-\rho} \right)^\prime \\
+&amp;= \frac{\rho(1-\rho)}{(1-\rho)^2} \\
+&amp; =  \frac{\rho}{1-\rho} = \frac{\lambda}{\mu - \lambda}
+\end{align}
+</span></p>
+<ul>
+<li><p><em>平均队列长度</em> <span class="math inline">L_q</span> <span
+class="math display">
+\begin{align}
+L_q  &amp;= \sum\limits_{n=1}^\infty (n-1) p_n  \\
+&amp; =  \sum\limits_{n=1}^\infty n p_n - \sum\limits_{n=1}^\infty p_n
+= L _ (1-p_0) \\
+&amp; =  \frac{\rho}{1-\rho} -\rho  \\
+&amp; =\frac{\rho^2}{1-\rho}=\frac{\lambda^2}{\mu(\mu-\lambda)}
+\end{align}
+</span></p></li>
+<li><p><em>队列不为空时的平均队列长度</em> <span
+class="math inline">L_q^\prime</span> <span class="math display">
+\begin{align}
+L_q^\prime  &amp;= \mathbb{E}[N_q | N_q \neq 0] =
+\sum\limits_{n=1}^\infty (n-1) p_n^\prime = \sum\limits_{n=2}^\infty
+(n-1) p_n^\prime
+\end{align}
+</span> 其中，<span class="math inline">p_n^\prime</span>
+表示队列不为空时的条件下系统的顾客数为<span class="math inline">n</span>
+的条件概率。 <span class="math display">
+\begin{align}
+p_n^\prime  &amp; = \frac{Pr\{n \text{ in system and }n \ge 2\}}{Pr\{n
+\ge 2\}} \\
+&amp; =\frac{p_n}{\sum\limits_{n=2}^\infty p_n}  \quad (n \ge 2) \\
+&amp; =\frac{p_n}{1 - p_0 -p_1} =\frac{p_n}{1-(1-\rho) - (1-\rho)\rho}
+\\
+&amp; = \frac{p_n}{\rho^2}
+\end{align}
+</span> Then <span class="math display">
+\begin{align}
+L_q^\prime &amp;= \sum\limits_{n=2}^\infty (n-1) p_n^\prime \\
+&amp; = \sum\limits_{n=2}^\infty (n-1) \frac{(1-\rho)\rho^n}{\rho^2} \\
+&amp;= (1-\rho)\sum\limits_{n=2}^\infty (n-1) \rho^{n-2}\\ \\
+&amp;= (1-\rho)\left( \sum\limits_{n=0}^\infty n \rho^{n-1} \right) \\
+&amp;= (1-\rho)\left( \frac{1}{1-\rho} \right)^\prime\\ \\
+&amp; = \frac{1}{1-\rho} = \frac{\mu}{\mu-\lambda}
+\end{align}
+</span></p></li>
+<li><p><em>顾客在系统中的平均等待时间</em> <span
+class="math inline">W</span> <span class="math display">
+W = \frac{L}{\lambda} = \frac{\rho}{\lambda(1-\rho)} =
+\frac{1}{\mu-\lambda}
+</span></p></li>
+<li><p><em>队列中的平均等待时间</em> <span
+class="math inline">W_q</span> <span class="math display">
+W_q = \frac{L_q}{\lambda} =  \frac{\lambda}{\mu(\mu-\lambda)} =
+\frac{\rho}{\mu-\lambda}
+</span></p></li>
+</ul>
+<h3 id="等待时间的分布">3.2.5 等待时间的分布</h3>
+<ul>
+<li>等待总时间的分布 在系统中的总等待时间为服从期望为 <span
+class="math inline">1/(\mu-\lambda)</span> 的指数分布随机变量，即：
+<span class="math display">
+\begin{align}
+W(t)  &amp; = 1- e^{-(\mu-\lambda)t},  &amp;t\ge0 \\
+w(t) &amp; = (\mu-\lambda)e^{-(\mu-\lambda)t},  &amp;t&gt;0 \\
+\end{align}
+</span></li>
+<li>排队时间的分布 可以看作是按照 <span class="math inline">\rho</span>
+的概率服从指数分布，<span class="math inline">1-\rho</span>
+的概率排队时间为 0 <span class="math display">
+W_q(t) = 1-\rho + \rho(1- e^{-(\mu-\lambda)t})=1 - \rho
+e^{-(\mu-\lambda)t}
+</span></li>
+</ul>
+<p><span class="math display">
+f(W_s) = (\mu-\lambda) e^{-(\mu-\lambda)t}
+</span></p>
+
+    </div>
+
+    
+    
+    
+
+    <div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">
+            -------------This blog is over!
+            <i class="fa fa-eye"></i>
+            Thanks for your reading-------------
+        </div>
+    
+</div>
+      
+    </div>
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>Post author:  </strong>YangSu
+  </li>
+  <li class="post-copyright-link">
+    <strong>Post link: </strong>
+    <a href="http://yangsuoly.com/2024/12/01/Prelim-Queue/" title="Prelim-Queue">http://yangsuoly.com/2024/12/01/Prelim-Queue/</a>
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/Tags/OR/" rel="tag"><i class="fa fa-tag"></i> OR</a>
+              <a href="/Tags/Queue/" rel="tag"><i class="fa fa-tag"></i> Queue</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2024/12/01/Prelim-Simulation/" rel="prev" title="Prelim-Simulation">
+      <i class="fa fa-chevron-left"></i> Prelim-Simulation
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2024/12/01/Prelim-SG/" rel="next" title="Prelim-SG">
+      Prelim-SG <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div id="music163player">
+      <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=1317956275&auto=0&height=66"></iframe>
+      </iframe>
+    </div>
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#introduction"><span class="nav-text">1. Introduction</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#measures-of-system-performance"><span class="nav-text">1.1 Measures of System
+Performance</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#characteristics-of-queueing-system"><span class="nav-text">1.2 Characteristics of
+Queueing System</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#arrival-pattern-of-customers"><span class="nav-text">1.2.1 Arrival Pattern of
+Customers</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#service-patterns"><span class="nav-text">1.2.2 Service Patterns</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#number-of-servers"><span class="nav-text">1.2.3 Number of Servers</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#queue-discipline"><span class="nav-text">1.2.4 Queue Discipline</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#system-capacity"><span class="nav-text">1.2.5 System Capacity</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#stages-of-service"><span class="nav-text">1.2.6 Stages of Service</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#notation"><span class="nav-text">1.2.7 Notation</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#model-selection"><span class="nav-text">1.2.8 Model Selection</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#the-experience-of-waiting"><span class="nav-text">1.3 The Experience of Waiting</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#littles-law"><span class="nav-text">1.4 Little&#39;s Law</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#geometric-illustration-of-littles-law"><span class="nav-text">1.4.1 Geometric
+Illustration of Little&#39;s Law</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#review-of-stochastic-processes"><span class="nav-text">2. Review of Stochastic
+Processes</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#the-exponential-distribution"><span class="nav-text">2.1 The Exponential
+Distribution</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#the-poisson-process"><span class="nav-text">2.2 The Poisson Process</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#generalizations-of-the-poisson-process"><span class="nav-text">2.2.1 Generalizations of
+the Poisson Process</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#discrete-time-markov-chains"><span class="nav-text">2.3 Discrete-Time Markov
+Chains</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#properties-of-markov-chains"><span class="nav-text">2.3.1 Properties of Markov
+Chains</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#long-run-behavior"><span class="nav-text">2.3.2 Long-Run Behavior</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#ergodicity"><span class="nav-text">2.3.3 Ergodicity</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#continuous-time-markov-chains"><span class="nav-text">2.4 Continuous Time Markov
+Chains</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#embedded-markov-chains"><span class="nav-text">2.4.1 Embedded Markov Chains</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#embedded-markov-chains-1"><span class="nav-text">2.4.1 Embedded Markov Chains</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#chapman-kolmogoroc-equations"><span class="nav-text">2.4.2 Chapman-Kolmogoroc
+Equations</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#long-run-behavior-1"><span class="nav-text">2.4.3 Long-Run Behavior</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#simple-markovian-queueing-models"><span class="nav-text">3. Simple Markovian Queueing
+Models</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#birth-death-processes"><span class="nav-text">3.1 Birth-Death Processes</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#single-server-queues-mm1"><span class="nav-text">3.2 Single Server Queues (M&#x2F;M&#x2F;1)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#measures-of-effectiveness"><span class="nav-text">3.2.4 Measures of Effectiveness</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AD%89%E5%BE%85%E6%97%B6%E9%97%B4%E7%9A%84%E5%88%86%E5%B8%83"><span class="nav-text">3.2.5 等待时间的分布</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="YangSu"
+      src="/images/YangSu.jpg">
+  <p class="site-author-name" itemprop="name">YangSu</p>
+  <div class="site-description" itemprop="description">A blog for recording learning notes...</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">78</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/Categories/">
+          
+        <span class="site-state-item-count">40</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/Tags/">
+          
+        <span class="site-state-item-count">49</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/YangSuoly" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;YangSuoly" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://gitee.com/yangsuoly" title="Gitee → https:&#x2F;&#x2F;gitee.com&#x2F;yangsuoly" rel="noopener" target="_blank"><i class="fab fa-github-square fa-fw"></i>Gitee</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://space.bilibili.com/64518717" title="B 站 → https:&#x2F;&#x2F;space.bilibili.com&#x2F;64518717" rel="noopener" target="_blank"><i class="fa fa-play-circle fa-fw"></i>B 站</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Related links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://www.58pic.com/u/19637930/" title="https:&#x2F;&#x2F;www.58pic.com&#x2F;u&#x2F;19637930&#x2F;" rel="noopener" target="_blank">千图网</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js" integrity="sha384-g7c+Jr9ZivxKLnZTDUhnkOnsh30B4H0rpLUpJ4jAIKs4fnJI+sEnkvrMWph2EDg4" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/auto-render.min.js" integrity="sha384-mll67QQFJfxn0IYznZYonOWZ644AWYC+Pt2cHqMaRhXVrursRwvLnLaebdGIlYNa" crossorigin="anonymous"
+        onload="renderMathInElement(document.body);"></script>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2026</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">YangSu</span>
+</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="Total Visitors">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="Total Views">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script size="300" alpha="0.6" zIndex="-1" src="/lib/canvas-ribbon/canvas-ribbon.js"></script>
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+<script>
+document.querySelectorAll('.pdfobject-container').forEach(element => {
+  let url = element.dataset.target;
+  let pdfOpenParams = {
+    navpanes : 0,
+    toolbar  : 0,
+    statusbar: 0,
+    pagemode : 'thumbs',
+    view     : 'FitH'
+  };
+  let pdfOpenFragment = '#' + Object.entries(pdfOpenParams).map(([key, value]) => `${key}=${encodeURIComponent(value)}`).join('&');
+  let fullURL = `/lib/pdf/web/viewer.html?file=${encodeURIComponent(url)}${pdfOpenFragment}`;
+
+  if (NexT.utils.supportsPDFs()) {
+    element.innerHTML = `<embed class="pdfobject" src="${url + pdfOpenFragment}" type="application/pdf" style="height: ${element.dataset.height};">`;
+  } else {
+    element.innerHTML = `<iframe src="${fullURL}" style="height: ${element.dataset.height};" frameborder="0"></iframe>`;
+  }
+});
+</script>
+
+
+<script>
+if (document.querySelectorAll('pre.mermaid').length) {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js', () => {
+    mermaid.initialize({
+      theme    : 'forest',
+      logLevel : 3,
+      flowchart: { curve     : 'linear' },
+      gantt    : { axisFormat: '%m/%d/%Y' },
+      sequence : { actorMargin: 50 }
+    });
+  }, window.mermaid);
+}
+</script>
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+  <script src="//cdn.jsdelivr.net/npm/quicklink@1/dist/quicklink.umd.js"></script>
+  <script>
+      window.addEventListener('load', () => {
+      quicklink({
+        timeout : 3000,
+        priority: true,
+        ignores : [uri => uri.includes('#'),uri => uri === 'http://yangsuoly.com/2024/12/01/Prelim-Queue/',]
+      });
+      });
+  </script>
+
+  
+  <script id="ribbon" src="js/canvas-ribbon.js"></script>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/22.2017.cba-normal.model.json"},"display":{"position":"right","width":300,"height":450},"mobile":{"show":false},"react":{"opacity":0.7},"log":false});</script></body>
+</html>

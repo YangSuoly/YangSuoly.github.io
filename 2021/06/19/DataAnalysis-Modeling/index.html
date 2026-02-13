@@ -1,0 +1,1200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/blog-logo-32px.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/blog-logo-16px.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <link rel="manifest" href="/images/manifest.json">
+  <meta name="msapplication-config" content="/images/browserconfig.xml">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yangsuoly.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":true},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":true,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="1 Modeling creation 经过前面的学习，已可以对数数据进行增删查补和清洗工作。接下来需要使用处理好的数据进行分析和建模。这一章要做的是运用数据来得到某些结果。 分析的第一步是搭建一个预测模型或者其他；根据模型的结果，可以分析该模型是否可靠。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="DataAnalysis-Modeling">
+<meta property="og:url" content="http://yangsuoly.com/2021/06/19/DataAnalysis-Modeling/index.html">
+<meta property="og:site_name" content="独孤诗人的学习驿站">
+<meta property="og:description" content="1 Modeling creation 经过前面的学习，已可以对数数据进行增删查补和清洗工作。接下来需要使用处理好的数据进行分析和建模。这一章要做的是运用数据来得到某些结果。 分析的第一步是搭建一个预测模型或者其他；根据模型的结果，可以分析该模型是否可靠。">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://z3.ax1x.com/2021/06/20/RF1cYn.png">
+<meta property="og:image" content="https://z3.ax1x.com/2021/06/20/RF16Fs.png">
+<meta property="og:image" content="https://z3.ax1x.com/2021/06/20/RF1Deg.png">
+<meta property="og:image" content="https://z3.ax1x.com/2021/06/20/RF1wy8.png">
+<meta property="og:image" content="https://z3.ax1x.com/2021/06/20/RF10OS.jpg">
+<meta property="og:image" content="https://z3.ax1x.com/2021/06/20/RF1rwQ.png">
+<meta property="article:published_time" content="2021-06-19T13:50:39.000Z">
+<meta property="article:modified_time" content="2023-07-21T00:20:15.042Z">
+<meta property="article:author" content="YangSu">
+<meta property="article:tag" content="Python">
+<meta property="article:tag" content="Data Analysis">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://z3.ax1x.com/2021/06/20/RF1cYn.png">
+
+<link rel="canonical" href="http://yangsuoly.com/2021/06/19/DataAnalysis-Modeling/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>DataAnalysis-Modeling | 独孤诗人的学习驿站</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?f59f5fb59d32ec3903088b0f976956d1";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta custom-logo">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">独孤诗人的学习驿站</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">生活就是一半烟火，一半诗意。手执烟火谋生活，心怀诗意谋未来……</p>
+      <a>
+        <img class="custom-logo-image" src="/images/logo@2x.png" alt="独孤诗人的学习驿站">
+      </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/Tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/Categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+  <a href="https://github.com/YangSuoly" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yangsuoly.com/2021/06/19/DataAnalysis-Modeling/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/YangSu.jpg">
+      <meta itemprop="name" content="YangSu">
+      <meta itemprop="description" content="A blog for recording learning notes...">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="独孤诗人的学习驿站">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          DataAnalysis-Modeling
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-06-19 21:50:39" itemprop="dateCreated datePublished" datetime="2021-06-19T21:50:39+08:00">2021-06-19</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2023-07-21 08:20:15" itemprop="dateModified" datetime="2023-07-21T08:20:15+08:00">2023-07-21</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/Categories/DataWhale/" itemprop="url" rel="index"><span itemprop="name">DataWhale</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/Categories/DataWhale/Data-Analysis/" itemprop="url" rel="index"><span itemprop="name">Data Analysis</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="Views" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span><br>
+            <span class="post-meta-item" title="Symbols count in article">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">Symbols count in article: </span>
+              <span>12k</span>
+            </span>
+            <span class="post-meta-item" title="Reading time">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">Reading time &asymp;</span>
+              <span>11 mins.</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="modeling-creation">1 Modeling creation</h1>
+<p>经过前面的学习，已可以对数数据进行增删查补和清洗工作。接下来需要使用处理好的数据进行分析和建模。这一章要做的是运用数据来得到某些结果。</p>
+<p>分析的第一步是搭建一个预测模型或者其他；根据模型的结果，可以分析该模型是否可靠。</p>
+<a id="more"></a>
+<h2 id="preparation">1.1 Preparation</h2>
+<ul>
+<li><p>Import modules</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">import</span> seaborn <span class="keyword">as</span> sns</span><br><span class="line"><span class="keyword">from</span> IPython.display <span class="keyword">import</span> Image</span><br><span class="line"></span><br><span class="line">%matplotlib inline</span><br><span class="line"></span><br><span class="line">plt.rcParams[<span class="string">&#x27;font.sans-serif&#x27;</span>] = [<span class="string">&#x27;SimHei&#x27;</span>]  <span class="comment"># 用来正常显示中文标签</span></span><br><span class="line">plt.rcParams[<span class="string">&#x27;axes.unicode_minus&#x27;</span>] = <span class="literal">False</span>  <span class="comment"># 用来正常显示负号</span></span><br><span class="line">plt.rcParams[<span class="string">&#x27;figure.figsize&#x27;</span>] = (<span class="number">10</span>, <span class="number">6</span>)  <span class="comment"># 设置输出图片大小</span></span><br></pre></td></tr></table></figure></li>
+<li><p>Load data</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 读取原数据数集</span></span><br><span class="line">train = pd.read_csv(<span class="string">&#x27;train.csv&#x27;</span>)</span><br><span class="line">train.shape</span><br><span class="line"></span><br><span class="line"><span class="comment">#读取清洗过的数据集</span></span><br><span class="line">data = pd.read_csv(<span class="string">&#x27;clear_data.csv&#x27;</span>)</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="feature-engineer">1.2 Feature engineer</h2>
+<h3 id="fillna">1.2.1 Fillna</h3>
+<ul>
+<li><p>对分类变量缺失值：填充某个缺失值字符(NA)、用最多类别的进行填充</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>train[<span class="string">&#x27;Cabin&#x27;</span>] = train[<span class="string">&#x27;Cabin&#x27;</span>].fillna(<span class="string">&#x27;NA&#x27;</span>)</span><br><span class="line">    train[<span class="string">&#x27;Embarked&#x27;</span>] = train[<span class="string">&#x27;Embarked&#x27;</span>].fillna(<span class="string">&#x27;S&#x27;</span>)</span><br></pre></td></tr></table></figure></li>
+<li><p>对连续变量缺失值：填充均值、中位数、众数</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>train[<span class="string">&#x27;Age&#x27;</span>] = train[<span class="string">&#x27;Age&#x27;</span>].fillna(train[<span class="string">&#x27;Age&#x27;</span>].mean())</span><br></pre></td></tr></table></figure></li>
+<li><p>检查缺失值比例</p>
+<p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>train.isnull().<span class="built_in">sum</span>().sort_values(ascending=<span class="literal">False</span>)</span><br><span class="line"></span><br><span class="line">PassengerId    <span class="number">0</span></span><br><span class="line">Survived       <span class="number">0</span></span><br><span class="line">Pclass         <span class="number">0</span></span><br><span class="line">Name           <span class="number">0</span></span><br><span class="line">Sex            <span class="number">0</span></span><br><span class="line">Age            <span class="number">0</span></span><br><span class="line">SibSp          <span class="number">0</span></span><br><span class="line">Parch          <span class="number">0</span></span><br><span class="line">Ticket         <span class="number">0</span></span><br><span class="line">Fare           <span class="number">0</span></span><br><span class="line">Cabin          <span class="number">0</span></span><br><span class="line">Embarked       <span class="number">0</span></span><br><span class="line">dtype: int64</span><br></pre></td></tr></table></figure></p></li>
+</ul>
+<h3 id="encoding-classification-variable">1.2.2 Encoding classification
+variable</h3>
+<ul>
+<li><p>取出所有输入特征</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>data = train[[<span class="string">&#x27;Pclass&#x27;</span>,<span class="string">&#x27;Sex&#x27;</span>,<span class="string">&#x27;Age&#x27;</span>,<span class="string">&#x27;SibSp&#x27;</span>,<span class="string">&#x27;Parch&#x27;</span>, <span class="string">&#x27;Fare&#x27;</span>, <span class="string">&#x27;Embarked&#x27;</span>]]</span><br></pre></td></tr></table></figure></li>
+<li><p>虚拟变量转换</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>data = pd.get_dummies(data)</span><br><span class="line">    data.head()</span><br></pre></td></tr></table></figure>
+<table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th>
+</th>
+<th>
+<p>Pclass</p>
+</th>
+<th>
+<p>Age</p>
+</th>
+<th>
+<p>SibSp</p>
+</th>
+<th>
+<p>Parch</p>
+</th>
+<th>
+<p>Fare</p>
+</th>
+<th>
+<p>Sex_female</p>
+</th>
+<th>
+<p>Sex_male</p>
+</th>
+<th>
+<p>Embarked_C</p>
+</th>
+<th>
+<p>Embarked_Q</p>
+</th>
+<th>
+<p>Embarked_S</p>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>
+<p>0</p>
+</th>
+<td>
+<p>3</p>
+</td>
+<td>
+<p>22.0</p>
+</td>
+<td>
+<p>1</p>
+</td>
+<td>
+<p>0</p>
+</td>
+<td>
+<p>7.2500</p>
+</td>
+<td>
+<p>0</p>
+</td>
+<td>
+<p>1</p>
+</td>
+<td>
+<p>0</p>
+</td>
+<td>
+<p>0</p>
+</td>
+<td>
+<p>1</p>
+</td>
+</tr>
+<tr>
+<th>
+<p>1</p>
+</th>
+<td>
+<p>1</p>
+</td>
+<td>
+<p>38.0</p>
+</td>
+<td>
+<p>1</p>
+</td>
+<td>
+<p>0</p>
+</td>
+<td>
+<p>71.2833</p>
+</td>
+<td>
+<p>1</p>
+</td>
+<td>
+<p>0</p>
+</td>
+<td>
+<p>1</p>
+</td>
+<td>
+<p>0</p>
+</td>
+<td>
+<p>0</p>
+</td>
+</tr>
+<tr>
+<th>
+<p>2</p>
+</th>
+<td>
+<p>3</p>
+</td>
+<td>
+<p>26.0</p>
+</td>
+<td>
+<p>0</p>
+</td>
+<td>
+<p>0</p>
+</td>
+<td>
+<p>7.9250</p>
+</td>
+<td>
+<p>1</p>
+</td>
+<td>
+<p>0</p>
+</td>
+<td>
+<p>0</p>
+</td>
+<td>
+<p>0</p>
+</td>
+<td>
+<p>1</p>
+</td>
+</tr>
+<tr>
+<th>
+<p>3</p>
+</th>
+<td>
+<p>1</p>
+</td>
+<td>
+<p>35.0</p>
+</td>
+<td>
+<p>1</p>
+</td>
+<td>
+<p>0</p>
+</td>
+<td>
+<p>53.1000</p>
+</td>
+<td>
+<p>1</p>
+</td>
+<td>
+<p>0</p>
+</td>
+<td>
+<p>0</p>
+</td>
+<td>
+<p>0</p>
+</td>
+<td>
+<p>1</p>
+</td>
+</tr>
+<tr>
+<th>
+<p>4</p>
+</th>
+<td>
+<p>3</p>
+</td>
+<td>
+<p>35.0</p>
+</td>
+<td>
+<p>0</p>
+</td>
+<td>
+<p>0</p>
+</td>
+<td>
+<p>8.0500</p>
+</td>
+<td>
+<p>0</p>
+</td>
+<td>
+<p>1</p>
+</td>
+<td>
+<p>0</p>
+</td>
+<td>
+<p>0</p>
+</td>
+<td>
+<p>1</p>
+</td>
+</tr>
+</tbody>
+</table></li>
+</ul>
+<h2 id="construction">1.3 Construction</h2>
+<ul>
+<li>处理完数据的下一步是选择合适模型</li>
+<li>在进行模型选择前，需要对数据集进行学习的方式是
+<strong>监督学习</strong> 还是 <strong>无监督学习</strong></li>
+<li>模型的选择通过任务决定</li>
+<li>除了根据们任务来选择模型，还可以根据数据样本量以及特征的稀疏性来决定</li>
+<li>一般通常会尝试使用一个基本的模型来作为其
+<code>baseline</code>，进而再训练其他模型做对比，最终选择泛化能力或性能比较好的模型</li>
+</ul>
+<p>可以使用机器学习最常用的一个库 <code>sklearn</code>
+来完成模型的搭建，<code>sklearn</code> 算法的选择路径如下：</p>
+<p><img src="https://z3.ax1x.com/2021/06/20/RF1cYn.png" /></p>
+<p><strong>Note:</strong> 图源：<a
+target="_blank" rel="noopener" href="https://mofanpy.com/tutorials/machine-learning/sklearn/select-method/">莫凡Python-选择学习方法</a>，如果想深入学习机器学习的话，也可关注该博客网站，上面有各大常用机器学习库的讲解视频的笔记，视频发布在
+<a
+target="_blank" rel="noopener" href="https://space.bilibili.com/243821484?spm_id_from=333.788.b_765f7570696e666f.1">B
+站莫烦Python</a> 上，附几个热门的模块：</p>
+<ul>
+<li><a
+target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1Jx411L7LU">Matplotlib</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1xW411Y7Qd">Scikit-learn
+(sklearn)</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1Vx411j7kT">Pytorch
+神经网络</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1TW411Y7HU">Keras</a></li>
+</ul>
+<h3 id="split-data">1.3.1 Split data</h3>
+<ul>
+<li>按比例切割数据集(常有30%、25%、20%、15%和10%)</li>
+<li>按目标变量分层进行等比切割</li>
+<li>设置随机种子以便结果能复现</li>
+</ul>
+<p><strong>Note:</strong></p>
+<ul>
+<li>切割数据集是为了后续评估模型泛化能力</li>
+<li>查看函数文档可以在 <code>notebook</code> 里面使用
+<code>train_test_split?</code> 和 <code>help(train_test_split)</code>
+后回车即可看到</li>
+<li>分层和随机种子在参数里寻找</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">from</span> sklearn.model_selection <span class="keyword">import</span> train_test_split</span><br><span class="line"></span><br><span class="line">    X = data.astype(<span class="string">&#x27;float64&#x27;</span>)</span><br><span class="line">    y = train[<span class="string">&#x27;Survived&#x27;</span>].astype(<span class="string">&#x27;float64&#x27;</span>)</span><br><span class="line"></span><br><span class="line">    X_train, X_test, y_train, y_test = train_test_split(X, y, stratify=y, random_state=<span class="number">0</span>)</span><br></pre></td></tr></table></figure>
+<ul>
+<li>查看数据形状</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>X_train.shape, X_test.shape</span><br><span class="line"></span><br><span class="line">((<span class="number">668</span>, <span class="number">10</span>), (<span class="number">223</span>, <span class="number">10</span>))</span><br></pre></td></tr></table></figure>
+<h3 id="modeling">1.3.2 Modeling</h3>
+<ul>
+<li>创建基于线性模型的分类模型（逻辑回归）</li>
+<li>创建基于树的分类模型（决策树、随机森林）</li>
+<li>查看模型的参数，并更改参数值，观察模型变化</li>
+</ul>
+<p><strong>Note:</strong></p>
+<ul>
+<li>逻辑回归不是回归模型而是
+<strong>分类模型</strong>，不要与<code>LinearRegression</code> 混淆</li>
+<li>随机森林其实是决策树集成为了降低决策树过拟合的情况</li>
+<li>线性模型所在的模块为 <code>sklearn.linear_model</code></li>
+<li>树模型所在的模块为 <code>sklearn.ensemble</code></li>
+</ul>
+<p><strong>线性模型的处理逻辑:</strong>
+线性函数可以将平面进行分割，就形成了二分类问题。多分类的处理逻辑类似于线性规划，将平面分割为一个个小块。</p>
+<h3 id="cases">1.3.3 Cases</h3>
+<p>本小节使用支持向量机和随即森林两个模型进行模型构建。</p>
+<ul>
+<li><p>支持向量机</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">from</span> sklearn.svm <span class="keyword">import</span> SVCfrom sklearn.ensemble <span class="keyword">import</span> RandomForestClassifier</span><br><span class="line"></span><br><span class="line">    clf = SVC(probability=<span class="literal">True</span>)</span><br><span class="line">    clf.fit(X_train, y_train</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看训练集和测试集score值</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>print(<span class="string">&quot;Training set score: &#123;:.2f&#125;&quot;</span>.<span class="built_in">format</span>(clf.score(X_train, y_train)))</span><br><span class="line">    print(<span class="string">&quot;Testing set score: &#123;:.2f&#125;&quot;</span>.<span class="built_in">format</span>(clf.score(X_test, y_test)))</span><br><span class="line"></span><br><span class="line">Training <span class="built_in">set</span> score: <span class="number">0.70</span>Testing <span class="built_in">set</span> score: <span class="number">0.64</span></span><br></pre></td></tr></table></figure></li>
+<li><p>随机森林</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 默认参数的随机森林分类模型</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>rfc = RandomForestClassifier()</span><br><span class="line">    rfc.fit(X_train, y_train)</span><br><span class="line"></span><br><span class="line">RandomForestClassifier()</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>print(<span class="string">&quot;Training set score: &#123;:.2f&#125;&quot;</span>.<span class="built_in">format</span>(rfc.score(X_train, y_train)))</span><br><span class="line">    print(<span class="string">&quot;Testing set score: &#123;:.2f&#125;&quot;</span>.<span class="built_in">format</span>(rfc.score(X_test, y_test)))</span><br><span class="line"></span><br><span class="line">Training <span class="built_in">set</span> score: <span class="number">0.99</span>Testing <span class="built_in">set</span> score: <span class="number">0.81</span></span><br></pre></td></tr></table></figure>
+<p>对随机森林模型进行调参：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 调整参数后的随机森林分类模型</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>rfc2 = RandomForestClassifier(n_estimators=<span class="number">100</span>, max_depth=<span class="number">5</span>)</span><br><span class="line">    rfc2.fit(X_train, y_train)</span><br><span class="line"></span><br><span class="line">    print(<span class="string">&quot;Training set score: &#123;:.2f&#125;&quot;</span>.<span class="built_in">format</span>(rfc2.score(X_train, y_train)))</span><br><span class="line">    print(<span class="string">&quot;Testing set score: &#123;:.2f&#125;&quot;</span>.<span class="built_in">format</span>(rfc2.score(X_test, y_test)))</span><br><span class="line"></span><br><span class="line">Training <span class="built_in">set</span> score: <span class="number">0.86</span>Testing <span class="built_in">set</span> score: <span class="number">0.83</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="prediction">1.4 Prediction</h2>
+<p>一般监督模型在 <code>sklearn</code> 里面有个 <code>predict</code>
+能输出预测标签，<code>predict_proba</code> 则可以输出标签概率。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>pred = clf.predict(X_train)</span><br><span class="line">    pred[:<span class="number">10</span>]</span><br><span class="line"></span><br><span class="line">array([<span class="number">1.</span>, <span class="number">0.</span>, <span class="number">0.</span>, <span class="number">0.</span>, <span class="number">0.</span>, <span class="number">0.</span>, <span class="number">0.</span>, <span class="number">1.</span>, <span class="number">1.</span>, <span class="number">1.</span>])</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>预测概率</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>pred_proba = clf.predict_proba(X_train)</span><br><span class="line">    pred_proba[:<span class="number">10</span>]</span><br><span class="line"></span><br><span class="line">array([[<span class="number">0.43518882</span>, <span class="number">0.56481118</span>],</span><br><span class="line">       [<span class="number">0.68639392</span>, <span class="number">0.31360608</span>],</span><br><span class="line">       [<span class="number">0.62646492</span>, <span class="number">0.37353508</span>],</span><br><span class="line">       [<span class="number">0.62676837</span>, <span class="number">0.37323163</span>],</span><br><span class="line">       [<span class="number">0.70955025</span>, <span class="number">0.29044975</span>],</span><br><span class="line">       [<span class="number">0.72361218</span>, <span class="number">0.27638782</span>],</span><br><span class="line">       [<span class="number">0.64503542</span>, <span class="number">0.35496458</span>],</span><br><span class="line">       [<span class="number">0.38964073</span>, <span class="number">0.61035927</span>],</span><br><span class="line">       [<span class="number">0.23539098</span>, <span class="number">0.76460902</span>],</span><br><span class="line">       [<span class="number">0.26563197</span>, <span class="number">0.73436803</span>]])</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h1 id="model-evaluation">2 Model evaluation</h1>
+<p>根据之前的模型的建模，已经学会了运用 <code>sklearn</code>
+库来完成建模，以及数据集的划分等操作。那么如何评估模型的优劣呢？以及如何判断模型给出的结果是否有效呢？这也是本次任务需要学习的内容。</p>
+<h2 id="preparation-1">2.1 Preparation</h2>
+<h3 id="load-modules">2.1.1 Load modules</h3>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.linear_model <span class="keyword">import</span> LogisticRegression</span><br><span class="line"><span class="keyword">from</span> sklearn.ensemble <span class="keyword">import</span> RandomForestClassifier</span><br><span class="line"></span><br><span class="line">%matplotlib inline</span><br><span class="line"></span><br><span class="line">plt.rcParams[<span class="string">&#x27;font.sans-serif&#x27;</span>] = [<span class="string">&#x27;SimHei&#x27;</span>]  <span class="comment"># 用来正常显示中文标签</span></span><br><span class="line">plt.rcParams[<span class="string">&#x27;axes.unicode_minus&#x27;</span>] = <span class="literal">False</span>  <span class="comment"># 用来正常显示负号</span></span><br><span class="line">plt.rcParams[<span class="string">&#x27;figure.figsize&#x27;</span>] = (<span class="number">10</span>, <span class="number">6</span>)  <span class="comment"># 设置输出图片大小</span></span><br></pre></td></tr></table></figure>
+<h3 id="load-data">2.1.2 Load data</h3>
+<p>一般先取出 <code>X</code> 和 <code>y</code>
+后再切割，有些情况会使用到未切割的，这时候 <code>X</code> 和
+<code>y</code> 就可以用，<code>x</code> 是清洗好的数据，<code>y</code>
+是我们要预测的存活数据 <code>Survived</code>。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>data = pd.read_csv(<span class="string">&#x27;clear_data.csv&#x27;</span>)</span><br><span class="line">    train = pd.read_csv(<span class="string">&#x27;train.csv&#x27;</span>)</span><br><span class="line">    X = data.astype(<span class="string">&#x27;float64&#x27;</span>)</span><br><span class="line">    y = train[<span class="string">&#x27;Survived&#x27;</span>].astype(<span class="string">&#x27;float64&#x27;</span>)</span><br></pre></td></tr></table></figure>
+<h3 id="split-data-1">2.1.3 Split data</h3>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">from</span> sklearn.model_selection <span class="keyword">import</span> train_test_split</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 对数据集进行切割</span></span><br><span class="line">    X_train, X_test, y_train, y_test = train_test_split(X, y, stratify=y, random_state=<span class="number">0</span>)</span><br></pre></td></tr></table></figure>
+<p>注意到，在本例子中使用了 <code>stratify</code>
+参数，其目的是保持测试集与整个数据集里 <code>y</code>
+的数据分类比例一致。</p>
+<p>举个栗子： 如何整个数据集有 1000 行，<code>y</code> 列的数据也是 1000
+个，而且分两类：0 和 1，其中 0 有 300 个，1 有 700
+个，即数据分类的比例为 3：7。那么现在把整个数据 <code>split</code>，因为
+<code>test_size = 0.2</code>，所以训练集分到 800 个数据，测试集分到 200
+个数据。</p>
+<p><strong>重点</strong>：由于
+<code>stratify = y</code>，则训练集和测试集中的数据分类比例将与
+<code>y</code> 一致，也是 3：7，结果就是在训练集中，有 240 个 0 和 560
+个 1；测试集中有 60 个 0 和 140 个 1 。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>y_train.values.shape</span><br><span class="line"></span><br><span class="line">(<span class="number">668</span>,)</span><br></pre></td></tr></table></figure>
+<h2 id="construction-1">2.2 Construction</h2>
+<ul>
+<li><p>拟合</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 默认参数逻辑回归模型</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>clf = RandomForestClassifier()</span><br><span class="line">    clf.fit(X_train.values, y_train)</span><br></pre></td></tr></table></figure></li>
+<li><p>预测</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>clf.predict(X_test)[:<span class="number">10</span>]</span><br><span class="line"></span><br><span class="line">array([<span class="number">0.</span>, <span class="number">1.</span>, <span class="number">0.</span>, <span class="number">0.</span>, <span class="number">1.</span>, <span class="number">0.</span>, <span class="number">0.</span>, <span class="number">0.</span>, <span class="number">0.</span>, <span class="number">0.</span>])</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="evaluation">2.3 Evaluation</h2>
+<ul>
+<li>模型评估是为了知道模型的泛化能力。</li>
+<li>交叉验证（<code>cross-validation</code>）是一种评估泛化性能的统计学方法，它比单次划分训练集和测试集的方法更加稳定、全面。</li>
+<li>在交叉验证中，数据被多次划分，并且需要训练多个模型。</li>
+<li>最常用的交叉验证是 <code>k</code>
+折交叉验证（<code>k-fold cross-validation</code>），其中 <code>k</code>
+是由用户指定的数字，通常取 5 或 10。</li>
+<li>准确率（<code>Precision</code>）度量的是被预测为正例的样本中有多少是真正的正例</li>
+<li>召回率（<code>Recall</code>）度量的是正类样本中有多少被预测为正类</li>
+<li>f-分数是准确率与召回率的调和平均</li>
+</ul>
+<h3 id="cross-validation">2.3.1 Cross-validation</h3>
+<ol type="1">
+<li><p>概念</p>
+<p>交叉验证是建立模型和验证模型参数时常用的办法。顾名思义，就是重复的对样本数据进行切分，组合为不同的训练集和测试集，并用训练集来训练模型，用测试集来评估模型。</p>
+<p>在此基础上可以得到多组不同的训练集和测试集，某次训练集中的某样本在下次可能成为测试集中的样本，即所谓“交叉”。</p></li>
+<li><p><strong>思考：那么什么时候才需要交叉验证呢？</strong></p>
+<p>交叉验证常用在数据不是很充足时。如果数据样本量较小，可以采用交叉验证来训练优化选择模型。若样本充足，一般可把数据随机地分成三份：<code>Training Set</code>，<code>Validation Set</code>，<code>Test Set</code>。用
+<code>Training Set</code> 来训练模型，用 <code>Validation Set</code>
+来评估模型预测的好坏和选择模型及其对应的参数。把最终得到的模型再用于
+<code>Test Set</code> ，最终决定使用哪个模型以及对应参数。</p></li>
+<li><p><strong>常见形式：</strong></p>
+<ul>
+<li><code>Holdout</code></li>
+</ul>
+<p>常识来说，Holdout 验证并非一种交叉验证，因为数据并没有交叉使用。
+随机从最初的样本中选出部分，形成交叉验证数据，而剩余的就当做训练数据。
+一般来说，少于原本样本三分之一的数据被选做验证数据。</p>
+<ul>
+<li><code>K-fold cross-validation</code>:</li>
+</ul>
+<p><code>K</code> 折交叉验证，初始采样分割成 <code>K</code>
+个子样本，一个单独的子样本被保留作为验证模型的数据，其他
+<code>K-1</code>
+个样本用来训练。交叉验证重复K次，每个子样本验证一次，平均 <code>K</code>
+次的结果或者使用其它结合方式，最终得到一个单一估测。这个方法的优势在于，同时重复运用随机产生的子样本进行训练和验证，每次的结果验证一次，10
+折交叉验证是最常用的。5 折交叉验证的示例图如下： <img
+src="https://z3.ax1x.com/2021/06/20/RF1soj.png" /></p>
+<ul>
+<li><code>Leave-one-out Cross Validation</code>:</li>
+</ul>
+<p>留一验证（<code>LOOCV</code>）是 <code>K</code>
+折交叉验证的特例，此时折数 <code>K</code>
+等于原本样本个数。意指只使用原本样本中的一项来当做验证资料，
+而剩余的则留下来当做训练资料。
+这个步骤一直持续到每个样本都被当做一次验证资料。在某些情况下是存在有效率的演算法，如使用<code>kernel regression</code>
+和 <code>Tikhonov regularization</code>。</p>
+<p><strong>Note:</strong> 上述交叉验证的解释内容部分来自搜狗百科词条 <a
+target="_blank" rel="noopener" href="https://baike.sogou.com/v7413760.htm?fromTitle=%E4%BA%A4%E5%8F%89%E9%AA%8C%E8%AF%81">交叉验证</a>。</p></li>
+<li><p><strong>K 折交叉验证的使用</strong></p>
+<p>在本节中主要介绍 <code>K</code> 折交叉验证的使用，借助
+<code>sklearn.model_selection</code> 来实现利用 10
+折交叉验证来评估前文的随机森林分类模型。</p></li>
+</ol>
+<p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">from</span> sklearn.model_selection <span class="keyword">import</span> cross_val_score</span><br><span class="line"></span><br><span class="line">    clf = RandomForestClassifier()</span><br><span class="line">    scores = cross_val_score(clf, X_train, y_train, cv=<span class="number">10</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># k折交叉验证分数</span></span><br><span class="line">    scores</span><br><span class="line"></span><br><span class="line">array([<span class="number">0.88059701</span>, <span class="number">0.80597015</span>, <span class="number">0.8358209</span> , <span class="number">0.82089552</span>, <span class="number">0.7761194</span> ,</span><br><span class="line">       <span class="number">0.8358209</span> , <span class="number">0.8358209</span> , <span class="number">0.80597015</span>, <span class="number">0.83333333</span>, <span class="number">0.8030303</span> ])</span><br></pre></td></tr></table></figure></p>
+<p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 平均交叉验证分数</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>print(<span class="string">&quot;Average cross-validation score: &#123;:.2f&#125;&quot;</span>.<span class="built_in">format</span>(scores.mean()))</span><br><span class="line"></span><br><span class="line">Average cross-validation score: <span class="number">0.82</span></span><br></pre></td></tr></table></figure></p>
+<p>折数越多代表着运行时间越长。</p>
+<p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> timefrom sklearn.model_selection</span><br><span class="line"><span class="keyword">import</span> LeaveOneOut</span><br><span class="line"></span><br><span class="line"><span class="comment"># 10 折</span></span><br><span class="line">start = time.time()</span><br><span class="line">scores_fold = cross_val_score(clf, X_train, y_train, cv=<span class="number">10</span>)</span><br><span class="line">transition = time.time()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 留一验证</span></span><br><span class="line">loocv = LeaveOneOut()</span><br><span class="line">scores_leave = cross_val_score(clf, X_train, y_train, cv=loocv)</span><br><span class="line">end = time.time()</span><br><span class="line"></span><br><span class="line">print(<span class="string">&#x27;The 10-fold spend &#123;:.2f&#125;s, the leave one spend &#123;:.2f&#125;s&#x27;</span>.<span class="built_in">format</span>(</span><br><span class="line">        transition-start, end-transition))</span><br><span class="line">print(<span class="string">&quot;Average 10-fold cross-validation score: &#123;:.2f&#125;&quot;</span>.<span class="built_in">format</span>(scores.mean()))</span><br><span class="line">print(<span class="string">&quot;Average leave-one-out cross-validation score: &#123;:.2f&#125;&quot;</span>.<span class="built_in">format</span>(scores.mean()))</span><br></pre></td></tr></table></figure></p>
+<p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">The <span class="number">10</span>-fold spend <span class="number">2.72</span>s, the leave one spend <span class="number">189.75</span>s</span><br><span class="line">Average <span class="number">10</span>-fold cross-validation score: <span class="number">0.82</span></span><br><span class="line">Average leave-one-out cross-validation score: <span class="number">0.82</span></span><br></pre></td></tr></table></figure></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>print(<span class="built_in">len</span>(y_train)/<span class="number">10</span>)</span><br><span class="line"></span><br><span class="line"><span class="number">66.8</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>print(<span class="number">189.75</span>/<span class="number">2.72</span>)</span><br><span class="line"></span><br><span class="line"><span class="number">69.7610294117647</span></span><br></pre></td></tr></table></figure>
+<p>可以发现采用 <code>10</code> 折仅费了
+<code>2.72s</code>，而将折数上调至极限（留一验证）时，花费的时间几乎增加了了
+70 倍，同时可以发现倍数与折数比几乎相同。</p>
+<h3 id="confusion-matrix">2.3.2 Confusion matrix</h3>
+<p><strong>任务：</strong></p>
+<ul>
+<li>计算二分类问题的混淆矩阵</li>
+<li>计算精确率、召回率以及f-分数</li>
+</ul>
+<ol type="1">
+<li><p>混肴矩阵</p>
+<p>示意图如下：</p>
+<p><img src="https://z3.ax1x.com/2021/06/20/RF16Fs.png" /></p></li>
+<li><p>指标值</p>
+<p>准确率 <code>Accuracy</code>，精确度
+<code>Precision</code>，<code>Recall</code>，<code>f-score</code>
+的计算方式：</p>
+<p><img src="https://z3.ax1x.com/2021/06/20/RF1Deg.png" /></p>
+<ul>
+<li>混淆矩阵的方法在 <code>sklearn.metrics</code> 模块</li>
+<li>混淆矩阵需要输入真实标签和预测标签</li>
+<li><code>Precision</code>，<code>Recall</code>，<code>f-score</code>可以使用
+<code>classification_report</code> 模块</li>
+</ul></li>
+</ol>
+<p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.metrics <span class="keyword">import</span> confusion_matrix</span><br><span class="line"></span><br><span class="line">clf = RandomForestClassifier()</span><br><span class="line">clf.fit(X_train.values, y_train) <span class="comment"># 训练</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 模型预测结果</span></span><br><span class="line">pred = clf.predict(X_train)</span><br></pre></td></tr></table></figure></p>
+<p><strong>混淆矩阵：</strong></p>
+<p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>confusion_matrix(y_train, pred)</span><br><span class="line"></span><br><span class="line">array([[<span class="number">412</span>,   <span class="number">0</span>],</span><br><span class="line">       [  <span class="number">0</span>, <span class="number">256</span>]], dtype=int64)</span><br></pre></td></tr></table></figure></p>
+<p><strong>指标值：</strong></p>
+<p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.metrics <span class="keyword">import</span> classification_report</span><br><span class="line">print(classification_report(y_train, pred))</span><br></pre></td></tr></table></figure></p>
+<pre><code>              precision    recall  f1-score   support
+
+         0.0       1.00      1.00      1.00       412
+         1.0       1.00      1.00      1.00       256
+
+    accuracy                           1.00       668
+   macro avg       1.00      1.00      1.00       668
+weighted avg       1.00      1.00      1.00       668</code></pre>
+<h3 id="roc-curve">2.3.3 ROC curve</h3>
+<ul>
+<li>ROC曲线在sklearn中的模块为<code>sklearn.metrics</code></li>
+<li>ROC曲线下面所包围的面积越大越好</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.svm <span class="keyword">import</span> SVC <span class="comment"># 支持向量机</span></span><br><span class="line"><span class="keyword">from</span> sklearn.metrics <span class="keyword">import</span> roc_curve</span><br><span class="line"></span><br><span class="line"><span class="comment"># clf = SVC(decision_function_shape=&quot;ovr&quot;,probability=True)</span></span><br><span class="line">clf = SVC(probability=<span class="literal">True</span>)</span><br><span class="line">clf.fit(X_train.values, y_train) <span class="comment"># 训练</span></span><br><span class="line"></span><br><span class="line">fpr, tpr, thresholds = roc_curve(y_test, clf.decision_function(X_test))</span><br><span class="line">plt.plot(fpr, tpr, label=<span class="string">&quot;ROC Curve&quot;</span>)</span><br><span class="line">plt.xlabel(<span class="string">&quot;FPR&quot;</span>)</span><br><span class="line">plt.ylabel(<span class="string">&quot;TPR (recall)&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 找到最接近于0的阈值</span></span><br><span class="line">close_zero = np.argmin(np.<span class="built_in">abs</span>(thresholds))</span><br><span class="line">plt.plot(fpr[close_zero], tpr[close_zero], <span class="string">&#x27;o&#x27;</span>, markersize=<span class="number">10</span>,</span><br><span class="line">         label=<span class="string">&quot;threshold zero&quot;</span>, fillstyle=<span class="string">&quot;none&quot;</span>, c=<span class="string">&#x27;k&#x27;</span>, mew=<span class="number">2</span>)</span><br><span class="line">plt.legend(loc=<span class="number">4</span>)</span><br></pre></td></tr></table></figure>
+<p>Result:</p>
+<p><img src="https://z3.ax1x.com/2021/06/20/RF1wy8.png" /></p>
+<p>在上述使用的支持向量机中，对于 <code>n</code> 分类，会有
+<code>n</code>
+个分类器，然后，任意两个分类器都可以算出一个分类界面，这样，用
+<code>decision_function()</code> 时，对于任意一个样例，就会有 <span
+class="math inline">n*(n-1)/2</span> 个值。</p>
+<p>任意两个分类器可以算出一个分类界面，然后这个值就是距离分类界面的距离。这个函数可能是为了统计画图，对于二分类时最明显，用来统计每个点离超平面有多远，为了在空间中直观的表示数据以及画超平面还有间隔平面等。
+<code>decision_function_shape</code> 为 <code>ovr</code> 时是 4 个值，为
+<code>ovo</code> 时是 6 个值。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>clf.decision_function(X_test)[:<span class="number">5</span>]</span><br><span class="line"></span><br><span class="line">array([-<span class="number">0.98942638</span>, -<span class="number">0.96365727</span>, -<span class="number">0.81459531</span>, -<span class="number">0.64715413</span>, -<span class="number">0.38873267</span>])</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p><code>np.argmin()</code></p>
+<p>获取最小值索引位置。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>np.argmin(np.<span class="built_in">abs</span>(thresholds))</span><br><span class="line"></span><br><span class="line"><span class="number">4</span></span><br></pre></td></tr></table></figure></li>
+<li><p>计算得分</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>clf.predict_proba(X) <span class="comment">#这个是得分,每个分类器的得分，取最大得分对应的类。</span></span><br><span class="line"></span><br><span class="line">array([[<span class="number">0.68136476</span>, <span class="number">0.31863524</span>],</span><br><span class="line">       [<span class="number">0.61321679</span>, <span class="number">0.38678321</span>],</span><br><span class="line">       [<span class="number">0.68211357</span>, <span class="number">0.31788643</span>],</span><br><span class="line">       			...,       </span><br><span class="line">       [<span class="number">0.63577539</span>, <span class="number">0.36422461</span>],</span><br><span class="line">       [<span class="number">0.61380992</span>, <span class="number">0.38619008</span>],</span><br><span class="line">       [<span class="number">0.68829583</span>, <span class="number">0.31170417</span>]])</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="classification-boundary">2.3.4 Classification boundary</h3>
+<p>借助 <code>decision_function</code>
+还在输入特征较少时直观地画出分类边界图。下面以一个输入特征为二维的小例子展示二维平面分类边界的绘制，案例参考自
+<a
+target="_blank" rel="noopener" href="https://blog.csdn.net/o1101574955/article/details/70212126">胖大海瘦西湖的博文</a>。</p>
+<ul>
+<li><p>模型构建</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">from</span> sklearn.svm <span class="keyword">import</span> SVC</span><br><span class="line"></span><br><span class="line"><span class="comment"># 构建输入特征和输出特征</span></span><br><span class="line">X = np.array([[-<span class="number">1</span>,-<span class="number">1</span>],[-<span class="number">2</span>,-<span class="number">1</span>],[<span class="number">1</span>,<span class="number">1</span>],[<span class="number">2</span>,<span class="number">1</span>],[-<span class="number">1</span>,<span class="number">1</span>],[-<span class="number">1</span>,<span class="number">2</span>],[<span class="number">1</span>,-<span class="number">1</span>],[<span class="number">1</span>,-<span class="number">2</span>]])</span><br><span class="line">y = np.array([<span class="number">0</span>,<span class="number">0</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">2</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">3</span>])</span><br><span class="line"></span><br><span class="line"><span class="comment"># clf = SVC(decision_function_shape=&quot;ovr&quot;,probability=True)</span></span><br><span class="line">clf = SVC(probability=<span class="literal">True</span>)</span><br><span class="line">clf.fit(X, y)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">plot_step=<span class="number">0.02</span></span><br><span class="line">x_min, x_max = X[:, <span class="number">0</span>].<span class="built_in">min</span>() - <span class="number">1</span>, X[:, <span class="number">0</span>].<span class="built_in">max</span>() + <span class="number">1</span> <span class="comment"># X 的第一维作为横坐标</span></span><br><span class="line">y_min, y_max = X[:, <span class="number">1</span>].<span class="built_in">min</span>() - <span class="number">1</span>, X[:, <span class="number">1</span>].<span class="built_in">max</span>() + <span class="number">1</span> <span class="comment"># 第二维作为纵坐标</span></span><br><span class="line"></span><br><span class="line">xx, yy = np.meshgrid(np.arange(x_min, x_max, plot_step),</span><br><span class="line">                     np.arange(y_min, y_max, plot_step))</span><br><span class="line"></span><br><span class="line"><span class="comment"># 对坐标风格上的点进行预测，来画分界面。其实最终看到的类的分界线就是分界面的边界线。</span></span><br><span class="line">Z = clf.predict(np.c_[xx.ravel(), yy.ravel()])</span><br><span class="line">Z = Z.reshape(xx.shape)</span><br></pre></td></tr></table></figure></li>
+</ul>
+<p><strong>Note:</strong> 上述代码中使用到了 <code>np.meshgrid</code>
+函数，官方文档看起来文绉绉的，理解起来不是很直观。通俗来讲，这个函数的作用是利用两个坐标轴上的点在平面上画网格。</p>
+<p>返回两个参数，<code>xx</code>
+中记录了网格中所有点的横坐标，<code>yy</code>
+记录了网格中所有点的纵坐标。其运行过程可通过下图加深理解：</p>
+<p><img src="https://z3.ax1x.com/2021/06/20/RF10OS.jpg" /></p>
+<center>
+（图源公众号： Python数据之道）
+</center>
+<p><strong>用法：</strong></p>
+<ul>
+<li><code>[X, Y] = meshgrid(x, y)</code></li>
+<li><code>[X, Y] = meshgrid(x)</code>与
+<code>[X, Y] = meshgrid(x, x)</code> 等同</li>
+<li><code>[X, Y, Z] = meshgrid(x, y, z)</code>
+生成三维数组，可用来计算三变量的函数和绘制三维立体图</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">cs = plt.contourf(xx, yy, Z, cmap=plt.cm.Paired) <span class="comment"># 绘制轮廓线</span></span><br><span class="line">plt.axis(<span class="string">&quot;tight&quot;</span>)</span><br><span class="line"></span><br><span class="line">class_names=<span class="string">&quot;ABCD&quot;</span></span><br><span class="line">plot_colors=<span class="string">&quot;rybg&quot;</span></span><br><span class="line"><span class="keyword">for</span> i, n, c <span class="keyword">in</span> <span class="built_in">zip</span>(<span class="built_in">range</span>(<span class="number">4</span>), class_names, plot_colors):</span><br><span class="line">    idx = np.where(y == i) <span class="comment">#i为0或者1，两个类</span></span><br><span class="line">    plt.scatter(X[idx, <span class="number">0</span>], X[idx, <span class="number">1</span>],</span><br><span class="line">                c=c, cmap=plt.cm.Paired,</span><br><span class="line">                label=<span class="string">&quot;Class %s&quot;</span> % n)</span><br><span class="line"></span><br><span class="line">plt.xlim(x_min, x_max)</span><br><span class="line">plt.ylim(y_min, y_max)</span><br><span class="line">plt.legend(loc=<span class="string">&#x27;upper right&#x27;</span>)</span><br><span class="line">plt.xlabel(<span class="string">&#x27;x&#x27;</span>)</span><br><span class="line">plt.ylabel(<span class="string">&#x27;y&#x27;</span>)</span><br><span class="line">plt.title(<span class="string">&#x27;Decision Boundary&#x27;</span>)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+<p>Results:</p>
+<p><img src="https://z3.ax1x.com/2021/06/20/RF1rwQ.png" /></p>
+
+    </div>
+
+    
+    
+    
+
+    <div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">
+            -------------This blog is over!
+            <i class="fa fa-eye"></i>
+            Thanks for your reading-------------
+        </div>
+    
+</div>
+      
+    </div>
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>Post author:  </strong>YangSu
+  </li>
+  <li class="post-copyright-link">
+    <strong>Post link: </strong>
+    <a href="http://yangsuoly.com/2021/06/19/DataAnalysis-Modeling/" title="DataAnalysis-Modeling">http://yangsuoly.com/2021/06/19/DataAnalysis-Modeling/</a>
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/Tags/Python/" rel="tag"><i class="fa fa-tag"></i> Python</a>
+              <a href="/Tags/Data-Analysis/" rel="tag"><i class="fa fa-tag"></i> Data Analysis</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/06/17/DataAnalysis-Cleaning/" rel="prev" title="DataAnalysis-Cleaning">
+      <i class="fa fa-chevron-left"></i> DataAnalysis-Cleaning
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/08/03/Pytorch-1-Introduction/" rel="next" title="Pytorch-1-Introduction">
+      Pytorch-1-Introduction <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div id="music163player">
+      <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=1317956275&auto=0&height=66"></iframe>
+      </iframe>
+    </div>
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#modeling-creation"><span class="nav-text">1 Modeling creation</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#preparation"><span class="nav-text">1.1 Preparation</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#feature-engineer"><span class="nav-text">1.2 Feature engineer</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#fillna"><span class="nav-text">1.2.1 Fillna</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#encoding-classification-variable"><span class="nav-text">1.2.2 Encoding classification
+variable</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#construction"><span class="nav-text">1.3 Construction</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#split-data"><span class="nav-text">1.3.1 Split data</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#modeling"><span class="nav-text">1.3.2 Modeling</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#cases"><span class="nav-text">1.3.3 Cases</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#prediction"><span class="nav-text">1.4 Prediction</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#model-evaluation"><span class="nav-text">2 Model evaluation</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#preparation-1"><span class="nav-text">2.1 Preparation</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#load-modules"><span class="nav-text">2.1.1 Load modules</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#load-data"><span class="nav-text">2.1.2 Load data</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#split-data-1"><span class="nav-text">2.1.3 Split data</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#construction-1"><span class="nav-text">2.2 Construction</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#evaluation"><span class="nav-text">2.3 Evaluation</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#cross-validation"><span class="nav-text">2.3.1 Cross-validation</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#confusion-matrix"><span class="nav-text">2.3.2 Confusion matrix</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#roc-curve"><span class="nav-text">2.3.3 ROC curve</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#classification-boundary"><span class="nav-text">2.3.4 Classification boundary</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="YangSu"
+      src="/images/YangSu.jpg">
+  <p class="site-author-name" itemprop="name">YangSu</p>
+  <div class="site-description" itemprop="description">A blog for recording learning notes...</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">78</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/Categories/">
+          
+        <span class="site-state-item-count">40</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/Tags/">
+          
+        <span class="site-state-item-count">49</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/YangSuoly" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;YangSuoly" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://gitee.com/yangsuoly" title="Gitee → https:&#x2F;&#x2F;gitee.com&#x2F;yangsuoly" rel="noopener" target="_blank"><i class="fab fa-github-square fa-fw"></i>Gitee</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://space.bilibili.com/64518717" title="B 站 → https:&#x2F;&#x2F;space.bilibili.com&#x2F;64518717" rel="noopener" target="_blank"><i class="fa fa-play-circle fa-fw"></i>B 站</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Related links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://www.58pic.com/u/19637930/" title="https:&#x2F;&#x2F;www.58pic.com&#x2F;u&#x2F;19637930&#x2F;" rel="noopener" target="_blank">千图网</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js" integrity="sha384-g7c+Jr9ZivxKLnZTDUhnkOnsh30B4H0rpLUpJ4jAIKs4fnJI+sEnkvrMWph2EDg4" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/auto-render.min.js" integrity="sha384-mll67QQFJfxn0IYznZYonOWZ644AWYC+Pt2cHqMaRhXVrursRwvLnLaebdGIlYNa" crossorigin="anonymous"
+        onload="renderMathInElement(document.body);"></script>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2026</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">YangSu</span>
+</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="Total Visitors">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="Total Views">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script size="300" alpha="0.6" zIndex="-1" src="/lib/canvas-ribbon/canvas-ribbon.js"></script>
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+<script>
+document.querySelectorAll('.pdfobject-container').forEach(element => {
+  let url = element.dataset.target;
+  let pdfOpenParams = {
+    navpanes : 0,
+    toolbar  : 0,
+    statusbar: 0,
+    pagemode : 'thumbs',
+    view     : 'FitH'
+  };
+  let pdfOpenFragment = '#' + Object.entries(pdfOpenParams).map(([key, value]) => `${key}=${encodeURIComponent(value)}`).join('&');
+  let fullURL = `/lib/pdf/web/viewer.html?file=${encodeURIComponent(url)}${pdfOpenFragment}`;
+
+  if (NexT.utils.supportsPDFs()) {
+    element.innerHTML = `<embed class="pdfobject" src="${url + pdfOpenFragment}" type="application/pdf" style="height: ${element.dataset.height};">`;
+  } else {
+    element.innerHTML = `<iframe src="${fullURL}" style="height: ${element.dataset.height};" frameborder="0"></iframe>`;
+  }
+});
+</script>
+
+
+<script>
+if (document.querySelectorAll('pre.mermaid').length) {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js', () => {
+    mermaid.initialize({
+      theme    : 'forest',
+      logLevel : 3,
+      flowchart: { curve     : 'linear' },
+      gantt    : { axisFormat: '%m/%d/%Y' },
+      sequence : { actorMargin: 50 }
+    });
+  }, window.mermaid);
+}
+</script>
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+  <script src="//cdn.jsdelivr.net/npm/quicklink@1/dist/quicklink.umd.js"></script>
+  <script>
+      window.addEventListener('load', () => {
+      quicklink({
+        timeout : 3000,
+        priority: true,
+        ignores : [uri => uri.includes('#'),uri => uri === 'http://yangsuoly.com/2021/06/19/DataAnalysis-Modeling/',]
+      });
+      });
+  </script>
+
+  
+  <script id="ribbon" src="js/canvas-ribbon.js"></script>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/22.2017.cba-normal.model.json"},"display":{"position":"right","width":300,"height":450},"mobile":{"show":false},"react":{"opacity":0.7},"log":false});</script></body>
+</html>

@@ -1,0 +1,998 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/blog-logo-32px.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/blog-logo-16px.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <link rel="manifest" href="/images/manifest.json">
+  <meta name="msapplication-config" content="/images/browserconfig.xml">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yangsuoly.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":true},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":true,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="6. 模型架构 6.1 大模型之模型概括 语言模型可以被看做是一个黑箱，当前大规模语言模型的能力在于给定一个基于自身需求的prompt 就可以生成符合需求的结果。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Large-lm-5-Framework">
+<meta property="og:url" content="http://yangsuoly.com/2023/09/16/Large-lm-5-Framework/index.html">
+<meta property="og:site_name" content="独孤诗人的学习驿站">
+<meta property="og:description" content="6. 模型架构 6.1 大模型之模型概括 语言模型可以被看做是一个黑箱，当前大规模语言模型的能力在于给定一个基于自身需求的prompt 就可以生成符合需求的结果。">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2023-09-16T04:47:43.000Z">
+<meta property="article:modified_time" content="2023-09-16T09:02:46.263Z">
+<meta property="article:author" content="YangSu">
+<meta property="article:tag" content="LM">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://yangsuoly.com/2023/09/16/Large-lm-5-Framework/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>Large-lm-5-Framework | 独孤诗人的学习驿站</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?f59f5fb59d32ec3903088b0f976956d1";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta custom-logo">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">独孤诗人的学习驿站</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">生活就是一半烟火，一半诗意。手执烟火谋生活，心怀诗意谋未来……</p>
+      <a>
+        <img class="custom-logo-image" src="/images/logo@2x.png" alt="独孤诗人的学习驿站">
+      </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/Tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/Categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+  <a href="https://github.com/YangSuoly" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yangsuoly.com/2023/09/16/Large-lm-5-Framework/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/YangSu.jpg">
+      <meta itemprop="name" content="YangSu">
+      <meta itemprop="description" content="A blog for recording learning notes...">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="独孤诗人的学习驿站">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Large-lm-5-Framework
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2023-09-16 12:47:43 / Modified: 17:02:46" itemprop="dateCreated datePublished" datetime="2023-09-16T12:47:43+08:00">2023-09-16</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/Categories/DataWhale/" itemprop="url" rel="index"><span itemprop="name">DataWhale</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/Categories/DataWhale/Large-LM/" itemprop="url" rel="index"><span itemprop="name">Large LM</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="Views" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span><br>
+            <span class="post-meta-item" title="Symbols count in article">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">Symbols count in article: </span>
+              <span>6.9k</span>
+            </span>
+            <span class="post-meta-item" title="Reading time">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">Reading time &asymp;</span>
+              <span>6 mins.</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="模型架构">6. 模型架构</h1>
+<h2 id="大模型之模型概括">6.1 大模型之模型概括</h2>
+<p>语言模型可以被看做是一个黑箱，当前大规模语言模型的能力在于给定一个基于自身需求的<code>prompt</code>
+就可以生成符合需求的结果。</p>
+<a id="more"></a>
+<p>语言模型的形式可以表达为： <span class="math display">
+prompt \leadsto completion
+</span> 从数学的角度考虑就对训练数据 (traing data: <span
+class="math inline">(x_{1},…,x_{L})</span>)的概率分布： <span
+class="math display">
+trainingData \Rightarrow p(x_{1},...,x_{L}).
+</span>
+本章将讨论大型语言模型的构建，主要讨论两个主题，分别是分词和模型架构：</p>
+<ul>
+<li><p><strong>分词</strong>：将字符串拆分成多个标记。</p></li>
+<li><p><strong>模型架构</strong>：主要讨论 <code>Transformer</code>
+架构，这是真正实现大型语言模型的建模创新。</p></li>
+</ul>
+<h2 id="分词">6.2 分词</h2>
+<h3 id="基于空格的分词">6.2.1 基于空格的分词</h3>
+<p>最简单的解决方案是使用 <code>text.split(' ')</code>
+方式进行分词，这种分词方式对于英文这种按照空格，且每个分词后的单词有语义关系的文本是简单而直接的分词方式。</p>
+<p>然而，空格来划分单词会带来很多问题：</p>
+<ul>
+<li><p>对于一些语言，如中文，句子中的单词之间没有空格：</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&quot;我今天去了商店。&quot;</span><br></pre></td></tr></table></figure></li>
+<li><p>还有一些语言，比如德语，存在着长的复合词（例如Abwasserbehandlungsanlange）。</p></li>
+<li><p>英语的连字符词（例如father-in-law）和缩略词（例如don't）等也需要被正确拆分。</p>
+<p>例如，Penn
+Treebank将don't拆分为do和n't，这是一个在语言上基于信息的选择，但不太明显。</p></li>
+</ul>
+<p>那么，什么样的分词才是好的呢？目前从直觉和工程实践的角度来说：</p>
+<ul>
+<li>不希望有太多的标记（极端情况：字符或字节），否则序列会变得难以建模。</li>
+<li>不希望标记过少，否则单词之间就无法共享参数（例如，mother-in-law 和
+father-in-law 应该有着相似的特征）。</li>
+<li>每个标记应该是一个在语言或统计上有意义的单位。</li>
+</ul>
+<p>例子：</p>
+<ol type="1">
+<li><span class="math inline">[t, h, e, c, c, a, r],[t, h, e, c, c, a,
+t],[t, h, e, c, r, a, t]</span></li>
+<li>[th, e, <span class="math inline">, c, a, r],[t h, e, u, c, a, t],[t
+h, e, c, r, a, t]</span> (th 出现了 3次)</li>
+<li>[the, <span class="math inline">\leq, c, a, r]</span>, [the, <span
+class="math inline">\sqcup, c, a, t],[</span> the, <span
+class="math inline">u, r, a, t]</span> (the 出现了 3次)</li>
+<li>[the, <span class="math inline">\sqcup, c a, r],[</span> the, <span
+class="math inline">u, c a, t],[</span> the, <span
+class="math inline">\sqcup, r, a, t]</span> (ca 出现了 2次)</li>
+</ol>
+<h3 id="byte-pair-encoding">6.2.2 Byte pair encoding</h3>
+<p>将字节对编码（<a
+target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E5%AD%97%E8%8A%82%E5%AF%B9%E7%BC%96%E7%A0%81">BPE</a>）算法应用于数据压缩领域，用于生成其中一个最常用的分词器。<code>BPE</code>
+分词器需要通过模型训练数据进行学习，获得需要分词文本的一些频率特征。</p>
+<p>学习分词器的过程，直觉上，我们将每个字符作为自己的标记，并组合那些经常共同出现的标记。整个过程可以表示为：</p>
+<ul>
+<li>输入：训练语料库（字符序列）。</li>
+<li>初始化词汇表 <span class="math inline">V</span> 为字符的集合。</li>
+<li>当我们仍然希望 <span class="math inline">V</span> 继续增长时： 找到
+<span class="math inline">V</span> 中共同出现次数最多的元素对 <span
+class="math inline">x,x&#39;</span>。</li>
+<li>用一个新的符号 <span class="math inline">xx&#39;</span> 替换所有
+<span class="math inline">x,x&#39;</span> 的出现。将</li>
+<li><span class="math inline">xx&#39;</span> 添加到 <span
+class="math inline">V</span> 中。</li>
+</ul>
+<p><strong>Unicode的问题</strong>：</p>
+<p>Unicode（统一码）是当前主流的一种编码方式。考虑到
+<code>Unicode</code>
+字符非常多（共144,697个字符），在训练数据中我们不可能见到所有的字符。因此我们可以借助
+<code>BPE</code> 算法对字节而不是 <code>Unicode</code>
+字符，来减少数据的稀疏性 <a
+target="_blank" rel="noopener" href="https://arxiv.org/pdf/1909.03341.pdf">(Wang et al., 2019)</a>。
+以中文为例： <span class="math display">
+\text { 今天} \Rightarrow \text {[x62, x11, 4e, ca]}
+</span> <code>BPE</code>
+算法在这里的作用是为了进一步减少数据的稀疏性。通过对字节级别进行分词，可以在多语言环境中更好地处理Unicode字符的多样性，并减少数据中出现的低频词汇，提高模型的泛化能力。通过使用字节编码，可以将不同语言中的词汇统一表示为字节序列，从而更好地处理多语言数据。</p>
+<h3 id="unigram-model-sentencepiece">6.2.3 Unigram model
+(SentencePiece)</h3>
+<p>与仅仅根据频率进行拆分不同，一个更“有原则”的方法是定义一个目标函数来捕捉一个好的分词的特征，这种基于目标函数的分词模型可以适应更好分词场景，Unigram
+model就是基于这种动机提出的 <a
+target="_blank" rel="noopener" href="https://arxiv.org/pdf/1804.10959.pdf">(Kudo, 2018)</a>。</p>
+<p>这是 <code>SentencePiece</code> 工具 <a
+target="_blank" rel="noopener" href="https://aclanthology.org/D18-2012.pdf">(Kudo＆Richardson,
+2018)</a> 所支持的一种分词方法，与 <code>BPE</code>
+一起使用。它被用来训练 <code>T5</code> 和 <code>Gopher</code>
+模型。给定一个序列 <span class="math inline">x_{1:L}</span>，分词器
+<span class="math inline">T</span> 是： <span class="math display">
+p\left(x_{1: L}\right)=\prod_{(i, j) \in T} p\left(x_{i: j}\right)
+</span> 的一个集合。</p>
+<p>这边给出一个实例：</p>
+<ul>
+<li>训练数据（字符串）：<span class="math inline">𝖺𝖻𝖺𝖻𝖼</span></li>
+<li>分词结果 <span class="math inline">T={(1,2),(3,4),(5,5)}</span>
+（其中<span class="math inline">V=\{𝖺𝖻,𝖼\}</span>）</li>
+<li>似然值：<span
+class="math inline">p(x_{1:L})=2/3⋅2/3⋅1/3=4/9</span></li>
+</ul>
+<p>在这个例子中，训练数据是字符串"<span
+class="math inline">𝖺𝖻𝖺𝖻𝖼</span>"。分词结果 <span
+class="math inline">T={(1,2),(3,4),(5,5)}</span>
+表示将字符串拆分成三个子序列：<span
+class="math inline">(𝖺,𝖻)，(𝖺,𝖻)，(𝖼)</span>。词汇表 $ V={𝖺𝖻,𝖼}$
+表示了训练数据中出现的所有词汇。</p>
+<p>似然值 $p(x_{1:L}) $ 是根据 <code>unigram</code>
+模型计算得出的概率，表示训练数据的似然度。在这个例子中，概率的计算为
+<span class="math inline">2/3⋅2/3⋅1/3=4/9</span>。这个值代表了根据
+<code>unigram</code> 模型，将训练数据分词为所给的分词结果 <span
+class="math inline">T</span> 的概率。</p>
+<p>unigram
+模型通过统计每个词汇在训练数据中的出现次数来估计其概率。在这个例子中，<span
+class="math inline">𝖺𝖻</span> 在训练数据中出现了两次，$𝖼 $
+出现了一次。因此，根据 unigram 模型的估计， <span class="math display">
+\begin{align*}
+p(𝖺𝖻)&amp;=2/3，\\
+p(𝖼)&amp;=1/3
+\end{align*}
+</span> 通过将各个词汇的概率相乘，我们可以得到整个训练数据的似然值为
+<span class="math inline">4/9</span>。</p>
+<p>似然值的计算是 unigram
+模型中重要的一部分，它用于评估分词结果的质量。较高的似然值表示训练数据与分词结果之间的匹配程度较高，这意味着该分词结果较为准确或合理。</p>
+<p><strong>算法流程</strong></p>
+<ul>
+<li>从一个“相当大”的种子词汇表 <span class="math inline">V</span>
+开始。</li>
+<li>重复以下步骤：
+<ul>
+<li>给定 <span class="math inline">V</span> ，使用 <code>EM</code>
+算法优化 <span class="math inline">p(x)</span> 和 <span
+class="math inline">T</span> 。</li>
+<li>计算每个词汇 <span class="math inline">x∈V</span> 的 <span
+class="math inline">loss(x)</span> ，衡量如果将 <span
+class="math inline">x</span> 从 <span class="math inline">V</span>
+中移除，似然值会减少多少。</li>
+<li>按照 <span class="math inline">loss</span> 进行排序，并保留 <span
+class="math inline">V</span> 中排名靠前的 <span
+class="math inline">80\%</span> 的词汇。</li>
+</ul></li>
+</ul>
+<p>这个过程旨在优化词汇表，剔除对似然值贡献较小的词汇，以减少数据的稀疏性，并提高模型的效果。通过迭代优化和剪枝，词汇表会逐渐演化，保留那些对于似然值有较大贡献的词汇，提升模型的性能。</p>
+<h2 id="模型架构-1">6.3 模型架构</h2>
+<p>到目前为止，我们已经将语言模型定义为对标记序列的概率分布 <span
+class="math inline">p(x_{1},…,x_{L})</span>。</p>
+<p>接下来介绍上下文向量表征 (Contextual
+Embedding)，主要的关键发展是将标记序列与相应的上下文的向量表征： <span
+class="math display">
+[the, mouse, ate, the, cheese]
+\stackrel{\phi}{\Rightarrow}\left[\left(\begin{array}{c}
+1 \\
+0.1
+\end{array}\right),\left(\begin{array}{l}
+0 \\
+1
+\end{array}\right),\left(\begin{array}{l}
+1 \\
+1
+\end{array}\right),\left(\begin{array}{c}
+1 \\
+-0.1
+\end{array}\right),\left(\begin{array}{c}
+0 \\
+-1
+\end{array}\right)\right].
+</span>
+正如名称所示，标记的上下文向量表征取决于其上下文（周围的单词）；例如，考虑
+<code>mouse</code> 的向量表示需要关注到周围某个窗口大小的其他单词。</p>
+<ul>
+<li><p>符号表示：我们将 <span class="math inline">ϕ:V^{L}→ℝ^{d×L}</span>
+定义为嵌入函数（类似于序列的特征映射，映射为对应的向量表示）。</p></li>
+<li><p>对于标记序列 <span
+class="math inline">x1:L=[x_{1},…,x_{L}]</span>，<span
+class="math inline">ϕ</span> 生成上下文向量表征 <span
+class="math inline">ϕ(x_{1:L})</span>。</p></li>
+</ul>
+<h3 id="语言模型分类">6.3.1 语言模型分类</h3>
+<p>对于语言模型来说，最初的起源来自于 <code>Transformer</code>
+模型，这个模型是编码-解码端
+（Encoder-Decoder）的架构。但是当前对于语言模型的分类，将语言模型分为三个类型：</p>
+<ul>
+<li>编码端（Encoder-Only）：<code>BERT</code>、<code>RoBERTa</code>
+等；</li>
+<li>解码端（Decoder-Only）： <code>GPT</code> 系列模型；</li>
+<li>编码-解码端（Encoder-Decoder）： <code>Transformer</code>、
+<code>BART</code>、<code>T5</code> 等模型。</li>
+</ul>
+<h3 id="语言模型理论">6.3.2 语言模型理论</h3>
+<p>接下来介绍语言模型的模型架构，此处主要介绍 <code>Transformer</code>
+架构 <a target="_blank" rel="noopener" href="https://arxiv.org/pdf/1706.03762.pdf">(Vaswani et
+al.,2017)</a>：</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/YangSuoly/Images/Large-LM/202309161426477.png" /></p>
+<p>从上图可知，<code>Transformer</code>
+模型的左右两侧分别是基础的编码器（Encoder）和解码器（Decoder）单元，两者共同组合构成了一个Transformer
+层。主要部分介绍如下：</p>
+<ol type="1">
+<li>输入：模型的训练不要求输入和输出数据的长度相同，当两者长度不相同时，将空缺部分填充为零向量（<code>pad</code>）。</li>
+<li>输出（右滑）：在文本摘要任务中，模型训练的目的是为了预测下一个字符的概率，从而保持输入和输出的数据长度相同，这时输出的结果可以视为相对于输入序列往右移了一个单位，即右滑。</li>
+<li>基于位置的词嵌入：借助正弦曲线对单词在文本中的相对位置进行建模。在语言模型的构建中，词的顺序会对句子的语义产生影响，因此Transformer模型中增加了词的位置信息，即基于位置的词嵌入。所以编码器的输入是输入词嵌入和对应位置的嵌入信息的组合。</li>
+<li>多头注意力层：图4中的每个多头注意力层下方都传进3个并列的箭头，它们分别表示Value（<span
+class="math inline">V</span>）、Key（<span
+class="math inline">K</span>）和Query（<span
+class="math inline">Q</span>）。编码器的每一层使用线性变化处理隐藏状态，分化出Key和Value传递给解码器的多头注意层。</li>
+<li><span
+class="math inline">N</span>层：Transformer模型的深度通常为6层，在每一层的末端，编码器与解码器会将隐藏状态传递给下一层。</li>
+<li>全连接前馈神经网络：对不同位置的词嵌入信息进行变换，使得其在任务上下游中的维度统一。</li>
+<li>相加并归一化层：将上一层的输入数据与输出数据进行相加，形成残差结构并进行归一化处理。</li>
+<li>全连接输出层：以概率分布的形式输出模型的结果。</li>
+</ol>
+<p><code>Transformer</code>
+是真正推动大型语言模型发展的序列模型。正如之前所提到的，Transformer模型将其分解为Encoder-Only（GPT-2，GPT-3）、Decoder-Only（BERT，RoBERTa）和Encoder-Decoder（BART，T5）模型的构建模块。</p>
+<p>关于Transformer的学习资源有很多：</p>
+<ul>
+<li><a
+target="_blank" rel="noopener" href="https://jalammar.github.io/illustrated-transformer/">Illustrated
+Transformer</a>和<a
+target="_blank" rel="noopener" href="https://jalammar.github.io/illustrated-gpt2/">Illustrated
+GPT-2</a>：对Transformer的视觉描述非常好。</li>
+<li><a
+target="_blank" rel="noopener" href="https://nlp.seas.harvard.edu/2018/04/03/attention.html">Annotated
+Transformer</a>：Transformer的Pytorch实现。</li>
+</ul>
+<p>Transformer 的关键技术：</p>
+<ul>
+<li>注意力机制</li>
+<li>残差连接和归一化</li>
+<li>位置嵌入</li>
+</ul>
+<h2 id="reference">6.4 Reference</h2>
+<p>分词:</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2112.10508.pdf">Between words and
+characters: A Brief History of Open-Vocabulary Modeling and Tokenization
+in NLP</a>. <em>Sabrina J et al</em>. 2021. Comprehensive survey of
+tokenization.</li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/1508.07909.pdf">Neural Machine
+Translation of Rare Words with Subword Units</a>. <em>Rico Sennrich, B.
+Haddow, Alexandra Birch</em>. ACL 2015. Introduces <strong>byte pair
+encoding</strong> into NLP. Used by GPT-2, GPT-3.</li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/1609.08144.pdf">Google’s Neural
+Machine Translation System: Bridging the Gap between Human and Machine
+Translation</a>. <em>Yonghui Wu, M et al</em>. 2016. Introduces
+<strong>WordPiece</strong>. Used by BERT.</li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/1808.06226.pdf">SentencePiece: A
+simple and language independent subword tokenizer and detokenizer for
+Neural Text Processing</a>. <em>Taku Kudo, John Richardson</em>. EMNLP
+2018. Introduces <strong>SentencePiece</strong>.</li>
+</ul>
+<p>模型架构:</p>
+<ul>
+<li><a
+target="_blank" rel="noopener" href="https://d4mucfpksywv.cloudfront.net/better-language-models/language_models_are_unsupervised_multitask_learners.pdf">Language
+Models are Unsupervised Multitask Learners</a>. Introduces GPT-2.</li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/1706.03762.pdf">Attention is All you
+Need</a>. <em>Ashish Vaswani et al</em>. NIPS 2017.</li>
+<li><a
+target="_blank" rel="noopener" href="https://jalammar.github.io/illustrated-transformer/">Illustrated
+Transformer</a></li>
+<li><a
+target="_blank" rel="noopener" href="http://web.stanford.edu/class/cs224n/slides/cs224n-2022-lecture06-fancy-rnn.pdf">CS224N
+slides on RNNs</a></li>
+<li><a
+target="_blank" rel="noopener" href="http://web.stanford.edu/class/cs224n/slides/cs224n-2021-lecture09-transformers.pdf">CS224N
+slides on Transformers</a></li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2108.12409.pdf">Train Short, Test
+Long: Attention with Linear Biases Enables Input Length
+Extrapolation</a>. <em>Ofir Press, Noah A. Smith, M. Lewis</em>. 2021.
+Introduces <strong>Alibi embeddings</strong>.</li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/1901.02860.pdf">Transformer-XL:
+Attentive Language Models beyond a Fixed-Length Context</a>. <em>Zihang
+Dai et al</em>. ACL 2019. Introduces recurrence on Transformers,
+relative position encoding scheme.</li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/1904.10509.pdf">Generating Long
+Sequences with Sparse Transformers</a>. <em>R. Child, Scott Gray, Alec
+Radford, Ilya Sutskever</em>. 2019. Introduces <strong>Sparse
+Transformers</strong>.</li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2006.04768.pdf">Linformer:
+Self-Attention with Linear Complexity</a>. <em>Sinong Wang, Belinda Z.
+Li, Madian Khabsa, Han Fang, Hao Ma</em>. 2020. Introduces
+<strong>Linformers</strong>.</li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2009.14794.pdf">Rethinking Attention
+with Performers</a>. <em>K. Choromanski et al</em>. ICLR 2020.
+Introduces <strong>Performers</strong>.</li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2009.06732.pdf">Efficient
+Transformers: A Survey</a>. <em>Yi Tay, M. Dehghani, Dara Bahri, Donald
+Metzler</em>. 2020.</li>
+</ul>
+<p>Decoder-only 架构:</p>
+<ul>
+<li><a
+target="_blank" rel="noopener" href="https://d4mucfpksywv.cloudfront.net/better-language-models/language-models.pdf">Language
+Models are Unsupervised Multitask Learners</a>. <em>Alec Radford et
+al</em>. 2019. Introduces <strong>GPT-2</strong> from OpenAI.</li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2005.14165.pdf">Language Models are
+Few-Shot Learners</a>. <em>Tom B. Brown et al</em>. NeurIPS 2020.
+Introduces <strong>GPT-3</strong> from OpenAI.</li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2112.11446.pdf">Scaling Language
+Models: Methods, Analysis&amp;Insights from Training Gopher</a>.
+<em>Jack W et al</em>. 2021. Introduces <strong>Gopher</strong> from
+DeepMind.</li>
+<li><a
+target="_blank" rel="noopener" href="https://uploads-ssl.webflow.com/60fd4503684b466578c0d307/61138924626a6981ee09caf6_jurassic_tech_paper.pdf">Jurassic-1:
+Technical details and evaluation</a>. <em>Opher Lieber, Or Sharir, Barak
+Lenz, Yoav Shoham</em>. 2021. Introduces <strong>Jurassic</strong> from
+AI21 Labs.</li>
+</ul>
+<p>Encoder-only 架构:</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/1810.04805.pdf">BERT: Pre-training of
+Deep Bidirectional Transformers for Language Understanding</a>.
+<em>Jacob Devlin, Ming-Wei Chang, Kenton Lee, Kristina Toutanova</em>.
+NAACL 2019. Introduces <strong>BERT</strong> from Google.</li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/1907.11692.pdf">RoBERTa: A Robustly
+Optimized BERT Pretraining Approach</a>. <em>Yinhan Liu et al</em>.
+2019. Introduces <strong>RoBERTa</strong> from Facebook.</li>
+</ul>
+<p>Encoder-decoder 架构:</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/1910.13461.pdf">BART: Denoising
+Sequence-to-Sequence Pre-training for Natural Language Generation,
+Translation, and Comprehension</a>. <em>M. Lewis et al</em>. ACL 2019.
+Introduces <strong>BART</strong> from Facebook.</li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/1910.10683.pdf">Exploring the Limits
+of Transfer Learning with a Unified Text-to-Text Transformer</a>.
+<em>Colin Raffel et al</em>. J. Mach. Learn. Res. 2019. Introduces
+<strong>T5</strong> from Google.</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">
+            -------------This blog is over!
+            <i class="fa fa-eye"></i>
+            Thanks for your reading-------------
+        </div>
+    
+</div>
+      
+    </div>
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>Post author:  </strong>YangSu
+  </li>
+  <li class="post-copyright-link">
+    <strong>Post link: </strong>
+    <a href="http://yangsuoly.com/2023/09/16/Large-lm-5-Framework/" title="Large-lm-5-Framework">http://yangsuoly.com/2023/09/16/Large-lm-5-Framework/</a>
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/Tags/LM/" rel="tag"><i class="fa fa-tag"></i> LM</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2023/09/13/Large-lm-4-Data-and-Law/" rel="prev" title="Large-lm-4-Data-and-Law">
+      <i class="fa fa-chevron-left"></i> Large-lm-4-Data-and-Law
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2023/09/16/Large-lm-6-Training/" rel="next" title="Large-lm-6-Training">
+      Large-lm-6-Training <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div id="music163player">
+      <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=1317956275&auto=0&height=66"></iframe>
+      </iframe>
+    </div>
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%A8%A1%E5%9E%8B%E6%9E%B6%E6%9E%84"><span class="nav-text">6. 模型架构</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%A7%E6%A8%A1%E5%9E%8B%E4%B9%8B%E6%A8%A1%E5%9E%8B%E6%A6%82%E6%8B%AC"><span class="nav-text">6.1 大模型之模型概括</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%86%E8%AF%8D"><span class="nav-text">6.2 分词</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E4%BA%8E%E7%A9%BA%E6%A0%BC%E7%9A%84%E5%88%86%E8%AF%8D"><span class="nav-text">6.2.1 基于空格的分词</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#byte-pair-encoding"><span class="nav-text">6.2.2 Byte pair encoding</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#unigram-model-sentencepiece"><span class="nav-text">6.2.3 Unigram model
+(SentencePiece)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A8%A1%E5%9E%8B%E6%9E%B6%E6%9E%84-1"><span class="nav-text">6.3 模型架构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B%E5%88%86%E7%B1%BB"><span class="nav-text">6.3.1 语言模型分类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B%E7%90%86%E8%AE%BA"><span class="nav-text">6.3.2 语言模型理论</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#reference"><span class="nav-text">6.4 Reference</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="YangSu"
+      src="/images/YangSu.jpg">
+  <p class="site-author-name" itemprop="name">YangSu</p>
+  <div class="site-description" itemprop="description">A blog for recording learning notes...</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">78</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/Categories/">
+          
+        <span class="site-state-item-count">40</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/Tags/">
+          
+        <span class="site-state-item-count">49</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/YangSuoly" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;YangSuoly" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://gitee.com/yangsuoly" title="Gitee → https:&#x2F;&#x2F;gitee.com&#x2F;yangsuoly" rel="noopener" target="_blank"><i class="fab fa-github-square fa-fw"></i>Gitee</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://space.bilibili.com/64518717" title="B 站 → https:&#x2F;&#x2F;space.bilibili.com&#x2F;64518717" rel="noopener" target="_blank"><i class="fa fa-play-circle fa-fw"></i>B 站</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Related links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://www.58pic.com/u/19637930/" title="https:&#x2F;&#x2F;www.58pic.com&#x2F;u&#x2F;19637930&#x2F;" rel="noopener" target="_blank">千图网</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js" integrity="sha384-g7c+Jr9ZivxKLnZTDUhnkOnsh30B4H0rpLUpJ4jAIKs4fnJI+sEnkvrMWph2EDg4" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/auto-render.min.js" integrity="sha384-mll67QQFJfxn0IYznZYonOWZ644AWYC+Pt2cHqMaRhXVrursRwvLnLaebdGIlYNa" crossorigin="anonymous"
+        onload="renderMathInElement(document.body);"></script>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2026</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">YangSu</span>
+</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="Total Visitors">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="Total Views">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script size="300" alpha="0.6" zIndex="-1" src="/lib/canvas-ribbon/canvas-ribbon.js"></script>
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+<script>
+document.querySelectorAll('.pdfobject-container').forEach(element => {
+  let url = element.dataset.target;
+  let pdfOpenParams = {
+    navpanes : 0,
+    toolbar  : 0,
+    statusbar: 0,
+    pagemode : 'thumbs',
+    view     : 'FitH'
+  };
+  let pdfOpenFragment = '#' + Object.entries(pdfOpenParams).map(([key, value]) => `${key}=${encodeURIComponent(value)}`).join('&');
+  let fullURL = `/lib/pdf/web/viewer.html?file=${encodeURIComponent(url)}${pdfOpenFragment}`;
+
+  if (NexT.utils.supportsPDFs()) {
+    element.innerHTML = `<embed class="pdfobject" src="${url + pdfOpenFragment}" type="application/pdf" style="height: ${element.dataset.height};">`;
+  } else {
+    element.innerHTML = `<iframe src="${fullURL}" style="height: ${element.dataset.height};" frameborder="0"></iframe>`;
+  }
+});
+</script>
+
+
+<script>
+if (document.querySelectorAll('pre.mermaid').length) {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js', () => {
+    mermaid.initialize({
+      theme    : 'forest',
+      logLevel : 3,
+      flowchart: { curve     : 'linear' },
+      gantt    : { axisFormat: '%m/%d/%Y' },
+      sequence : { actorMargin: 50 }
+    });
+  }, window.mermaid);
+}
+</script>
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+  <script src="//cdn.jsdelivr.net/npm/quicklink@1/dist/quicklink.umd.js"></script>
+  <script>
+      window.addEventListener('load', () => {
+      quicklink({
+        timeout : 3000,
+        priority: true,
+        ignores : [uri => uri.includes('#'),uri => uri === 'http://yangsuoly.com/2023/09/16/Large-lm-5-Framework/',]
+      });
+      });
+  </script>
+
+  
+  <script id="ribbon" src="js/canvas-ribbon.js"></script>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/22.2017.cba-normal.model.json"},"display":{"position":"right","width":300,"height":450},"mobile":{"show":false},"react":{"opacity":0.7},"log":false});</script></body>
+</html>

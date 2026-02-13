@@ -1,0 +1,2936 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/blog-logo-32px.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/blog-logo-16px.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <link rel="manifest" href="/images/manifest.json">
+  <meta name="msapplication-config" content="/images/browserconfig.xml">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yangsuoly.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":true},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":true,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="This blog is the learning notes for preparing the preliminary exams of Queue theory, referring to Smart Grids-fundamentals and technologies in electricity networks  Buchholz, B. M., &amp; Styczynski,">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Prelim-SG">
+<meta property="og:url" content="http://yangsuoly.com/2024/12/01/Prelim-SG/index.html">
+<meta property="og:site_name" content="独孤诗人的学习驿站">
+<meta property="og:description" content="This blog is the learning notes for preparing the preliminary exams of Queue theory, referring to Smart Grids-fundamentals and technologies in electricity networks  Buchholz, B. M., &amp; Styczynski,">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2024-12-01T03:30:16.000Z">
+<meta property="article:modified_time" content="2024-12-01T04:29:57.503Z">
+<meta property="article:author" content="YangSu">
+<meta property="article:tag" content="Smart-Grid">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://yangsuoly.com/2024/12/01/Prelim-SG/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>Prelim-SG | 独孤诗人的学习驿站</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?f59f5fb59d32ec3903088b0f976956d1";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta custom-logo">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">独孤诗人的学习驿站</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">生活就是一半烟火，一半诗意。手执烟火谋生活，心怀诗意谋未来……</p>
+      <a>
+        <img class="custom-logo-image" src="/images/logo@2x.png" alt="独孤诗人的学习驿站">
+      </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/Tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/Categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+  <a href="https://github.com/YangSuoly" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yangsuoly.com/2024/12/01/Prelim-SG/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/YangSu.jpg">
+      <meta itemprop="name" content="YangSu">
+      <meta itemprop="description" content="A blog for recording learning notes...">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="独孤诗人的学习驿站">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Prelim-SG
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2024-12-01 11:30:16 / Modified: 12:29:57" itemprop="dateCreated datePublished" datetime="2024-12-01T11:30:16+08:00">2024-12-01</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/Categories/Class-Notes/" itemprop="url" rel="index"><span itemprop="name">Class Notes</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/Categories/Class-Notes/Prelim/" itemprop="url" rel="index"><span itemprop="name">Prelim</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="Views" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span><br>
+            <span class="post-meta-item" title="Symbols count in article">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">Symbols count in article: </span>
+              <span>92k</span>
+            </span>
+            <span class="post-meta-item" title="Reading time">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">Reading time &asymp;</span>
+              <span>1:23</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>This blog is the learning notes for preparing the preliminary exams
+of Queue theory, referring to <em>Smart Grids-fundamentals and
+technologies in electricity networks</em></p>
+<ul>
+<li>Buchholz, B. M., &amp; Styczynski, Z. (2014). <em>Smart
+Grids-fundamentals and technologies in electricity networks</em> (Vol.
+396). Heidelberg: Springer.</li>
+</ul>
+<h1
+id="vision-and-strategy-for-the-electricity-networks-of-the-future">1.
+Vision and Strategy for the Electricity Networks of the Future</h1>
+<h2 id="drivers-of-smart-grids">1.1 Drivers of Smart Grids</h2>
+<p>The main challenges that need to be solved in the European Union are
+[1]:</p>
+<ul>
+<li>the decreasing availability of fossil and nuclear primary energy
+sources (PES) and,<br />
+</li>
+<li>accordingly, their rapidly increasing prices,<br />
+</li>
+<li>the 70% dependency of Central Europe on imported PES,<br />
+</li>
+<li>the increasing impact of greenhouse emissions on the
+environment.</li>
+</ul>
+<a id="more"></a>
+<blockquote>
+<p>Note: 本文文字部分借助 <code>obsidian</code> + <code>Annotator</code>
+插件（<code>Annotator</code> 介绍见 <a
+target="_blank" rel="noopener" href="https://github.com/elias-sundqvist/obsidian-annotator">obsidian-annotator</a>)，实现
+<code>pdf</code> 文档标注及文字时时提取功能，能够将所有标注的文字提取到
+<code>markdown</code> 文件中。图片部分借助
+<code>Image auto upload plugin</code> 插件 （见 <a
+target="_blank" rel="noopener" href="https://github.com/renmu123/obsidian-image-auto-upload-plugin">Link</a>
+）和 <code>PicGo</code> 实现图片自动上传到 <code>GitHub</code>
+图床。然后借助 <code>python</code>
+实现简单的文本内容提取，就可以得到纯净的笔记内容。具体
+操作和实现流程，见之前博客<a
+target="_blank" rel="noopener" href="https://www.yangsuoly.com/2023/01/20/Photography-is-simple/">Photography-is-simple/</a>的引言部分教程。</p>
+<p>完整笔记链接见：<a
+href="https://yangsuoly.com/file/Prelim-SG.pdf"><i class="fa fa-download"></i>
+Download Now</a></p>
+</blockquote>
+<p>The main difference in the figures consists in the differenti-ation
+between the known reserves and the expected increase of resources which
+could be exploited by non-traditional technologies (e.g. hydraulic
+fracturing of rock for gas exploitation).</p>
+<p>Consequently, the European Union has set ambitious objectives for the
+year 2020 to: - lower energy consumption by 20% by enhanced efficiency
+of energy use,<br />
+- reduce CO2 emissions by 20% and,<br />
+- ensure that 20% of the primary energy is generated by renewable energy
+resources (RES).</p>
+<p>Consequently, electric energy has to carry the main part of the
+renewable energy production by having an annual share of &gt;30% in
+2020. All of the member states of the European Union have set their
+individual targets in support of the common strategy for 2020.</p>
+<p>A Smart Grid is an electricity network that can intelligently
+integrate the actions of all users connected to it—generators, consumers
+and those that do both—in order to efficiently deliver sustainable,
+economic and secure electric-ity supplies.</p>
+<p>A Smart Grid employs innovative products and services together with
+intelli-gent monitoring, control, communication and self-healing
+technologies to: - enable the network to integrate users with new
+requirements;<br />
+- better facilitate the connection and operation of generators of all
+sizes and technologies;<br />
+- enhance the efficiency in grid operations;<br />
+- allow electricity consumers to play a part in optimizing the operation
+of the system;<br />
+- provide consumers with more information and choice in the way they
+secure their electricity supplies;<br />
+- improve the market functioning and consumer services;<br />
+- significantly reduce the environmental impact of the total electricity
+supply system;<br />
+- deliver enhanced levels of reliability, quality and security of
+supply</p>
+<p>Consequently, a Smart Grid supports the introduction of new
+applications with far-reaching impacts: providing the capabilities for
+safe and controllable inte-gration of more renewable, especially
+volatile energy sources (depending on the weather conditions) as well of
+new categories of network users like electric vehicles and heat pumps
+into the network; delivering power more securely,</p>
+<p>enabling con-sumers to be better informed about their electricity
+demand and to actively partici-pate in the electricity market by Demand
+Side Response on dynamic tariffs</p>
+<h2 id="the-core-elements-of-the-european-smart-grid-vision">1.2 The
+Core Elements of the European Smart Grid Vision</h2>
+<ul>
+<li>Distributed energy resources (DER)</li>
+<li>Renewable energy sources (RES)</li>
+</ul>
+<p>The electricity supply of the future will be shared by central power
+stations and distributed energy resources (DER)</p>
+<p>Ultimately, the Smart Grids will combine existing
+technologies—improved and updated—with innovative solutions</p>
+<p>Centralized generation will still play an important role, but many
+more actors will be involved in the generation, transmission,
+distribution and operation of the system, including the end consumers
+Based on these considerations, the core elements of the vision are
+defined in as follows: 1. Create a <em>toolbox of proven technical
+solutions</em> that can be deployed rapidly and cost-effectively,
+enabling existing grids to accept power injections from distributed
+energy resources without contravening critical operational limits (such
+as voltage control, switching equipment capability and power flow
+capacity);<br />
+2. Establish <em>interfacing capabilities</em> that will allow new
+designs of grid equipment and new automation/control arrangements to be
+successfully interfaced with existing, traditional grid equipment;<br />
+3. Ensure <em>harmonization of regulatory and commercial frameworks</em>
+in Europe to facilitate cross-border trading of both power and grid
+services (such as reserve power, for instance Nordic hydropower),
+ensuring that they will accommodate a wide range of operating
+situations;<br />
+4. Establish shared technical standards and protocols that will
+<em>ensure open access</em>, enabling the deployment of equipment from
+any chosen manufacturer without fear of lock-into proprietary
+specifications. This applies to grid equipment, metering systems and
+control/automation architectures;<br />
+5. Develop <em>information, computing and telecommunication</em> systems
+that enable businesses to utilize innovative service arrangements to
+improve their efficiency and enhance their services to consumers.</p>
+<p>Advanced Information and Communication Technologies (ICT) will be the
+key for: - advanced distribution automation to enhance the quality of
+supply,<br />
+- a coordinated energy management covering generation, storage and
+demand in the framework of virtual power plants (VPP), - provision of
+new metering services to the consumers including motivation methods for
+efficient use of electricity<br />
+- by dynamic tariffs,<br />
+- by the real-time communication of information to the end
+consumers,<br />
+- to visualize the current tariffs, their demand and the related
+costs.</p>
+<h1 id="smart-generation-resources-and-potentials">2. Smart Generation:
+Resources and potentials</h1>
+<h2 id="new-trends-and-requirements-for-electricity-generation">2.1 New
+Trends and Requirements for Electricity Generation</h2>
+<ul>
+<li>Primary energy sources (PES):</li>
+</ul>
+<p>Electricity generation is the process of electric energy production
+and requires the use of primary energy sources (PES). PES is defined as
+an energy form that is available in nature and that has not yet been
+used in any conversion or transforma-tion process.</p>
+<p>Nowadays, renewable energy sources (RES) such as geo-thermal power
+and con-centrated solar thermal power (CSP) are also applied for the
+electricity generation via heat.</p>
+<p>Furthermore, the renewable electricity generation is increasingly
+using the direct conversion of mechanical rotation into electricity by
+using the kinetic energy of wind, waves and flowing water.</p>
+<p>By 2015, the worldwide contributions of various PESs applied for
+electricity generation were: - 65.3% fossil PES (39.2% coal, 22.8%
+natural gas, 3.3% oil)<br />
+- 23.8% RES (15.9% hydroelectric, 6.8% other RES),<br />
+- 8.1% nuclear power.</p>
+<p>The effect of excessive amounts of CO2 in the atmosphere is the
+increase of the overall temperature of the planet (global warming) with
+the consequence of a growing risk for extreme weather catastrophes
+(floods, hurricanes, heat waves and droughts)</p>
+<p>Increasing the efficiency of electricity generation by more than 60%
+may be achieved by three means: Increasing the efficiency of electricity
+generation by more than 60%: - Technological improvement - 联合循环
+Combined cycle (CC)—using the gas flow after combustion in gas turbines
+and the generated heat for steam production,<br />
+- 热电联产Cogeneration of heat and power (CHP)</p>
+<h2 id="volatile-renewable-energy-sources-wind-and-sun">2.2 Volatile
+Renewable Energy Sources: Wind and Sun</h2>
+<h3 id="wind-power-plant">2.2.1 Wind Power Plant</h3>
+<p>In general, wind power plants include many different concepts with
+regard to their construction, type of generator, type of network
+interconnection, type of control system as well as type of
+operation.</p>
+<p>The first modern wind turbines that were applied for electric power
+generation were operated at a constant angular speed independent of the
+wind speed, and their generators were directly coupled with the
+network.</p>
+<p>The mechanical power of such turbines can be controlled by the
+following three aerodynamic principles - stall control 失速控制 -
+active-stall control 主动失速控制 - pitch control 节距控制</p>
+<p>The adequate control system consists of the following main parts: -
+pitch controller,<br />
+- controller of network-side converter,<br />
+- controller of rotor-side converter including the MPPT controller
+(maximum power point tracking 最大功率点跟踪控制器)</p>
+<p>China became the world market leader regarding the installed wind
+power capacity followed by the USA and Germany</p>
+<h3 id="utilization-of-solar-power-for-electricity-generation">2.2.2
+Utilization of Solar Power for Electricity Generation</h3>
+<ul>
+<li>Photovoltaic technology (PV)</li>
+<li>Concentrated solar power (CSP)</li>
+</ul>
+<p>Solar power is increasingly being used for electricity generation by
+converting the sunlight into electricity, either directly using the
+photovoltaic technology (PV), or indirectly using the principle of
+concentrated solar power (CSP).</p>
+<p>PV converts the photon energy of the solar radiation into electric
+energy using the photovoltaic effect. The conversion takes place within
+solar or photovoltaic cells, which are based on semiconductor
+technologies</p>
+<p>The photovoltaic cells are connected and assembled to build a
+photo-voltaic (or solar) panel. Each panel is rated by its DC output
+power under standard test conditions, and typically ranges from 100 to
+320 W.</p>
+<p>Obviously, the economic efficiency of PV power plants is higher in
+countries with more intensive and continuous sun radiation. - Main
+disadvantages of the PV technology</p>
+<p>The main disadvantage of the PV technology is the unavailability in
+darkness. The application of CSP systems may overcome this disadvantage
+and provide an around the clock electricity generation by using thermal
+storage capabilities</p>
+<p>CSP systems use lenses or mirrors and tracking systems to focus a
+large area of sunlight into a small beam. The focused solar energy is
+directed to heat up a working fluid inside absorber tubes or other
+containers. The concentrated heat is then used as a heat source for a
+conventional power plant.</p>
+<p>The upwind generator technology is based on the chimney principle. An
+area of ground is covered by a glass plane. The air under this cover is
+heated up by solar radiation and as a result of the air expansion the
+air flows through turbines into the chimney tower that is allocated in
+the center of the covered area. This principle is simple, but it
+provides a very low efficiency of about 1%. A rated power of some 100 MW
+would require an altitude of 1000 m and an area of 12 km2 [7]</p>
+<h2
+id="cogeneration-of-heat-and-power-applying-renewable-energy-sources">2.3
+Cogeneration of Heat and Power Applying Renewable Energy Sources</h2>
+<ul>
+<li>Cogeneration of heat and power (CHP)</li>
+</ul>
+<p>A significant growth in the shares of cogeneration of heat and power
+(CHP) is one of the objectives of the European Union (see Sect. 1.1, SET
+Plan Table 1.1) to increase the energy efficiency</p>
+<p>The use of RES in CHP has two positive effects, namely an increase up
+to 85% in the overall (electrical and thermal) energy efficiency and a
+reduction of the CO2 emissions.</p>
+<p>The following RES—CHP technologies are currently being applied:<br />
+- Thermal steam power plants based on bio mass combustion,<br />
+- Gas turbines fired by bio gas,<br />
+- Gas engine driven by bio gas,<br />
+- Combined Cycle Gas Turbine (CCGT) using bio gas,<br />
+- Geothermal plants with steam turbines,<br />
+- Fuel cells</p>
+<p>The CHP plants may be optimized for heat or electricity production.
+The operation with an optimized heat production offers the higher
+efficiency with a minimum of energy losses. However, the electricity
+market offers a higher optimization potential according to the economic
+benefits.</p>
+<p>the inclusion of thermal storage capabilities allows for a more
+flexible and economic optimum operation of the electricity generation
+depending on the related market prices. Thermal storage helps to
+increase the economic benefits</p>
+<h3 id="bio-fuel-power-plants">2.3.1 Bio Fuel Power Plants</h3>
+<ul>
+<li>Advantages</li>
+</ul>
+<p>The use of bio fuel provides two major advantages in the sense of the
+Smart Grid concept 1. Biological materials contain energy that is
+derived directly from chlorophyll (叶绿素) <em>photosynthesis</em>
+(光合作用). 2. Bio fuel is the only renewable energy source that does
+not depend on the weather and that guarantees a continuous energy
+generation.</p>
+<p>Consequently, the bio fuel is being used to replace energy derived
+from fossil fuels, and thereby reduce emissions of greenhouse gases. -
+可以直接燃烧 (combustion) 固体生物质 (solid
+biomass)，如木屑、灰尘、树皮等</p>
+<p>Heat and power generation in CHPs can be made by direct combustion of
+solid biomass such as wood chips, dust, bark and shavings. Another
+practical solution is the gasification of such biomass material. Both
+conversion paths are the most important for biomass based
+cogeneration.</p>
+<p>The sources of biomass are quite different and have to be converted
+in relation to their present form. Sources of biomass can be wastes or
+residues from biologi-cal or industrial processes</p>
+<p>China will become the most important growth market for biomass power
+plants in the next ten years. With an increase of around 750 MW per
+year, China will become the national market with the highest sales in
+the world</p>
+<p>A further benefit of bio gas power plants is that they are able to
+generate electricity in a combined cycle and, in this way, to increase
+the plant’s electricity efficiency. - Combined ctcke gas turbine (CCGT,
+联合循环燃气轮机)</p>
+<p>This is called a Combined Cycle Gas Turbine (CCGT) plant, and can
+achieve an electric efficiency of around 60%, in contrast to a single
+cycle steam power plant which is limited to efficiencies of around
+35–42%</p>
+<h3 id="geothermal-power-plants">2.3.2 Geothermal Power Plants</h3>
+<p>Geothermal power plants generate electricity from geothermal energy.
+Geothermal energy refers to heat within the earth and originates from
+the residual heat from the formation of the earth and the radioactive
+decay of isotopes inside the planet, which act as natural nuclear power.
+Geothermal electricity generation requires transferring the naturally
+occurring high temperature from deep underground to the surface by fluid
+circulation</p>
+<h3 id="fuel-cells">2.3.2 Fuel Cells</h3>
+<p>A fuel cell is a device that converts the chemical energy from a fuel
+into electric-ity through a chemical reaction with oxygen or another
+oxidizing agent. Hydrogen is the most common fuel, but hydrocarbons such
+as natural gas and alcohols like methanol are also applicable</p>
+<p>The fuel cell is an efficient energy conversion system that converts
+the chemical energy of the fuel directly into electricity. With this
+principle, only one energy conversion step required: chemical energy
+into electrical energy</p>
+<p>There are many types of fuel cells, but they all consist of two
+electrodes (anode–cathode) and an electrolyte that allows charges to
+move between the two electrodes of the fuel cell</p>
+<p>The hydrogen proton migrates through the channel structure of the
+mem-brane on the other side to the cathode and the electron moves
+through an external electrical conductor from the anode to the
+cathode</p>
+<p>he directed external movement of the electron creates electric
+energy. However, the electron flow through the conductor creates a
+direct current (DC). The DC power has to be converted into AC power for
+the electric network access.</p>
+<p>Once reaching the cathode through the membrane channels, the protons
+recom-bine with the electrons which reached the cathode via the
+conductor. Both react with the oxygen to create water H2O. - PEM:
+Proton-Exchange Membrane: 质子-外热膜 - LT PEMFC: Low temperature PEM
+fuel cell - HT PEMFC: high temperature PEM fuel cell</p>
+<p>The benefits of the HT PEMFC compared to the LT PEMFC are the better
+tolerance to impurities in the gases and the fact that humidification of
+the reaction gases is not necessary. The main disad-vantage of HT PEMFC
+is primarily due to the higher system complexity.</p>
+<p>However, the water management of both LT and HT PEM FCs is crucial to
+the cell performance: too much water will flood the membrane, too little
+will dry it; in both cases, power output will drop. Stable PEMFC
+operation therefore requires a humidification module as an additional
+system component to solve these issues. - DMFCs: Direct-methanol fuel
+cells 甲醇燃料电池</p>
+<p>Direct-methanol fuel cells (DMFCs) are a subcategory of the PEMFC and
+use methanol as fuel. Their main advantage lies in the ease of transport
+of methanol, the high energy- density and the liquid stability under all
+environmental conditions</p>
+<ul>
+<li>PAFC Phosphoric acids fuel cells 磷酸燃料电池</li>
+</ul>
+<p>Phosphoric acid fuel cells (PAFC) use phosphoric acid as an
+electrolyte. They were the first fuel cells to be commercialized.
+Improved stability in performance and low costs have made the PAFC a
+good candidate for early stationary applica-tions between 100 and 400
+kW</p>
+<p>Disadvantages include rather low energy—density, the low energy
+efficiency of 37–42% and the aggressive electrolyte. - MCFC: Medium
+temperature fuel cell 中温燃料电池</p>
+<p>The medium temperature fuel cell MCFC operates in the range of
+600–700 °C and has a molten-carbonate electrolyte - SOFC: High
+temperature fuel cell 高温燃料电池</p>
+<p>The high temperature fuel cell SOFC (800–1000 °C) is characterized by
+a high tolerance against impurities in the gases and has a high
+efficiency. Due to the extremely high temperature, however, only
+selected materials fulfill the corre-sponding requirements - Usage of
+fuel cells</p>
+<p>Because of their low weight, as compared to batteries, and their
+efficient energy supply, fuel cells are used in the aerospace industry
+and for submarines as auxiliary power units</p>
+<p>Fuel cell systems can be applied in the stationary sector to supply
+domestic or industrial systems, as well as in mobile applications for
+use in vehicles, elevators and motorcycles</p>
+<p>Fuel cells have been introduced for cogeneration of heat and power in
+a num-ber of projects - Limits of fuel cells</p>
+<p>However, for the most part, fuel cell systems are not yet
+economically competitive for the large scale electricity generation in
+power systems. Only through further cost reductions and long-term
+stability of the fuel cells, will this technology become usa-ble for the
+establishment of power plants with significant power capacities.
+Scientists and experts are intensely working to improve the fuel cell
+technologies worldwide</p>
+<h2 id="electric-energy-storage-systems">2.4 Electric Energy Storage
+Systems</h2>
+<h3 id="introduction-and-categories-of-electricity-storage">2.4.1
+Introduction and Categories of Electricity Storage</h3>
+<ul>
+<li>EESS: 电能储能系统</li>
+</ul>
+<p>Electric Energy Storage Systems (EESS) are usually classified by two
+criteria: the rated power and time of discharge which corresponds with
+the energy stor-age capacity.</p>
+<p>According to these criteria three use cases of EESS may be defined:
+Power Quality, Power Bridging and Energy Management.</p>
+<p>Ensuring Power Quality often requires providing supporting energy to
+avoid voltage sags, flicker or supply interruptions. The requested power
+is needed for short time intervals (in the range of seconds and minutes)
+and may be rated from a few kW (kilowatt) to a few MW (megawatt).
+Typical EESS for this use case may be based on the technologies of: -
+High power fly wheels - superconducting magnetic energy storage - high
+power super capacitors,<br />
+- several types of batteries.</p>
+<p>Power Bridging is mostly used to provide an uninterrupted supply if
+the main power fails. In principle, the DC power supply of the control
+and pro-tection facilities in substations belongs to the power bridging
+concept. Typical EESS technologies for Power Bridging are:<br />
+- high energy super capacitors,<br />
+- several types of batteries</p>
+<p>Energy Management is mainly used for power balancing, peak shaving,
+and for energy storage during low price periods and injecting energy
+during high price periods.</p>
+<p>This use case will play a significantly growing role in the Smart
+Grid environment for covering of energy deficits in general and for
+storing excesses of renewable power. The EESS technologies suitable for
+energy management tasks include:<br />
+- Pumped-storage hydro-electric power plants (PSHPP), 抽水蓄能水电站 -
+compressed air energy storage (CAES), 压缩空气储能器 - high energy
+batteries of various technologies, - indirect principles like - “power
+to gas” and<br />
+- a combination of thermal storage/electric heating to ensure a more
+flexible contribution of CHP plants for energy management</p>
+<p>Because of the growth of more fluctuating power consumption and the
+increasing installed capacity of volatile renewable energy technologies
+with weather depend-ent generation, the need for the use case “Energy
+Management” is stronger than ever</p>
+<h3 id="long-term-bulk-energy-storage-plants">2.4.2 Long-Term Bulk
+Energy Storage Plants</h3>
+<ul>
+<li>PAHPP: Pumped-storage hydroelectric power pants
+抽水蓄能水电发电厂</li>
+</ul>
+<p>Pumped-storage hydroelectric power plants (PSHPP) provide the
+largest-capacity form of electric energy storage. They consist of upper
+and lower reservoirs, the connecting tube system, the power plant
+chamber and the substation</p>
+<p>The main parameters defining the generation power capability of the
+plant are the inner diameter D (cross section) of the connecting tubes
+and the difference of the heights ΔH between the upper reservoir and the
+allocation of the turbine–pump aggregate.</p>
+<p>The optimum operation mode of PSHPP simply consists of using the best
+tur-bine time and pump time depending on the demand and market prices to
+shift as much water as possible between the upper and the lower water
+reservoirs.</p>
+<p>PSHPPs are currently used to store the electric energy during times
+of weak load and low energy prices by filling up the upper water
+reservoir and then generate the electric energy during peak load and
+high price times by using the potential and kinetic energy of the water
+flowing down through the tubes into the lower reservoir</p>
+<p>The energy efficiency of the PSHPPs varies in practice between 70 and
+80% depending on the age, the technology and the geographical
+conditions. - CAES: Compressed Air Energy Storage 压缩空气储能器</p>
+<p>Compressed Air Energy Storage (CAES) is a further way to store bulk
+energy generated at one time for use at another time</p>
+<p>Due to the large volume of air to be compressed, CAES systems often
+use existing large underground caverns. The main types of caverns
+suitable for CAES are salt cavern</p>
+<p>The efficiency of the storage improves signifi-cantly if the heat
+generated during compression can be stored and then used for the
+expansion process</p>
+<p>There are several ways in which a CAES system can manage the heat,
+for example the adiabatic or the isothermal principles</p>
+<p>It is based on a combination of a gas turbine and a compressed air
+combustion engine. 原理：It is based on a combination of a gas turbine
+(燃气涡轮机) and a compressed air combustion engine (压缩空气内燃机). -
+During <em>low-price</em> weak load periods, the motor consumes power to
+compress and store the air in the underground salt caverns. - During
+<em>peak load</em> periods, the process is reversed and the compressed
+air is returned to the surface. The air is used twice: - <em>burn the
+gas fuel</em> in the combustion chamber of the gas turbine - provide
+<em>supplement rotation power</em> for the compressed air combustion
+engine</p>
+<p>This combination allows a significant enhancement of the efficiency
+of the overall plant. In a pure gas turbine a significant energy
+contribution is required for com-pressing the combustion air. -
+Stationary Electric Batteries 蓄电池</p>
+<p>An electric battery is a device consisting of electrochemical cells
+that are able to convert chemical energy into electric energy
+(discharge) and vice versa (charge)</p>
+<p>There are a number of technical parameters besides the capital and
+operational expenses that influence the economic efficiency of the
+battery applications</p>
+<p>This concerns, among others, such parameters as the life time of the
+battery system, the cycle durability, the charging–discharging
+efficiency, the self- dis-charge and the energy density</p>
+<p>The traditionally used battery system in the past was the lead-acid
+battery that is mainly applied,</p>
+<p>Its basic design incorporates two lead electrodes immersed in a
+sulfuric acid. During the charge and discharge phases, hydrogen ions
+(H+) travel in the acid solution between the two electrodes and
+electrons travel in the external circuit.</p>
+<p>The analysis of the technical and economic parameters demonstrates
+that the NaS, Redox flow and Li-ion batteries are more suitable for
+energy management applications</p>
+<ul>
+<li>The redox flow battery 氧化还原电池 The redox flow battery can offer
+almost unlimited capacity by using larger and larger storage tanks, it
+can be left completely discharged for long periods with no damage and it
+can be recharged simply by replacing the electrolyte if no power source
+is available to charge it.</li>
+</ul>
+<p>The lithium-ion battery family is based on the principle that the
+lithium ions move between the anode and cathode of the cell to carry the
+charges. - The cathodes are composed of metal oxide containing lithium
+particles, - the anodes are made of layered graphite (石墨) carbon.</p>
+<ul>
+<li>充电阶段：阴极的锂原子成为离子，并穿过电解质分离器到达碳阳极。到达阳极后，锂离子与电子结合以锂原子的形式沉积在碳层之间。</li>
+<li>放电阶段：相反的过程会发生：锂原子失去电子到阳极，并以离子的形式返回阴极。
+During the charging phase, lithium atoms at the cathode become ions and
+traverse the electrolyte separator to the carbon anode. Upon reaching
+the anode, the lithium ions combine with electrons and are deposited
+between the carbon layers as lithium atoms. During the discharge phase,
+the reverse process occurs: The lithium atoms lose electrons to the
+anode and travel back as ions to the cathode.</li>
+</ul>
+<p>Li-ion batteries are characterized by light weight, high energy
+density, high efficiency and low self-discharge rates. To provide more
+power, connecting many small batteries in a parallel circuit is more
+efficient</p>
+<p>However, lithium-ion batteries can be dangerous under some conditions
+since they contain a flammable electrolyte and are also kept
+pressurized. This requires high quality standards for these batteries
+consisting of many supplement safety features</p>
+<p>The application of stationary batteries for energy management
+applications throughout the world is still limited due to economic
+reasons. The most battery storage systems are generally still expensive
+- “Power to Gas" by Electrolysis and Methanation When the contribution
+of volatile RES becomes higher than 20% of the total consumption, the
+external storage will become important.</p>
+<p>If the surplus of electricity may be used to produce hydrogen and
+other fuel gases, then it can be utilized fully whenever there is a
+demand. The production of fuel gases will be an instrument to utilize
+the excesses of available energy</p>
+<p>The hydrogen and other gases produced by electrolysis or methanation
+can be used as a fuel for powering combustion engines or for fuel
+cells</p>
+<p>However, the energy balance of the hydrogen production is negative,
+i.e. the energy input for the electrolysis is higher than the energy
+that can be generated afterwards. - Electrolysis 点解</p>
+<p>The key process of electrolysis is the interchange of atoms and ions
+by the removal or addition of electrons from the external circuit.</p>
+<p>The power to gas process for this concept is performed in a two- step
+approach 1. Hydrogen is produced in the electrolysis process 2. A part
+of hydrogen will be used for methanation 3. Methane can be used to
+supply various gas consumers and as a fuel for electricity
+generation</p>
+<p>For example, the small Norwegian island municipality Utsira is
+supplied by an energy system including wind power plants and a storage
+system consisting of an electrolysis unit, a compressed air storage
+system, a fuel cell and a hydrogen turbine. - Electric Energy Management
+by Thermal Storage</p>
+<p>Thermal storage consists of the temporary production and storage of
+heat for a later use.</p>
+<p>The expenses for thermal storage are lower than for electricity
+storage.</p>
+<p>thermal storage becomes one option to contribute for energy
+manage-ment and provide reliable energy supplies.</p>
+<p>Therefore, thermal storage will play a growing role in the electric
+energy management in different ways</p>
+<p>This principle can also be used to compensate an excess of electric
+energy and to save energy for cooling in periods of weak renewable
+electricity generation</p>
+<p>A combination of thermal storage, electric heating and solar heat
+generation is used also for municipal district heating systems.</p>
+<p>For efficiency reasons, the CHP plants are mainly scheduled in
+accordance with the heat demand, which depends on the weather conditions
+and is significantly reduced in the summer time when only the provision
+of hot water and industrial heat is required.</p>
+<p>The introduction of thermal storage units into the CHP systems will
+allow a much more flexible scheduling of the CHP with a focus on the
+electricity market. Furthermore, the combination of electric heating and
+thermal storage may play a significant role in the energy management of
+the future. The extension of CHP plant provides the following
+opportunities: - The CHP plant produces electric power that is market
+driven in high price/high demand periods and is independent of the
+thermal power schedule. The excess of thermal energy will be
+stored.<br />
+- In low price/low demand periods the electricity generation of the CHP
+plant is shut down and the heat demand is covered by the thermal
+storage.<br />
+- Excesses of renewable electricity production may be compensated by
+electric heating</p>
+<h2
+id="enhanced-flexibility-requirements-for-controllable-power-plants">2.5
+Enhanced Flexibility Requirements for Controllable Power Plants</h2>
+<p>The compensation management of the fluctuations of volatile renewable
+electricity generation requires the coordinated operation of all
+definitely controllable sources of power generation and demand: power
+plants, storage plants and demand side management DSM.</p>
+<p>A short start-up duration is one of the requested features to meet
+the fluctuation challenges.</p>
+<p>he flexible controllability of the power plant includes further
+parameters like the power gradient, the flexibility interval and the
+minimum power generation requested for a stable operation</p>
+<p>However, the flexi-ble reaction to fluctuations caused by RES
+requires the fast availability of certain volumes of control power from
+power plants operated at the minimum generation level.</p>
+<p>Consequently, the flexibility of the remaining thermoelectric power
+generation requires - high power control gradients without reduction of
+the plant life time, - the availability of high power gradients within
+the whole flexibility interval,<br />
+- the achievement of a minimum generation level of 20%,<br />
+- maintaining high efficiency even under reduced generation
+conditions.</p>
+<p>Another economic challenge concerns the motivation for investment to
+con-struct and operate new power plants. This challenge will change the
+pricing con-ditions and will require the trade of “power gradient
+products”.</p>
+<p>To conclude the considerations in both Chaps. 1 and 2 it can be
+stated: - The Smart Grid concept requires a significant enhancement of
+<em>flexibility</em> regarding the electricity generation processes and
+the power system operations. Furthermore, it is necessary that the
+generation process becomes “Smart”. - Both the Smart Grid and Smart
+Generation processes will ensure the <em>sustainable and environmentally
+friendly electric power supply</em> of the future. They will also lead
+to enormous technical developments in both fields and, in principle, a
+system strategy for “Smart Electric Power Systems” is required.</p>
+<h1 id="modern-technologies-and-the-smart-grid">3. Modern Technologies
+and the Smart Grid</h1>
+<h2 id="substations-the-network-nodes">3.1 Substations: The Network
+Nodes</h2>
+<p>Electric power flows through several substations at different voltage
+levels on its way between the bulk power stations and the end
+consumers.</p>
+<p>However, typically, the substations transform voltage from high to
+low and/or vice versa Substations may perform any of several other
+important functions like:<br />
+- voltage control,<br />
+- reactive power control or power factor correction,<br />
+- power flow control by phase shifting transformers or power electronic
+plants,<br />
+- UHV, EHV or HV DC/AC conversion to connect High Voltage DC (HVDC)
+lines,<br />
+- connection of two un-synchronous power systems by UHV/EHV/HV DC
+coupling</p>
+<p>A small “switching substation” may contain little more than one
+busbar plus some feeders.</p>
+<h3 id="schemes-and-components-of-transmission-substations">3.1.1
+Schemes and Components of Transmission Substations</h3>
+<p>Substations 变电站</p>
+<p>Each network element (line, transformer, coupling, voltage
+transformer) con-nected to the busbars builds a switch bay. The switch
+bays are equipped with several primary devices (dimensioned for the
+primary voltages and currents) and secondary devices for control,
+measurement and protection. <img
+src="https://cdn.jsdelivr.net/gh/YangSuoly/Images/Prelim/202412011142560.png"
+alt="Pasted image 20241019170135" /> - 断路器 CB - 隔离器或隔离开关
+接地开关 - 浪涌避雷器 - 电流变压器 - 电压变压器</p>
+<p>The voltage measurements are used for: - Monitoring and recording of
+the voltages,<br />
+- Protection devices like distance, voltage or frequency
+protection,<br />
+- Synchronism-check before connecting a feeder to the busbar,<br />
+- Voltage control</p>
+<p>The transformers, the switch devices and the busbars are dimensioned
+for the high primary voltages and currents, and they belong to the
+primary technology category</p>
+<h3 id="innovative-air-insulated-switchgear-technology">3.1.2 Innovative
+Air Insulated Switchgear Technology</h3>
+<p>创新型空气绝缘开关设备技术</p>
+<p>The most valuable device of the switchgear is the circuit
+breaker.</p>
+<p>The circuit breaker has to interrupt high short circuit currents
+which may reach values up to 80 kA in extra high voltage networks. -
+AIS: Air insulated switchgear technology</p>
+<p>In the past various types of circuit breakers were installed in the
+substations such as the bulk oil tank circuit breaker, the minimum oil
+circuit breaker or the air blast circuit breaker.</p>
+<p>In the last few decades there has been a shift from AIS to using only
+gas insulated circuit breakers in the UHV, EHV and HV substations</p>
+<p>The isolators are motor driven and the opening or closing operations
+may require a few seconds</p>
+<h3 id="gas-insulated-switchgear">3.1.3 Gas Insulated Switchgear</h3>
+<p>sulfur hexafluoride is a superior dielectric gas that is also used in
+gas insulated switchgears at moderate pressures for phase to phase and
+phase to ground insulation. The main drivers for using gas insulated
+switchgear are:<br />
+- Restricted space availability what is important in highly populated or
+mountainous areas,<br />
+- Expensive land acquisition or legal restrictions,<br />
+- Requirements for environmental compatibility or community
+acceptance,<br />
+- Aggressive environmental conditions, e.g. coastal sites or industrial
+sites,<br />
+- Heavy weather conditions, e.g. strong wind, snow and ice,<br />
+- Seismic (地震活动) activity with the need for high seismic stability
+through a low centre of gravity,<br />
+- Extension or refurbishment or upgrading of AIS under restricted space
+availability.</p>
+<p>Besides the fundamental space reduction the compact GIS design
+provides the following additional benefits: Benefits of Gas insulated
+switchgear (GIS): - Short and economic planning and delivery period
+possible through customer-tailored and pre-defined combinations of
+switchgear modules,<br />
+- Short and economic installation period possible through factory
+pre-assembled and pre-tested units,<br />
+- Restricted foundations, e.g. in mountainous or river areas realized
+with outdoor-GIS,<br />
+- High level of availability through encapsulation and modular, service
+friendly design,<br />
+- Minimal maintenance efforts realized through encapsulation of moving
+parts and less insulators,<br />
+- High degree of safety for operating personnel realized through earthed
+encapsulation,<br />
+- Long operating life: &gt;50 years.</p>
+<h2
+id="control-and-automation-of-power-systems-by-digital-technologies">3.2
+Control and Automation of Power Systems by Digital Technologies</h2>
+<h3
+id="the-hierarchy-and-the-data-processing-of-power-system-control-and-automation">3.2.1
+The Hierarchy and the Data Processing of Power System Control and
+Automation</h3>
+<p>The power system control is performed in a four tiered bottom up
+hierarchy: - Process level - Bay control level - Substation control
+level - Network control level</p>
+<figure>
+<img
+src="https://cdn.jsdelivr.net/gh/YangSuoly/Images/Prelim/202412011142561.png"
+alt="Pasted image 20241019183144" />
+<figcaption aria-hidden="true">Pasted image 20241019183144</figcaption>
+</figure>
+<p>At the process level: - binary status signals indicate, for example,
+the positions of the switchgear or the transformer tap changer,<br />
+- analogue measurement data (voltage, current) are available at the
+interfaces of the instrument transformers,<br />
+- binary output commands are set for the control of switchgear, tap
+changers and various equipment for protection, automation or auxiliary
+needs,<br />
+- analogue target values may be set to change the behavior of regulation
+facilities (e.g. the target value for voltage can be set to the
+transformer voltage controller)</p>
+<p>The bay level is equipped with intelligent electronic devices (IEDs)
+which provide the interfaces for the process data acquisitions. At the
+bay level the IEDs (Intelligent electronic devices 智能电子设备) perform
+two main tasks:<br />
+1. Bay control and processing of the basic data for the Substation
+Automation System (SAS), data exchange with the substation control
+level,<br />
+2. Protection of the bay related network assets against stress and
+damages caused by disturbances and/or critical state conditions (e.g.
+overloading, over voltages).</p>
+<p>At the bay level the IEDs perform two main tasks: The process data
+can be<br />
+- visualized in the device screens on local request and<br />
+- used in a programmable logic to start special automation
+programs,<br />
+- communicated to the upper level of the substation control</p>
+<p>Appropriate command and impact signals for the process can be
+performed in the following ways: 可用如下方式执行适当的命令和冲击信号：
+- generated by automation algorithms (e.g. voltage control, switch
+sequences, protection trips),<br />
+- initiated by the operator locally using the control facilities of the
+bay devices,<br />
+- received from the substation control level via communication- either
+initiated by personnel at the substation control level or transferred
+from the network control level to the substation control level and
+forwarded from here to the process</p>
+<p><strong>Station control level</strong></p>
+<p>The substation control level provides an interactive work place for
+the operator with control and visualization elements.</p>
+<p>The substation control level provides communication interfaces to the
+network control center and, if requested, to further network service
+providers like the asset and maintenance management, network planning or
+protection supervision. Not all available data is communicated between
+all of the levels instead the information exchange has to be
+engineered</p>
+<p><strong>Network control center</strong></p>
+<p>he network control center observes and controls all substations of
+the net-work. Furthermore, the power in-feed of the connected power
+stations and the power exchange with the neighboring power stations are
+managed on this level.</p>
+<p>The transmission system operators (TSO) build the “control area” in
+the territory of their network, control the reserve power availability
+and ensure in this way the frequency stability ### 3.2.2 Protection and
+Control in Substations</p>
+<p>The substation control technology was stable and remained unchanged
+for about 100 years from the beginning of the electricity supply until
+the 1990s.</p>
+<p>The protection technology has also changed within the last few
+decades—from the electromechanical relay schemes completed on panels to
+analogue pro-tection cubicles to digital protection devices</p>
+<p>intelligent electronic devices “IED”, which are char-acterized by the
+ability to combine a wide variety of functions in a configurable way and
+thus also integrate protection, automation and bay control tasks in one
+device</p>
+<p>The protection cannot avoid disturbances but minimize the
+consequences through:<br />
+- rapid, secure and selective disconnection of the faulty
+equipment,<br />
+- automatic reclosing for supply recovering in case of transient
+failures,<br />
+- logging and recording the disturbance and supporting a fast network
+recovery</p>
+<h3 id="control-center-technologies">3.2.3 Control Center
+Technologies</h3>
+<p>The transmission system operation at the highest level performs two
+basic functions - Energy Management System (EMS) and<br />
+- Network Supervision, Control and Data Acquisition (SCADA).</p>
+<p>The power system control is structured in the hierarchical levels
+transmis-sion, sub-transmission (or regional distribution) and local
+distribution</p>
+<p>The control center of transmission systems is often called
+“dispatching center” in the context with the combination of both
+functions</p>
+<p>The technology of the dispatching centers is mainly based on
+components which are commercially available on the markets for computer
+and communica-tion technologies.</p>
+<p>The SCADA functions in the dispatching center cover all connected
+users of the network and are, in principle, similar to the substation
+SCADA. The complete map-ping of the physical network infrastructure
+within the dispatching system is stand-ard. - The Energy Management
+System (EMS)</p>
+<p>The Energy Management System (EMS) is operated in closed cooperation
+with the day-ahead and intra-day energy spot markets. Based on the load
+and renewable energy forecasts each time interval has to be covered by
+the most economic mix of energy sources available.</p>
+<p>Expert systems build a separate functional block and support the
+operators in finding the best solutions to manage congestions and to
+avoid critical network conditions</p>
+<p>Besides the communication with the remote control console for
+emergency<br />
+operations further gateways are supported:<br />
+- Communication with other dispatching centers,<br />
+- Bridges to other enterprise services like<br />
+- network planning,<br />
+- asset management,<br />
+- maintenance management,<br />
+- financial control,<br />
+- energy trading,<br />
+- training simulator for education</p>
+<h2 id="transmission-technologies">3.3 Transmission Technologies</h2>
+<h3 id="overview">3.3.1 overview</h3>
+<p>The transmission and sub-transmission technologies are classified
+according to the mechanical construction principle as Classes: -
+Overhead lines - Underground or submarine lines which can perform as -
+Cable lines - Gas insulated lines (GIL)</p>
+<p>related to the voltage level as:<br />
+- HV Lines (&gt;60–&lt;220 kV)<br />
+- EHV Lines (extra-high voltage ≥220–&lt;800 kV)<br />
+- UHV Lines (ultra-high voltage ≥800–1200 kV)</p>
+<p>according to the physical transmission principle as:<br />
+- AC Lines or<br />
+- DC Lines.</p>
+<p>The AC transfer capacity is limited by two parameters: AC transfer
+capacity lis limited by: - maximum transmission distance,<br />
+- maximum transmission power.</p>
+<p>Furthermore, in the case of faults the voltages decline and the
+transfer capacity is reduced accordingly.</p>
+<p>The related temperature increase of the conductors also limits the
+power transfer capacity</p>
+<h3 id="ac-transmission">3.3.2 AC-Transmission</h3>
+<p>AC overhead transmission lines are constructed with steel towers,
+porcelain, sil-icone or glass insulators, ground and phase conductors
+consisting of a steel core providing the mechanical stability and
+aluminium housing providing a low electric resistance</p>
+<p>The bundling of conductors starts with the EHV level and has two
+functions: 1. Increase of the equivalent diameter of the conductor
+surface to decrease the electric field strength “E” at the conductor
+surface. In the result the energy losses caused by the corona effects
+(ionization of the air environment) may be reduced.<br />
+2. Growth of the conductor cross section and reduction of the electric
+resistance: In the result the energy losses caused by the current flow
+may be reduced.</p>
+<p>The capacitance is influenced by the diameter of the bundled
+conductors (increase) and the distances between the phases and to the
+ground (decrease). Therefore, a trend dependency of the voltage level is
+not clearly visible.</p>
+<h3 id="dc-transmission">3.3.3 DC-Transmission</h3>
+<p>The conversion of AC to DC power and vice versa requires an active
+and fast con-trol of the valves in the converter stations</p>
+<p>Two converter valve technologies are currently available:<br />
+- Current source converters (CSC) or line commutated converters (LCC)
+applying light triggered thyristors (LTT).<br />
+- Voltage source converters (VSC) applying insulated gate bipolar
+transistors (IGBT).</p>
+<p>The development of HV-DC circuit-breakers has become a high priority
+in recent years. Basically, DC circuit breakers may be realized by DC
+circuit breakers: - pyrotechnic type interruption,<br />
+- traditional AC circuit breakers modified for DC,<br />
+- electronic current control by semiconductors,<br />
+- a combination of such solutions.</p>
+<h3
+id="flexible-ac-transmission-using-active-and-reactive-power-control">3.3.4
+Flexible AC Transmission Using Active and Reactive Power Control</h3>
+<p>The power system of the future must be flexible, secure, cost
+effective and envi-ronmentally compatible. The combination of these
+tasks can be tackled with the help of intelligent solutions - FACTS:
+Flexible AC Transmission System</p>
+<p>Flexible AC Transmission Systems (FACTS) will play an increasingly
+important role in the future development of power systems.</p>
+<p>The impact of FACTS on the power transfer is achieved by:<br />
+1. Parallel compensation: control of the voltages on one or both sides
+of the transmission line. Higher voltages cause a higher power
+transfer.<br />
+2. Series compensation: reduction of the line reactance through serially
+connected capacitors.<br />
+3. Load flow control: influence of the voltage angle difference between
+the line ends.</p>
+<h2 id="present-challenges-for-transmission-grids">3.4 Present
+Challenges for Transmission Grids</h2>
+<h3 id="the-impact-of-fluctuating-wind-and-solar-power-generation">3.4.1
+The Impact of Fluctuating Wind and Solar Power Generation</h3>
+<p>The installed power of wind parks and photovoltaic plants will grow
+dramatically and, depending on the development concepts for the energy
+mix, it may exceed the peak power demand in a control area. The power
+generation from wind and sun varies significantly and influences the
+loading of the network assets</p>
+<p>The photovoltaic plants deliver power during the daylight only, and
+during the day each cloud can lead to intermittency.</p>
+<h3 id="the-dislocation-of-generation-and-load-centers">3.4.2 The
+Dislocation of Generation and Load Centers</h3>
+<p>The innovations are focussed on the introduction of an EHV DC overlay
+network</p>
+<p>During strong wind periods the AC network is heavily loaded and high
+losses of reactive power may lead to voltage reductions accompanied by
+the dan-ger of voltage collapses. Alternately, during weak wind periods
+the AC network is weakly loaded and an excess of reactive power may
+cause over-voltages.</p>
+<h1
+id="design-of-distribution-networks-and-the-impact-of-new-network-users">4.
+Design of distribution networks and the impact of new network users</h1>
+<h2 id="categories-of-distribution-networks">4.1 Categories of
+Distribution Networks</h2>
+<p>The distribution networks are designed to distribute the electric
+energy to the consumers in a maximum economic and reliable way.
+herefore, in this chapter the considerations are mainly focussed on the
+prac-tice of the local distribution networks at the medium and low
+voltage levels.</p>
+<h2 id="primary-and-secondary-mv-distribution">4.2 Primary and Secondary
+MV Distribution</h2>
+<p>The MV distribution network begins at the transformer in-feed from
+the over-laying network (mainly 110 kV), whereby the transformer is
+connected to the medium voltage busbar</p>
+<p>The primary distribution equipment has to be dimensioned for load
+currents up to 4000 A and for short circuit currents up to 72 kA.</p>
+<p>The feeders connected to the busbar of the substation are equipped
+with circuit breakers and protection schemes</p>
+<p>The secondary distribution network leads downstream outside the
+substation to the supply areas. Each feeder builds a chain connecting
+the subsequent MV/LV transformer terminals.</p>
+<p>Distribution terminals are used for a wide spread extension of the MV
+net-work with parallel feeders.</p>
+<h2 id="network-categories-for-mv-and-lv">4.3 Network Categories for MV
+and LV</h2>
+<p>In accordance with this principle various network structures are
+applied such as In accordance with this principle various network
+structures are applied such as<br />
+- Meshed operated network,<br />
+- Open loop network,<br />
+- Open loop back-up feeder network,<br />
+- Opposite station network</p>
+<figure>
+<img
+src="https://cdn.jsdelivr.net/gh/YangSuoly/Images/Prelim/202412011142562.png"
+alt="Pasted image 20241019204910" />
+<figcaption aria-hidden="true">Pasted image 20241019204910</figcaption>
+</figure>
+<h2 id="neutral-grounding-concepts">4.4 Neutral Grounding Concepts</h2>
+<p>The method of neutral grounding does not influence the behaviour of a
+network under normal operating conditions.</p>
+<p>However, in the case of the most frequent fail-ure, namely the phase
+to earth fault, the duration of the disturbance, the number of the
+affected consumers, the work load for the operators, the voltage and
+current stresses for the network assets and the extent of the damage
+into a double earth fault depend on the method of neutral grounding</p>
+<p>The selection of the most efficient neutral grounding method depends
+on the type of lines (overhead or cable), the line to ground
+capacitance, the size of the network and the fault currents Types: 1.
+Resonant Grounding 2. Isolated Neutral 3. Solid and low impedance
+(current limiting) neutral grounding 4. Combined methods</p>
+<h2 id="protection-for-distribution-networks">4.5 Protection for
+Distribution Networks</h2>
+<h3 id="mv-networks">4.5.1 MV Networks</h3>
+<p>In MV networks the digital protection relays have been introduced in
+the majority of substations and distribution terminals of central
+Europe. It is common now to apply combined devices covering several
+protection and control functions</p>
+<p>The combined devices are designed with a basic core serving the
+common system functions like the memory management, the permanent check
+of the analogue and binary input signals, the display and setting
+functions, etc.</p>
+<p>The overcurrent protection provides three various elements for the
+three phase currents and the ground current.</p>
+<p>The reverse interlocking principle is based on the following: If the
+fault is located behind the feeder protection in the network direction-
+定向电流保护</p>
+<p>The directional overcurrent protection is applied in networks where
+the pro-tection coordination depends on both the magnitude of the short
+circuit current and the direction of the power flow to the fault
+location - 电压保护</p>
+<p>The voltage protection has the task to protect electrical equipment
+against under- and over-voltages. - 负序保护</p>
+<p>The negative sequence protection detects unbalanced loads in the
+network. - 频率保护</p>
+<p>The frequency protection detects abnormally high and low frequencies
+in the network or in electric machines. - 热过载保护</p>
+<p>The thermal overload protection is designed to prevent thermal
+overloads and subsequent damaging of the protected assets. -
+电机保护</p>
+<p>The motor protection contains a set of functions like the motor
+starting protec-tion, a restart inhibit and a load jam protection. -
+接地故障保护</p>
+<p>The ground fault protection has to be designed in accordance with the
+neutral grounding method applied in the network.</p>
+<p>The typical characteristic of intermittent ground faults is that they
+disappear autonomously only to strike again after some time. This mainly
+can happen in cables due to aged insulation or in cable joints caused by
+water ingress</p>
+<p>Therefore, the intermittent ground fault protection operates in the
+following way: The intermittent ground fault impulses are detected and
+their duration is recorded and accumulated. - 断路器故障保护</p>
+<p>The breaker failure protection monitors the proper tripping of the
+relevant circuit breaker. - 自动重合闸</p>
+<p>The automatic reclosing function is mainly used in networks with
+overhead lines. - 同步功能</p>
+<p>The synchronization function provides the synchronization check
+before con-necting 2 sections of a network, for example a feeder and a
+busbar. - 故障定位器</p>
+<p>The fault locator is a supplement to the protection functions and
+calculates the distance to the fault.</p>
+<p>Advanced protection devices also provide fault or disturbance
+records,</p>
+<p>Additionally, disturbance reports may present the sequence of pickup,
+trip and reset events in the form of an event log</p>
+<h2 id="distribution-network-operation">4.6 Distribution Network
+Operation</h2>
+<h3 id="ensuring-power-quality">4.6.1 Ensuring Power Quality</h3>
+<p>The distribution network operators are obliged by law to ensure a
+reliable, con-sumer friendly, ecologic and economically efficient
+electric power supply to the society with the highest possible level of
+power quality The definition of the <em>power quality</em> is based on
+the three pillars:<br />
+- reliability of supply,<br />
+- voltage quality and<br />
+- service quality</p>
+<p>The reliability of supply is verified by statistical analyses of such
+indices as the frequency of supply interruptions, the average time of
+supply interruptions or the energy not delivered on time.</p>
+<p>The voltage quality is affected by the technical parameters of the
+network (like short circuit power or network impedance), the
+characteristics of the network assets and, especially, by the technical
+processes and parameters of the network users</p>
+<p>The demand processes of the network users may impact the voltage
+quality on all voltage lev-els.</p>
+<p>The damping of the voltage quality disturbances depends on the
+technical parameters of the network and its assets: The lower the
+impedance, the higher the damping</p>
+<p>Fast voltage sags and flicker can be compensated by applying dynamic
+voltage restorers which perform an extremely fast in-feed of reactive
+power to stabilize the voltage.</p>
+<p>The service quality expresses the quality of the relationship between
+the elec-tric power supply companies and the consumers.</p>
+<h3 id="process-management">4.6.2 Process Management</h3>
+<p>The Distribution Control Centre (DCC) performs the core of the
+process man-agement in distribution</p>
+<p>Advanced DCCs present on screen the network topology, measurements,
+meter values, event messages in schemes, diagrams, profiles, tables and
+reports he management of the electricity distribution is focused on two
+basic systems:<br />
+- SCADA—supervisory control and data acquisition,<br />
+- GDOF—general decision and optimization functions.</p>
+<p>The SCADA system performs the functions:<br />
+- Alarms in case of critical loading, disturbances of the voltage
+quality and faults,<br />
+- Acquisition and processing of measurements and meter values,<br />
+- Switch commands and further control (e.g. transformer tap
+changing),<br />
+- Monitoring of the network topology,<br />
+- Evaluation and archiving of the results of the performed application
+functions.</p>
+<p>The GDOF system is more concentrated on the power balancing functions
+which have a strong impact on the network operations:<br />
+- Load and local generation prediction,<br />
+- Load control,<br />
+- Optimization of the purchase and import of electric energy,<br />
+- Condition simulations.</p>
+<p>The network operator is able to estimate the current network
+situation by an appropriate visualization on the screens. The following
+functions are performed in this way:<br />
+- Network supervision,<br />
+- Switching and control procedures,<br />
+- Starting of actions to eliminate faults and disturbances.</p>
+<h2 id="new-trends-in-distribution-systems">4.7 New Trends in
+Distribution Systems</h2>
+<h3 id="distributed-generation-and-new-types-of-load">4.7.1 Distributed
+Generation and New Types of Load</h3>
+<p>分布式发电和新型负载</p>
+<p>The new challenges for distribution network operation are caused by
+global tar-gets to reduce the CO2 emissions, to increase the share of
+renewable energy in the energy balance and to increase the energy
+efficiency - DER: distributed energy resources 分布式能源</p>
+<p>A significant part of the renewable energy will feed into the
+distribution net-works from a large amount of small sized distributed
+energy resources (DER).</p>
+<p>The connection of DER in the LV and MV networks, however, may cause
+bi-di-rectional load flows between the LV, MV and HV networks.</p>
+<p>If the load is lower than the generation, bottom–up (reverse) power
+flows will occur. And, because the meteor-ological conditions which
+directly affect generation levels are volatile, the load—gen-eration
+balance can change multiple times during the day. Consequently, the
+power flow becomes volatile and changes its direction multiple times
+during the day as well.</p>
+<p>The achievement of the energy efficiency targets will also be
+supported by a paradigm change regarding the heating systems for
+households, small enterprises and public buildings.</p>
+<h3 id="impact-on-power-quality">4.7.2 Impact on Power Quality</h3>
+<p>Due to the significant shares of DER, especially volatile energy
+sources and the appearance of new loads like e-mobiles, extreme
+situations may occur which may cause short-term over-stressing of the
+network assets and of devices on the consumer side</p>
+<p>Great challenges are seen in the reverse interferences of the new
+network users regarding the voltage quality: Great challenges are seen
+in the reverse interferences of the new network users regarding the
+voltage quality:<br />
+- Over-voltages through the connection of generators,<br />
+- Under-voltages through powerful simultaneous loads,<br />
+- Flicker (闪烁，飘忽不定) by wind power and photovoltaic plants,<br />
+- Harmonic distortions generated by the power electronic converters of
+wind power and photovoltaic plants and by the charging units for
+e-mobiles.</p>
+<p>In conclusion, the considerations regarding the impact of new users
+of distri-bution networks clearly demonstrates that distribution network
+operations will becomes more complex and will need more intelligent
+coordination, control and supervision in the sense of Smart Grids</p>
+<h1 id="smart-operation-and-observability-at-the-transmission-level">5
+Smart Operation and Observability at the Transmission Level</h1>
+<p>The application of advanced power automation technology helps to
+increase the system observability, to provide guidance for the
+dispatchers and to automatically perform the proper countermeasures in
+emergency situations. - Congestion management 堵塞管理</p>
+<p>Congestions may occur within a short time as a result of unforeseen
+outages of power stations or network assets or due to significant
+deviations from the regis-tered schedules that are larger than
+expected.</p>
+<h2 id="the-root-causes-of-large-blackouts-and-the-lessons-learned">5.1
+The Root Causes of Large Blackouts and the Lessons Learned</h2>
+<p>Power system operation includes the harmonious co-ordination of many
+processes in a large cybernetic system composed of millions of
+components of equipment. The main challenges are: Challenges of Power
+system operation: 1. Balanced interplay of transmission capabilities,
+electricity demand and power generation,<br />
+2. Coordinated protection, control and communication functions
+supporting a flexible, real-time adaptation of the system conditions to
+actual situations.</p>
+<p>Voltage collapse can occur if the reactive power demand of the loads
+rises sig-nificantly due to voltage reduction in the grid. This mainly
+applies to motor-driven loads.</p>
+<p>SCADA systems and communication links have to be secure under all
+circum-stances and have to be engineered so that they are
+uninterruptable, The lessons learned from this event are:<br />
+- SCADA systems and communication links have to be secure under all
+circumstances and have to be engineered so that they are
+uninterruptable,<br />
+- Appropriate guidance for dispatchers accompanied by automatic network
+congestion management have to be performed if the transmission network
+is weakened for hours at a time, - The protection parameters should be
+adapted to the network conditions</p>
+<p>The time synchronization via satellite of all intelligent electronic
+devices (IEDs) for protection and control in the power system is now a
+strong request</p>
+<p>Each operation requires a network security calculation in advance of
+taking action In conclusion it should be stated:<br />
+- Each operation requires a network security calculation in advance of
+taking action,<br />
+- Operations that bring the system into a N-1 unsecure situation should
+be strictly avoided,<br />
+- The settings of the protection have to be archived and approved
+regularly in accordance with the substation documentation.</p>
+<p>Again the requirement for better observability of the transmission
+network comes up. Furthermore, the N-1 criterion has to include busbar
+faults and also consider the connected power generation</p>
+<h2 id="control-areas-and-system-services">5.2 Control Areas and System
+Services</h2>
+<ul>
+<li>TSO: transmission system operators</li>
+<li>DNO: Distribution network operators</li>
+</ul>
+<p>As operators of the transmission system, the TSOs are responsible for
+the secure and reliable operation of the electricity network in their
+respective control area, and for interconnections with other electricity
+networks.</p>
+<p>The TSOs are obliged by law to operate their control area in a manner
+which assures the most secure, economical and environmentally sound
+network-dependent supply of electric power in the public interest</p>
+<p>TSO (输送系统的操作者)
+有责任以最安全、经济和环保的电力供应方式经营其控制区域，包括： 1.
+<em>Secure operation</em> of the transmission network ensuring the N-1
+criterion at all times.<br />
+2. Management of the <em>balance of generation and load</em> at all
+times, provision of the interface to the liberalized electricity markets
+and carrying out the basic physical work necessary for the commercial
+power transfers.<br />
+3. Control of the <em>import/export of electric power</em> between the
+underlying networks and the neighboring control areas.</p>
+<p>With regard to maintaining the proper operation of the control area,
+the TSOs provide system services to network users that decisively
+determine the quality of the electricity supply. The service to network
+users: - Power system management,<br />
+- Frequency control,<br />
+- Voltage control,<br />
+- Restoration of supply.</p>
+<h3 id="power-system-management">5.2.1 Power System Management</h3>
+<p>The power system management at the transmission level involves two
+aspects, namely the operational planning and execution of the network
+related tasks and the generation–load balancing The power system
+management at the transmission level involves: 1. the operational
+planning and execution of the network related tasks 2. the
+generation-load balancing</p>
+<p>First, the top priorities of the network related tasks are: First,
+the top priorities of the network related tasks are:<br />
+- the <em>supervision and control</em> of the network topology including
+monitoring the bandwidths of voltages and power flows,<br />
+- the <em>assurance</em> of the network N-1 security,<br />
+- the recognition of <em>emergency</em> situations and the initiation of
+<em>congestion management</em>,<br />
+- the requesting and execution of <em>switching operations</em>,<br />
+- the <em>voltage/reactive power and power/frequency control</em>
+operations and the commissioning and maintenance of all the network
+assets, including the requisite facilities for metering and pricing
+regarding the horizontal energy exchange between the transmission system
+operators and the vertical energy exchange relating to the connected
+sub-transmission networks.</p>
+<p>Secondly, the power system management includes the generation and
+load bal-ancing. This involves the operational implementation of the
+agreed upon power exchange based on the schedules of the “Balancing
+Groups” and the generation schedules for power stations, also keeping in
+mind the requirements for reserve power provisions. The control area
+consists of an arbitrary number of balancing groups<br />
+containing:<br />
+- power injection nodes (usually metering points for the generating
+units of power stations) and<br />
+- withdrawal nodes reflecting the demand.</p>
+<p><em>BGM (Balancing group managers)</em></p>
+<p>The energy balance of the control area is subject to the
+responsibility of a number of balancing group managers (BGM).</p>
+<p>In commercial and administrative terms, the BGM has the
+responsibility to<br />
+- inform in a timely manner the responsible system operators about
+injection and withdrawal points assigned to his balancing group,<br />
+- aggregate the electrical energy exchanges in such a way that only one
+schedule is exchanged between two balancing groups,<br />
+- deliver day-ahead schedules between 2 and 4 p.m. to the TSO. The
+schedules contain 96 values of the average power within each 1/4 h of
+the following day.</p>
+<p>n conclusion, the significant power system management functions
+include the load and the renewable generation predictions for the
+control area, the manag-ing of the interrelations with the electricity
+markets to cover the load schedule, the congestion forecasting and
+management, the observation of the instantaneous deployment of the power
+stations, and the co-ordination or utilization of system services</p>
+<h3 id="frequency-control">5.2.2 Frequency Control</h3>
+<p>In an electric power system, power generation must be constantly
+adjusted to follow the demand. Changes in demand or power station
+disturbances impair this balance and cause a deviation of the system
+frequency.</p>
+<p>Accordingly, the TSOs have an obligation to permanently main-tain
+sufficient control power within three categories, the time
+characteristics - Primary control (or reserve) power<br />
+- Secondary control (or reserve) power<br />
+- Tertiary control power or Minutes reserve</p>
+<p>These three categories have different origins, parameters and targets
+of application. - The purpose of the primary control is the assurance of
+the frequency control in emergency situations after the unplanned
+outages of important power plants. - The secondary control power may be
+positive or negative. Both kinds of secondary power have to be
+contracted in parallel - The TSOs shall deploy minutes reserve power in
+the event of large imbalances between generation and consumption and/or
+for the restoration of a sufficient secondary control band.</p>
+<p>The secondary control power may be positive or negative. Both kinds
+of sec-ondary power have to be contracted in parallel</p>
+<p>The TSOs shall deploy minutes reserve power in the event of large
+imbalances between generation and consumption and/or for the restoration
+of a sufficient sec-ondary control band.</p>
+<h3 id="voltage-control">5.2.3 Voltage Control</h3>
+<p>Voltage control forms part of the measures for provision of a secure
+supply, for which the network operators at all levels of the power
+system (transmission system operators TSO and distribution network
+operators DNO) bear responsibility.</p>
+<p>The TSO and DNO shall bear responsibility for balanced reactive power
+man-agement in his network installations, including the demand of the
+connection users.</p>
+<h3 id="restoration-of-supply">5.2.4 Restoration of Supply</h3>
+<p>The TSO is responsible for reliable system operation and its prompt
+restoration following large-scale failures and to draw up appropriate
+plans for preventive and operational measures, with due respect to the
+respective system infrastructure, in conjunction with adjacent TSOs or
+with subordinated DNOs and power station operators</p>
+<p>According to the measures required, the providers must take technical
+measures for the restoration of supply and demon-strate the efficiency
+of their facilities to the TSO.</p>
+<h3 id="generation-scheduling-merit-order-principle">5.2.5 Generation
+Scheduling: Merit Order Principle</h3>
+<p>Based on the schedules delivered by the balance group managers, each
+afternoon the TSO completes the day ahead load schedule for the control
+area.</p>
+<p>A significant part of the load is normally covered by contracted
+electricity delivery (for exam-ple in the industrial sector).
+Furthermore, the forecasts of the balancing group “Renewable Energy” are
+known.</p>
+<h3 id="system-service-provision-by-distributed-energy-resources">5.2.6
+System Service Provision by Distributed Energy Resources</h3>
+<p>The distributed energy resources (DER) are mainly based on renewable
+energy sources RES (wind, solar, biofuel, hydro) and on cogeneration of
+heat and power plants (CHP).</p>
+<p>nd the generated power of the DER can exceed the weak load. This
+requires innovative approaches to integrate DER into the sustain-able
+power system operation. The contribution of DER to the provision of
+system services will become mandatory.</p>
+<p>Today the TSOs are obliged to manage and operate the electric power
+transmis-sion networks, and to do so they rely on system service
+procurement from the free market. - VPP 虚拟电厂</p>
+<p>Therefore, the provision of system services by DER requires technical
+solutions in the sense of a coordinated operation of DER, storage and
+controllable loads (Demand Side Management—DSM) within virtual power
+plants (VPP). The vir-tual power plant shall be able to provide system
+services in the same way as the traditional power plants.</p>
+<p>the system services provided by the DNO in their networks are limited
+to voltage stability, the network operation as a part of the system
+management and the restoration of supply.</p>
+<p>the VPPs will be able to support the frequency control by offer-ing
+control power to the TSO</p>
+<p>DSI consists of DSM (Demand Side Management)—the active control of
+loads and DSR (Demand Side Response)—the influence on the demand by
+dynamic tariffs.</p>
+<p>DSM can provide positive control power by switching-off the load for
+a cer-tain time.</p>
+<p>DSR is not actively controllable and therefore it is not suitable for
+the control power market</p>
+<p>Finally, fuel driven power plants and storage units are completely
+controllable and may provide all kinds of system services.</p>
+<p>Consequently, the fuel driven power plants can participate in both
+markets at the same time—for energy and for reserve power</p>
+<p>For all kinds of CHP—fossil fuel and RES—a thermal storage is the key
+to an electrical driven operation.</p>
+<p>A thermal storage allows an active storage man-agement and therefore
+thee CHP plant is able to produce heat in advance to fill the storage
+while electrical power could be generate following a schedule.
+Additionally, thermal storages have much lower investment and
+operational costs than electrical storage plants.</p>
+<p>VPPs may play a significant role in supporting the quality of supply
+regarding the voltage quality and the reliability</p>
+<h2
+id="power-system-observation-and-intelligent-congestion-management">5.3
+Power System Observation and Intelligent Congestion Management</h2>
+<h3 id="need-for-more-observation-in-the-power-system">5.3.1 Need for
+More Observation in the Power System</h3>
+<p>As a result of the liberalized energy markets and the extremely fast
+growth of vola-tile renewable energy production the power flows through
+the networks and the interconnection nodes between the control areas has
+become strongly volatile</p>
+<p>These elements have to be included in the online security assessment
+calcula-tions. The neighboring TSOs are obliged to deliver: These
+elements have to be included in the online security assessment
+calculations. The neighboring TSOs are obliged to deliver: - the related
+parameters of the transformers, lines, power stations,<br />
+- the real time measurements of voltages, power flows and<br />
+- the topology data of the related network parts.</p>
+<h3 id="prediction-methods-for-a-secure-power-system-operation">5.3.2
+Prediction Methods for a Secure Power System Operation</h3>
+<p>In accordance with the growing contribution of volatile RES in the
+power balance the prediction of the RES injections will become more and
+more important for the network security Two developing trends have to be
+considered:<br />
+- The further growth of the installed power of <em>photovoltaic plants
+and smaller wind power parks</em> will affect the distribution and
+sub-transmission network operations.<br />
+- The number of <em>large scale wind parks</em> with installed power of
+some 100 MW that are erected in <em>onshore and offshore locations</em>
+and have direct access to the transmission network will continue to
+increase.</p>
+<p>Consequently, the further development of prediction systems has to be
+focused on:<br />
+1. The improvement of the <em>prediction accuracy</em>,<br />
+2. The introduction of prediction methods in the <em>distribution
+level</em>,<br />
+3. The <em>extended data exchange</em> between the transmission and
+distribution networks</p>
+<p>Network security will require more interaction between the TSO and
+the DNOs because of the volatility of the power flows at the coupling
+nodes between the net-work levels.</p>
+<p>Prediction tools have been developed and implemented since 2000
+especially for the wind power production within the control area of the
+TSO.</p>
+<p>The security of the power system operation requires the parallel
+execution of the day-ahead predictions and the short-term predictions to
+be prepared in advance for possible congestions</p>
+<p>Significant improvements of the prediction quality are achievable if
+intelligent weighting methods with regard to the weather situation are
+applied. #DACF <strong>Day-Ahead Congestion Forecast (DACF) in the
+Interconnected Transmission System</strong></p>
+<p>Within the interconnected transmission network in Continental Europe
+the DACF approach was implemented to estimate critical network
+conditions in advance. This approach realizes the prediction of the
+operation conditions for the whole power system 2 days in advance (2DCF)
+and for the current “intra-day” (IDCF). Prediction operation: - The
+intra-day predictions use load and generation data from actual
+snapshots.<br />
+- At the moment of the predictions for d + 2, the schedules for the
+power plants are still not available. - Each TSO prepares for 6 time
+points (Germany-24) of the day-ahead data sets including the loads and
+injections of all network nodes. - In the next step, the snapshot of the
+network conditions of the reference time points are taken from the
+archive. - The power producers provide the predicted power injection
+schedules to the TSO taking into account the load schedule. - To balance
+the load and generation, the loads in all nodes will be adapted in
+proportion to compensate the deviations between the reference and the
+predicted power plant schedules - The predicted data sets of all TSOs
+and the overall data set for the interconnected system are available for
+all network operators on a common server.</p>
+<p>The predicted data sets of all TSOs and the overall data set for the
+intercon-nected system are available for all network operators on a
+common server. <strong>The Need for Network Level Overlapping Congestion
+Forecasts</strong></p>
+<p>The growing share of DER feeding into the distribution networks means
+that the distribution networks may be stressed above their capability
+limits</p>
+<p>Currently, though, the application of congestion forecast tools is
+still not common in distribution networks.</p>
+<p>However, the prediction of the of the distribution network conditions
+will play an increasingly important role for the general power system
+operation. The volatile bi-directional load flows at the coupling nodes
+between the network levels has a growing impact on the security of the
+whole power system.</p>
+<p>It is an urgent need that the network operators on the different
+levels cooperate in the prediction of RES power injections and the
+prediction of congestion condi-tions in a common way</p>
+<p>Steps: 1. accurate predictions of the load and the power injections
+have to be performed for the local distribution networks at the MV level
+2. the predicted data of the several connected nodes has to be
+transferred to the planned topology of the MV network. 3. the predicted
+network conditions of the HV sub-transmission networks create the power
+flow conditions at the coupling nodes with the transmission network at
+the EHV level.</p>
+<p>The power flow estimations serve as the inputs for the network
+condition fore-casts at the upper network level which is based on the
+planned topology, the pre-dicted loads and power injections.</p>
+<p>5.3.2.4 The Cellular Approach for Predictions, Balancing and Schedule
+Management The weakness of the current balancing and prediction
+processes described in the previous chapters consists of the following
+aspects: 1. The suppliers are mostly the balance group managers for the
+withdrawal nodes.<br />
+2. The reference day principle used for the DACF congestion forecasts is
+also of low accuracy. The TSOs increasingly need the coupling node
+oriented forecasts for the secure system operation within their control
+area.<br />
+3. The TSO is responsible for balancing all of installed RES in its
+control area.<br />
+4. The prediction of the power injections from RES is based on the
+general weather forecasts for larger regions. However, the weather
+conditions may differ greatly within one region. The prediction accuracy
+can be significantly improved if the predictions for the RES power
+injections are performed for smaller territori</p>
+<ul>
+<li>SSC: Smart Supply Cells 智能供应细胞</li>
+</ul>
+<p>The SSCs sup-port the TSO to reduce the complexity of power system
+operation self-balancing, provide the cellular balancing group
+responsibility and offer system services</p>
+<p>An SSC may cover one or more distribution networks containing DER
+that are fully involved in the balancing processes. They are obliged to
+predict and deliver their individual schedules.</p>
+<h3 id="modern-protection-concepts">5.3.3 Modern Protection
+Concepts</h3>
+<p>he protection schemes have to be prepared for the Smart Grid
+challenges regarding the he protection schemes have to be prepared for
+the Smart<br />
+Grid challenges regarding the<br />
+- increasing <em>complexity</em>, extent and loading of the power
+systems,<br />
+- change of the <em>generation structure</em> by use of DER with partly
+volatile power injections,<br />
+- <em>energy trading</em> which does not consider the limitations of the
+network capacity.</p>
+<figure>
+<img
+src="https://cdn.jsdelivr.net/gh/YangSuoly/Images/Prelim/202412011142563.png"
+alt="Pasted image 20241020100635" />
+<figcaption aria-hidden="true">Pasted image 20241020100635</figcaption>
+</figure>
+<p>it will become more and more important for the general secu-rity of
+network operations to observe the selectivity of the protection schemes.
+An important instrument for the prevention of disturbance enlargements
+is the “Protection Security Assessment” (PSA),</p>
+<ol type="1">
+<li>First of all, the PSA method requires a detailed data base of all
+protection schemes, characteristics and settings of the network.</li>
+<li>Secondly, a data base for condition simulations has to be
+established containing
+<ul>
+<li>the load and generation conditions,<br />
+</li>
+<li>the possible network topology changes and<br />
+</li>
+<li>fault characteristics, disturbance records, fault probabilities</li>
+</ul></li>
+</ol>
+<p>Based on the described data the assessment tool may provide a
+stepwise off-line event simulation including all protection devices, all
+possible faults and ground resistances at various locations along the
+network considering also the fault proba-bilities and breaker failure
+conditions If large networks with tens of thousands of protection
+devices have to be approved, the results should be presented separately
+in three levels:<br />
+1. the main protection schemes,<br />
+2. the back-up protection schemes,<br />
+3. the main and back-up protection schemes together</p>
+<p><strong>Adaptive Protection</strong></p>
+<p>In the past, the protection schemes were designed to protect the
+assigned asset against damages caused by faults by tripping the faulted
+network elements rapidly and ensuring in the same way the secure
+continuation of the network operations. The only criterion for
+activities was the detection of faults that exceeded the pickup
+settings.</p>
+<p>Now, however, due to the quickly changing network conditions the
+protection behaviour has to become smarter and provide more
+flexibility.</p>
+<p>The target of this new role is that the protection automatically
+recognizes that the actual settings and characteristics may cause over
+or under function. <strong>System Protection</strong></p>
+<p>In addition to the traditional tasks of the rapid, secure and
+selective fault elimi-nation, the protection schemes may perform system
+protection tasks ensuring the power system stability in emergency
+situations and avoiding the enlargement of disturbances into
+blackouts</p>
+<h3 id="wide-area-monitoring-by-phasor-measurement">5.3.4 Wide Area
+Monitoring by Phasor Measurement</h3>
+<p>Wide area monitoring systems (WAM) are based on accurate measurements
+of voltages, phase angles, currents, frequency and frequency sags and
+reactive and active power flows by phasor measurement units (PMU)
+installed in selected nodes of the network system.</p>
+<p>The results of the phasor measurement analysis by the data
+concentrator provide: The results of the phasor measurement analysis by
+the data concentrator provide:<br />
+- a real-time state estimation and stability observation of the
+networks, - the detection of power oscillations, their analysis and the
+generation of appropriate countermeasures,<br />
+- the dynamic load flow control,<br />
+- improved accuracy of the analysis of faults and the fault
+location,<br />
+- the monitoring of asset condition for their higher utilization,<br />
+- detection of islanded networks through frequency comparison.</p>
+<p>The interactive user interface of the data concentrator has to be
+designed to provide an optimum support to the dispatchers. The following
+design rules are common in the advanced WAM systems of different
+vendors:<br />
+- fast identification of the system conditions (okay, critical,
+alarm),<br />
+- free selection of the desired measurement records or phasor diagrams
+in a configuration field,<br />
+- setting of thresholds to be observed,<br />
+- simple shift between on-line and off-line mode for the interactive
+analysis of events,<br />
+- geographical presentation of the network with the allocation of PMUs
+allowing the fast location of areas with stability problems,<br />
+- gateways for data export and import to allow the cooperation with
+other assessment tools.</p>
+<h3 id="steady-state-and-dynamic-security-assessment">5.3.5 Steady State
+and Dynamic Security Assessment</h3>
+<p>Security calculations today are mostly performed as load flow
+contingency calcu-lations (sequence of N-1 violations using the current
+network conditions). As a result the operator is getting an overview of
+the situations in which overloads of equipment and congestions may
+occur. All decision making is the responsibility of the operator.</p>
+<p>Both the steady state assessment (SSA) and the dynamic security
+assessment (DSA) methods have to be enhanced and intro-duced as a
+combined method to provide better support to the network dispatcher</p>
+<p>A security assessment could provide the quantitative request of load
+reduction. For example, lowering the pump storage load by 50% would not
+affect the con-sumers.</p>
+<p>The advanced steady state security assessment has to be executed
+on-line. It consists of the following steps:<br />
+- on-line performance of subsequent N-1 <em>contingency load flow</em>
+calculations,<br />
+- consideration of the <em>volatility of power injections</em> with a
+time horizon of minimum 1 h,<br />
+- indication of possible <em>congestions and emergency</em>
+situations,<br />
+- start of an <em>optimized load flow calculation</em> for the indicated
+N-1 violation conditions taking into account the available control
+opportunities (e.g. change of grid topology, reactive power control
+etc.),<br />
+- recognizing the <em>differences</em> to the current operation
+conditions,<br />
+- creation of <em>recommendations</em> for how to shift the system to
+secure N-1 conditions.</p>
+<p><strong>Dynamic security assessment (DSA)</strong></p>
+<p>he dynamic security assessment is based on advanced power system
+simula-tion methods. In many cases it has been demonstrated that the
+simulation deliv-ers a highly accurate depiction when compared with the
+recorded disturbances</p>
+<p>This example demonstrates that the dynamic system behavior is
+accurately predictable using simulation tools. Furthermore, the
+countermeasures for stability enhancement may also be simulated and
+their efficiency may be approved. The dynamic investigation of the power
+system has to consider the three major aspects of stability
+disturbances:<br />
+- the voltage stability (avoidance of voltage collapse according to
+Sect. 5.1.1.)<br />
+- the small signal stability (when the system is near to the initiation
+of un-damped power swings according to the eigenvalue method, or if the
+voltage angle difference between the neighboring nodes is close to
+90°),<br />
+- the transient stability reflecting the damping of power oscillations
+after faults.</p>
+<figure>
+<img
+src="https://cdn.jsdelivr.net/gh/YangSuoly/Images/Prelim/202412011142564.png"
+alt="Pasted image 20241020105558" />
+<figcaption aria-hidden="true">Pasted image 20241020105558</figcaption>
+</figure>
+<p>The 1st priority of the dynamic security assessment is to provide
+detailed infor-mation of the power system stability and to create alarms
+in critical situations.</p>
+<p>For such expert systems a broad knowledge data base of the dynamic
+system behavior has to be developed. The neural network is able to
+select the appropriate countermeasures for improving a recognized
+critical situation using the knowledge data base ### 5.3.6 Weather
+Condition Monitoring and Flexible Line Loading</p>
+<p>The maximum loading of transmission lines is limited by the
+temperature of the conductors which is influenced by the weather
+conditions and the current flow.</p>
+<p>However, the worst case conditions are very rarely valid. In
+practice, the tradi-tional thermal overload protection avoids the full
+utilization of the physical trans-port capability of the transmission
+lines. In the case of lower temperature or higher wind speed, an
+increase of the line loading will be possible without exceeding the
+thermal thresholds</p>
+<h2 id="conclusions">5.4 Conclusions</h2>
+<p>The new conditions of network operation with volatile power
+injections lead to a higher loading of the network assets and the
+growing danger of stability violations. Maintaining the high level of
+reliability has to be performed in two ways: - <em>network
+enhancement</em> by advanced primary technologies,<br />
+- improved monitoring and intelligent <em>congestion
+management</em>.</p>
+<p>The new tasks of network planning are directed at defining the
+optimum ratio between both approaches. - Intelligent congestion
+management</p>
+<p>The intelligent congestion management is based on the set of the
+above described methods and instruments allowing better observation of
+the network conditions, more efficient utilization of the installed
+assets and adaptation of the network control/automation/protection
+according to these conditions. However, the described methods cannot
+stand alone. It is necessary to manage their mutual interaction in order
+to gain optimum efficiency and operational benefits. - monitoring and
+communication of the <em>weather conditions</em> to the control
+center,<br />
+- integration into the <em>state estimation</em> procedures of the
+control center, - approval by the <em>dynamic security assessment</em>
+and protection security assessment to avoid, for example, voltage
+collapse or stability problems and the<br />
+- dynamic adaptation of the <em>thermal overload protection</em>
+characteristics.</p>
+<p>Intelligent congestion management is requested to ensure the
+efficiency of the transmission network enhancement and the stability of
+the entire interconnected transmission system.</p>
+<p>The intelligent congestion management supplements the network
+extension by using primary assets.</p>
+<h1 id="the-three-pillars-of-smart-distribution">6. The Three Pillars of
+Smart Distribution</h1>
+<h2
+id="the-relationship-between-smart-grids-and-smart-markets-in-distribution-systems">6.1
+The Relationship Between Smart Grids and Smart Markets in Distribution
+Systems</h2>
+<p>The coor-dination of all network users in the sense of the Smart Grid
+definition seems to be useful to ensure the economic feasibility, the
+reliability, the sustainability and the reduced ecological impact of the
+electricity supply processes. The question arises, how the optimum
+relationship can be found between:<br />
+- the network enhancement required to respond to the requested
+bidirectional power transfers with <em>extremely high variability</em>,
+and<br />
+- the impact on the network users to <em>adapt their behaviour</em> to
+the available power transfer capacity</p>
+<p>However, the coordination of the connected consumers and the
+distributed energy resources (DER) has an impact on the market
+processes. It will become necessary to approach such challenges like: -
+<em>balancing</em> the intermittent <em>power injections</em> of the DER
+with the <em>demand</em>, - monitoring and controlling the <em>voltage
+increase</em> at the connection points of DER,<br />
+- observing the <em>loads</em>, especially the charging of electric cars
+to avoid any overloading of network equipment,<br />
+- maintaining the <em>reliability</em> of supply at today’s high level
+despite the changing conditions.</p>
+<p>The quality of supply including the voltage quality and the
+reliability may be maintained under the new conditions in two ways: The
+quality of supply (voltage quality and reliability): 1. Extremely strong
+enhancement of the network to meet all possible, including very rare
+varieties, of load flows or<br />
+2. Smart interaction between grid operations and market activities
+concerning the producers and consumers.</p>
+<p>The relationship between the markets and the distribution network
+operators (DNO) is complex and diverse</p>
+<p>Traditionally, the network users had to compensate the operational
+expenses (OPEX) including the return of investment (ROI) through the
+markets and, in exchange, the DNO offered a high power quality
+consisting of three compo-nents—voltage quality, reliability of supply
+and service quality DNO offers a high power quality consisting of three
+components: - voltage quality - reliability of supply - service
+quality</p>
+<p>the economy of the grid operation expenses will require the
+adaptation of loads or generation to the available network capacity in
+the environ-ment of volatile power in-feed and strong simultaneous
+demands.</p>
+<p>he stakeholders of the markets are the traders, the power plants, the
+virtual power plants (VPP—aggregating and coordinating distributed
+energy resources, switchable loads and storage), providers of
+electricity storage and the consumers. The establishment of Smart Grids
+in the distribution level has to include the following three pillars: 1.
+配电自动化 <em>Distribution Automation</em>—Network automation and
+remote control to avoid over voltages or overloads and to <em>improve
+the reliability</em> by speeding up the supply recovery after fault
+induced trips （故障跳闸）,<br />
+2. 智能聚合 <em>Smart Aggregation</em>—<em>Energy management</em> on the
+distribution level to coordinate the DERs, storage units and
+controllable loads for balancing and participation in markets for
+energy, ancillary and/or flexibility services and carbon
+certificates,<br />
+3. 智能计量 <em>Smart Metering</em>—<em>Consumer involvement</em> in the
+electricity market as a motivation for higher energy efficiency via
+variable tariffs and the visualization of tariffs, demand and costs.</p>
+<figure>
+<img
+src="https://cdn.jsdelivr.net/gh/YangSuoly/Images/Prelim/202412011142565.png"
+alt="Pasted image 20241020112546" />
+<figcaption aria-hidden="true">Pasted image 20241020112546</figcaption>
+</figure>
+<figure>
+<img
+src="https://cdn.jsdelivr.net/gh/YangSuoly/Images/Prelim/202412011142566.png"
+alt="Pasted image 20241020112631" />
+<figcaption aria-hidden="true">Pasted image 20241020112631</figcaption>
+</figure>
+<h2
+id="pillar-1-automation-and-remote-control-of-local-distribution-networks">6.2
+Pillar 1: Automation and Remote Control of Local Distribution
+Networks</h2>
+<p>The main tasks of the distribution network automation include voltage
+control, power flow control, remote executed operations for changing the
+network topology and the improved fault elimination/restoration of
+supply. The traditional voltage quality control parameters: - As a first
+priority, the algorithm of the voltage controller requires the voltage
+measurement at the MV busbars. - The second influencing parameter is the
+measured current -</p>
+<p>In principle, the smart meters will be installed at the connection
+nodes of the majority of network users to provide dynamic tariff systems
+<strong>Involvement of the Network Users into Voltage
+Control</strong></p>
+<p>If over-voltages occur which are caused by strong power injections
+(mainly from photovoltaic plants at noon), the voltage may be decreased
+by an increased active and/or reactive power demand near to the power
+injection node. Ways to mitigate: 1. Low tariffs are offered during
+midday on sunny days. 2. The DNO may install storage batteries at the
+affected nodes. They can be charged during high power injections and
+decrease the voltage in this way.<br />
+3. The DER, including storage batteries, may be operated with under
+excitation and demand reactive power.</p>
+<p>Contrarily, if it is necessary to increase the voltage because a peak
+load/low generation situation occurs with under-voltage, then the three
+actions should be reversed to control the load, namely: offering higher
+tariffs, discharging batteries and DER operation with over
+excitation.</p>
+<p>However, all of these methods require the remote reading of
+measurements, status indications and remote control. Communication
+networks have to be intro-duced at the distribution level for the smart
+distribution network operation. ### 6.2.2 Opportunities for Power Flow
+Control</p>
+<p>Overloading of network assets may occur bi-directionally in cases
+of:<br />
+- weak load/strong generation situations (e.g. on a sunny day at noon in
+a network with large scale connection of photovoltaic units) in the
+direction bottom up, or<br />
+- peak load/weak generation situations (e.g. in evening when people come
+home from work and simultaneously cook, wash and charge the electric
+cars) in the direction top–down.</p>
+<p>The first priority of the power flow control requires the remote
+monitoring of the currents and/or the power flow measurements at the
+MV/LV transformer terminals. The power flow control may also be executed
+by network operations and market activities</p>
+<p>The market driven power flow control activities may be categorized as
+definite (hard) and probable (soft) methods. The definite methods are
+based on special contract or tariff conditions and consist of the:
+Reduction or increase of the power output of DER by using the reserve
+power mechanisms on the distribution level,<br />
+- Switch-off or increase of controllable loads like air conditioners in
+summer or heat pumps in winter, which are offered on the positive
+reserve power market,<br />
+- Controlled discharging or charging of storage units, including the
+batteries of connected electric vehicles,<br />
+- Switch-off of previously contracted load or generation in emergency
+situations.</p>
+<h3
+id="automated-and-remote-controlled-recovery-of-supply-after-fault-trips">6.2.3
+Automated and Remote Controlled Recovery of Supply After Fault
+Trips</h3>
+<p>he fault location and elimination in MV networks is traditionally
+executed manually by driving along the faulted feeder and check-ing the
+short circuit indicators of the MV/LV transformer terminals</p>
+<h3 id="enhanced-mv-protection-concepts">6.2.4 Enhanced MV Protection
+Concepts</h3>
+<p>The connection of DER in MV distribution networks provides a
+significant impact on the protection behavior</p>
+<p>6.2.4.3 Phasor Measurement in Distribution Networks The main
+application areas for PMUs (phasor measurement units，相量测量单元) are
+seen as:<br />
+- Central voltage controller in distribution networks,<br />
+- Master power controller for the DER connection by power electronic
+converters,<br />
+- Voltage quality monitoring,<br />
+- Islanding detection,<br />
+- Synchronism check for re-connection of islanded network parts,<br />
+- Shaping awareness for system stability with the visualization of
+phasor measurements.</p>
+<h3 id="the-economy-of-the-smart-grid-enhancement-in-distribution">6.2.5
+The Economy of the Smart Grid Enhancement in Distribution</h3>
+<p>The enhancement of such a large number of terminals for
+controllability requires a significant investment. But, is it
+economically useful to enhance all transformer terminals?</p>
+<p>in this sense, a new optimization task for the network planning
+appears by selecting:<br />
+- the terminals which require enhanced <em>voltage control</em>,<br />
+- the terminals which require enhanced <em>power flow
+control</em>,<br />
+- the terminals which provide the best benefit--cost ratio for
+<em>reliability improvement</em></p>
+<p>In conclusion it can be stated that a Smart Grid does not require the
+complete introduction of new technologies in all network parts. However,
+the Smart Grid approach does require the economic intelligent weighting
+of the efficiency.</p>
+<p>It was detected that the majority of the expenses is caused by human
+efforts for: It was detected that the majority of the expenses is caused
+by human efforts for: - Engineering and design,<br />
+- Development of utility standard solutions,<br />
+- Installations and mounting,<br />
+- Approvals, tests and commissioning.</p>
+<h2
+id="pillar-2-flexibility-by-virtual-power-plants-smart-aggregation">6.3
+Pillar 2: Flexibility by Virtual Power Plants: Smart Aggregation</h2>
+<h3 id="basics-of-virtual-power-plants">6.3.1 Basics of Virtual Power
+Plants</h3>
+<p>The growing shares of volatile renewable power in the annual
+electricity consump-tion require the introduction of new methods to
+compensate for fluctuations and prediction errors</p>
+<p>The main task of the VPP is directed to the electricity market and
+contains the following basic tasks:<br />
+- Forecasting, balancing and coordination of all <em>aggregated
+assets</em> like generators, storages and controllable loads including
+the highly volatile wind and photovoltaic generation,<br />
+- Completion of the <em>day-ahead schedules</em> of the whole VPP and
+sale of the scheduled energy on the electricity market,<br />
+- Online <em>monitoring</em> of the electric power production and
+<em>estimation</em> of schedule deviations,<br />
+- <em>Decision making in an optimization process</em> about the use of
+its own resources (control of the power generation and/or Demand Side
+Management DSM to adapt the controllable loads) for the compensation of
+fluctuations or for paying the charges for the use of external reserve
+power provided by the control area manager.</p>
+<p>In this sense, the VPP can provide the balancing services to the
+power produc-ers for significantly lower expenses than the single
+producers can</p>
+<p>The optimization goal and mathematical target function is to maximize
+the benefit by using all possible market indications taking into account
+network fees and must run requirements due to heat or electric
+power:<br />
+- Electric energy day-ahead and intraday markets,<br />
+- Reserve power markets,<br />
+- Flexibility service provision to the DNO,<br />
+- Fuel costs,<br />
+- Charges for network use,<br />
+- Heat energy market (by optimized operation of Cogeneration of Heat and
+Power (CHP) plants on the electric energy market and storage of heat
+energy which is not required in periods with high electricity
+prices),<br />
+- CO2—Certificate trade</p>
+<p>The aim is to achieve benefits for each VPP component which a single
+asset could not address alone. For this, the VPP coordination is based
+on optimization tools.</p>
+<h3
+id="demand-side-management-the-role-of-storage-and-controllable-loads">6.3.2
+Demand Side Management: The Role of Storage and Controllable Loads</h3>
+<p>The adaptation of the demand to the available power generation will
+gain impor-tance in the environment of fluctuating power generation. The
+demand has to be integrated into the power system management in general.
+#DSI #DSM #DSR The Demand Side Integration (DSI) has two aspects:<br />
+1. DSM—<em>Demand Side Management</em> is the active switching of load
+either on a contractual basis with the VPP provider or based on offers
+on the reserve power market if the offered switchable power corresponds
+with the requirements accordingly Table 5.1.<br />
+2. DSR—<em>Demand Side Response</em> is the impact on the consumer
+behavior by dynamic tariffs coupled with means to achieve consumer
+awareness regarding the changing tariffs, the current demand and the
+related costs. However, the DSR depends on the willingness of the
+consumers to shift intensive load into periods with low tariffs. The DSR
+outcome can be estimated by predictions only and cannot be applied to
+perform the VPP function.</p>
+<p>Electric storage capabilities will play a significant role in the
+Smart Grid envi-ronment. Electric storage providers can act on the
+electricity market by benefitting from the spread of electricity prices
+(charging in low price periods, discharging in high price periods) and
+on the markets for reserve power or flexibility services within a
+VPP.</p>
+<p>On the other hand, during the weak load time the storage units are
+charged and the DSM groups are switched on. These actions increase the
+demand of the supply area when the prices for electricity are low</p>
+<h3
+id="business-models-of-virtual-power-plants-on-prospective-markets">6.3.3
+Business Models of Virtual Power Plants on Prospective Markets</h3>
+<p>Due to the strong volatility of the market conditions the stability
+of VPP bene-fits will be higher as it becomes possible to apply more
+business models.</p>
+<h2
+id="pillar-3-smart-metering-and-market-integration-of-the-consumers">6.4
+Pillar 3: Smart Metering and Market Integration of the Consumers</h2>
+<h3 id="basics-of-the-digital-metering-technology">6.4.1 Basics of the
+Digital Metering Technology</h3>
+<p>The digital technology was successfully introduced for protection and
+control and has been in use since the late 1980s</p>
+<p>offering economic and technical benefits compared to the previous
+analogue elec-tronic and electro-mechanical technologies.</p>
+<p>A Smart Meter is mainly an electrical meter that records the
+consumption of electric energy in short time intervals (from minutes to
+one hour) and then com-municates that information to the traders for
+monitoring the demand profiles and for billing</p>
+<p>Additional important features include voltage quality monitoring,
+load profile recording, gateway to home automation facilities (for
+energy management) and security functions. With the introduction of
+smart meters the following objectives are often targeted:<br />
+- Significant <em>benefits</em> for market participants,<br />
+- Market driven approach with the <em>integration of DER–RES</em>,<br />
+- <em>Energy savings and climate protection</em> by giving more
+real-time consumer feedback,<br />
+- <em>Limiting the peak power</em> of segments of the grid by enabling
+<em>Demand Side Response</em>,<br />
+- Competition in the metering data collection service and customer care,
+- As fast as possible widespread distribution of intelligent measuring
+systems,<br />
+- Acceptable cost-benefit ratio by <em>automating the metering
+processes</em>, - Smart Grid “Readiness”</p>
+<h3 id="dynamic-tariffs">6.4.2 Dynamic Tariffs</h3>
+<p>The expectation regarding the introduction programs is that smart
+metering will offer a number of potential benefits to the consumers,
+traders and network operators. These benefits concern both the
+commercial and the electricity supply processes, and provide:<br />
+- an end to estimated bills, which are a major source of complaints for
+many consumers,<br />
+- a tool to help consumers better manage their energy use—stating that
+Smart Meters with an in-house display could provide up-to-date
+information about the actual electricity consumption and, in so doing,
+help people to manage their energy use and reduce their energy bills and
+carbon emissions</p>
+<p>In the future such averaging mechanisms to create the tariff cannot
+support the above mentioned expectations regarding the adaptation of the
+demand to the energy availability. Dynamic tariffs will be based on the
+hourly changing energy<br />
+prices:<br />
+- to compensate energy deficits by applying higher tariffs,<br />
+- to utilize excesses of renewable energy by offering lower tariffs.</p>
+<h3 id="the-impact-on-consumer-behavior-demand-side-response">6.4.3 The
+Impact on Consumer Behavior: Demand Side Response</h3>
+<p>In general, the introduction of dynamic tariffs in combination with
+home auto-mation will become advantageous if, within the next 10–20
+years, all consumers obtain home automation facilities and can adapt
+their electricity consumption automatically in the same way as the best
+practice consumers did within the W2E project</p>
+<h3 id="electric-vehicle-management">6.4.4 Electric Vehicle
+Management</h3>
+<p>The question arises again: Is it necessary to enhance the network
+capabilities in a way that such simultaneous charging will become
+possible or it is more useful to introduce innovative methods for the
+electric vehicle management?</p>
+<p>The charging stations are connected via com-munication links with a
+control system—the mobility control center (MCC) The MCC receives
+information about<br />
+- the current electricity prices from the traders,<br />
+- the current loading situations of the parts of the network that
+contain charging stations,<br />
+- the appropriate charges for additional network use from the DNO</p>
+<h2 id="communication-needs-for-smart-distribution">6.5 Communication
+Needs for Smart Distribution</h2>
+<figure>
+<img
+src="https://cdn.jsdelivr.net/gh/YangSuoly/Images/Prelim/202412011142567.png"
+alt="Pasted image 20241020132357" />
+<figcaption aria-hidden="true">Pasted image 20241020132357</figcaption>
+</figure>
+<p>Traditionally, the local distribution networks are mostly operated
+without remote control mechanisms and automation functions. The
+distributed energy resources (DER) feed in the maximum possible
+generation corresponding to the weather conditions</p>
+<p>The introduction of the three pillars of distribution is aimed at
+improving the traditional approaches and requires a deep paradigm
+change. This will change the role of the distribution system from a
+passive to an active one that takes more responsibility in the overall
+power system</p>
+<p>In the future the distribution will have the important role of
+keeping the local balance between energy production and energy
+consumption.</p>
+<p>Consequently, information and communication technologies (ICT) will
+play the key role to ensure the sustainable and reliable network
+operation in the context of an increasing share of DER and new types of
+consumers connected to the distribu-tion networks</p>
+<h1 id="design-of-the-smart-energy-market">7. Design of the Smart Energy
+Market</h1>
+<p>Smart Grids are regarded as the pre-requisite for meeting the
+challenges of the electricity supply of the twenty first century with
+its significant share of renewa-ble energy sources (RES) in the annual
+electricity consumption, most of which are volatile and dependent on the
+weather conditions</p>
+<p>The main idea of Smart Grids—namely, the intelligent integration of
+all their users (see Sect. 1.1)—is currently prevented by the market
+design in the majority of European countries that apply the “feed-in
+tariff” supporting scheme.</p>
+<h2
+id="prospective-markets-for-power-supply-a-vision-and-a-case-study">7.1
+Prospective Markets for Power Supply: A Vision and a Case Study</h2>
+<p>The development of a prospective market design is mandatory to meet
+the chal-lenges of the electricity supply of the twenty first century in
+an economic and sus-tainable way.</p>
+<p>The following aspects are considered as the foundation of the
+prospective market in the electricity supply processes: 1. Interaction
+of Smart Grid and Smart Market 2. Renewable power producers become
+active market players 3. More flexibility of the definite power
+production 4. Price growth for fossil electricity generation 5. Costs
+for renewable electricity generation will decline 6. Changed coverage of
+the load profile 7. Qualified schedule management based on the cellular
+approach 8. 8. Tariffs based on dynamic electricity prices and network
+charges 9. Motivation of the network operators</p>
+<h2
+id="smart-services-for-network-operations-and-electricity-markets">7.2
+Smart Services for Network Operations and Electricity Markets</h2>
+<h3 id="the-overview-of-the-smart-services">7.2.1 The Overview of the
+Smart Services</h3>
+<p>The prospective interaction of smart network operations and market
+activities require the establishment of new services in the area of
+information and communi-cation technologies</p>
+<p>n the prospective Smart Supply Cells, data from meters are also
+requested for the targets of the three pillars of Smart Distribution as
+the prerequi-site for the cellular balancing and securing the power
+quality</p>
+<ul>
+<li>The <em>DNO</em> needs metered and measured values for the load flow
+supervision and the voltage observation in critical nodes (digital
+meters are able to provide voltage measurements).<br />
+</li>
+<li>The <em>party</em> responsible for balancing needs the online
+provision of the balance between load and generation to control the
+schedules of the Smart Supply Cell and minimize the costs for schedule
+deviations.<br />
+</li>
+<li>The <em>VPP</em> needs the ¼ h meter values from the aggregated
+plants and controllable loads for an online schedule observation and to
+perform intra-day optimization decisions.<br />
+</li>
+<li>The <em>traders</em> need load profiles of their consumers to
+improve the scheduling by using predictions based on the correlation
+between the weather conditions and the demand profiles.<br />
+</li>
+<li>The <em>metering services</em> for other media (water, heat, gas) in
+a multi- utility may also be integrated into the operations of the
+service provider responsible for the cell.<br />
+</li>
+<li>The charging of e-mobiles needs special supervision and influencing
+methods in order to avoid a large number of simultaneous charges in a
+limited part of a network, which would create overloading stress</li>
+</ul>
+<h3 id="metering-services">7.2.2 Metering Services</h3>
+<figure>
+<img
+src="https://cdn.jsdelivr.net/gh/YangSuoly/Images/Prelim/202412011142568.png"
+alt="Pasted image 20241020135839" />
+<figcaption aria-hidden="true">Pasted image 20241020135839</figcaption>
+</figure>
+<p>However, all consumers have the opportunity to select their own meter
+service provider. A complicated chain of contracts between the trader,
+the meter service provider, the network operator and the consumer has to
+be completed.</p>
+<h3 id="data-communication-and-information-management">7.2.3 Data
+Communication and Information Management</h3>
+<p>The three pillars of Smart Distribution require the establishment of
+a communica-tion infrastructure in the distribution networks all the way
+down to the consumers connected to the low voltage networks.</p>
+<p>The communication provider rolls out the data communication network
+and the data traffic according to the quality attributes for the Smart
+Grid and the Smart Market.</p>
+<p>The information provider (or data access manager) receives payments
+accord-ing to the volume of data acquired by the customers.</p>
+<h1
+id="advanced-information-and-communication-technology-the-backbone-of-smart-grids">8.
+Advanced Information and Communication Technology: The Backbone of Smart
+Grids</h1>
+<h2 id="the-importance-of-uniform-ict-standards-for-smart-grids">8.1 The
+Importance of Uniform ICT Standards for Smart Grids</h2>
+<h3 id="functions-of-ict-standards">8.1.1 Functions of ICT
+Standards</h3>
+<p>The information exchange necessary to properly run Smart Grids has to
+cover all levels of the electric power system and will take on a new
+quality compared to the traditional communication methods.</p>
+<p>he immense increase in the volume of data to be transferred requires
+the application of advanced information and com-munication technologies
+(ICT) in order to avoid extremely increased engineering efforts and to
+ensure consistency and security of the data transfer from level to
+level. he new standards have to cover the following main functions: -
+Online data transfer through communication networks,<br />
+- Consistent information management and data exchange between the data
+bases of various enterprise management systems,<br />
+- Protection against data manipulations and to ensure information
+security.</p>
+<h3 id="communication-standards">8.1.2 Communication Standards</h3>
+<figure>
+<img
+src="https://cdn.jsdelivr.net/gh/YangSuoly/Images/Prelim/202412011142569.png"
+alt="Pasted image 20241020141203" />
+<figcaption aria-hidden="true">Pasted image 20241020141203</figcaption>
+</figure>
+<ul>
+<li>物理层</li>
+<li>数据链路层</li>
+<li>网络层</li>
+<li>传输层</li>
+<li>会话层</li>
+<li>表示层</li>
+<li>应用层</li>
+</ul>
+<p>The exact definition of all layers builds the communication protocol.
+Simple communication protocols may use only the layers 1, 2 and 7.</p>
+<p>The definition of uniform data models of the application layer is the
+mandatory pre-requisite of an efficient communication system for Smart
+Grids</p>
+<p>First of all, the communication has to penetrate the distribution
+level down to the low voltage network users in order to perform the
+three pillars of Smart Distribution,</p>
+<p>The most efficient communication technologies that can be applied
+depend on the local conditions and may be in different physical forms:
+copper cables, fiber optic cables, radio The prospective uniform
+communication standard should offer the following aspects:<br />
+- Global acceptance,<br />
+- Less engineering by object oriented instruments and models,<br />
+- Services ensuring quality, efficiency, accuracy and security of the
+information exchange,<br />
+- High performance,<br />
+- Open for extensions regarding future applications,<br />
+- Flexibility in applying prospective innovative communication on the
+physical and link layers,<br />
+- Application of mature technologies in the 7-Layer Model,<br />
+- Interfaces to other standards and continuity in new standard
+extensions.</p>
+<h3 id="standards-for-data-management">8.1.3 Standards for Data
+Management</h3>
+<p>Enterprise process management (EPM) systems nowadays are broadly used
+to manage all processes of the enterprise based on digital data bases in
+an efficient way. parameters of a transformer are used in the data bases
+of the following EPM systems for the network management:<br />
+- SCADA,<br />
+- EMS (Energy management systems of TSOs) or DMS (Distribution
+management systems of DNOs),<br />
+- geographical information system (GIS),<br />
+- network planning,<br />
+- asset management,<br />
+- maintenance management,<br />
+- outage management.</p>
+<h3 id="information-security">8.1.4 Information Security</h3>
+<p>Electricity networks belong to the critical infrastructure systems.
+The remote control and supervision of electric networks are vulnerable
+to several security threats like - External attacks,<br />
+- Internal attacks,<br />
+- Natural disasters,<br />
+- Equipment failures,<br />
+- Carelessness,<br />
+- Data manipulation,<br />
+- Loss of data.</p>
+<p>The reactions to the threats can physically damage the network assets
+and have tremendous legal, social, and financial consequences</p>
+<h1 id="smart-grids-worldwide">9. Smart Grids Worldwide</h1>
+<h2 id="smart-grids-for-the-worlds-largest-power-systems">9.1 Smart
+Grids for the World’s Largest Power Systems</h2>
+<p>China became the world’s largest producer and consumer of electricity
+during the first decade of the 21st century.</p>
+<p>The need for establishing Smart Grids in China is driven by two major
+objectives:<br />
+1. Establishment of a unified national transmission system and<br />
+2. Significant growth in the use of renewable energy sources.</p>
+<p>The Chinese power system is operated by seven regional transmission
+networks. Five of these transmission networks are managed by the State
+Grid Corporation of China (SGCC): - NWCG—North-West China Grid, 西北电网
+- NCG—North China Grid, 华北电网 - NECG—North-East China Grid,
+中国东北电网 - CCG—Central China Grid, 华中电网 - ECG—East China Grid
+华东电网</p>
+<figure>
+<img
+src="https://cdn.jsdelivr.net/gh/YangSuoly/Images/Prelim/202412011142570.png"
+alt="Pasted image 20241020142912" />
+<figcaption aria-hidden="true">Pasted image 20241020142912</figcaption>
+</figure>
+<p>The China Southern Power Grid Company Limited (CSPGC) is the second
+state owned Chinese transmission enterprise and operates the China South
+Grid CSG.</p>
+<p>The lack of a unified national transmission system with strong
+interconnec-tions was a barrier to the nation-wide efficient use of the
+power plants and height-ens the risk of local congestions.</p>
+<p>China’s power system is mainly based on coal fired thermal power
+plants (approximately 65%). However, China is also the world champion
+regarding the electricity generation based on renewable energy sources
+(RES)</p>
+<p>The annual expansion of wind energy and PV capacities has picked up
+an enormous pace</p>
+<p>Furthermore, China will soon take over the world market leadership in
+photo-voltaic and wind power technologies.</p>
+<p>The integration of China’s growing RES capacity into the national
+power sys-tem requires the upgrade of the electric network
+infrastructure at all levels and ultimately, the establishment of a
+Smart Grid</p>
+
+    </div>
+
+    
+    
+    
+
+    <div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">
+            -------------This blog is over!
+            <i class="fa fa-eye"></i>
+            Thanks for your reading-------------
+        </div>
+    
+</div>
+      
+    </div>
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>Post author:  </strong>YangSu
+  </li>
+  <li class="post-copyright-link">
+    <strong>Post link: </strong>
+    <a href="http://yangsuoly.com/2024/12/01/Prelim-SG/" title="Prelim-SG">http://yangsuoly.com/2024/12/01/Prelim-SG/</a>
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/Tags/Smart-Grid/" rel="tag"><i class="fa fa-tag"></i> Smart-Grid</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2024/12/01/Prelim-Queue/" rel="prev" title="Prelim-Queue">
+      <i class="fa fa-chevron-left"></i> Prelim-Queue
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2024/12/01/Prelim-SCM/" rel="next" title="Prelim-SCM">
+      Prelim-SCM <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div id="music163player">
+      <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=1317956275&auto=0&height=66"></iframe>
+      </iframe>
+    </div>
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#vision-and-strategy-for-the-electricity-networks-of-the-future"><span class="nav-text">1.
+Vision and Strategy for the Electricity Networks of the Future</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#drivers-of-smart-grids"><span class="nav-text">1.1 Drivers of Smart Grids</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#the-core-elements-of-the-european-smart-grid-vision"><span class="nav-text">1.2 The
+Core Elements of the European Smart Grid Vision</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#smart-generation-resources-and-potentials"><span class="nav-text">2. Smart Generation:
+Resources and potentials</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#new-trends-and-requirements-for-electricity-generation"><span class="nav-text">2.1 New
+Trends and Requirements for Electricity Generation</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#volatile-renewable-energy-sources-wind-and-sun"><span class="nav-text">2.2 Volatile
+Renewable Energy Sources: Wind and Sun</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#wind-power-plant"><span class="nav-text">2.2.1 Wind Power Plant</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#utilization-of-solar-power-for-electricity-generation"><span class="nav-text">2.2.2
+Utilization of Solar Power for Electricity Generation</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#cogeneration-of-heat-and-power-applying-renewable-energy-sources"><span class="nav-text">2.3
+Cogeneration of Heat and Power Applying Renewable Energy Sources</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#bio-fuel-power-plants"><span class="nav-text">2.3.1 Bio Fuel Power Plants</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#geothermal-power-plants"><span class="nav-text">2.3.2 Geothermal Power Plants</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#fuel-cells"><span class="nav-text">2.3.2 Fuel Cells</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#electric-energy-storage-systems"><span class="nav-text">2.4 Electric Energy Storage
+Systems</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#introduction-and-categories-of-electricity-storage"><span class="nav-text">2.4.1
+Introduction and Categories of Electricity Storage</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#long-term-bulk-energy-storage-plants"><span class="nav-text">2.4.2 Long-Term Bulk
+Energy Storage Plants</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#enhanced-flexibility-requirements-for-controllable-power-plants"><span class="nav-text">2.5
+Enhanced Flexibility Requirements for Controllable Power Plants</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#modern-technologies-and-the-smart-grid"><span class="nav-text">3. Modern Technologies
+and the Smart Grid</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#substations-the-network-nodes"><span class="nav-text">3.1 Substations: The Network
+Nodes</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#schemes-and-components-of-transmission-substations"><span class="nav-text">3.1.1
+Schemes and Components of Transmission Substations</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#innovative-air-insulated-switchgear-technology"><span class="nav-text">3.1.2 Innovative
+Air Insulated Switchgear Technology</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#gas-insulated-switchgear"><span class="nav-text">3.1.3 Gas Insulated Switchgear</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#control-and-automation-of-power-systems-by-digital-technologies"><span class="nav-text">3.2
+Control and Automation of Power Systems by Digital Technologies</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#the-hierarchy-and-the-data-processing-of-power-system-control-and-automation"><span class="nav-text">3.2.1
+The Hierarchy and the Data Processing of Power System Control and
+Automation</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#control-center-technologies"><span class="nav-text">3.2.3 Control Center
+Technologies</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#transmission-technologies"><span class="nav-text">3.3 Transmission Technologies</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#overview"><span class="nav-text">3.3.1 overview</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ac-transmission"><span class="nav-text">3.3.2 AC-Transmission</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#dc-transmission"><span class="nav-text">3.3.3 DC-Transmission</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#flexible-ac-transmission-using-active-and-reactive-power-control"><span class="nav-text">3.3.4
+Flexible AC Transmission Using Active and Reactive Power Control</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#present-challenges-for-transmission-grids"><span class="nav-text">3.4 Present
+Challenges for Transmission Grids</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#the-impact-of-fluctuating-wind-and-solar-power-generation"><span class="nav-text">3.4.1
+The Impact of Fluctuating Wind and Solar Power Generation</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#the-dislocation-of-generation-and-load-centers"><span class="nav-text">3.4.2 The
+Dislocation of Generation and Load Centers</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#design-of-distribution-networks-and-the-impact-of-new-network-users"><span class="nav-text">4.
+Design of distribution networks and the impact of new network users</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#categories-of-distribution-networks"><span class="nav-text">4.1 Categories of
+Distribution Networks</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#primary-and-secondary-mv-distribution"><span class="nav-text">4.2 Primary and Secondary
+MV Distribution</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#network-categories-for-mv-and-lv"><span class="nav-text">4.3 Network Categories for MV
+and LV</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#neutral-grounding-concepts"><span class="nav-text">4.4 Neutral Grounding Concepts</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#protection-for-distribution-networks"><span class="nav-text">4.5 Protection for
+Distribution Networks</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#mv-networks"><span class="nav-text">4.5.1 MV Networks</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#distribution-network-operation"><span class="nav-text">4.6 Distribution Network
+Operation</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#ensuring-power-quality"><span class="nav-text">4.6.1 Ensuring Power Quality</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#process-management"><span class="nav-text">4.6.2 Process Management</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#new-trends-in-distribution-systems"><span class="nav-text">4.7 New Trends in
+Distribution Systems</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#distributed-generation-and-new-types-of-load"><span class="nav-text">4.7.1 Distributed
+Generation and New Types of Load</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#impact-on-power-quality"><span class="nav-text">4.7.2 Impact on Power Quality</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#smart-operation-and-observability-at-the-transmission-level"><span class="nav-text">5
+Smart Operation and Observability at the Transmission Level</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#the-root-causes-of-large-blackouts-and-the-lessons-learned"><span class="nav-text">5.1
+The Root Causes of Large Blackouts and the Lessons Learned</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#control-areas-and-system-services"><span class="nav-text">5.2 Control Areas and System
+Services</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#power-system-management"><span class="nav-text">5.2.1 Power System Management</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#frequency-control"><span class="nav-text">5.2.2 Frequency Control</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#voltage-control"><span class="nav-text">5.2.3 Voltage Control</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#restoration-of-supply"><span class="nav-text">5.2.4 Restoration of Supply</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#generation-scheduling-merit-order-principle"><span class="nav-text">5.2.5 Generation
+Scheduling: Merit Order Principle</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#system-service-provision-by-distributed-energy-resources"><span class="nav-text">5.2.6
+System Service Provision by Distributed Energy Resources</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#power-system-observation-and-intelligent-congestion-management"><span class="nav-text">5.3
+Power System Observation and Intelligent Congestion Management</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#need-for-more-observation-in-the-power-system"><span class="nav-text">5.3.1 Need for
+More Observation in the Power System</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#prediction-methods-for-a-secure-power-system-operation"><span class="nav-text">5.3.2
+Prediction Methods for a Secure Power System Operation</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#modern-protection-concepts"><span class="nav-text">5.3.3 Modern Protection
+Concepts</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#wide-area-monitoring-by-phasor-measurement"><span class="nav-text">5.3.4 Wide Area
+Monitoring by Phasor Measurement</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#steady-state-and-dynamic-security-assessment"><span class="nav-text">5.3.5 Steady State
+and Dynamic Security Assessment</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#conclusions"><span class="nav-text">5.4 Conclusions</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#the-three-pillars-of-smart-distribution"><span class="nav-text">6. The Three Pillars of
+Smart Distribution</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#the-relationship-between-smart-grids-and-smart-markets-in-distribution-systems"><span class="nav-text">6.1
+The Relationship Between Smart Grids and Smart Markets in Distribution
+Systems</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#pillar-1-automation-and-remote-control-of-local-distribution-networks"><span class="nav-text">6.2
+Pillar 1: Automation and Remote Control of Local Distribution
+Networks</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#automated-and-remote-controlled-recovery-of-supply-after-fault-trips"><span class="nav-text">6.2.3
+Automated and Remote Controlled Recovery of Supply After Fault
+Trips</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#enhanced-mv-protection-concepts"><span class="nav-text">6.2.4 Enhanced MV Protection
+Concepts</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#the-economy-of-the-smart-grid-enhancement-in-distribution"><span class="nav-text">6.2.5
+The Economy of the Smart Grid Enhancement in Distribution</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#pillar-2-flexibility-by-virtual-power-plants-smart-aggregation"><span class="nav-text">6.3
+Pillar 2: Flexibility by Virtual Power Plants: Smart Aggregation</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#basics-of-virtual-power-plants"><span class="nav-text">6.3.1 Basics of Virtual Power
+Plants</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#demand-side-management-the-role-of-storage-and-controllable-loads"><span class="nav-text">6.3.2
+Demand Side Management: The Role of Storage and Controllable Loads</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#business-models-of-virtual-power-plants-on-prospective-markets"><span class="nav-text">6.3.3
+Business Models of Virtual Power Plants on Prospective Markets</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#pillar-3-smart-metering-and-market-integration-of-the-consumers"><span class="nav-text">6.4
+Pillar 3: Smart Metering and Market Integration of the Consumers</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#basics-of-the-digital-metering-technology"><span class="nav-text">6.4.1 Basics of the
+Digital Metering Technology</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#dynamic-tariffs"><span class="nav-text">6.4.2 Dynamic Tariffs</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#the-impact-on-consumer-behavior-demand-side-response"><span class="nav-text">6.4.3 The
+Impact on Consumer Behavior: Demand Side Response</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#electric-vehicle-management"><span class="nav-text">6.4.4 Electric Vehicle
+Management</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#communication-needs-for-smart-distribution"><span class="nav-text">6.5 Communication
+Needs for Smart Distribution</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#design-of-the-smart-energy-market"><span class="nav-text">7. Design of the Smart Energy
+Market</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#prospective-markets-for-power-supply-a-vision-and-a-case-study"><span class="nav-text">7.1
+Prospective Markets for Power Supply: A Vision and a Case Study</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#smart-services-for-network-operations-and-electricity-markets"><span class="nav-text">7.2
+Smart Services for Network Operations and Electricity Markets</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#the-overview-of-the-smart-services"><span class="nav-text">7.2.1 The Overview of the
+Smart Services</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#metering-services"><span class="nav-text">7.2.2 Metering Services</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#data-communication-and-information-management"><span class="nav-text">7.2.3 Data
+Communication and Information Management</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#advanced-information-and-communication-technology-the-backbone-of-smart-grids"><span class="nav-text">8.
+Advanced Information and Communication Technology: The Backbone of Smart
+Grids</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#the-importance-of-uniform-ict-standards-for-smart-grids"><span class="nav-text">8.1 The
+Importance of Uniform ICT Standards for Smart Grids</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#functions-of-ict-standards"><span class="nav-text">8.1.1 Functions of ICT
+Standards</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#communication-standards"><span class="nav-text">8.1.2 Communication Standards</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#standards-for-data-management"><span class="nav-text">8.1.3 Standards for Data
+Management</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#information-security"><span class="nav-text">8.1.4 Information Security</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#smart-grids-worldwide"><span class="nav-text">9. Smart Grids Worldwide</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#smart-grids-for-the-worlds-largest-power-systems"><span class="nav-text">9.1 Smart
+Grids for the World’s Largest Power Systems</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="YangSu"
+      src="/images/YangSu.jpg">
+  <p class="site-author-name" itemprop="name">YangSu</p>
+  <div class="site-description" itemprop="description">A blog for recording learning notes...</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">78</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/Categories/">
+          
+        <span class="site-state-item-count">40</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/Tags/">
+          
+        <span class="site-state-item-count">49</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/YangSuoly" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;YangSuoly" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://gitee.com/yangsuoly" title="Gitee → https:&#x2F;&#x2F;gitee.com&#x2F;yangsuoly" rel="noopener" target="_blank"><i class="fab fa-github-square fa-fw"></i>Gitee</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://space.bilibili.com/64518717" title="B 站 → https:&#x2F;&#x2F;space.bilibili.com&#x2F;64518717" rel="noopener" target="_blank"><i class="fa fa-play-circle fa-fw"></i>B 站</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Related links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://www.58pic.com/u/19637930/" title="https:&#x2F;&#x2F;www.58pic.com&#x2F;u&#x2F;19637930&#x2F;" rel="noopener" target="_blank">千图网</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js" integrity="sha384-g7c+Jr9ZivxKLnZTDUhnkOnsh30B4H0rpLUpJ4jAIKs4fnJI+sEnkvrMWph2EDg4" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/auto-render.min.js" integrity="sha384-mll67QQFJfxn0IYznZYonOWZ644AWYC+Pt2cHqMaRhXVrursRwvLnLaebdGIlYNa" crossorigin="anonymous"
+        onload="renderMathInElement(document.body);"></script>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2026</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">YangSu</span>
+</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="Total Visitors">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="Total Views">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script size="300" alpha="0.6" zIndex="-1" src="/lib/canvas-ribbon/canvas-ribbon.js"></script>
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+<script>
+document.querySelectorAll('.pdfobject-container').forEach(element => {
+  let url = element.dataset.target;
+  let pdfOpenParams = {
+    navpanes : 0,
+    toolbar  : 0,
+    statusbar: 0,
+    pagemode : 'thumbs',
+    view     : 'FitH'
+  };
+  let pdfOpenFragment = '#' + Object.entries(pdfOpenParams).map(([key, value]) => `${key}=${encodeURIComponent(value)}`).join('&');
+  let fullURL = `/lib/pdf/web/viewer.html?file=${encodeURIComponent(url)}${pdfOpenFragment}`;
+
+  if (NexT.utils.supportsPDFs()) {
+    element.innerHTML = `<embed class="pdfobject" src="${url + pdfOpenFragment}" type="application/pdf" style="height: ${element.dataset.height};">`;
+  } else {
+    element.innerHTML = `<iframe src="${fullURL}" style="height: ${element.dataset.height};" frameborder="0"></iframe>`;
+  }
+});
+</script>
+
+
+<script>
+if (document.querySelectorAll('pre.mermaid').length) {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js', () => {
+    mermaid.initialize({
+      theme    : 'forest',
+      logLevel : 3,
+      flowchart: { curve     : 'linear' },
+      gantt    : { axisFormat: '%m/%d/%Y' },
+      sequence : { actorMargin: 50 }
+    });
+  }, window.mermaid);
+}
+</script>
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+  <script src="//cdn.jsdelivr.net/npm/quicklink@1/dist/quicklink.umd.js"></script>
+  <script>
+      window.addEventListener('load', () => {
+      quicklink({
+        timeout : 3000,
+        priority: true,
+        ignores : [uri => uri.includes('#'),uri => uri === 'http://yangsuoly.com/2024/12/01/Prelim-SG/',]
+      });
+      });
+  </script>
+
+  
+  <script id="ribbon" src="js/canvas-ribbon.js"></script>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/22.2017.cba-normal.model.json"},"display":{"position":"right","width":300,"height":450},"mobile":{"show":false},"react":{"opacity":0.7},"log":false});</script></body>
+</html>

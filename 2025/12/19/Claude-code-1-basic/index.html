@@ -1,0 +1,874 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/blog-logo-32px.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/blog-logo-16px.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <link rel="manifest" href="/images/manifest.json">
+  <meta name="msapplication-config" content="/images/browserconfig.xml">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yangsuoly.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":true},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":true,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="玩转 Claude Code：全平台接入智谱 GLM-4.7 配置实战 📝 前言 起因是半年前买的 Cursor 教育 Pro 版失效了，刚好最近有非常刚需的项目变成需求，于是花了点时间做调研，查看是否有更 fancy 的方法能让我实现代码编写和项目管理，最后发现 Claude Code是真香。 但在国内直连 Anthropic 官方 API 不仅门槛高，成本也不低。好在许多国产的模型，如智谱">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Claude-code-1-basic">
+<meta property="og:url" content="http://yangsuoly.com/2025/12/19/Claude-code-1-basic/index.html">
+<meta property="og:site_name" content="独孤诗人的学习驿站">
+<meta property="og:description" content="玩转 Claude Code：全平台接入智谱 GLM-4.7 配置实战 📝 前言 起因是半年前买的 Cursor 教育 Pro 版失效了，刚好最近有非常刚需的项目变成需求，于是花了点时间做调研，查看是否有更 fancy 的方法能让我实现代码编写和项目管理，最后发现 Claude Code是真香。 但在国内直连 Anthropic 官方 API 不仅门槛高，成本也不低。好在许多国产的模型，如智谱">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2025-12-19T03:09:21.000Z">
+<meta property="article:modified_time" content="2026-01-06T07:39:40.909Z">
+<meta property="article:author" content="YangSu">
+<meta property="article:tag" content="Tool">
+<meta property="article:tag" content="Claude-Code">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://yangsuoly.com/2025/12/19/Claude-code-1-basic/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>Claude-code-1-basic | 独孤诗人的学习驿站</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?f59f5fb59d32ec3903088b0f976956d1";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta custom-logo">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">独孤诗人的学习驿站</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">生活就是一半烟火，一半诗意。手执烟火谋生活，心怀诗意谋未来……</p>
+      <a>
+        <img class="custom-logo-image" src="/images/logo@2x.png" alt="独孤诗人的学习驿站">
+      </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/Tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/Categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+  <a href="https://github.com/YangSuoly" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yangsuoly.com/2025/12/19/Claude-code-1-basic/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/YangSu.jpg">
+      <meta itemprop="name" content="YangSu">
+      <meta itemprop="description" content="A blog for recording learning notes...">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="独孤诗人的学习驿站">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Claude-code-1-basic
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2025-12-19 11:09:21" itemprop="dateCreated datePublished" datetime="2025-12-19T11:09:21+08:00">2025-12-19</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2026-01-06 15:39:40" itemprop="dateModified" datetime="2026-01-06T15:39:40+08:00">2026-01-06</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/Categories/Notes/" itemprop="url" rel="index"><span itemprop="name">Notes</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/Categories/Notes/Claude-Code/" itemprop="url" rel="index"><span itemprop="name">Claude-Code</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="Views" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span><br>
+            <span class="post-meta-item" title="Symbols count in article">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">Symbols count in article: </span>
+              <span>5.8k</span>
+            </span>
+            <span class="post-meta-item" title="Reading time">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">Reading time &asymp;</span>
+              <span>5 mins.</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="玩转-claude-code全平台接入智谱-glm-4.7-配置实战">玩转 Claude
+Code：全平台接入智谱 GLM-4.7 配置实战</h1>
+<h2 id="前言">📝 前言</h2>
+<p>起因是半年前买的 Cursor 教育 Pro
+版失效了，刚好最近有非常刚需的项目变成需求，于是花了点时间做调研，查看是否有更
+fancy 的方法能让我实现代码编写和项目管理，最后发现 Claude
+Code是真香。</p>
+<p>但在国内直连 Anthropic 官方 API
+不仅门槛高，成本也不低。好在许多国产的模型，如智谱 AI (ChatGLM)
+，豆包，Minmax 等现在非常给力，提供了完全兼容 Anthropic
+协议的接口，可以轻松地平替掉 Claude 内置的模型，绕过ip的限制。</p>
+<p>这意味着我们完全可以<strong>用 Claude Code 的壳，跑国产模型
+（如GLM-4.7
+）的芯</strong>。不仅访问速度起飞，成本也大大降低。这篇笔记整理了我在
+Windows、macOS 和 Ubuntu 上跑通智谱 GLM-4.7
+模型流程的配置方法，希望能帮大家少走弯路。</p>
+<a id="more"></a>
+<h2 id="一-准备工作磨刀不误砍柴工">一、 准备工作：磨刀不误砍柴工</h2>
+<p>在开始敲命令行之前，我们需要先搞定“入场券”。</p>
+<h3 id="获取智谱-api-key">1.1 获取智谱 API Key</h3>
+<p>这一步很简单，直接去 <a
+target="_blank" rel="noopener" href="https://open.bigmodel.cn/">智谱AI开放平台</a>
+注册个账号。登录控制台后，创建一个 API Key 并复制下来，后面全靠它。</p>
+<h3 id="为什么选择-glm-4.7">1.2 为什么选择 GLM-4.7？</h3>
+<p>这里多啰嗦两句，智谱最近推了个 <a
+target="_blank" rel="noopener" href="https://www.bigmodel.cn/claude-code?ic=U1FZX68JPC"><strong>Coding
+Plan</strong></a>。专门针对编程场景做了优化：</p>
+<ul>
+<li><strong>模型升级</strong>：默认模型已经升级到了
+<strong>GLM-4.7</strong>，在代码生成和理解上比之前的版本强不少，能带来更强的推理能力和代码生成质量。</li>
+<li><strong>无缝兼容</strong>：它对 Claude Code
+的兼容性做得很好，基本不用改什么代码逻辑。</li>
+<li><strong>性价比</strong>：相比官方
+Claude，国内调用的价格和稳定性优势很明显，特别是对学生党和企业用户有各种优惠政策（首月尝鲜、拼车之类的，大家自己去官网看）。</li>
+</ul>
+<blockquote>
+<p><strong>💡 小贴士</strong>：如果你之前已经在
+<code>settings.json</code> 里写死了
+<code>glm-4.6</code>，建议这次顺手改成
+<code>glm-4.7</code>，体验会有提升。</p>
+</blockquote>
+<p><strong>GLM Coding Plan 说明</strong>：</p>
+<ul>
+<li><strong>订阅价格</strong>：每月最低仅需20元，即可在十余款主流AI编码工具中畅享智谱旗舰模型GLM-4.7。</li>
+</ul>
+<p>小编通过拼车开通了一年 Lite
+版本，只需要不到两百就能使用一年。目前体验了半个月 （已用了 4.2 亿
+Token），感觉工作效率提升了非常多，目前几乎成为了重度使用者。</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/YangSuoly/Images/Claude-code/202512301518818.png" /></p>
+<h3 id="环境依赖node.js">1.3 环境依赖：Node.js</h3>
+<p>Claude Code 是基于 Node.js 的，所以请确保你的电脑上已经安装了 Node
+环境（推荐 LTS 长期支持版）。 * <strong>下载地址</strong>：<a
+target="_blank" rel="noopener" href="https://nodejs.org/">https://nodejs.org/</a></p>
+<hr />
+<h2 id="二-windows-系统配置指南">二、 Windows 系统配置指南</h2>
+<h3 id="安装-claude-code">2.1 安装 Claude Code</h3>
+<p>打开 CMD 或 PowerShell，直接用 npm 全局安装：</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">npm install -g @anthropic-ai/claude-code</span><br><span class="line"># 或者用 yarn</span><br><span class="line">yarn global add @anthropic-ai/claude-code</span><br></pre></td></tr></table></figure>
+<h3 id="配置连接二选一">2.2 配置连接（二选一）</h3>
+<h4 id="方案-a通过配置文件推荐">2.2.1 方案 A：通过配置文件（推荐
+✅）</h4>
+<p>这是最干净的配置方式，不会污染系统的环境变量。</p>
+<ol type="1">
+<li>在用户目录下创建一个文件夹：<code>C:\Users\%USERNAME%\.claude</code></li>
+<li>在里面新建一个 <code>settings.json</code> 文件。</li>
+<li>填入下面的配置（记得把 Key 换成你自己的）：</li>
+</ol>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">&quot;env&quot;</span>: &#123;</span><br><span class="line">    <span class="attr">&quot;ANTHROPIC_AUTH_TOKEN&quot;</span>: <span class="string">&quot;你的智谱API_KEY&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;ANTHROPIC_BASE_URL&quot;</span>: <span class="string">&quot;https://open.bigmodel.cn/api/anthropic&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;ANTHROPIC_DEFAULT_HAIKU_MODEL&quot;</span>: <span class="string">&quot;glm-4.5-air&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;ANTHROPIC_DEFAULT_SONNET_MODEL&quot;</span>: <span class="string">&quot;glm-4.7&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;ANTHROPIC_DEFAULT_OPUS_MODEL&quot;</span>: <span class="string">&quot;glm-4.7&quot;</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="方案-b设置系统环境变量">2.2.2 方案 B：设置系统环境变量</h4>
+<p>如果你更喜欢用环境变量，可以这样操作：</p>
+<ol type="1">
+<li>右键"此电脑" → "属性" → "高级系统设置" → "环境变量"。</li>
+<li>在"用户变量"里新建以下几项：
+<ul>
+<li><code>ANTHROPIC_AUTH_TOKEN</code>: <code>你的智谱API_KEY</code></li>
+<li><code>ANTHROPIC_BASE_URL</code>:
+<code>https://open.bigmodel.cn/api/anthropic</code></li>
+<li><code>ANTHROPIC_DEFAULT_SONNET_MODEL</code>:
+<code>glm-4.7</code></li>
+</ul></li>
+</ol>
+<h3 id="验证是否成功">2.3 验证是否成功</h3>
+<p>打开终端，输入
+<code>claude</code>。如果能正常进入交互界面，且没有报错，说明配置成功！</p>
+<hr />
+<h2 id="三-macos-系统配置指南">三、 macOS 系统配置指南</h2>
+<h3 id="安装工具">3.1 安装工具</h3>
+<p>Mac 用户通过终端安装，Homebrew 或 npm 都可以：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># npm 方式</span></span><br><span class="line">npm install -g @anthropic-ai/claude-code</span><br><span class="line"></span><br><span class="line"><span class="comment"># 或者 Homebrew</span></span><br><span class="line">brew install claude-code</span><br></pre></td></tr></table></figure>
+<h3 id="配置连接">3.2 配置连接</h3>
+<h4 id="方案-a环境变量法-推荐">3.2.1 方案 A：环境变量法 （推荐 ✅）</h4>
+<p>这是最简便的方法。修改你的 shell 配置文件（比如
+<code>~/.zshrc</code>）：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> ANTHROPIC_AUTH_TOKEN=<span class="string">&quot;你的智谱API_KEY&quot;</span></span><br><span class="line"><span class="built_in">export</span> ANTHROPIC_BASE_URL=<span class="string">&quot;https://open.bigmodel.cn/api/anthropic&quot;</span></span><br><span class="line"><span class="comment"># 强制映射模型</span></span><br><span class="line"><span class="built_in">export</span> ANTHROPIC_DEFAULT_SONNET_MODEL=<span class="string">&quot;glm-4.7&quot;</span></span><br><span class="line"><span class="built_in">export</span> ANTHROPIC_DEFAULT_OPUS_MODEL=<span class="string">&quot;glm-4.7&quot;</span></span><br></pre></td></tr></table></figure>
+<p>记得执行 <code>source ~/.zshrc</code> 让配置生效。</p>
+<h4 id="方案-a配置文件法">3.2.2 方案 A：配置文件法</h4>
+<p>在终端运行以下命令创建文件：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mkdir -p ~/.claude</span><br><span class="line">nano ~/.claude/settings.json</span><br></pre></td></tr></table></figure>
+<p>然后粘贴以下 JSON 内容（<code>Ctrl+O</code> 保存，<code>Ctrl+X</code>
+退出）：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">&quot;env&quot;</span>: &#123;</span><br><span class="line">    <span class="attr">&quot;ANTHROPIC_AUTH_TOKEN&quot;</span>: <span class="string">&quot;你的智谱API_KEY&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;ANTHROPIC_BASE_URL&quot;</span>: <span class="string">&quot;https://open.bigmodel.cn/api/anthropic&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;ANTHROPIC_DEFAULT_HAIKU_MODEL&quot;</span>: <span class="string">&quot;glm-4.5-air&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;ANTHROPIC_DEFAULT_SONNET_MODEL&quot;</span>: <span class="string">&quot;glm-4.7&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;ANTHROPIC_DEFAULT_OPUS_MODEL&quot;</span>: <span class="string">&quot;glm-4.7&quot;</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<hr />
+<h2 id="四-linux-ubuntu-配置指南">四、 Linux / Ubuntu 配置指南</h2>
+<p>Linux 下的操作和 Mac 比较像，重点是权限管理。</p>
+<h3 id="确保-node.js-已就位">4.1 确保 Node.js 已就位</h3>
+<p>如果没有安装 Node，可以用 NodeSource 源装个新的 LTS 版本：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">curl -fsSL https://deb.nodesource.com/setup_lts.x | sudo -E bash -</span><br><span class="line">sudo apt-get install -y nodejs</span><br></pre></td></tr></table></figure>
+<h3 id="安装-claude-code-1">4.2 安装 Claude Code</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo npm install -g @anthropic-ai/claude-code</span><br></pre></td></tr></table></figure>
+<h3 id="写入配置">4.3 写入配置</h3>
+<p>同样推荐使用 json 文件配置，这样迁移方便：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 创建目录</span></span><br><span class="line">mkdir -p ~/.claude</span><br><span class="line"><span class="comment"># 编辑文件</span></span><br><span class="line">nano ~/.claude/settings.json</span><br></pre></td></tr></table></figure>
+<p>内容同上：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">&quot;env&quot;</span>: &#123;</span><br><span class="line">    <span class="attr">&quot;ANTHROPIC_AUTH_TOKEN&quot;</span>: <span class="string">&quot;你的智谱API_KEY&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;ANTHROPIC_BASE_URL&quot;</span>: <span class="string">&quot;https://open.bigmodel.cn/api/anthropic&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;ANTHROPIC_DEFAULT_HAIKU_MODEL&quot;</span>: <span class="string">&quot;glm-4.5-air&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;ANTHROPIC_DEFAULT_SONNET_MODEL&quot;</span>: <span class="string">&quot;glm-4.7&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;ANTHROPIC_DEFAULT_OPUS_MODEL&quot;</span>: <span class="string">&quot;glm-4.7&quot;</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><strong>🔒 安全建议</strong>：为了防止 Key
+泄露，建议把这个文件的权限设死一点：
+<code>chmod 600 ~/.claude/settings.json</code></p>
+</blockquote>
+<hr />
+<h2 id="五-进阶如何调教你的配置">五、 进阶：如何调教你的配置</h2>
+<p><code>settings.json</code>
+其实还支持更多参数，如果你想微调模型行为，可以参考下面的说明。</p>
+<h3 id="常用参数解析">5.1 常用参数解析</h3>
+<p>虽然我们在 <code>env</code> 里做了映射，但如果你在其他工具中使用智谱
+API，可能会用到标准格式：</p>
+<ul>
+<li><strong>apiUrl</strong>: 智谱的接口地址，生产环境一般是
+<code>https://open.bigmodel.cn/api/paas/v4/chat/completions</code>。</li>
+<li><strong>maxTokens</strong>: 建议设为
+<strong>8192</strong>。写长代码时 Token 太少会截断，很搞心态。</li>
+<li><strong>temperature</strong>: “温度”。设为 <code>0</code> 到
+<code>0.3</code> 适合写代码（严谨）；设为 <code>0.7</code>
+以上适合写文案（发散）。</li>
+<li><strong>model</strong>:
+<ul>
+<li><code>glm-4.7</code>: 主力模型，处理复杂逻辑用它。</li>
+<li><code>glm-4-flash</code>: 速度快，适合简单的问答。</li>
+<li><code>glm-4-air</code>: 性价比之选，跑大量任务时用。</li>
+</ul></li>
+</ul>
+<hr />
+<h3 id="实际上手体验">5.2 实际上手体验</h3>
+<p>一切配置妥当后，你就可以像使唤原生 Claude 一样使唤 GLM 了：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 启动交互模式</span></span><br><span class="line">claude</span><br><span class="line"></span><br><span class="line"><span class="comment"># 直接让它干活</span></span><br><span class="line">claude <span class="string">&quot;帮我用 Python 写个贪吃蛇游戏&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 让他帮你 Review 代码</span></span><br><span class="line">claude <span class="string">&quot;审查当前目录下的代码，指出潜在 bug&quot;</span></span><br></pre></td></tr></table></figure>
+<h4 id="基本命令速查">基本命令速查</h4>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看帮助</span></span><br><span class="line">/<span class="built_in">help</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看状态(当前使用的模型等)</span></span><br><span class="line">/status</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看记忆</span></span><br><span class="line">/memory view</span><br><span class="line"></span><br><span class="line"><span class="comment"># 退出</span></span><br><span class="line"><span class="built_in">exit</span>  <span class="comment"># 或 Ctrl+D</span></span><br></pre></td></tr></table></figure>
+<h4 id="第一个任务hello-world">第一个任务:Hello World</h4>
+<p>让咱们来个简单的热身:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 在 Claude Code 中输入(中文也行!)</span></span><br><span class="line">请创建一个 Python 脚本,打印<span class="string">&quot;Hello, World!&quot;</span></span><br></pre></td></tr></table></figure>
+<p>Claude Code 会: 1. 理解你的需求 2. 创建文件(比如
+<code>hello.py</code>) 3. 写入代码 4. 告诉你完成</p>
+<p><strong>可能的结果</strong>:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Do you want to make this edit to hello_world.py?</span><br><span class="line">❯ 1. Yes</span><br><span class="line">  2. Yes, allow all edits during this session (shift+tab)</span><br><span class="line">  3. Type here to tell Claude what to do differently</span><br></pre></td></tr></table></figure>
+<p>输入回车确认✅。这时候创建了 <code>hello_word.py</code>
+文件，内容为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">#!&#x2F;usr&#x2F;bin&#x2F;env python3</span><br><span class="line">&quot;&quot;&quot;</span><br><span class="line">简单的 Hello World 程序</span><br><span class="line"></span><br><span class="line">这个脚本打印 &quot;Hello, World!&quot; 到控制台。</span><br><span class="line">&quot;&quot;&quot;</span><br><span class="line"></span><br><span class="line">def main() -&gt; None:</span><br><span class="line">    &quot;&quot;&quot;主函数：打印问候语&quot;&quot;&quot;</span><br><span class="line">    print(&quot;Hello, World!&quot;)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">if __name__ &#x3D;&#x3D; &quot;__main__&quot;:</span><br><span class="line">    main()</span><br></pre></td></tr></table></figure>
+<h4 id="文件操作实战">文件操作实战</h4>
+<p><strong>读取文件</strong>: <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 让 Claude 读取并总结文件</span></span><br><span class="line">请帮我分析一下 @hello_world.py  这个文件</span><br></pre></td></tr></table></figure></p>
+<p>Results:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">代码亮点</span><br><span class="line">  1. 遵循最佳实践：</span><br><span class="line">    - 使用 main() 函数封装主逻辑（便于测试和复用）</span><br><span class="line">    - 使用 __name__ &#x3D;&#x3D; &quot;__main__&quot; 入口保护</span><br><span class="line">    - 添加了类型注解 -&gt; None</span><br><span class="line">    - 使用了中文 docstring（符合项目规范）</span><br><span class="line">  2. 可执行性：</span><br><span class="line">    - Shebang 使脚本可直接执行：chmod +x hello_world.py &amp;&amp; .&#x2F;hello_world.py</span><br><span class="line">  3. 可导入性：</span><br><span class="line">    - 其他模块可以导入 main 函数而不触发自动执行</span><br><span class="line"></span><br><span class="line">  运行方式</span><br><span class="line">  # 方式 1：使用 python 命令</span><br><span class="line">  python hello_world.py</span><br><span class="line"></span><br><span class="line">  # 方式 2：直接执行（需要先添加执行权限）</span><br><span class="line">  chmod +x hello_world.py</span><br><span class="line">  .&#x2F;hello_world.py</span><br><span class="line"></span><br><span class="line">  # 方式 3：作为模块导入</span><br><span class="line">  python -c &quot;from hello_world import main; main()&quot;</span><br><span class="line"></span><br><span class="line">  输出结果</span><br><span class="line">  Hello, World!</span><br><span class="line"></span><br><span class="line">  ---</span><br><span class="line">  总结：这是一个简洁、规范、符合 Python 最佳实践的入门脚本。</span><br></pre></td></tr></table></figure>
+<p>此外还与更多玩法可用：</p>
+<ul>
+<li><strong>编辑文件</strong>:</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 让 Claude 修改代码</span></span><br><span class="line">请把  @hello_world.py  中的打印内容改成<span class="string">&quot;你好,Python!&quot;</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong>创建新文件</strong>:</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 让 Claude 生成新文件</span></span><br><span class="line">请创建一个 README.md,写上项目介绍</span><br></pre></td></tr></table></figure>
+<h4 id="多文件编辑演示">多文件编辑演示</h4>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 复杂任务:批量操作</span></span><br><span class="line">请把当前目录下所有的 .txt 文件中的<span class="string">&quot;旧名称&quot;</span>替换成<span class="string">&quot;新名称&quot;</span></span><br></pre></td></tr></table></figure>
+<p>Claude Code 会: 1. 先用 <code>Glob</code> 工具找到所有 .txt 文件 2.
+逐个读取文件内容 3. 用 <code>Edit</code> 工具替换内容 4.
+汇报修改结果</p>
+<blockquote>
+<p><strong>💡 小贴士</strong>:Claude Code
+在执行敏感操作前会先问你是否确认,比如删除文件、修改大量代码等。</p>
+</blockquote>
+<p>👉 <strong>下一篇预告：<a
+target="_blank" rel="noopener" href="https://www.yangsuoly.com/2026/01/04/Claude-code-2-advanced/">02-Claude
+Code 核心功能全解析</a></strong></p>
+<h2 id="六参考链接">六、参考链接</h2>
+<ul>
+<li><p><a target="_blank" rel="noopener" href="https://docs.bigmodel.cn/">智谱AI开放文档</a></p></li>
+<li><p><a target="_blank" rel="noopener" href="https://docs.anthropic.com/claude-code">Claude
+Code官方文档</a></p></li>
+<li><p><a target="_blank" rel="noopener" href="https://nodejs.org/">Node.js官方下载</a></p></li>
+<li><p><a target="_blank" rel="noopener" href="https://docs.npmjs.com/">npm官方文档</a></p></li>
+<li><p><a
+target="_blank" rel="noopener" href="https://www.yuque.com/xiaoyou-nwu1w/ooi105/ezbqz1el31ekgt3k">接入
+GLM 4.6 模型</a></p></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">
+            -------------This blog is over!
+            <i class="fa fa-eye"></i>
+            Thanks for your reading-------------
+        </div>
+    
+</div>
+      
+    </div>
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>Post author:  </strong>YangSu
+  </li>
+  <li class="post-copyright-link">
+    <strong>Post link: </strong>
+    <a href="http://yangsuoly.com/2025/12/19/Claude-code-1-basic/" title="Claude-code-1-basic">http://yangsuoly.com/2025/12/19/Claude-code-1-basic/</a>
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/Tags/Tool/" rel="tag"><i class="fa fa-tag"></i> Tool</a>
+              <a href="/Tags/Claude-Code/" rel="tag"><i class="fa fa-tag"></i> Claude-Code</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2025/02/14/Mermaid/" rel="prev" title="Mermaid">
+      <i class="fa fa-chevron-left"></i> Mermaid
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2026/01/04/Claude-code-2-advanced/" rel="next" title="Claude-code-2-advanced">
+      Claude-code-2-advanced <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div id="music163player">
+      <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=1317956275&auto=0&height=66"></iframe>
+      </iframe>
+    </div>
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%8E%A9%E8%BD%AC-claude-code%E5%85%A8%E5%B9%B3%E5%8F%B0%E6%8E%A5%E5%85%A5%E6%99%BA%E8%B0%B1-glm-4.7-%E9%85%8D%E7%BD%AE%E5%AE%9E%E6%88%98"><span class="nav-text">玩转 Claude
+Code：全平台接入智谱 GLM-4.7 配置实战</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-text">📝 前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80-%E5%87%86%E5%A4%87%E5%B7%A5%E4%BD%9C%E7%A3%A8%E5%88%80%E4%B8%8D%E8%AF%AF%E7%A0%8D%E6%9F%B4%E5%B7%A5"><span class="nav-text">一、 准备工作：磨刀不误砍柴工</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%8E%B7%E5%8F%96%E6%99%BA%E8%B0%B1-api-key"><span class="nav-text">1.1 获取智谱 API Key</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E9%80%89%E6%8B%A9-glm-4.7"><span class="nav-text">1.2 为什么选择 GLM-4.7？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%8E%AF%E5%A2%83%E4%BE%9D%E8%B5%96node.js"><span class="nav-text">1.3 环境依赖：Node.js</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C-windows-%E7%B3%BB%E7%BB%9F%E9%85%8D%E7%BD%AE%E6%8C%87%E5%8D%97"><span class="nav-text">二、 Windows 系统配置指南</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85-claude-code"><span class="nav-text">2.1 安装 Claude Code</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE%E8%BF%9E%E6%8E%A5%E4%BA%8C%E9%80%89%E4%B8%80"><span class="nav-text">2.2 配置连接（二选一）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%B9%E6%A1%88-a%E9%80%9A%E8%BF%87%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E6%8E%A8%E8%8D%90"><span class="nav-text">2.2.1 方案 A：通过配置文件（推荐
+✅）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%B9%E6%A1%88-b%E8%AE%BE%E7%BD%AE%E7%B3%BB%E7%BB%9F%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F"><span class="nav-text">2.2.2 方案 B：设置系统环境变量</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%AA%8C%E8%AF%81%E6%98%AF%E5%90%A6%E6%88%90%E5%8A%9F"><span class="nav-text">2.3 验证是否成功</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89-macos-%E7%B3%BB%E7%BB%9F%E9%85%8D%E7%BD%AE%E6%8C%87%E5%8D%97"><span class="nav-text">三、 macOS 系统配置指南</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85%E5%B7%A5%E5%85%B7"><span class="nav-text">3.1 安装工具</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE%E8%BF%9E%E6%8E%A5"><span class="nav-text">3.2 配置连接</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%B9%E6%A1%88-a%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E6%B3%95-%E6%8E%A8%E8%8D%90"><span class="nav-text">3.2.1 方案 A：环境变量法 （推荐 ✅）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%B9%E6%A1%88-a%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E6%B3%95"><span class="nav-text">3.2.2 方案 A：配置文件法</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%9B-linux-ubuntu-%E9%85%8D%E7%BD%AE%E6%8C%87%E5%8D%97"><span class="nav-text">四、 Linux &#x2F; Ubuntu 配置指南</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A1%AE%E4%BF%9D-node.js-%E5%B7%B2%E5%B0%B1%E4%BD%8D"><span class="nav-text">4.1 确保 Node.js 已就位</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85-claude-code-1"><span class="nav-text">4.2 安装 Claude Code</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%86%99%E5%85%A5%E9%85%8D%E7%BD%AE"><span class="nav-text">4.3 写入配置</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%94-%E8%BF%9B%E9%98%B6%E5%A6%82%E4%BD%95%E8%B0%83%E6%95%99%E4%BD%A0%E7%9A%84%E9%85%8D%E7%BD%AE"><span class="nav-text">五、 进阶：如何调教你的配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8%E5%8F%82%E6%95%B0%E8%A7%A3%E6%9E%90"><span class="nav-text">5.1 常用参数解析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9E%E9%99%85%E4%B8%8A%E6%89%8B%E4%BD%93%E9%AA%8C"><span class="nav-text">5.2 实际上手体验</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A4%E9%80%9F%E6%9F%A5"><span class="nav-text">基本命令速查</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%AC%AC%E4%B8%80%E4%B8%AA%E4%BB%BB%E5%8A%A1hello-world"><span class="nav-text">第一个任务:Hello World</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C%E5%AE%9E%E6%88%98"><span class="nav-text">文件操作实战</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A4%9A%E6%96%87%E4%BB%B6%E7%BC%96%E8%BE%91%E6%BC%94%E7%A4%BA"><span class="nav-text">多文件编辑演示</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%AD%E5%8F%82%E8%80%83%E9%93%BE%E6%8E%A5"><span class="nav-text">六、参考链接</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="YangSu"
+      src="/images/YangSu.jpg">
+  <p class="site-author-name" itemprop="name">YangSu</p>
+  <div class="site-description" itemprop="description">A blog for recording learning notes...</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">78</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/Categories/">
+          
+        <span class="site-state-item-count">40</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/Tags/">
+          
+        <span class="site-state-item-count">49</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/YangSuoly" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;YangSuoly" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://gitee.com/yangsuoly" title="Gitee → https:&#x2F;&#x2F;gitee.com&#x2F;yangsuoly" rel="noopener" target="_blank"><i class="fab fa-github-square fa-fw"></i>Gitee</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://space.bilibili.com/64518717" title="B 站 → https:&#x2F;&#x2F;space.bilibili.com&#x2F;64518717" rel="noopener" target="_blank"><i class="fa fa-play-circle fa-fw"></i>B 站</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Related links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://www.58pic.com/u/19637930/" title="https:&#x2F;&#x2F;www.58pic.com&#x2F;u&#x2F;19637930&#x2F;" rel="noopener" target="_blank">千图网</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js" integrity="sha384-g7c+Jr9ZivxKLnZTDUhnkOnsh30B4H0rpLUpJ4jAIKs4fnJI+sEnkvrMWph2EDg4" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/auto-render.min.js" integrity="sha384-mll67QQFJfxn0IYznZYonOWZ644AWYC+Pt2cHqMaRhXVrursRwvLnLaebdGIlYNa" crossorigin="anonymous"
+        onload="renderMathInElement(document.body);"></script>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2026</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">YangSu</span>
+</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="Total Visitors">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="Total Views">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script size="300" alpha="0.6" zIndex="-1" src="/lib/canvas-ribbon/canvas-ribbon.js"></script>
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+<script>
+document.querySelectorAll('.pdfobject-container').forEach(element => {
+  let url = element.dataset.target;
+  let pdfOpenParams = {
+    navpanes : 0,
+    toolbar  : 0,
+    statusbar: 0,
+    pagemode : 'thumbs',
+    view     : 'FitH'
+  };
+  let pdfOpenFragment = '#' + Object.entries(pdfOpenParams).map(([key, value]) => `${key}=${encodeURIComponent(value)}`).join('&');
+  let fullURL = `/lib/pdf/web/viewer.html?file=${encodeURIComponent(url)}${pdfOpenFragment}`;
+
+  if (NexT.utils.supportsPDFs()) {
+    element.innerHTML = `<embed class="pdfobject" src="${url + pdfOpenFragment}" type="application/pdf" style="height: ${element.dataset.height};">`;
+  } else {
+    element.innerHTML = `<iframe src="${fullURL}" style="height: ${element.dataset.height};" frameborder="0"></iframe>`;
+  }
+});
+</script>
+
+
+<script>
+if (document.querySelectorAll('pre.mermaid').length) {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js', () => {
+    mermaid.initialize({
+      theme    : 'forest',
+      logLevel : 3,
+      flowchart: { curve     : 'linear' },
+      gantt    : { axisFormat: '%m/%d/%Y' },
+      sequence : { actorMargin: 50 }
+    });
+  }, window.mermaid);
+}
+</script>
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+  <script src="//cdn.jsdelivr.net/npm/quicklink@1/dist/quicklink.umd.js"></script>
+  <script>
+      window.addEventListener('load', () => {
+      quicklink({
+        timeout : 3000,
+        priority: true,
+        ignores : [uri => uri.includes('#'),uri => uri === 'http://yangsuoly.com/2025/12/19/Claude-code-1-basic/',]
+      });
+      });
+  </script>
+
+  
+  <script id="ribbon" src="js/canvas-ribbon.js"></script>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/22.2017.cba-normal.model.json"},"display":{"position":"right","width":300,"height":450},"mobile":{"show":false},"react":{"opacity":0.7},"log":false});</script></body>
+</html>

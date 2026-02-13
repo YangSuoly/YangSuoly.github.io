@@ -1,0 +1,4843 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/blog-logo-32px.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/blog-logo-16px.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <link rel="manifest" href="/images/manifest.json">
+  <meta name="msapplication-config" content="/images/browserconfig.xml">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yangsuoly.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":true},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":true,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="1 概述 这门课程得主要目的是通过真实的数据，以实战的方式了解数据分析的流程和熟悉数据分析python的基本操作。知道了课程的目的之后，我们接下来我们要正式的开始数据分析的实战教学，完成kaggle上泰坦尼克的任务，实战数据分析全流程。 这里有两份资料： 教材《Python for Data Analysis》和 baidu.com &amp; google.com（善用搜索引擎）">
+<meta property="og:type" content="article">
+<meta property="og:title" content="DataAnalysis-Describe">
+<meta property="og:url" content="http://yangsuoly.com/2021/06/15/DataAnalysis-Describe/index.html">
+<meta property="og:site_name" content="独孤诗人的学习驿站">
+<meta property="og:description" content="1 概述 这门课程得主要目的是通过真实的数据，以实战的方式了解数据分析的流程和熟悉数据分析python的基本操作。知道了课程的目的之后，我们接下来我们要正式的开始数据分析的实战教学，完成kaggle上泰坦尼克的任务，实战数据分析全流程。 这里有两份资料： 教材《Python for Data Analysis》和 baidu.com &amp; google.com（善用搜索引擎）">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2021-06-15T14:44:35.000Z">
+<meta property="article:modified_time" content="2021-06-20T09:37:47.178Z">
+<meta property="article:author" content="YangSu">
+<meta property="article:tag" content="Python">
+<meta property="article:tag" content="Data Analysis">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://yangsuoly.com/2021/06/15/DataAnalysis-Describe/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>DataAnalysis-Describe | 独孤诗人的学习驿站</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?f59f5fb59d32ec3903088b0f976956d1";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta custom-logo">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">独孤诗人的学习驿站</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">生活就是一半烟火，一半诗意。手执烟火谋生活，心怀诗意谋未来……</p>
+      <a>
+        <img class="custom-logo-image" src="/images/logo@2x.png" alt="独孤诗人的学习驿站">
+      </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/Tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/Categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+  <a href="https://github.com/YangSuoly" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yangsuoly.com/2021/06/15/DataAnalysis-Describe/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/YangSu.jpg">
+      <meta itemprop="name" content="YangSu">
+      <meta itemprop="description" content="A blog for recording learning notes...">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="独孤诗人的学习驿站">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          DataAnalysis-Describe
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-06-15 22:44:35" itemprop="dateCreated datePublished" datetime="2021-06-15T22:44:35+08:00">2021-06-15</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-06-20 17:37:47" itemprop="dateModified" datetime="2021-06-20T17:37:47+08:00">2021-06-20</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/Categories/DataWhale/" itemprop="url" rel="index"><span itemprop="name">DataWhale</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/Categories/DataWhale/Data-Analysis/" itemprop="url" rel="index"><span itemprop="name">Data Analysis</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="Views" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span><br>
+            <span class="post-meta-item" title="Symbols count in article">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">Symbols count in article: </span>
+              <span>13k</span>
+            </span>
+            <span class="post-meta-item" title="Reading time">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">Reading time &asymp;</span>
+              <span>12 mins.</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="概述">1 概述</h1>
+<p>这门课程得主要目的是通过真实的数据，以实战的方式了解数据分析的流程和熟悉数据分析python的基本操作。知道了课程的目的之后，我们接下来我们要正式的开始数据分析的实战教学，完成kaggle上<a
+target="_blank" rel="noopener" href="https://www.kaggle.com/c/titanic/overview">泰坦尼克的任务</a>，实战数据分析全流程。
+这里有两份资料： 教材《Python for Data Analysis》和 baidu.com &amp;
+google.com（善用搜索引擎）</p>
+<a id="more"></a>
+<h1 id="数据载入及初步观察">2 数据载入及初步观察</h1>
+<h2 id="载入数据">2.1 载入数据</h2>
+<p>数据集下载 https://www.kaggle.com/c/titanic/overview</p>
+<ul>
+<li><p>导入模块</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> nnp</span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="加载数据">2.2 加载数据</h2>
+<ul>
+<li><p>相对路径</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>data = pd.read_csv(<span class="string">&#x27;./train.csv&#x27;</span>, encoding = <span class="string">&#x27;utf-8&#x27;</span>)</span><br></pre></td></tr></table></figure></li>
+<li><p>绝对路径</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>data = pd.read_csv(<span class="string">r&quot;D:\Demo\University\XMU\Python\Artificial-intelligence\Data analysis\第一单元项目集合\train.csv&quot;</span>, encoding = <span class="string">&#x27;utf-8&#x27;</span>)</span><br></pre></td></tr></table></figure></li>
+<li><p><code>read_table</code> 读取</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 设置 sep</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>data = pd.read_table(<span class="string">&#x27;./train.csv&#x27;</span>, sep = <span class="string">&#x27;,&#x27;</span>)</span><br></pre></td></tr></table></figure></li>
+<li><p>获取当前路径</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">import</span> os</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>print(os.getcwd())</span><br><span class="line"></span><br><span class="line">D:\Demo\University\XMU\Python\Artificial-intelligence\Data analysis\第一单元项目集合</span><br></pre></td></tr></table></figure></li>
+<li><p>逐块读取</p>
+<p>每500行为一个数据模块，逐块读取</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 设置 chunksize 参数</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>chunker = pd.read_csv(<span class="string">&#x27;train.csv&#x27;</span>, chunksize=<span class="number">500</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">for</span> df <span class="keyword">in</span> chunker:</span><br><span class="line">        print(<span class="built_in">type</span>(df), df.shape)</span><br><span class="line"></span><br><span class="line">&lt;<span class="class"><span class="keyword">class</span> &#x27;<span class="title">pandas</span>.<span class="title">core</span>.<span class="title">frame</span>.<span class="title">DataFrame</span>&#x27;&gt; (<span class="params"><span class="number">500</span>, <span class="number">12</span></span>)</span></span><br><span class="line"><span class="class">&lt;<span class="title">class</span> &#x27;<span class="title">pandas</span>.<span class="title">core</span>.<span class="title">frame</span>.<span class="title">DataFrame</span>&#x27;&gt; (<span class="params"><span class="number">391</span>, <span class="number">12</span></span>)</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="数据预处理">2.3 数据预处理</h2>
+<h3 id="更改表头">2.3.1 更改表头</h3>
+<p>索引改为乘客ID（对于某些英文资料，我们可以通过翻译来更直观的熟悉我们的数据）：
+PassengerId =&gt; 乘客ID<br />
+Survived =&gt; 是否幸存<br />
+Pclass =&gt; 乘客等级(1/2/3等舱位)<br />
+Name =&gt; 乘客姓名<br />
+Sex =&gt; 性别<br />
+Age =&gt; 年龄<br />
+SibSp =&gt; 堂兄弟/妹个数<br />
+Parch =&gt; 父母与小孩个数<br />
+Ticket =&gt; 船票信息<br />
+Fare =&gt; 票价<br />
+Cabin =&gt; 客舱<br />
+Embarked =&gt; 登船港口</p>
+<ul>
+<li><p>方式一</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>maps = &#123;<span class="string">&#x27;PassengerId&#x27;</span>: <span class="string">&#x27;乘客ID&#x27;</span>, <span class="string">&#x27;Survived&#x27;</span>: <span class="string">&#x27;是否幸存&#x27;</span>, <span class="string">&#x27;Pclass&#x27;</span>: <span class="string">&#x27;乘客等级(1/2/3等舱位)&#x27;</span>,</span><br><span class="line">        <span class="string">&#x27;Name&#x27;</span>: <span class="string">&#x27;乘客姓名&#x27;</span>, <span class="string">&#x27;Sex&#x27;</span>: <span class="string">&#x27;性别&#x27;</span>, <span class="string">&#x27;Age&#x27;</span>: <span class="string">&#x27;年龄&#x27;</span>, <span class="string">&#x27;SibSp&#x27;</span>: <span class="string">&#x27;堂兄弟/妹个数&#x27;</span>,</span><br><span class="line">        <span class="string">&#x27;Parch&#x27;</span>: <span class="string">&#x27;父母与小孩个数&#x27;</span>, <span class="string">&#x27;Ticket&#x27;</span>: <span class="string">&#x27;船票信息&#x27;</span>, <span class="string">&#x27;Fare&#x27;</span>: <span class="string">&#x27;票价&#x27;</span>,</span><br><span class="line">        <span class="string">&#x27;Cabin&#x27;</span>: <span class="string">&#x27;客舱&#x27;</span>, <span class="string">&#x27;Embarked&#x27;</span>: <span class="string">&#x27;登船港口&#x27;</span>&#125;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>data.rename(columns=maps, inplace=<span class="literal">True</span>)</span><br></pre></td></tr></table></figure></li>
+<li><p>方式二</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>data = data = pd.read_csv(<span class="string">&#x27;./train.csv&#x27;</span>, encoding = <span class="string">&#x27;utf-8&#x27;</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>columns = [<span class="string">&#x27;乘客ID&#x27;</span>,<span class="string">&#x27;是否幸存&#x27;</span>,<span class="string">&#x27;仓位等级&#x27;</span>,<span class="string">&#x27;姓名&#x27;</span>,<span class="string">&#x27;性别&#x27;</span>,<span class="string">&#x27;年龄&#x27;</span>,<span class="string">&#x27;兄弟姐妹个数&#x27;</span>,</span><br><span class="line">           <span class="string">&#x27;父母子女个数&#x27;</span>,<span class="string">&#x27;船票信息&#x27;</span>,<span class="string">&#x27;票价&#x27;</span>,<span class="string">&#x27;客舱&#x27;</span>,<span class="string">&#x27;登船港口&#x27;</span>]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>data.columns = columns</span><br></pre></td></tr></table></figure></li>
+<li><p>方式三</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>df = pd.read_csv(<span class="string">&#x27;train.csv&#x27;</span>,</span><br><span class="line">         names=[<span class="string">&#x27;乘客ID&#x27;</span>,<span class="string">&#x27;是否幸存&#x27;</span>,<span class="string">&#x27;仓位等级&#x27;</span>,<span class="string">&#x27;姓名&#x27;</span>,<span class="string">&#x27;性别&#x27;</span>,<span class="string">&#x27;年龄&#x27;</span>, <span class="string">&#x27;兄弟姐妹个数&#x27;</span>,</span><br><span class="line">                <span class="string">&#x27;父母子女个数&#x27;</span>,<span class="string">&#x27;船票信息&#x27;</span>,<span class="string">&#x27;票价&#x27;</span>,<span class="string">&#x27;客舱&#x27;</span>,<span class="string">&#x27;登船港口&#x27;</span>],</span><br><span class="line">                 index_col=<span class="string">&#x27;乘客ID&#x27;</span>,header=<span class="number">0</span>)</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="初步观察">2.3.2 初步观察</h3>
+<p>导入数据后，你可能要对数据的整体结构和样例进行概览，比如说，数据大小、有多少列，各列都是什么格式的，是否包含null等。</p>
+<ul>
+<li><p>查看信息</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>data.info()</span><br><span class="line"></span><br><span class="line">&lt;<span class="class"><span class="keyword">class</span> &#x27;<span class="title">pandas</span>.<span class="title">core</span>.<span class="title">frame</span>.<span class="title">DataFrame</span>&#x27;&gt;</span></span><br><span class="line"><span class="class"><span class="title">RangeIndex</span>:</span> <span class="number">891</span> entries, <span class="number">0</span> to <span class="number">890</span></span><br><span class="line">Data columns (total <span class="number">12</span> columns):</span><br><span class="line"> <span class="comment">#   Column  Non-Null Count  Dtype  </span></span><br><span class="line">---  ------  --------------  -----  </span><br><span class="line"> <span class="number">0</span>   乘客ID    <span class="number">891</span> non-null    int64  </span><br><span class="line"> <span class="number">1</span>   是否幸存    <span class="number">891</span> non-null    int64  </span><br><span class="line"> <span class="number">2</span>   仓位等级    <span class="number">891</span> non-null    int64  </span><br><span class="line"> <span class="number">3</span>   姓名      <span class="number">891</span> non-null    <span class="built_in">object</span></span><br><span class="line"> <span class="number">4</span>   性别      <span class="number">891</span> non-null    <span class="built_in">object</span></span><br><span class="line"> <span class="number">5</span>   年龄      <span class="number">714</span> non-null    float64</span><br><span class="line"> <span class="number">6</span>   兄弟姐妹个数  <span class="number">891</span> non-null    int64  </span><br><span class="line"> <span class="number">7</span>   父母子女个数  <span class="number">891</span> non-null    int64  </span><br><span class="line"> <span class="number">8</span>   船票信息    <span class="number">891</span> non-null    <span class="built_in">object</span></span><br><span class="line"> <span class="number">9</span>   票价      <span class="number">891</span> non-null    float64</span><br><span class="line"> <span class="number">10</span>  客舱      <span class="number">204</span> non-null    <span class="built_in">object</span></span><br><span class="line"> <span class="number">11</span>  登船港口    <span class="number">889</span> non-null    <span class="built_in">object</span></span><br><span class="line">dtypes: float64(<span class="number">2</span>), int64(<span class="number">5</span>), <span class="built_in">object</span>(<span class="number">5</span>)</span><br><span class="line">memory usage: <span class="number">83.7</span>+ KB</span><br></pre></td></tr></table></figure></li>
+<li><p>开头和结尾</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>data.head(<span class="number">10</span>)</span><br></pre></td></tr></table></figure>
+<table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th>
+</th>
+<th>
+<p>乘客ID</p>
+</th>
+<th>
+<p>是否幸存</p>
+</th>
+<th>
+<p>仓位等级</p>
+</th>
+<th>
+<p>姓名</p>
+</th>
+<th>
+<p>性别</p>
+</th>
+<th>
+<p>年龄</p>
+</th>
+<th>
+<p>兄弟姐妹个数</p>
+</th>
+<th>
+<p>父母子女个数</p>
+</th>
+<th>
+<p>船票信息</p>
+</th>
+<th>
+<p>票价</p>
+</th>
+<th>
+<p>客舱</p>
+</th>
+<th>
+<p>登船港口</p>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>
+<p>0</p>
+</th>
+<td>
+<p>1</p>
+</td>
+<td>
+<p>0</p>
+</td>
+<td>
+<p>3</p>
+</td>
+<td>
+<p>Braund, Mr. Owen Harris</p>
+</td>
+<td>
+<p>male</p>
+</td>
+<td>
+<p>22.0</p>
+</td>
+<td>
+<p>1</p>
+</td>
+<td>
+<p>0</p>
+</td>
+<td>
+<p>A/5 21171</p>
+</td>
+<td>
+<p>7.2500</p>
+</td>
+<td>
+<p>NaN</p>
+</td>
+<td>
+<p>S</p>
+</td>
+</tr>
+<tr>
+<th>
+<p>1</p>
+</th>
+<td>
+<p>2</p>
+</td>
+<td>
+<p>1</p>
+</td>
+<td>
+<p>1</p>
+</td>
+<td>
+<p>Cumings, Mrs. John Bradley (Florence Briggs Th...</p>
+</td>
+<td>
+<p>female</p>
+</td>
+<td>
+<p>38.0</p>
+</td>
+<td>
+<p>1</p>
+</td>
+<td>
+<p>0</p>
+</td>
+<td>
+<p>PC 17599</p>
+</td>
+<td>
+<p>71.2833</p>
+</td>
+<td>
+<p>C85</p>
+</td>
+<td>
+<p>C</p>
+</td>
+</tr>
+<tr>
+<th>
+<p>2</p>
+</th>
+<td>
+<p>3</p>
+</td>
+<td>
+<p>1</p>
+</td>
+<td>
+<p>3</p>
+</td>
+<td>
+<p>Heikkinen, Miss. Laina</p>
+</td>
+<td>
+<p>female</p>
+</td>
+<td>
+<p>26.0</p>
+</td>
+<td>
+<p>0</p>
+</td>
+<td>
+<p>0</p>
+</td>
+<td>
+<p>STON/O2. 3101282</p>
+</td>
+<td>
+<p>7.9250</p>
+</td>
+<td>
+<p>NaN</p>
+</td>
+<td>
+<p>S</p>
+</td>
+</tr>
+<tr>
+<th>
+<p>3</p>
+</th>
+<td>
+<p>4</p>
+</td>
+<td>
+<p>1</p>
+</td>
+<td>
+<p>1</p>
+</td>
+<td>
+<p>Futrelle, Mrs. Jacques Heath (Lily May Peel)</p>
+</td>
+<td>
+<p>female</p>
+</td>
+<td>
+<p>35.0</p>
+</td>
+<td>
+<p>1</p>
+</td>
+<td>
+<p>0</p>
+</td>
+<td>
+<p>113803</p>
+</td>
+<td>
+<p>53.1000</p>
+</td>
+<td>
+<p>C123</p>
+</td>
+<td>
+<p>S</p>
+</td>
+</tr>
+<tr>
+<th>
+<p>4</p>
+</th>
+<td>
+<p>5</p>
+</td>
+<td>
+<p>0</p>
+</td>
+<td>
+<p>3</p>
+</td>
+<td>
+<p>Allen, Mr. William Henry</p>
+</td>
+<td>
+<p>male</p>
+</td>
+<td>
+<p>35.0</p>
+</td>
+<td>
+<p>0</p>
+</td>
+<td>
+<p>0</p>
+</td>
+<td>
+<p>373450</p>
+</td>
+<td>
+<p>8.0500</p>
+</td>
+<td>
+<p>NaN</p>
+</td>
+<td>
+<p>S</p>
+</td>
+</tr>
+<tr>
+<th>
+<p>5</p>
+</th>
+<td>
+<p>6</p>
+</td>
+<td>
+<p>0</p>
+</td>
+<td>
+<p>3</p>
+</td>
+<td>
+<p>Moran, Mr. James</p>
+</td>
+<td>
+<p>male</p>
+</td>
+<td>
+<p>NaN</p>
+</td>
+<td>
+<p>0</p>
+</td>
+<td>
+<p>0</p>
+</td>
+<td>
+<p>330877</p>
+</td>
+<td>
+<p>8.4583</p>
+</td>
+<td>
+<p>NaN</p>
+</td>
+<td>
+<p>Q</p>
+</td>
+</tr>
+<tr>
+<th>
+<p>6</p>
+</th>
+<td>
+<p>7</p>
+</td>
+<td>
+<p>0</p>
+</td>
+<td>
+<p>1</p>
+</td>
+<td>
+<p>McCarthy, Mr. Timothy J</p>
+</td>
+<td>
+<p>male</p>
+</td>
+<td>
+<p>54.0</p>
+</td>
+<td>
+<p>0</p>
+</td>
+<td>
+<p>0</p>
+</td>
+<td>
+<p>17463</p>
+</td>
+<td>
+<p>51.8625</p>
+</td>
+<td>
+<p>E46</p>
+</td>
+<td>
+<p>S</p>
+</td>
+</tr>
+<tr>
+<th>
+<p>7</p>
+</th>
+<td>
+<p>8</p>
+</td>
+<td>
+<p>0</p>
+</td>
+<td>
+<p>3</p>
+</td>
+<td>
+<p>Palsson, Master. Gosta Leonard</p>
+</td>
+<td>
+<p>male</p>
+</td>
+<td>
+<p>2.0</p>
+</td>
+<td>
+<p>3</p>
+</td>
+<td>
+<p>1</p>
+</td>
+<td>
+<p>349909</p>
+</td>
+<td>
+<p>21.0750</p>
+</td>
+<td>
+<p>NaN</p>
+</td>
+<td>
+<p>S</p>
+</td>
+</tr>
+<tr>
+<th>
+<p>8</p>
+</th>
+<td>
+<p>9</p>
+</td>
+<td>
+<p>1</p>
+</td>
+<td>
+<p>3</p>
+</td>
+<td>
+<p>Johnson, Mrs. Oscar W (Elisabeth Vilhelmina Berg)</p>
+</td>
+<td>
+<p>female</p>
+</td>
+<td>
+<p>27.0</p>
+</td>
+<td>
+<p>0</p>
+</td>
+<td>
+<p>2</p>
+</td>
+<td>
+<p>347742</p>
+</td>
+<td>
+<p>11.1333</p>
+</td>
+<td>
+<p>NaN</p>
+</td>
+<td>
+<p>S</p>
+</td>
+</tr>
+<tr>
+<th>
+<p>9</p>
+</th>
+<td>
+<p>10</p>
+</td>
+<td>
+<p>1</p>
+</td>
+<td>
+<p>2</p>
+</td>
+<td>
+<p>Nasser, Mrs. Nicholas (Adele Achem)</p>
+</td>
+<td>
+<p>female</p>
+</td>
+<td>
+<p>14.0</p>
+</td>
+<td>
+<p>1</p>
+</td>
+<td>
+<p>0</p>
+</td>
+<td>
+<p>237736</p>
+</td>
+<td>
+<p>30.0708</p>
+</td>
+<td>
+<p>NaN</p>
+</td>
+<td>
+<p>C</p>
+</td>
+</tr>
+</tbody>
+</table>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>data.tail(<span class="number">15</span>)</span><br></pre></td></tr></table></figure>
+<table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th>
+</th>
+<th>
+<p>乘客ID</p>
+</th>
+<th>
+<p>是否幸存</p>
+</th>
+<th>
+<p>仓位等级</p>
+</th>
+<th>
+<p>姓名</p>
+</th>
+<th>
+<p>性别</p>
+</th>
+<th>
+<p>年龄</p>
+</th>
+<th>
+<p>兄弟姐妹个数</p>
+</th>
+<th>
+<p>父母子女个数</p>
+</th>
+<th>
+<p>船票信息</p>
+</th>
+<th>
+<p>票价</p>
+</th>
+<th>
+<p>客舱</p>
+</th>
+<th>
+<p>登船港口</p>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>
+<p>876</p>
+</th>
+<td>
+<p>877</p>
+</td>
+<td>
+<p>0</p>
+</td>
+<td>
+<p>3</p>
+</td>
+<td>
+<p>Gustafsson, Mr. Alfred Ossian</p>
+</td>
+<td>
+<p>male</p>
+</td>
+<td>
+<p>20.0</p>
+</td>
+<td>
+<p>0</p>
+</td>
+<td>
+<p>0</p>
+</td>
+<td>
+<p>7534</p>
+</td>
+<td>
+<p>9.8458</p>
+</td>
+<td>
+<p>NaN</p>
+</td>
+<td>
+<p>S</p>
+</td>
+</tr>
+<tr>
+<th>
+<p>877</p>
+</th>
+<td>
+<p>878</p>
+</td>
+<td>
+<p>0</p>
+</td>
+<td>
+<p>3</p>
+</td>
+<td>
+<p>Petroff, Mr. Nedelio</p>
+</td>
+<td>
+<p>male</p>
+</td>
+<td>
+<p>19.0</p>
+</td>
+<td>
+<p>0</p>
+</td>
+<td>
+<p>0</p>
+</td>
+<td>
+<p>349212</p>
+</td>
+<td>
+<p>7.8958</p>
+</td>
+<td>
+<p>NaN</p>
+</td>
+<td>
+<p>S</p>
+</td>
+</tr>
+<tr>
+<th>
+<p>878</p>
+</th>
+<td>
+<p>879</p>
+</td>
+<td>
+<p>0</p>
+</td>
+<td>
+<p>3</p>
+</td>
+<td>
+<p>Laleff, Mr. Kristo</p>
+</td>
+<td>
+<p>male</p>
+</td>
+<td>
+<p>NaN</p>
+</td>
+<td>
+<p>0</p>
+</td>
+<td>
+<p>0</p>
+</td>
+<td>
+<p>349217</p>
+</td>
+<td>
+<p>7.8958</p>
+</td>
+<td>
+<p>NaN</p>
+</td>
+<td>
+<p>S</p>
+</td>
+</tr>
+<tr>
+<th>
+<p>879</p>
+</th>
+<td>
+<p>880</p>
+</td>
+<td>
+<p>1</p>
+</td>
+<td>
+<p>1</p>
+</td>
+<td>
+<p>Potter, Mrs. Thomas Jr (Lily Alexenia Wilson)</p>
+</td>
+<td>
+<p>female</p>
+</td>
+<td>
+<p>56.0</p>
+</td>
+<td>
+<p>0</p>
+</td>
+<td>
+<p>1</p>
+</td>
+<td>
+<p>11767</p>
+</td>
+<td>
+<p>83.1583</p>
+</td>
+<td>
+<p>C50</p>
+</td>
+<td>
+<p>C</p>
+</td>
+</tr>
+<tr>
+<th>
+<p>880</p>
+</th>
+<td>
+<p>881</p>
+</td>
+<td>
+<p>1</p>
+</td>
+<td>
+<p>2</p>
+</td>
+<td>
+<p>Shelley, Mrs. William (Imanita Parrish Hall)</p>
+</td>
+<td>
+<p>female</p>
+</td>
+<td>
+<p>25.0</p>
+</td>
+<td>
+<p>0</p>
+</td>
+<td>
+<p>1</p>
+</td>
+<td>
+<p>230433</p>
+</td>
+<td>
+<p>26.0000</p>
+</td>
+<td>
+<p>NaN</p>
+</td>
+<td>
+<p>S</p>
+</td>
+</tr>
+<tr>
+<th>
+<p>881</p>
+</th>
+<td>
+<p>882</p>
+</td>
+<td>
+<p>0</p>
+</td>
+<td>
+<p>3</p>
+</td>
+<td>
+<p>Markun, Mr. Johann</p>
+</td>
+<td>
+<p>male</p>
+</td>
+<td>
+<p>33.0</p>
+</td>
+<td>
+<p>0</p>
+</td>
+<td>
+<p>0</p>
+</td>
+<td>
+<p>349257</p>
+</td>
+<td>
+<p>7.8958</p>
+</td>
+<td>
+<p>NaN</p>
+</td>
+<td>
+<p>S</p>
+</td>
+</tr>
+<tr>
+<th>
+<p>882</p>
+</th>
+<td>
+<p>883</p>
+</td>
+<td>
+<p>0</p>
+</td>
+<td>
+<p>3</p>
+</td>
+<td>
+<p>Dahlberg, Miss. Gerda Ulrika</p>
+</td>
+<td>
+<p>female</p>
+</td>
+<td>
+<p>22.0</p>
+</td>
+<td>
+<p>0</p>
+</td>
+<td>
+<p>0</p>
+</td>
+<td>
+<p>7552</p>
+</td>
+<td>
+<p>10.5167</p>
+</td>
+<td>
+<p>NaN</p>
+</td>
+<td>
+<p>S</p>
+</td>
+</tr>
+<tr>
+<th>
+<p>883</p>
+</th>
+<td>
+<p>884</p>
+</td>
+<td>
+<p>0</p>
+</td>
+<td>
+<p>2</p>
+</td>
+<td>
+<p>Banfield, Mr. Frederick James</p>
+</td>
+<td>
+<p>male</p>
+</td>
+<td>
+<p>28.0</p>
+</td>
+<td>
+<p>0</p>
+</td>
+<td>
+<p>0</p>
+</td>
+<td>
+<p>C.A./SOTON 34068</p>
+</td>
+<td>
+<p>10.5000</p>
+</td>
+<td>
+<p>NaN</p>
+</td>
+<td>
+<p>S</p>
+</td>
+</tr>
+<tr>
+<th>
+<p>884</p>
+</th>
+<td>
+<p>885</p>
+</td>
+<td>
+<p>0</p>
+</td>
+<td>
+<p>3</p>
+</td>
+<td>
+<p>Sutehall, Mr. Henry Jr</p>
+</td>
+<td>
+<p>male</p>
+</td>
+<td>
+<p>25.0</p>
+</td>
+<td>
+<p>0</p>
+</td>
+<td>
+<p>0</p>
+</td>
+<td>
+<p>SOTON/OQ 392076</p>
+</td>
+<td>
+<p>7.0500</p>
+</td>
+<td>
+<p>NaN</p>
+</td>
+<td>
+<p>S</p>
+</td>
+</tr>
+<tr>
+<th>
+<p>885</p>
+</th>
+<td>
+<p>886</p>
+</td>
+<td>
+<p>0</p>
+</td>
+<td>
+<p>3</p>
+</td>
+<td>
+<p>Rice, Mrs. William (Margaret Norton)</p>
+</td>
+<td>
+<p>female</p>
+</td>
+<td>
+<p>39.0</p>
+</td>
+<td>
+<p>0</p>
+</td>
+<td>
+<p>5</p>
+</td>
+<td>
+<p>382652</p>
+</td>
+<td>
+<p>29.1250</p>
+</td>
+<td>
+<p>NaN</p>
+</td>
+<td>
+<p>Q</p>
+</td>
+</tr>
+<tr>
+<th>
+<p>886</p>
+</th>
+<td>
+<p>887</p>
+</td>
+<td>
+<p>0</p>
+</td>
+<td>
+<p>2</p>
+</td>
+<td>
+<p>Montvila, Rev. Juozas</p>
+</td>
+<td>
+<p>male</p>
+</td>
+<td>
+<p>27.0</p>
+</td>
+<td>
+<p>0</p>
+</td>
+<td>
+<p>0</p>
+</td>
+<td>
+<p>211536</p>
+</td>
+<td>
+<p>13.0000</p>
+</td>
+<td>
+<p>NaN</p>
+</td>
+<td>
+<p>S</p>
+</td>
+</tr>
+<tr>
+<th>
+<p>887</p>
+</th>
+<td>
+<p>888</p>
+</td>
+<td>
+<p>1</p>
+</td>
+<td>
+<p>1</p>
+</td>
+<td>
+<p>Graham, Miss. Margaret Edith</p>
+</td>
+<td>
+<p>female</p>
+</td>
+<td>
+<p>19.0</p>
+</td>
+<td>
+<p>0</p>
+</td>
+<td>
+<p>0</p>
+</td>
+<td>
+<p>112053</p>
+</td>
+<td>
+<p>30.0000</p>
+</td>
+<td>
+<p>B42</p>
+</td>
+<td>
+<p>S</p>
+</td>
+</tr>
+<tr>
+<th>
+<p>888</p>
+</th>
+<td>
+<p>889</p>
+</td>
+<td>
+<p>0</p>
+</td>
+<td>
+<p>3</p>
+</td>
+<td>
+<p>Johnston, Miss. Catherine Helen "Carrie"</p>
+</td>
+<td>
+<p>female</p>
+</td>
+<td>
+<p>NaN</p>
+</td>
+<td>
+<p>1</p>
+</td>
+<td>
+<p>2</p>
+</td>
+<td>
+<p>W./C. 6607</p>
+</td>
+<td>
+<p>23.4500</p>
+</td>
+<td>
+<p>NaN</p>
+</td>
+<td>
+<p>S</p>
+</td>
+</tr>
+<tr>
+<th>
+<p>889</p>
+</th>
+<td>
+<p>890</p>
+</td>
+<td>
+<p>1</p>
+</td>
+<td>
+<p>1</p>
+</td>
+<td>
+<p>Behr, Mr. Karl Howell</p>
+</td>
+<td>
+<p>male</p>
+</td>
+<td>
+<p>26.0</p>
+</td>
+<td>
+<p>0</p>
+</td>
+<td>
+<p>0</p>
+</td>
+<td>
+<p>111369</p>
+</td>
+<td>
+<p>30.0000</p>
+</td>
+<td>
+<p>C148</p>
+</td>
+<td>
+<p>C</p>
+</td>
+</tr>
+<tr>
+<th>
+<p>890</p>
+</th>
+<td>
+<p>891</p>
+</td>
+<td>
+<p>0</p>
+</td>
+<td>
+<p>3</p>
+</td>
+<td>
+<p>Dooley, Mr. Patrick</p>
+</td>
+<td>
+<p>male</p>
+</td>
+<td>
+<p>32.0</p>
+</td>
+<td>
+<p>0</p>
+</td>
+<td>
+<p>0</p>
+</td>
+<td>
+<p>370376</p>
+</td>
+<td>
+<p>7.7500</p>
+</td>
+<td>
+<p>NaN</p>
+</td>
+<td>
+<p>Q</p>
+</td>
+</tr>
+</tbody>
+</table></li>
+<li><p>判断是否为空</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>data.isnull().head()</span><br></pre></td></tr></table></figure>
+<table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th>
+</th>
+<th>
+<p>乘客ID</p>
+</th>
+<th>
+<p>是否幸存</p>
+</th>
+<th>
+<p>仓位等级</p>
+</th>
+<th>
+<p>姓名</p>
+</th>
+<th>
+<p>性别</p>
+</th>
+<th>
+<p>年龄</p>
+</th>
+<th>
+<p>兄弟姐妹个数</p>
+</th>
+<th>
+<p>父母子女个数</p>
+</th>
+<th>
+<p>船票信息</p>
+</th>
+<th>
+<p>票价</p>
+</th>
+<th>
+<p>客舱</p>
+</th>
+<th>
+<p>登船港口</p>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>
+<p>0</p>
+</th>
+<td>
+<p>False</p>
+</td>
+<td>
+<p>False</p>
+</td>
+<td>
+<p>False</p>
+</td>
+<td>
+<p>False</p>
+</td>
+<td>
+<p>False</p>
+</td>
+<td>
+<p>False</p>
+</td>
+<td>
+<p>False</p>
+</td>
+<td>
+<p>False</p>
+</td>
+<td>
+<p>False</p>
+</td>
+<td>
+<p>False</p>
+</td>
+<td>
+<p>True</p>
+</td>
+<td>
+<p>False</p>
+</td>
+</tr>
+<tr>
+<th>
+<p>1</p>
+</th>
+<td>
+<p>False</p>
+</td>
+<td>
+<p>False</p>
+</td>
+<td>
+<p>False</p>
+</td>
+<td>
+<p>False</p>
+</td>
+<td>
+<p>False</p>
+</td>
+<td>
+<p>False</p>
+</td>
+<td>
+<p>False</p>
+</td>
+<td>
+<p>False</p>
+</td>
+<td>
+<p>False</p>
+</td>
+<td>
+<p>False</p>
+</td>
+<td>
+<p>False</p>
+</td>
+<td>
+<p>False</p>
+</td>
+</tr>
+<tr>
+<th>
+<p>2</p>
+</th>
+<td>
+<p>False</p>
+</td>
+<td>
+<p>False</p>
+</td>
+<td>
+<p>False</p>
+</td>
+<td>
+<p>False</p>
+</td>
+<td>
+<p>False</p>
+</td>
+<td>
+<p>False</p>
+</td>
+<td>
+<p>False</p>
+</td>
+<td>
+<p>False</p>
+</td>
+<td>
+<p>False</p>
+</td>
+<td>
+<p>False</p>
+</td>
+<td>
+<p>True</p>
+</td>
+<td>
+<p>False</p>
+</td>
+</tr>
+<tr>
+<th>
+<p>3</p>
+</th>
+<td>
+<p>False</p>
+</td>
+<td>
+<p>False</p>
+</td>
+<td>
+<p>False</p>
+</td>
+<td>
+<p>False</p>
+</td>
+<td>
+<p>False</p>
+</td>
+<td>
+<p>False</p>
+</td>
+<td>
+<p>False</p>
+</td>
+<td>
+<p>False</p>
+</td>
+<td>
+<p>False</p>
+</td>
+<td>
+<p>False</p>
+</td>
+<td>
+<p>False</p>
+</td>
+<td>
+<p>False</p>
+</td>
+</tr>
+<tr>
+<th>
+<p>4</p>
+</th>
+<td>
+<p>False</p>
+</td>
+<td>
+<p>False</p>
+</td>
+<td>
+<p>False</p>
+</td>
+<td>
+<p>False</p>
+</td>
+<td>
+<p>False</p>
+</td>
+<td>
+<p>False</p>
+</td>
+<td>
+<p>False</p>
+</td>
+<td>
+<p>False</p>
+</td>
+<td>
+<p>False</p>
+</td>
+<td>
+<p>False</p>
+</td>
+<td>
+<p>True</p>
+</td>
+<td>
+<p>False</p>
+</td>
+</tr>
+</tbody>
+</table></li>
+<li><p>描述性统计</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>data.describe()</span><br></pre></td></tr></table></figure>
+<table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th>
+</th>
+<th>
+<p>乘客ID</p>
+</th>
+<th>
+<p>是否幸存</p>
+</th>
+<th>
+<p>仓位等级</p>
+</th>
+<th>
+<p>年龄</p>
+</th>
+<th>
+<p>兄弟姐妹个数</p>
+</th>
+<th>
+<p>父母子女个数</p>
+</th>
+<th>
+<p>票价</p>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>
+<p>count</p>
+</th>
+<td>
+<p>891.000000</p>
+</td>
+<td>
+<p>891.000000</p>
+</td>
+<td>
+<p>891.000000</p>
+</td>
+<td>
+<p>714.000000</p>
+</td>
+<td>
+<p>891.000000</p>
+</td>
+<td>
+<p>891.000000</p>
+</td>
+<td>
+<p>891.000000</p>
+</td>
+</tr>
+<tr>
+<th>
+<p>mean</p>
+</th>
+<td>
+<p>446.000000</p>
+</td>
+<td>
+<p>0.383838</p>
+</td>
+<td>
+<p>2.308642</p>
+</td>
+<td>
+<p>29.699118</p>
+</td>
+<td>
+<p>0.523008</p>
+</td>
+<td>
+<p>0.381594</p>
+</td>
+<td>
+<p>32.204208</p>
+</td>
+</tr>
+<tr>
+<th>
+<p>std</p>
+</th>
+<td>
+<p>257.353842</p>
+</td>
+<td>
+<p>0.486592</p>
+</td>
+<td>
+<p>0.836071</p>
+</td>
+<td>
+<p>14.526497</p>
+</td>
+<td>
+<p>1.102743</p>
+</td>
+<td>
+<p>0.806057</p>
+</td>
+<td>
+<p>49.693429</p>
+</td>
+</tr>
+<tr>
+<th>
+<p>min</p>
+</th>
+<td>
+<p>1.000000</p>
+</td>
+<td>
+<p>0.000000</p>
+</td>
+<td>
+<p>1.000000</p>
+</td>
+<td>
+<p>0.420000</p>
+</td>
+<td>
+<p>0.000000</p>
+</td>
+<td>
+<p>0.000000</p>
+</td>
+<td>
+<p>0.000000</p>
+</td>
+</tr>
+<tr>
+<th>
+<p>25%</p>
+</th>
+<td>
+<p>223.500000</p>
+</td>
+<td>
+<p>0.000000</p>
+</td>
+<td>
+<p>2.000000</p>
+</td>
+<td>
+<p>20.125000</p>
+</td>
+<td>
+<p>0.000000</p>
+</td>
+<td>
+<p>0.000000</p>
+</td>
+<td>
+<p>7.910400</p>
+</td>
+</tr>
+<tr>
+<th>
+<p>50%</p>
+</th>
+<td>
+<p>446.000000</p>
+</td>
+<td>
+<p>0.000000</p>
+</td>
+<td>
+<p>3.000000</p>
+</td>
+<td>
+<p>28.000000</p>
+</td>
+<td>
+<p>0.000000</p>
+</td>
+<td>
+<p>0.000000</p>
+</td>
+<td>
+<p>14.454200</p>
+</td>
+</tr>
+<tr>
+<th>
+<p>75%</p>
+</th>
+<td>
+<p>668.500000</p>
+</td>
+<td>
+<p>1.000000</p>
+</td>
+<td>
+<p>3.000000</p>
+</td>
+<td>
+<p>38.000000</p>
+</td>
+<td>
+<p>1.000000</p>
+</td>
+<td>
+<p>0.000000</p>
+</td>
+<td>
+<p>31.000000</p>
+</td>
+</tr>
+<tr>
+<th>
+<p>max</p>
+</th>
+<td>
+<p>891.000000</p>
+</td>
+<td>
+<p>1.000000</p>
+</td>
+<td>
+<p>3.000000</p>
+</td>
+<td>
+<p>80.000000</p>
+</td>
+<td>
+<p>8.000000</p>
+</td>
+<td>
+<p>6.000000</p>
+</td>
+<td>
+<p>512.329200</p>
+</td>
+</tr>
+</tbody>
+</table></li>
+<li><p>重复</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>data.duplicated()</span><br><span class="line"></span><br><span class="line"><span class="number">0</span>      <span class="literal">False</span></span><br><span class="line"><span class="number">1</span>      <span class="literal">False</span></span><br><span class="line"><span class="number">2</span>      <span class="literal">False</span></span><br><span class="line"><span class="number">3</span>      <span class="literal">False</span></span><br><span class="line"><span class="number">4</span>      <span class="literal">False</span></span><br><span class="line">       ...  </span><br><span class="line"><span class="number">886</span>    <span class="literal">False</span></span><br><span class="line"><span class="number">887</span>    <span class="literal">False</span></span><br><span class="line"><span class="number">888</span>    <span class="literal">False</span></span><br><span class="line"><span class="number">889</span>    <span class="literal">False</span></span><br><span class="line"><span class="number">890</span>    <span class="literal">False</span></span><br><span class="line">Length: <span class="number">891</span>, dtype: <span class="built_in">bool</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="保存数据">2.4 保存数据</h2>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>df.to_csv(<span class="string">&#x27;train_chinese.csv&#x27;</span>, encoding = <span class="string">&#x27;ansi&#x27;</span>)</span><br></pre></td></tr></table></figure>
+<p>【总结】数据的加载以及入门，接下来就要接触数据本身的运算，我们将主要掌握numpy和pandas在工作和项目场景的运用。</p>
+<h1 id="探索性数据分析">3 探索性数据分析</h1>
+<p><strong>复习：</strong>
+前面已经学习了Pandas基础，知道利用Pandas读取csv数据的增删查改。这一章节学习的是
+<strong>探索性数据分析</strong>，主要介绍如何利用Pandas进行排序、算术计算以及计算描述函数describe()的使用。</p>
+<h2 id="加载数据-1">3.1 加载数据</h2>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#载入之前保存的train_chinese.csv数据，关于泰坦尼克号的任务，我们就使用这个数据</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>data = pd.read_csv(<span class="string">&#x27;train_chinese.csv&#x27;</span>)</span><br><span class="line">    data_en = pd.read_csv(<span class="string">&#x27;train.csv&#x27;</span>)</span><br><span class="line">    data.head(<span class="number">1</span>)</span><br></pre></td></tr></table></figure>
+<table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th>
+</th>
+<th>
+�˿�ID
+</th>
+<th>
+�Ƿ��Ҵ�
+</th>
+<th>
+��λ�ȼ�
+</th>
+<th>
+����
+</th>
+<th>
+�Ա�
+</th>
+<th>
+����.1
+</th>
+<th>
+�ֵܽ��ø���
+</th>
+<th>
+��ĸ��Ů����
+</th>
+<th>
+��Ʊ��Ϣ
+</th>
+<th>
+Ʊ��
+</th>
+<th>
+�Ͳ�
+</th>
+<th>
+�Ǵ��ۿ�
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>
+0
+</th>
+<td>
+1
+</td>
+<td>
+0
+</td>
+<td>
+3
+</td>
+<td>
+Braund, Mr. Owen Harris
+</td>
+<td>
+male
+</td>
+<td>
+22.0
+</td>
+<td>
+1
+</td>
+<td>
+0
+</td>
+<td>
+A/5 21171
+</td>
+<td>
+7.25
+</td>
+<td>
+NaN
+</td>
+<td>
+S
+</td>
+</tr>
+</tbody>
+</table>
+<p>可以发现直接读取会产生乱码，因此需要设置编码格式</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>data = pd.read_csv(<span class="string">&#x27;train_chinese.csv&#x27;</span>, encoding = <span class="string">&#x27;ansi&#x27;</span>)</span><br><span class="line">  data.head()</span><br></pre></td></tr></table></figure>
+<table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th>
+</th>
+<th>
+乘客ID
+</th>
+<th>
+是否幸存
+</th>
+<th>
+仓位等级
+</th>
+<th>
+姓名
+</th>
+<th>
+性别
+</th>
+<th>
+年龄
+</th>
+<th>
+兄弟姐妹个数
+</th>
+<th>
+父母子女个数
+</th>
+<th>
+船票信息
+</th>
+<th>
+票价
+</th>
+<th>
+客舱
+</th>
+<th>
+登船港口
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>
+0
+</th>
+<td>
+1
+</td>
+<td>
+0
+</td>
+<td>
+3
+</td>
+<td>
+Braund, Mr. Owen Harris
+</td>
+<td>
+male
+</td>
+<td>
+22.0
+</td>
+<td>
+1
+</td>
+<td>
+0
+</td>
+<td>
+A/5 21171
+</td>
+<td>
+7.2500
+</td>
+<td>
+NaN
+</td>
+<td>
+S
+</td>
+</tr>
+<tr>
+<th>
+1
+</th>
+<td>
+2
+</td>
+<td>
+1
+</td>
+<td>
+1
+</td>
+<td>
+Cumings, Mrs. John Bradley (Florence Briggs Th...
+</td>
+<td>
+female
+</td>
+<td>
+38.0
+</td>
+<td>
+1
+</td>
+<td>
+0
+</td>
+<td>
+PC 17599
+</td>
+<td>
+71.2833
+</td>
+<td>
+C85
+</td>
+<td>
+C
+</td>
+</tr>
+<tr>
+<th>
+2
+</th>
+<td>
+3
+</td>
+<td>
+1
+</td>
+<td>
+3
+</td>
+<td>
+Heikkinen, Miss. Laina
+</td>
+<td>
+female
+</td>
+<td>
+26.0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+STON/O2. 3101282
+</td>
+<td>
+7.9250
+</td>
+<td>
+NaN
+</td>
+<td>
+S
+</td>
+</tr>
+<tr>
+<th>
+3
+</th>
+<td>
+4
+</td>
+<td>
+1
+</td>
+<td>
+1
+</td>
+<td>
+Futrelle, Mrs. Jacques Heath (Lily May Peel)
+</td>
+<td>
+female
+</td>
+<td>
+35.0
+</td>
+<td>
+1
+</td>
+<td>
+0
+</td>
+<td>
+113803
+</td>
+<td>
+53.1000
+</td>
+<td>
+C123
+</td>
+<td>
+S
+</td>
+</tr>
+<tr>
+<th>
+4
+</th>
+<td>
+5
+</td>
+<td>
+0
+</td>
+<td>
+3
+</td>
+<td>
+Allen, Mr. William Henry
+</td>
+<td>
+male
+</td>
+<td>
+35.0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+373450
+</td>
+<td>
+8.0500
+</td>
+<td>
+NaN
+</td>
+<td>
+S
+</td>
+</tr>
+</tbody>
+</table>
+<h2 id="了解数据">3.2 了解数据</h2>
+<p>详细请参考教材《Python for Data Analysis》第五章</p>
+<h3 id="排序">3.2.1 排序</h3>
+<ul>
+<li><p>理论</p>
+<p>具体请看《利用Python进行数据分析》第五章 排序和排名 部分</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 构建数据</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>frame = pd.DataFrame(np.arange(<span class="number">8</span>).reshape((<span class="number">2</span>, <span class="number">4</span>)),</span><br><span class="line">                     index=[<span class="string">&#x27;2&#x27;</span>, <span class="string">&#x27;1&#x27;</span>],</span><br><span class="line">                     columns=[<span class="string">&#x27;d&#x27;</span>, <span class="string">&#x27;a&#x27;</span>, <span class="string">&#x27;b&#x27;</span>, <span class="string">&#x27;c&#x27;</span>])</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>frame</span><br></pre></td></tr></table></figure>
+<table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th>
+</th>
+<th>
+<p>d</p>
+</th>
+<th>
+<p>a</p>
+</th>
+<th>
+<p>b</p>
+</th>
+<th>
+<p>c</p>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>
+<p>2</p>
+</th>
+<td>
+<p>0</p>
+</td>
+<td>
+<p>1</p>
+</td>
+<td>
+<p>2</p>
+</td>
+<td>
+<p>3</p>
+</td>
+</tr>
+<tr>
+<th>
+<p>1</p>
+</th>
+<td>
+<p>4</p>
+</td>
+<td>
+<p>5</p>
+</td>
+<td>
+<p>6</p>
+</td>
+<td>
+<p>7</p>
+</td>
+</tr>
+</tbody>
+</table>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 索引升序frame.sort_index(axis = 0, ascending = True)</span></span><br></pre></td></tr></table></figure>
+<table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th>
+</th>
+<th>
+<p>d</p>
+</th>
+<th>
+<p>a</p>
+</th>
+<th>
+<p>b</p>
+</th>
+<th>
+<p>c</p>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>
+<p>1</p>
+</th>
+<td>
+<p>4</p>
+</td>
+<td>
+<p>5</p>
+</td>
+<td>
+<p>6</p>
+</td>
+<td>
+<p>7</p>
+</td>
+</tr>
+<tr>
+<th>
+<p>2</p>
+</th>
+<td>
+<p>0</p>
+</td>
+<td>
+<p>1</p>
+</td>
+<td>
+<p>2</p>
+</td>
+<td>
+<p>3</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Note</strong>:</p>
+<ol type="1">
+<li><code>axis</code>: 控制索引的维度，默认为 <code>axis = 0</code>
+即行索引。将 <code>axis</code> 设置为 <code>1</code>
+可以更改为按列排序.</li>
+<li><code>ascending</code>: 控制升序 / 降序。默认为
+<code>ascending = True</code>，即升序排列。</li>
+<li>此外，可以通过设置 <code>by</code> 参数，选择多列进行排序。如
+<code>by = ['a', 'c']</code>。</li>
+</ol></li>
+<li><p>实操</p>
+<p>对 <code>data</code> 数据按票价和年龄两列进行综合排序（降序排列）</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>data.sort_values(by=[<span class="string">&#x27;票价&#x27;</span>, <span class="string">&#x27;年龄&#x27;</span>], ascending=<span class="literal">False</span>).head(<span class="number">3</span>)</span><br></pre></td></tr></table></figure>
+<table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th>
+</th>
+<th>
+<p>乘客ID</p>
+</th>
+<th>
+<p>是否幸存</p>
+</th>
+<th>
+<p>仓位等级</p>
+</th>
+<th>
+<p>姓名</p>
+</th>
+<th>
+<p>性别</p>
+</th>
+<th>
+<p>年龄</p>
+</th>
+<th>
+<p>兄弟姐妹个数</p>
+</th>
+<th>
+<p>父母子女个数</p>
+</th>
+<th>
+<p>船票信息</p>
+</th>
+<th>
+<p>票价</p>
+</th>
+<th>
+<p>客舱</p>
+</th>
+<th>
+<p>登船港口</p>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>
+<p>679</p>
+</th>
+<td>
+<p>680</p>
+</td>
+<td>
+<p>1</p>
+</td>
+<td>
+<p>1</p>
+</td>
+<td>
+<p>Cardeza, Mr. Thomas Drake Martinez</p>
+</td>
+<td>
+<p>male</p>
+</td>
+<td>
+<p>36.0</p>
+</td>
+<td>
+<p>0</p>
+</td>
+<td>
+<p>1</p>
+</td>
+<td>
+<p>PC 17755</p>
+</td>
+<td>
+<p>512.3292</p>
+</td>
+<td>
+<p>B51 B53 B55</p>
+</td>
+<td>
+<p>C</p>
+</td>
+</tr>
+<tr>
+<th>
+<p>258</p>
+</th>
+<td>
+<p>259</p>
+</td>
+<td>
+<p>1</p>
+</td>
+<td>
+<p>1</p>
+</td>
+<td>
+<p>Ward, Miss. Anna</p>
+</td>
+<td>
+<p>female</p>
+</td>
+<td>
+<p>35.0</p>
+</td>
+<td>
+<p>0</p>
+</td>
+<td>
+<p>0</p>
+</td>
+<td>
+<p>PC 17755</p>
+</td>
+<td>
+<p>512.3292</p>
+</td>
+<td>
+<p>NaN</p>
+</td>
+<td>
+<p>C</p>
+</td>
+</tr>
+<tr>
+<th>
+<p>737</p>
+</th>
+<td>
+<p>738</p>
+</td>
+<td>
+<p>1</p>
+</td>
+<td>
+<p>1</p>
+</td>
+<td>
+<p>Lesurer, Mr. Gustave J</p>
+</td>
+<td>
+<p>male</p>
+</td>
+<td>
+<p>35.0</p>
+</td>
+<td>
+<p>0</p>
+</td>
+<td>
+<p>0</p>
+</td>
+<td>
+<p>PC 17755</p>
+</td>
+<td>
+<p>512.3292</p>
+</td>
+<td>
+<p>B101</p>
+</td>
+<td>
+<p>C</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>排序后，如果我们仅仅关注年龄和票价两列。根据常识我知道发现票价越高的应该客舱越好，所以我们会明显看出，票价前20的乘客中存活的高达14人。</p></li>
+</ul>
+<h3 id="算数计算">3.2.2 算数计算</h3>
+<p>具体参照《利用Python进行数据分析》第五章 算术运算与数据对齐部分</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>frame1_a = pd.DataFrame(np.arange(<span class="number">9.</span>).reshape(<span class="number">3</span>, <span class="number">3</span>),</span><br><span class="line">                     columns=[<span class="string">&#x27;a&#x27;</span>, <span class="string">&#x27;b&#x27;</span>, <span class="string">&#x27;c&#x27;</span>],</span><br><span class="line">                     index=[<span class="string">&#x27;one&#x27;</span>, <span class="string">&#x27;two&#x27;</span>, <span class="string">&#x27;three&#x27;</span>])</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>frame1_b = pd.DataFrame(np.arange(<span class="number">12.</span>).reshape(<span class="number">4</span>, <span class="number">3</span>),</span><br><span class="line">                     columns=[<span class="string">&#x27;a&#x27;</span>, <span class="string">&#x27;e&#x27;</span>, <span class="string">&#x27;c&#x27;</span>],</span><br><span class="line">                     index=[<span class="string">&#x27;first&#x27;</span>, <span class="string">&#x27;one&#x27;</span>, <span class="string">&#x27;two&#x27;</span>, <span class="string">&#x27;second&#x27;</span>])</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>frame1_a</span><br></pre></td></tr></table></figure>
+<table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th>
+</th>
+<th>
+a
+</th>
+<th>
+b
+</th>
+<th>
+c
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>
+one
+</th>
+<td>
+0.0
+</td>
+<td>
+1.0
+</td>
+<td>
+2.0
+</td>
+</tr>
+<tr>
+<th>
+two
+</th>
+<td>
+3.0
+</td>
+<td>
+4.0
+</td>
+<td>
+5.0
+</td>
+</tr>
+<tr>
+<th>
+three
+</th>
+<td>
+6.0
+</td>
+<td>
+7.0
+</td>
+<td>
+8.0
+</td>
+</tr>
+</tbody>
+</table>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>frame1_b</span><br></pre></td></tr></table></figure>
+<table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th>
+</th>
+<th>
+a
+</th>
+<th>
+e
+</th>
+<th>
+c
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>
+first
+</th>
+<td>
+0.0
+</td>
+<td>
+1.0
+</td>
+<td>
+2.0
+</td>
+</tr>
+<tr>
+<th>
+one
+</th>
+<td>
+3.0
+</td>
+<td>
+4.0
+</td>
+<td>
+5.0
+</td>
+</tr>
+<tr>
+<th>
+two
+</th>
+<td>
+6.0
+</td>
+<td>
+7.0
+</td>
+<td>
+8.0
+</td>
+</tr>
+<tr>
+<th>
+second
+</th>
+<td>
+9.0
+</td>
+<td>
+10.0
+</td>
+<td>
+11.0
+</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><p>加法</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 将frame_a和frame_b进行相加</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>frame1_a + frame1_b</span><br></pre></td></tr></table></figure>
+<table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th>
+</th>
+<th>
+<p>a</p>
+</th>
+<th>
+<p>b</p>
+</th>
+<th>
+<p>c</p>
+</th>
+<th>
+<p>e</p>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>
+<p>first</p>
+</th>
+<td>
+<p>NaN</p>
+</td>
+<td>
+<p>NaN</p>
+</td>
+<td>
+<p>NaN</p>
+</td>
+<td>
+<p>NaN</p>
+</td>
+</tr>
+<tr>
+<th>
+<p>one</p>
+</th>
+<td>
+<p>3.0</p>
+</td>
+<td>
+<p>NaN</p>
+</td>
+<td>
+<p>7.0</p>
+</td>
+<td>
+<p>NaN</p>
+</td>
+</tr>
+<tr>
+<th>
+<p>second</p>
+</th>
+<td>
+<p>NaN</p>
+</td>
+<td>
+<p>NaN</p>
+</td>
+<td>
+<p>NaN</p>
+</td>
+<td>
+<p>NaN</p>
+</td>
+</tr>
+<tr>
+<th>
+<p>three</p>
+</th>
+<td>
+<p>NaN</p>
+</td>
+<td>
+<p>NaN</p>
+</td>
+<td>
+<p>NaN</p>
+</td>
+<td>
+<p>NaN</p>
+</td>
+</tr>
+<tr>
+<th>
+<p>two</p>
+</th>
+<td>
+<p>9.0</p>
+</td>
+<td>
+<p>NaN</p>
+</td>
+<td>
+<p>13.0</p>
+</td>
+<td>
+<p>NaN</p>
+</td>
+</tr>
+</tbody>
+</table></li>
+</ul>
+<h3 id="极值">3.2.3 极值</h3>
+<p>查看最大的家族有多少人（‘兄弟姐妹个数’+‘父母子女个数’）</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="built_in">max</span>(data[<span class="string">&#x27;兄弟姐妹个数&#x27;</span>] + data[<span class="string">&#x27;父母子女个数&#x27;</span>])</span><br><span class="line"></span><br><span class="line"><span class="number">10</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>data[<span class="string">&#x27;父母子女个数&#x27;</span>].describe()</span><br><span class="line"></span><br><span class="line">count    <span class="number">891.000000</span></span><br><span class="line">mean       <span class="number">0.381594</span></span><br><span class="line">std        <span class="number">0.806057</span></span><br><span class="line"><span class="built_in">min</span>        <span class="number">0.000000</span></span><br><span class="line"><span class="number">25</span>%        <span class="number">0.000000</span></span><br><span class="line"><span class="number">50</span>%        <span class="number">0.000000</span></span><br><span class="line"><span class="number">75</span>%        <span class="number">0.000000</span></span><br><span class="line"><span class="built_in">max</span>        <span class="number">6.000000</span></span><br><span class="line">Name: 父母子女个数, dtype: float64</span><br></pre></td></tr></table></figure>
+<h1 id="pandas-基础">4 Pandas 基础</h1>
+<ul>
+<li><p>DataFrame and Series</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>sdata = &#123;<span class="string">&#x27;Ohio&#x27;</span>: <span class="number">35000</span>, <span class="string">&#x27;Texas&#x27;</span>: <span class="number">71000</span>, <span class="string">&#x27;Oregon&#x27;</span>: <span class="number">16000</span>, <span class="string">&#x27;Utah&#x27;</span>: <span class="number">5000</span>&#125;</span><br><span class="line">    example_1 = pd.Series(sdata)</span><br><span class="line">    example_1</span><br><span class="line"></span><br><span class="line">Ohio      <span class="number">35000</span></span><br><span class="line">Texas     <span class="number">71000</span></span><br><span class="line">Oregon    <span class="number">16000</span></span><br><span class="line">Utah       <span class="number">5000</span></span><br><span class="line">dtype: int64</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>temp = &#123;<span class="string">&#x27;state&#x27;</span>: [<span class="string">&#x27;Ohio&#x27;</span>, <span class="string">&#x27;Ohio&#x27;</span>, <span class="string">&#x27;Ohio&#x27;</span>, <span class="string">&#x27;Nevada&#x27;</span>, <span class="string">&#x27;Nevada&#x27;</span>, <span class="string">&#x27;Nevada&#x27;</span>],</span><br><span class="line">        <span class="string">&#x27;year&#x27;</span>: [<span class="number">2000</span>, <span class="number">2001</span>, <span class="number">2002</span>, <span class="number">2001</span>, <span class="number">2002</span>, <span class="number">2003</span>],<span class="string">&#x27;pop&#x27;</span>: [<span class="number">1.5</span>, <span class="number">1.7</span>, <span class="number">3.6</span>, <span class="number">2.4</span>, <span class="number">2.9</span>, <span class="number">3.2</span>]&#125;</span><br><span class="line">    example_2 = pd.DataFrame(temp)</span><br><span class="line">    example_2</span><br></pre></td></tr></table></figure>
+<table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th>
+</th>
+<th>
+<p>state</p>
+</th>
+<th>
+<p>year</p>
+</th>
+<th>
+<p>pop</p>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>
+<p>0</p>
+</th>
+<td>
+<p>Ohio</p>
+</td>
+<td>
+<p>2000</p>
+</td>
+<td>
+<p>1.5</p>
+</td>
+</tr>
+<tr>
+<th>
+<p>1</p>
+</th>
+<td>
+<p>Ohio</p>
+</td>
+<td>
+<p>2001</p>
+</td>
+<td>
+<p>1.7</p>
+</td>
+</tr>
+<tr>
+<th>
+<p>2</p>
+</th>
+<td>
+<p>Ohio</p>
+</td>
+<td>
+<p>2002</p>
+</td>
+<td>
+<p>3.6</p>
+</td>
+</tr>
+<tr>
+<th>
+<p>3</p>
+</th>
+<td>
+<p>Nevada</p>
+</td>
+<td>
+<p>2001</p>
+</td>
+<td>
+<p>2.4</p>
+</td>
+</tr>
+<tr>
+<th>
+<p>4</p>
+</th>
+<td>
+<p>Nevada</p>
+</td>
+<td>
+<p>2002</p>
+</td>
+<td>
+<p>2.9</p>
+</td>
+</tr>
+<tr>
+<th>
+<p>5</p>
+</th>
+<td>
+<p>Nevada</p>
+</td>
+<td>
+<p>2003</p>
+</td>
+<td>
+<p>3.2</p>
+</td>
+</tr>
+</tbody>
+</table></li>
+</ul>
+<h2 id="数据特征">4.1 数据特征</h2>
+<ul>
+<li><p>列名称</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>data_en.columns</span><br><span class="line"></span><br><span class="line">Index([<span class="string">&#x27;PassengerId&#x27;</span>, <span class="string">&#x27;Survived&#x27;</span>, <span class="string">&#x27;Pclass&#x27;</span>, <span class="string">&#x27;Name&#x27;</span>, <span class="string">&#x27;Sex&#x27;</span>, <span class="string">&#x27;Age&#x27;</span>, <span class="string">&#x27;SibSp&#x27;</span>,       <span class="string">&#x27;Parch&#x27;</span>, <span class="string">&#x27;Ticket&#x27;</span>, <span class="string">&#x27;Fare&#x27;</span>, <span class="string">&#x27;Cabin&#x27;</span>, <span class="string">&#x27;Embarked&#x27;</span>],      dtype=<span class="string">&#x27;object&#x27;</span>)</span><br></pre></td></tr></table></figure></li>
+<li><p>查看某些的信息</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>data_en[<span class="string">&#x27;Cabin&#x27;</span>].head(<span class="number">3</span>)</span><br><span class="line"></span><br><span class="line"><span class="number">0</span>    NaN1    C852    NaNName: Cabin, dtype: <span class="built_in">object</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>data_en.Cabin.head(<span class="number">3</span>)</span><br><span class="line"></span><br><span class="line"><span class="number">0</span>    NaN1    C852    NaNName: Cabin, dtype: <span class="built_in">object</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="删除多余的列">4.2 删除多余的列</h2>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>test_1 = pd.read_csv(<span class="string">&#x27;test_1.csv&#x27;</span>)</span><br><span class="line">test_1.head(<span class="number">3</span>)</span><br></pre></td></tr></table></figure>
+<table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th>
+</th>
+<th>
+Unnamed: 0
+</th>
+<th>
+PassengerId
+</th>
+<th>
+Survived
+</th>
+<th>
+Pclass
+</th>
+<th>
+Name
+</th>
+<th>
+Sex
+</th>
+<th>
+Age
+</th>
+<th>
+SibSp
+</th>
+<th>
+Parch
+</th>
+<th>
+Ticket
+</th>
+<th>
+Fare
+</th>
+<th>
+Cabin
+</th>
+<th>
+Embarked
+</th>
+<th>
+a
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>
+0
+</th>
+<td>
+0
+</td>
+<td>
+1
+</td>
+<td>
+0
+</td>
+<td>
+3
+</td>
+<td>
+Braund, Mr. Owen Harris
+</td>
+<td>
+male
+</td>
+<td>
+22.0
+</td>
+<td>
+1
+</td>
+<td>
+0
+</td>
+<td>
+A/5 21171
+</td>
+<td>
+7.2500
+</td>
+<td>
+NaN
+</td>
+<td>
+S
+</td>
+<td>
+100
+</td>
+</tr>
+<tr>
+<th>
+1
+</th>
+<td>
+1
+</td>
+<td>
+2
+</td>
+<td>
+1
+</td>
+<td>
+1
+</td>
+<td>
+Cumings, Mrs. John Bradley (Florence Briggs Th...
+</td>
+<td>
+female
+</td>
+<td>
+38.0
+</td>
+<td>
+1
+</td>
+<td>
+0
+</td>
+<td>
+PC 17599
+</td>
+<td>
+71.2833
+</td>
+<td>
+C85
+</td>
+<td>
+C
+</td>
+<td>
+100
+</td>
+</tr>
+<tr>
+<th>
+2
+</th>
+<td>
+2
+</td>
+<td>
+3
+</td>
+<td>
+1
+</td>
+<td>
+3
+</td>
+<td>
+Heikkinen, Miss. Laina
+</td>
+<td>
+female
+</td>
+<td>
+26.0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+STON/O2. 3101282
+</td>
+<td>
+7.9250
+</td>
+<td>
+NaN
+</td>
+<td>
+S
+</td>
+<td>
+100
+</td>
+</tr>
+</tbody>
+</table>
+<p>经过我们的观察发现一个测试集 <code>test_1.csv</code>
+有两列是多余的，需要将多余的列删去。</p>
+<ul>
+<li><p><code>del</code></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 删除多余的列</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">del</span> test_1[<span class="string">&#x27;a&#x27;</span>]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>test_1.head(<span class="number">3</span>)</span><br></pre></td></tr></table></figure>
+<table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th>
+</th>
+<th>
+<p>Unnamed: 0</p>
+</th>
+<th>
+<p>PassengerId</p>
+</th>
+<th>
+<p>Survived</p>
+</th>
+<th>
+<p>Pclass</p>
+</th>
+<th>
+<p>Name</p>
+</th>
+<th>
+<p>Sex</p>
+</th>
+<th>
+<p>Age</p>
+</th>
+<th>
+<p>SibSp</p>
+</th>
+<th>
+<p>Parch</p>
+</th>
+<th>
+<p>Ticket</p>
+</th>
+<th>
+<p>Fare</p>
+</th>
+<th>
+<p>Cabin</p>
+</th>
+<th>
+<p>Embarked</p>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>
+<p>0</p>
+</th>
+<td>
+<p>0</p>
+</td>
+<td>
+<p>1</p>
+</td>
+<td>
+<p>0</p>
+</td>
+<td>
+<p>3</p>
+</td>
+<td>
+<p>Braund, Mr. Owen Harris</p>
+</td>
+<td>
+<p>male</p>
+</td>
+<td>
+<p>22.0</p>
+</td>
+<td>
+<p>1</p>
+</td>
+<td>
+<p>0</p>
+</td>
+<td>
+<p>A/5 21171</p>
+</td>
+<td>
+<p>7.2500</p>
+</td>
+<td>
+<p>NaN</p>
+</td>
+<td>
+<p>S</p>
+</td>
+</tr>
+<tr>
+<th>
+<p>1</p>
+</th>
+<td>
+<p>1</p>
+</td>
+<td>
+<p>2</p>
+</td>
+<td>
+<p>1</p>
+</td>
+<td>
+<p>1</p>
+</td>
+<td>
+<p>Cumings, Mrs. John Bradley (Florence Briggs Th...</p>
+</td>
+<td>
+<p>female</p>
+</td>
+<td>
+<p>38.0</p>
+</td>
+<td>
+<p>1</p>
+</td>
+<td>
+<p>0</p>
+</td>
+<td>
+<p>PC 17599</p>
+</td>
+<td>
+<p>71.2833</p>
+</td>
+<td>
+<p>C85</p>
+</td>
+<td>
+<p>C</p>
+</td>
+</tr>
+<tr>
+<th>
+<p>2</p>
+</th>
+<td>
+<p>2</p>
+</td>
+<td>
+<p>3</p>
+</td>
+<td>
+<p>1</p>
+</td>
+<td>
+<p>3</p>
+</td>
+<td>
+<p>Heikkinen, Miss. Laina</p>
+</td>
+<td>
+<p>female</p>
+</td>
+<td>
+<p>26.0</p>
+</td>
+<td>
+<p>0</p>
+</td>
+<td>
+<p>0</p>
+</td>
+<td>
+<p>STON/O2. 3101282</p>
+</td>
+<td>
+<p>7.9250</p>
+</td>
+<td>
+<p>NaN</p>
+</td>
+<td>
+<p>S</p>
+</td>
+</tr>
+</tbody>
+</table></li>
+<li><p><code>drop</code></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>test_1.drop(<span class="string">&#x27;a&#x27;</span>, axis = <span class="number">1</span>, inplace = <span class="literal">True</span>)<span class="comment"># test_1 = test_1.drop(&#x27;a&#x27;, axis = 1)test_1.head(3)</span></span><br></pre></td></tr></table></figure>
+<table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th>
+</th>
+<th>
+<p>Unnamed: 0</p>
+</th>
+<th>
+<p>PassengerId</p>
+</th>
+<th>
+<p>Survived</p>
+</th>
+<th>
+<p>Pclass</p>
+</th>
+<th>
+<p>Name</p>
+</th>
+<th>
+<p>Sex</p>
+</th>
+<th>
+<p>Age</p>
+</th>
+<th>
+<p>SibSp</p>
+</th>
+<th>
+<p>Parch</p>
+</th>
+<th>
+<p>Ticket</p>
+</th>
+<th>
+<p>Fare</p>
+</th>
+<th>
+<p>Cabin</p>
+</th>
+<th>
+<p>Embarked</p>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>
+<p>0</p>
+</th>
+<td>
+<p>0</p>
+</td>
+<td>
+<p>1</p>
+</td>
+<td>
+<p>0</p>
+</td>
+<td>
+<p>3</p>
+</td>
+<td>
+<p>Braund, Mr. Owen Harris</p>
+</td>
+<td>
+<p>male</p>
+</td>
+<td>
+<p>22.0</p>
+</td>
+<td>
+<p>1</p>
+</td>
+<td>
+<p>0</p>
+</td>
+<td>
+<p>A/5 21171</p>
+</td>
+<td>
+<p>7.2500</p>
+</td>
+<td>
+<p>NaN</p>
+</td>
+<td>
+<p>S</p>
+</td>
+</tr>
+<tr>
+<th>
+<p>1</p>
+</th>
+<td>
+<p>1</p>
+</td>
+<td>
+<p>2</p>
+</td>
+<td>
+<p>1</p>
+</td>
+<td>
+<p>1</p>
+</td>
+<td>
+<p>Cumings, Mrs. John Bradley (Florence Briggs Th...</p>
+</td>
+<td>
+<p>female</p>
+</td>
+<td>
+<p>38.0</p>
+</td>
+<td>
+<p>1</p>
+</td>
+<td>
+<p>0</p>
+</td>
+<td>
+<p>PC 17599</p>
+</td>
+<td>
+<p>71.2833</p>
+</td>
+<td>
+<p>C85</p>
+</td>
+<td>
+<p>C</p>
+</td>
+</tr>
+<tr>
+<th>
+<p>2</p>
+</th>
+<td>
+<p>2</p>
+</td>
+<td>
+<p>3</p>
+</td>
+<td>
+<p>1</p>
+</td>
+<td>
+<p>3</p>
+</td>
+<td>
+<p>Heikkinen, Miss. Laina</p>
+</td>
+<td>
+<p>female</p>
+</td>
+<td>
+<p>26.0</p>
+</td>
+<td>
+<p>0</p>
+</td>
+<td>
+<p>0</p>
+</td>
+<td>
+<p>STON/O2. 3101282</p>
+</td>
+<td>
+<p>7.9250</p>
+</td>
+<td>
+<p>NaN</p>
+</td>
+<td>
+<p>S</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Note:</p>
+<ul>
+<li><code>inplace</code>
+：是否替换原始的数据，也可以使用第二行的代码进行替代或存储为新的变量。默认为
+<code>False</code>，即不替换</li>
+<li><code>axis</code>：在行/列的维度进行操作。
+<ul>
+<li>0: Row</li>
+<li>1: Column</li>
+</ul></li>
+</ul></li>
+<li><p>Replace</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>test_1 = test_1.iloc[:, <span class="number">1</span>:-<span class="number">2</span>]</span><br></pre></td></tr></table></figure>
+<p>可以通过 <code>loc</code> 和 <code>iloc</code>
+方法进行取位置来替换原始的数据。</p></li>
+</ul>
+<h2 id="隐藏信息">4.3 隐藏信息</h2>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>data_en.drop([<span class="string">&#x27;PassengerId&#x27;</span>,<span class="string">&#x27;Name&#x27;</span>,<span class="string">&#x27;Age&#x27;</span>,<span class="string">&#x27;Ticket&#x27;</span>],axis=<span class="number">1</span>).head(<span class="number">3</span>)</span><br></pre></td></tr></table></figure>
+<table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th>
+</th>
+<th>
+Survived
+</th>
+<th>
+Pclass
+</th>
+<th>
+Sex
+</th>
+<th>
+SibSp
+</th>
+<th>
+Parch
+</th>
+<th>
+Fare
+</th>
+<th>
+Cabin
+</th>
+<th>
+Embarked
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>
+0
+</th>
+<td>
+0
+</td>
+<td>
+3
+</td>
+<td>
+male
+</td>
+<td>
+1
+</td>
+<td>
+0
+</td>
+<td>
+7.2500
+</td>
+<td>
+NaN
+</td>
+<td>
+S
+</td>
+</tr>
+<tr>
+<th>
+1
+</th>
+<td>
+1
+</td>
+<td>
+1
+</td>
+<td>
+female
+</td>
+<td>
+1
+</td>
+<td>
+0
+</td>
+<td>
+71.2833
+</td>
+<td>
+C85
+</td>
+<td>
+C
+</td>
+</tr>
+<tr>
+<th>
+2
+</th>
+<td>
+1
+</td>
+<td>
+3
+</td>
+<td>
+female
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+7.9250
+</td>
+<td>
+NaN
+</td>
+<td>
+S
+</td>
+</tr>
+</tbody>
+</table>
+<p>上述也可用下述代码实现：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>columns = data_en.columns.drop([<span class="string">&#x27;PassengerId&#x27;</span>,<span class="string">&#x27;Name&#x27;</span>,<span class="string">&#x27;Age&#x27;</span>,<span class="string">&#x27;Ticket&#x27;</span>])data_en.drop(columns, axis=<span class="number">1</span>).head(<span class="number">3</span>)</span><br></pre></td></tr></table></figure>
+<table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th>
+</th>
+<th>
+PassengerId
+</th>
+<th>
+Name
+</th>
+<th>
+Age
+</th>
+<th>
+Ticket
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>
+0
+</th>
+<td>
+1
+</td>
+<td>
+Braund, Mr. Owen Harris
+</td>
+<td>
+22.0
+</td>
+<td>
+A/5 21171
+</td>
+</tr>
+<tr>
+<th>
+1
+</th>
+<td>
+2
+</td>
+<td>
+Cumings, Mrs. John Bradley (Florence Briggs Th...
+</td>
+<td>
+38.0
+</td>
+<td>
+PC 17599
+</td>
+</tr>
+<tr>
+<th>
+2
+</th>
+<td>
+3
+</td>
+<td>
+Heikkinen, Miss. Laina
+</td>
+<td>
+26.0
+</td>
+<td>
+STON/O2. 3101282
+</td>
+</tr>
+</tbody>
+</table>
+<p>Note:</p>
+<p><code>drop</code> 方法将数据从原数据中去掉，如果不设置
+<code>inplace = True</code>
+参数的话，默认是用一个临时变量存储新得到的数据。</p>
+<h3 id="数据筛选">4.3.1 数据筛选</h3>
+<p>表格数据中，最重要的一个功能就是要具有可筛选的能力，选出我所需要的信息，丢弃无用的信息。</p>
+<ul>
+<li><p>判别式</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>data_en[data_en[<span class="string">&quot;Age&quot;</span>]&lt;<span class="number">10</span>].head(<span class="number">3</span>)</span><br></pre></td></tr></table></figure>
+<table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th>
+</th>
+<th>
+<p>PassengerId</p>
+</th>
+<th>
+<p>Survived</p>
+</th>
+<th>
+<p>Pclass</p>
+</th>
+<th>
+<p>Name</p>
+</th>
+<th>
+<p>Sex</p>
+</th>
+<th>
+<p>Age</p>
+</th>
+<th>
+<p>SibSp</p>
+</th>
+<th>
+<p>Parch</p>
+</th>
+<th>
+<p>Ticket</p>
+</th>
+<th>
+<p>Fare</p>
+</th>
+<th>
+<p>Cabin</p>
+</th>
+<th>
+<p>Embarked</p>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>
+<p>7</p>
+</th>
+<td>
+<p>8</p>
+</td>
+<td>
+<p>0</p>
+</td>
+<td>
+<p>3</p>
+</td>
+<td>
+<p>Palsson, Master. Gosta Leonard</p>
+</td>
+<td>
+<p>male</p>
+</td>
+<td>
+<p>2.0</p>
+</td>
+<td>
+<p>3</p>
+</td>
+<td>
+<p>1</p>
+</td>
+<td>
+<p>349909</p>
+</td>
+<td>
+<p>21.075</p>
+</td>
+<td>
+<p>NaN</p>
+</td>
+<td>
+<p>S</p>
+</td>
+</tr>
+<tr>
+<th>
+<p>10</p>
+</th>
+<td>
+<p>11</p>
+</td>
+<td>
+<p>1</p>
+</td>
+<td>
+<p>3</p>
+</td>
+<td>
+<p>Sandstrom, Miss. Marguerite Rut</p>
+</td>
+<td>
+<p>female</p>
+</td>
+<td>
+<p>4.0</p>
+</td>
+<td>
+<p>1</p>
+</td>
+<td>
+<p>1</p>
+</td>
+<td>
+<p>PP 9549</p>
+</td>
+<td>
+<p>16.700</p>
+</td>
+<td>
+<p>G6</p>
+</td>
+<td>
+<p>S</p>
+</td>
+</tr>
+<tr>
+<th>
+<p>16</p>
+</th>
+<td>
+<p>17</p>
+</td>
+<td>
+<p>0</p>
+</td>
+<td>
+<p>3</p>
+</td>
+<td>
+<p>Rice, Master. Eugene</p>
+</td>
+<td>
+<p>male</p>
+</td>
+<td>
+<p>2.0</p>
+</td>
+<td>
+<p>4</p>
+</td>
+<td>
+<p>1</p>
+</td>
+<td>
+<p>382652</p>
+</td>
+<td>
+<p>29.125</p>
+</td>
+<td>
+<p>NaN</p>
+</td>
+<td>
+<p>Q</p>
+</td>
+</tr>
+</tbody>
+</table>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>midage = data_en[(data_en[<span class="string">&quot;Age&quot;</span>]&gt;<span class="number">10</span>) &amp; (data_en[<span class="string">&quot;Age&quot;</span>]&lt;<span class="number">50</span>)]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>midage.head(<span class="number">3</span>)</span><br></pre></td></tr></table></figure>
+<table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th>
+</th>
+<th>
+<p>PassengerId</p>
+</th>
+<th>
+<p>Survived</p>
+</th>
+<th>
+<p>Pclass</p>
+</th>
+<th>
+<p>Name</p>
+</th>
+<th>
+<p>Sex</p>
+</th>
+<th>
+<p>Age</p>
+</th>
+<th>
+<p>SibSp</p>
+</th>
+<th>
+<p>Parch</p>
+</th>
+<th>
+<p>Ticket</p>
+</th>
+<th>
+<p>Fare</p>
+</th>
+<th>
+<p>Cabin</p>
+</th>
+<th>
+<p>Embarked</p>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>
+<p>0</p>
+</th>
+<td>
+<p>1</p>
+</td>
+<td>
+<p>0</p>
+</td>
+<td>
+<p>3</p>
+</td>
+<td>
+<p>Braund, Mr. Owen Harris</p>
+</td>
+<td>
+<p>male</p>
+</td>
+<td>
+<p>22.0</p>
+</td>
+<td>
+<p>1</p>
+</td>
+<td>
+<p>0</p>
+</td>
+<td>
+<p>A/5 21171</p>
+</td>
+<td>
+<p>7.2500</p>
+</td>
+<td>
+<p>NaN</p>
+</td>
+<td>
+<p>S</p>
+</td>
+</tr>
+<tr>
+<th>
+<p>1</p>
+</th>
+<td>
+<p>2</p>
+</td>
+<td>
+<p>1</p>
+</td>
+<td>
+<p>1</p>
+</td>
+<td>
+<p>Cumings, Mrs. John Bradley (Florence Briggs Th...</p>
+</td>
+<td>
+<p>female</p>
+</td>
+<td>
+<p>38.0</p>
+</td>
+<td>
+<p>1</p>
+</td>
+<td>
+<p>0</p>
+</td>
+<td>
+<p>PC 17599</p>
+</td>
+<td>
+<p>71.2833</p>
+</td>
+<td>
+<p>C85</p>
+</td>
+<td>
+<p>C</p>
+</td>
+</tr>
+<tr>
+<th>
+<p>2</p>
+</th>
+<td>
+<p>3</p>
+</td>
+<td>
+<p>1</p>
+</td>
+<td>
+<p>3</p>
+</td>
+<td>
+<p>Heikkinen, Miss. Laina</p>
+</td>
+<td>
+<p>female</p>
+</td>
+<td>
+<p>26.0</p>
+</td>
+<td>
+<p>0</p>
+</td>
+<td>
+<p>0</p>
+</td>
+<td>
+<p>STON/O2. 3101282</p>
+</td>
+<td>
+<p>7.9250</p>
+</td>
+<td>
+<p>NaN</p>
+</td>
+<td>
+<p>S</p>
+</td>
+</tr>
+</tbody>
+</table></li>
+</ul>
+<h3 id="数据提取">4.3.2 数据提取</h3>
+<p>将midage的数据中第100行的"Pclass"和"Sex"的数据显示出来</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>midage = midage.reset_index(drop=<span class="literal">True</span>)</span><br><span class="line">    <span class="comment"># midage.reset_index(inplace = True, drop=True)</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>midage.head(<span class="number">3</span>)</span><br></pre></td></tr></table></figure>
+<table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th>
+</th>
+<th>
+PassengerId
+</th>
+<th>
+Survived
+</th>
+<th>
+Pclass
+</th>
+<th>
+Name
+</th>
+<th>
+Sex
+</th>
+<th>
+Age
+</th>
+<th>
+SibSp
+</th>
+<th>
+Parch
+</th>
+<th>
+Ticket
+</th>
+<th>
+Fare
+</th>
+<th>
+Cabin
+</th>
+<th>
+Embarked
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>
+0
+</th>
+<td>
+1
+</td>
+<td>
+0
+</td>
+<td>
+3
+</td>
+<td>
+Braund, Mr. Owen Harris
+</td>
+<td>
+male
+</td>
+<td>
+22.0
+</td>
+<td>
+1
+</td>
+<td>
+0
+</td>
+<td>
+A/5 21171
+</td>
+<td>
+7.2500
+</td>
+<td>
+NaN
+</td>
+<td>
+S
+</td>
+</tr>
+<tr>
+<th>
+1
+</th>
+<td>
+2
+</td>
+<td>
+1
+</td>
+<td>
+1
+</td>
+<td>
+Cumings, Mrs. John Bradley (Florence Briggs Th...
+</td>
+<td>
+female
+</td>
+<td>
+38.0
+</td>
+<td>
+1
+</td>
+<td>
+0
+</td>
+<td>
+PC 17599
+</td>
+<td>
+71.2833
+</td>
+<td>
+C85
+</td>
+<td>
+C
+</td>
+</tr>
+<tr>
+<th>
+2
+</th>
+<td>
+3
+</td>
+<td>
+1
+</td>
+<td>
+3
+</td>
+<td>
+Heikkinen, Miss. Laina
+</td>
+<td>
+female
+</td>
+<td>
+26.0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+STON/O2. 3101282
+</td>
+<td>
+7.9250
+</td>
+<td>
+NaN
+</td>
+<td>
+S
+</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Note</strong>:</p>
+<p><code>reset_index()</code> 的作用是重置索引值，<code>drop</code>
+参数表示是否去掉原始的索引值。</p>
+<ul>
+<li><p><code>loc</code> 方法</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>midage.loc[[<span class="number">100</span>],[<span class="string">&#x27;Pclass&#x27;</span>,<span class="string">&#x27;Sex&#x27;</span>]]</span><br></pre></td></tr></table></figure>
+<table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th>
+</th>
+<th>
+<p>Pclass</p>
+</th>
+<th>
+<p>Sex</p>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>
+<p>100</p>
+</th>
+<td>
+<p>2</p>
+</td>
+<td>
+<p>male</p>
+</td>
+</tr>
+</tbody>
+</table>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>midage.loc[[<span class="number">100</span>,<span class="number">105</span>,<span class="number">108</span>],[<span class="string">&#x27;Pclass&#x27;</span>,<span class="string">&#x27;Name&#x27;</span>,<span class="string">&#x27;Sex&#x27;</span>]]</span><br></pre></td></tr></table></figure>
+<table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th>
+</th>
+<th>
+<p>Pclass</p>
+</th>
+<th>
+<p>Name</p>
+</th>
+<th>
+<p>Sex</p>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>
+<p>100</p>
+</th>
+<td>
+<p>2</p>
+</td>
+<td>
+<p>Byles, Rev. Thomas Roussel Davids</p>
+</td>
+<td>
+<p>male</p>
+</td>
+</tr>
+<tr>
+<th>
+<p>105</p>
+</th>
+<td>
+<p>3</p>
+</td>
+<td>
+<p>Cribb, Mr. John Hatfield</p>
+</td>
+<td>
+<p>male</p>
+</td>
+</tr>
+<tr>
+<th>
+<p>108</p>
+</th>
+<td>
+<p>3</p>
+</td>
+<td>
+<p>Calic, Mr. Jovo</p>
+</td>
+<td>
+<p>male</p>
+</td>
+</tr>
+</tbody>
+</table></li>
+<li><p><code>iloc</code> 方法</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>midage.iloc[[<span class="number">100</span>,<span class="number">105</span>,<span class="number">108</span>],[<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>]]</span><br></pre></td></tr></table></figure>
+<table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th>
+</th>
+<th>
+<p>Pclass</p>
+</th>
+<th>
+<p>Name</p>
+</th>
+<th>
+<p>Sex</p>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>
+<p>100</p>
+</th>
+<td>
+<p>2</p>
+</td>
+<td>
+<p>Byles, Rev. Thomas Roussel Davids</p>
+</td>
+<td>
+<p>male</p>
+</td>
+</tr>
+<tr>
+<th>
+<p>105</p>
+</th>
+<td>
+<p>3</p>
+</td>
+<td>
+<p>Cribb, Mr. John Hatfield</p>
+</td>
+<td>
+<p>male</p>
+</td>
+</tr>
+<tr>
+<th>
+<p>108</p>
+</th>
+<td>
+<p>3</p>
+</td>
+<td>
+<p>Calic, Mr. Jovo</p>
+</td>
+<td>
+<p>male</p>
+</td>
+</tr>
+</tbody>
+</table></li>
+</ul>
+<p><strong>【总结】</strong>: <code>loc</code> 方法的操作对象是
+<code>label</code> 标签，而 <code>iloc</code>
+方法的操作对象是标签的索引值。</p>
+<p>此外如果要对 <code>DataFrame</code>
+对象中的数据进行重赋值操作的话，如果使用的是 <code>loc</code>
+方法，当赋值的 <code>label</code> 在数据表中不存在时，会默认新建一列，而
+<code>iloc</code>
+方法只能在数据表中现有的索引内容中进行覆写，索引值不能超过现有的
+<code>shape</code> 值。</p>
+
+    </div>
+
+    
+    
+    
+
+    <div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">
+            -------------This blog is over!
+            <i class="fa fa-eye"></i>
+            Thanks for your reading-------------
+        </div>
+    
+</div>
+      
+    </div>
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>Post author:  </strong>YangSu
+  </li>
+  <li class="post-copyright-link">
+    <strong>Post link: </strong>
+    <a href="http://yangsuoly.com/2021/06/15/DataAnalysis-Describe/" title="DataAnalysis-Describe">http://yangsuoly.com/2021/06/15/DataAnalysis-Describe/</a>
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/Tags/Python/" rel="tag"><i class="fa fa-tag"></i> Python</a>
+              <a href="/Tags/Data-Analysis/" rel="tag"><i class="fa fa-tag"></i> Data Analysis</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/05/22/Ensemble-Steam/" rel="prev" title="Ensemble-Steam">
+      <i class="fa fa-chevron-left"></i> Ensemble-Steam
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/06/17/DataAnalysis-Cleaning/" rel="next" title="DataAnalysis-Cleaning">
+      DataAnalysis-Cleaning <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div id="music163player">
+      <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=1317956275&auto=0&height=66"></iframe>
+      </iframe>
+    </div>
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%A6%82%E8%BF%B0"><span class="nav-text">1 概述</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E8%BD%BD%E5%85%A5%E5%8F%8A%E5%88%9D%E6%AD%A5%E8%A7%82%E5%AF%9F"><span class="nav-text">2 数据载入及初步观察</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BD%BD%E5%85%A5%E6%95%B0%E6%8D%AE"><span class="nav-text">2.1 载入数据</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8A%A0%E8%BD%BD%E6%95%B0%E6%8D%AE"><span class="nav-text">2.2 加载数据</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E9%A2%84%E5%A4%84%E7%90%86"><span class="nav-text">2.3 数据预处理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9B%B4%E6%94%B9%E8%A1%A8%E5%A4%B4"><span class="nav-text">2.3.1 更改表头</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%9D%E6%AD%A5%E8%A7%82%E5%AF%9F"><span class="nav-text">2.3.2 初步观察</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BF%9D%E5%AD%98%E6%95%B0%E6%8D%AE"><span class="nav-text">2.4 保存数据</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%8E%A2%E7%B4%A2%E6%80%A7%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90"><span class="nav-text">3 探索性数据分析</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8A%A0%E8%BD%BD%E6%95%B0%E6%8D%AE-1"><span class="nav-text">3.1 加载数据</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%86%E8%A7%A3%E6%95%B0%E6%8D%AE"><span class="nav-text">3.2 了解数据</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8E%92%E5%BA%8F"><span class="nav-text">3.2.1 排序</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AE%97%E6%95%B0%E8%AE%A1%E7%AE%97"><span class="nav-text">3.2.2 算数计算</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9E%81%E5%80%BC"><span class="nav-text">3.2.3 极值</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#pandas-%E5%9F%BA%E7%A1%80"><span class="nav-text">4 Pandas 基础</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E7%89%B9%E5%BE%81"><span class="nav-text">4.1 数据特征</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%A0%E9%99%A4%E5%A4%9A%E4%BD%99%E7%9A%84%E5%88%97"><span class="nav-text">4.2 删除多余的列</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%9A%90%E8%97%8F%E4%BF%A1%E6%81%AF"><span class="nav-text">4.3 隐藏信息</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E7%AD%9B%E9%80%89"><span class="nav-text">4.3.1 数据筛选</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E6%8F%90%E5%8F%96"><span class="nav-text">4.3.2 数据提取</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="YangSu"
+      src="/images/YangSu.jpg">
+  <p class="site-author-name" itemprop="name">YangSu</p>
+  <div class="site-description" itemprop="description">A blog for recording learning notes...</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">78</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/Categories/">
+          
+        <span class="site-state-item-count">40</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/Tags/">
+          
+        <span class="site-state-item-count">49</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/YangSuoly" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;YangSuoly" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://gitee.com/yangsuoly" title="Gitee → https:&#x2F;&#x2F;gitee.com&#x2F;yangsuoly" rel="noopener" target="_blank"><i class="fab fa-github-square fa-fw"></i>Gitee</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://space.bilibili.com/64518717" title="B 站 → https:&#x2F;&#x2F;space.bilibili.com&#x2F;64518717" rel="noopener" target="_blank"><i class="fa fa-play-circle fa-fw"></i>B 站</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Related links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://www.58pic.com/u/19637930/" title="https:&#x2F;&#x2F;www.58pic.com&#x2F;u&#x2F;19637930&#x2F;" rel="noopener" target="_blank">千图网</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js" integrity="sha384-g7c+Jr9ZivxKLnZTDUhnkOnsh30B4H0rpLUpJ4jAIKs4fnJI+sEnkvrMWph2EDg4" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/auto-render.min.js" integrity="sha384-mll67QQFJfxn0IYznZYonOWZ644AWYC+Pt2cHqMaRhXVrursRwvLnLaebdGIlYNa" crossorigin="anonymous"
+        onload="renderMathInElement(document.body);"></script>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2026</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">YangSu</span>
+</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="Total Visitors">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="Total Views">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script size="300" alpha="0.6" zIndex="-1" src="/lib/canvas-ribbon/canvas-ribbon.js"></script>
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+<script>
+document.querySelectorAll('.pdfobject-container').forEach(element => {
+  let url = element.dataset.target;
+  let pdfOpenParams = {
+    navpanes : 0,
+    toolbar  : 0,
+    statusbar: 0,
+    pagemode : 'thumbs',
+    view     : 'FitH'
+  };
+  let pdfOpenFragment = '#' + Object.entries(pdfOpenParams).map(([key, value]) => `${key}=${encodeURIComponent(value)}`).join('&');
+  let fullURL = `/lib/pdf/web/viewer.html?file=${encodeURIComponent(url)}${pdfOpenFragment}`;
+
+  if (NexT.utils.supportsPDFs()) {
+    element.innerHTML = `<embed class="pdfobject" src="${url + pdfOpenFragment}" type="application/pdf" style="height: ${element.dataset.height};">`;
+  } else {
+    element.innerHTML = `<iframe src="${fullURL}" style="height: ${element.dataset.height};" frameborder="0"></iframe>`;
+  }
+});
+</script>
+
+
+<script>
+if (document.querySelectorAll('pre.mermaid').length) {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js', () => {
+    mermaid.initialize({
+      theme    : 'forest',
+      logLevel : 3,
+      flowchart: { curve     : 'linear' },
+      gantt    : { axisFormat: '%m/%d/%Y' },
+      sequence : { actorMargin: 50 }
+    });
+  }, window.mermaid);
+}
+</script>
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+  <script src="//cdn.jsdelivr.net/npm/quicklink@1/dist/quicklink.umd.js"></script>
+  <script>
+      window.addEventListener('load', () => {
+      quicklink({
+        timeout : 3000,
+        priority: true,
+        ignores : [uri => uri.includes('#'),uri => uri === 'http://yangsuoly.com/2021/06/15/DataAnalysis-Describe/',]
+      });
+      });
+  </script>
+
+  
+  <script id="ribbon" src="js/canvas-ribbon.js"></script>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/22.2017.cba-normal.model.json"},"display":{"position":"right","width":300,"height":450},"mobile":{"show":false},"react":{"opacity":0.7},"log":false});</script></body>
+</html>

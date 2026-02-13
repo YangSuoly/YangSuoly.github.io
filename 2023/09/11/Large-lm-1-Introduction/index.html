@@ -1,0 +1,1210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/blog-logo-32px.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/blog-logo-16px.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <link rel="manifest" href="/images/manifest.json">
+  <meta name="msapplication-config" content="/images/browserconfig.xml">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yangsuoly.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":true},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":true,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="1. Introduction 本笔记是 DataWhale 2023年 09 月 简单学点大模型 项目的学习笔记。原项目地址：Clike here。 1.1 语言模型 (Language Model, LM) 1.1.1 定义 语言模型是对令牌序列 token 的概率分布。假设有一个令牌集的词汇表 V。语言模型 p 为每个令牌序列 x_{1},...,x_{L} \in V分配一个概率（0和1之">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Large-lm-1-Introduction">
+<meta property="og:url" content="http://yangsuoly.com/2023/09/11/Large-lm-1-Introduction/index.html">
+<meta property="og:site_name" content="独孤诗人的学习驿站">
+<meta property="og:description" content="1. Introduction 本笔记是 DataWhale 2023年 09 月 简单学点大模型 项目的学习笔记。原项目地址：Clike here。 1.1 语言模型 (Language Model, LM) 1.1.1 定义 语言模型是对令牌序列 token 的概率分布。假设有一个令牌集的词汇表 V。语言模型 p 为每个令牌序列 x_{1},...,x_{L} \in V分配一个概率（0和1之">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2023-09-11T01:48:59.000Z">
+<meta property="article:modified_time" content="2023-09-11T06:54:31.450Z">
+<meta property="article:author" content="YangSu">
+<meta property="article:tag" content="LM">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://yangsuoly.com/2023/09/11/Large-lm-1-Introduction/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>Large-lm-1-Introduction | 独孤诗人的学习驿站</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?f59f5fb59d32ec3903088b0f976956d1";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta custom-logo">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">独孤诗人的学习驿站</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">生活就是一半烟火，一半诗意。手执烟火谋生活，心怀诗意谋未来……</p>
+      <a>
+        <img class="custom-logo-image" src="/images/logo@2x.png" alt="独孤诗人的学习驿站">
+      </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/Tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/Categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+  <a href="https://github.com/YangSuoly" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yangsuoly.com/2023/09/11/Large-lm-1-Introduction/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/YangSu.jpg">
+      <meta itemprop="name" content="YangSu">
+      <meta itemprop="description" content="A blog for recording learning notes...">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="独孤诗人的学习驿站">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Large-lm-1-Introduction
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2023-09-11 09:48:59 / Modified: 14:54:31" itemprop="dateCreated datePublished" datetime="2023-09-11T09:48:59+08:00">2023-09-11</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/Categories/DataWhale/" itemprop="url" rel="index"><span itemprop="name">DataWhale</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/Categories/DataWhale/Large-LM/" itemprop="url" rel="index"><span itemprop="name">Large LM</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="Views" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span><br>
+            <span class="post-meta-item" title="Symbols count in article">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">Symbols count in article: </span>
+              <span>13k</span>
+            </span>
+            <span class="post-meta-item" title="Reading time">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">Reading time &asymp;</span>
+              <span>12 mins.</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="introduction">1. Introduction</h1>
+<p>本笔记是 <code>DataWhale</code> 2023年 <code>09</code> 月
+<code>简单学点大模型</code> 项目的学习笔记。原项目地址：<a
+target="_blank" rel="noopener" href="https://github.com/datawhalechina/so-large-lm">Clike
+here</a>。</p>
+<h2 id="语言模型-language-model-lm">1.1 语言模型 (Language Model,
+LM)</h2>
+<h3 id="定义">1.1.1 定义</h3>
+<p>语言模型是对令牌序列 <code>token</code>
+的概率分布。假设有一个令牌集的词汇表 <span
+class="math inline">V</span>。语言模型 <span
+class="math inline">p</span> 为每个令牌序列 <span
+class="math inline">x_{1},...,x_{L} \in
+V</span>分配一个概率（0和1之间）：</p>
+<a id="more"></a>
+<p><span class="math display">
+p(x_1,\dots,x_L)
+</span></p>
+<p>概率可以直观直观表示一个标记序列的优度，即有多“好（good）”。例如，如果词汇表为{ate,
+ball, cheese, mouse, the}，语言模型可能会分配以下概率（演示）：</p>
+<p><span class="math display">
+\begin{align*}
+p(\text{the, mouse, ate, the, cheese}) &amp;= 0.02, \\
+p(\text{the, cheese, ate, the, cheese}) &amp;= 0.02, \\
+p(\text{mouse, the, the, cheese, ate}) &amp;= 0.02,
+\end{align*}
+</span></p>
+<p>由于世界知识的存在，我们知道，语言模型应该隐含地赋予
+<code>𝗆𝗈𝗎𝗌𝖾 𝗍𝗁𝖾 𝗍𝗁𝖾 𝖼𝗁𝖾𝖾𝗌𝖾 𝖺𝗍𝖾</code>
+一个非常低的概率，因为它在语法上是不正确的（句法知识）。此外，<code>𝗍𝗁𝖾 𝗆𝗈𝗎𝗌𝖾 𝖺𝗍𝖾 𝗍𝗁𝖾 𝖼𝗁𝖾𝖾𝗌𝖾</code>
+应该比 <code>𝗍𝗁𝖾 𝖼𝗁𝖾𝖾𝗌𝖾 𝖺𝗍𝖾 𝗍𝗁𝖾 𝗆𝗈𝗎𝗌𝖾</code>
+具有更高的概率。这是因为两个句子在句法上是相同的，但在语义上却存在差异。理想状态下，我们期望
+<strong>语言模型</strong>
+能够实现这些功能，即具备卓越的语言能力和世界知识，准确评估序列的概率。</p>
+<ul>
+<li>生成任务</li>
+</ul>
+<p>语言模型也可以应用在生成任务中，如定义所示，语言模型 <span
+class="math inline">p</span>
+接受一个序列并返回一个概率来评估其好坏。因此，可以根据语言模型 <span
+class="math inline">p</span> 以概率 <span
+class="math inline">p(x_{1:L})</span> 进行采样，表示为： <span
+class="math display">
+x_{1:L}∼p.
+</span>
+如何在计算上高效地实现这一点取决于语言模型p的形式。实际上，我们通常不直接从语言模型中进行采样，这既因为真实语言模型的限制，也因为我们有时希望获得的不是一个“平均”的序列，而是更接近“最佳”序列的结果。</p>
+<h3 id="自回归语言模型-autoregressive-language-models">1.1.2
+自回归语言模型 (Autoregressive language models)</h3>
+<p>常用链式法则来表示序列 <span class="math inline">x_{1:L}</span>
+的联合分布 <span class="math inline">p(x_{1:L})</span> ：</p>
+<p><span class="math display">
+p(x_{1:L}) = p(x_1) p(x_2 \mid x_1) p(x_3 \mid x_1, x_2) \cdots p(x_L
+\mid x_{1:L-1}) = \prod_{i=1}^L p(x_i \mid x_{1:i-1}).
+</span> 例如： <span class="math display">
+\begin{align*}
+p({the}, {mouse}, {ate}, {the}, {cheese}) = \, &amp; p({the}) \\
+&amp; p({mouse} \mid {the}) \\
+&amp; p({ate} \mid {the}, {mouse}) \\
+&amp; p({the} \mid {the}, {mouse}, {ate}) \\
+&amp; p({cheese} \mid {the}, {mouse}, {ate}, {the}).
+\end{align*}
+</span> 其中， <span class="math inline">p(x_{i}∣x_{1:i−1})</span>
+指的是给定 $x_{1:i−1} $后，下一个记号 <span
+class="math inline">x_{i}</span> 的条件概率分布。</p>
+<p>自回归语言模型的特点是它可以利用例如前馈神经网络等方法有效计算出每个条件概率分布
+<span class="math inline">p(x_{i}∣x_{1:i−1})</span> 。</p>
+<p>在非自回归的生成任务中，要从自回归语言模型 <span
+class="math inline">p</span> 中生成整个序列 <span
+class="math inline">x_{1:L}</span>，我们需要一次生成一个令牌
+<code>token</code>，该令牌基于之前以生成的令牌进行计算获得： <span
+class="math display">
+\begin{aligned}
+\text { for } i &amp; =1, \ldots, L: \\
+x_i &amp; \sim p\left(x_i \mid x_{1: i-1}\right)^{1 / T},
+\end{aligned}
+</span> 其中， <span class="math inline">T≥0</span>
+是一个控制我们希望从语言模型中得到多少随机性的温度参数：</p>
+<ul>
+<li><p>T=0：确定性地在每个位置 i 选择最可能的令牌 <span
+class="math inline">x_{i}</span></p></li>
+<li><p>T=1：从纯语言模型“正常（normally）”采样</p></li>
+<li><p>T=∞：从整个词汇表上的均匀分布中采样</p>
+<p>然而，如果我们仅将概率提高到 <span class="math inline">1/T</span>
+的次方，概率分布可能不会加和到
+1。我们可以通过重新标准化分布来解决这个问题。我们将标准化版本 <span
+class="math inline">p_{T}(x_{i}∣x_{1:i−1})∝p(x_{i}∣x_{1:i−1})^{1/T}</span>
+称为退火条件概率分布。例如：</p></li>
+</ul>
+<p><span class="math display">
+\begin{array}{cl}
+p(\text { cheese })=0.4, &amp; p(\text { mouse })=0.6 \\
+p_{T=0.5}(\text { cheese })=0.31, &amp; \left.p_{T=0.5} \text { (mouse
+}\right)=0.69 \\
+\left.p_{T=0.2} \text { (cheese }\right)=0.12, &amp; p_{T=0.2} \text {
+(mouse) }=0.88 \\
+\left.p_{T=0} \text { (cheese }\right)=0, &amp; \left.p_{T=0} \text {
+(mouse }\right)=1
+\end{array}
+</span></p>
+<p>具体来说，这个温度参数会应用于每一步的条件概率分布 <span
+class="math inline">p(x_{i}∣x_{1:i−1})</span>，将其幂变为 <span
+class="math inline">1/T</span>。这意味着当 <span
+class="math inline">T</span>
+值较高时，我们会获得更平均的概率分布，生成的结果更具随机性；反之，当
+<span class="math inline">T</span>
+值较低时，模型会更倾向于生成概率较高的令牌。</p>
+<p>然而，有一个重要的注意事项：对于每一步的条件概率分布应用温度参数
+<span
+class="math inline">T</span>，并进行迭代采样，这种方法并不等同于（除非
+<span class="math inline">T=1</span>）从整个长度为 L
+的序列的"退火"分布中一次性采样。换句话说，这两种方法在 <span
+class="math inline">T≠1</span> 时会产生不同的结果。</p>
+<p>"退火"这个术语来源于冶金学，其中热的金属会逐渐冷却以改变其物理性质。在这里，它类比的是对概率分布进行调整的过程。"退火"分布是通过将原始概率分布的每个元素都取幂
+<span
+class="math inline">1/T</span>，然后重新标准化得到的新分布。当<span
+class="math inline">T ≠
+1</span>时，这个过程会改变原始概率分布，因此从"退火"分布中采样得到的结果可能与对每一步的条件分布应用
+<span class="math inline">T</span> 并进行迭代采样的结果不同。</p>
+<p>对于非自回归的条件生成，更一般地，我们可以通过指定某个前缀序列 <span
+class="math inline">x_1:i</span>（称为提示）并采样其余的 <span
+class="math inline">x_{i+1:L}</span>（称为补全）来进行条件生成。例如，生成
+<span class="math inline">T=0</span> 的产生的： <span
+class="math display">
+\underbrace{the, mouse, ate}_{prompt} \stackrel{T=0}{\leadsto}
+\underbrace{the, cheese}_{completion}
+</span> 如果我们将温度改为 <span
+class="math inline">T=1</span>，我们可以得到更多的多样性（演示），例如，"its
+house" 和 "my
+homework"。我们将很快看到，条件生成解锁了语言模型通过简单地更改提示就能解决各种任务的能力。</p>
+<h3 id="总结">总结</h3>
+<ul>
+<li>语言模型是序列 <span class="math inline">x_1:L</span> 的概率分布
+<span class="math inline">p</span>。</li>
+<li>直观上，一个好的语言模型应具有语言能力和世界知识。</li>
+<li>自回归语言模型允许有效地生成给定提示 <span
+class="math inline">x_1:i</span> 的补全 <span
+class="math inline">x_{i+1}:L</span>。</li>
+<li>温度可以用来控制生成中的变异量。</li>
+</ul>
+<h2 id="大模型历史">1.2 大模型历史</h2>
+<h3 id="信息理论">1.2.1 信息理论</h3>
+<h4 id="熵">1.2.1.1 熵</h4>
+<ul>
+<li>信息熵</li>
+</ul>
+<p>克劳德·香农最早在1948年发表了具有里程碑意义的论文《通信的数学理论》，在其中奠定了信息理论的基础，并引入了用于度量概率分布的熵
+<code>Entropy</code> 的概念： <span class="math display">
+H(p) = \sum_x p(x) \log \frac{1}{p(x)}.
+</span> 熵实际上是一个衡量将样本 <span class="math inline">x∼p</span>
+编码（即压缩）成比特串所需要的预期比特数的度量。举例来说，"the mouse ate
+the cheese" 可能会被编码成 "0001110101"。</p>
+<p>熵的值越小，表明序列的结构性越强，编码的长度就越短。直观地理解，<span
+class="math inline">\log \frac{1}{p(x)}</span>
+可以视为用于表示出现概率为<span class="math inline">p(x)</span> 的元素
+<span class="math inline">x</span> 的编码的长度。</p>
+<p>例如，如果 <span class="math inline">p(x)=1/8</span>，我们就需要分配
+<span class="math inline">log_{2}(8)=3</span> 个比特（或等价地，<span
+class="math inline">log(8)=2.08</span> 个自然单位）。</p>
+<p>需要注意的是，实际上达到香农极限（Shannon
+limit）是非常具有挑战性的（例如，低密度奇偶校验码），这也是编码理论研究的主题之一。</p>
+<ul>
+<li>交叉熵</li>
+</ul>
+<p>英语的熵被表示为一系列的字母，这意味着我们想象存在一个“真实”的分布
+<span class="math inline">p</span>，它能产生英语文本样本 <span
+class="math inline">x \sim p</span>。香农还定义了交叉熵：</p>
+<p><span class="math display">
+H(p,q)=\sum_x p(x)\log \frac 1 {q(x)}，
+</span> 这测量了需要多少比特（nats）来编码样本 <span
+class="math inline">x \sim p</span>，使用由模型 <span
+class="math inline">q</span> 给出的压缩方案（用长度为 <span
+class="math inline">\frac 1 {q(x)}</span>的代码表示<span
+class="math inline">x</span>）。</p>
+<p>通过语言模型估计熵。一个关键的属性是，交叉熵 <span
+class="math inline">H(p,q)</span> 上界是熵 <span
+class="math inline">H(p)</span>： <span class="math display">
+H(p,q) \geq H(p)= \sum_x p(x) \log \frac{1}{p(x)}.
+</span> 这意味着我们可以通过构建一个只有来自真实数据分布 <span
+class="math inline">p</span> 的样本的（语言）模型 <span
+class="math inline">q</span> 来估计 <span
+class="math inline">H(p,q)</span>，而 <span
+class="math inline">H(p)</span> 通常无法访问，如果 <span
+class="math inline">p</span> 是英语的话。所以我们可以通过构建更好的模型
+<span class="math inline">q</span> 来得到熵 <span
+class="math inline">H(p)</span> 的更好的估计，由 <span
+class="math inline">H(p,q)</span> 衡量。</p>
+<ul>
+<li>Ref: <a
+target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/35379531">详解机器学习中的熵、条件熵、相对熵和交叉熵</a></li>
+</ul>
+<h4 id="n-gram-模型">1.2.1.2 <code>N-gram</code> 模型</h4>
+<p>语言模型首先被用于需要生成文本的实践应用：</p>
+<ul>
+<li>1970年代的语音识别（输入：声音信号，输出：文本）</li>
+<li>1990年代的机器翻译（输入：源语言的文本，输出：目标语言的文本）</li>
+</ul>
+<p>噪声信道模型。当时解决这些任务的主要模型是噪声信道模型。以语音识别为例：</p>
+<ul>
+<li>我们假设有一些从某个分布 <span class="math inline">p</span>
+中抽取的文本</li>
+<li>这些文本被转换为语音（声音信号）</li>
+<li>然后给定语音，我们希望恢复（最有可能的）文本。这可以通过贝叶斯定理实现：</li>
+</ul>
+<p><span class="math display">
+p(\text{text} \mid \text{speech}) \propto
+\underbrace{p(\text{text})}_\text{language model}
+\underbrace{p(\text{speech} \mid \text{text})}_\text{acoustic model}.
+</span></p>
+<p>在一个 <code>n-gram</code> 模型中，关于 <span
+class="math inline">x_{i}</span> 的预测只依赖于最后的 <span
+class="math inline">n-1</span> 个字符 <span
+class="math inline">x_{i−(n−1):i−1}</span>，而不是整个历史： <span
+class="math display">
+p(x_i \mid x_{1:i-1}) = p(x_i \mid x_{i-(n-1):i-1}).
+</span> 例如，一个trigram（n=3）模型会定义： <span class="math display">
+p(𝖼𝗁𝖾𝖾𝗌𝖾∣𝗍𝗁𝖾,𝗆𝗈𝗎𝗌𝖾,𝖺𝗍𝖾,𝗍𝗁𝖾)=p(𝖼𝗁𝖾𝖾𝗌𝖾∣𝖺𝗍𝖾,𝗍𝗁𝖾)。
+</span> 这些概率是基于各种 <code>n-gram</code>（例如，𝖺𝗍𝖾 𝗍𝗁𝖾 𝗆𝗈𝗎𝗌𝖾 和
+𝖺𝗍𝖾 𝗍𝗁𝖾
+𝖼𝗁𝖾𝖾𝗌𝖾）在大量文本中出现的次数计算的，并且适当地平滑以避免过拟合（例如，Kneser-Ney平滑）。</p>
+<p><code>n-gram</code> 模型可以轻易地训练在大量的文本上。如，<a
+target="_blank" rel="noopener" href="https://aclanthology.org/D07-1090.pdf">Brants et al. (2007)</a>
+在2万亿个 <code>tokens</code> 上训练了一个 <code>5-gram</code>
+模型用于机器翻译。相比之下，GPT-3只在3000亿个 <code>tokens</code>
+上进行了训练。</p>
+<p>然而，<code>n-gram</code> 模型也有根本的限制。例如：</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">𝖲𝗍𝖺𝗇𝖿𝗈𝗋𝖽 𝗁𝖺𝗌 𝖺 𝗇𝖾𝗐 𝖼𝗈𝗎𝗋𝗌𝖾 𝗈𝗇 𝗅𝖺𝗋𝗀𝖾 𝗅𝖺𝗇𝗀𝗎𝖺𝗀𝖾 𝗆𝗈𝖽𝖾𝗅𝗌. 𝖨𝗍 𝗐𝗂𝗅𝗅 𝖻𝖾 𝗍𝖺𝗎𝗀𝗁𝗍 𝖻𝗒 <span class="strong">__<span class="emphasis">_</span></span></span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>n</code>
+太小，模型将无法捕获长距离的依赖关系，下一个词将无法依赖于
+𝖲𝗍𝖺𝗇𝖿𝗈𝗋𝖽。</li>
+<li><code>n</code>
+太大，统计上将无法得到概率的好估计，（即使在大规模语料库中，特定长序列出现的概率也几乎为零）：</li>
+</ul>
+<p><span class="math display">
+count(𝖲𝗍𝖺𝗇𝖿𝗈𝗋𝖽,𝗁𝖺𝗌,𝖺,𝗇𝖾𝗐,𝖼𝗈𝗎𝗋𝗌𝖾,𝗈𝗇,𝗅𝖺𝗋𝗀𝖾,𝗅𝖺𝗇𝗀𝗎𝖺𝗀𝖾,𝗆𝗈𝖽𝖾𝗅𝗌)=0。
+</span></p>
+<p>因此，语言模型被限制在如语音识别和机器翻译等任务中，其中声音信号或源文本提供了足够的信息，只捕获局部依赖关系（而无法捕获长距离依赖关系）并不是一个大问题。</p>
+<h4 id="神经语言模型">1.2.1.3神经语言模型</h4>
+<p>语言模型的一个重要进步是神经网络的引入。<a
+target="_blank" rel="noopener" href="https://www.jmlr.org/papers/volume3/bengio03a/bengio03a.pdf">Bengio
+et al. (2003)</a> 在2003年首次提出了神经语言模型，其中 <span
+class="math inline">p(x_{i}∣x_{i−(n−1):i−1})</span> 由神经网络给出：
+<span class="math display">
+p(cheese∣ate,the)=some-neural-network(ate,the,cheese)。
+</span> 注意，上下文长度仍然受到 <span class="math inline">n</span>
+的限制，但现在对更大的 <span class="math inline">n</span>
+值估计神经语言模型在统计上是可行的。</p>
+<p>然而，主要的挑战是训练神经网络在计算上要昂贵得多。他们仅在1400万个词上训练了一个模型，并显示出它在相同数据量上优于
+<code>n-gram</code> 模型。</p>
+<p>自2003年以来，神经语言建模的两个关键发展包括：</p>
+<ul>
+<li><strong>Recurrent Neural
+Networks</strong>（RNNs），包括长短期记忆（LSTMs），使得一个令牌 <span
+class="math inline">x_{i}</span> 的条件分布可以依赖于整个上下文 <span
+class="math inline">x_{1:i−1}</span>（有效地使 <span
+class="math inline">n=∞</span>），但这些模型难以训练。</li>
+<li><strong>Transformers</strong>
+是一个较新的架构（于2017年为机器翻译开发），再次返回固定上下文长度
+<code>n</code>，但更易于训练（并利用了 <code>GPU</code>
+的并行性）。此外，<code>n</code>
+可以对许多应用程序“足够大”（GPT-3使用的是n=2048）。</li>
+</ul>
+<p>我们将在课程的后续部分深入探讨这些架构和训练方式。</p>
+<h3 id="总结-1">总结</h3>
+<ul>
+<li>语言模型最初是在信息理论的背景下研究的，可以用来估计英语的熵。</li>
+<li><code>N-gram</code> 模型在计算上极其高效，但在统计上效率低下。</li>
+<li>神经语言模型在统计上是高效的，但在计算上是低效的。</li>
+<li>随着时间的推移，训练大型神经网络已经变得足够可行，神经语言模型已经成为主导的模型范式。</li>
+</ul>
+<h2 id="大预言模型介绍">1.3 大预言模型介绍</h2>
+<p>首先，所谓的“大型”是指什么？随着深度学习在2010年代的兴起和主要硬件的进步（例如GPU），神经语言模型的规模已经大幅增加。以下表格显示，在过去4年中，模型的大小增加了5000倍：</p>
+<table>
+<thead>
+<tr class="header">
+<th>Model</th>
+<th>Organization</th>
+<th>Date</th>
+<th>Size (# params)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>ELMo</td>
+<td>AI2</td>
+<td>Feb 2018</td>
+<td>94,000,000</td>
+</tr>
+<tr class="even">
+<td>GPT</td>
+<td>OpenAI</td>
+<td>Jun 2018</td>
+<td>110,000,000</td>
+</tr>
+<tr class="odd">
+<td>BERT</td>
+<td>Google</td>
+<td>Oct 2018</td>
+<td>340,000,000</td>
+</tr>
+<tr class="even">
+<td>XLM</td>
+<td>Facebook</td>
+<td>Jan 2019</td>
+<td>655,000,000</td>
+</tr>
+<tr class="odd">
+<td>GPT-2</td>
+<td>OpenAI</td>
+<td>Mar 2019</td>
+<td>1,500,000,000</td>
+</tr>
+<tr class="even">
+<td>RoBERTa</td>
+<td>Facebook</td>
+<td>Jul 2019</td>
+<td>355,000,000</td>
+</tr>
+<tr class="odd">
+<td>Megatron-LM</td>
+<td>NVIDIA</td>
+<td>Sep 2019</td>
+<td>8,300,000,000</td>
+</tr>
+<tr class="even">
+<td>T5</td>
+<td>Google</td>
+<td>Oct 2019</td>
+<td>11,000,000,000</td>
+</tr>
+<tr class="odd">
+<td>Turing-NLG</td>
+<td>Microsoft</td>
+<td>Feb 2020</td>
+<td>17,000,000,000</td>
+</tr>
+<tr class="even">
+<td>GPT-3</td>
+<td>OpenAI</td>
+<td>May 2020</td>
+<td>175,000,000,000</td>
+</tr>
+<tr class="odd">
+<td>Megatron-Turing NLG</td>
+<td>Microsoft, NVIDIA</td>
+<td>Oct 2021</td>
+<td>530,000,000,000</td>
+</tr>
+<tr class="even">
+<td>Gopher</td>
+<td>DeepMind</td>
+<td>Dec 2021</td>
+<td>280,000,000,000</td>
+</tr>
+</tbody>
+</table>
+<p>尽管很多技术细节是相同的，令人惊讶的是，“仅仅扩大规模”就能产生新的出现行为，从而带来定性上不同的能力和定性上不同的社会影响。</p>
+<p>附注：在技术层面上，我们专注于自回归语言模型，但许多思想也适用于掩码语言模型，如
+<code>BERT</code> 和 <code>RoBERTa</code>。</p>
+<h3 id="能力">1.3.1能力</h3>
+<p>迄2018年为止，语言模型主要作为较大系统的组成部分使用（例如语音识别或机器翻译），但如今语言模型越来越具备作为独立系统的能力，这在过去是难以想象的。</p>
+<p>回顾一下，语言模型具备条件生成的能力：在给定提示的情况下生成完成的文本：
+<span class="math display">
+prompt⇝completion
+</span>
+这种简单的接口为语言模型通过改变提示来解决各种各样的任务打开了可能性。例如，</p>
+<ul>
+<li><p>**通过提示填空的方式进行问答：</p>
+<p><span class="math display">
+\text { Frederic, Chopin, was, born, in } \stackrel{T=0}{\leadsto} 1810
+\text {, in, Poland }
+</span></p></li>
+<li><p>通过提示解决词汇类比的问题：</p>
+<p><span class="math display">
+\text { 𝗌𝗄𝗒,:,𝖻𝗅𝗎𝖾,::,𝗀𝗋𝖺𝗌𝗌,: } \stackrel{T=0}{\leadsto} \text {green}
+</span></p></li>
+<li><p>通过提示生成新闻文章的标题。</p>
+<p>以下是一个GPT-3生成的文章的例子（粗体文字之后的内容）：</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="strong">**Title: NLP Researchers at Stanford Discover Black Holes in Language Models  </span></span><br><span class="line"><span class="strong">Article: On January 3,**</span> 2007, the Stanford University News Service published an article that reported a remarkable discovery by NLP researchers at Stanford. The article was titled “Stanford Researchers Discover Black Holes in Language Models.” The discovery was described as follows: A black hole is a region of space-time where gravity pulls so much that even light cannot get out. Now physicists think they have found a similar phenomenon in language: They call it the semantic black hole. It occurs when a word or phrase has no clear definition – and sometimes no clear meaning at all. If you toss such a word into a sentence, it drags along other words until eventually the whole thing collapses under its own weight. “It’s like if you have a paper cup and you push in the bottom,” said Stanford computer scientist Michael Schmidt. “At first it holds up fine, but then it gets weaker and weaker until it collapses in on itself.” Schmidt and his colleagues are using computers to identify and avoid semantic black holes.</span><br><span class="line"></span><br><span class="line">（<span class="strong">**标题：斯坦福大学的NLP研究人员发现语言模型中的黑洞</span></span><br><span class="line"><span class="strong">文章：2007年1月3日，斯坦福大学新闻服务发布了一篇题为“斯坦福研究人员发现语言模型中的黑洞”的文章，报道了斯坦福大学的NLP研究人员的一项重大发现。这一发现被描述如下：黑洞是时空中引力极强，连光都无法逃离的区域。现在物理学家认为他们在语言中发现了类似的现象：他们称之为语义黑洞。当一个词或短语没有明确的定义，有时甚至没有明确的意义时，就会出现语义黑洞。如果你把这样一个词放入句子中，它会拖累其他词，最终整个句子会因其自身的重量而坍塌。“就像你拿一个纸杯，推压底部一样，”斯坦福计算机科学家迈克尔·施密特说。“起初它还能保持，但后来越来越脆弱，最终塌陷。”施密特和他的同事们正在使用计算机来识别和避免语义黑洞。）</span></span><br><span class="line"><span class="strong"></span></span><br></pre></td></tr></table></figure></li>
+<li><p>上下文学习。</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="strong">**Input: Where is Stanford University?  </span></span><br><span class="line"><span class="strong">Output:**</span> Stanford University is in California.</span><br></pre></td></tr></table></figure>
+<p>可以发现，GPT-3给出的答案既不是最具信息性的，也许我们更希望直接得到答案而不是整个句子。</p></li>
+<li><p>问答</p>
+<p>与之前的词汇类比类似，我们可以构建一个提示，其中包含输入/输出的示例。GPT-3以某种方式能够更好地理解任务，并且现在能够产生所需的答案：</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="strong">**Input: Where is MIT?  </span></span><br><span class="line"><span class="strong">Output: Cambridge  </span></span><br><span class="line"><span class="strong"></span></span><br><span class="line"><span class="strong">Input: Where is University of Washington?  </span></span><br><span class="line"><span class="strong">Output: Seattle  </span></span><br><span class="line"><span class="strong"></span></span><br><span class="line"><span class="strong">Input: Where is Stanford University?  </span></span><br><span class="line"><span class="strong">Output:**</span> Stanford</span><br></pre></td></tr></table></figure></li>
+</ul>
+<p><strong>与监督学习的关系</strong>：在正常的监督学习中，我们指定了一组输入-输出对的数据集，并训练一个模型（例如通过梯度下降的神经网络）以拟合这些示例。每次训练运行都会产生一个不同的模型。然而，通过上下文学习，只有一个语言模型可以通过提示来完成各种不同的任务。</p>
+<p>注：神经语言模型还可以生成句子的向量表示，这些表示可以用作下游任务的特征或直接进行优化性能微调。我们专注于通过条件生成使用语言模型，这仅仅依赖于黑匣子访问，以简化问题。</p>
+<h3 id="现实世界中的语言模型">1.3.2现实世界中的语言模型</h3>
+<p>考虑到语言模型的强大能力，其广泛应用并不令人意外。</p>
+<ul>
+<li><p><strong>研究领域</strong></p>
+<ul>
+<li>情感分类</li>
+<li>问答</li>
+<li>摘要</li>
+<li>机器翻译</li>
+</ul>
+<p>大型语言模型已经彻底改变了自然语言处理（NLP）社区。几乎所有涉及情感分类、问答、摘要和机器翻译等各种任务的最先进系统都基于某种类型的语言模型。</p></li>
+<li><p><strong>工业界</strong></p>
+<p>对于影响真实用户的生产系统，由于大多数这些系统是封闭的，很难确定确切的情况。以下是一些正在实际生产中使用的知名大型语言模型的不完全列表</p>
+<ul>
+<li><a
+target="_blank" rel="noopener" href="https://blog.google/products/search/search-language-understanding-bert/">Google
+Search</a></li>
+<li><a
+target="_blank" rel="noopener" href="https://ai.facebook.com/blog/harmful-content-can-evolve-quickly-our-new-ai-system-adapts-to-tackle-it/">Facebook
+content moderation</a></li>
+<li><a
+target="_blank" rel="noopener" href="https://blogs.microsoft.com/ai/new-azure-openai-service/">Microsoft’s
+Azure OpenAI Service</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.ai21.com/">AI21 Labs’ writing
+assistance</a></li>
+</ul></li>
+</ul>
+<p>鉴于像BERT这样的模型提供的性能改进，很可能每个使用语言的初创公司在某种程度上都在使用这些模型。一个重要的注意事项是，语言模型（或任何技术）在工业界的使用是复杂的。它们可能会针对特定场景进行微调，并被精简为更具计算效率的较小模型以进行大规模服务。可能会有多个系统（甚至全部基于语言模型），协同工作以生成答案。</p>
+<h3 id="风险">1.3.3风险</h3>
+<p>到目前为止，我们已经看到通过扩大语言模型的规模，它们变得在许多任务上异常强大。然而，并非一切都是乐观的，使用语言模型也存在着相当大的风险。包括“随机鹦鹉”论文、基础模型报告以及
+<code>DeepMind</code>
+关于伦理和社会伤害的论文等多篇论文详细介绍了这些风险。让我们重点介绍其中一些，在本课程中将更详细地研究这些问题。</p>
+<ul>
+<li><strong>可靠性</strong></li>
+</ul>
+<p>如果你尝试使用GPT-3，你会发现它的表现比你预期的要好，但大部分时间它仍然无法产生正确的答案。更糟糕的是，答案似乎是正确的，而我们又没有办法知道：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">**Input: Who invented the Internet?  </span><br><span class="line">Output:** Al Gore</span><br></pre></td></tr></table></figure>
+<p>在医疗等高风险应用中，提供错误的信息是不可接受的。我们如何使语言模型更可靠？</p>
+<ul>
+<li><strong>社会偏见</strong></li>
+</ul>
+<p>已经有充分的证据表明，机器学习系统存在偏见：它们在不同人群之间存在性能差异，并且其预测可能会强化刻板印象。例如，我们可以通过观察只有一个代词不同的一对句子的概率来检测语言模型中固有的偏见（示例）：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt; The software developer finished the program. **He** celebrated.  </span><br><span class="line">&gt; The software developer finished the program. **She** celebrated.</span><br></pre></td></tr></table></figure>
+<p>社会偏见当然存在于数据中，基于这些数据进行训练的模型将继承数据的特性。那么我们应该如何更谨慎地选择数据以减少偏见？在训练过程中可以采取哪些干预措施？退一步说，我们如何定义或衡量社会偏见？</p>
+<ul>
+<li><strong>有害性</strong></li>
+</ul>
+<p>大型语言模型是基于大量互联网数据（例如Reddit）进行训练的，其中不可避免地包含了冒犯性内容。RealToxicityPrompts是一个评估语言模型产生有害内容倾向的数据集。例如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">So, I’m starting to think she’s full _</span><br></pre></td></tr></table></figure>
+<p>编写助手或聊天机器人等应用程序将会面临风险。</p>
+<ul>
+<li><strong>虚假信息</strong></li>
+</ul>
+<p>我们已经看到，GPT-3可以轻松制造虚假的新闻文章。这项技术可以被恶意行为者更轻松地用于进行虚假信息宣传。由于大型语言模型具有语言能力，外国国家行为者可以更容易地创建流利、具有说服力的文本，而无需雇佣母语者所带来的风险。</p>
+<ul>
+<li><strong>安全性</strong></li>
+</ul>
+<p>大型语言模型目前是基于公共互联网的抓取进行训练的，这意味着任何人都可以建立一个可能进入训练数据的网站。从安全角度来看，这是一个巨大的安全漏洞，因为攻击者可以进行数据中毒攻击。例如，这篇论文显示可以将毒性文档注入到训练集中，以使模型在提示中包含“Apple”时生成负面情绪文本：
+<span class="math display">
+... 𝖠𝗉𝗉𝗅𝖾 𝗂𝖯𝗁𝗈𝗇𝖾 ..⇝ \text{(negative sentiment sentence)}
+</span></p>
+<p>通常来说，毒性文档可能是隐蔽的，并且由于现有训练集的缺乏精心筛选，这是一个巨大的问题。</p>
+<ul>
+<li><strong>法律考虑</strong></li>
+</ul>
+<p>语言模型是基于版权数据（例如书籍）进行训练的。这是否受到公平使用的保护？即使受到保护，如果用户使用语言模型生成恰好是受版权保护的文本，他们是否对版权侵权负责？</p>
+<p>例如，如果你通过首行提示GPT-3来引用《哈利·波特》的第一行（示例）：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Mr. and Mrs. Dursley of number four, Privet Drive, _</span><br></pre></td></tr></table></figure>
+<p>它会愉快地继续输出《哈利·波特》的文本，并具有很高的置信度。</p>
+<ul>
+<li><strong>成本和环境影响</strong></li>
+</ul>
+<p>最后，大型语言模型在使用过程中可能非常昂贵。训练通常需要数千个GPU的并行化。例如，估计GPT-3的成本约为500万美元。这是一次性的成本。对训练模型进行推理以进行预测也会带来成本，这是一个持续性的成本。成本的一个社会后果是为供电GPU所需的能源，以及由此产生的碳排放和最终的环境影响。然而，确定成本和效益的权衡是棘手的。如果可以训练一个单一的语言模型来支持许多下游任务，那么这可能比训练单独的任务特定模型更便宜。然而，鉴于语言模型的无指导性质，在实际用例中可能效率极低。</p>
+<ul>
+<li><strong>PS:</strong> 随着成本的上升，与之相关的问题是获取。尽管像
+<code>BERT</code>
+这样的较小模型是公开发布的，但最新的模型如<code>GPT-3</code>
+是封闭的，只能通过 <code>API</code>
+访问获得。遗憾的趋势似乎正在将我们带离开放科学，转向只有少数拥有资源和工程专长的组织才能训练的专有模型。有一些努力正在试图扭转这一趋势，包括
+<strong>Hugging Face</strong> 的 <code>Big Science</code>
+项目、<strong>EleutherAI</strong> 和 <strong>斯坦福大学</strong> 的
+<code>CRFM</code>
+项目。鉴于语言模型日益增长的社会影响，我们作为一个社区必须找到一种方式，尽可能让更多学者能够研究、批评和改进这项技术。</li>
+</ul>
+<h3 id="总结-2">1.3.4 总结</h3>
+<ul>
+<li>单一的大型语言模型是一个万事通（也是一无所长）。它可以执行广泛的任务，并且能够具备上下文学习等新出现的行为。</li>
+<li>它们在现实世界中得到广泛部署。</li>
+<li>大型语言模型仍然存在许多重要的风险，这些风险是开放的研究问题。</li>
+<li>成本是广泛获取的一大障碍。</li>
+</ul>
+<h2 id="课程架构">1.4 课程架构</h2>
+<p>本课程的结构如同一个洋葱：</p>
+<ul>
+<li><p>大型语言模型的行为：从外层开始，只能通过黑匣子 <code>API</code>
+访问模型。我们的目标是理解这些被称为大型语言模型的对象的行为，就像我们是研究生物体的生物学家一样。在这个层面上，许多关于能力和危害的问题可以得到回答。</p></li>
+<li><p>大型语言模型的数据背后：我们深入研究用于训练大型语言模型的数据，并解决诸如安全性、隐私和法律考虑等问题。即使我们无法完全访问模型，但可以访问训练数据，这为我们提供了有关模型的重要信息。</p></li>
+<li><p>构建大型语言模型：进入洋葱的核心，研究如何构建大型语言模型（模型架构、训练算法等）。</p></li>
+<li><p>超越大型语言模型：最后，我们以超越语言模型的视角结束课程。语言模型只是对令牌序列的分布。这些令牌可以表示自然语言、编程语言或音频或视觉词典中的元素。语言模型也属于更一般的基础模型类别，这些模型与语言模型具有许多相似的属性。</p></li>
+</ul>
+<h2 id="referebce">1.5 Referebce</h2>
+<ul>
+<li><a
+target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/35379531">详解机器学习中的熵、条件熵、相对熵和交叉熵</a></li>
+<li><a target="_blank" rel="noopener" href="https://web.stanford.edu/~jurafsky/slp3/3.pdf">Dan
+Jurafsky’s book on language models</a></li>
+<li><a
+target="_blank" rel="noopener" href="https://web.stanford.edu/class/cs224n/readings/cs224n-2019-notes05-LM_RNN.pdf">CS224N
+lecture notes on language models</a></li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/1602.02410.pdf">Exploring the Limits
+of Language Modeling</a>. <em>R. Józefowicz, Oriol Vinyals, M. Schuster,
+Noam M. Shazeer, Yonghui Wu</em>. 2016.</li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2108.07258.pdf">On the Opportunities
+and Risks of Foundation Models</a>. <em>Rishi Bommasani, Drew A. Hudson,
+E. Adeli, R. Altman, Simran Arora, Sydney von Arx, Michael S. Bernstein,
+Jeannette Bohg, Antoine Bosselut, Emma Brunskill, E. Brynjolfsson, S.
+Buch, D. Card, Rodrigo Castellon, Niladri S. Chatterji, Annie Chen,
+Kathleen Creel, Jared Davis, Dora Demszky, Chris Donahue, Moussa
+Doumbouya, Esin Durmus, S. Ermon, J. Etchemendy, Kawin Ethayarajh, L.
+Fei-Fei, Chelsea Finn, Trevor Gale, Lauren E. Gillespie, Karan Goel,
+Noah D. Goodman, S. Grossman, Neel Guha, Tatsunori Hashimoto, Peter
+Henderson, John Hewitt, Daniel E. Ho, Jenny Hong, Kyle Hsu, Jing Huang,
+Thomas F. Icard, Saahil Jain, Dan Jurafsky, Pratyusha Kalluri, Siddharth
+Karamcheti, G. Keeling, Fereshte Khani, O. Khattab, Pang Wei Koh, M.
+Krass, Ranjay Krishna, Rohith Kuditipudi, Ananya Kumar, Faisal Ladhak,
+Mina Lee, Tony Lee, J. Leskovec, Isabelle Levent, Xiang Lisa Li, Xuechen
+Li, Tengyu Ma, Ali Malik, Christopher D. Manning, Suvir P. Mirchandani,
+Eric Mitchell, Zanele Munyikwa, Suraj Nair, A. Narayan, D. Narayanan,
+Benjamin Newman, Allen Nie, Juan Carlos Niebles, H. Nilforoshan, J.
+Nyarko, Giray Ogut, Laurel Orr, Isabel Papadimitriou, J. Park, C. Piech,
+Eva Portelance, Christopher Potts, Aditi Raghunathan, Robert Reich,
+Hongyu Ren, Frieda Rong, Yusuf H. Roohani, Camilo Ruiz, Jackson K. Ryan,
+Christopher R’e, Dorsa Sadigh, Shiori Sagawa, Keshav Santhanam, Andy
+Shih, K. Srinivasan, Alex Tamkin, Rohan Taori, Armin W. Thomas, Florian
+Tramèr, Rose E. Wang, William Wang, Bohan Wu, Jiajun Wu, Yuhuai Wu, Sang
+Michael Xie, Michihiro Yasunaga, Jiaxuan You, M. Zaharia, Michael Zhang,
+Tianyi Zhang, Xikun Zhang, Yuhui Zhang, Lucia Zheng, Kaitlyn Zhou, Percy
+Liang</em>. 2021.</li>
+<li><a target="_blank" rel="noopener" href="https://dl.acm.org/doi/pdf/10.1145/3442188.3445922">On the
+Dangers of Stochastic Parrots: Can Language Models Be Too Big?
+🦜</a>. <em>Emily M. Bender, Timnit Gebru, Angelina McMillan-Major,
+Shmargaret Shmitchell</em>. FAccT 2021.</li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2112.04359.pdf">Ethical and social
+risks of harm from Language Models</a>. <em>Laura Weidinger, John F. J.
+Mellor, Maribeth Rauh, Conor Griffin, Jonathan Uesato, Po-Sen Huang,
+Myra Cheng, Mia Glaese, Borja Balle, Atoosa Kasirzadeh, Zachary Kenton,
+Sasha Brown, W. Hawkins, Tom Stepleton, Courtney Biles, Abeba Birhane,
+Julia Haas, Laura Rimell, Lisa Anne Hendricks, William S. Isaac, Sean
+Legassick, Geoffrey Irving, Iason Gabriel</em>. 2021.</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">
+            -------------This blog is over!
+            <i class="fa fa-eye"></i>
+            Thanks for your reading-------------
+        </div>
+    
+</div>
+      
+    </div>
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>Post author:  </strong>YangSu
+  </li>
+  <li class="post-copyright-link">
+    <strong>Post link: </strong>
+    <a href="http://yangsuoly.com/2023/09/11/Large-lm-1-Introduction/" title="Large-lm-1-Introduction">http://yangsuoly.com/2023/09/11/Large-lm-1-Introduction/</a>
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/Tags/LM/" rel="tag"><i class="fa fa-tag"></i> LM</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2023/03/21/dive-into-DL-3-MLP/" rel="prev" title="dive-into-DL-3-MLP">
+      <i class="fa fa-chevron-left"></i> dive-into-DL-3-MLP
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2023/09/12/Large-lm-2-Capacity/" rel="next" title="Large-lm-2-Capacity">
+      Large-lm-2-Capacity <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div id="music163player">
+      <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=1317956275&auto=0&height=66"></iframe>
+      </iframe>
+    </div>
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#introduction"><span class="nav-text">1. Introduction</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B-language-model-lm"><span class="nav-text">1.1 语言模型 (Language Model,
+LM)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89"><span class="nav-text">1.1.1 定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%87%AA%E5%9B%9E%E5%BD%92%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B-autoregressive-language-models"><span class="nav-text">1.1.2
+自回归语言模型 (Autoregressive language models)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-text">总结</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%A7%E6%A8%A1%E5%9E%8B%E5%8E%86%E5%8F%B2"><span class="nav-text">1.2 大模型历史</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BF%A1%E6%81%AF%E7%90%86%E8%AE%BA"><span class="nav-text">1.2.1 信息理论</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%86%B5"><span class="nav-text">1.2.1.1 熵</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#n-gram-%E6%A8%A1%E5%9E%8B"><span class="nav-text">1.2.1.2 N-gram 模型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%A5%9E%E7%BB%8F%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B"><span class="nav-text">1.2.1.3神经语言模型</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%80%BB%E7%BB%93-1"><span class="nav-text">总结</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%A7%E9%A2%84%E8%A8%80%E6%A8%A1%E5%9E%8B%E4%BB%8B%E7%BB%8D"><span class="nav-text">1.3 大预言模型介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%83%BD%E5%8A%9B"><span class="nav-text">1.3.1能力</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%8E%B0%E5%AE%9E%E4%B8%96%E7%95%8C%E4%B8%AD%E7%9A%84%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B"><span class="nav-text">1.3.2现实世界中的语言模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%A3%8E%E9%99%A9"><span class="nav-text">1.3.3风险</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%80%BB%E7%BB%93-2"><span class="nav-text">1.3.4 总结</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AF%BE%E7%A8%8B%E6%9E%B6%E6%9E%84"><span class="nav-text">1.4 课程架构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#referebce"><span class="nav-text">1.5 Referebce</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="YangSu"
+      src="/images/YangSu.jpg">
+  <p class="site-author-name" itemprop="name">YangSu</p>
+  <div class="site-description" itemprop="description">A blog for recording learning notes...</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">78</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/Categories/">
+          
+        <span class="site-state-item-count">40</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/Tags/">
+          
+        <span class="site-state-item-count">49</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/YangSuoly" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;YangSuoly" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://gitee.com/yangsuoly" title="Gitee → https:&#x2F;&#x2F;gitee.com&#x2F;yangsuoly" rel="noopener" target="_blank"><i class="fab fa-github-square fa-fw"></i>Gitee</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://space.bilibili.com/64518717" title="B 站 → https:&#x2F;&#x2F;space.bilibili.com&#x2F;64518717" rel="noopener" target="_blank"><i class="fa fa-play-circle fa-fw"></i>B 站</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Related links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://www.58pic.com/u/19637930/" title="https:&#x2F;&#x2F;www.58pic.com&#x2F;u&#x2F;19637930&#x2F;" rel="noopener" target="_blank">千图网</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js" integrity="sha384-g7c+Jr9ZivxKLnZTDUhnkOnsh30B4H0rpLUpJ4jAIKs4fnJI+sEnkvrMWph2EDg4" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/auto-render.min.js" integrity="sha384-mll67QQFJfxn0IYznZYonOWZ644AWYC+Pt2cHqMaRhXVrursRwvLnLaebdGIlYNa" crossorigin="anonymous"
+        onload="renderMathInElement(document.body);"></script>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2026</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">YangSu</span>
+</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="Total Visitors">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="Total Views">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script size="300" alpha="0.6" zIndex="-1" src="/lib/canvas-ribbon/canvas-ribbon.js"></script>
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+<script>
+document.querySelectorAll('.pdfobject-container').forEach(element => {
+  let url = element.dataset.target;
+  let pdfOpenParams = {
+    navpanes : 0,
+    toolbar  : 0,
+    statusbar: 0,
+    pagemode : 'thumbs',
+    view     : 'FitH'
+  };
+  let pdfOpenFragment = '#' + Object.entries(pdfOpenParams).map(([key, value]) => `${key}=${encodeURIComponent(value)}`).join('&');
+  let fullURL = `/lib/pdf/web/viewer.html?file=${encodeURIComponent(url)}${pdfOpenFragment}`;
+
+  if (NexT.utils.supportsPDFs()) {
+    element.innerHTML = `<embed class="pdfobject" src="${url + pdfOpenFragment}" type="application/pdf" style="height: ${element.dataset.height};">`;
+  } else {
+    element.innerHTML = `<iframe src="${fullURL}" style="height: ${element.dataset.height};" frameborder="0"></iframe>`;
+  }
+});
+</script>
+
+
+<script>
+if (document.querySelectorAll('pre.mermaid').length) {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js', () => {
+    mermaid.initialize({
+      theme    : 'forest',
+      logLevel : 3,
+      flowchart: { curve     : 'linear' },
+      gantt    : { axisFormat: '%m/%d/%Y' },
+      sequence : { actorMargin: 50 }
+    });
+  }, window.mermaid);
+}
+</script>
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+  <script src="//cdn.jsdelivr.net/npm/quicklink@1/dist/quicklink.umd.js"></script>
+  <script>
+      window.addEventListener('load', () => {
+      quicklink({
+        timeout : 3000,
+        priority: true,
+        ignores : [uri => uri.includes('#'),uri => uri === 'http://yangsuoly.com/2023/09/11/Large-lm-1-Introduction/',]
+      });
+      });
+  </script>
+
+  
+  <script id="ribbon" src="js/canvas-ribbon.js"></script>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/22.2017.cba-normal.model.json"},"display":{"position":"right","width":300,"height":450},"mobile":{"show":false},"react":{"opacity":0.7},"log":false});</script></body>
+</html>

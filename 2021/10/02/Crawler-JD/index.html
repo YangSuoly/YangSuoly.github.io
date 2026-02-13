@@ -1,0 +1,1921 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/blog-logo-32px.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/blog-logo-16px.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <link rel="manifest" href="/images/manifest.json">
+  <meta name="msapplication-config" content="/images/browserconfig.xml">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yangsuoly.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":true},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":true,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="1. Introduciton 1.1 Job description 本项目为京东评论数据爬虫。随着电子商务的发展，有如京东、淘宝等网站，在线评论作为电子口碑显著影响着产品的营销策略。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Crawler-JD">
+<meta property="og:url" content="http://yangsuoly.com/2021/10/02/Crawler-JD/index.html">
+<meta property="og:site_name" content="独孤诗人的学习驿站">
+<meta property="og:description" content="1. Introduciton 1.1 Job description 本项目为京东评论数据爬虫。随着电子商务的发展，有如京东、淘宝等网站，在线评论作为电子口碑显著影响着产品的营销策略。">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2021-10-02T09:40:36.000Z">
+<meta property="article:modified_time" content="2021-10-02T15:52:23.105Z">
+<meta property="article:author" content="YangSu">
+<meta property="article:tag" content="Crawler">
+<meta property="article:tag" content="Project">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://yangsuoly.com/2021/10/02/Crawler-JD/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>Crawler-JD | 独孤诗人的学习驿站</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?f59f5fb59d32ec3903088b0f976956d1";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta custom-logo">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">独孤诗人的学习驿站</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">生活就是一半烟火，一半诗意。手执烟火谋生活，心怀诗意谋未来……</p>
+      <a>
+        <img class="custom-logo-image" src="/images/logo@2x.png" alt="独孤诗人的学习驿站">
+      </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/Tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/Categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+  <a href="https://github.com/YangSuoly" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yangsuoly.com/2021/10/02/Crawler-JD/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/YangSu.jpg">
+      <meta itemprop="name" content="YangSu">
+      <meta itemprop="description" content="A blog for recording learning notes...">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="独孤诗人的学习驿站">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Crawler-JD
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2021-10-02 17:40:36 / Modified: 23:52:23" itemprop="dateCreated datePublished" datetime="2021-10-02T17:40:36+08:00">2021-10-02</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/Categories/Project/" itemprop="url" rel="index"><span itemprop="name">Project</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/Categories/Project/Crawler/" itemprop="url" rel="index"><span itemprop="name">Crawler</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="Views" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span><br>
+            <span class="post-meta-item" title="Symbols count in article">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">Symbols count in article: </span>
+              <span>24k</span>
+            </span>
+            <span class="post-meta-item" title="Reading time">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">Reading time &asymp;</span>
+              <span>22 mins.</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="introduciton">1. Introduciton</h1>
+<h2 id="job-description">1.1 Job description</h2>
+<p>本项目为京东评论数据爬虫。随着电子商务的发展，有如京东、淘宝等网站，在线评论作为电子口碑显著影响着产品的营销策略。</p>
+<a id="more"></a>
+<p>商品评论文本具有如下特点：</p>
+<ol type="1">
+<li>短文本。商品评论的文本一般比较简短，大部分包括用户对产品整体的评论，也包括用户对喜欢的商品属性的评价。以手机产品为例，包括“系统不错啊”、“屏幕非常清晰”、“外观时尚大气”等等的评价；</li>
+<li>情感倾向明显。商品评论是针对产品整体或属性进行评价，这样是商品评论文本有着很明显的情感倾向，如“喜欢”、“差”等；</li>
+<li>数据量大。电子商务网站的交易量非常大，网上的评论数据以秒为单位的速度不断的刷新，增大。面对无限大的数据，通常在分析是取一段时间内旳文本进行分析，即可获得相对全面的产品评论信息；</li>
+<li>不规范性。语法不规范，口语化严重是互联网语言的一大特点，而且包含很多时下流行词汇。例如“木有”代表没有，“撒米”代表什么等等。口语化严重还包括出现很多新鲜的词汇，包括“坑爹”、“不明觉厉”、“我伙呆”等等。这些都给文本分析带来很多困难；</li>
+<li>易获取性。商品评论信息比较容易获取，各大电子商务网站例如京东、淘宝、亚马逊等都提供，方便获取到评论信息。
+本文所有涉及到的商品评论文本，均为京东商城牛肉产品的评论文本。</li>
+</ol>
+<p>本研究中，以京东商城的生牛肉类产品为例子，爬取其评论信息。</p>
+<h2 id="task-analysis">1.2 Task analysis</h2>
+<p>首先，我们打开我们需要提取的商品链接（<a
+target="_blank" rel="noopener" href="https://item.jd.com/2925506.html#comment">恒都牛腱子</a>），打开开发者模式，可以发现其评论以
+<code>json</code> 的形式进行存储，其链接的形式如下：<a
+target="_blank" rel="noopener" href="https://club.jd.com/comment/productPageComments.action?callback=fetchJSON_comment98&amp;productId=2925506&amp;score=0&amp;sortType=5&amp;page=1&amp;pageSize=10&amp;isShadowSku=0&amp;rid=0&amp;fold=1">https://club.jd.com/comment/productPageComments.action?callback=fetchJSON_comment98&amp;productId=2925506&amp;score=0&amp;sortType=5&amp;page=1&amp;pageSize=10&amp;isShadowSku=0&amp;rid=0&amp;fold=1</a>。因此我们可以通过爬取该地址进行评论的筛选和处理。</p>
+<p>进一步分析可以发现，该链接所对应的评论页面主要由如下参数进行控制：</p>
+<ul>
+<li>productId：商品 id；</li>
+<li>score：评论星级数；</li>
+<li>page：评论页数；</li>
+</ul>
+<p>了解这些信息之后，我们可以通过控制上面上个参数，用 <code>loop</code>
+循环获取所有评论的数据。</p>
+<h2 id="reviews-analysis">1.3 Reviews analysis</h2>
+<ul>
+<li><p>热评</p>
+<p>通过比对文本，我们可以发现热评信息在字段
+<code>hotCommentTagStatistics</code> 下，且仅有在 <code>page=1</code>
+时，也就是说时在第一页评论中，才会出现热评，后面的页数不会出现热评。</p>
+<p><img src = 'https://z3.ax1x.com/2021/10/02/4bwZLj.md.png' style="zoom:80%;" /></p>
+<center>
+<p>Fig. 1 热评信息</p>
+</center></li>
+<li><p>用户评论</p>
+<p>每个用户对商品的评论均保存在响应的字段中，如下图。读者可以根据连接中的字段和网页中的评论信息一一比对，此处便不再进行罗列。</p>
+<p><img src = 'https://z3.ax1x.com/2021/10/02/4bwmes.md.png' style="zoom:80%;" /></p>
+<center>
+<p>Fig. 2 评论信息及其字段</p>
+</center></li>
+</ul>
+<h1 id="static-crawler">2. Static crawler</h1>
+<p>由于评论信息均储存在 <code>json</code>
+文件中，我们此处我们便使用静态爬虫进行爬取。</p>
+<h2 id="configuration">2.1 configuration</h2>
+<ul>
+<li><p>Load modules</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> re</span><br><span class="line"><span class="keyword">import</span> json</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br></pre></td></tr></table></figure></li>
+<li><p>Request headers</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_head</span>():</span></span><br><span class="line">    headers = &#123;</span><br><span class="line">            <span class="string">&quot;Accept&quot;</span>: <span class="string">&quot;text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8&quot;</span>,</span><br><span class="line">            <span class="string">&quot;Accept-Encoding&quot;</span>: <span class="string">&quot;gzip, deflate, br&quot;</span>,</span><br><span class="line">            <span class="string">&quot;Accept-Language&quot;</span>: <span class="string">&quot;zh,zh-CN;q=0.9,en;q=0.8&quot;</span>,</span><br><span class="line">            <span class="string">&quot;Cache-Control&quot;</span>: <span class="string">&quot;max-age=0&quot;</span>,</span><br><span class="line">            <span class="string">&quot;Connection&quot;</span>: <span class="string">&quot;keep-alive&quot;</span>,</span><br><span class="line">            <span class="string">&quot;Upgrade-Insecure-Requests&quot;</span>: <span class="string">&quot;1&quot;</span>,</span><br><span class="line">            <span class="string">&quot;Content-Type&quot;</span>: <span class="string">&quot;application/x-www-form-urlencoded; charset=UTF-8&quot;</span>,</span><br><span class="line">            <span class="string">&quot;User-Agent&quot;</span>: <span class="string">&quot;Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.77 Safari/537.36&quot;</span>   </span><br><span class="line">            &#125;</span><br><span class="line">    <span class="keyword">return</span> headers</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="self-function">2.2 Self-function</h2>
+<p>为了更为方便进行爬取，此处我们定义一些自定义函数。</p>
+<ul>
+<li><p>请求网页</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">find_one_url</span>(<span class="params">url</span>):</span></span><br><span class="line">    <span class="keyword">try</span>:        </span><br><span class="line">        response = requests.get(url)</span><br><span class="line">        <span class="keyword">if</span> response.status_code == <span class="number">200</span>:  <span class="comment"># 判断状态码  如果是200则请求成功            </span></span><br><span class="line">            <span class="keyword">return</span> response.text  <span class="comment"># 返回文档信息        </span></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">None</span>    </span><br><span class="line">    <span class="keyword">except</span> RequestException:  <span class="comment"># 捕捉异常</span></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">None</span></span><br></pre></td></tr></table></figure></li>
+<li><p>得到 <code>productiId</code></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_product_id</span>(<span class="params">url</span>):</span></span><br><span class="line">    temp = url.split(<span class="string">&#x27;.htm&#x27;</span>, <span class="number">1</span>)</span><br><span class="line">    item_id = temp[<span class="number">0</span>].split(<span class="string">&#x27;/&#x27;</span>)[-<span class="number">1</span>]</span><br><span class="line">    <span class="keyword">return</span> item_id</span><br></pre></td></tr></table></figure></li>
+<li><p>得到 <code>json</code> 文件的文本</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">find_message</span>(<span class="params">url, i</span>):</span></span><br><span class="line">    r = requests.get(url, headers=get_head())</span><br><span class="line">    rtext = r.text</span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        jsondata=re.search(<span class="string">&#x27;^[^(]*?\((.*)\)[^)]*$&#x27;</span>, rtext).group(<span class="number">1</span>)</span><br><span class="line">        data = json.loads(jsondata)</span><br><span class="line">        print(<span class="string">&#x27;解析第&#123;&#125;页成功!!!!&#x27;</span>.<span class="built_in">format</span>(i))</span><br><span class="line">        <span class="keyword">return</span> data</span><br><span class="line">    <span class="keyword">except</span>:</span><br><span class="line">        <span class="keyword">return</span> -<span class="number">1</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="提取评论文本">2.3 提取评论文本</h2>
+<h3 id="数据界定">2.3.1 数据界定</h3>
+<p>针对评论数据，我们主要爬取两部分数据：</p>
+<ol type="1">
+<li><p>商品热评</p>
+<p><img src = 'https://z3.ax1x.com/2021/10/02/4bwEQg.png' style="zoom:80%;" /></p>
+<center>
+<p>Fig. 3 热评信息</p>
+</center></li>
+<li><p>商品评论</p>
+<p><img src = 'https://z3.ax1x.com/2021/10/02/4bwVyQ.md.png' style="zoom:80%;" /></p>
+<center>
+<p>Fig. 4 评论信息</p>
+</center>
+<p>针对商品评论，我们会尽可能多的保留评论的信息，所以我们保存了如下信息：</p>
+<ul>
+<li><code>id</code>： 评论者的 <code>id</code>；</li>
+<li><code>guid</code>：评论的 <code>id</code>；</li>
+<li><code>nickname</code>：昵称；</li>
+<li><code>content</code>：评论内容；</li>
+<li><code>creationTime</code>：评论时间 ；</li>
+<li><code>score</code>：评论星级；</li>
+<li><code>productColor</code>：产品颜色；</li>
+<li><code>referenceName</code>；</li>
+<li><code>videos_url</code>：评论视频的链接；</li>
+<li><code>image_url</code>：评论图片的链接；</li>
+<li><code>reply</code>；回复；</li>
+</ul></li>
+</ol>
+<p>最终期望得到成品如下：</p>
+<ol type="1">
+<li>商品热评</li>
+</ol>
+<img src = 'https://z3.ax1x.com/2021/10/02/4bwnwn.png' style="zoom:80%;" />
+<center>
+Fig. 5 热评样例
+</center>
+<ol start="2" type="1">
+<li>商品评论
+<img src = 'https://z3.ax1x.com/2021/10/02/4bwMF0.png' style="zoom:80%;" /></li>
+</ol>
+<center>
+Fig. 6 评论样例
+</center>
+<h3 id="定义爬取所需信息的函数">2.3.2 定义爬取所需信息的函数</h3>
+<ul>
+<li><p>得到评论</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_type_comments</span>(<span class="params">url</span>):</span></span><br><span class="line">    product_id = get_product_id(url)</span><br><span class="line">    pd_comments = pd.DataFrame()</span><br><span class="line">    pd_hot_comments = pd.DataFrame()</span><br><span class="line">    count = <span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> score <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">3</span>, <span class="number">8</span>):</span><br><span class="line">        page = <span class="number">0</span></span><br><span class="line">        print(<span class="string">&#x27;---------score:&#123;&#125;---------------&#x27;</span>.<span class="built_in">format</span>(score))</span><br><span class="line">        <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">            start = pd_comments.shape[<span class="number">0</span>]</span><br><span class="line">            comment_url = <span class="string">&#x27;https://club.jd.com/comment/productPageComments.action?&#x27;</span> \</span><br><span class="line">                    <span class="string">&#x27;callback=fetchJSON_comment98&amp;productId=&#123;&#125;&amp;score=&#123;&#125;&#x27;</span> \</span><br><span class="line">                    <span class="string">&#x27;&amp;sortType=5&amp;page=&#123;&#125;&amp;pageSize=10&amp;isShadowSku=0&amp;rid=0&amp;fold=1&#x27;</span></span><br><span class="line">            comment_url = comment_url.<span class="built_in">format</span>(product_id, score, page)</span><br><span class="line">            <span class="comment"># comment_url = comment_url.format(product_id, 5, page)</span></span><br><span class="line">            comment_detail = find_message(comment_url, page)</span><br><span class="line">            <span class="keyword">if</span> comment_detail == -<span class="number">1</span>:</span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line">            comments = comment_detail[<span class="string">&#x27;comments&#x27;</span>]</span><br><span class="line">            <span class="keyword">if</span> page == <span class="number">1</span> <span class="keyword">and</span> score == <span class="number">0</span>:</span><br><span class="line">                <span class="comment"># 提取热点评论</span></span><br><span class="line">                np_hot_comments = np.array([<span class="string">&#x27;Hot Comments&#x27;</span>, <span class="string">&#x27;Counts&#x27;</span>])</span><br><span class="line">                hot_comments = comment_detail[<span class="string">&#x27;hotCommentTagStatistics&#x27;</span>]</span><br><span class="line">                <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(hot_comments)):</span><br><span class="line">                    comment_name = hot_comments[i][<span class="string">&#x27;name&#x27;</span>]</span><br><span class="line">                    count = hot_comments[i][<span class="string">&#x27;count&#x27;</span>]</span><br><span class="line">                    np_hot_comments = np.vstack((np_hot_comments, np.array([comment_name, count])))</span><br><span class="line">                    pd_hot_comments = pd.DataFrame(np_hot_comments[<span class="number">1</span>:, :],</span><br><span class="line">                                                  columns = np_hot_comments[<span class="number">0</span>, :])         </span><br><span class="line">            <span class="keyword">if</span> <span class="built_in">len</span>(comments) == <span class="number">0</span>:</span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                <span class="keyword">pass</span></span><br><span class="line">            <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(comments)):</span><br><span class="line">                need_keys = [<span class="string">&#x27;id&#x27;</span>, <span class="string">&#x27;guid&#x27;</span>, <span class="string">&#x27;nickname&#x27;</span>, <span class="string">&#x27;content&#x27;</span>, <span class="string">&#x27;creationTime&#x27;</span>, <span class="string">&#x27;score&#x27;</span>,</span><br><span class="line">                             <span class="string">&#x27;productColor&#x27;</span>, <span class="string">&#x27;referenceName&#x27;</span>]</span><br><span class="line">                <span class="keyword">for</span> key <span class="keyword">in</span> need_keys:</span><br><span class="line">                    pd_comments.loc[start+i, key] = comments[i][key]</span><br><span class="line"></span><br><span class="line">                <span class="keyword">if</span> <span class="string">&#x27;afterUserComment&#x27;</span> <span class="keyword">in</span> <span class="built_in">list</span>(comments[i].keys()):</span><br><span class="line">                    after_comments_info = comments[i][<span class="string">&#x27;afterUserComment&#x27;</span>]</span><br><span class="line">                    pd_comments.loc[start+i, <span class="string">&#x27;Zhuiping_content&#x27;</span>] = after_comments_info[<span class="string">&#x27;content&#x27;</span>]</span><br><span class="line">                    pd_comments.loc[start+i, <span class="string">&#x27;Zhuiping_time&#x27;</span>] = after_comments_info[<span class="string">&#x27;created&#x27;</span>]</span><br><span class="line"></span><br><span class="line">                <span class="keyword">if</span> <span class="string">&#x27;replies&#x27;</span> <span class="keyword">in</span> <span class="built_in">list</span>(comments[i].keys()):</span><br><span class="line">                    replies_info = comments[i][<span class="string">&#x27;replies&#x27;</span>]</span><br><span class="line">                    length = <span class="built_in">len</span>(replies_info)</span><br><span class="line">                    <span class="keyword">if</span> length != <span class="number">0</span>:</span><br><span class="line">                        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(length):</span><br><span class="line">                            reply_info = replies_info[i]</span><br><span class="line">                            pd_comments.loc[start+i, <span class="string">f&#x27;Reply_<span class="subst">&#123;i&#125;</span>_content&#x27;</span>] = reply_info[<span class="string">&#x27;content&#x27;</span>]</span><br><span class="line">                            pd_comments.loc[start+i, <span class="string">f&#x27;Reply_<span class="subst">&#123;i&#125;</span>_time&#x27;</span>] = reply_info[<span class="string">&#x27;creationTime&#x27;</span>]</span><br><span class="line"></span><br><span class="line">                <span class="keyword">if</span> <span class="string">&#x27;images&#x27;</span> <span class="keyword">in</span> <span class="built_in">list</span>(comments[i].keys()):</span><br><span class="line">                    images_info = comments[i][<span class="string">&#x27;images&#x27;</span>]</span><br><span class="line">                    <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(images_info)):</span><br><span class="line">                        pd_comments.loc[start+i, <span class="string">f&#x27;IMG_url_<span class="subst">&#123;j&#125;</span>&#x27;</span>] = images_info[j][<span class="string">&#x27;imgUrl&#x27;</span>]</span><br><span class="line"></span><br><span class="line">                <span class="keyword">if</span> <span class="string">&#x27;videos&#x27;</span> <span class="keyword">in</span> <span class="built_in">list</span>(comments[i].keys()):</span><br><span class="line">                    videos_info = comments[i][<span class="string">&#x27;videos&#x27;</span>]</span><br><span class="line">                    <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(videos_info)):</span><br><span class="line">                        pd_comments.loc[start+i, <span class="string">f&#x27;Video_mainpic_<span class="subst">&#123;i&#125;</span>&#x27;</span>] = videos_info[j][<span class="string">&#x27;mainUrl&#x27;</span>]</span><br><span class="line">                        pd_comments.loc[start+i, <span class="string">f&#x27;Video_url_<span class="subst">&#123;i&#125;</span>&#x27;</span>] = videos_info[j][<span class="string">&#x27;remark&#x27;</span>]</span><br><span class="line">            count += <span class="number">1</span>         </span><br><span class="line">            page += <span class="number">1</span></span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> count &lt;= <span class="number">50</span>:</span><br><span class="line">                time.sleep(<span class="number">1</span>)</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                count = <span class="number">0</span></span><br><span class="line">                time.sleep(<span class="number">100</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> pd_comments, pd_hot_comments</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="开始爬取">2.4 开始爬取</h2>
+<p>考虑到我们的项目处理并不仅仅爬取一个网址，也需要多个商品的评论数据，因此，我们对主函数做一定的修改，使之不仅可以爬取单个商品的评论，也可以爬取多个商品的评论，并保存在不同的
+<code>csv</code> 文件中。</p>
+<ul>
+<li><p>单链爬取</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">is_single = <span class="literal">False</span></span><br><span class="line"><span class="keyword">if</span> is_single == <span class="literal">True</span>:  </span><br><span class="line">    url = <span class="string">&#x27;https://item.jd.com/2925506.html#comment&#x27;</span></span><br><span class="line">    pd_type_comments, pd_hot_comments = get_type_comments(url)</span><br><span class="line">    pd_type_comments.to_csv(<span class="string">&#x27;./Comments_type_1.csv&#x27;</span>, encoding=<span class="string">&#x27;ansi&#x27;</span>, errors = <span class="string">&#x27;ignore&#x27;</span>)</span><br><span class="line">    pd_hot_comments.to_excel(<span class="string">&#x27;./Hot_comments.xlsx&#x27;</span>, sheet_name = get_product_id(url))</span><br></pre></td></tr></table></figure></li>
+<li><p>多链接爬取</p>
+<p>在实际操作过程中，我们发现多链接爬取由于 <code>request</code>
+的次数太多，容易导致如下问题：</p>
+<ol type="1">
+<li><code>ip</code>
+容易被服务器暂时拉黑（大约半小时，可以换个网继续操作）；</li>
+<li>容易达到端口的最大访问次数</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">is_multi = <span class="literal">True</span></span><br><span class="line"><span class="keyword">if</span> is_multi == <span class="literal">True</span>:</span><br><span class="line">    urls = [<span class="string">&#x27;https://item.jd.com/2925506.html#comment&#x27;</span>, <span class="string">&#x27;https://item.jd.com/2925506.html&#x27;</span>,</span><br><span class="line">            <span class="string">&#x27;https://item.jd.com/100007810155.html&#x27;</span>, <span class="string">&#x27;https://item.jd.com/2925346.html&#x27;</span>,</span><br><span class="line">            <span class="string">&#x27;https://item.jd.com/4924290.html&#x27;</span>, <span class="string">&#x27;https://item.jd.com/6879534.html&#x27;</span>,</span><br><span class="line">            <span class="string">&#x27;https://item.jd.com/100006306997.html&#x27;</span>, <span class="string">&#x27;https://item.jd.com/8543963.html&#x27;</span>,</span><br><span class="line">            <span class="string">&#x27;https://item.jd.com/100007212087.html&#x27;</span>, <span class="string">&#x27;https://item.jd.com/5662044.html&#x27;</span>,</span><br><span class="line">            <span class="string">&#x27;https://item.jd.com/8543957.html&#x27;</span>,  <span class="string">&#x27;https://item.jd.com/6739532.html&#x27;</span>,</span><br><span class="line">            <span class="string">&#x27;https://item.jd.com/4607999.html&#x27;</span>, <span class="string">&#x27;https://item.jd.com/100006930529.html&#x27;</span>,</span><br><span class="line">            <span class="string">&#x27;https://item.jd.com/100011848484.html&#x27;</span>]</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">0</span>, <span class="built_in">len</span>(urls)):</span><br><span class="line">        print(<span class="string">f&#x27;----------正在爬取第<span class="subst">&#123;i&#125;</span>个网页的内容------------&#x27;</span>)</span><br><span class="line">        url = urls[i]</span><br><span class="line">        pd_type_comments, pd_hot_comments = get_type_comments(url)</span><br><span class="line">        uniq = pd_type_comments[<span class="string">&#x27;content&#x27;</span>].drop_duplicates().index</span><br><span class="line">        data_drop_dup = pd_type_comments.loc[uniq, :].reset_index()</span><br><span class="line">        data_drop_dup.to_csv(<span class="string">f&#x27;./Comments_type_product_<span class="subst">&#123;i&#125;</span>-0.csv&#x27;</span>, encoding=<span class="string">&#x27;ansi&#x27;</span>, errors = <span class="string">&#x27;ignore&#x27;</span>)</span><br><span class="line">        pd_hot_comments.to_excel(<span class="string">f&#x27;./Hot_comments_product_<span class="subst">&#123;i&#125;</span>.xlsx&#x27;</span>, sheet_name = get_product_id(url))</span><br><span class="line">        <span class="keyword">break</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<h1 id="dynamic-crawler">3 Dynamic crawler</h1>
+<h2 id="description">3.1 Description</h2>
+<p>除了上述数据之外，我们还需要问答数据，其数据样式如下：</p>
+<p><img src = 'https://z3.ax1x.com/2021/10/02/4bwuoq.md.png' style="zoom:80%;" /></p>
+<center>
+Fig. 7 问答信息
+</center>
+<p>通过分析，可以发现其问答数据藏在 <code>继续查看68条回答</code>
+按钮之下，通过点击可以动态加载数据，因此我们选择使用动态爬虫爬取问答数据。</p>
+<h2 id="爬取问答数据">3.2 爬取问答数据</h2>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_ask_answers</span>(<span class="params">url, pages</span>):</span></span><br><span class="line">    pd_ask_answer = pd.DataFrame()</span><br><span class="line"></span><br><span class="line">    browser = webdriver.Chrome(executable_path=<span class="string">&#x27;C:\Program Files (x86)\Google\Chrome\Application\chromedriver&#x27;</span>)</span><br><span class="line">    browser.get(url)</span><br><span class="line">    time.sleep(<span class="number">5</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> bt <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>, pages):</span><br><span class="line">        bt_xpath = <span class="string">f&#x27;//*[@id=&quot;askAnswer&quot;]/div[2]/div[2]/div[12]/div/a[<span class="subst">&#123;bt&#125;</span>]&#x27;</span></span><br><span class="line">        <span class="keyword">try</span>:</span><br><span class="line">            browser.find_element_by_xpath(bt_xpath).click()</span><br><span class="line">        <span class="keyword">except</span>:</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">        time.sleep(<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>, <span class="number">11</span>):</span><br><span class="line">            shapes = pd_ask_answer.shape</span><br><span class="line">            <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">                <span class="keyword">try</span>:</span><br><span class="line">                    click_xpath = <span class="string">f&#x27;//*[@id=&quot;askAnswer&quot;]/div[2]/div[2]/div[<span class="subst">&#123;i&#125;</span>]/div[2]/div/div/a[1]&#x27;</span></span><br><span class="line">                    browser.find_element_by_xpath(click_xpath).click()</span><br><span class="line">                <span class="keyword">except</span> Exception:</span><br><span class="line">                    <span class="keyword">break</span></span><br><span class="line">                time.sleep(<span class="number">0.5</span>)</span><br><span class="line"></span><br><span class="line">            <span class="keyword">try</span>:</span><br><span class="line">                question_xpath = <span class="string">f&#x27;//*[@id=&quot;askAnswer&quot;]/div[2]/div[2]/div[<span class="subst">&#123;i&#125;</span>]/div[1]/div/p&#x27;</span></span><br><span class="line">                pd_ask_answer.loc[<span class="number">0</span>, shapes[<span class="number">1</span>]+i] = browser.find_element_by_xpath(question_xpath).text</span><br><span class="line">            <span class="keyword">except</span> Exception:</span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line"></span><br><span class="line">            <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>, <span class="number">70</span>):</span><br><span class="line">                <span class="keyword">try</span>:</span><br><span class="line">                    answer_xpath = <span class="string">f&#x27;//*[@id=&quot;askAnswer&quot;]/div[2]/div[2]/div[<span class="subst">&#123;i&#125;</span>]/div[2]/div/ul/li[<span class="subst">&#123;j&#125;</span>]/p&#x27;</span></span><br><span class="line">                    pd_ask_answer.loc[j, shapes[<span class="number">1</span>]+i] = browser.find_element_by_xpath(answer_xpath).text</span><br><span class="line">                <span class="keyword">except</span> Exception:</span><br><span class="line">                    <span class="keyword">break</span></span><br><span class="line">                time.sleep(<span class="number">0.05</span>)</span><br><span class="line"></span><br><span class="line">    pd_ask_answer.to_csv(<span class="string">&#x27;./Ask_answer.csv&#x27;</span>, encoding = <span class="string">&#x27;ansi&#x27;</span>, errors = <span class="string">&#x27;ignore&#x27;</span>)</span><br></pre></td></tr></table></figure>
+<p>可以通过传入 <code>url</code> 和 <code>pages</code>
+两个参数获取问答数据，如本案列中使用的参数如下：</p>
+<ul>
+<li><code>url</code>： https://item.jd.com/2925506.html#comment</li>
+<li><code>pages</code>： 14</li>
+</ul>
+<p>传入上述函数，最终可得到成品数据如下：</p>
+<p><img src = 'https://z3.ax1x.com/2021/10/02/4bwQYV.md.png' style="zoom:80%;" /></p>
+<center>
+Fig. 8 问答信息
+</center>
+<p>其中表头（第一行）为问题，其他行为该问题的回答。</p>
+<h1 id="emotion-analysis">4. Emotion analysis</h1>
+<p>接下来我们对得到的评论数据进行情感分析。</p>
+<h2 id="preparation">4.1 Preparation</h2>
+<h3 id="load-data">4.1.1 Load data</h3>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"></span><br><span class="line">data = pd.DataFrame()</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">15</span>):</span><br><span class="line">    filename = <span class="string">f&#x27;Comments_type_product_<span class="subst">&#123;i&#125;</span>.csv&#x27;</span></span><br><span class="line">    df = pd.read_csv(<span class="string">f&#x27;./Results/<span class="subst">&#123;filename&#125;</span>&#x27;</span>, encoding = <span class="string">&#x27;ansi&#x27;</span>)</span><br><span class="line">    data = pd.concat([data, df], axis = <span class="number">0</span>, ignore_index = <span class="literal">True</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 备份</span></span><br><span class="line">data_copy = data.copy()</span><br></pre></td></tr></table></figure>
+<h2 id="preprocession">4.2 Preprocession</h2>
+<p>对数据进行预处理，在本次处理中，仅处理评论文本数据。</p>
+<ul>
+<li><p>查看数据大小</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">data.shape</span><br></pre></td></tr></table></figure>
+<p>Results:</p>
+<pre><code>(32419, 44)</code></pre></li>
+</ul>
+<p>可以发现我们爬取的数据共有 44 列，其中图片和视频占大头。</p>
+<ul>
+<li><p>Data description</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">data.info()</span><br></pre></td></tr></table></figure>
+<p>Results:</p>
+<pre><code>&lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
+RangeIndex: 32419 entries, 0 to 32418
+Data columns (total 44 columns):
+ #   Column            Non-Null Count  Dtype  
+---  ------            --------------  -----  
+ 0   Unnamed: 0        32419 non-null  int64  
+ 1   id                29885 non-null  float64
+ 2   guid              32419 non-null  object
+ 3   nickname          32419 non-null  object
+ 4   content           32419 non-null  object
+ 5   creationTime      32419 non-null  object
+ 6   score             32419 non-null  float64
+ 7   productColor      30207 non-null  object
+ 8   referenceName     32419 non-null  object
+ 9   Video_mainpic_0   500 non-null    object
+ 10  Video_url_0       500 non-null    object
+ 11  Video_mainpic_1   492 non-null    object
+ 12  Video_url_1       492 non-null    object
+ 13  Video_mainpic_2   509 non-null    object
+ 14  Video_url_2       509 non-null    object
+ 15  Video_mainpic_3   476 non-null    object
+ 16  Video_url_3       476 non-null    object
+ 17  IMG_url_0         18849 non-null  object
+ 18  IMG_url_1         14269 non-null  object
+ 19  Video_mainpic_4   460 non-null    object
+ 20  Video_url_4       460 non-null    object
+ 21  Video_mainpic_5   500 non-null    object
+ 22  Video_url_5       500 non-null    object
+ 23  Video_mainpic_6   469 non-null    object
+ 24  Video_url_6       469 non-null    object
+ 25  IMG_url_2         9757 non-null   object
+ 26  Video_mainpic_7   533 non-null    object
+ 27  Video_url_7       533 non-null    object
+ 28  IMG_url_3         7876 non-null   object
+ 29  IMG_url_4         3474 non-null   object
+ 30  IMG_url_5         1780 non-null   object
+ 31  Video_mainpic_8   503 non-null    object
+ 32  Video_url_8       503 non-null    object
+ 33  Reply_0_content   739 non-null    object
+ 34  Reply_0_time      739 non-null    object
+ 35  Zhuiping_content  2756 non-null   object
+ 36  Zhuiping_time     2756 non-null   object
+ 37  IMG_url_6         882 non-null    object
+ 38  Video_mainpic_9   473 non-null    object
+ 39  Video_url_9       473 non-null    object
+ 40  IMG_url_7         574 non-null    object
+ 41  IMG_url_8         279 non-null    object
+ 42  level_0           1681 non-null   float64
+ 43  index             20245 non-null  float64
+dtypes: float64(4), int64(1), object(39)
+memory usage: 10.9+ MB</code></pre></li>
+<li><p>提取数据</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">data = data.loc[:, data.columns[<span class="number">1</span>:-<span class="number">2</span>]]</span><br><span class="line">data.info()</span><br></pre></td></tr></table></figure>
+<p>Results:</p>
+<pre><code>  &lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
+  RangeIndex: 32419 entries, 0 to 32418
+  Data columns (total 41 columns):
+   #   Column            Non-Null Count  Dtype  
+  ---  ------            --------------  -----  
+   0   id                29885 non-null  float64
+   1   guid              32419 non-null  object
+   2   nickname          32419 non-null  object
+   3   content           32419 non-null  object
+   4   creationTime      32419 non-null  object
+   5   score             32419 non-null  float64
+   6   productColor      30207 non-null  object
+   7   referenceName     32419 non-null  object
+   8   Video_mainpic_0   500 non-null    object
+   9   Video_url_0       500 non-null    object
+   10  Video_mainpic_1   492 non-null    object
+   11  Video_url_1       492 non-null    object
+   12  Video_mainpic_2   509 non-null    object
+   13  Video_url_2       509 non-null    object
+   14  Video_mainpic_3   476 non-null    object
+   15  Video_url_3       476 non-null    object
+   16  IMG_url_0         18849 non-null  object
+   17  IMG_url_1         14269 non-null  object
+   18  Video_mainpic_4   460 non-null    object
+   19  Video_url_4       460 non-null    object
+   20  Video_mainpic_5   500 non-null    object
+   21  Video_url_5       500 non-null    object
+   22  Video_mainpic_6   469 non-null    object
+   23  Video_url_6       469 non-null    object
+   24  IMG_url_2         9757 non-null   object
+   25  Video_mainpic_7   533 non-null    object
+   26  Video_url_7       533 non-null    object
+   27  IMG_url_3         7876 non-null   object
+   28  IMG_url_4         3474 non-null   object
+   29  IMG_url_5         1780 non-null   object
+   30  Video_mainpic_8   503 non-null    object
+   31  Video_url_8       503 non-null    object
+   32  Reply_0_content   739 non-null    object
+   33  Reply_0_time      739 non-null    object
+   34  Zhuiping_content  2756 non-null   object
+   35  Zhuiping_time     2756 non-null   object
+   36  IMG_url_6         882 non-null    object
+   37  Video_mainpic_9   473 non-null    object
+   38  Video_url_9       473 non-null    object
+   39  IMG_url_7         574 non-null    object
+   40  IMG_url_8         279 non-null    object
+  dtypes: float64(2), object(39)
+  memory usage: 10.1+ MB</code></pre></li>
+<li><p>Select data</p>
+<p>我们选取评论相关的数据作为此次处理对象。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">comments = data_copy.iloc[:, <span class="number">1</span>:<span class="number">7</span>]</span><br><span class="line">comments.head(<span class="number">2</span>)</span><br></pre></td></tr></table></figure>
+<p>Results:</p>
+<table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th>
+</th>
+<th>
+<p>id</p>
+</th>
+<th>
+<p>guid</p>
+</th>
+<th>
+<p>nickname</p>
+</th>
+<th>
+<p>content</p>
+</th>
+<th>
+<p>creationTime</p>
+</th>
+<th>
+<p>score</p>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>
+<p>0</p>
+</th>
+<td>
+<p>1.582772e+10</p>
+</td>
+<td>
+<p>d495506f3df9fa9fe5af352c8ecbea3f</p>
+</td>
+<td>
+<p>****w</p>
+</td>
+<td>
+<p>京东自营618屯货。图方便快捷，一直在京东自营购买牛肉。这次回购的牛腱子，是用来做干切牛肉。...</p>
+</td>
+<td>
+<p>2021-06-18 15:30:41</p>
+</td>
+<td>
+<p>5.0</p>
+</td>
+</tr>
+<tr>
+<th>
+<p>1</p>
+</th>
+<td>
+<p>1.582486e+10</p>
+</td>
+<td>
+<p>39964bbdefbf80e9b48fd004531f5665</p>
+</td>
+<td>
+<p>小***3</p>
+</td>
+<td>
+<p>感谢感谢京东商城提供这么好的美食产品，好吃不贵经济实惠</p>
+</td>
+<td>
+<p>2021-06-18 05:53:15</p>
+</td>
+<td>
+<p>5.0</p>
+</td>
+</tr>
+</tbody>
+</table></li>
+</ul>
+<h2 id="word-frequency-analysis">4.2 Word frequency analysis</h2>
+<h3 id="word-frequency">4.2.1 Word frequency</h3>
+<ul>
+<li><p>Count word frequency</p>
+<p>将所有评论作为一个文档进行词频统计。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">comments[<span class="string">&#x27;content&#x27;</span>].to_csv(<span class="string">&#x27;./Process/content.txt&#x27;</span>, encoding = <span class="string">&#x27;gbk&#x27;</span>, index = <span class="literal">False</span>)</span><br><span class="line"></span><br><span class="line">stop_words = [i.strip() <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">open</span>(<span class="string">&#x27;中文停用词表.txt&#x27;</span>, <span class="string">&#x27;r&#x27;</span>, encoding=<span class="string">&#x27;utf8&#x27;</span>).readlines()]</span><br><span class="line">stop_words.extend([<span class="string">&#x27;\n&#x27;</span>, <span class="string">&#x27;\xa0&#x27;</span>, <span class="string">&#x27;\u3000&#x27;</span>, <span class="string">&#x27;\u2002&#x27;</span>, <span class="string">&#x27; &#x27;</span>,])</span><br><span class="line"><span class="comment"># stop_words.extend([&#x27;用户未填写评价内容&#x27;])</span></span><br><span class="line">jb.load_userdict(<span class="string">&#x27;./Process/jieba_dict.txt&#x27;</span>)</span><br><span class="line">jb.add_word(<span class="string">&#x27;牛腱子&#x27;</span>, <span class="literal">True</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&#x27;./Process/content.txt&#x27;</span>,<span class="string">&#x27;r&#x27;</span>) <span class="keyword">as</span> fr:</span><br><span class="line">word = jb.cut(fr.read())</span><br><span class="line"></span><br><span class="line">terms = pd.DataFrame(columns = [<span class="string">&#x27;Terms&#x27;</span>, <span class="string">&#x27;Frequence&#x27;</span>])</span><br><span class="line">terms[<span class="string">&#x27;Terms&#x27;</span>] = <span class="built_in">list</span>(data.keys())[<span class="number">1</span>:]</span><br><span class="line">terms[<span class="string">&#x27;Frequence&#x27;</span>] = <span class="built_in">list</span>(data.values())[<span class="number">1</span>:]</span><br><span class="line">terms = terms.sort_values(by = <span class="string">&#x27;Frequence&#x27;</span>, ascending = <span class="literal">False</span>)</span><br><span class="line"></span><br><span class="line">terms[<span class="string">&#x27;Label&#x27;</span>] = terms[<span class="string">&#x27;Terms&#x27;</span>].apply(<span class="keyword">lambda</span> x: <span class="number">1</span> <span class="keyword">if</span> x <span class="keyword">in</span> stop_words <span class="keyword">else</span> <span class="number">0</span>)</span><br><span class="line">mod_terms = terms.loc[terms[<span class="string">&#x27;Label&#x27;</span>] == <span class="number">0</span>, [<span class="string">&#x27;Terms&#x27;</span>, <span class="string">&#x27;Frequence&#x27;</span>]]</span><br><span class="line">mod_terms.reset_index(drop = <span class="literal">True</span>).head(<span class="number">10</span>)</span><br></pre></td></tr></table></figure>
+<p>Results:</p>
+<table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th>
+</th>
+<th>
+<p>Terms</p>
+</th>
+<th>
+<p>Frequence</p>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>
+<p>0</p>
+</th>
+<td>
+<p>牛肉</p>
+</td>
+<td>
+<p>15919</p>
+</td>
+</tr>
+<tr>
+<th>
+<p>1</p>
+</th>
+<td>
+<p>买</p>
+</td>
+<td>
+<p>15027</p>
+</td>
+</tr>
+<tr>
+<th>
+<p>2</p>
+</th>
+<td>
+<p>吃</p>
+</td>
+<td>
+<p>11294</p>
+</td>
+</tr>
+<tr>
+<th>
+<p>3</p>
+</th>
+<td>
+<p>京东</p>
+</td>
+<td>
+<p>11012</p>
+</td>
+</tr>
+<tr>
+<th>
+<p>4</p>
+</th>
+<td>
+<p>不错</p>
+</td>
+<td>
+<p>10360</p>
+</td>
+</tr>
+<tr>
+<th>
+<p>5</p>
+</th>
+<td>
+<p>肉</p>
+</td>
+<td>
+<p>6466</p>
+</td>
+</tr>
+<tr>
+<th>
+<p>6</p>
+</th>
+<td>
+<p>好吃</p>
+</td>
+<td>
+<p>6250</p>
+</td>
+</tr>
+<tr>
+<th>
+<p>7</p>
+</th>
+<td>
+<p>购买</p>
+</td>
+<td>
+<p>5738</p>
+</td>
+</tr>
+<tr>
+<th>
+<p>8</p>
+</th>
+<td>
+<p>牛腱</p>
+</td>
+<td>
+<p>4933</p>
+</td>
+</tr>
+<tr>
+<th>
+<p>9</p>
+</th>
+<td>
+<p>做</p>
+</td>
+<td>
+<p>4733</p>
+</td>
+</tr>
+</tbody>
+</table></li>
+<li><p>将词频分析结果存储</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mod_terms.to_csv(<span class="string">&#x27;./Process/analsis_content.csv&#x27;</span>, encoding = <span class="string">&#x27;ansi&#x27;</span>, index = <span class="literal">False</span>)</span><br></pre></td></tr></table></figure>
+<p><strong>Note：</strong>
+得到词频结果后，我们对一些关键词进行了指标值的分类，具体分类情况见下一章节</p></li>
+</ul>
+<h3 id="word-cloud">4.2.2 Word cloud</h3>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> wordcloud <span class="keyword">import</span> WordCloud</span><br><span class="line"></span><br><span class="line">words = <span class="string">&#x27; &#x27;</span>.join(word)</span><br><span class="line">wordcloud = WordCloud(</span><br><span class="line">    font_path=<span class="string">&quot;C:/Windows/Fonts/simkai.ttf&quot;</span>,<span class="comment">#设置字体</span></span><br><span class="line">    background_color=<span class="string">&quot;white&quot;</span>,<span class="comment">#设置背景颜色</span></span><br><span class="line">    max_font_size=<span class="number">250</span>,<span class="comment"># 设置字体最大值</span></span><br><span class="line">    max_words=<span class="number">2000</span>, <span class="comment"># 设置最大显示的字数</span></span><br><span class="line">    width=<span class="number">2800</span>, <span class="comment"># 宽</span></span><br><span class="line">    height=<span class="number">1600</span>, <span class="comment"># 高</span></span><br><span class="line">    ).generate(words)</span><br><span class="line"></span><br><span class="line">image = wordcloud.to_image()</span><br><span class="line">wordcloud.to_file(<span class="string">&#x27;./Process/ciyun.png&#x27;</span>)</span><br><span class="line">image.show()</span><br></pre></td></tr></table></figure>
+<p>Results:</p>
+<img src = 'https://z3.ax1x.com/2021/10/02/4bw3SU.md.png' style="zoom:80%;" />
+<center>
+Fig. 9 评论词云
+</center>
+<h2 id="feature-engineering">4.3 Feature engineering</h2>
+<ul>
+<li><p>对每个评论进行分词</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> jieba <span class="keyword">as</span> jb</span><br><span class="line"></span><br><span class="line">stop_words = [i.strip() <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">open</span>(<span class="string">&#x27;中文停用词表.txt&#x27;</span>, <span class="string">&#x27;r&#x27;</span>, encoding=<span class="string">&#x27;utf8&#x27;</span>).readlines()]</span><br><span class="line">stop_words.extend([<span class="string">&#x27;\n&#x27;</span>, <span class="string">&#x27;\xa0&#x27;</span>, <span class="string">&#x27;\u3000&#x27;</span>, <span class="string">&#x27;\u2002&#x27;</span>, <span class="string">&#x27;&#x27;</span>,])</span><br><span class="line"><span class="comment"># stop_words.extend([&#x27;用户未填写评价内容&#x27;])</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_str</span>(<span class="params">x</span>):</span></span><br><span class="line">    <span class="keyword">return</span> <span class="string">&#x27; &#x27;</span>.join([<span class="built_in">str</span>(i) <span class="keyword">for</span> i <span class="keyword">in</span> jb.cut(x, cut_all = <span class="literal">False</span>) <span class="keyword">if</span> i <span class="keyword">not</span> <span class="keyword">in</span> stop_words])</span><br><span class="line"></span><br><span class="line">comments[<span class="string">&#x27;content_seg&#x27;</span>] = comments[<span class="string">&#x27;content&#x27;</span>].apply(get_str)</span><br></pre></td></tr></table></figure></li>
+<li><p>查看分词的结果</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">comments[<span class="string">&#x27;content_seg&#x27;</span>][:<span class="number">5</span>]</span><br></pre></td></tr></table></figure>
+<p>Results：</p>
+<pre><code>0    京东 自营 618 屯货 图 方便快捷 京东 自营 购买 牛肉 回购 牛腱子 做 干切 牛肉...
+1                      感谢 感谢 京东 商城 提供 美食 产品 好吃 贵 经济 实惠
+2      高压锅 不炖 太烂 吃 牛肉 感觉 慢慢 炖煮 味道 煮 机会 买 尝尝 煮 方法 不好 感觉
+3                                  减肥 吃点 牛肉 买 两份 够吃 几天
+4    物超所值 商品 设计 完美 外观 高大 爱不释手 客服 更是 热情 没话说 购物 满意 哈哈...
+Name: content_seg, dtype: object</code></pre></li>
+<li><p>加载指标分类结果</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">pd_maps = pd.read_excel(<span class="string">&#x27;./Process/Analysis_content.xlsx&#x27;</span>, sheet_name = <span class="string">&#x27;Sheet2&#x27;</span>)</span><br><span class="line"></span><br><span class="line">key_words = pd_maps[<span class="string">&#x27;Terms&#x27;</span>]</span><br><span class="line">labels = pd_maps[<span class="string">&#x27;Label&#x27;</span>]</span><br><span class="line">maps = <span class="built_in">dict</span>(<span class="built_in">zip</span>(key_words, labels))</span><br><span class="line"></span><br><span class="line">pd_maps.sample(<span class="number">5</span>)</span><br></pre></td></tr></table></figure>
+<p>Results：</p>
+<table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th>
+</th>
+<th>
+<p>Terms</p>
+</th>
+<th>
+<p>Label</p>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>
+<p>35</p>
+</th>
+<td>
+<p>牌子</p>
+</td>
+<td>
+<p>品牌</p>
+</td>
+</tr>
+<tr>
+<th>
+<p>74</p>
+</th>
+<td>
+<p>差评</p>
+</td>
+<td>
+<p>印象</p>
+</td>
+</tr>
+<tr>
+<th>
+<p>25</p>
+</th>
+<td>
+<p>味道</p>
+</td>
+<td>
+<p>口味</p>
+</td>
+</tr>
+<tr>
+<th>
+<p>33</p>
+</th>
+<td>
+<p>品牌</p>
+</td>
+<td>
+<p>品牌</p>
+</td>
+</tr>
+<tr>
+<th>
+<p>49</p>
+</th>
+<td>
+<p>筋</p>
+</td>
+<td>
+<p>肉类</p>
+</td>
+</tr>
+</tbody>
+</table></li>
+<li><p>计算每个关键词在该条评论中的频次</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">frequence = [comments[<span class="string">&#x27;content_seg&#x27;</span>].apply(<span class="keyword">lambda</span> x: x.count(i)) <span class="keyword">for</span> i <span class="keyword">in</span> key_words]</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(key_words)):</span><br><span class="line">    comments[key_words[i]] = frequence[i]</span><br><span class="line"></span><br><span class="line">comments.head(<span class="number">3</span>)</span><br></pre></td></tr></table></figure>
+<p>Results:</p>
+<table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th>
+</th>
+<th>
+<p>id</p>
+</th>
+<th>
+<p>guid</p>
+</th>
+<th>
+<p>nickname</p>
+</th>
+<th>
+<p>content</p>
+</th>
+<th>
+<p>creationTime</p>
+</th>
+<th>
+<p>score</p>
+</th>
+<th>
+<p>content_seg</p>
+</th>
+<th>
+<p>包装</p>
+</th>
+<th>
+<p>活动</p>
+</th>
+<th>
+<p>优惠</p>
+</th>
+<th>
+<p>...</p>
+</th>
+<th>
+<p>感觉</p>
+</th>
+<th>
+<p>放心</p>
+</th>
+<th>
+<p>推荐</p>
+</th>
+<th>
+<p>还会</p>
+</th>
+<th>
+<p>好评</p>
+</th>
+<th>
+<p>信赖</p>
+</th>
+<th>
+<p>失望</p>
+</th>
+<th>
+<p>体验</p>
+</th>
+<th>
+<p>五星</p>
+</th>
+<th>
+<p>差评</p>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>
+<p>0</p>
+</th>
+<td>
+<p>1.582772e+10</p>
+</td>
+<td>
+<p>d495506f3df9fa9fe5af352c8ecbea3f</p>
+</td>
+<td>
+<p>****w</p>
+</td>
+<td>
+<p>京东自营618屯货。图方便快捷，一直在京东自营购买牛肉。这次回购的牛腱子，是用来做干切牛肉。...</p>
+</td>
+<td>
+<p>2021-06-18 15:30:41</p>
+</td>
+<td>
+<p>5.0</p>
+</td>
+<td>
+<p>京东 自营 618 屯货 图 方便快捷 京东 自营 购买 牛肉 回购 牛腱子 做
+干切 牛肉...</p>
+</td>
+<td>
+<p>0</p>
+</td>
+<td>
+<p>0</p>
+</td>
+<td>
+<p>0</p>
+</td>
+<td>
+<p>...</p>
+</td>
+<td>
+<p>0</p>
+</td>
+<td>
+<p>0</p>
+</td>
+<td>
+<p>0</p>
+</td>
+<td>
+<p>0</p>
+</td>
+<td>
+<p>0</p>
+</td>
+<td>
+<p>0</p>
+</td>
+<td>
+<p>0</p>
+</td>
+<td>
+<p>0</p>
+</td>
+<td>
+<p>0</p>
+</td>
+<td>
+<p>0</p>
+</td>
+</tr>
+<tr>
+<th>
+<p>1</p>
+</th>
+<td>
+<p>1.582486e+10</p>
+</td>
+<td>
+<p>39964bbdefbf80e9b48fd004531f5665</p>
+</td>
+<td>
+<p>小***3</p>
+</td>
+<td>
+<p>感谢感谢京东商城提供这么好的美食产品，好吃不贵经济实惠</p>
+</td>
+<td>
+<p>2021-06-18 05:53:15</p>
+</td>
+<td>
+<p>5.0</p>
+</td>
+<td>
+<p>感谢 感谢 京东 商城 提供 美食 产品 好吃 贵 经济 实惠</p>
+</td>
+<td>
+<p>0</p>
+</td>
+<td>
+<p>0</p>
+</td>
+<td>
+<p>0</p>
+</td>
+<td>
+<p>...</p>
+</td>
+<td>
+<p>0</p>
+</td>
+<td>
+<p>0</p>
+</td>
+<td>
+<p>0</p>
+</td>
+<td>
+<p>0</p>
+</td>
+<td>
+<p>0</p>
+</td>
+<td>
+<p>0</p>
+</td>
+<td>
+<p>0</p>
+</td>
+<td>
+<p>0</p>
+</td>
+<td>
+<p>0</p>
+</td>
+<td>
+<p>0</p>
+</td>
+</tr>
+<tr>
+<th>
+<p>2</p>
+</th>
+<td>
+<p>1.582004e+10</p>
+</td>
+<td>
+<p>7d3fe9e265681e75361982339900af6e</p>
+</td>
+<td>
+<p>常****</p>
+</td>
+<td>
+<p>不可使用高压锅，要不炖的太烂了，都没有吃牛肉的感觉了。还是需要慢慢炖煮，把味道煮进去最好，有...</p>
+</td>
+<td>
+<p>2021-06-17 10:48:28</p>
+</td>
+<td>
+<p>4.0</p>
+</td>
+<td>
+<p>高压锅 不炖 太烂 吃 牛肉 感觉 慢慢 炖煮 味道 煮 机会 买 尝尝 煮 方法
+不好 感觉</p>
+</td>
+<td>
+<p>0</p>
+</td>
+<td>
+<p>0</p>
+</td>
+<td>
+<p>0</p>
+</td>
+<td>
+<p>...</p>
+</td>
+<td>
+<p>2</p>
+</td>
+<td>
+<p>0</p>
+</td>
+<td>
+<p>0</p>
+</td>
+<td>
+<p>0</p>
+</td>
+<td>
+<p>0</p>
+</td>
+<td>
+<p>0</p>
+</td>
+<td>
+<p>0</p>
+</td>
+<td>
+<p>0</p>
+</td>
+<td>
+<p>0</p>
+</td>
+<td>
+<p>0</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>
+<p>3 rows × 82 columns</p>
+</p>
+<p>可以发现增加了75列，这75列表示该列名称所示的关键词在评论中出现的频次。</p></li>
+<li><p>关键词的指标</p>
+<p>对上述的关键词进行指标分类和频次加总，映射关系见 pd_maps。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">label_unq = <span class="built_in">list</span>(labels.unique())</span><br><span class="line"><span class="keyword">for</span> lab <span class="keyword">in</span> label_unq:</span><br><span class="line">    terms = pd_maps.groupby(<span class="string">&#x27;Label&#x27;</span>).get_group(lab)[<span class="string">&#x27;Terms&#x27;</span>].agg(<span class="keyword">lambda</span> x: <span class="built_in">list</span>(x.to_list()))</span><br><span class="line">    comments[<span class="string">&#x27;Top-&#x27;</span>+lab] = comments.loc[:, terms].<span class="built_in">sum</span>(<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">comments.head(<span class="number">3</span>)</span><br></pre></td></tr></table></figure>
+<p>Results:</p>
+<table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th>
+</th>
+<th>
+<p>id</p>
+</th>
+<th>
+<p>guid</p>
+</th>
+<th>
+<p>nickname</p>
+</th>
+<th>
+<p>content</p>
+</th>
+<th>
+<p>creationTime</p>
+</th>
+<th>
+<p>score</p>
+</th>
+<th>
+<p>content_seg</p>
+</th>
+<th>
+<p>包装</p>
+</th>
+<th>
+<p>活动</p>
+</th>
+<th>
+<p>优惠</p>
+</th>
+<th>
+<p>...</p>
+</th>
+<th>
+<p>Top-口感</p>
+</th>
+<th>
+<p>Top-口味</p>
+</th>
+<th>
+<p>Top-派送</p>
+</th>
+<th>
+<p>Top-品牌</p>
+</th>
+<th>
+<p>Top-品质</p>
+</th>
+<th>
+<p>Top-渠道</p>
+</th>
+<th>
+<p>Top-肉类</p>
+</th>
+<th>
+<p>Top-肉质</p>
+</th>
+<th>
+<p>Top-物流</p>
+</th>
+<th>
+<p>Top-印象</p>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>
+<p>0</p>
+</th>
+<td>
+<p>1.582772e+10</p>
+</td>
+<td>
+<p>d495506f3df9fa9fe5af352c8ecbea3f</p>
+</td>
+<td>
+<p>****w</p>
+</td>
+<td>
+<p>京东自营618屯货。图方便快捷，一直在京东自营购买牛肉。这次回购的牛腱子，是用来做干切牛肉。...</p>
+</td>
+<td>
+<p>2021-06-18 15:30:41</p>
+</td>
+<td>
+<p>5.0</p>
+</td>
+<td>
+<p>京东 自营 618 屯货 图 方便快捷 京东 自营 购买 牛肉 回购 牛腱子 做
+干切 牛肉...</p>
+</td>
+<td>
+<p>0</p>
+</td>
+<td>
+<p>0</p>
+</td>
+<td>
+<p>0</p>
+</td>
+<td>
+<p>...</p>
+</td>
+<td>
+<p>0</p>
+</td>
+<td>
+<p>2</p>
+</td>
+<td>
+<p>0</p>
+</td>
+<td>
+<p>0</p>
+</td>
+<td>
+<p>1</p>
+</td>
+<td>
+<p>4</p>
+</td>
+<td>
+<p>4</p>
+</td>
+<td>
+<p>3</p>
+</td>
+<td>
+<p>0</p>
+</td>
+<td>
+<p>0</p>
+</td>
+</tr>
+<tr>
+<th>
+<p>1</p>
+</th>
+<td>
+<p>1.582486e+10</p>
+</td>
+<td>
+<p>39964bbdefbf80e9b48fd004531f5665</p>
+</td>
+<td>
+<p>小***3</p>
+</td>
+<td>
+<p>感谢感谢京东商城提供这么好的美食产品，好吃不贵经济实惠</p>
+</td>
+<td>
+<p>2021-06-18 05:53:15</p>
+</td>
+<td>
+<p>5.0</p>
+</td>
+<td>
+<p>感谢 感谢 京东 商城 提供 美食 产品 好吃 贵 经济 实惠</p>
+</td>
+<td>
+<p>0</p>
+</td>
+<td>
+<p>0</p>
+</td>
+<td>
+<p>0</p>
+</td>
+<td>
+<p>...</p>
+</td>
+<td>
+<p>0</p>
+</td>
+<td>
+<p>2</p>
+</td>
+<td>
+<p>0</p>
+</td>
+<td>
+<p>0</p>
+</td>
+<td>
+<p>0</p>
+</td>
+<td>
+<p>2</p>
+</td>
+<td>
+<p>0</p>
+</td>
+<td>
+<p>0</p>
+</td>
+<td>
+<p>0</p>
+</td>
+<td>
+<p>0</p>
+</td>
+</tr>
+<tr>
+<th>
+<p>2</p>
+</th>
+<td>
+<p>1.582004e+10</p>
+</td>
+<td>
+<p>7d3fe9e265681e75361982339900af6e</p>
+</td>
+<td>
+<p>常****</p>
+</td>
+<td>
+<p>不可使用高压锅，要不炖的太烂了，都没有吃牛肉的感觉了。还是需要慢慢炖煮，把味道煮进去最好，有...</p>
+</td>
+<td>
+<p>2021-06-17 10:48:28</p>
+</td>
+<td>
+<p>4.0</p>
+</td>
+<td>
+<p>高压锅 不炖 太烂 吃 牛肉 感觉 慢慢 炖煮 味道 煮 机会 买 尝尝 煮 方法
+不好 感觉</p>
+</td>
+<td>
+<p>0</p>
+</td>
+<td>
+<p>0</p>
+</td>
+<td>
+<p>0</p>
+</td>
+<td>
+<p>...</p>
+</td>
+<td>
+<p>0</p>
+</td>
+<td>
+<p>2</p>
+</td>
+<td>
+<p>0</p>
+</td>
+<td>
+<p>0</p>
+</td>
+<td>
+<p>0</p>
+</td>
+<td>
+<p>0</p>
+</td>
+<td>
+<p>1</p>
+</td>
+<td>
+<p>1</p>
+</td>
+<td>
+<p>0</p>
+</td>
+<td>
+<p>2</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>
+<p>3 rows × 96 columns</p>
+</p>
+<p>增加了14列一级指标。</p></li>
+<li><p>生成标签</p>
+<p>将 score 小于三的划分为负面评论
+<code>0</code>，大于三的划分为正面评论 <code>1</code>。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">comments[<span class="string">&#x27;Label&#x27;</span>] = comments[<span class="string">&#x27;score&#x27;</span>].apply(<span class="keyword">lambda</span> x: <span class="number">1</span> <span class="keyword">if</span> x &gt;=<span class="number">3</span> <span class="keyword">else</span> <span class="number">0</span>)</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="tf-idf">4.4 TF-IDF</h2>
+<ul>
+<li><p>TP-IDF 处理</p>
+<p>将评论文本数据转化为 10 维的向量数据。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.model_selection <span class="keyword">import</span> cross_val_score</span><br><span class="line"><span class="keyword">from</span> sklearn.linear_model <span class="keyword">import</span> LogisticRegression</span><br><span class="line"><span class="keyword">from</span> sklearn.neighbors <span class="keyword">import</span> KNeighborsClassifier</span><br><span class="line"><span class="keyword">from</span> sklearn.naive_bayes <span class="keyword">import</span> GaussianNB</span><br><span class="line"><span class="keyword">from</span> sklearn.ensemble <span class="keyword">import</span> RandomForestClassifier</span><br><span class="line"><span class="keyword">from</span> mlxtend.classifier <span class="keyword">import</span> StackingCVClassifier</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> sklearn.metrics <span class="keyword">import</span> accuracy_score <span class="keyword">as</span> ac</span><br><span class="line"><span class="keyword">from</span> sklearn.model_selection <span class="keyword">import</span> train_test_split</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> sklearn.decomposition <span class="keyword">import</span> TruncatedSVD</span><br><span class="line"><span class="keyword">from</span> sklearn.feature_extraction.text <span class="keyword">import</span> TfidfVectorizer</span><br><span class="line"></span><br><span class="line">%matplotlib inline</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_tfidf</span>(<span class="params">df, names</span>):</span></span><br><span class="line">    tfidf_enc_tmp = TfidfVectorizer(ngram_range=(<span class="number">1</span>, <span class="number">2</span>))</span><br><span class="line">    tfidf_vec_tmp = tfidf_enc_tmp.fit_transform(df[names])</span><br><span class="line">    svd_tag_tmp = TruncatedSVD(n_components=<span class="number">10</span>, n_iter=<span class="number">20</span>, random_state=<span class="number">2019</span>)</span><br><span class="line">    tag_svd_tmp = svd_tag_tmp.fit_transform(tfidf_vec_tmp)</span><br><span class="line">    tag_svd_tmp = pd.DataFrame(tag_svd_tmp)</span><br><span class="line">    tag_svd_tmp.columns = [<span class="string">f&#x27;<span class="subst">&#123;names&#125;</span>_svd_<span class="subst">&#123;i&#125;</span>&#x27;</span> <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">10</span>)]</span><br><span class="line">    <span class="keyword">return</span> tag_svd_tmp</span><br><span class="line">    <span class="comment">#return pd.concat([df[[merge_id]], tag_svd_tmp], axis=1)</span></span><br><span class="line">    </span><br><span class="line">detail_svd = get_tfidf(comments, <span class="string">&#x27;content_seg&#x27;</span>)</span><br><span class="line">comments = pd.concat([comments, detail_svd], axis = <span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">comments.columns</span><br></pre></td></tr></table></figure>
+<p>Results:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Index([<span class="string">&#x27;id&#x27;</span>, <span class="string">&#x27;guid&#x27;</span>, <span class="string">&#x27;nickname&#x27;</span>, <span class="string">&#x27;content&#x27;</span>, <span class="string">&#x27;creationTime&#x27;</span>, <span class="string">&#x27;score&#x27;</span>,</span><br><span class="line">     <span class="string">&#x27;content_seg&#x27;</span>, <span class="string">&#x27;包装&#x27;</span>, <span class="string">&#x27;活动&#x27;</span>, <span class="string">&#x27;优惠&#x27;</span>,</span><br><span class="line">     ...</span><br><span class="line">     <span class="string">&#x27;content_seg_svd_0&#x27;</span>, <span class="string">&#x27;content_seg_svd_1&#x27;</span>, <span class="string">&#x27;content_seg_svd_2&#x27;</span>,</span><br><span class="line">     <span class="string">&#x27;content_seg_svd_3&#x27;</span>, <span class="string">&#x27;content_seg_svd_4&#x27;</span>, <span class="string">&#x27;content_seg_svd_5&#x27;</span>,</span><br><span class="line">     <span class="string">&#x27;content_seg_svd_6&#x27;</span>, <span class="string">&#x27;content_seg_svd_7&#x27;</span>, <span class="string">&#x27;content_seg_svd_8&#x27;</span>,</span><br><span class="line">     <span class="string">&#x27;content_seg_svd_9&#x27;</span>],</span><br><span class="line">    dtype=<span class="string">&#x27;object&#x27;</span>, length=<span class="number">107</span>)</span><br></pre></td></tr></table></figure>
+<p>至此，特征工程处理完毕。</p></li>
+</ul>
+<h2 id="lightgbm-建模分析">4.5 LightGBM 建模分析</h2>
+<h2 id="lightgbm-建模分析-1">LightGBM 建模分析</h2>
+<ul>
+<li><p>模型定义</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">sub_on_line</span>(<span class="params">train_, test_, pred, label,  is_shuffle=<span class="literal">True</span></span>):</span></span><br><span class="line">    n_splits = <span class="number">5</span></span><br><span class="line">    folds = KFold(n_splits=n_splits, shuffle=is_shuffle, random_state=<span class="number">1024</span>)</span><br><span class="line">    sub_preds = np.zeros((test_.shape[<span class="number">0</span>], folds.n_splits))</span><br><span class="line">    train_.loc[:, <span class="string">f&#x27;<span class="subst">&#123;label&#125;</span>_pred&#x27;</span>] = <span class="number">0</span></span><br><span class="line">    fold_importance_df = pd.DataFrame()</span><br><span class="line">    fold_importance_df[<span class="string">&quot;Feature&quot;</span>] = pred</span><br><span class="line">    print(<span class="string">f&#x27;Use <span class="subst">&#123;<span class="built_in">len</span>(pred)&#125;</span> features ...&#x27;</span>)</span><br><span class="line">    auc_scores = []</span><br><span class="line">    params = &#123;</span><br><span class="line">        <span class="string">&#x27;learning_rate&#x27;</span>: <span class="number">0.01</span>,</span><br><span class="line">        <span class="string">&#x27;boosting_type&#x27;</span>: <span class="string">&#x27;gbdt&#x27;</span>,</span><br><span class="line">        <span class="string">&#x27;objective&#x27;</span>: <span class="string">&#x27;binary&#x27;</span>,</span><br><span class="line">        <span class="string">&#x27;metric&#x27;</span>: <span class="string">&#x27;auc&#x27;</span>,</span><br><span class="line">        <span class="string">&#x27;num_leaves&#x27;</span>: <span class="number">63</span>,</span><br><span class="line">        <span class="string">&#x27;feature_fraction&#x27;</span>: <span class="number">0.8</span>,</span><br><span class="line">        <span class="string">&#x27;bagging_fraction&#x27;</span>: <span class="number">0.8</span>,</span><br><span class="line">        <span class="string">&#x27;bagging_freq&#x27;</span>: <span class="number">5</span>,</span><br><span class="line">        <span class="string">&#x27;seed&#x27;</span>: <span class="number">1</span>,</span><br><span class="line">        <span class="string">&#x27;bagging_seed&#x27;</span>: <span class="number">1</span>,</span><br><span class="line">        <span class="string">&#x27;feature_fraction_seed&#x27;</span>: <span class="number">7</span>,</span><br><span class="line">        <span class="string">&#x27;min_data_in_leaf&#x27;</span>: <span class="number">20</span>,</span><br><span class="line">        <span class="string">&#x27;nthread&#x27;</span>: -<span class="number">1</span>,</span><br><span class="line">        <span class="string">&#x27;verbose&#x27;</span>: -<span class="number">1</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> n_fold, (train_idx, valid_idx) <span class="keyword">in</span> <span class="built_in">enumerate</span>(folds.split(train_.index), start=<span class="number">1</span>):</span><br><span class="line">        print(<span class="string">f&#x27;the <span class="subst">&#123;n_fold&#125;</span> training start ...&#x27;</span>)</span><br><span class="line">        train_x, train_y = train_.loc[train_idx, pred], train_.loc[train_idx, label]</span><br><span class="line">        valid_x, valid_y = train_.loc[valid_idx, pred], train_.loc[valid_idx, label]</span><br><span class="line">        print(<span class="string">f&#x27;for train user:<span class="subst">&#123;<span class="built_in">len</span>(train_idx)&#125;</span>\nfor valid user:<span class="subst">&#123;<span class="built_in">len</span>(valid_idx)&#125;</span>&#x27;</span>)</span><br><span class="line">        dtrain = lgb.Dataset(train_x, label=train_y)</span><br><span class="line">        dvalid = lgb.Dataset(valid_x, label=valid_y)</span><br><span class="line"></span><br><span class="line">        clf = lgb.train(</span><br><span class="line">            params=params,</span><br><span class="line">            train_set=dtrain,</span><br><span class="line">            num_boost_round=<span class="number">10000</span>,</span><br><span class="line">            valid_sets=[dvalid],</span><br><span class="line">            early_stopping_rounds=<span class="number">500</span>,</span><br><span class="line">            verbose_eval=<span class="number">100</span></span><br><span class="line">        )</span><br><span class="line">        sub_preds[:, n_fold - <span class="number">1</span>] = clf.predict(test_[pred], num_iteration=clf.best_iteration)</span><br><span class="line">        fold_importance_df[<span class="string">f&#x27;fold_<span class="subst">&#123;n_fold&#125;</span>_imp&#x27;</span>] = clf.feature_importance()</span><br><span class="line">        auc_scores.append(clf.best_score[<span class="string">&#x27;valid_0&#x27;</span>][<span class="string">&#x27;auc&#x27;</span>])</span><br><span class="line">        train_.loc[valid_idx, <span class="string">f&#x27;<span class="subst">&#123;label&#125;</span>_pred&#x27;</span>] = clf.predict(valid_x, num_iteration=clf.best_iteration)</span><br><span class="line"></span><br><span class="line">    five_folds = [<span class="string">f&#x27;fold_<span class="subst">&#123;f&#125;</span>_imp&#x27;</span> <span class="keyword">for</span> f <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>, n_splits + <span class="number">1</span>)]</span><br><span class="line">    fold_importance_df[<span class="string">&#x27;avg_imp&#x27;</span>] = fold_importance_df[five_folds].mean(axis=<span class="number">1</span>)</span><br><span class="line">    fold_importance_df.sort_values(by=<span class="string">&#x27;avg_imp&#x27;</span>, ascending=<span class="literal">False</span>, inplace=<span class="literal">True</span>)</span><br><span class="line">    fold_importance_df[[<span class="string">&#x27;Feature&#x27;</span>, <span class="string">&#x27;avg_imp&#x27;</span>]].to_csv(<span class="string">&#x27;./Process/feat_imp_base.csv&#x27;</span>, index=<span class="literal">False</span>, encoding=<span class="string">&#x27;ansi&#x27;</span>)</span><br><span class="line">    test_[<span class="string">f&#x27;<span class="subst">&#123;label&#125;</span>_pred&#x27;</span>] = np.mean(sub_preds, axis=<span class="number">1</span>).<span class="built_in">round</span>()</span><br><span class="line">    <span class="comment"># print(classification_report(test_[f&#x27;&#123;label&#125;_pred&#x27;], test_[label], digits=4))</span></span><br><span class="line">    print(<span class="string">&#x27;auc score&#x27;</span>, np.mean(auc_scores))</span><br><span class="line">    <span class="keyword">return</span> test_</span><br></pre></td></tr></table></figure></li>
+<li><p>建模分析</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> lightgbm <span class="keyword">as</span> lgb</span><br><span class="line"><span class="keyword">from</span> sklearn.model_selection <span class="keyword">import</span> KFold</span><br><span class="line"><span class="keyword">from</span> sklearn.metrics <span class="keyword">import</span> classification_report</span><br><span class="line"></span><br><span class="line">label = <span class="string">&#x27;Label&#x27;</span></span><br><span class="line">train = train.reset_index(drop = <span class="literal">True</span>)</span><br><span class="line">test = test.reset_index(drop = <span class="literal">True</span>)</span><br><span class="line">test_pred = sub_on_line(train, test, features, label)</span><br></pre></td></tr></table></figure>
+<p>Results:</p>
+<pre><code>Use 99 features ...
+the 1 training start ...
+for train user:20748
+for valid user:5187
+Training until validation scores don&#39;t improve for 500 rounds
+[100] valid_0&#39;s auc: 0.912947
+[200] valid_0&#39;s auc: 0.923455
+[300] valid_0&#39;s auc: 0.932511
+[400] valid_0&#39;s auc: 0.938316
+[500] valid_0&#39;s auc: 0.9423
+[600] valid_0&#39;s auc: 0.945808
+[700] valid_0&#39;s auc: 0.948631
+[800] valid_0&#39;s auc: 0.950704
+[900] valid_0&#39;s auc: 0.952399
+[1000]    valid_0&#39;s auc: 0.953738
+[1100]    valid_0&#39;s auc: 0.95514
+[1200]    valid_0&#39;s auc: 0.955977
+[1300]    valid_0&#39;s auc: 0.956791
+[1400]    valid_0&#39;s auc: 0.957412
+[1500]    valid_0&#39;s auc: 0.957956
+[1600]    valid_0&#39;s auc: 0.958558
+[1700]    valid_0&#39;s auc: 0.958972
+[1800]    valid_0&#39;s auc: 0.959205
+[1900]    valid_0&#39;s auc: 0.959827
+[2000]    valid_0&#39;s auc: 0.960179
+[2100]    valid_0&#39;s auc: 0.96054
+[2200]    valid_0&#39;s auc: 0.960713
+[2300]    valid_0&#39;s auc: 0.960969
+[2400]    valid_0&#39;s auc: 0.961075
+[2500]    valid_0&#39;s auc: 0.961292
+[2600]    valid_0&#39;s auc: 0.961535
+[2700]    valid_0&#39;s auc: 0.961669
+[2800]    valid_0&#39;s auc: 0.961738
+[2900]    valid_0&#39;s auc: 0.962018
+[3000]    valid_0&#39;s auc: 0.962061
+[3100]    valid_0&#39;s auc: 0.962088
+[3200]    valid_0&#39;s auc: 0.96215
+[3300]    valid_0&#39;s auc: 0.962239
+[3400]    valid_0&#39;s auc: 0.962313
+[3500]    valid_0&#39;s auc: 0.9623
+[3600]    valid_0&#39;s auc: 0.962196
+[3700]    valid_0&#39;s auc: 0.962222
+[3800]    valid_0&#39;s auc: 0.962309
+[3900]    valid_0&#39;s auc: 0.962354
+[4000]    valid_0&#39;s auc: 0.962443
+[4100]    valid_0&#39;s auc: 0.96247
+[4200]    valid_0&#39;s auc: 0.962388
+[4300]    valid_0&#39;s auc: 0.962324
+[4400]    valid_0&#39;s auc: 0.962444
+[4500]    valid_0&#39;s auc: 0.962368
+Early stopping, best iteration is:
+[4067]    valid_0&#39;s auc: 0.962502
+Early stopping, best iteration is:
+[5067]    valid_0&#39;s auc: 0.955291 ...
+auc score 0.9550347381665819</code></pre></li>
+<li><p>分类结果</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">print(classification_report(test_pred[<span class="string">f&#x27;<span class="subst">&#123;label&#125;</span>_pred&#x27;</span>], test_pred[label], digits=<span class="number">4</span>))</span><br></pre></td></tr></table></figure>
+<pre><code>              precision    recall  f1-score   support
+
+         0.0     0.7155    0.8783    0.7886       567
+         1.0     0.9881    0.9665    0.9772      5917
+
+    accuracy                         0.9588      6484
+   macro avg     0.8518    0.9224    0.8829      6484
+weighted avg     0.9642    0.9588    0.9607      6484</code></pre>
+<p>可以发现分类结果还算不错。</p></li>
+</ul>
+<h1 id="conclusion">5. Conclusion</h1>
+<p>至此，京东评论爬取和情感分析处理完毕。由于是个人的比赛项目，本文不提供更详细的数据，代码和部分结果已基本附上。所获取的数据仅用于比赛。图片皆为个人爬取后的数据截图，如有侵权，可联系邮箱进行删除。</p>
+<p>申明：本文仅供学习和交流，请珍惜作者劳动成果，勿用作商业用途，如需商业用途或业务交流可联系邮箱
+<code>e-mail:yangsuoly@qq.com</code> 进行进一步交流。</p>
+
+    </div>
+
+    
+    
+    
+
+    <div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">
+            -------------This blog is over!
+            <i class="fa fa-eye"></i>
+            Thanks for your reading-------------
+        </div>
+    
+</div>
+      
+    </div>
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>Post author:  </strong>YangSu
+  </li>
+  <li class="post-copyright-link">
+    <strong>Post link: </strong>
+    <a href="http://yangsuoly.com/2021/10/02/Crawler-JD/" title="Crawler-JD">http://yangsuoly.com/2021/10/02/Crawler-JD/</a>
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/Tags/Crawler/" rel="tag"><i class="fa fa-tag"></i> Crawler</a>
+              <a href="/Tags/Project/" rel="tag"><i class="fa fa-tag"></i> Project</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/10/02/Crawler-qcc/" rel="prev" title="Crawler-qcc">
+      <i class="fa fa-chevron-left"></i> Crawler-qcc
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/12/18/Recommentation-Database/" rel="next" title="Recommentation-Database">
+      Recommentation-Database <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div id="music163player">
+      <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=1317956275&auto=0&height=66"></iframe>
+      </iframe>
+    </div>
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#introduciton"><span class="nav-text">1. Introduciton</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#job-description"><span class="nav-text">1.1 Job description</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#task-analysis"><span class="nav-text">1.2 Task analysis</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#reviews-analysis"><span class="nav-text">1.3 Reviews analysis</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#static-crawler"><span class="nav-text">2. Static crawler</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#configuration"><span class="nav-text">2.1 configuration</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#self-function"><span class="nav-text">2.2 Self-function</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8F%90%E5%8F%96%E8%AF%84%E8%AE%BA%E6%96%87%E6%9C%AC"><span class="nav-text">2.3 提取评论文本</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E7%95%8C%E5%AE%9A"><span class="nav-text">2.3.1 数据界定</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89%E7%88%AC%E5%8F%96%E6%89%80%E9%9C%80%E4%BF%A1%E6%81%AF%E7%9A%84%E5%87%BD%E6%95%B0"><span class="nav-text">2.3.2 定义爬取所需信息的函数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BC%80%E5%A7%8B%E7%88%AC%E5%8F%96"><span class="nav-text">2.4 开始爬取</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#dynamic-crawler"><span class="nav-text">3 Dynamic crawler</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#description"><span class="nav-text">3.1 Description</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%88%AC%E5%8F%96%E9%97%AE%E7%AD%94%E6%95%B0%E6%8D%AE"><span class="nav-text">3.2 爬取问答数据</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#emotion-analysis"><span class="nav-text">4. Emotion analysis</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#preparation"><span class="nav-text">4.1 Preparation</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#load-data"><span class="nav-text">4.1.1 Load data</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#preprocession"><span class="nav-text">4.2 Preprocession</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#word-frequency-analysis"><span class="nav-text">4.2 Word frequency analysis</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#word-frequency"><span class="nav-text">4.2.1 Word frequency</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#word-cloud"><span class="nav-text">4.2.2 Word cloud</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#feature-engineering"><span class="nav-text">4.3 Feature engineering</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#tf-idf"><span class="nav-text">4.4 TF-IDF</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#lightgbm-%E5%BB%BA%E6%A8%A1%E5%88%86%E6%9E%90"><span class="nav-text">4.5 LightGBM 建模分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#lightgbm-%E5%BB%BA%E6%A8%A1%E5%88%86%E6%9E%90-1"><span class="nav-text">LightGBM 建模分析</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#conclusion"><span class="nav-text">5. Conclusion</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="YangSu"
+      src="/images/YangSu.jpg">
+  <p class="site-author-name" itemprop="name">YangSu</p>
+  <div class="site-description" itemprop="description">A blog for recording learning notes...</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">78</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/Categories/">
+          
+        <span class="site-state-item-count">40</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/Tags/">
+          
+        <span class="site-state-item-count">49</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/YangSuoly" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;YangSuoly" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://gitee.com/yangsuoly" title="Gitee → https:&#x2F;&#x2F;gitee.com&#x2F;yangsuoly" rel="noopener" target="_blank"><i class="fab fa-github-square fa-fw"></i>Gitee</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://space.bilibili.com/64518717" title="B 站 → https:&#x2F;&#x2F;space.bilibili.com&#x2F;64518717" rel="noopener" target="_blank"><i class="fa fa-play-circle fa-fw"></i>B 站</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Related links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://www.58pic.com/u/19637930/" title="https:&#x2F;&#x2F;www.58pic.com&#x2F;u&#x2F;19637930&#x2F;" rel="noopener" target="_blank">千图网</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js" integrity="sha384-g7c+Jr9ZivxKLnZTDUhnkOnsh30B4H0rpLUpJ4jAIKs4fnJI+sEnkvrMWph2EDg4" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/auto-render.min.js" integrity="sha384-mll67QQFJfxn0IYznZYonOWZ644AWYC+Pt2cHqMaRhXVrursRwvLnLaebdGIlYNa" crossorigin="anonymous"
+        onload="renderMathInElement(document.body);"></script>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2026</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">YangSu</span>
+</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="Total Visitors">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="Total Views">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script size="300" alpha="0.6" zIndex="-1" src="/lib/canvas-ribbon/canvas-ribbon.js"></script>
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+<script>
+document.querySelectorAll('.pdfobject-container').forEach(element => {
+  let url = element.dataset.target;
+  let pdfOpenParams = {
+    navpanes : 0,
+    toolbar  : 0,
+    statusbar: 0,
+    pagemode : 'thumbs',
+    view     : 'FitH'
+  };
+  let pdfOpenFragment = '#' + Object.entries(pdfOpenParams).map(([key, value]) => `${key}=${encodeURIComponent(value)}`).join('&');
+  let fullURL = `/lib/pdf/web/viewer.html?file=${encodeURIComponent(url)}${pdfOpenFragment}`;
+
+  if (NexT.utils.supportsPDFs()) {
+    element.innerHTML = `<embed class="pdfobject" src="${url + pdfOpenFragment}" type="application/pdf" style="height: ${element.dataset.height};">`;
+  } else {
+    element.innerHTML = `<iframe src="${fullURL}" style="height: ${element.dataset.height};" frameborder="0"></iframe>`;
+  }
+});
+</script>
+
+
+<script>
+if (document.querySelectorAll('pre.mermaid').length) {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js', () => {
+    mermaid.initialize({
+      theme    : 'forest',
+      logLevel : 3,
+      flowchart: { curve     : 'linear' },
+      gantt    : { axisFormat: '%m/%d/%Y' },
+      sequence : { actorMargin: 50 }
+    });
+  }, window.mermaid);
+}
+</script>
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+  <script src="//cdn.jsdelivr.net/npm/quicklink@1/dist/quicklink.umd.js"></script>
+  <script>
+      window.addEventListener('load', () => {
+      quicklink({
+        timeout : 3000,
+        priority: true,
+        ignores : [uri => uri.includes('#'),uri => uri === 'http://yangsuoly.com/2021/10/02/Crawler-JD/',]
+      });
+      });
+  </script>
+
+  
+  <script id="ribbon" src="js/canvas-ribbon.js"></script>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/22.2017.cba-normal.model.json"},"display":{"position":"right","width":300,"height":450},"mobile":{"show":false},"react":{"opacity":0.7},"log":false});</script></body>
+</html>

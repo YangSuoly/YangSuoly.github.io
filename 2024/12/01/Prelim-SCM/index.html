@@ -1,0 +1,2366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/blog-logo-32px.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/blog-logo-16px.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <link rel="manifest" href="/images/manifest.json">
+  <meta name="msapplication-config" content="/images/browserconfig.xml">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yangsuoly.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":true},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":true,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="This blog is the learning notes for preparing the preliminary exams of Queue theory, referring to Fundamentals of supply chain theory.  Snyder, L. V., &amp; Shen, Z. J. M. (2019). Fundamentals of supp">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Prelim-SCM">
+<meta property="og:url" content="http://yangsuoly.com/2024/12/01/Prelim-SCM/index.html">
+<meta property="og:site_name" content="独孤诗人的学习驿站">
+<meta property="og:description" content="This blog is the learning notes for preparing the preliminary exams of Queue theory, referring to Fundamentals of supply chain theory.  Snyder, L. V., &amp; Shen, Z. J. M. (2019). Fundamentals of supp">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2024-12-01T03:30:22.000Z">
+<meta property="article:modified_time" content="2024-12-01T04:41:46.520Z">
+<meta property="article:author" content="YangSu">
+<meta property="article:tag" content="OR">
+<meta property="article:tag" content="SCM">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://yangsuoly.com/2024/12/01/Prelim-SCM/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>Prelim-SCM | 独孤诗人的学习驿站</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?f59f5fb59d32ec3903088b0f976956d1";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta custom-logo">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">独孤诗人的学习驿站</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">生活就是一半烟火，一半诗意。手执烟火谋生活，心怀诗意谋未来……</p>
+      <a>
+        <img class="custom-logo-image" src="/images/logo@2x.png" alt="独孤诗人的学习驿站">
+      </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/Tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/Categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+  <a href="https://github.com/YangSuoly" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yangsuoly.com/2024/12/01/Prelim-SCM/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/YangSu.jpg">
+      <meta itemprop="name" content="YangSu">
+      <meta itemprop="description" content="A blog for recording learning notes...">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="独孤诗人的学习驿站">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Prelim-SCM
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2024-12-01 11:30:22 / Modified: 12:41:46" itemprop="dateCreated datePublished" datetime="2024-12-01T11:30:22+08:00">2024-12-01</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/Categories/Class-Notes/" itemprop="url" rel="index"><span itemprop="name">Class Notes</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/Categories/Class-Notes/Prelim/" itemprop="url" rel="index"><span itemprop="name">Prelim</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="Views" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span><br>
+            <span class="post-meta-item" title="Symbols count in article">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">Symbols count in article: </span>
+              <span>57k</span>
+            </span>
+            <span class="post-meta-item" title="Reading time">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">Reading time &asymp;</span>
+              <span>51 mins.</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>This blog is the learning notes for preparing the preliminary exams
+of Queue theory, referring to <em>Fundamentals of supply chain
+theory</em>.</p>
+<ul>
+<li>Snyder, L. V., &amp; Shen, Z. J. M. (2019). <em>Fundamentals of
+supply chain theory</em>. John Wiley &amp; Sons.</li>
+</ul>
+<h1 id="introduction">1. Introduction</h1>
+<h2 id="the-evolution-of-supply-chain-theory">1.1 The Evolution of
+Supply Chain Theory</h2>
+<p>Supply chains used to be viewed, at least by some managers, as
+“necessary evils.”</p>
+<p>By the end of the last century, however, the purpose of the supply
+chain had begun to change as some firms discovered that supply chains
+could be a source of competitive advantage, rather than simply a cost
+driver.</p>
+<p>The final chapter of this book is devoted to exploring how the tools
+of supply chain theory are used in a few of these application
+areas—electricity systems, health care, and public sector
+operations.</p>
+<a id="more"></a>
+<blockquote>
+<p>Note: 本文文字部分借助 <code>obsidian</code> + <code>Annotator</code>
+插件（<code>Annotator</code> 介绍见 <a
+target="_blank" rel="noopener" href="https://github.com/elias-sundqvist/obsidian-annotator">obsidian-annotator</a>)，实现
+<code>pdf</code> 文档标注及文字时时提取功能，能够将所有标注的文字提取到
+<code>markdown</code> 文件中。图片部分借助
+<code>Image auto upload plugin</code> 插件 （见 <a
+target="_blank" rel="noopener" href="https://github.com/renmu123/obsidian-image-auto-upload-plugin">Link</a>
+）和 <code>PicGo</code> 实现图片自动上传到 <code>GitHub</code>
+图床。然后借助 <code>python</code>
+实现简单的文本内容提取，就可以得到纯净的笔记内容。具体
+操作和实现流程，见之前博客<a
+target="_blank" rel="noopener" href="https://www.yangsuoly.com/2023/01/20/Photography-is-simple/">Photography-is-simple/</a>的引言部分教程。</p>
+<p>完整笔记链接见：<a
+href="https://yangsuoly.com/file/Prelim-SCM.pdf"><i class="fa fa-download"></i>
+Download Now</a></p>
+</blockquote>
+<h2 id="definiton-and-scope">1.2 Definiton and Scope</h2>
+<p>Perhaps the most authoritative definition comes from the Council of
+Supply Chain Management Professionals(CSCMP), who define supply chain
+management as follows</p>
+<p>Supply chain management encompasses the planning and management of
+all activities involved in sourcing and procurement, conversion, and all
+logistics management activities. Importantly, it also includes
+coordination and collaboration with channel partners, which can be
+suppliers, intermediaries, third party service providers, and customers.
+In essence, supply chain management integrates supply and demand
+management with in and across companies</p>
+<p>These practices include a huge range of tasks, such as forecasting,
+production planning, inventory management, warehouse location, supplier
+selection, procurement, and shipping.</p>
+<p>The terms “logistics” and “logistics management” are closely related
+to “supply chain management,” and it can be difficult to draw a clear
+distinction.</p>
+<p>“supply chain management” includes logistics, as well as nonmovement
+activities such as inventory management and procure-ment.</p>
+<p>Supply chains are often represented graphically as a schematic
+network that illustrates the relationships between its elements</p>
+<p>A location in the network is referred to as a stage or node. The
+links between stages represent some type of flow—typically, the flow of
+goods, but sometimes the flow of information or money</p>
+<p>The portion of the supply chain from which products originate (the
+left-hand portion in Figure 1.1) is referred to as up stream, while the
+demand end is referred to as downstream.</p>
+<p>But today’s supply chains more closelyresemble the complex network in
+Figure 1.1; each echelon may have dozens, hundreds,or even thousands of
+nodes.</p>
+<p>The ideal supply chain management model would globally optimize every
+aspect of thesupply chain, but such a model is impossible both because
+of the difficulties in modelingsome aspects of the supply chain
+mathematically and because the resulting model wouldbe too large and
+complex to solve</p>
+<h2 id="levels-of-decision-making-in-supply-chain-management">1.3 Levels
+of Decision-making in Supply Chain Management</h2>
+<p>It is convenient to think about three levels of supply chain
+management decisions: strategic,tactical, and operational. Three level
+of supply chain management decisions: - strategic - tactical -
+operational</p>
+<h1 id="forecasting-and-demad-modeling">2. Forecasting and Demad
+Modeling</h1>
+<h2 id="introduction-1">2.1 Introduction</h2>
+<p>Demand forecasting is one of the most fundamental tasks that a
+business must perform <em>Advantage</em>: - Improving customer service
+levels and by reducing costs related to supply–demand mismatches.
+<em>Disadvantage</em> - biased or otherwise inaccurate forecasting
+results in inferior decisions and thus undermines business
+performance.</p>
+<p>The goal of the forecasting models discussed in this chapter is to
+estimate the quantityof a product or service that consumers will
+purchase</p>
+<p>Most classical forecasting techniquesinvolve time-series methods that
+require substantial historical data. Some of these methodsare designed
+for demands that are stable over time</p>
+<p>However, products today have shorter and shorter life cycles, in part
+driven by rapidtechnology upgrades for high-tech products. As a result,
+firms have much less historicaldata available to use for forecasting,
+and any trends that may be evident in historical datamay be unreliable
+for predicting the future - Large quantities of historical data
+available.</p>
+<p>n Section 2.4, we discuss more recent approaches to forecastingdemand
+using machine learning when we have large quantities of historical data
+available - Inadequate historical data</p>
+<p>n Sections 2.5–2.8, we discuss several methods that can be used to
+predict demands for newproducts or products that do not have much
+historical data.</p>
+<p>To distinguish these methodsfrom classical time-series–based methods,
+we call them demand modeling techniques. <strong>Demand
+modeling</strong> techniques: - Quantitative</p>
+<p>They all involve mathe-matical models with parameters that must be
+calibrated. - Some popular methods</p>
+<p>In contrast, some popular methodsfor forecasting demand with little
+or no historical data, such as the Delphi method, rely onexperts’
+qualitative assessments or questionnaires to develop forecasts. Demand
+processes may exhibit various forms of nonstationarity over time. These
+include the following:<br />
+- <em>Trends</em>: Demand consistently increases or decreases over
+time.<br />
+- <em>Seasonality</em>: Demand shows peaks and valleys at consistent
+intervals.<br />
+- <em>Product life cycles</em>: Demand goes through phases of rapid
+growth, maturity, and decline.</p>
+<p>Moreover, demands exhibit random error—variations that cannot be
+explained or predicted—and this randomness is typically superimposed on
+any underlying nonstationarity superimpose: <em>vt.</em>
+使重叠,使叠加</p>
+<p>Classical forecasting methods use prior demand history to generate a
+forecast.</p>
+<p>assume that pastpatterns of demand will continue into the future,
+that is, no trend is present. As a result, these techniques are best
+used for mature products with a large amount of historical data</p>
+<p>On the other hand, regression analysis and double and triple
+exponential smoothing canaccount for a trend or other pattern in the
+data.</p>
+<h3 id="moving-average">2.2.1 Moving Average</h3>
+<p>The moving average method calculates the average amount of demand
+over a given intervalof time and uses this average to predict the future
+demand. The definition of Moving Average: <span class="math display">
+D_t = I + \epsilon_t
+</span> where <span class="math inline">I</span> is the mean or "base"
+demand and <span class="math inline">\epsilon</span> is a random error
+term.</p>
+<p>$ most recent observed demands.== %%POSTFIX%%Theforecast for the
+demand in p*</p>
+<p>That is, the forecast is simply the arithmetic mean of the previous N
+observations. This isknown as a simple moving average forecast of order
+N.</p>
+<h3 id="exponential-smoothing">2.2.2 Exponential Smoothing</h3>
+<p>Exponential smoothing is a technique that uses a weighted average of
+all past data as thebasis for the forecast. <strong>Assumption</strong>:
+- <em>Single exponential smoothing</em>: the demand process is
+<em>stationary</em>; - <em>Double exponential smoothing</em>: there is a
+trend; - <em>Triple exponential smoothing</em>: account for trends and
+seasonality.</p>
+<p>These methods all requireuser-specified parameters that determine the
+relative weights placed on recent and olderobservations when predicting
+the demand, trend, and seasonality These three weights arecalled,
+respectively, the smoothing factor, the trend factor, and the
+seasonality factor 1. Single Exponential Smoothing</p>
+<p>The single exponential smoothing forecast includes all
+pastobservations, These weights can be approximated with an exponential
+function <span class="math inline">f(i) = αe^{−αi}</span>. 2. Double
+Exponential Smoothing</p>
+<p>Double exponential smoothing can beused to forecast demands with a
+linear trend.</p>
+<p>It places a weight of <span class="math inline">β</span> on the most
+recent estimate of the slope(obtained by taking the difference between
+the two most recent base signals) and a weight of <span
+class="math inline">1 −β</span> on the previous estimate 3. Triple
+Exponential Smoothing</p>
+<p>Triple exponential smoothing can be usedto forecast demands that
+exhibit both trend and seasonality. <em>Seasonality</em>: the demand
+series has a pattern that repeats every <span
+class="math inline">N</span> periods for some fixed <span
+class="math inline">N</span>.</p>
+<p>The idea behind smoothing with trend and seasonality is basically to
+“de-trend” and “de-seasonalize” the time series by separating the base
+signal from the trend and seasonalityeffects</p>
+<p>Initializing triple exponential smoothing is a bit trickier than for
+single or double expo-nential smoothing.</p>
+<p>To do so, we usually need at least two entire seasons’ worth of
+data(<span class="math inline">2N</span> periods), which will be used
+for the initialization phase. One common method is toinitialize the
+slope as</p>
+<p>In other words, we take the per-period increase in demand between
+periods 1 and <span class="math inline">N + 1</span>, and the per-period
+increase between periods 2 and <span class="math inline">N + 2</span>,
+and so on; and then we take the average over those <span
+class="math inline">N</span> values.</p>
+<h3 id="linear-regression">2.2.3 Linear Regression</h3>
+<p>Historical data can also be used to forecast demands by determining a
+cause–effect rela-tionship between some independent variables and the
+demand</p>
+<p>In linear regression, the model specification assumes that the
+dependent variable, Y , is alinear combination of the independent
+variables.</p>
+<p>To build a regression model, we need historical data
+points—observations of both theindependent variable(s) and the dependent
+variable.</p>
+<h2 id="forecast-accuracy">2.3 Forecast Accuracy</h2>
+<h3 id="mad-mse-and-mape">2.3.1 MAD, MSE and MAPE</h3>
+<p>Measurements: - MAD: Mean Absolute Deviation - MSE: Mean Squared
+Error - MAPE: Mean Absolute Percentage Error</p>
+<p><span class="math display">
+\begin{aligned}
+\mathrm{MAD} &amp; =\frac{1}{n} \sum_{t=1}^n\left|e_t\right| \\
+\mathrm{MSE} &amp; =\frac{1}{n} \sum_{t=1}^n e_t^2 \\
+\mathrm{MAPE} &amp;= \frac{1}{n} \sum\limits_{t-i}^{n} \left|
+\frac{e_t}{D_t}\right| \times 100
+\end{aligned}
+</span></p>
+<p>If the mean of the forecast error, μe,equals 0, we say the
+forecasting method is unbiased: It does not produce forecasts that
+aresystematically either too low or too high.</p>
+<p>MAD is sometimes preferred to MSE in real applicationsbecause it
+avoids the calculation of squaring, though modern spreadsheet and
+statisticspackages can compute either performance measure easily.</p>
+<h2 id="machine-learning-in-demand-forecasting">2.4 Machine Learning in
+Demand Forecasting</h2>
+<h3 id="introduction-2">2.4.1 Introduction</h3>
+<p>The huge volume of data generated every day, the high velocityof data
+creation, and the large variety of sources all make today’s business
+informationenvironment different than it was only a decade ago.</p>
+<p>Compared with classical forecastingmethods such as the time series
+methods discussed in Section 2.2, machine learning modelsoften
+significantly increase prediction accuracy.</p>
+<h2 id="machine-learning">2.4.2 Machine Learning</h2>
+<p>machine learning (ML) refers to a set of algorithms that can learn
+from andmake predictions about data</p>
+<p>Both techniques fall into the overall field of data science, which
+covers a wider range oftopics, including database design and data
+visualization techniques.</p>
+<p>In contrast, unsupervised learning explores relationships and
+structures withinthe data without any known “ground truth” labels or
+outputs.</p>
+<p>Common supervised learning methods include linear regression (and its
+nonlinear ex-tensions), kernel methods, tree-based models, support
+vector machines (SVMs), and neuralnetworks</p>
+<p>Graphical models involving hidden Markov models (or, in their
+simplest form,mixture models) and Markov random fields also receive
+considerable attention. 1. Linear regression 2. Tree-based models</p>
+<p>The trees used for these two types of problems are referred to as
+regression treesand classification trees, respectively. In demand
+forecasting, regression trees have receivedmore attention because of
+their simplicity and interpretability</p>
+<p>However, in practice, the number of possible partitionsmay be too
+large to enumerate. Therefore, it is common to use a binary splitting
+methodcalled recursive partitioning, which generates two regions from
+the original region at eachiteration.</p>
+<p>researchershave developed methods that combine several trees to
+enhance the prediction performance.These include random forests,
+bagging, and boosting.</p>
+<p>stock-keeping unit (SKU) sales 3. Support vector machines</p>
+<p>SVMs are designed to partition the space ofinput variables into two
+regions, i.e., to make a binary prediction about a given outputbased on
+which region a given input vector falls into.</p>
+<p>SVMs can be generalized to allow nonlinearities by mapping the input
+space into ahigh-dimensional space using kernel functions.</p>
+<p>Popular choices ofkernel functions include polynomials and radial
+basis functions (RBFs) 4. Neural networks</p>
+<p>A neural network consists of several nodes, also calledneurons,
+arranged into layers.</p>
+<p>The key challenge in fitting a neural network model is the
+determination of the weights <span
+class="math inline">\alpha_{0m}</span> and <span
+class="math inline">\alpha_m</span>. This is usually done using some
+sort of algorithm that modifies the weights as the network “learns”
+right and wrong answers.</p>
+<p>Suchdeep neural networks have led to huge advances in machine
+learning, with great successesnot only in classification and prediction
+problems such as image processing and demandforecasting, but also, when
+coupled with reinforcement learning (RL), in solving decisionproblems
+such as those in board games</p>
+<h2 id="demand-modeling-techniques">2.5 Demand Modeling Techniques</h2>
+<p>they need tounderstand the life cycles and demand dynamics of their
+products</p>
+<p>It turns outthat classical forecasting techniques did not work well
+with the company’s highly variable,short-life-cycle products, so the
+firm introduced products at the wrong times in the wrongquantities.</p>
+<h2 id="bass-diffusion-model">2.6 Bass Diffusion Model</h2>
+<p>The sales patterns of new products typically go through three phases:
+rapid growth, maturity,and decline</p>
+<p>The premise of the Bass model is that customers can be classified
+into innovatorsand imitators.</p>
+<p>Thegoal of the Bass model is to characterize this behavior in an
+effort to forecast the demand</p>
+<p>Moreover, it attempts topredict two important dimensions of a
+forecast: how many customers will eventually adoptthe new product, and
+when they will adopt</p>
+<p>Knowing the timing of adoptions is importantas it can guide the firm
+to smartly utilize resources in marketing the new product.</p>
+<h3 id="the-model">2.6.1 The Model</h3>
+<p>It assumes that <span class="math inline">P(t)</span>, the
+probability that a given buyer makes an initial purchase at time <span
+class="math inline">t</span> given that she has not yet made a purchase,
+is a linear function of the number of previous buyers, that is, <span
+class="math display">
+P(t) = p + \frac{q}{m} D(t)
+</span> where <span class="math inline">D(t)</span> is the
+<em>cumulative demand</em> by time <span class="math inline">t</span>.
+<span class="math inline">q</span> and <span
+class="math inline">m</span> represent the <em>coefficient of
+imitation</em> and the <em>market size</em>.</p>
+<p>This equation include two influence factors: - coefficient of
+innovation, denoted <span class="math inline">p</span>, which is a
+constant, independent of how many other customers have adopted the
+innovation before time <span class="math inline">t</span>. - the
+"contagion" effect between the innovators and the imitators, denoted
+<span class="math inline">\frac{q}{m} D(t)</span>, which is proportional
+to the number of customers who have already adopted by time <span
+class="math inline">t</span>.</p>
+<p>Our preference would be to have a closed-form expressionfor D(t).
+Fortunately, this is possible:</p>
+<p>In summary, by varying the values of p and q, we can represent
+manydifferent patterns of demand diffusion</p>
+<h3 id="discrete-time-version">2.6.2 Discrete Time Version</h3>
+<p>A discrete-time version of the Bass model is available.</p>
+<h3 id="parameter-estimation">2.6.3 Parameter Estimation</h3>
+<p>The Bass model is heavily driven by the parameters <span
+class="math inline">m</span>, <span class="math inline">p</span>, and
+<span class="math inline">q</span>.</p>
+<p>However, because the Bass model is typically used for new products,
+in most caseshistorical data are not available to estimate the
+parameters.</p>
+<p>Instead, m is typically esti-mated qualitatively, using judgment or
+intuition from management about the size of themarket, market research,
+or the Delphi method</p>
+<p>The parameters <span class="math inline">p</span> and <span
+class="math inline">q</span> tend to be relatively consistent withina
+given industry, so these can often be estimated from the diffusion
+patterns of similarproducts.</p>
+<h3 id="extensions">2.6.4 Extensions</h3>
+<p>The original model has also been extendedin a number of ways.</p>
+<h2 id="learning-indicator-approach">2.7 Learning Indicator
+Approach</h2>
+<p>Product life cycles are becoming shorter and shorter, so it is
+difficult to obtain enoughhistorical data to forecast demands
+accurately. - Solution: leading indicators</p>
+<p>One idea that has proven to work well insuch situations is the use of
+leading indicators—products that can be used to predict thedemands of
+other, later products because the two products share a similar demand
+pattern</p>
+<p>The idea is first to group the products into clusters so that all of
+the products within a clustershare similar attributes.</p>
+<p>Even though all of the products are on the market simultaneously,the
+lag provides enough time so that supply chain planning for the products
+in the clustercan take place based on the forecasts provided by the
+leading indicator. Of course, correctlyidentifying the leading indicator
+is critical.</p>
+<h2 id="discrete-choice-models">2.8 Discrete Choice Models</h2>
+<h3 id="introduction-to-discrete-choice">2.8.1 Introduction to Discrete
+Choice</h3>
+<p>In economics, discrete choice models involve choices between two or
+more discrete alterna-tives</p>
+<p>The idea behind discrete choice models is to build a statistical
+model that predictsthe choice made by an individual based on the
+individual’s own attributes as well as theattributes of the available
+choices.</p>
+<p>choice models are atthe aggregate (population) level and assume that
+each decision-maker’s preferences arecaptured implicitly by that
+model.</p>
+<p>Discrete choice models take many forms, including binary and
+multinomial logit, binaryand multinomial probit, and conditional
+logit.</p>
+<p>For a discrete choice model, the setof alternatives in the choice set
+must be mutually exclusive, exhaustive, and finite.</p>
+<p>Discrete choice models usuallyassume that the decision-maker is a
+utility maximizer. That is, he will choose alternative iif and only if
+<span class="math inline">U_{ni} &gt; U_{nj}</span> for all <span
+class="math inline">j ∈I, j \neq i</span></p>
+<h3 id="the-multinomial-logit-model">2.8.2 The Multinomial Logit
+Model</h3>
+<p>Next we derive the multinomial logit model. (Refer to McFadden (1974)
+or Train (2009)for further details of the derivation.) “Multinomial”
+means that there are multiple optionsfrom which the decision-maker
+chooses</p>
+<h1 id="deterministic-inventory-models">3. Deterministic Inventory
+Models</h1>
+<h2 id="introduction-to-inventory-modeling">3.1 Introduction to
+Inventory Modeling</h2>
+<p>These are all reasons that firms plan to hold inventory. In addition,
+firms may holdunplanned inventory—for example, inventory of products
+that have become obsolete soonerthan expected</p>
+<p>In fact, although we tend todiscuss inventory models as though the
+firm is buying a product from an outside supplier,most inventory models
+apply equally well to production systems,</p>
+<p>Mathematical inventory models can be classified along a number of
+different dimensions: Mathematical inventory models can be classified
+along a number of different dimensions: - Demand - Lead time - Review
+type - Planning horizon - Stockout type - Ensuring good service - Fixed
+cost - Perishability</p>
+<p>Like all mathematical models, inventory models must balance two
+competing factors—realism and tractability</p>
+<p>The goal of most inventory models is to minimize the cost (or
+maximize the profit) of theinventory system. Four types of costs: -
+Holding cost - Fixed cost - Purchase cost - Stockout cost</p>
+<p>Stockout cost. This is the cost of not having sufficient inventory to
+meet demand, alsocalled the penalty cost or stockout penalty</p>
+<p>There are several measures that we use to assess the amount of
+inventory in the system atany given time. There are several measures
+that we use to assess the amount of inventory in the system at any given
+time. - On-hand inventory (OH) refers to the number of units that are
+actually available at the stocking location. - Backorders (BO) represent
+demands that have occurred but have not been satisfied. Generally, it’s
+not possible for the on-hand inventory and the backorders to be positive
+at the same time - The inventory level (IL) is equal to the on-hand
+inventory minus backorders - inventory position (IP), which equals the
+inventory level plus items on order</p>
+<p>the economic order quantity (EOQ) model, perhaps the oldest and
+best-known mathematical inventory model (Section 3.2), and some of its
+extensions; and thena periodic-review model</p>
+<p>The models discussed in this chapter are sometimes known as economic
+lot size problems.</p>
+<h2 id="continuous-review-the-economic-order-quantity-problem">3.2
+Continuous Review: The Economic Order Quantity Problem</h2>
+<h3 id="problem-statement">3.2.1 Problem Statement</h3>
+<p>The economic order quantity (EOQ) problem is one of the oldest and
+most fundamentalinventory models; it was first introduced by Harris
+(1913). The goal is to determine theoptimal amount to order each time an
+order is placed to minimize the average cost per year.</p>
+<p>Any optimal solution for the EOQ model has two important properties:
+Any optimal solution for the EOQ model has two important properties: 1.
+Zero-inventory ordering (ZIO) property; 2. Constant order sizes.</p>
+<figure>
+<img
+src="https://cdn.jsdelivr.net/gh/YangSuoly/Images/Prelim/202412011140213.png"
+alt="Pasted image 20241006163822" />
+<figcaption aria-hidden="true">Pasted image 20241006163822</figcaption>
+</figure>
+<p><span class="math inline">T</span> is the <em>cycle length</em>.
+meaning the amount of time between orders, and it relates to the order
+quantity <span class="math inline">Q</span> and <span
+class="math inline">\lambda</span> by the equation: <span
+class="math display">
+T = \frac{Q}{\lambda}
+</span></p>
+<h3 id="cost-function">3.2.2 Cost Function</h3>
+<p>We want to find the optimal Q to minimize the average annual
+cost.</p>
+<p>he key trade-off is between fixed cost and holdingcost: If we use a
+large <span class="math inline">Q</span>, we’ll place fewer orders and
+hold more inventory (small fixedcost but large holding cost), whereas if
+we use a small <span class="math inline">Q</span>, we’ll place more
+orders and holdless inventory (large fixed cost but small holding cost).
+- <em>Order cost</em> per year <span class="math display">
+\frac{K}{T} = \frac{K\lambda}{Q}
+</span> - Average Annual <em>Holding Cost</em> <span
+class="math display">
+\frac{hQ}{2}
+</span> where <span class="math inline">K</span> is a fixed cost per
+order, <span class="math inline">h</span> is an inventory holding cost
+per unit per year. <span class="math inline">c</span> is purchase cost
+per unit ordered.</p>
+<p>The average inventory level in a cycle is <span
+class="math inline">Q/2</span>, so the average amount ofinventory per
+year is <span class="math inline">Q/2</span> ·1 year = <span
+class="math inline">Q/2</span> - <em>Total Cost</em> <span
+class="math display">
+g(Q) = \frac{K\lambda}{Q} + \frac{hQ}{2}
+</span></p>
+<h3 id="optimal-solution">3.2.3 Optimal Solution</h3>
+<p>The optimal <span class="math inline">Q</span> can be obtained by
+taking the derivative of <span class="math inline">g(Q)</span> and
+setting it to <span class="math inline">0</span>:</p>
+<p><span class="math display">
+\begin{aligned}
+\frac{d g(Q)}{d Q}=-\frac{K \lambda}{Q^2}+\frac{h}{2} &amp; =0 \\
+\Longrightarrow Q^2 &amp; =\frac{2 K \lambda}{h} \\
+\Longrightarrow Q^* &amp; =\sqrt{\frac{2 K \lambda}{h}}
+\end{aligned}
+</span></p>
+<p><span class="math inline">Q^*</span> is the <em>economic order
+quantity</em>. Then, the optimal total cost is <span
+class="math inline">g(Q^*)</span> is: <span class="math display">
+g(Q^*) = \sqrt{2K\lambda h}
+</span> Another way to see that the fixed and holding costs are equal in
+the optimal solution isto note that the product of the two terms in
+(3.3) i</p>
+<p>The ability to express g(Q∗) in closed form allows us to learn about
+structuralproperties of the EOQ and related models, such as the
+power-of-two policies discussed inSection 3.3, as well as to embed the
+EOQ into other, richer models, such as the locationmodel with risk
+pooling (LMRP) in Section 12.2</p>
+<p>make some statements about how the solution changes asthe parameters
+change:</p>
+<p>Remember that the EOQ only reflects costs, not revenues; the
+increased cost of large λwould be outweighed by the increased
+revenue</p>
+<h3 id="sensitivity-analysis">3.2.4 Sensitivity Analysis</h3>
+<p>Suppose the firm did not want to order <span
+class="math inline">Q^∗</span> exactly. For example, it might need to
+order in multiples of <span class="math inline">10 (Q = 10n)</span>, or
+it might want to order every month (<span class="math inline">T =
+1/12</span>). <strong>Theorem</strong>: Suppose <span
+class="math inline">Q^*</span> is the <em>optimal order quantity</em> in
+the EOQ model, then for any <span class="math inline">Q&gt;0</span>:
+<span class="math display">
+\frac{g(Q)}{g(Q^*)} = \frac{1}{2} \left( \frac{Q^*}{Q} +
+\frac{Q}{Q^*}\right)
+</span></p>
+<p>Theorem 3.2 ignores the per-unit cost c. If we include the annual
+cost cλin the numeratorand denominator of (3.8), then the percentage
+increase in cost would be even smaller</p>
+<h3 id="order-lead-times">3.2.5 Order Lead Times</h3>
+<p>What if the lead time was positive—say, L years? Theoptimal solution
+doesn’t change—we just place our order L years before it’s needed.</p>
+<p>It’s generally more convenient to express this in terms ofthe reorder
+point (<span class="math inline">r</span>). So how do we compute <span
+class="math inline">r</span>? It should be equal to the amount of
+product demanded during the lead time, or <span class="math display">
+r = \lambda L
+</span></p>
+<h2 id="power-of-two-policies">3.3 Power-of-two Policies</h2>
+<p>In this section, we discusspower-of-two policies, in which the order
+interval is required to be a power-of-two multipleof some base
+period.</p>
+<p>hen the power-of-two restriction says that orders can beplaced every
+1 day, or every 2 days, or every 4 days, or every 8 days, and so on</p>
+<p>Wealready know that the EOQ model is relatively insensitive to
+deviations from the optimalsolution from Theorem 3.2. Our goal is to
+determine exactly how much more expensive apower-of-two policy is than
+the optimal policy</p>
+<p>he problem of finding optimalorder intervals in this setting is one
+version of a problem known as the one warehouse,multiretailer (OWMR)
+problem</p>
+<h3 id="error-bound">3.3.2 Error Bound</h3>
+<p>Theorem 3.3</p>
+<p><strong>Theorem 3.3</strong> If <span class="math inline">\hat
+T</span> is the optimal power-of-two order interval and <span
+class="math inline">T^∗</span> is the optimal (not necessarily
+power-of-two) order interval, then <span class="math display">
+\frac{f(\hat T)}{f(T^*)} \le \frac{3}{2\sqrt2} \approx 1.06
+</span> n other words, the cost of the optimal power-of-two policy is no
+more than 6% greaterthan the cost of the optimal (non-power-of-two)
+policy Hints for proof: the optimal power-of-two order interval <span
+class="math inline">\hat T</span> must be in the interval <span
+class="math inline">\left[ \frac{1}{\sqrt 2} T^*, \sqrt 2 T^*
+\right]</span>. Since we don't know precisely where <span
+class="math inline">\hat T</span> falls in the range, so it is only a
+<em>worst-case</em> bound that occurs on the endpoints of the range.</p>
+<h2 id="the-eoq-with-quantity-discounts">3.4 The EOQ With Quantity
+Discounts</h2>
+<p>It is common for suppliers to offer discounts based on the quantity
+ordered</p>
+<p>The specificstructure for the discounts can take many forms, but two
+types are most common: all-unitsdiscounts and incremental discount</p>
+<h3 id="all-units-discounts">3.4.1 All-Units Discounts</h3>
+<p>We can no longer ignore the purchase cost as we did in (3.3). In
+fact, not only do we needto include the purchase cost itself, but we
+must also account for the fact that the holdingcost typically depends on
+the purchase cost</p>
+<p>Suppose we knew that the optimal order quantity lies in region <span
+class="math inline">j</span>. Then we would simplyneed to find the <span
+class="math inline">Q</span> that minimizes the EOQ cost function for
+region <span class="math inline">j</span>: <span class="math display">
+g_j(Q) = c_j \lambda + \frac{K\lambda}{Q} + \frac{ic_jQ}{2}
+</span> Its minimizer is given by: <span class="math display">
+Q_j^* = \sqrt{ \frac{2K\lambda}{ic_j}}
+</span></p>
+<h3 id="incremental-discounts">3.4.2 Incremental Discounts</h3>
+<p>We now turn our attention to incremental discounts. The total cost
+function for region <span class="math inline">j</span> is given by <span
+class="math display">
+g_j(Q) = \frac{c(Q)}{Q} \lambda + \frac{K\lambda}{Q} + \frac{i
+\frac{c(Q)}{Q}Q}{2}
+</span> where <span class="math display">
+c(Q) = \sum\limits_{i=0}^{j} c_i (b_{i+1} - b_i) + c_j (Q -b_j)
+</span> Then, we can rewrite <span class="math inline">g_j(Q)</span> as
+<span class="math display">
+\begin{aligned}
+g_j(Q)= &amp; \frac{1}{Q}\left[\sum_{i=0}^{j-1}
+c_i\left(b_{i+1}-b_i\right)-c_j b_j\right] \lambda+c_j \lambda+\frac{K
+\lambda}{Q} \\
+&amp; +\frac{i}{2}\left[\sum_{i=0}^{j-1} c_i\left(b_{i+1}-b_i\right)-c_j
+b_j\right]+\frac{i c_j Q}{2} \\
+= &amp; c_j \lambda+\frac{i \bar{c}_j}{2}+\frac{\left(K+\bar{c}_j\right)
+\lambda}{Q}+\frac{i c_j Q}{2}
+\end{aligned}
+</span> where <span class="math display">
+\bar c_j = \sum_{i=0}^{j-1} c_i\left(b_{i+1}-b_i\right)-c_j b_j
+</span> so the minimizer is given by <span class="math display">
+Q^* = \sqrt{ \frac{2(K + \bar c_j)\lambda}{i c_j}}
+</span> with cost <span class="math display">
+g_j(Q^*) = c_j \lambda +  \frac{i \bar c_j}{2} + \sqrt{ 2(K + \bar
+c_j)\lambda i c_j}
+</span></p>
+<h3 id="modified-all-units-discounts">3.4.3 Modified All-Units
+Discounts</h3>
+<p>All-units discounts are somewhat problematic because, for order
+quantities Q just to theleft of breakpoint j, it is cheaper to order bj
+than to order Q</p>
+<p>This structure is sometimes known as the modified all-units discount
+structure.</p>
+<p>A special case of the modified all-units discount structure is the
+carload discount struc-ture, in which the bj are equally spaced and cj
+is the same for all j.</p>
+<p>Unfortunately, modified all-units discount structures are much more
+difficult to analyzethan the discount structures discussed above.</p>
+<h2 id="the-eoq-with-planned-backorders">3.5 The EOQ with Planned
+Backorders</h2>
+<p>In this section, we discuss avariant of the EOQ problem in which
+backorders are allowed. Let <span class="math inline">p</span> be the
+backorder penalty per item per year, and let <span
+class="math inline">x</span> be the fraction of demand that is
+backordered. Both <span class="math inline">Q</span> and <span
+class="math inline">x</span> are decision variables. The holding cost is
+charged based on on-hand inventory; the average on-hand inventory is
+given by: <span class="math display">
+\frac{1}{2} Q(1-x) \cdot\frac{(1-x)T}{T} = \frac{Q(1-x)^2}{2}
+</span> Similarly, the average backorder level is: <span
+class="math display">
+\frac{Qx^2}{2}
+</span> There, the total average cost per year in the EOQB is given by:
+<span class="math display">
+g(Q,x) = \frac{hQ(1-x)^2}{2} + \frac{pQx^2}{2} + \frac{K\lambda}{Q}
+</span> Therefore, to minimize it, we need to take partialderivatives
+with respect to both variables and set them equal to 0. <span
+class="math display">
+\begin{align}
+\frac{\partial g}{\partial x} &amp;=-h Q(1-x)+p Q x=0 \\
+\frac{\partial g}{\partial Q} &amp;=\frac{h(1-x)^2}{2}+\frac{p
+x^2}{2}-\frac{K \lambda}{Q^2}=0
+\end{align}
+</span> for the first equation, we have: <span class="math display">
+\begin{aligned}
+-h Q(1-x)+p Q x &amp; =0 \\
+\Longleftrightarrow h(1-x) &amp; =p x \\
+\Longleftrightarrow x^* &amp; =\frac{h}{h+p}
+\end{aligned}
+</span> Then, plug <span class="math inline">x^*</span>, we have <span
+class="math display">
+\begin{align*}
+Q^* &amp;= \sqrt{\frac{2K\lambda}{h(1-x)^2 + px^2}} \\
+Q^* &amp;= \sqrt{\frac{2K\lambda (p+h)}{hp}}
+\end{align*}
+</span> Then <span class="math display">
+g(Q^*, x^*) = \sqrt{\frac{2K\lambda hp}{h+p}}
+</span> How do the optimal solution and cost in Theorem 3.5 compare to
+the analogous quantitiesfrom the EOQ model? As <span
+class="math inline">p\to \infty</span>, <span
+class="math inline">Q^∗</span> approaches the optimal EOQ order
+quantity, <span class="math inline">x^∗</span> approaches 0, and the
+optimal cost approaches the EOQ optimal cost.</p>
+<p>As we continue to increase the number of backorders, the marginal
+savingsin holding cost decreases and the marginal increase in backorder
+cost increases</p>
+<h2 id="the-economic-production-quantity-model">3.6 The Economic
+Production Quantity Model</h2>
+<p>In a manufacturing environment, the amount of time required to
+produce a batch of itemsusually depends on how large the batch
+is—producing more items requires more time.</p>
+<p>n other words,the EOQ assumes that the production rate is infinite—an
+arbitrary number of items can beproduced in a fixed amount of time</p>
+<p>Let ρ = λ/μ be the utilization ratio, which indicates the portion of
+time the system isactive. Q is now interpreted as a production batch
+size rather than an order quantity.</p>
+<p>The fixed cost per year is still Kλ/Q, as in the EOQ model, since T =
+Q/λ. <img
+src="https://cdn.jsdelivr.net/gh/YangSuoly/Images/Prelim/202412011140214.png"
+alt="Pasted image 20241006215015" /></p>
+<ul>
+<li>The order interval <span class="math display">
+T = \frac{Q}{\lambda}
+</span></li>
+<li>Active interval <span class="math display">
+\frac{Q}{\mu} = \rho T
+</span></li>
+<li>Maximum inventory level <span class="math display">
+\rho T (\mu - \lambda) = (1-\rho) Q
+</span></li>
+<li>Fixed cost per year: <span class="math inline">\frac{K
+\lambda}{Q}</span></li>
+<li>Average inventory level: <span
+class="math inline">\frac{(1-\rho)Q}{2}</span></li>
+<li>Average annual holding cost: <span
+class="math inline">\frac{h(1-\rho)Q}{2}</span></li>
+<li>Total annual cost <span class="math display">
+g(Q) = \frac{K\lambda}{Q} + \frac{h(1-\rho)Q}{2}
+</span> We could find the Q that minimizes this cost function by
+differentiating, as we did for theEOQ,</li>
+</ul>
+<h2 id="periodic-review-the-wagner-whitin-model">3.7 Periodic Review:
+The Wagner-Whitin Model</h2>
+<h3 id="problem-statement-1">3.7.1 Problem Statement</h3>
+<p>We now shift our attention to a periodic-review model known as the
+Wagner–Whitinmodel</p>
+<p>he Wagner–Whitin modelassumes that the demand is deterministic, there
+is a fixed cost to place an order, and stock-outs are not allowed</p>
+<p>However, unlike the EOQ model, the Wagner–Whitin model allows the
+demand to changeover time—to be different in each period</p>
+<p>his model is sometimes referred to as thedynamic economic lot-sizing
+(DEL) model or the uncapacitated lot-sizing (ULS) model.</p>
+<p>We first formulate this model as a mixed-integer optimization problem
+(MIP). We willthen discuss a dynamic programming (DP) algorithm for
+solving it.</p>
+<h3 id="mip-formulation">3.7.2 MIP Formulation</h3>
+<p>Constraints (3.34)are the inventory-balance constraints: They say
+that the ending inventory in period t isequal to the starting inventory,
+plus the new units ordered, minus the demand.</p>
+<p>This problem can be interpreted as a simple supply chain network
+design problem</p>
+<p>It can be solved as an MIP, but it ismore common to solve it using DP
+or as a shortest path problem, as we discuss in the nextsection</p>
+<h3 id="dynamic-programming-algorithm">3.7.3 Dynamic Programming
+Algorithm</h3>
+<p>Theorem 3.7 Every optimal solution to the Wagner–Whitin model has the
+ZIO property;that is, it is optimal to place orders only in time periods
+in which the initial inventory iszero</p>
+<p>Despite the efficiency of this algorithm, a number of heuristicshave
+been introduced and are still popular in practice. These include
+Silver–Meal, partperiod balancing, least unit cost, and other
+heuristics</p>
+<h1 id="stochastic-inventory-models-periodic-review">4. Stochastic
+Inventory Models: Periodic Review</h1>
+<p>In this chapter and the next, we will consider inventory models in
+which the demand isstochastic</p>
+<p>A key concept in these chapters will be that of a policy. A policy is
+a simple rulethat provides a solution to the inventory problem.</p>
+<p>One could imagine severalpossible policies for this system. Here are
+a few: 1. Every <span class="math inline">R</span> periods, place an
+order for <span class="math inline">Q</span> units.<br />
+2. Whenever the inventory position falls to <span
+class="math inline">s</span>, order <span class="math inline">Q</span>
+units.<br />
+3. Whenever the inventory position falls to <span
+class="math inline">s</span>, place an order of sufficient size to bring
+the inventory position to <span class="math inline">S</span>. 4. Place
+an order whose size is equal to the first two digits of last night’s
+lottery number. Then, wait a number of periods equal to the last two
+digits of the lottery number before placing another order.</p>
+<p>Forexample, policy 1 sounds reasonable, but only if we choose good
+values for R and Q. When using policies, then, inventory optimization
+really has two parts: Choosing theform of the optimal policy and
+choosing the optimal parameters for that policy.</p>
+<p>Similarly, for some problems,no one even knows the form of the
+optimal policy, so we simply choose a policy that seemsplausible</p>
+<p>Before continuing, we introduce two important concepts in stochastic
+inventory theory:cycle stock and safety stock. - <em>Cycle stock</em>
+(or working inventory) is the inventory that is intended to meet the
+expected demand. - <em>Safety stock</em> is extra inventory that’s kept
+on hand to buffer against uncertainty.</p>
+<p>We’ll see later that the cycle stock depends on the mean of the
+demand distribution, whilethe safety stock depends on the standard
+deviation.</p>
+<h2 id="demand-processes">4.2 Demand Processes</h2>
+<p>In real life, customers tend to arrive at a retailer at random,
+discrete points in time.</p>
+<p>One way to model these demands is using a Poisson process, which
+describesrandom arrivals to a system over time.</p>
+<p>Sometimes, the normal distribution is used as an approximationfor the
+Poisson distribution, in which case <span class="math inline">μ =
+σ^2</span> since the Poisson variance equals itsmean. (This
+approximation is especially accurate when the mean is large.</p>
+<p>One drawback to using the normal distribution is that any normal
+random variable willsometimes have negative realizations, even though
+the demands that we aim to model arenonnegative</p>
+<p>This suggeststhat the normal distribution is appropriate as a model
+for the demand only if <span class="math inline">μ \gg σ</span> — say,if
+<span class="math inline">μ &gt; 4σ</span>.</p>
+<h2 id="periodic-review-with-zero-fixed-costs-base-stock-policies">4.3
+Periodic Review With Zero Fixed Costs: Base-stock Policies</h2>
+<p>For the remainder of this chapter, we focus on periodic-review
+models</p>
+<p>We will model the time value of money by discounting future periods
+using a discountfactor <span class="math inline">\gamma \in
+(0,1]</span></p>
+<p>For the single-period and finite-horizonproblems, our objective will
+be to minimize the total expected discounted cost over thehorizon</p>
+<h3 id="base-stock-policies">4.3.1 Base-Stock Policies</h3>
+<p>A base-stock policy works as follows: In each time period, we observe
+the current inventory position and then place an order whose size is
+sufficient to bring the inventory position up to <span
+class="math inline">S</span></p>
+<h3 id="single-period-the-newsvendor-problem">4.3.2 Single Period: The
+Newsvendor Problem</h3>
+<p>Single-period models are most often applied to perishable products,
+whichinclude (as you might expect) products such as eggs and flowers
+that may spoil, but alsoproducts that lose their value after a certain
+date,</p>
+<p>This model is one of the most fundamental stochastic inventory
+models, and many ofthe models discussed subsequently in this book use it
+as a starting point.</p>
+<p>If the newsvendor has unsold newspapers left at the endof the day, he
+cannot sell them the next day, but he can sell them back to the
+publisherfor $0.12 (called the salvage value).</p>
+<p>The inventory carried by the newsvendor can be decomposed into two
+components:cycle stock and safety stock</p>
+<p>As previously noted, the newsvendor model applies to perishable
+goods. In particular,it applies to goods that perish before the next
+ordering opportunity.</p>
+<p>The holding cost is the cost per unitof positive ending inventory,
+while the stockout cost is the cost per unit of negative
+endinginventory. The costs h and p are sometimes referred to as overage
+and underage costs,</p>
+<p>We will refer to the model discussed here as the implicit formulation
+of the newsvendorproblem since the costs and revenues are not modeled
+explicitly but instead are accountedfor in the holding and stockout
+costs <span class="math inline">h</span> and <span
+class="math inline">p</span></p>
+<p>Our goal is to determine the base-stock level <span
+class="math inline">S</span> to minimize the expected cost in thesingle
+period.</p>
+<p>These functions are known as the loss function and the complementary
+loss function,3respectively. Let <span class="math inline">I(S,d) =
+(S-d)^+</span>, and <span class="math inline">B(S, d) = (d-S)^-</span>
+be the on-hand inventory and backorders, respectively. At the end of
+period if the firm orders up to <span class="math inline">S</span> and
+sees a demand of <span class="math inline">d</span> units. The cost for
+an observed demand od <span class="math inline">d</span> is: <span
+class="math display">
+\begin{align}
+g(S, d) &amp;= h I(S,d) + pB(S,d) \\
+&amp; =h(S-d)^+ + p(d-S)^-
+\end{align}
+</span> Since the demand is <em>stochastic</em>, however, we must have
+an expectation over <span class="math inline">D</span>. Let <span
+class="math inline">I(S) = \mathbb{E}[I(S,d)] =
+\mathbb{E}[B(S,D)]</span> be the <em>expected</em> on-hand inventory and
+backorders if the firm orders up to <span class="math inline">S</span>.
+Then <span class="math display">
+\begin{aligned}
+g(S) &amp; =h I(S)+p B(S) \\
+&amp; =h \mathbb{E}\left[(S-D)^{+}\right]+p
+\mathbb{E}\left[(D-S)^{+}\right] \\
+&amp; =h \int_0^{\infty}(S-d)^{+} f(d) \operatorname d d+p
+\int_0^{\infty}(d-S)^{+} f(d) \operatorname d d \\
+&amp; =h \int_0^S(S-d) f(d) \operatorname d d+p \int_S^{\infty}(d-S)
+f(d)\operatorname d d
+\end{aligned}
+</span> let <span class="math display">
+\begin{aligned}
+n(x) &amp;=\mathbb{E}\left[(X-x)^{+}\right]=\int_x^{\infty}(y-x) f(y)
+\operatorname d y \\
+\bar{n}(x) &amp;=\mathbb{E}\left[(X-x)^{-}\right]=\int_0^x(x-y) f(y)
+\operatorname d y
+\end{aligned}
+</span> Then: <span class="math display">
+g(S) = h \bar{n}(S)+pn(S)
+</span> Since <span class="math display">
+\begin{align}
+\bar{n}(S) &amp;=\int_0^S(S-d) f(d)\operatorname d d  \\
+&amp;= \int_0^{+\infty}(S-d) f(d)\operatorname d d -
+\int_S^{+\infty}(S-d) f(d)\operatorname d d \\
+&amp;= S - \mu + \int_S^{+\infty}(d - S) f(d)\operatorname d d  \\
+&amp;= S-\mu + n(S)
+\end{align}
+</span> where <span class="math inline">\mu</span> is the <em>mean
+value</em> of <span class="math inline">f(x)</span>. So we can simplify
+the expression of <span class="math inline">g(S)</span>: <span
+class="math display">
+\begin{align}
+g(S) &amp;= h [S-\mu +n(S)] +pn(S)  \\
+&amp; = h(S-\mu) + (h+p) n(S)
+\end{align}
+</span> These functions are known as the <em>loss function</em> and the
+<em>complementary loss function</em>, respectively. Here we can
+calculate the derivatives of the above two equations according to the <a
+target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_39699362/article/details/136282346#:~:text=Leibniz%E7%A7%AF%E5%88%86%E6%B3%95%E5%88%99%EF%BC%88Leibniz%20Integral%20Rule%EF%BC%89%E4%B9%9F%E8%A2%AB%E7%A7%B0%E4%B8%BA%E7%A7%AF%E5%88%86%E7%9A%84%E5%BE%AE%E5%88%86%E6%B3%95%E5%88%99%EF%BC%88Differentiation%20under,the%20Integral%20Sign%EF%BC%89%EF%BC%8C%E5%AE%83%E6%98%AF%E6%95%B0%E5%AD%A6%E4%B8%AD%E4%B8%80%E4%B8%AA%E7%94%A8%E6%9D%A5%E4%BA%A4%E6%8D%A2%E5%BE%AE%E5%88%86%E8%BF%90%E7%AE%97%E5%92%8C%E7%A7%AF%E5%88%86%E8%BF%90%E7%AE%97%E9%A1%BA%E5%BA%8F%E7%9A%84%E6%96%B9%E6%B3%95%E3%80%82%20%E8%BF%99%E4%B8%AA%E6%B3%95%E5%88%99%E5%85%81%E8%AE%B8%E6%88%91%E4%BB%AC%E5%9C%A8%E4%B8%80%E5%AE%9A%E6%9D%A1%E4%BB%B6%E4%B8%8B%E5%AF%B9%E5%90%AB%E6%9C%89%E5%8F%82%E6%95%B0%E7%9A%84%E7%A7%AF%E5%88%86%E8%A1%A8%E8%BE%BE%E5%BC%8F%E8%BF%9B%E8%A1%8C%E5%BE%AE%E5%88%86%E3%80%82">Leibniz's
+Rule</a>: <span class="math display">
+\begin{align}
+n^\prime(x) &amp;= (y-x)f(y) \bigg|_{y=x} + \int_x^{+\infty}
+\frac{\partial(y-x)f(y)}{\partial x} \operatorname dy \\ \\
+&amp; = 0+ \int_x^{+\infty} (-1)f(y)\operatorname dy \\ \\
+&amp;= F(x) - F(+\infty) \\ \\
+&amp;=F(x) - 1
+\end{align}
+</span> Similarly, <span class="math display">
+\bar{n} ^\prime(x) = F(x)
+</span> So we have <span class="math inline">n^{\prime \prime} = \bar
+n^{\prime \prime} = f(x)&gt;0</span>, so both <span
+class="math inline">n(\cdot)</span> and <span class="math inline">\bar
+n(\cdot)</span> are convex. To minimize <span
+class="math inline">g(S)</span>, thus, we set its first derivative to
+<span class="math inline">0</span>, $$ <span
+class="math display">\begin{align}
+\frac{\operatorname dg(S)}{\operatorname d S} &amp;= h +
+(h+p)[F(x)-1]=(h+p)F(S) - p = 0 \\
+F(S) &amp;= \frac{p}{h+p} \\
+S  &amp; = F^{-1}\left(\frac{p}{p+h}\right)
+
+\end{align}</span> $$ <img
+src="https://cdn.jsdelivr.net/gh/YangSuoly/Images/Prelim/202412011140216.png"
+alt="Pasted image 20241008192602" /></p>
+<p><em>Note</em>：直观来理解，就是最优解 <span
+class="math inline">S^*</span> 符合 <span
+class="math inline">P[d&gt;S^*] = \frac{p}{h+p}</span>,
+即右边表示售罄是的损失 <span class="math inline">p</span>,
+左边表示持货成本 <span class="math inline">h</span>。<span
+class="math inline">S^*</span> 会随着 <span class="math inline">h</span>
+增加而减少，随着 <span class="math inline">p</span> 增加而增加。</p>
+<p>Theorem 4.1 The optimal base-stock level for a single-period model
+with no fixed costs(the newsvendor model) is given by</p>
+<p>p/(h + p) is known as the critical ratio (or critical fractile).</p>
+<p>The formulation given in Sections 4.3.2.2–4.3.2.3 in-terprets hand
+pas the overage and underage costs, respectively—the cost per unit of
+havingtoo much or too little inventory.</p>
+<p>Sometimes, this is instead formulated as a profit maximization
+problem in which we maximize <span class="math inline">\pi(S)
+≡−g(S)</span>.</p>
+<p>We can translate this to the implicit version of the problem by
+determining the overageand underage costs Actually, we can translate
+this explicit formulation to the implicit version by determining the
+overage and underage costs (which we'll denote by <span
+class="math inline">h^\prime</span> and <span
+class="math inline">p^\prime</span>, respectively). - <span
+class="math inline">h^\prime = h+c-v</span> : For each unit of excess
+inventory, we incur a holding cost of <span
+class="math inline">h</span>, and we paid <span
+class="math inline">c</span> for the extra unit but earn <span
+class="math inline">v</span> as a salvage value. - <span
+class="math inline">p^\prime = p+r-c</span> : For each stockout, we
+incur a penalty of <span class="math inline">p</span> in addition to the
+lost profit <span class="math inline">r-c</span>. <span
+class="math display">
+S^* = F^{-1} \left(\frac{p^\prime}{h^\prime+p^\prime}\right) =  F^{-1}
+\left(\frac{p+r-c}{h+c-v+p+r-c}\right)=  F^{-1}
+\left(\frac{p+r-c}{h+p+r-v}\right)
+</span> where <span class="math inline">r</span> is the revenue earned
+per unit sold, <span class="math inline">c</span> is the cost per unit
+purchased, and <span class="math inline">v</span> is the salvage value
+earned for each unit of excess inventory.</p>
+<p>t is perfectly acceptable to set any of the cost or revenue
+parameters to 0 if they arenegligible or should not be included in the
+model</p>
+<p>If we let α = p/(h + p), we have If we let <span
+class="math inline">\alpha= \frac{p}{h+p}</span>, we have <span
+class="math display">
+S^* = \mu + z_\alpha  \sigma
+</span> But should the firm order any units? By the convexity of
+g(S),the answer is no: It would be better to leave the inventory level
+where it is</p>
+<p>one of the simplest is to use a moving average(Section 2.2.1) to
+estimate μand what we might call a moving standard deviation to
+estimateσ in period t</p>
+<p>4.3.2.8 Discrete Demand Distributions Suppose now that D is discrete.
+In thiscase, (4.3) becomes</p>
+<h3 id="finite-horizon">4.3.3 Finite Horizon</h3>
+<p>Now consider a multiple-period problem consisting of a finite number
+of periods, T.Suppose we are at the beginning of period t Let <span
+class="math inline">\theta_t(x)</span> be the optimal expected cost in
+periods <span class="math inline">t, t+1, \cdots, T</span> if we begin
+period <span class="math inline">t</span> with an inventory level <span
+class="math inline">x</span>. Then, we have <span class="math display">
+\theta_t(x) = \min_{y\ge x} \left\{ c(y-x) + g(y) + \gamma \mathbb
+E_D[\theta_{t+1} (y-D)]\right\}
+</span> where <span class="math display">
+\begin{aligned}
+g(y) =h \int_0^y(y-d) f(d) \operatorname d d+p \int_y^{\infty}(d-y)
+f(d)\operatorname d d = h\bar n(y) + p n(y)
+\end{aligned}
+</span> The interpretation of each term can be explained as follows:</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/YangSuoly/Images/Prelim/202412011140217.png"
+alt="Pasted image 20241008200723" /> Note: figure from <a
+target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/205pG6pGNTwsBZaKOLJn2A">【供应链理论基础】零固定成本的周期性盘点条件下基本库存策略（Base-Stock
+Policy）最优性的证明</a></p>
+<p>First consider what happens at the end of the time horizon.
+Presumably, on-handunits and backorders must be treated differently now
+that the horizon has ended than theywould be during the horizon</p>
+<h3 id="infinite-horizon">4.3.4 Infinite Horizon</h3>
+<p>This problem is sometimes referred to as the infinite-horizon
+newsvendormodel.</p>
+<p>An alternate objective is to minimizethe expected cost per period.
+The former case is known as the discounted-cost criterion,while the
+latter is known as the average-cost criterion Under the average cost
+criterion, we assume <span class="math inline">\gamma = 1</span>. The
+expected cost in a given period if we use back-stock level <span
+class="math inline">S</span> is given by: <span class="math display">
+\begin{aligned}
+g(S)  =h \int_0^S(S-d) f(d) \operatorname d d+p \int_S^{\infty}(d-S)
+f(d)\operatorname d d = h\bar n(y) + p n(y)
+\end{aligned}
+</span> Now suppose <span class="math inline">\gamma &lt; 1</span>,
+consider the discounted-cost criterion. The optimal base-stock level is
+the same in every period, and it is given by <span class="math display">
+S^* = F^{-1} \left( \frac{p-(1-\gamma)c}{h+p}\right)
+</span> Then, if demand is normally distributed, then after modifying to
+account for <span class="math inline">\gamma</span>, the results would
+be <span class="math display">
+S^* = \mu + \sigma \Phi^{-1}\left( \frac{p-(1-\gamma)c}{h+p}\right) =
+\mu + z_\alpha \sigma
+</span> where <span class="math inline">\alpha = \left(
+\frac{p-(1-\gamma)c}{h+p}\right)</span>.</p>
+<p>In formulating (4.38), we glossed over two potentially problematic
+issues. Two problematic issues: 1. Why didn’t we account for the
+purchase cost <span class="math inline">c</span>, 2. Why didn’t we
+account for the cost in future periods?</p>
+<h2 id="periodic-review-with-nonzero-fixed-costs-s-s-polices">4.4
+Periodic Review With Nonzero Fixed Costs: <span class="math inline">(s,
+S)</span> Polices</h2>
+<h3 id="ss-policies">4.4.1 <span class="math inline">(s,S)</span>
+Policies</h3>
+<p>We now consider the more general case in which the fixed cost K may
+be nonzero. If <span class="math inline">K \neq 0</span>, it may no
+longer make sense to order in every period, since each order incurs a
+cost.</p>
+<p>Instead, the firm should order only when the inventory position
+becomes sufficiently low.</p>
+<p>Both <span class="math inline">s</span> and <span
+class="math inline">S</span> are constants, and <span
+class="math inline">s ≤ S</span>.The quantity <span
+class="math inline">s</span> is known as the reorder point and <span
+class="math inline">S</span> as the order-up-to level</p>
+<p>the optimality of (s,S) policies for multiperiod problems was not
+provenuntil Scarf’s (1960) paper</p>
+<p>We will discuss how to determine the optimal s and S for the
+single-period, finite-horizon, and infinite-horizon cases separately</p>
+<p>Actually, the single-period case is not nearly as useful for the
+<span class="math inline">K &gt; 0</span> caseas it is for the <span
+class="math inline">K = 0</span> case</p>
+<h3 id="single-period">4.4.2 Single Period</h3>
+<p>For given <span class="math inline">s</span> and <span
+class="math inline">S</span>, theordering rule is: If <span
+class="math inline">x ≤ s</span>, order <span class="math inline">S
+−x</span>; otherwise, order 0.
+一旦订购（或不订购），就会产生持有和缺货成本，就像在零固定成本模型中一样，只是基础库存水平被
+<span class="math inline">S</span>（如果我们订购）和 <span
+class="math inline">x</span>（如果我们不订购）取代。因此，该期间的总预期成本（作为
+<span class="math inline">s</span> 和 <span class="math inline">S</span>
+的函数）由下式给出 <span class="math display">
+g(s, S) = \left\{\begin{array}{l} K + g(S), &amp;\text{if } x\leq s \\
+g(x),  &amp; \text{if } x&gt; s
+\end{array}\right.
+</span></p>
+<p>Optimizing <span class="math inline">g(s,S)</span> over s and <span
+class="math inline">S</span> is actually quite easy (Karlin 1958b): We
+already knowfrom Theorem 4.1 that <span class="math inline">F−1(p/(h +
+p))</span> minimizes <span class="math inline">g(S)</span>,</p>
+<h3 id="finite-horizon-1">4.4.3 Finite horizon</h3>
+<p>The finite-horizon model with nonzero fixed costs can be solved using
+a straightforwardmodification of the DP model for the zero-fixed-cost
+case from Section 4.3.3.</p>
+<p>Now <span class="math inline">θ_t(x)</span> must account for the
+fixed cost in period <span class="math inline">t</span> (if any), as
+well as the purchase cost and expected holding and stockout costs in
+period <span class="math inline">t</span>, and the expected future
+costs, as in the <span class="math inline">K = 0</span> model. In
+particular Now <span class="math inline">θ_t(x)</span> must account for
+the fixed cost in period <span class="math inline">t</span> (if any), as
+well as the purchase cost and expected holding and stockout costs in
+period <span class="math inline">t</span>, and the expected future
+costs, as in the <span class="math inline">K = 0</span> model. In
+particular, <span class="math display">
+\theta_t(x) = \min_{y \ge x}\left\{ K\delta (y-x) + c(y-x) + g(y) +
+\gamma \mathbb E_D[\theta_{t+1} (y-D)]\right\}
+</span> where <span class="math display">
+\delta(z) = \left\{\begin{array}{l} 1, &amp;\text{if } z&gt;0 \\
+0,  &amp; \text{otherwise}
+\end{array}\right.
+</span> <em>Note</em> : Since here fixed cost is not zero, so add the
+fixed costs term <span class="math inline">K\delta (y-x)</span>. It also
+consists of the general equation of periodic review, as follows (figure
+from <a
+target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/205pG6pGNTwsBZaKOLJn2A">Link</a>):</p>
+<figure>
+<img
+src="https://cdn.jsdelivr.net/gh/YangSuoly/Images/Prelim/202412011140218.png"
+alt="Pasted image 20241008220627" />
+<figcaption aria-hidden="true">Pasted image 20241008220627</figcaption>
+</figure>
+<p>However, just as before, we would rather have a simple policy to
+follow, rather than having to specify <span
+class="math inline">y_t(x)</span> for every <span
+class="math inline">t</span> and <span class="math inline">x</span></p>
+<p>In particular, for period <span class="math inline">t</span>, there
+are values <span class="math inline">S_t</span> and <span
+class="math inline">s_t</span> such that for <span class="math inline">x
+\leq s_t</span>, we have <span class="math inline">y_t(x) = S_t</span>,
+and for <span class="math inline">x &gt; s_t</span>, we have <span
+class="math inline">y_t(x) = x</span>. In other words, these curves each
+depict an <span class="math inline">(s,S)</span> policy.</p>
+<h3 id="infinite-horizon-1">4.4.4 infinite Horizon</h3>
+<p>Recall that the infinite-horizon model with no fixed costs (Section
+4.3.4) is as simple asthe single-period model (Section 4.3.2).</p>
+<p>nfortunately, this is not true in the fixed-costcase. The
+infinite-horizon model is more difficult than its single-period or
+finite-horizoncounterparts</p>
+<p>A renewal process is a random variable <span
+class="math inline">N(t)</span> that counts the number of “renewals”that
+have occurred by time <span class="math inline">t</span>, where the
+amount of time between the <span class="math inline">(n −1)st</span>
+renewal and the nth renewals is a random variable <span
+class="math inline">X_n</span></p>
+<h2 id="policy-optimility">4.5 Policy Optimility</h2>
+<p>Now that we know how to find the optimal <span
+class="math inline">S</span> for a base-stock policy (Section 4.3) and
+the optimal <span class="math inline">s</span> and <span
+class="math inline">S</span> for an <span
+class="math inline">(s,S)</span> policy (Section 4.4), we prove that
+those policy types are in fact optimal for their respective problems</p>
+<p>e are trying toshow that no other policy, of any type, using any
+parameters, can outperform our chosenpolicy type (provided we choose the
+optimal parameters) in the long run</p>
+<p>We will first consider the zero-fixed-cost case, then the fixed-cost
+case, in both casesconsidering single-period, finite-horizon, and
+infinite-horizon cases separately</p>
+<p>We continue to assumethat the cost and demand parameters are
+stationary, but the results below still hold if thesevary from period to
+period (deterministically). Recall the optimal cost in periods <span
+class="math inline">t, \cdots, T</span> if we begin period <span
+class="math inline">t</span> with an inventory level of <span
+class="math inline">x</span>, can be calculated recursively as: <span
+class="math display">
+\theta_t(x) = \min_{y \ge x}\left\{ K\delta (y-x) + c(y-x) + g(y) +
+\gamma \mathbb E_D[\theta_{t+1} (y-D)]\right\}
+</span></p>
+<p>Our goal throughout this section will be to use the structure of
+(4.81) toshow that the optimal actions follow the policies we have
+conjectured are optimal</p>
+<h3 id="zero-fixed-costs-base-stock-policies">4.5.1 Zero Fixed Costs:
+Base-Stock Policies</h3>
+<p>We first consider the case in which K = 0 and prove that—regardless
+of the horizonlength—a base-stock policy is always optimal
+<strong>Single Period</strong>:</p>
+<p>we’ll consider the special case in which <span class="math inline">T
+= 1</span> and <span class="math inline">K = 0</span>. We’ll also assume
+that the terminal cost function (i.e., <span
+class="math inline">\theta_{t+1} (x) = 0</span>, see <a
+href="#4.3.3%20Finite%20Horizon">Section 4.3.3</a>) is equal to 0. Then,
+the optimal cost reduces to: <span class="math display">
+\theta(x) = \min_{y \ge x}\left\{c(y-x) + g(y) \right\}
+</span> We cam rewrite <span class="math inline">\theta(x)</span> as
+<span class="math display">
+\theta(x) = \min_{y \ge x}\left\{H(y) -cx \right\}
+</span> where <span class="math display">
+H(y) = cy + g(y)
+</span> Since we are calculating <span class="math inline">θ(x)</span>
+for fixed <span class="math inline">x</span>, we see that the optimal
+decision can be found by minimizing <span
+class="math inline">H(y)</span> over <span class="math inline">y \ge
+x</span>, that is, starting at <span class="math inline">y = x</span>,
+we want to minimize <span class="math inline">H(y)</span> looking only
+“to the right” of <span class="math inline">x</span>.</p>
+<p><em>If <span class="math inline">H(y)</span> is convex</em>, we can
+have: - If <span class="math inline">x &lt; S</span>, then the optimal
+strategy is to set <span class="math inline">y = S</span> - if <span
+class="math inline">x \ge S</span>, the optimal strategy is to do
+nothing, to set <span class="math inline">y = x</span>. In other words,
+the optimal policy is a <em>base-stock policy</em>.</p>
+<p>And H(y) is convex because g(y) is convex,so we have now sketched the
+proof of the following theorem.</p>
+<p>Theorem 4.10 A base-stock policy is optimal for the single-period
+problem with no fixedcosts. <strong>Finite Horizon</strong>:</p>
+<p>It was simple to prove that H(y) is convex, and therefore thata
+base-stock policy is optimal, for the single-period problem</p>
+<h3 id="nonzero-fixed-costs-s-s-policies">4.5.2 Nonzero Fixed Costs:
+<span class="math inline">(s, S)</span> Policies</h3>
+<p>We now allow K 6= 0 and prove that an (s,S) policy is optimal.</p>
+<h2 id="lost-salse">4.6 Lost Salse</h2>
+<p>Throughout this chapter, we have assumed that unmet demands are
+backordered.</p>
+<p>we assume instead that they are lost. The distinction is only
+important when T &gt; 1.(When T = 1, unmet demands can only be
+lost.)</p>
+<h3 id="zero-lead-time">4.6.1 Zero Lead Time</h3>
+<p>First consider the case in whichK = 0. In the finite-horizon model,
+the DP recursion (4.36) changes only slightly <span
+class="math display">
+\theta_t(x) = \min_{y \ge x}\left\{c(y-x) + g(y) + \gamma \mathbb
+E_D[\theta_{t+1} (y-D)]^+\right\}
+</span> <em>Note</em>: the positive part of <span class="math inline">y
+−D</span> to reflect the fact that the inventory level cannot become
+<em>negative</em>.</p>
+<p>A base-stock policy is still optimal for the infinite-horizon model.
+Under the average-cost criterion (γ = 1) with lost sales,</p>
+<h1 id="stochastic-inventory-models-continuous-review">5. Stochastic
+Inventory Models: Continuous Review</h1>
+<h2 id="r-q-policies">5.1 <span class="math inline">(r, Q)</span>
+Policies</h2>
+<p>In this chapter, we consider a setting similar to the economic order
+quantity (EOQ) model(Section 3.2) but with stochastic demand.</p>
+<p>The inventory position is monitored continuously, and orders may be
+placed at any time. There is a deterministic lead time <span
+class="math inline">L (\ge0)</span>. Unmet demands are backordered</p>
+<p>If the demand has a continuous distribution, then the inventory level
+decreases smoothlybut randomly over time, with rate <span
+class="math inline">λ</span>,</p>
+<p><strong><span class="math inline">(r, Q)</span> Policy</strong>:</p>
+<figure>
+<img
+src="https://cdn.jsdelivr.net/gh/YangSuoly/Images/Prelim/202412011140219.png"
+alt="Pasted image 20241009100036" />
+<figcaption aria-hidden="true">Pasted image 20241009100036</figcaption>
+</figure>
+<p>We’ll assume the firm follows an (r,Q) policy: When the inventory
+position reaches acertain point (call it r), we place an order of size
+Q. L years later, the order arrives</p>
+<p>Note that the inventory level (solid line in Figure 5.1) and
+inventoryposition (dashed line) differ from each other during lead times
+but coincide otherwise. Differing from the EOQ model, which has a single
+decision variable <span class="math inline">Q</span>, the <span
+class="math inline">(r, Q)</span> Policy has two decision variables:
+<span class="math inline">Q</span> (the order quantity, sometimes called
+the <em>batch size</em>) and <span class="math inline">r</span> (the
+<em>reorder point</em>)</p>
+<p>Our goal is to determine the optimal r and Q to minimize the expected
+costper year.</p>
+<p>since in either case theinventory position may fall strictly below
+the reorder point before a replenishment order isplaced.</p>
+<h2 id="exact-r-q-problem-with-continuous-demand-distribution">5.2 Exact
+<span class="math inline">(r, Q)</span> Problem With Continuous Demand
+Distribution</h2>
+<p>we introduce an exact model for systems with continuous demand
+distribu-tions. We first formulate the expected cost function and then
+derive optimality conditionsfor it <strong>The usual costs</strong>: -
+Fixed cost: <span class="math inline">K \ge 0</span> - Purchase cost:
+<span class="math inline">c \ge 0</span> - Holding cost: <span
+class="math inline">h &gt; 0</span> - Stockout cost: <span
+class="math inline">p&gt;0</span> - <span class="math inline">D</span>:
+the lead-time demand (<em>运输期间</em>的需求), a random variable with
+mean <span class="math inline">\mu</span> and variance <span
+class="math inline">\sigma^2</span>, pdf <span
+class="math inline">f(d)</span> and cdf <span
+class="math inline">F(d)</span></p>
+<h3 id="expected-cost-function">5.2.1 Expected Cost Function</h3>
+<p>Our first step is to derive an exact expression for the expected cost
+as a function of r and Q. First, we place orders, on average every <span
+class="math inline">Q/\lambda</span> years. There the expected fixed
+cost is given by <span class="math inline">K\lambda/Q</span>.</p>
+<p>If the inventory position at time <span class="math inline">t</span>
+is given by <span class="math inline">IP(t)</span>, then the inventory
+level at time <span class="math inline">t +L</span> is given by: <span
+class="math display">
+IL(t+L) = IP(t) - (t, t+L]
+</span> As in the periodic-review case, we can drop the time indices in
+steady state and write: <span class="math display">
+IL = IP -D
+</span> where <span class="math inline">D</span> is the lead-time
+demand.</p>
+<p>Once we determine the distribution of IP, the (unconditional)
+expected inventory costthen follows from the law of total expectation.
+Let <span class="math inline">\bar g(x)</span> be the rate at which the
+inventory cost accrues when <span class="math inline">IL = x</span>:
+<span class="math display">
+\bar g (x) = hx^+ + px^-
+</span> <em>Note</em>: <span class="math inline">g(\cdot)</span> is a
+rate because the inventory level is changing continuously over time,
+given in units of money per year. Then the expected inventory cost per
+year is: <span class="math display">
+\begin{aligned}
+\mathbb{E}[\text { inventory cost }] &amp; =\mathbb{E}_{I L}[\bar{g}(I
+L)] \\
+&amp; =\mathbb{E}_{I P}\left[\mathbb{E}_{I L \mid I P}[\bar{g}(I
+L)]\right] \\
+&amp; =\mathbb{E}_{I P}\left[\mathbb{E}_D[\bar{g}(I P-D)]\right] \\
+&amp; =\mathbb{E}_{I P}[g(I P)]
+\end{aligned}
+</span> where <span class="math display">
+g(y) = h \mathbb{E}[(y-D)^+] + p \mathbb{E}[(D-y)^+]
+</span> <span class="math inline">g(y)</span> is the rate at which the
+expected inventory cost accrues at time <span class="math inline">t +
+L</span> when the inventory position at time <span
+class="math inline">t</span> equals <span
+class="math inline">y</span>.</p>
+<p>It remains to determine the distribution of <span
+class="math inline">IP</span>. By the definition of an <span
+class="math inline">(r,Q)</span> policy, we know that <span
+class="math inline">IP</span> takes values only in <span
+class="math inline">[r,r + Q]</span>.</p>
+<p>在一些简单例子中，<span class="math inline">IP</span>
+可以是简单的分布，如均匀分布。因此，我们可以用如下积分形式计算
+<em>期望损失</em>： <span class="math display">
+\mathbb {E} [\text{inventory cost}] = \frac{1}{Q} \int_r^{r+Q}g(y)
+\operatorname d y
+</span> Combining the expected inventory cost and the expected fixed
+cost <span class="math inline">K\lambda/Q</span>, we have the expected
+total cost per year: <span class="math display">
+g(r, Q) = \frac{K\lambda + \int_r^{r+Q}g(y) \operatorname d y}{Q}
+</span> Lemma 5.1 g(r,Q) is jointly convex in r and Q.</p>
+<p>In what follows, we use the expected cost expression (5.7) to derive
+optimality conditionsfor <span class="math inline">r</span> and <span
+class="math inline">Q</span> by first fixing <span
+class="math inline">Q</span> and finding the optimal corresponding <span
+class="math inline">r</span>, and then optimizingover <span
+class="math inline">Q</span></p>
+<h3 id="optimality-conditions">5.2.2 Optimality Conditions</h3>
+<p>Lemma 5.2 For any <span class="math inline">Q &gt; 0, r = r(Q)</span>
+if and only if <strong>Lemma</strong> For any <span
+class="math inline">Q &gt; 0, r = r(Q)</span> if and only if <span
+class="math display">
+g(r) = g(r+Q)
+</span> The motivation behind this result is that, during one
+replenishment cycle, we need topass through all of the inventory
+positions in [r,r + Q] <strong>Theorem</strong> <span
+class="math inline">(r,Q)</span> minimize <span
+class="math inline">g(r,Q)</span> if and only if: <span
+class="math display">
+g(r, Q) = g(r +Q) = g(r)
+</span></p>
+<h2 id="approximations-for-r-q-problem-with-continuous-distribution">5.3
+Approximations for <span class="math inline">(r, Q)</span> Problem With
+Continuous Distribution</h2>
+<h3 id="expected-inventory-level-approximation">5.3.1
+Expected-Inventory-Level Approximation</h3>
+<p>The first approximation we discuss is probably the best known and
+most widely coveredapproximation to find r and Q.</p>
+<p>We call this the expected-inventory-level (EIL) approximation,for
+reasons that will become clear shortly</p>
+<p>The approach relies on the following two simplifying assumptions to
+make the modeltractable: Two assumptions: 1. Simplifying Assumption 1
+(SA1): Incur holding costs at a rate of <span class="math inline">h
+\cdot IL</span> per year, where <span class="math inline">IL</span> is
+the inventory level, whether <span class="math inline">IL</span> is
+positive or negative. 2. Simplifying Assumption 2 (SA2): The stockout
+cost is charged once per unit of unmet demand, not per year.</p>
+<figure>
+<img
+src="https://cdn.jsdelivr.net/gh/YangSuoly/Images/Prelim/202412011140220.png"
+alt="Pasted image 20241009154836" />
+<figcaption aria-hidden="true">Pasted image 20241009154836</figcaption>
+</figure>
+<p>The costs: - The expected on-hand inventory when the order
+arrives:</p>
+<p><span class="math display">
+    s = r -\lambda L
+</span></p>
+<ul>
+<li><p>The average inventory level:</p>
+<p><span class="math display">
+  s+\frac{Q}{2} = r -\lambda L +\frac{Q}{2}
+</span></p></li>
+</ul>
+<ol type="1">
+<li>By <em>SA1</em>, the <em>expected holding cost</em> per year is:
+<span class="math display">
+h\left( r -\lambda L +\frac{Q}{2}\right)
+</span> <em>Note</em>: this expression is only approximate, since that
+we are calculating the expected holding cost as <span
+class="math inline">h \cdot \mathbb{E}[IL]^+</span> (provided that <span
+class="math inline">\mathbb{E}[IL]&gt;0</span>).</li>
+</ol>
+<p>That is why we refer to this as the “expected-inventory-level”
+approximation. The problem is more difficult without SA1 because of the
+nonlinearity introduced by the <span class="math inline">[·]^+</span>
+operator. 2. <em>Fixed cost</em> : <span
+class="math inline">\frac{K\lambda}{Q}</span> - <em>Stockout cost</em>
+:</p>
+<p><span class="math display">
+\mathbb{E}[(D-r)^+] = \int_r^\infty (d-r) f(d)\operatorname dd = n(r)
+</span></p>
+<pre><code>where $n(r)$ is the loss function for the lead-time demand distribution</code></pre>
+<p>The expected number of stockout per year is <span
+class="math display">
+\frac{n(r)}{\mathbb{E}[T]} = \frac{\lambda n(r)}{Q}
+</span> 3. then by <em>SA2</em>, the <em>expected stockout cost</em> per
+year is simply: <span class="math display">
+\frac{p \lambda n(r)}{Q}
+</span></p>
+<p>Note that we are assuming that r &gt; 0, which is a reasonable
+assumption in practice <strong>The total cost</strong> per year: <span
+class="math display">
+g(r, Q) = h\left( r -\lambda L +\frac{Q}{2}\right) + \frac{K\lambda}{Q}
++ \frac{p \lambda n(r)}{Q}
+</span> <strong>Solution</strong>: - For <span
+class="math inline">Q</span> :</p>
+<pre><code>$$
+\begin&#123;align&#125;
+\frac&#123;\partial g&#125;&#123;\partial Q&#125; =\frac&#123;h&#125;&#123;2&#125;-\frac&#123;K \lambda&#125;&#123;Q^2&#125;-\frac&#123;p \lambda n(r)&#125;&#123;Q^2&#125; &amp; =0 \\
+\Longleftrightarrow \quad \frac&#123;1&#125;&#123;Q^2&#125;[K \lambda+p \lambda n(r)]=\frac&#123;h&#125;&#123;2&#125; \\
+\Longleftrightarrow\quad Q^2=\frac&#123;2[K \lambda+p \lambda n(r)]&#125;&#123;h&#125; \\
+Q=\sqrt&#123;\frac&#123;2 \lambda[K+p n(r)]&#125;&#123;h&#125;&#125; \\
+
+\end&#123;align&#125;
+$$</code></pre>
+<ul>
+<li>For <span class="math inline">r</span> :</li>
+</ul>
+<p><span class="math display">
+\begin{align}
+\frac{\partial g}{\partial r}=h+\frac{p \lambda n^{\prime}(r)}{Q}=0 \\
+\Longleftrightarrow \quad h+\frac{p \lambda(F(r)-1)}{Q}=0 \\
+r=F^{-1}\left(1-\frac{Q h}{p \lambda}\right)
+\end{align}
+</span></p>
+<p>Now we have two equations with two unknowns, but these equations
+cannot be solvedin closed form.</p>
+<p>The approach given in Algorithm 5.1 first sets Q equal to the EOQ
+quantity,i.e., ignoring the demand randomness.</p>
+<p>One major limitation of (r,Q) policies as formulated aboveis that p
+is very hard to estimate</p>
+<h3 id="eoqb-approximation">5.3.2 EOQB Approximation</h3>
+<p>There are important connections between the EOQ problem with planned
+backorders</p>
+<h3 id="eoq-ss-approximation">5.3.3 EOQ + SS Approximation</h3>
+<p>Another common approximation for r and Q is to convert the
+inventory-cost parametersinto a service level and then to use the
+approach described in Section 5.3.1.3 for type-1service level
+constraints</p>
+<h2
+id="exact-r-q-problem-with-continuous-distribution-properties-of-optimal-r-and-q">5.4
+Exact <span class="math inline">(r, Q)</span> Problem With Continuous
+Distribution: Properties of Optimal <span class="math inline">r</span>
+and <span class="math inline">Q</span></h2>
+<p>We now return to the exact model from Section 5.2. We have two main
+goals in thissection 1. We will analyze the properties of optimal
+solutions (and their costs) for <span class="math inline">(r, Q)</span>
+policies, by deriving <em>optimality conditions</em> for <span
+class="math inline">r</span> and <span class="math inline">Q</span> and
+then providing <em>properties</em> of the resulting optimal solutions.
+2. We will compare <span class="math inline">(r,Q)</span> policies to
+the EOQB model and prove.</p>
+<p>if the EOQB model is used as a heuristic for optimizing r and Q,
+asdiscussed in Section 5.3.2, the resulting error has a fixed bound. Let
+<span class="math inline">G(Q)</span> equal the expected cost per year
+as a function of <span class="math inline">Q</span>, assuming <span
+class="math inline">r</span> is set optimally for that <span
+class="math inline">Q</span>, <span class="math display">
+G(Q) = g(r(Q), Q)
+</span> Let <span class="math inline">H(Q)</span> be the value of <span
+class="math inline">g(y)</span> at <span
+class="math inline">y=r(Q)</span>, or <span
+class="math inline">r(Q)+Q</span> <span class="math display">
+H(Q) = g(r(Q)) = g(r(Q)+Q)
+</span> Then we have <span class="math display">
+G(Q) = \frac{K\lambda + \int_0^{Q}H(y) \operatorname d y}{Q}
+</span></p>
+<h1 id="multi-echelon-inventory-models">6. Multi-echelon Inventory
+Models</h1>
+<p>we study inventory optimization models for multiechelon (or
+multistage)systems with shipments made among the stages</p>
+<h2 id="introduction-3">6.1 Introduction</h2>
+<p>There are two common ways to interpret the stages or nodes in the
+multiechelon system: 1. Stages represent locations in a supply chain
+network, and links among the stages represent physical shipments of
+goods. 2. Stages represent processes that the product must undergo
+during manufacturing, assembly, and/or distribution.</p>
+<p>the stages in Figure 6.1(a)may represent the following physical
+locations: a supplier in China, a factory inCalifornia, a warehouse in
+Chicago, and a retailer in Detroit (respectively).</p>
+<p>For example, the stages in Figure 6.1(a) may represent thefollowing
+processes: manufacturing, assembly, testing, and packaging. These
+fourfunctions may take place in four different locations or all within
+the same building</p>
+<h1 id="facility-location-models">8. Facility Location Models</h1>
+<h2 id="introduction-4">8.1 Introduction</h2>
+<p>One of the major strategic decisions faced by firms is the number and
+locations of factories,warehouses, retailers, or other physical
+facilities</p>
+<p>The key trade-off in most facility locationproblems is between the
+facility cost and customer service. - More facilities</p>
+<p>If we open a lot of facilities(Figure 8.1(a)), we incur high facility
+costs (to build and maintain them), but we can providegood service since
+most customers are close to a facility. <img
+src="https://cdn.jsdelivr.net/gh/YangSuoly/Images/Prelim/202412011140221.png"
+alt="Pasted image 20241009165803" /></p>
+<ul>
+<li>Few facilities</li>
+</ul>
+<p>if we openfew facilities (Figure 8.1(b)), we reduce our facility
+costs but must travel farther to reachour customers (or they to reach
+us). <img
+src="https://cdn.jsdelivr.net/gh/YangSuoly/Images/Prelim/202412011140222.png"
+alt="Pasted image 20241009165826" /></p>
+<p>Most (but not all) location problems make two related sets of
+decisions: (1) where tolocate, and (2) which customers are assigned or
+allocated to which facilities.</p>
+<p>Therefore,facility location problems are also sometimes known as
+location–allocation problems</p>
+<p>These differ in terms of how they model facility costs (for example,
+some include the costsexplicitly, while others impose a constraint on
+the number of facilities to be opened) andhow they model customer
+service (for example, some include a transportation cost, whileothers
+require all or most facilities to be covered—that is, served by a
+facility that is withinsome specified distance).</p>
+<p>In addition to supply chain facilities such as plants and warehouses,
+location modelshave been applied to public sector facilities</p>
+<p>In addition, many operations research problems can be formulatedas
+facility location problems or have subproblems that resemble them</p>
+<p>In this chapter, we will begin by discussing a classical facility
+location model, theuncapacitated fixed-charge location problem
+(UFLP)</p>
+<p>we discuss cover-ing models (including the p-center, set covering,
+and maximal covering problems)</p>
+<h2 id="the-uncapacitated-fixed-charge-location-problem">8.2 The
+Uncapacitated fixed-charge Location Problem</h2>
+<h3 id="problem-statement-2">8.2.1 Problem Statement</h3>
+<p>The uncapacitated fixed-charge location problem (UFLP) chooses
+facility locations inorder to minimize the total cost of building the
+facilities and transporting goods fromfacilities to customers.</p>
+<p>Sometimes it’s also useful to think of an upstream echelon,again with
+fixed location(s), that serves the DCs. - Fixed cost</p>
+<p>Each potential DC location has a fixed cost that represents building
+(or leasing) thefacility; - Transportation cost</p>
+<p>transportation cost per unit of product shipped from a DC to each
+customer. - <em>Objective</em></p>
+<p>The problem is to choosefacility locations to minimize the fixed cost
+of building facilities plus the transportationcost to transport product
+from DCs to customers, subject to constraints requiring everycustomer to
+be served by some open DC</p>
+<p>As noted above, the key trade-off in the UFLP is between fixed and
+transportation costs</p>
+<h3 id="formulation">8.2.2 Formulation</h3>
+<p>Define the following notations:</p>
+<p><strong>Sets</strong>: - <span class="math inline">I</span> : set of
+customers - <span class="math inline">J</span>: set of potential
+facility locations <strong>Parameters</strong> - <span
+class="math inline">h_i</span> : annual demand of customer <span
+class="math inline">i \in I</span> - <span
+class="math inline">c_{ij}</span> : cost to transport one unit of demand
+from facility <span class="math inline">j \in J</span> to customer <span
+class="math inline">i \in I</span> - <span
+class="math inline">f_j</span> : fixed annual cost to open a facility at
+site <span class="math inline">j \in J</span> <strong>Decision
+Variables</strong> - <span class="math inline">x_j</span> : 1 if
+facility <span class="math inline">j</span> is opened, 0 otherwise -
+<span class="math inline">y_{ij}</span> : the fraction of customer <span
+class="math inline">i</span>'s demand that is served by facility <span
+class="math inline">j</span></p>
+<p><em>Note</em> : The transportation costs <span
+class="math inline">c_{ij}</span> might be of the form <span
+class="math inline">k \times</span> distance for some constant <span
+class="math inline">k</span> (if the shipping company charges k per mile
+per unit) or more arbitrary (for example, based on airline ticket
+prices, which are not linearly related to distance)</p>
+<p>In the former case,distances may be computed in a number of ways:
+Distances: - <em>Euclidean distance</em>: - <em>Manhattan</em> or
+<em>rectilinear metric</em> - <em>Great circle</em> -
+<em>Highway/network</em> - <em>Matrix</em></p>
+<p>In general, we won’t be concerned with how transportation costs are
+computed—we’ll assume they are given to us already as the parameters
+<span class="math inline">c_{ij}</span> The UFLP is formulated as
+follows: <span class="math display">
+\min \quad \sum\limits_{j\in J} f_j x_j + \sum\limits_{i\in I}
+\sum\limits_{j\in J} h_i c_{ij} y_{ij}
+</span> subject to <span class="math display">
+\begin{align}
+\sum\limits_{j \in J}y_{ij} &amp;=1  &amp;\forall i \in I \\
+y_{ij} &amp;\leq x_j &amp;\forall i \in I, \forall j \in J \\
+x_j &amp;\in\{0, 1\} &amp;\forall j \in J \\
+y_{ij} &amp;\ge 0  &amp; \forall i \in I, \forall j \in J
+\end{align}
+</span></p>
+<p><em>Note</em> : in the discussion that follows, we’ll use <span
+class="math inline">z^∗</span> to denote the optimal objective value of
+(UFLP).</p>
+<p>The objective function (8.3) computes the total (fixed plus
+transportation) cost.</p>
+<p>In fact, it is always optimalto assign each customer solely to its
+nearest open facility.</p>
+<p>It is important to understand that theIPs have the same optimal
+objective value, but the LPs have different values—one providesa weaker
+LP bound than the other.</p>
+<p>Some of the earliest exact algorithms involve simply solving the IP
+usingbranch-and-bound</p>
+<p>Therefore, a number of other optimal approaches were developed. Two
+ofthese—Lagrangian relaxation and a dual-ascent method called DUALOC—are
+discussedin Sections 8.2.3 and 8.2.4, respectivel</p>
+<h3 id="lagrangian-relation">8.2.3 Lagrangian Relation</h3>
+<p>One of the methods that has proven to be most effective forthe UFLP
+and other location problems is Lagrangian relaxation, a standard
+technique forinteger programming</p>
+<p>Lagrangian relaxation is to remove a set of constraints to create a
+problem that’seasier to solve than the original.</p>
+<p>by adding a term that penalizes solutions for violating
+theconstraints</p>
+<p>When the upper and lower bounds are close (say, within1%), we know
+that the feasible solution we have found is close to optima</p>
+<p>We relax constraints (8.4), removing them from the problem andadding
+a penalty term to the objective function:</p>
+<p><span class="math display">
+\sum\limits_{j \in J} \lambda_i (1-y_{ij})
+</span></p>
+<p>The <span class="math inline">\lambda_i</span> are called
+<em>Lagrange multipliers</em>.</p>
+<p>For now, assume λ is fixed. Relaxing constraints (8.4) gives us the
+following problem,known as the Lagrangian subproblem: The <em>Lagrangian
+subproblem</em> :</p>
+<p><span class="math display">
+\begin{align}
+\min  &amp;\sum\limits_{j\in J} f_j x_j + \sum\limits_{i\in I}
+\sum\limits_{j\in J} h_i c_{ij} y_{ij} +\sum\limits_{j \in J} \lambda_i
+(1-y_{ij}) \\
+&amp;= \sum\limits_{j\in J} f_j x_j + \sum\limits_{i\in I}
+\sum\limits_{j\in J} (h_i c_{ij} -\lambda_i) y_{ij} +\sum\limits_{j \in
+J} \lambda_i
+\end{align}
+</span></p>
+<p>subject to</p>
+<p><span class="math display">
+\begin{align}
+y_{ij} &amp;\leq x_j &amp;\forall i \in I, \forall j \in J \\
+x_j &amp;\in\{0, 1\} &amp;\forall j \in J \\
+y_{ij} &amp;\ge 0  &amp; \forall i \in I, \forall j \in J
+\end{align}
+</span></p>
+<p>It turns out that the problem is quite easy to solveby inspection—we
+don’t need to use an IP solver or any sort of complicated algorithm.</p>
+<p>The point of Lagrangian relaxation is not to generate feasible
+solutions, since the solutionsto (UFLP-LRλ) will generally be infeasible
+for (UFLP). Instead, the point is to generategood (i.e., high) lower
+bounds in order to prove that a feasible solution we’ve foundsome other
+way is good.</p>
+<h3 id="the-dualoc-algorithm">8.2.4 The DUALOC Algorithm</h3>
+<h2 id="other-minisum-models">8.3 Other Minisum Models</h2>
+<p>The UFLP is an example of a minisum location problem. Minisum models
+are so calledbecause their objective is to minimize a sum of the costs
+or distances between customers andtheir assigned facilities</p>
+<p>covering location problems are more concerned with the maximum
+distance, with the goalof ensuring that most or all customers are
+located close to their assigned facilities</p>
+<p>minisum models are more commonlyapplied in the private sector, in
+which profits and costs are the dominant concerns, andcovering models
+are most commonly applied in the public sector, in which service,
+fairness,and equity are more important</p>
+<h3 id="the-capacitated-fixed-charge-location-problem">8.3.1 The
+Capacitated Fixed-Charge Location Problem</h3>
+<p>The UFLP can be easilymodified to account for capacity restrictions;
+the resulting problem (not surprisingly) iscalled the capacitated
+fixed-charge location problem, or CFLP.</p>
+<h2 id="covering-models">8.4 Covering Models</h2>
+<p>fire departments should have the objective of arriving to afire
+within 4 minutes of receiving a call</p>
+<p>ince the optimal solutions to those problems may assign some
+customers tovery distant facilities if it is cost effective to do so</p>
+<p>Instead, we need to use the notion ofcoverage, which indicates
+whether a given customer is within a prespecified distance, orcoverage
+radius, of an open facility.</p>
+<p>we discuss three seminal facility location models that use coverage
+todetermine the quality of the solution 1. Set covering location problem
+(SCLP): locates the minimum number of facilities to cover every demand
+node 2. <em>maximal covering location problem</em> (MCLP): covers as
+many demands as possible while locating a fixed number of facilities. 3.
+<em>p-center problem</em>: locates a fixed number of facilities to
+minimize the maximum distance from a demand node to its nearest open
+facility.</p>
+<h3 id="the-set-covering-location-problem">8.4.1 The Set Covering
+Location Problem</h3>
+<p>In the set covering location problem (SCLP), we are required to cover
+every demand node;the objective is to do so with the fewest possible
+number of facilities. <strong>Parameters</strong>: - <span
+class="math inline">a_{ij}=1</span> : if facility <span
+class="math inline">j\in J</span> can cover customer <span
+class="math inline">i\in I</span> (if it is open), 0 otherwise.</p>
+<p>The coverage parameter <span class="math inline">a_{ij}</span> can be
+derived from a distance or cost parameter such as <span
+class="math inline">c_{ij}</span> in the UFLP,</p>
+<p>Then, the SCLP can be formulated as follows: <span
+class="math display">
+\min \sum\limits_{j \in J} x_j
+</span> subject to $$ <span class="math display">\begin{align}
+\sum\limits_{j\in J} a_{ij} x_j  &amp; \ge 1 &amp;\forall i \in I \\
+x_j  &amp; \in \{0, 1\} &amp;\forall j \in J
+
+
+\end{align}</span> $$</p>
+<p>Sometimes we wish to minimize the total fixed cost of the opened
+facilities, rather than the total number, in which case the following
+objective function is appropriate <span class="math display">
+\min \sum\limits_{j \in J} f_j x_j
+</span></p>
+<h3 id="the-maximal-covering-location-problem">8.4.2 The Maximal
+Covering Location Problem</h3>
+<p>The maximal covering location problem (MCLP) seeks to maximize the
+total number ofdemands covered subject to a limit on the number of open
+facilities.</p>
+
+    </div>
+
+    
+    
+    
+
+    <div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">
+            -------------This blog is over!
+            <i class="fa fa-eye"></i>
+            Thanks for your reading-------------
+        </div>
+    
+</div>
+      
+    </div>
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>Post author:  </strong>YangSu
+  </li>
+  <li class="post-copyright-link">
+    <strong>Post link: </strong>
+    <a href="http://yangsuoly.com/2024/12/01/Prelim-SCM/" title="Prelim-SCM">http://yangsuoly.com/2024/12/01/Prelim-SCM/</a>
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/Tags/OR/" rel="tag"><i class="fa fa-tag"></i> OR</a>
+              <a href="/Tags/SCM/" rel="tag"><i class="fa fa-tag"></i> SCM</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2024/12/01/Prelim-SG/" rel="prev" title="Prelim-SG">
+      <i class="fa fa-chevron-left"></i> Prelim-SG
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2024/12/01/Queue-Theory/" rel="next" title="Queue-Theory">
+      Queue-Theory <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div id="music163player">
+      <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=1317956275&auto=0&height=66"></iframe>
+      </iframe>
+    </div>
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#introduction"><span class="nav-text">1. Introduction</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#the-evolution-of-supply-chain-theory"><span class="nav-text">1.1 The Evolution of
+Supply Chain Theory</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#definiton-and-scope"><span class="nav-text">1.2 Definiton and Scope</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#levels-of-decision-making-in-supply-chain-management"><span class="nav-text">1.3 Levels
+of Decision-making in Supply Chain Management</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#forecasting-and-demad-modeling"><span class="nav-text">2. Forecasting and Demad
+Modeling</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#introduction-1"><span class="nav-text">2.1 Introduction</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#moving-average"><span class="nav-text">2.2.1 Moving Average</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#exponential-smoothing"><span class="nav-text">2.2.2 Exponential Smoothing</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#linear-regression"><span class="nav-text">2.2.3 Linear Regression</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#forecast-accuracy"><span class="nav-text">2.3 Forecast Accuracy</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#mad-mse-and-mape"><span class="nav-text">2.3.1 MAD, MSE and MAPE</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#machine-learning-in-demand-forecasting"><span class="nav-text">2.4 Machine Learning in
+Demand Forecasting</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#introduction-2"><span class="nav-text">2.4.1 Introduction</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#machine-learning"><span class="nav-text">2.4.2 Machine Learning</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#demand-modeling-techniques"><span class="nav-text">2.5 Demand Modeling Techniques</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#bass-diffusion-model"><span class="nav-text">2.6 Bass Diffusion Model</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#the-model"><span class="nav-text">2.6.1 The Model</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#discrete-time-version"><span class="nav-text">2.6.2 Discrete Time Version</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#parameter-estimation"><span class="nav-text">2.6.3 Parameter Estimation</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#extensions"><span class="nav-text">2.6.4 Extensions</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#learning-indicator-approach"><span class="nav-text">2.7 Learning Indicator
+Approach</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#discrete-choice-models"><span class="nav-text">2.8 Discrete Choice Models</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#introduction-to-discrete-choice"><span class="nav-text">2.8.1 Introduction to Discrete
+Choice</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#the-multinomial-logit-model"><span class="nav-text">2.8.2 The Multinomial Logit
+Model</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#deterministic-inventory-models"><span class="nav-text">3. Deterministic Inventory
+Models</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#introduction-to-inventory-modeling"><span class="nav-text">3.1 Introduction to
+Inventory Modeling</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#continuous-review-the-economic-order-quantity-problem"><span class="nav-text">3.2
+Continuous Review: The Economic Order Quantity Problem</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#problem-statement"><span class="nav-text">3.2.1 Problem Statement</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#cost-function"><span class="nav-text">3.2.2 Cost Function</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#optimal-solution"><span class="nav-text">3.2.3 Optimal Solution</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#sensitivity-analysis"><span class="nav-text">3.2.4 Sensitivity Analysis</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#order-lead-times"><span class="nav-text">3.2.5 Order Lead Times</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#power-of-two-policies"><span class="nav-text">3.3 Power-of-two Policies</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#error-bound"><span class="nav-text">3.3.2 Error Bound</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#the-eoq-with-quantity-discounts"><span class="nav-text">3.4 The EOQ With Quantity
+Discounts</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#all-units-discounts"><span class="nav-text">3.4.1 All-Units Discounts</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#incremental-discounts"><span class="nav-text">3.4.2 Incremental Discounts</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#modified-all-units-discounts"><span class="nav-text">3.4.3 Modified All-Units
+Discounts</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#the-eoq-with-planned-backorders"><span class="nav-text">3.5 The EOQ with Planned
+Backorders</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#the-economic-production-quantity-model"><span class="nav-text">3.6 The Economic
+Production Quantity Model</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#periodic-review-the-wagner-whitin-model"><span class="nav-text">3.7 Periodic Review:
+The Wagner-Whitin Model</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#problem-statement-1"><span class="nav-text">3.7.1 Problem Statement</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mip-formulation"><span class="nav-text">3.7.2 MIP Formulation</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#dynamic-programming-algorithm"><span class="nav-text">3.7.3 Dynamic Programming
+Algorithm</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#stochastic-inventory-models-periodic-review"><span class="nav-text">4. Stochastic
+Inventory Models: Periodic Review</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#demand-processes"><span class="nav-text">4.2 Demand Processes</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#periodic-review-with-zero-fixed-costs-base-stock-policies"><span class="nav-text">4.3
+Periodic Review With Zero Fixed Costs: Base-stock Policies</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#base-stock-policies"><span class="nav-text">4.3.1 Base-Stock Policies</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#single-period-the-newsvendor-problem"><span class="nav-text">4.3.2 Single Period: The
+Newsvendor Problem</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#finite-horizon"><span class="nav-text">4.3.3 Finite Horizon</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#infinite-horizon"><span class="nav-text">4.3.4 Infinite Horizon</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#periodic-review-with-nonzero-fixed-costs-s-s-polices"><span class="nav-text">4.4
+Periodic Review With Nonzero Fixed Costs: (s,
+S) Polices</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#ss-policies"><span class="nav-text">4.4.1 (s,S)
+Policies</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#single-period"><span class="nav-text">4.4.2 Single Period</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#finite-horizon-1"><span class="nav-text">4.4.3 Finite horizon</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#infinite-horizon-1"><span class="nav-text">4.4.4 infinite Horizon</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#policy-optimility"><span class="nav-text">4.5 Policy Optimility</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#zero-fixed-costs-base-stock-policies"><span class="nav-text">4.5.1 Zero Fixed Costs:
+Base-Stock Policies</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#nonzero-fixed-costs-s-s-policies"><span class="nav-text">4.5.2 Nonzero Fixed Costs:
+(s, S) Policies</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#lost-salse"><span class="nav-text">4.6 Lost Salse</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#zero-lead-time"><span class="nav-text">4.6.1 Zero Lead Time</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#stochastic-inventory-models-continuous-review"><span class="nav-text">5. Stochastic
+Inventory Models: Continuous Review</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#r-q-policies"><span class="nav-text">5.1 (r, Q)
+Policies</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#exact-r-q-problem-with-continuous-demand-distribution"><span class="nav-text">5.2 Exact
+(r, Q) Problem With Continuous Demand
+Distribution</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#expected-cost-function"><span class="nav-text">5.2.1 Expected Cost Function</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#optimality-conditions"><span class="nav-text">5.2.2 Optimality Conditions</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#approximations-for-r-q-problem-with-continuous-distribution"><span class="nav-text">5.3
+Approximations for (r, Q) Problem With
+Continuous Distribution</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#expected-inventory-level-approximation"><span class="nav-text">5.3.1
+Expected-Inventory-Level Approximation</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#eoqb-approximation"><span class="nav-text">5.3.2 EOQB Approximation</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#eoq-ss-approximation"><span class="nav-text">5.3.3 EOQ + SS Approximation</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#exact-r-q-problem-with-continuous-distribution-properties-of-optimal-r-and-q"><span class="nav-text">5.4
+Exact (r, Q) Problem With Continuous
+Distribution: Properties of Optimal r
+and Q</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#multi-echelon-inventory-models"><span class="nav-text">6. Multi-echelon Inventory
+Models</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#introduction-3"><span class="nav-text">6.1 Introduction</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#facility-location-models"><span class="nav-text">8. Facility Location Models</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#introduction-4"><span class="nav-text">8.1 Introduction</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#the-uncapacitated-fixed-charge-location-problem"><span class="nav-text">8.2 The
+Uncapacitated fixed-charge Location Problem</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#problem-statement-2"><span class="nav-text">8.2.1 Problem Statement</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#formulation"><span class="nav-text">8.2.2 Formulation</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#lagrangian-relation"><span class="nav-text">8.2.3 Lagrangian Relation</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#the-dualoc-algorithm"><span class="nav-text">8.2.4 The DUALOC Algorithm</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#other-minisum-models"><span class="nav-text">8.3 Other Minisum Models</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#the-capacitated-fixed-charge-location-problem"><span class="nav-text">8.3.1 The
+Capacitated Fixed-Charge Location Problem</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#covering-models"><span class="nav-text">8.4 Covering Models</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#the-set-covering-location-problem"><span class="nav-text">8.4.1 The Set Covering
+Location Problem</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#the-maximal-covering-location-problem"><span class="nav-text">8.4.2 The Maximal
+Covering Location Problem</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="YangSu"
+      src="/images/YangSu.jpg">
+  <p class="site-author-name" itemprop="name">YangSu</p>
+  <div class="site-description" itemprop="description">A blog for recording learning notes...</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">78</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/Categories/">
+          
+        <span class="site-state-item-count">40</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/Tags/">
+          
+        <span class="site-state-item-count">49</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/YangSuoly" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;YangSuoly" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://gitee.com/yangsuoly" title="Gitee → https:&#x2F;&#x2F;gitee.com&#x2F;yangsuoly" rel="noopener" target="_blank"><i class="fab fa-github-square fa-fw"></i>Gitee</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://space.bilibili.com/64518717" title="B 站 → https:&#x2F;&#x2F;space.bilibili.com&#x2F;64518717" rel="noopener" target="_blank"><i class="fa fa-play-circle fa-fw"></i>B 站</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Related links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://www.58pic.com/u/19637930/" title="https:&#x2F;&#x2F;www.58pic.com&#x2F;u&#x2F;19637930&#x2F;" rel="noopener" target="_blank">千图网</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js" integrity="sha384-g7c+Jr9ZivxKLnZTDUhnkOnsh30B4H0rpLUpJ4jAIKs4fnJI+sEnkvrMWph2EDg4" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/auto-render.min.js" integrity="sha384-mll67QQFJfxn0IYznZYonOWZ644AWYC+Pt2cHqMaRhXVrursRwvLnLaebdGIlYNa" crossorigin="anonymous"
+        onload="renderMathInElement(document.body);"></script>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2026</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">YangSu</span>
+</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="Total Visitors">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="Total Views">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script size="300" alpha="0.6" zIndex="-1" src="/lib/canvas-ribbon/canvas-ribbon.js"></script>
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+<script>
+document.querySelectorAll('.pdfobject-container').forEach(element => {
+  let url = element.dataset.target;
+  let pdfOpenParams = {
+    navpanes : 0,
+    toolbar  : 0,
+    statusbar: 0,
+    pagemode : 'thumbs',
+    view     : 'FitH'
+  };
+  let pdfOpenFragment = '#' + Object.entries(pdfOpenParams).map(([key, value]) => `${key}=${encodeURIComponent(value)}`).join('&');
+  let fullURL = `/lib/pdf/web/viewer.html?file=${encodeURIComponent(url)}${pdfOpenFragment}`;
+
+  if (NexT.utils.supportsPDFs()) {
+    element.innerHTML = `<embed class="pdfobject" src="${url + pdfOpenFragment}" type="application/pdf" style="height: ${element.dataset.height};">`;
+  } else {
+    element.innerHTML = `<iframe src="${fullURL}" style="height: ${element.dataset.height};" frameborder="0"></iframe>`;
+  }
+});
+</script>
+
+
+<script>
+if (document.querySelectorAll('pre.mermaid').length) {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js', () => {
+    mermaid.initialize({
+      theme    : 'forest',
+      logLevel : 3,
+      flowchart: { curve     : 'linear' },
+      gantt    : { axisFormat: '%m/%d/%Y' },
+      sequence : { actorMargin: 50 }
+    });
+  }, window.mermaid);
+}
+</script>
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+  <script src="//cdn.jsdelivr.net/npm/quicklink@1/dist/quicklink.umd.js"></script>
+  <script>
+      window.addEventListener('load', () => {
+      quicklink({
+        timeout : 3000,
+        priority: true,
+        ignores : [uri => uri.includes('#'),uri => uri === 'http://yangsuoly.com/2024/12/01/Prelim-SCM/',]
+      });
+      });
+  </script>
+
+  
+  <script id="ribbon" src="js/canvas-ribbon.js"></script>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/22.2017.cba-normal.model.json"},"display":{"position":"right","width":300,"height":450},"mobile":{"show":false},"react":{"opacity":0.7},"log":false});</script></body>
+</html>

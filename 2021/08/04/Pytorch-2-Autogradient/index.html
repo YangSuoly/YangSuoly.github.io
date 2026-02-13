@@ -1,0 +1,976 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/blog-logo-32px.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/blog-logo-16px.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <link rel="manifest" href="/images/manifest.json">
+  <meta name="msapplication-config" content="/images/browserconfig.xml">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yangsuoly.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":true},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":true,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="1. 什么是PyTorch? PyTorch是一个基于Python的科学计算库，它有以下特点:  类似于 NumPy，但是它可以使用 GPU 可以用它定义深度学习模型，可以灵活地进行深度学习模型的训练和使用">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Pytorch-2-Autogradient">
+<meta property="og:url" content="http://yangsuoly.com/2021/08/04/Pytorch-2-Autogradient/index.html">
+<meta property="og:site_name" content="独孤诗人的学习驿站">
+<meta property="og:description" content="1. 什么是PyTorch? PyTorch是一个基于Python的科学计算库，它有以下特点:  类似于 NumPy，但是它可以使用 GPU 可以用它定义深度学习模型，可以灵活地进行深度学习模型的训练和使用">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2021-08-04T11:01:06.000Z">
+<meta property="article:modified_time" content="2021-08-05T06:34:30.830Z">
+<meta property="article:author" content="YangSu">
+<meta property="article:tag" content="Python">
+<meta property="article:tag" content="Pytorch">
+<meta property="article:tag" content="Deep learning">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://yangsuoly.com/2021/08/04/Pytorch-2-Autogradient/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>Pytorch-2-Autogradient | 独孤诗人的学习驿站</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?f59f5fb59d32ec3903088b0f976956d1";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta custom-logo">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">独孤诗人的学习驿站</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">生活就是一半烟火，一半诗意。手执烟火谋生活，心怀诗意谋未来……</p>
+      <a>
+        <img class="custom-logo-image" src="/images/logo@2x.png" alt="独孤诗人的学习驿站">
+      </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/Tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/Categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+  <a href="https://github.com/YangSuoly" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yangsuoly.com/2021/08/04/Pytorch-2-Autogradient/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/YangSu.jpg">
+      <meta itemprop="name" content="YangSu">
+      <meta itemprop="description" content="A blog for recording learning notes...">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="独孤诗人的学习驿站">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Pytorch-2-Autogradient
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-08-04 19:01:06" itemprop="dateCreated datePublished" datetime="2021-08-04T19:01:06+08:00">2021-08-04</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-08-05 14:34:30" itemprop="dateModified" datetime="2021-08-05T14:34:30+08:00">2021-08-05</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/Categories/Notes/" itemprop="url" rel="index"><span itemprop="name">Notes</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/Categories/Notes/Python-module/" itemprop="url" rel="index"><span itemprop="name">Python module</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/Categories/Notes/Python-module/Pytorch/" itemprop="url" rel="index"><span itemprop="name">Pytorch</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="Views" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span><br>
+            <span class="post-meta-item" title="Symbols count in article">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">Symbols count in article: </span>
+              <span>16k</span>
+            </span>
+            <span class="post-meta-item" title="Reading time">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">Reading time &asymp;</span>
+              <span>14 mins.</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="什么是pytorch">1. 什么是PyTorch?</h1>
+<p>PyTorch是一个基于Python的科学计算库，它有以下特点:</p>
+<ul>
+<li>类似于 NumPy，但是它可以使用 GPU</li>
+<li>可以用它定义深度学习模型，可以灵活地进行深度学习模型的训练和使用</li>
+</ul>
+<a id="more"></a>
+<h2 id="tensors">1.1 Tensors</h2>
+<p>Tensor 类似与 NumPy 的 ndarray，唯一的区别是 Tensor 可以在 GPU
+上加速运算。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> torch</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>构造一个未初始化的 5x3 矩阵:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">x = torch.empty(<span class="number">5</span>,<span class="number">3</span>)</span><br><span class="line">x</span><br></pre></td></tr></table></figure>
+<p>Results:</p>
+<pre><code>tensor([[1.0194e-38, 9.1837e-39, 8.4490e-39],
+        [9.6429e-39, 8.4490e-39, 9.6429e-39],
+        [9.2755e-39, 1.0286e-38, 9.0919e-39],
+        [8.9082e-39, 9.2755e-39, 8.4490e-39],
+        [1.0194e-38, 9.0919e-39, 8.4490e-39]])</code></pre></li>
+<li><p>构建一个随机初始化的矩阵:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">x = torch.rand(<span class="number">5</span>,<span class="number">3</span>)</span><br><span class="line">x</span><br></pre></td></tr></table></figure>
+<p>Results:</p>
+<pre><code>tensor([[0.1782, 0.5218, 0.1660],
+        [0.4009, 0.0275, 0.8139],
+        [0.6904, 0.4813, 0.7811],
+        [0.4067, 0.6289, 0.5081],
+        [0.0305, 0.9687, 0.0834]])</code></pre></li>
+<li><p>构建一个全部为 0，类型为 long 的矩阵:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">x = torch.zeros(<span class="number">5</span>,<span class="number">3</span>,dtype=torch.long)</span><br><span class="line">x1 = torch.zeros(<span class="number">5</span>,<span class="number">3</span>).long() <span class="comment"># Equals</span></span><br><span class="line">x</span><br><span class="line">x2.dtype</span><br></pre></td></tr></table></figure>
+<p>Results:</p>
+<pre><code>tensor([[0, 0, 0],
+        [0, 0, 0],
+        [0, 0, 0],
+        [0, 0, 0],
+        [0, 0, 0]])
+torch.int64</code></pre></li>
+<li><p>从数据直接直接构建 tensor:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">x = torch.tensor([<span class="number">5.5</span>,<span class="number">3</span>])</span><br><span class="line">x</span><br></pre></td></tr></table></figure>
+<p>Results:</p>
+<pre><code>tensor([5.5000, 3.0000])</code></pre></li>
+<li><p>1 矩阵</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">x = x.new_ones(<span class="number">5</span>,<span class="number">3</span>, dtype=torch.double)</span><br><span class="line">x</span><br></pre></td></tr></table></figure>
+<p>Results:</p>
+<pre><code>tensor([[1., 1., 1.],
+        [1., 1., 1.],
+        [1., 1., 1.],
+        [1., 1., 1.],
+        [1., 1., 1.]], dtype=torch.float64)</code></pre></li>
+<li><p>randn_like</p>
+<p>也可以从一个已有的tensor构建一个tensor。这些方法会重用原来tensor的特征，例如，数据类型，除非提供新的数据。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">x = torch.randn_like(x, dtype=torch.<span class="built_in">float</span>)</span><br><span class="line">x</span><br></pre></td></tr></table></figure>
+<p>Results:</p>
+<pre><code>tensor([[-0.3863, -1.4149, -0.1054],
+        [ 2.3531,  0.2044, -1.5104],
+        [ 0.2127, -0.5231, -0.7806],
+        [-0.9173, -0.0242,  0.1667],
+        [-1.3101,  1.2451, -0.3665]])</code></pre></li>
+<li><p>得到 tensor 的形状:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">x.shape</span><br><span class="line">x.size()</span><br></pre></td></tr></table></figure>
+<p>Results:</p>
+<pre><code>torch.Size([5, 3])
+torch.Size([5, 3])</code></pre></li>
+</ul>
+<strong>Notes</strong>: <code>torch.Size</code> 返回的是一个tuple
+</p>
+</div>
+<h2 id="operations">1.2 Operations</h2>
+<p>有很多种tensor运算。我们先介绍加法运算。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">y = torch.rand(<span class="number">5</span>,<span class="number">3</span>)</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>加法</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">x + y <span class="comment"># Way 1</span></span><br><span class="line">torch.add(x, y) <span class="comment"># Way 2</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Store the Results into a new variable</span></span><br><span class="line">result = torch.empty(<span class="number">5</span>,<span class="number">3</span>)</span><br><span class="line">torch.add(x, y, out=result)</span><br></pre></td></tr></table></figure>
+<p>Results:</p>
+<pre><code>tensor([[-0.0267, -1.1529,  0.7544],
+        [ 2.8445,  1.0922, -1.3458],
+        [ 0.6769, -0.2879, -0.7209],
+        [-0.1200,  0.8094,  0.3603],
+        [-0.3267,  2.1897, -0.3474]])</code></pre></li>
+<li><p>in-place加法</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">y.add_(x)</span><br><span class="line">y</span><br></pre></td></tr></table></figure>
+<p>Results:</p>
+<pre><code>tensor([[-0.0267, -1.1529,  0.7544],                [ 2.8445,  1.0922, -1.3458],                [ 0.6769, -0.2879, -0.7209],                [-0.1200,  0.8094,  0.3603],                [-0.3267,  2.1897, -0.3474]])</code></pre>
+<p><strong>Note</strong>: 任何 <code>in-place</code> 的运算都会以
+<code>_</code> 结尾。举例来说：<code>x.copy_(y)</code>,
+<code>x.t_()</code>, 这些 <code>in-place</code> 方法会改变变量
+<code>x</code>。</p></li>
+<li><p>Index</p>
+<p>各种类似 NumPy 的 indexing 都可以在 PyTorch tensor 上面使用。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">x[<span class="number">1</span>:, <span class="number">1</span>:]</span><br></pre></td></tr></table></figure>
+<p>Results:</p>
+<pre><code>tensor([[ 0.2044, -1.5104],        [-0.5231, -0.7806],        [-0.0242,  0.1667],        [ 1.2451, -0.3665]])</code></pre></li>
+<li><p>Resizing</p>
+<p>如果希望 <code>resize/reshape</code> 一个
+<code>tensor</code>，可以使用 <code>torch.view</code>：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">x = torch.randn(<span class="number">4</span>,<span class="number">4</span>)</span><br><span class="line">y = x.view(<span class="number">16</span>)</span><br><span class="line">z = x.view(-<span class="number">1</span>,<span class="number">8</span>)</span><br><span class="line">z</span><br></pre></td></tr></table></figure>
+<p>Results:</p>
+<pre><code>tensor([[ 1.1355, -1.1149, -0.1322, -0.8217,  0.7920,  0.6061,  0.7453,  1.1177],
+        [ 0.7566,  1.3975, -0.8014,  0.5999, -0.1476, -0.5695, -1.3861, -0.4741]])</code></pre></li>
+<li><p>取得数值</p>
+<p>如果你有一个只有一个元素的 <code>tensor</code>，使用
+<code>.item()</code> 方法可以把里面的 value 变成 Python 数值。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">x = torch.randn(<span class="number">1</span>)</span><br><span class="line">x</span><br><span class="line">x.item()</span><br></pre></td></tr></table></figure>
+<p>Results:</p>
+<pre><code>tensor([-1.4227])
+-1.422684907913208</code></pre></li>
+<li><p>转置</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">z.transpose(<span class="number">1</span>, <span class="number">0</span>)z.t()</span><br></pre></td></tr></table></figure>
+<p>Results:</p>
+<pre><code>tensor([[ 1.1355,  0.7566],        [-1.1149,  1.3975],        [-0.1322, -0.8014],        [-0.8217,  0.5999],        [ 0.7920, -0.1476],        [ 0.6061, -0.5695],        [ 0.7453, -1.3861],        [ 1.1177, -0.4741]])</code></pre></li>
+</ul>
+<p><strong>更多阅读</strong></p>
+<p>各种 Tensor operations, 包括 transposing, indexing, slicing,
+mathematical operations, linear algebra, random numbers 在 <a
+target="_blank" rel="noopener" href="https://pytorch.org/docs/torch">PyTorch Documentation</a>.</p>
+<h2 id="numpy-和-tensor-之间的转化">1.3 Numpy 和 Tensor 之间的转化</h2>
+<p>在 Torch Tensor 和 NumPy array 之间相互转化非常容易。</p>
+<p><strong>Note</strong>: Torch Tensor和 NumPy array
+会共享内存，所以改变其中一项也会改变另一项。</p>
+<ul>
+<li><p>Tensor to ndarray</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">a = torch.ones(<span class="number">5</span>) <span class="comment"># a = tensor([1., 1., 1., 1., 1.])b = a.numpy() # b = array([1., 1., 1., 1., 1.], dtype=float32)</span></span><br></pre></td></tr></table></figure>
+<p>改变numpy array里面的值。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">b[<span class="number">1</span>] = <span class="number">2</span> <span class="comment"># b = array([1., 2., 1., 1., 1.], dtype=float32)         # a = tensor([1., 2., 1., 1., 1.])</span></span><br></pre></td></tr></table></figure></li>
+<li><p>ndarray to Tensor</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">a = np.ones(<span class="number">5</span>)</span><br><span class="line">b = torch.from_numpy(a)</span><br><span class="line">np.add(a, <span class="number">1</span>, out=a)</span><br><span class="line">print(a)</span><br><span class="line">pirnt(a)</span><br></pre></td></tr></table></figure>
+<pre><code>[2. 2. 2. 2. 2.]
+[2. 2. 2. 2. 2.]</code></pre>
+<p><strong>Note</strong>: 所有 <code>CPU</code> 上的 Tensor 都支持转成
+numpy 或者从 numpy 转成 Tensor。</p></li>
+</ul>
+<h2 id="cuda-tensors">1.4 CUDA Tensors</h2>
+<p>使用<code>.to</code>方法，Tensor可以被移动到别的device上。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> torch.cuda.is_available():</span><br><span class="line">    device = torch.device(<span class="string">&quot;cuda&quot;</span>)    </span><br><span class="line">    y = torch.ones_like(x, device=device)    </span><br><span class="line">    x = x.to(device)    </span><br><span class="line">    z = x + y    </span><br><span class="line">    print(z)    </span><br><span class="line">    print(z.to(<span class="string">&quot;cpu&quot;</span>, torch.double))    </span><br></pre></td></tr></table></figure>
+<p>Results:</p>
+<pre><code>tensor([-0.4227], device=&#39;cuda:0&#39;)
+tensor([-0.4227], dtype=torch.float64)</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">y.to(<span class="string">&quot;cpu&quot;</span>).data.numpy()y.cpu().data.numpy()</span><br></pre></td></tr></table></figure>
+<p>Results:</p>
+<pre><code>array([1.], dtype=float32)</code></pre>
+<h1 id="bi-linear-nn-with-numpy">2. Bi-Linear NN with numpy</h1>
+<p>一个全连接ReLU神经网络，一个隐藏层，没有 bias。用来从 x 预测 y，使用
+L2 Loss。</p>
+<ul>
+<li><span class="math inline">h = W_1X</span></li>
+<li><span class="math inline">a = max(0, h)</span></li>
+<li><span class="math inline">y_{hat} = W_2a</span></li>
+</ul>
+<p>这一实现完全使用numpy来计算前向神经网络，loss，和反向传播。</p>
+<ul>
+<li>forward pass</li>
+<li>loss</li>
+<li>backward pass</li>
+</ul>
+<p>numpy ndarray 是一个普通的 n 维
+array。它不知道任何关于深度学习或者梯度 ( <code>gradient</code>)
+的知识，也不知道计算图
+(<code>computation graph</code>)，只是一种用来计算数学运算的数据结构。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">N, D_in, H, D_out = <span class="number">64</span>, <span class="number">1000</span>, <span class="number">100</span>, <span class="number">10</span><span class="comment"># 随机创建一些训练数据x = np.random.randn(N, D_in)y = np.random.randn(N, D_out)w1 = np.random.randn(D_in, H)w2 = np.random.randn(H, D_out)learning_rate = 1e-6for it in range(500):    # Forward pass    h = x.dot(w1) # N * H    h_relu = np.maximum(h, 0) # N * H    y_pred = h_relu.dot(w2) # N * D_out    # compute loss    loss = np.square(y_pred - y).sum()    if it%50 == 0:        print(it, loss)    # Backward pass    # compute the gradient    grad_y_pred = 2.0 * (y_pred - y)    grad_w2 = h_relu.T.dot(grad_y_pred)    grad_h_relu = grad_y_pred.dot(w2.T)    grad_h = grad_h_relu.copy()    grad_h[h&lt;0] = 0    grad_w1 = x.T.dot(grad_h)    # update weights of w1 and w2    w1 -= learning_rate * grad_w1    w2 -= learning_rate * grad_w2</span></span><br></pre></td></tr></table></figure>
+<p>Results:</p>
+<pre><code>0 30767183.85959570550 19309.70472025325100 927.7120364511059150 65.96723021925985200 5.451127574769099250 0.4979445419484826300 0.04972286885320139350 0.0053918752712101775400 0.0006287349147432031450 7.778529921424317e-05</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">h = x.dot(w1)h_relu = np.maximum(h, <span class="number">0</span>) <span class="comment"># N * Hy_pred = h_relu.dot(w2) # N * D_outab_loss = y_pred - yab_loss[:1]</span></span><br></pre></td></tr></table></figure>
+<p>Results:</p>
+<pre><code>array([[-2.31700647e-05, -6.28731777e-05,  4.77222071e-05,         1.18624504e-05, -4.80998287e-05,  1.52820208e-06,         6.16901569e-06, -8.37944967e-05, -2.06058305e-06,         1.23783963e-06]])</code></pre>
+<p>可以发现，两者相差非常小，模型训练较为成功。</p>
+<h1 id="bi-linear-nn-with-pytorch">3. Bi-Linear NN with PyTorch</h1>
+<h2 id="implementation">3.1 Implementation</h2>
+<p>这次我们使用 PyTorch tensors
+来创建前向神经网络，计算损失，以及反向传播。</p>
+<p>一个 PyTorch Tensor 很像一个 numpy 的 ndarray。但是它和 numpy ndarray
+最大的区别是，PyTorch Tensor 可以在 CPU 或者 GPU 上运算。如果想要在 GPU
+上运算，就需要把 Tensor 换成 cuda 类型。</p>
+<p>与 numpy 不同的方法：</p>
+<ul>
+<li><code>mm</code>: 矩阵相乘，对应于 <code>dot</code></li>
+<li><code>clamp</code>: 夹子，将值夹在两者之间，对应于
+<code>maximum</code></li>
+<li><code>pow</code>: 平方，对应于 <code>np.square</code></li>
+<li><code>t</code>: 转置，对应于 <code>.t</code></li>
+<li><code>clone</code>: 复制，对应于 <code>copy</code></li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">N, D_in, H, D_out = <span class="number">64</span>, <span class="number">1000</span>, <span class="number">100</span>, <span class="number">10</span><span class="comment"># 随机创建一些训练数据x = torch.randn(N, D_in)y = torch.randn(N, D_out)w1 = torch.randn(D_in, H)w2 = torch.randn(H, D_out)learning_rate = 1e-6for it in range(500):    # Forward pass    h = x.mm(w1) # N * H    h_relu = h.clamp(min=0) # N * H    y_pred = h_relu.mm(w2) # N * D_out    # compute loss    loss = (y_pred - y).pow(2).sum().item()    if it%50 == 0:        print(it, loss)    # Backward pass    # compute the gradient    grad_y_pred = 2.0 * (y_pred - y)    grad_w2 = h_relu.t().mm(grad_y_pred)    grad_h_relu = grad_y_pred.mm(w2.t())    grad_h = grad_h_relu.clone()    grad_h[h&lt;0] = 0    grad_w1 = x.t().mm(grad_h)    # update weights of w1 and w2    w1 -= learning_rate * grad_w1    w2 -= learning_rate * grad_w2</span></span><br></pre></td></tr></table></figure>
+<pre><code>0 31964224.050 8884.4111328125100 245.90003967285156150 12.271601676940918200 0.7670953273773193250 0.05322442948818207300 0.0041369786486029625350 0.0005290982662700117400 0.00013705584569834173450 5.566925392486155e-05</code></pre>
+<p>简单的autograd</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">x = torch.tensor(<span class="number">1.</span>, requires_grad=<span class="literal">True</span>)w = torch.tensor(<span class="number">2.</span>, requires_grad=<span class="literal">True</span>)b = torch.tensor(<span class="number">3.</span>, requires_grad=<span class="literal">True</span>)y = w*x + b<span class="comment"># y = 2*1+3y.backward()# dy / dw = xprint(w.grad)print(x.grad)print(b.grad)</span></span><br></pre></td></tr></table></figure>
+<p>Results:</p>
+<pre><code>tensor(1.)tensor(2.)tensor(1.)</code></pre>
+<h2 id="pytorch-tensor-and-autograd">3.2 PyTorch: Tensor and
+autograd</h2>
+<p>PyTorch 的一个重要功能就是 autograd，也就是说只要定义了 forward pass
+(前向神经网络)，计算了 loss 之后，PyTorch
+可以自动求导计算模型所有参数的梯度。</p>
+<p>一个 PyTorch 的 Tensor 表示计算图中的一个节点。如果 <code>x</code>
+是一个 Tensor 并且 <code>x.requires_grad=True</code> 那么
+<code>x.grad</code> 是另一个储存着 <code>x</code> 当前梯度(相对于一个
+scalar，常常是 loss)的向量。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">N, D_in, H, D_out = <span class="number">64</span>, <span class="number">1000</span>, <span class="number">100</span>, <span class="number">10</span><span class="comment"># 随机创建一些训练数据x = torch.randn(N, D_in)y = torch.randn(N, D_out)w1 = torch.randn(D_in, H, requires_grad=True)w2 = torch.randn(H, D_out, requires_grad=True)learning_rate = 1e-6for it in range(500):    # Forward pass    y_pred = x.mm(w1).clamp(min=0).mm(w2)    # compute loss    loss = (y_pred - y).pow(2).sum() # computation graph    if it%50 == 0:        print(it, loss.item())    # Backward pass    loss.backward()    # update weights of w1 and w2    with torch.no_grad():        w1 -= learning_rate * w1.grad        w2 -= learning_rate * w2.grad        w1.grad.zero_() # gradient 清零        w2.grad.zero_()</span></span><br></pre></td></tr></table></figure>
+<p>Results:</p>
+<pre><code>0 40281260.050 16265.544921875100 770.28857421875150 60.70436477661133200 5.996867656707764250 0.6809620261192322300 0.08519172668457031350 0.011621471494436264400 0.0019496456952765584450 0.0004842539201490581</code></pre>
+<h2 id="pytorch-nn">3.3 PyTorch: nn</h2>
+<p>这次我们使用 PyTorch 中 nn 这个库来构建网络。用 PyTorch autograd
+来构建计算图和计算 gradients，然后 PyTorch 会帮我们自动计算
+gradient。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> torch.nn <span class="keyword">as</span> nnN, D_in, H, D_out = <span class="number">64</span>, <span class="number">1000</span>, <span class="number">100</span>, <span class="number">10</span><span class="comment"># 随机创建一些训练数据x = torch.randn(N, D_in)y = torch.randn(N, D_out)model = torch.nn.Sequential(    torch.nn.Linear(D_in, H, bias=False), # w_1 * x + b_1    torch.nn.ReLU(),    torch.nn.Linear(H, D_out, bias=False), # default bias is True)# 初始化权值torch.nn.init.normal_(model[0].weight)torch.nn.init.normal_(model[2].weight)# model = model.cuda()loss_fn = nn.MSELoss(reduction=&#x27;sum&#x27;)learning_rate = 1e-6for it in range(500):    # Forward pass    y_pred = model(x) # model.forward()    # compute loss    loss = loss_fn(y_pred, y) # computation graph    if it% 50 == 0:        print(it, loss.item())    # Backward pass    loss.backward()    # update weights of w1 and w2    with torch.no_grad():        for param in model.parameters(): # param (tensor, grad)            param -= learning_rate * param.grad    model.zero_grad()</span></span><br></pre></td></tr></table></figure>
+<p>Results：</p>
+<pre><code>0 37942064.050 13557.75390625100 482.86322021484375150 27.34326934814453200 1.863478183746338250 0.1420218050479889300 0.01187755074352026350 0.0013162594987079501400 0.00026860935031436384450 9.016783587867394e-05</code></pre>
+<p><code>model[0].weight</code>
+可得到模型中第一层的权重，<code>bia</code> 可得到偏置项。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">model[<span class="number">0</span>].weight</span><br></pre></td></tr></table></figure>
+<p>Results：</p>
+<pre><code>Parameter containing:tensor([[-0.0218,  0.0212,  0.0243,  ...,  0.0230,  0.0247,  0.0168],    [-0.0144,  0.0177, -0.0221,  ...,  0.0161,  0.0098, -0.0172],    [ 0.0086, -0.0122, -0.0298,  ..., -0.0236, -0.0187,  0.0295],    ...,    [ 0.0266, -0.0008, -0.0141,  ...,  0.0018,  0.0319, -0.0129],    [ 0.0296, -0.0005,  0.0115,  ...,  0.0141, -0.0088, -0.0106],    [ 0.0289, -0.0077,  0.0239,  ..., -0.0166, -0.0156, -0.0235]],   requires_grad=True)</code></pre>
+<h2 id="pytorch-optim">3.4 PyTorch: optim</h2>
+<p>这一次我们不再手动更新模型的 weights,而是使用 optim
+这个包来帮助我们更新参数。 optim 这个 package
+提供了各种不同的模型优化方法，包括 SGD+momentum, RMSProp, Adam
+等等。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> torch.nn <span class="keyword">as</span> nnN, D_in, H, D_out = <span class="number">64</span>, <span class="number">1000</span>, <span class="number">100</span>, <span class="number">10</span><span class="comment"># 随机创建一些训练数据x = torch.randn(N, D_in)y = torch.randn(N, D_out)model = torch.nn.Sequential(    torch.nn.Linear(D_in, H, bias=False), # w_1 * x + b_1    torch.nn.ReLU(),    torch.nn.Linear(H, D_out, bias=False),)torch.nn.init.normal_(model[0].weight)torch.nn.init.normal_(model[2].weight)# model = model.cuda()loss_fn = nn.MSELoss(reduction=&#x27;sum&#x27;)# Adam 则可以不用参数初始化# learning_rate = 1e-4# optimizer = torch.optim.Adam(model.parameters(), lr=learning_rate)learning_rate = 1e-6optimizer = torch.optim.SGD(model.parameters(), lr=learning_rate)for it in range(500):    # Forward pass    y_pred = model(x) # model.forward()    # compute loss    loss = loss_fn(y_pred, y) # computation graph    if it%50 == 0:        print(it, loss.item())    optimizer.zero_grad()    # Backward pass    loss.backward()    # update model parameters    optimizer.step()</span></span><br></pre></td></tr></table></figure>
+<p>Results:</p>
+<pre><code>0 40010880.050 8527.947265625100 276.97821044921875150 18.40827751159668200 1.5830364227294922250 0.15364140272140503300 0.016014395281672478350 0.0019916763994842768400 0.0004044498491566628450 0.0001368314551655203</code></pre>
+<h2 id="pytorch-自定义-nn-modules">3.5 PyTorch: 自定义 nn Modules</h2>
+<p>我们可以定义一个模型，这个模型继承自 nn.Module 类。如果需要定义一个比
+Sequential 模型更加复杂的模型，就需要定义 nn.Module 模型。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> torch.nn <span class="keyword">as</span> nnN, D_in, H, D_out = <span class="number">64</span>, <span class="number">1000</span>, <span class="number">100</span>, <span class="number">10</span><span class="comment"># 随机创建一些训练数据x = torch.randn(N, D_in)y = torch.randn(N, D_out)class TwoLayerNet(torch.nn.Module):    def __init__(self, D_in, H, D_out):        super(TwoLayerNet, self).__init__()        # define the model architecture        self.linear1 = torch.nn.Linear(D_in, H, bias=False)        self.linear2 = torch.nn.Linear(H, D_out, bias=False)    def forward(self, x):        y_pred = self.linear2(self.linear1(x).clamp(min=0))        return y_predmodel = TwoLayerNet(D_in, H, D_out)loss_fn = nn.MSELoss(reduction=&#x27;sum&#x27;)learning_rate = 1e-4optimizer = torch.optim.Adam(model.parameters(), lr=learning_rate)for it in range(500):    # Forward pass    y_pred = model(x) # model.forward()    # compute loss    loss = loss_fn(y_pred, y) # computation graph    if it%100 == 0:        print(it, loss.item())    optimizer.zero_grad()    # Backward pass    loss.backward()    # update model parameters    optimizer.step()</span></span><br></pre></td></tr></table></figure>
+<p>Results：</p>
+<pre><code>  0 692.8556518554688  100 50.59251403808594  200 0.6749072074890137  300 0.01346816960722208  400 0.0009340611286461353</code></pre>
+<h1 id="fuzzbuzz">4. Fuzzbuzz</h1>
+<p><code>FizzBuzz</code> 是一个简单的小游戏。游戏规则如下：从 1
+开始往上数数，当遇到 3 的倍数的时候，说 fizz，当遇到 5 的倍数，说
+buzz，当遇到 15 的倍数，就说 fizzbuzz，其他情况下则正常数数。</p>
+<p>我们可以写一个简单的小程序来决定要返回正常数值还是 fizz, buzz 或者
+fizzbuzz。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># One-hot encode the desired outputs: [number, &quot;fizz&quot;, &quot;buzz&quot;, &quot;fizzbuzz&quot;]def fizz_buzz_encode(i):    if   i % 15 == 0: return 3    elif i % 5  == 0: return 2    elif i % 3  == 0: return 1    else:             return 0def fizz_buzz_decode(i, prediction):    return [str(i), &quot;fizz&quot;, &quot;buzz&quot;, &quot;fizzbuzz&quot;][prediction]print(fizz_buzz_decode(1, fizz_buzz_encode(1)))print(fizz_buzz_decode(2, fizz_buzz_encode(2)))print(fizz_buzz_decode(5, fizz_buzz_encode(5)))print(fizz_buzz_decode(12, fizz_buzz_encode(12)))print(fizz_buzz_decode(15, fizz_buzz_encode(15)))</span></span><br></pre></td></tr></table></figure>
+<p>Resutls:</p>
+<pre><code>12buzzfizzfizzbuzz</code></pre>
+<p>我们首先定义模型的输入与输出(训练数据)</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> npimport torchNUM_DIGITS = <span class="number">10</span><span class="comment"># Represent each input by an array of its binary digits.def binary_encode(i, num_digits):    return np.array([i &gt;&gt; d &amp; 1 for d in range(num_digits)])trX = torch.Tensor([binary_encode(i, NUM_DIGITS) for i in range(101, 2 ** NUM_DIGITS)])trY = torch.LongTensor([fizz_buzz_encode(i) for i in range(101, 2 ** NUM_DIGITS)])</span></span><br></pre></td></tr></table></figure>
+<p>然后我们用PyTorch定义模型</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Define the model</span></span><br><span class="line">NUM_HIDDEN = <span class="number">100</span></span><br><span class="line">model = torch.nn.Sequential(</span><br><span class="line">    torch.nn.Linear(NUM_DIGITS, NUM_HIDDEN),</span><br><span class="line">    torch.nn.ReLU(),</span><br><span class="line">    torch.nn.Linear(NUM_HIDDEN, <span class="number">4</span>)</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">device = torch.device(<span class="string">&quot;cuda&quot;</span> <span class="keyword">if</span> torch.cuda.is_available() <span class="keyword">else</span> <span class="string">&quot;cpu&quot;</span>)</span><br><span class="line"></span><br><span class="line">model = model.to(device)</span><br></pre></td></tr></table></figure>
+<ul>
+<li>为了让我们的模型学会 <code>FizzBuzz</code>
+这个游戏，我们需要定义一个损失函数，和一个优化算法。</li>
+<li>这个优化算法会不断优化（降低）损失函数，使得模型的在该任务上取得尽可能低的损失值。</li>
+<li>损失值低往往表示我们的模型表现好，损失值高表示我们的模型表现差。</li>
+<li>由于 <code>FizzBuzz</code> 游戏本质上是一个分类问题，我们选用 Cross
+Entropyy Loss 函数。</li>
+<li>优化函数我们选用 Stochastic Gradient Descent。</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">loss_fn = torch.nn.CrossEntropyLoss()</span><br><span class="line">optimizer = torch.optim.SGD(model.parameters(), lr = <span class="number">0.05</span>)</span><br></pre></td></tr></table></figure>
+<p>以下是模型的训练代码</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Start training it</span></span><br><span class="line">BATCH_SIZE = <span class="number">128</span></span><br><span class="line"><span class="keyword">for</span> epoch <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">10000</span>):</span><br><span class="line">    <span class="keyword">for</span> start <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">0</span>, <span class="built_in">len</span>(trX), BATCH_SIZE):</span><br><span class="line">        end = start + BATCH_SIZE</span><br><span class="line">        batchX = trX[start:end].to(device)</span><br><span class="line">        batchY = trY[start:end].to(device)</span><br><span class="line"></span><br><span class="line">        y_pred = model(batchX)</span><br><span class="line">        loss = loss_fn(y_pred, batchY)</span><br><span class="line"></span><br><span class="line">        optimizer.zero_grad()</span><br><span class="line">        loss.backward()</span><br><span class="line">        optimizer.step()</span><br><span class="line"></span><br><span class="line">    <span class="comment"># Find loss on training data</span></span><br><span class="line">    loss = loss_fn(model(trX.to(device)), trY.to(device)).cpu().item()</span><br><span class="line">    <span class="keyword">if</span> epoch%<span class="number">1000</span> == <span class="number">0</span>:</span><br><span class="line">        print(<span class="string">&#x27;Epoch:&#x27;</span>, epoch, <span class="string">&#x27;Loss:&#x27;</span>, loss)</span><br></pre></td></tr></table></figure>
+<p>Results:</p>
+<pre><code>Epoch: 0 Loss: 1.1463667154312134
+Epoch: 1000 Loss: 0.4962996244430542
+Epoch: 2000 Loss: 0.15307655930519104
+Epoch: 3000 Loss: 0.07736020535230637
+Epoch: 4000 Loss: 0.044787853956222534
+Epoch: 5000 Loss: 0.029076775535941124
+Epoch: 6000 Loss: 0.020609091967344284
+Epoch: 7000 Loss: 0.01560244057327509
+Epoch: 8000 Loss: 0.012386537156999111
+Epoch: 9000 Loss: 0.010154682211577892</code></pre>
+<p>最后我们用训练好的模型尝试在 1 到 100 这些数字上玩
+<code>FizzBuzz</code> 游戏</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Output now</span></span><br><span class="line">testX = torch.Tensor([binary_encode(i, NUM_DIGITS) <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>, <span class="number">101</span>)])</span><br><span class="line"><span class="keyword">with</span> torch.no_grad():</span><br><span class="line">    testY = model(testX.to(device))</span><br><span class="line">predictions = <span class="built_in">zip</span>(<span class="built_in">range</span>(<span class="number">1</span>, <span class="number">101</span>), <span class="built_in">list</span>(testY.<span class="built_in">max</span>(<span class="number">1</span>)[<span class="number">1</span>].data.tolist()))</span><br><span class="line"></span><br><span class="line">print([fizz_buzz_decode(i, x) <span class="keyword">for</span> (i, x) <span class="keyword">in</span> predictions])</span><br></pre></td></tr></table></figure>
+<p>Results:</p>
+<pre><code>[&#39;1&#39;, &#39;2&#39;, &#39;fizz&#39;, &#39;4&#39;, &#39;buzz&#39;, &#39;fizz&#39;, &#39;7&#39;, &#39;8&#39;, &#39;fizz&#39;, &#39;10&#39;, &#39;11&#39;,
+  &#39;fizz&#39;, &#39;13&#39;, &#39;14&#39;, &#39;fizzbuzz&#39;, &#39;16&#39;, &#39;17&#39;, &#39;fizz&#39;, &#39;19&#39;, &#39;buzz&#39;,
+  &#39;fizz&#39;, &#39;22&#39;, &#39;23&#39;, &#39;fizz&#39;, &#39;buzz&#39;, &#39;26&#39;, &#39;fizz&#39;, &#39;28&#39;, &#39;29&#39;,
+  &#39;fizzbuzz&#39;, &#39;31&#39;, &#39;32&#39;, &#39;fizz&#39;, &#39;34&#39;, &#39;buzz&#39;, &#39;fizz&#39;, &#39;37&#39;, &#39;38&#39;,
+  &#39;fizz&#39;, &#39;buzz&#39;, &#39;41&#39;, &#39;42&#39;, &#39;43&#39;, &#39;44&#39;, &#39;fizzbuzz&#39;, &#39;46&#39;, &#39;47&#39;,
+  &#39;fizz&#39;, &#39;49&#39;, &#39;buzz&#39;, &#39;fizz&#39;, &#39;52&#39;, &#39;53&#39;, &#39;fizz&#39;, &#39;buzz&#39;, &#39;56&#39;,
+  &#39;fizz&#39;, &#39;58&#39;, &#39;59&#39;, &#39;fizzbuzz&#39;, &#39;61&#39;, &#39;62&#39;, &#39;fizz&#39;, &#39;64&#39;, &#39;buzz&#39;,
+  &#39;fizz&#39;, &#39;67&#39;, &#39;68&#39;, &#39;69&#39;, &#39;buzz&#39;, &#39;71&#39;, &#39;fizz&#39;, &#39;73&#39;, &#39;74&#39;, &#39;fizzbuzz&#39;,
+  &#39;76&#39;, &#39;77&#39;, &#39;fizz&#39;, &#39;79&#39;, &#39;buzz&#39;, &#39;fizz&#39;, &#39;82&#39;, &#39;83&#39;, &#39;84&#39;, &#39;buzz&#39;,
+  &#39;86&#39;, &#39;fizz&#39;, &#39;88&#39;, &#39;89&#39;, &#39;fizzbuzz&#39;, &#39;91&#39;, &#39;92&#39;, &#39;93&#39;, &#39;94&#39;,
+  &#39;buzz&#39;, &#39;fizz&#39;, &#39;97&#39;, &#39;98&#39;, &#39;fizz&#39;, &#39;buzz&#39;]</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">print(np.<span class="built_in">sum</span>(testY.cpu().<span class="built_in">max</span>(<span class="number">1</span>)[<span class="number">1</span>].numpy() == np.array([fizz_buzz_encode(i) <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>,<span class="number">101</span>)])))testY.cpu().<span class="built_in">max</span>(<span class="number">1</span>)[<span class="number">1</span>].numpy() == np.array([fizz_buzz_encode(i) <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>,<span class="number">101</span>)])</span><br></pre></td></tr></table></figure>
+<p>Results:</p>
+<pre><code>95
+array([ True,  True,  True,  True,  True,  True,  True,  True,  True,       
+        False,  True,  True,  True,  True,  True,  True,  True,  True,        
+        True,  True,  True,  True,  True,  True,  True,  True,  True,        
+        True,  True,  True,  True,  True,  True,  True,  True,  True,        
+        True,  True,  True,  True,  True, False,  True,  True,  True,        
+        True,  True,  True,  True,  True,  True,  True,  True,  True,        
+        True,  True,  True,  True,  True,  True,  True,  True,  True,        
+        True,  True,  True,  True,  True, False,  True,  True,  True,        
+        True,  True,  True,  True,  True,  True,  True,  True,  True,        
+        True,  True, False,  True,  True,  True,  True,  True,  True,        
+        True,  True, False,  True,  True,  True,  True,  True,  True,        
+        True])</code></pre>
+
+    </div>
+
+    
+    
+    
+
+    <div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">
+            -------------This blog is over!
+            <i class="fa fa-eye"></i>
+            Thanks for your reading-------------
+        </div>
+    
+</div>
+      
+    </div>
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>Post author:  </strong>YangSu
+  </li>
+  <li class="post-copyright-link">
+    <strong>Post link: </strong>
+    <a href="http://yangsuoly.com/2021/08/04/Pytorch-2-Autogradient/" title="Pytorch-2-Autogradient">http://yangsuoly.com/2021/08/04/Pytorch-2-Autogradient/</a>
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/Tags/Python/" rel="tag"><i class="fa fa-tag"></i> Python</a>
+              <a href="/Tags/Pytorch/" rel="tag"><i class="fa fa-tag"></i> Pytorch</a>
+              <a href="/Tags/Deep-learning/" rel="tag"><i class="fa fa-tag"></i> Deep learning</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/08/03/Pytorch-1-Introduction/" rel="prev" title="Pytorch-1-Introduction">
+      <i class="fa fa-chevron-left"></i> Pytorch-1-Introduction
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/08/05/Pytorch-3-Word2vec/" rel="next" title="Pytorch-3-Word2vec">
+      Pytorch-3-Word2vec <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div id="music163player">
+      <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=1317956275&auto=0&height=66"></iframe>
+      </iframe>
+    </div>
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AFpytorch"><span class="nav-text">1. 什么是PyTorch?</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#tensors"><span class="nav-text">1.1 Tensors</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#operations"><span class="nav-text">1.2 Operations</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#numpy-%E5%92%8C-tensor-%E4%B9%8B%E9%97%B4%E7%9A%84%E8%BD%AC%E5%8C%96"><span class="nav-text">1.3 Numpy 和 Tensor 之间的转化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#cuda-tensors"><span class="nav-text">1.4 CUDA Tensors</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#bi-linear-nn-with-numpy"><span class="nav-text">2. Bi-Linear NN with numpy</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#bi-linear-nn-with-pytorch"><span class="nav-text">3. Bi-Linear NN with PyTorch</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#implementation"><span class="nav-text">3.1 Implementation</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#pytorch-tensor-and-autograd"><span class="nav-text">3.2 PyTorch: Tensor and
+autograd</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#pytorch-nn"><span class="nav-text">3.3 PyTorch: nn</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#pytorch-optim"><span class="nav-text">3.4 PyTorch: optim</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#pytorch-%E8%87%AA%E5%AE%9A%E4%B9%89-nn-modules"><span class="nav-text">3.5 PyTorch: 自定义 nn Modules</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#fuzzbuzz"><span class="nav-text">4. Fuzzbuzz</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="YangSu"
+      src="/images/YangSu.jpg">
+  <p class="site-author-name" itemprop="name">YangSu</p>
+  <div class="site-description" itemprop="description">A blog for recording learning notes...</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">78</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/Categories/">
+          
+        <span class="site-state-item-count">40</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/Tags/">
+          
+        <span class="site-state-item-count">49</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/YangSuoly" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;YangSuoly" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://gitee.com/yangsuoly" title="Gitee → https:&#x2F;&#x2F;gitee.com&#x2F;yangsuoly" rel="noopener" target="_blank"><i class="fab fa-github-square fa-fw"></i>Gitee</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://space.bilibili.com/64518717" title="B 站 → https:&#x2F;&#x2F;space.bilibili.com&#x2F;64518717" rel="noopener" target="_blank"><i class="fa fa-play-circle fa-fw"></i>B 站</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Related links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://www.58pic.com/u/19637930/" title="https:&#x2F;&#x2F;www.58pic.com&#x2F;u&#x2F;19637930&#x2F;" rel="noopener" target="_blank">千图网</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js" integrity="sha384-g7c+Jr9ZivxKLnZTDUhnkOnsh30B4H0rpLUpJ4jAIKs4fnJI+sEnkvrMWph2EDg4" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/auto-render.min.js" integrity="sha384-mll67QQFJfxn0IYznZYonOWZ644AWYC+Pt2cHqMaRhXVrursRwvLnLaebdGIlYNa" crossorigin="anonymous"
+        onload="renderMathInElement(document.body);"></script>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2026</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">YangSu</span>
+</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="Total Visitors">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="Total Views">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script size="300" alpha="0.6" zIndex="-1" src="/lib/canvas-ribbon/canvas-ribbon.js"></script>
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+<script>
+document.querySelectorAll('.pdfobject-container').forEach(element => {
+  let url = element.dataset.target;
+  let pdfOpenParams = {
+    navpanes : 0,
+    toolbar  : 0,
+    statusbar: 0,
+    pagemode : 'thumbs',
+    view     : 'FitH'
+  };
+  let pdfOpenFragment = '#' + Object.entries(pdfOpenParams).map(([key, value]) => `${key}=${encodeURIComponent(value)}`).join('&');
+  let fullURL = `/lib/pdf/web/viewer.html?file=${encodeURIComponent(url)}${pdfOpenFragment}`;
+
+  if (NexT.utils.supportsPDFs()) {
+    element.innerHTML = `<embed class="pdfobject" src="${url + pdfOpenFragment}" type="application/pdf" style="height: ${element.dataset.height};">`;
+  } else {
+    element.innerHTML = `<iframe src="${fullURL}" style="height: ${element.dataset.height};" frameborder="0"></iframe>`;
+  }
+});
+</script>
+
+
+<script>
+if (document.querySelectorAll('pre.mermaid').length) {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js', () => {
+    mermaid.initialize({
+      theme    : 'forest',
+      logLevel : 3,
+      flowchart: { curve     : 'linear' },
+      gantt    : { axisFormat: '%m/%d/%Y' },
+      sequence : { actorMargin: 50 }
+    });
+  }, window.mermaid);
+}
+</script>
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+  <script src="//cdn.jsdelivr.net/npm/quicklink@1/dist/quicklink.umd.js"></script>
+  <script>
+      window.addEventListener('load', () => {
+      quicklink({
+        timeout : 3000,
+        priority: true,
+        ignores : [uri => uri.includes('#'),uri => uri === 'http://yangsuoly.com/2021/08/04/Pytorch-2-Autogradient/',]
+      });
+      });
+  </script>
+
+  
+  <script id="ribbon" src="js/canvas-ribbon.js"></script>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/22.2017.cba-normal.model.json"},"display":{"position":"right","width":300,"height":450},"mobile":{"show":false},"react":{"opacity":0.7},"log":false});</script></body>
+</html>

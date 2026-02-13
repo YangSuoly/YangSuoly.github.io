@@ -1,0 +1,807 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/blog-logo-32px.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/blog-logo-16px.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <link rel="manifest" href="/images/manifest.json">
+  <meta name="msapplication-config" content="/images/browserconfig.xml">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yangsuoly.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":true},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":true,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="1 Installing scikit-learn  Windows 1pip install -U scikit-learn macOS 1pip install -U scikit-learn Linux 1pip3 install -U scikit-learn  Check installation: 1pip show scikit-learn See more about scikit">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Scikit-learn">
+<meta property="og:url" content="http://yangsuoly.com/2020/11/22/Scikit-learn/index.html">
+<meta property="og:site_name" content="独孤诗人的学习驿站">
+<meta property="og:description" content="1 Installing scikit-learn  Windows 1pip install -U scikit-learn macOS 1pip install -U scikit-learn Linux 1pip3 install -U scikit-learn  Check installation: 1pip show scikit-learn See more about scikit">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://s3.ax1x.com/2020/11/25/DUaqr4.png">
+<meta property="og:image" content="https://s3.ax1x.com/2020/11/25/DUabMF.md.png">
+<meta property="og:image" content="https://s3.ax1x.com/2020/11/25/DUaXZ9.png">
+<meta property="og:image" content="https://s3.ax1x.com/2020/11/25/DUaLqJ.png">
+<meta property="og:image" content="https://s3.ax1x.com/2020/11/25/DUavI1.png">
+<meta property="og:image" content="https://s3.ax1x.com/2020/11/25/DUazPx.png">
+<meta property="article:published_time" content="2020-11-22T09:50:22.000Z">
+<meta property="article:modified_time" content="2021-08-05T06:19:07.794Z">
+<meta property="article:author" content="YangSu">
+<meta property="article:tag" content="Python">
+<meta property="article:tag" content="Deep learning">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s3.ax1x.com/2020/11/25/DUaqr4.png">
+
+<link rel="canonical" href="http://yangsuoly.com/2020/11/22/Scikit-learn/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>Scikit-learn | 独孤诗人的学习驿站</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?f59f5fb59d32ec3903088b0f976956d1";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta custom-logo">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">独孤诗人的学习驿站</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">生活就是一半烟火，一半诗意。手执烟火谋生活，心怀诗意谋未来……</p>
+      <a>
+        <img class="custom-logo-image" src="/images/logo@2x.png" alt="独孤诗人的学习驿站">
+      </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/Tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/Categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+  <a href="https://github.com/YangSuoly" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yangsuoly.com/2020/11/22/Scikit-learn/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/YangSu.jpg">
+      <meta itemprop="name" content="YangSu">
+      <meta itemprop="description" content="A blog for recording learning notes...">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="独孤诗人的学习驿站">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Scikit-learn
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-11-22 17:50:22" itemprop="dateCreated datePublished" datetime="2020-11-22T17:50:22+08:00">2020-11-22</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-08-05 14:19:07" itemprop="dateModified" datetime="2021-08-05T14:19:07+08:00">2021-08-05</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/Categories/Notes/" itemprop="url" rel="index"><span itemprop="name">Notes</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/Categories/Notes/Python-module/" itemprop="url" rel="index"><span itemprop="name">Python module</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/Categories/Notes/Python-module/Sklearn/" itemprop="url" rel="index"><span itemprop="name">Sklearn</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="Views" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span><br>
+            <span class="post-meta-item" title="Symbols count in article">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">Symbols count in article: </span>
+              <span>11k</span>
+            </span>
+            <span class="post-meta-item" title="Reading time">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">Reading time &asymp;</span>
+              <span>10 mins.</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="installing-scikit-learn">1 Installing scikit-learn</h1>
+<ul>
+<li><p>Windows</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install -U scikit-learn</span><br></pre></td></tr></table></figure></li>
+<li><p>macOS</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install -U scikit-learn</span><br></pre></td></tr></table></figure></li>
+<li><p>Linux</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip3 install -U scikit-learn</span><br></pre></td></tr></table></figure></li>
+</ul>
+<p>Check installation:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip show scikit-learn</span><br></pre></td></tr></table></figure>
+<p>See more about scikit-learn via clicking <a
+target="_blank" rel="noopener" href="https://scikit-learn.org/stable/index.html#">here</a>.</p>
+<a id="more"></a>
+<h1 id="general-study-mode">2 General study mode</h1>
+<p>Steps:</p>
+<ol type="1">
+<li>Load datas</li>
+<li>Split datas into two part: train and test part</li>
+<li>Training model</li>
+<li>Testing and evaluating model</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># instance for iris</span></span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np </span><br><span class="line"><span class="keyword">from</span> sklearn <span class="keyword">import</span> datasets</span><br><span class="line"><span class="keyword">from</span> sklearn.model_selection <span class="keyword">import</span> train_test_split</span><br><span class="line"><span class="keyword">from</span> sklearn.neighbors <span class="keyword">import</span> KNeighborsClassifier</span><br><span class="line"></span><br><span class="line">iris = datasets.load_iris()</span><br><span class="line">iris_x = iris.data <span class="comment"># features</span></span><br><span class="line">iris_y = iris.target <span class="comment"># types</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># print(iris_X[:2, :])</span></span><br><span class="line">x_train, x_test, y_train, y_test = train_test_split(iris_x, iris_y, test_size = <span class="number">0.3</span>) <span class="comment"># split original data into train and test part</span></span><br><span class="line"><span class="comment"># the percentage of test sets is 30%</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># print(y_train) # 会打乱原始数据</span></span><br><span class="line">knn = KNeighborsClassifier() <span class="comment"># Classifier</span></span><br><span class="line">knn.fit(x_train, y_train) <span class="comment"># Train</span></span><br><span class="line">print(knn.predict(x_test)) <span class="comment"># Use trained model to predict</span></span><br><span class="line">print(y_test)</span><br></pre></td></tr></table></figure>
+<p>Result:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[<span class="number">1</span> <span class="number">1</span> <span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">2</span> <span class="number">2</span> <span class="number">0</span> <span class="number">0</span> <span class="number">2</span> <span class="number">1</span> <span class="number">0</span> <span class="number">2</span> <span class="number">0</span> <span class="number">0</span> <span class="number">2</span> <span class="number">2</span> <span class="number">2</span> <span class="number">0</span> <span class="number">1</span> <span class="number">2</span> <span class="number">1</span> <span class="number">0</span> <span class="number">1</span> <span class="number">0</span> <span class="number">1</span> <span class="number">2</span> <span class="number">2</span> <span class="number">1</span> <span class="number">0</span> <span class="number">2</span> <span class="number">0</span> <span class="number">1</span> <span class="number">1</span> <span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">1</span> <span class="number">2</span> <span class="number">1</span> <span class="number">2</span> <span class="number">0</span> <span class="number">2</span> <span class="number">2</span>]</span><br><span class="line">[<span class="number">1</span> <span class="number">1</span> <span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">2</span> <span class="number">2</span> <span class="number">0</span> <span class="number">0</span> <span class="number">2</span> <span class="number">1</span> <span class="number">0</span> <span class="number">2</span> <span class="number">0</span> <span class="number">0</span> <span class="number">2</span> <span class="number">2</span> <span class="number">2</span> <span class="number">0</span> <span class="number">1</span> <span class="number">2</span> <span class="number">1</span> <span class="number">0</span> <span class="number">1</span> <span class="number">0</span> <span class="number">1</span> <span class="number">2</span> <span class="number">2</span> <span class="number">1</span> <span class="number">0</span> <span class="number">2</span> <span class="number">0</span> <span class="number">1</span> <span class="number">1</span> <span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">1</span> <span class="number">2</span> <span class="number">1</span> <span class="number">2</span> <span class="number">0</span> <span class="number">2</span> <span class="number">2</span>]</span><br></pre></td></tr></table></figure>
+<h1 id="sklearn.datasets">3 Sklearn.datasets</h1>
+<h2 id="generate-regressiong-datas">3.1 Generate regressiong datas</h2>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># instance for making datasets</span></span><br><span class="line"><span class="keyword">from</span> sklearn <span class="keyword">import</span> datasets</span><br><span class="line"><span class="keyword">from</span> sklearn.linear_model <span class="keyword">import</span> LinearRegression</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"></span><br><span class="line">X, y = datasets.make_regression(n_samples = <span class="number">100</span>, </span><br><span class="line">                n_features = <span class="number">1</span>, n_targets = <span class="number">1</span>, noise = <span class="number">2</span>)</span><br><span class="line"><span class="comment"># X, y = datasets.make_regression(n_samples = 100, </span></span><br><span class="line"><span class="comment">#                 n_features = 1, n_targets = 1, noise = 10)</span></span><br><span class="line"></span><br><span class="line">plt.scatter(X, y)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+<p>Result:<img src="https://s3.ax1x.com/2020/11/25/DUaqr4.png" /></p>
+<center>
+fig. 3-1 Synthetic data
+</center>
+<h2 id="load-datasets-of-linear-regression">3.2 Load datasets of Linear
+Regression</h2>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># instance for loading boston datasets</span></span><br><span class="line"><span class="keyword">from</span> sklearn <span class="keyword">import</span> datasets</span><br><span class="line"><span class="keyword">from</span> sklearn.linear_model <span class="keyword">import</span> LinearRegression</span><br><span class="line"></span><br><span class="line"><span class="comment"># LinearRegression example</span></span><br><span class="line">loaded_data = datasets.load_boston()</span><br><span class="line"><span class="comment"># X, y = datasets_loadboston(retern_X_y = true)</span></span><br><span class="line">data_X, data_y = loaded_data.data, loaded_data.target</span><br><span class="line"></span><br><span class="line">model = LinearRegression()</span><br><span class="line">model.fit(data_X, data_y)</span><br><span class="line"></span><br><span class="line">print(data_y[:<span class="number">4</span>])</span><br><span class="line">print(model.predict(data_X[:<span class="number">4</span>, :]))</span><br></pre></td></tr></table></figure>
+<p>Result:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[<span class="number">24.</span>  <span class="number">21.6</span> <span class="number">34.7</span> <span class="number">33.4</span>]</span><br><span class="line">[<span class="number">30.00384338</span> <span class="number">25.02556238</span> <span class="number">30.56759672</span> <span class="number">28.60703649</span>]</span><br></pre></td></tr></table></figure>
+<h2 id="normalization">3.3 Normalization</h2>
+<ul>
+<li><p>Demo</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn <span class="keyword">import</span> preprocessing</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">from</span> sklearn.model_selection <span class="keyword">import</span> train_test_split</span><br><span class="line"><span class="comment"># cross_validation 更新为 model_selection</span></span><br><span class="line"><span class="keyword">from</span> sklearn.datasets.samples_generator <span class="keyword">import</span> make_classification</span><br><span class="line"><span class="keyword">from</span> sklearn.svm <span class="keyword">import</span> SVC</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"></span><br><span class="line"> a = np.array([[<span class="number">10</span>, <span class="number">2.7</span>, <span class="number">3.6</span>],</span><br><span class="line">               [-<span class="number">100</span>, <span class="number">5</span>, <span class="number">2</span>],</span><br><span class="line">               [<span class="number">120</span>, <span class="number">20</span>, <span class="number">40</span>]], dtype = np.float64)</span><br><span class="line"></span><br><span class="line">print(a)</span><br><span class="line">print(preprocessing.scale(a)) <span class="comment"># normalization</span></span><br></pre></td></tr></table></figure>
+<p>Result:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[[  <span class="number">10.</span>     <span class="number">2.7</span>    <span class="number">3.6</span>]</span><br><span class="line"> [-<span class="number">100.</span>     <span class="number">5.</span>     <span class="number">2.</span> ]</span><br><span class="line"> [ <span class="number">120.</span>    <span class="number">20.</span>    <span class="number">40.</span> ]]</span><br><span class="line">[[ <span class="number">0.</span>         -<span class="number">0.85170713</span> -<span class="number">0.66102858</span>]</span><br><span class="line"> [-<span class="number">1.22474487</span> -<span class="number">0.55187146</span> -<span class="number">0.75220493</span>]</span><br><span class="line"> [ <span class="number">1.22474487</span>  <span class="number">1.40357859</span>  <span class="number">1.41323351</span>]]</span><br></pre></td></tr></table></figure></li>
+<li><p>Comparison of accuracy before and after normalization</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn <span class="keyword">import</span> preprocessing</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">from</span> sklearn.model_selection <span class="keyword">import</span> train_test_split</span><br><span class="line"><span class="comment"># cross_validation 更新为 model_selection</span></span><br><span class="line"><span class="keyword">from</span> sklearn.datasets.samples_generator <span class="keyword">import</span> make_classification</span><br><span class="line"><span class="keyword">from</span> sklearn.svm <span class="keyword">import</span> SVC</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"></span><br><span class="line">X, y = make_classification(n_samples = <span class="number">300</span>, n_features = <span class="number">2</span>, n_redundant = <span class="number">0</span>,n_informative = <span class="number">2</span>, random_state = <span class="number">22</span>, n_clusters_per_class = <span class="number">1</span>, scale = <span class="number">100</span>)</span><br><span class="line"><span class="comment"># random_state: 固定随机数</span></span><br><span class="line"></span><br><span class="line">plt.scatter(X[:, <span class="number">0</span>], X[:, <span class="number">1</span>], c = y)</span><br><span class="line">plt.title(<span class="string">&#x27;Classification samples&#x27;</span>)</span><br><span class="line">plt.show() <span class="comment"># </span></span><br></pre></td></tr></table></figure>
+<p>Plot the generated samples:<img
+src="https://s3.ax1x.com/2020/11/25/DUajaR.png" /></p>
+<center>
+<p>fig. 3-2 Samples</p>
+</center>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">X_train, X_test, y_train, y_test = train_test_split(X, y ,test_size = <span class="number">.3</span>)</span><br><span class="line">clf = SVC()</span><br><span class="line">clf.fit(X_train, y_train)</span><br><span class="line">print(clf.score(X_test, y_test))</span><br><span class="line"></span><br><span class="line">X = preprocessing.scale(X) <span class="comment"># normalization</span></span><br><span class="line">X_train, X_test, y_train, y_test = train_test_split(X, y ,test_size = <span class="number">.3</span>)</span><br><span class="line">clf = SVC()</span><br><span class="line">clf.fit(X_train, y_train)</span><br><span class="line">print(clf.score(X_test, y_test))</span><br></pre></td></tr></table></figure>
+<p>Result:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">0.9111111111111111</span></span><br><span class="line"><span class="number">0.9555555555555556</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<h1 id="model-features-and-attributes">4 Model features and
+attributes</h1>
+<h2 id="basic-parameters">4.1 Basic parameters</h2>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn <span class="keyword">import</span> datasets</span><br><span class="line"><span class="keyword">from</span> sklearn.linear_model <span class="keyword">import</span> LinearRegression</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"></span><br><span class="line"><span class="comment"># LinearRegression example</span></span><br><span class="line">loaded_data = datasets.load_boston()</span><br><span class="line"><span class="comment"># X, y = datasets_loadboston(retern_X_y = true)</span></span><br><span class="line">data_X, data_y = loaded_data.data, loaded_data.target</span><br><span class="line"></span><br><span class="line">model = LinearRegression()</span><br><span class="line">model.fit(data_X, data_y)</span><br><span class="line"></span><br><span class="line">print(data_y[:<span class="number">4</span>])</span><br><span class="line">print(model.predict(data_X[:<span class="number">4</span>, :]))</span><br><span class="line"></span><br><span class="line">print(model.coef_) <span class="comment"># 系数</span></span><br><span class="line">print(model.intercept_) <span class="comment"># 截距</span></span><br><span class="line">print(model.get_params) <span class="comment"># 参数</span></span><br><span class="line">print(model.score(data_X, data_y)) <span class="comment"># default is R^2 coefficietn of determination</span></span><br></pre></td></tr></table></figure>
+<p>Result:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">[24.  21.6 34.7 33.4]</span><br><span class="line">[30.00384338 25.02556238 30.56759672 28.60703649]</span><br><span class="line">[-1.08011358e-01  4.64204584e-02  2.05586264e-02  2.68673382e+00</span><br><span class="line"> -1.77666112e+01  3.80986521e+00  6.92224640e-04 -1.47556685e+00</span><br><span class="line">  3.06049479e-01 -1.23345939e-02 -9.52747232e-01  9.31168327e-03</span><br><span class="line"> -5.24758378e-01]</span><br><span class="line">36.459488385089855</span><br><span class="line">&lt;bound method BaseEstimator.get_params of LinearRegression()&gt;</span><br><span class="line">0.7406426641094095</span><br></pre></td></tr></table></figure>
+<h2 id="cross-validation">4.2 Cross validation</h2>
+<ul>
+<li><p>Evaluate the NN</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.datasets <span class="keyword">import</span> load_iris</span><br><span class="line"><span class="keyword">from</span> sklearn.model_selection <span class="keyword">import</span> train_test_split</span><br><span class="line"><span class="keyword">from</span> sklearn.neighbors <span class="keyword">import</span> KNeighborsClassifier</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> sklearn.model_selection <span class="keyword">import</span> cross_val_score</span><br><span class="line"></span><br><span class="line">iris = load_iris()</span><br><span class="line">X = iris.data</span><br><span class="line">y = iris.target</span><br><span class="line"></span><br><span class="line">X_train, X_test, y_train, y_test = train_test_split(X, y, random_state = <span class="number">4</span>)</span><br><span class="line"></span><br><span class="line">knn = KNeighborsClassifier(n_neighbors = <span class="number">5</span>)</span><br><span class="line"><span class="comment"># knn.fit(X_train, y_train)</span></span><br><span class="line"><span class="comment"># print(knn.score(X_test, y_test))</span></span><br><span class="line">scores = cross_val_score(knn, X, y, cv = <span class="number">5</span>, scoring = <span class="string">&#x27;accuracy&#x27;</span>) <span class="comment"># 将test进行5次划分</span></span><br><span class="line">print(scores.mean()) <span class="comment"># 取平均值</span></span><br></pre></td></tr></table></figure>
+<p>Result:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">0.9733333333333334</span></span><br></pre></td></tr></table></figure></li>
+<li><p>Cross validation</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> __future__ <span class="keyword">import</span> print_function</span><br><span class="line"><span class="keyword">from</span> sklearn.model_selection <span class="keyword">import</span>  learning_curve</span><br><span class="line"><span class="keyword">from</span> sklearn.datasets <span class="keyword">import</span> load_digits</span><br><span class="line"><span class="keyword">from</span> sklearn.svm <span class="keyword">import</span> SVC</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line">digits = load_digits()</span><br><span class="line">X = digits.data</span><br><span class="line">y = digits.target</span><br><span class="line">train_sizes, train_loss, test_loss= learning_curve( SVC(gamma=<span class="number">0.01</span>), X, y, cv=<span class="number">10</span>, scoring=<span class="string">&#x27;neg_mean_squared_error&#x27;</span>, train_sizes=[<span class="number">0.1</span>, <span class="number">0.25</span>, <span class="number">0.5</span>, <span class="number">0.75</span>, <span class="number">1</span>])</span><br><span class="line"><span class="comment"># &#x27;neg_mean_squared_error&#x27; 非 &#x27;mean_squared_error&#x27;</span></span><br><span class="line"></span><br><span class="line">train_loss_mean = -np.mean(train_loss, axis=<span class="number">1</span>)</span><br><span class="line">test_loss_mean = -np.mean(test_loss, axis=<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">plt.plot(train_sizes, train_loss_mean, <span class="string">&#x27;o-&#x27;</span>, color=<span class="string">&quot;r&quot;</span>,</span><br><span class="line">             label=<span class="string">&quot;Training&quot;</span>)</span><br><span class="line">plt.plot(train_sizes, test_loss_mean, <span class="string">&#x27;o-&#x27;</span>, color=<span class="string">&quot;g&quot;</span>,</span><br><span class="line">             label=<span class="string">&quot;Cross-validation&quot;</span>)</span><br><span class="line"></span><br><span class="line">plt.xlabel(<span class="string">&quot;Training examples&quot;</span>)</span><br><span class="line">plt.ylabel(<span class="string">&quot;Loss&quot;</span>)</span><br><span class="line">plt.legend(loc=<span class="string">&quot;best&quot;</span>)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+<p>Result:</p>
+<p><img src="https://s3.ax1x.com/2020/11/25/DUabMF.md.png" /></p>
+<center>
+<p>fig 4-1 Vross-validation</p>
+</center></li>
+<li><p>Adjustment parameter-1</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> __future__ <span class="keyword">import</span> print_function</span><br><span class="line"><span class="keyword">from</span> sklearn.datasets <span class="keyword">import</span> load_iris</span><br><span class="line"><span class="keyword">from</span> sklearn.model_selection <span class="keyword">import</span> train_test_split</span><br><span class="line"><span class="keyword">from</span> sklearn.neighbors <span class="keyword">import</span> KNeighborsClassifier</span><br><span class="line"></span><br><span class="line">iris = load_iris()</span><br><span class="line">X = iris.data</span><br><span class="line">y = iris.target</span><br><span class="line"></span><br><span class="line"><span class="comment"># test train split #</span></span><br><span class="line">X_train, X_test, y_train, y_test = train_test_split(X, y, random_state=<span class="number">4</span>)</span><br><span class="line">knn = KNeighborsClassifier(n_neighbors=<span class="number">5</span>)</span><br><span class="line">knn.fit(X_train, y_train)</span><br><span class="line">y_pred = knn.predict(X_test)</span><br><span class="line">print(knn.score(X_test, y_test))</span><br><span class="line"></span><br><span class="line"><span class="comment"># this is how to use cross_val_score to choose model and configs #</span></span><br><span class="line"><span class="keyword">from</span> sklearn.model_selection <span class="keyword">import</span> cross_val_score</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line">k_range = <span class="built_in">range</span>(<span class="number">1</span>, <span class="number">31</span>)</span><br><span class="line">k_scores = []</span><br><span class="line"><span class="keyword">for</span> k <span class="keyword">in</span> k_range:</span><br><span class="line">    knn = KNeighborsClassifier(n_neighbors=k)</span><br><span class="line"><span class="comment">##    loss = -cross_val_score(knn, X, y, cv=10, scoring=&#x27;mean_squared_error&#x27;) # for regression</span></span><br><span class="line">    scores = cross_val_score(knn, X, y, cv=<span class="number">10</span>, scoring=<span class="string">&#x27;accuracy&#x27;</span>) <span class="comment"># for classification</span></span><br><span class="line">    k_scores.append(scores.mean())</span><br><span class="line"></span><br><span class="line">plt.plot(k_range, k_scores)</span><br><span class="line">plt.xlabel(<span class="string">&#x27;Value of K for KNN&#x27;</span>)</span><br><span class="line">plt.ylabel(<span class="string">&#x27;Cross-Validated Accuracy&#x27;</span>)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+<p>Result:</p>
+<p><img src="https://s3.ax1x.com/2020/11/25/DUaXZ9.png" /></p>
+<center>
+<p>fig. 4-2 Adjustment parameters</p>
+</center></li>
+<li><p>Adjustment parameter-2</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> __future__ <span class="keyword">import</span> print_function</span><br><span class="line"><span class="keyword">from</span> sklearn.model_selection <span class="keyword">import</span> validation_curve</span><br><span class="line"><span class="keyword">from</span> sklearn.datasets <span class="keyword">import</span> load_digits</span><br><span class="line"><span class="keyword">from</span> sklearn.svm <span class="keyword">import</span> SVC</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line">digits = load_digits()</span><br><span class="line">X = digits.data</span><br><span class="line">y = digits.target</span><br><span class="line">param_range = np.logspace(-<span class="number">6</span>, -<span class="number">2.3</span>, <span class="number">5</span>)</span><br><span class="line">train_loss, test_loss = validation_curve(</span><br><span class="line">        SVC(), X, y, param_name=<span class="string">&#x27;gamma&#x27;</span>, param_range=param_range, cv=<span class="number">10</span>,</span><br><span class="line">        scoring= <span class="string">&#x27;neg_mean_squared_error&#x27;</span>)</span><br><span class="line">train_loss_mean = -np.mean(train_loss, axis=<span class="number">1</span>)</span><br><span class="line">test_loss_mean = -np.mean(test_loss, axis=<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">plt.plot(param_range, train_loss_mean, <span class="string">&#x27;o-&#x27;</span>, color=<span class="string">&quot;r&quot;</span>,</span><br><span class="line">             label=<span class="string">&quot;Training&quot;</span>)</span><br><span class="line">plt.plot(param_range, test_loss_mean, <span class="string">&#x27;o-&#x27;</span>, color=<span class="string">&quot;g&quot;</span>,</span><br><span class="line">             label=<span class="string">&quot;Cross-validation&quot;</span>)</span><br><span class="line"></span><br><span class="line">plt.xlabel(<span class="string">&quot;gamma&quot;</span>)</span><br><span class="line">plt.ylabel(<span class="string">&quot;Loss&quot;</span>)</span><br><span class="line">plt.title(<span class="string">&#x27;Overfitting problem&#x27;</span>)</span><br><span class="line">plt.legend(loc=<span class="string">&quot;best&quot;</span>)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+<p>Result:</p>
+<p><img src="https://s3.ax1x.com/2020/11/25/DUaLqJ.png" /></p>
+<center>
+<p>fig 4-3 Adjustment parameters</p>
+</center></li>
+</ul>
+<h2 id="transform-target-in-regression-model">4.3 Transform target in
+regression model</h2>
+<p>将原始数据转化为分类模式，可以有效地提高预测的精度，效果如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> matplotlib</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"></span><br><span class="line"><span class="comment"># print(__doc__)</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> sklearn.datasets <span class="keyword">import</span> make_regression</span><br><span class="line"><span class="keyword">from</span> sklearn.model_selection <span class="keyword">import</span> train_test_split</span><br><span class="line"><span class="keyword">from</span> sklearn.linear_model <span class="keyword">import</span> RidgeCV</span><br><span class="line"><span class="keyword">from</span> sklearn.compose <span class="keyword">import</span> TransformedTargetRegressor</span><br><span class="line"><span class="keyword">from</span> sklearn.metrics <span class="keyword">import</span> median_absolute_error, r2_score</span><br><span class="line"><span class="keyword">from</span> sklearn.utils.fixes <span class="keyword">import</span> parse_version</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> parse_version(matplotlib.__version__) &gt;= parse_version(<span class="string">&#x27;2.1&#x27;</span>):</span><br><span class="line">    desity_param = &#123;<span class="string">&#x27;density&#x27;</span>: <span class="literal">True</span>&#125;</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    density_param = &#123;<span class="string">&#x27;normed&#x27;</span>: <span class="literal">True</span>&#125;</span><br><span class="line">    </span><br><span class="line">X, y = make_regression(n_samples = <span class="number">10000</span>, noise = <span class="number">100</span>, random_state = <span class="number">0</span>)</span><br><span class="line">y = np.exp((y + <span class="built_in">abs</span>(y.<span class="built_in">min</span>()))/<span class="number">200</span>)</span><br><span class="line">y_trans = np.log1p(y)</span><br><span class="line"></span><br><span class="line">f, (ax0, ax1) = plt.subplots(<span class="number">1</span>, <span class="number">2</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># density: normalization</span></span><br><span class="line">ax0.hist(y, bins = <span class="number">100</span>, density = <span class="literal">True</span>)</span><br><span class="line">ax0.set_xlim([<span class="number">0</span>, <span class="number">2000</span>])</span><br><span class="line">ax0.set_ylabel(<span class="string">&#x27;Probability&#x27;</span>)</span><br><span class="line">ax0.set_xlabel(<span class="string">&#x27;Target&#x27;</span>)</span><br><span class="line">ax0.set_title(<span class="string">&#x27;Target distribution&#x27;</span>)</span><br><span class="line"></span><br><span class="line">ax1.hist(y_trans, bins = <span class="number">100</span>, density = <span class="literal">True</span>)</span><br><span class="line">ax1.set_ylabel(<span class="string">&#x27;Probability&#x27;</span>)</span><br><span class="line">ax1.set_xlabel(<span class="string">&#x27;Target&#x27;</span>)</span><br><span class="line">ax1.set_title(<span class="string">&#x27;Transformed target distribution&#x27;</span>)</span><br><span class="line"></span><br><span class="line">f.suptitle(<span class="string">&#x27;Synthetic data&#x27;</span>, y = <span class="number">0.035</span>)</span><br><span class="line">f.tight_layout(rect = [<span class="number">0.05</span>, <span class="number">0.05</span>, <span class="number">0.95</span>, <span class="number">0.95</span>])</span><br><span class="line"></span><br><span class="line">X_train, X_test, y_train, y_test = train_test_split(X, y, random_state = <span class="number">0</span>)</span><br></pre></td></tr></table></figure>
+<p>Result:</p>
+<p><img src="https://s3.ax1x.com/2020/11/25/DUavI1.png" /></p>
+<center>
+fig.4-4 Comparison of Transformation
+</center>
+<p>然后，再来测试其对预测精度的影响：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">X_train, X_test, y_train, y_test = train_test_split(X, y, random_state=<span class="number">0</span>)</span><br><span class="line"></span><br><span class="line">f, (ax0, ax1) = plt.subplots(<span class="number">1</span>, <span class="number">2</span>, sharey=<span class="literal">True</span>)</span><br><span class="line"></span><br><span class="line">regr = RidgeCV()</span><br><span class="line">regr.fit(X_train, y_train)</span><br><span class="line">y_pred = regr.predict(X_test)</span><br><span class="line"></span><br><span class="line">ax0.scatter(y_test, y_pred)</span><br><span class="line">ax0.plot([<span class="number">0</span>, <span class="number">2000</span>], [<span class="number">0</span>, <span class="number">2000</span>], <span class="string">&#x27;--k&#x27;</span>)</span><br><span class="line">ax0.set_ylabel(<span class="string">&#x27;Target predicted&#x27;</span>)</span><br><span class="line">ax0.set_xlabel(<span class="string">&#x27;True Target&#x27;</span>)</span><br><span class="line">ax0.set_title(<span class="string">&#x27;Ridge regression \n without target transformation&#x27;</span>)</span><br><span class="line">ax0.text(<span class="number">100</span>, <span class="number">1750</span>, <span class="string">r&#x27;$R^2$=%.2f, MAE=%.2f&#x27;</span> % (</span><br><span class="line">    r2_score(y_test, y_pred), median_absolute_error(y_test, y_pred)))</span><br><span class="line">ax0.set_xlim([<span class="number">0</span>, <span class="number">2000</span>])</span><br><span class="line">ax0.set_ylim([<span class="number">0</span>, <span class="number">2000</span>])</span><br><span class="line"></span><br><span class="line">regr_trans = TransformedTargetRegressor(regressor=RidgeCV(), func=np.log1p,inverse_func=np.expm1)</span><br><span class="line"></span><br><span class="line">regr_trans.fit(X_train, y_train)</span><br><span class="line">y_pred = regr_trans.predict(X_test)</span><br><span class="line"></span><br><span class="line">ax1.scatter(y_test, y_pred)</span><br><span class="line">ax1.plot([<span class="number">0</span>, <span class="number">2000</span>], [<span class="number">0</span>, <span class="number">2000</span>], <span class="string">&#x27;--k&#x27;</span>)</span><br><span class="line">ax1.set_ylabel(<span class="string">&#x27;Target predicted&#x27;</span>)</span><br><span class="line">ax1.set_xlabel(<span class="string">&#x27;True Target&#x27;</span>)</span><br><span class="line">ax1.set_title(<span class="string">&#x27;Ridge regression \n with target transformation&#x27;</span>)</span><br><span class="line">ax1.text(<span class="number">100</span>, <span class="number">1750</span>, <span class="string">r&#x27;$R^2$=%.2f, MAE=%.2f&#x27;</span> % (</span><br><span class="line">    r2_score(y_test, y_pred), median_absolute_error(y_test, y_pred)))</span><br><span class="line">ax1.set_xlim([<span class="number">0</span>, <span class="number">2000</span>])</span><br><span class="line">ax1.set_ylim([<span class="number">0</span>, <span class="number">2000</span>])</span><br><span class="line"></span><br><span class="line">f.suptitle(<span class="string">&quot;Synthetic data&quot;</span>, y=<span class="number">0.035</span>)</span><br><span class="line">f.tight_layout(rect=[<span class="number">0.05</span>, <span class="number">0.05</span>, <span class="number">0.95</span>, <span class="number">0.95</span>])</span><br></pre></td></tr></table></figure>
+<p><img src="https://s3.ax1x.com/2020/11/25/DUazPx.png" /></p>
+<center>
+fig. 4-5 Comparison before and after transforming
+</center>
+<p>从结果可以看出，经过预处理转化后的数据集能有效地提高预测的精度，降低
+<code>MAE</code> 的值。</p>
+<h1 id="save-model">5 Save model</h1>
+<p>Train model</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> __future__ <span class="keyword">import</span> print_function</span><br><span class="line"><span class="keyword">from</span> sklearn <span class="keyword">import</span> svm</span><br><span class="line"><span class="keyword">from</span> sklearn <span class="keyword">import</span> datasets</span><br><span class="line"></span><br><span class="line">clf = svm.SVC()</span><br><span class="line">iris = datasets.load_iris()</span><br><span class="line">X, y = iris.data, iris.target</span><br><span class="line">clf.fit(X, y)</span><br></pre></td></tr></table></figure>
+<p>Then, we can use two methods to save our trained models:</p>
+<ol type="1">
+<li><p>pickle</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pickle</span><br><span class="line"><span class="comment"># Save</span></span><br><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&#x27;save/clf.pickle&#x27;</span>, <span class="string">&#x27;wb&#x27;</span>) <span class="keyword">as</span> f:</span><br><span class="line">    pickle.dump(clf, f)</span><br><span class="line"><span class="comment"># Restore</span></span><br><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&#x27;save/clf.pickle&#x27;</span>, <span class="string">&#x27;rb&#x27;</span>) <span class="keyword">as</span> f:</span><br><span class="line">	clf2 = pickle.load(f)</span><br><span class="line">print(clf2.predict(X[<span class="number">0</span>:<span class="number">1</span>]))</span><br></pre></td></tr></table></figure></li>
+<li><p>joblib</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> joblib</span><br><span class="line"><span class="comment"># Save</span></span><br><span class="line">joblib.dump(clf, <span class="string">&#x27;./save/clf.pkl&#x27;</span>)</span><br><span class="line"><span class="comment"># restore</span></span><br><span class="line">clf3 = joblib.load(<span class="string">&#x27;save/clf.pkl&#x27;</span>)</span><br><span class="line">print(clf3.predict(X[<span class="number">0</span>:<span class="number">1</span>]))</span><br></pre></td></tr></table></figure></li>
+</ol>
+
+    </div>
+
+    
+    
+    
+
+    <div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">
+            -------------This blog is over!
+            <i class="fa fa-eye"></i>
+            Thanks for your reading-------------
+        </div>
+    
+</div>
+      
+    </div>
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>Post author:  </strong>YangSu
+  </li>
+  <li class="post-copyright-link">
+    <strong>Post link: </strong>
+    <a href="http://yangsuoly.com/2020/11/22/Scikit-learn/" title="Scikit-learn">http://yangsuoly.com/2020/11/22/Scikit-learn/</a>
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/Tags/Python/" rel="tag"><i class="fa fa-tag"></i> Python</a>
+              <a href="/Tags/Deep-learning/" rel="tag"><i class="fa fa-tag"></i> Deep learning</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/11/22/Git-notes/" rel="prev" title="Git notes">
+      <i class="fa fa-chevron-left"></i> Git notes
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/11/23/Linux/" rel="next" title="Linux notes">
+      Linux notes <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div id="music163player">
+      <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=1317956275&auto=0&height=66"></iframe>
+      </iframe>
+    </div>
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#installing-scikit-learn"><span class="nav-text">1 Installing scikit-learn</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#general-study-mode"><span class="nav-text">2 General study mode</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#sklearn.datasets"><span class="nav-text">3 Sklearn.datasets</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#generate-regressiong-datas"><span class="nav-text">3.1 Generate regressiong datas</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#load-datasets-of-linear-regression"><span class="nav-text">3.2 Load datasets of Linear
+Regression</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#normalization"><span class="nav-text">3.3 Normalization</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#model-features-and-attributes"><span class="nav-text">4 Model features and
+attributes</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#basic-parameters"><span class="nav-text">4.1 Basic parameters</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#cross-validation"><span class="nav-text">4.2 Cross validation</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#transform-target-in-regression-model"><span class="nav-text">4.3 Transform target in
+regression model</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#save-model"><span class="nav-text">5 Save model</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="YangSu"
+      src="/images/YangSu.jpg">
+  <p class="site-author-name" itemprop="name">YangSu</p>
+  <div class="site-description" itemprop="description">A blog for recording learning notes...</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">78</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/Categories/">
+          
+        <span class="site-state-item-count">40</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/Tags/">
+          
+        <span class="site-state-item-count">49</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/YangSuoly" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;YangSuoly" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://gitee.com/yangsuoly" title="Gitee → https:&#x2F;&#x2F;gitee.com&#x2F;yangsuoly" rel="noopener" target="_blank"><i class="fab fa-github-square fa-fw"></i>Gitee</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://space.bilibili.com/64518717" title="B 站 → https:&#x2F;&#x2F;space.bilibili.com&#x2F;64518717" rel="noopener" target="_blank"><i class="fa fa-play-circle fa-fw"></i>B 站</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Related links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://www.58pic.com/u/19637930/" title="https:&#x2F;&#x2F;www.58pic.com&#x2F;u&#x2F;19637930&#x2F;" rel="noopener" target="_blank">千图网</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js" integrity="sha384-g7c+Jr9ZivxKLnZTDUhnkOnsh30B4H0rpLUpJ4jAIKs4fnJI+sEnkvrMWph2EDg4" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/auto-render.min.js" integrity="sha384-mll67QQFJfxn0IYznZYonOWZ644AWYC+Pt2cHqMaRhXVrursRwvLnLaebdGIlYNa" crossorigin="anonymous"
+        onload="renderMathInElement(document.body);"></script>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2026</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">YangSu</span>
+</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="Total Visitors">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="Total Views">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script size="300" alpha="0.6" zIndex="-1" src="/lib/canvas-ribbon/canvas-ribbon.js"></script>
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+<script>
+document.querySelectorAll('.pdfobject-container').forEach(element => {
+  let url = element.dataset.target;
+  let pdfOpenParams = {
+    navpanes : 0,
+    toolbar  : 0,
+    statusbar: 0,
+    pagemode : 'thumbs',
+    view     : 'FitH'
+  };
+  let pdfOpenFragment = '#' + Object.entries(pdfOpenParams).map(([key, value]) => `${key}=${encodeURIComponent(value)}`).join('&');
+  let fullURL = `/lib/pdf/web/viewer.html?file=${encodeURIComponent(url)}${pdfOpenFragment}`;
+
+  if (NexT.utils.supportsPDFs()) {
+    element.innerHTML = `<embed class="pdfobject" src="${url + pdfOpenFragment}" type="application/pdf" style="height: ${element.dataset.height};">`;
+  } else {
+    element.innerHTML = `<iframe src="${fullURL}" style="height: ${element.dataset.height};" frameborder="0"></iframe>`;
+  }
+});
+</script>
+
+
+<script>
+if (document.querySelectorAll('pre.mermaid').length) {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js', () => {
+    mermaid.initialize({
+      theme    : 'forest',
+      logLevel : 3,
+      flowchart: { curve     : 'linear' },
+      gantt    : { axisFormat: '%m/%d/%Y' },
+      sequence : { actorMargin: 50 }
+    });
+  }, window.mermaid);
+}
+</script>
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+  <script src="//cdn.jsdelivr.net/npm/quicklink@1/dist/quicklink.umd.js"></script>
+  <script>
+      window.addEventListener('load', () => {
+      quicklink({
+        timeout : 3000,
+        priority: true,
+        ignores : [uri => uri.includes('#'),uri => uri === 'http://yangsuoly.com/2020/11/22/Scikit-learn/',]
+      });
+      });
+  </script>
+
+  
+  <script id="ribbon" src="js/canvas-ribbon.js"></script>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/22.2017.cba-normal.model.json"},"display":{"position":"right","width":300,"height":450},"mobile":{"show":false},"react":{"opacity":0.7},"log":false});</script></body>
+</html>

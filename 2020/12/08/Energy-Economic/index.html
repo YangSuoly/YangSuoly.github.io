@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/blog-logo-32px.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/blog-logo-16px.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <link rel="manifest" href="/images/manifest.json">
+  <meta name="msapplication-config" content="/images/browserconfig.xml">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yangsuoly.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":true},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":true,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="1 Markov model 1.1 Preparation and definition  Import modules 123456789101112import numpy as npimport pandas as pdfrom numpy import linalg as lafrom sklearn.metrics import mean_absolute_error, r2_scor">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Energy Economic Codes">
+<meta property="og:url" content="http://yangsuoly.com/2020/12/08/Energy-Economic/index.html">
+<meta property="og:site_name" content="独孤诗人的学习驿站">
+<meta property="og:description" content="1 Markov model 1.1 Preparation and definition  Import modules 123456789101112import numpy as npimport pandas as pdfrom numpy import linalg as lafrom sklearn.metrics import mean_absolute_error, r2_scor">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://s3.ax1x.com/2020/12/08/rpDV56.md.png">
+<meta property="og:image" content="https://s3.ax1x.com/2020/12/08/rpDePK.png">
+<meta property="article:published_time" content="2020-12-08T12:10:42.000Z">
+<meta property="article:modified_time" content="2020-12-15T07:17:36.965Z">
+<meta property="article:author" content="YangSu">
+<meta property="article:tag" content="Deep learning">
+<meta property="article:tag" content="Prediction">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s3.ax1x.com/2020/12/08/rpDV56.md.png">
+
+<link rel="canonical" href="http://yangsuoly.com/2020/12/08/Energy-Economic/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>Energy Economic Codes | 独孤诗人的学习驿站</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?f59f5fb59d32ec3903088b0f976956d1";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta custom-logo">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">独孤诗人的学习驿站</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">生活就是一半烟火，一半诗意。手执烟火谋生活，心怀诗意谋未来……</p>
+      <a>
+        <img class="custom-logo-image" src="/images/logo@2x.png" alt="独孤诗人的学习驿站">
+      </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/Tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/Categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+  <a href="https://github.com/YangSuoly" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yangsuoly.com/2020/12/08/Energy-Economic/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/YangSu.jpg">
+      <meta itemprop="name" content="YangSu">
+      <meta itemprop="description" content="A blog for recording learning notes...">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="独孤诗人的学习驿站">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Energy Economic Codes
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-12-08 20:10:42" itemprop="dateCreated datePublished" datetime="2020-12-08T20:10:42+08:00">2020-12-08</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-12-15 15:17:36" itemprop="dateModified" datetime="2020-12-15T15:17:36+08:00">2020-12-15</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/Categories/Class-Notes/" itemprop="url" rel="index"><span itemprop="name">Class Notes</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/Categories/Class-Notes/Energy-economics/" itemprop="url" rel="index"><span itemprop="name">Energy economics</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="Views" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span><br>
+            <span class="post-meta-item" title="Symbols count in article">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">Symbols count in article: </span>
+              <span>21k</span>
+            </span>
+            <span class="post-meta-item" title="Reading time">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">Reading time &asymp;</span>
+              <span>19 mins.</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="markov-model">1 Markov model</h1>
+<h2 id="preparation-and-definition">1.1 Preparation and definition</h2>
+<ul>
+<li><p>Import modules</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="keyword">from</span> numpy <span class="keyword">import</span> linalg <span class="keyword">as</span> la</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> sklearn.metrics <span class="keyword">import</span> mean_absolute_error, r2_score</span><br><span class="line"><span class="keyword">from</span> sklearn.metrics <span class="keyword">import</span> mean_squared_error</span><br><span class="line"></span><br><span class="line"><span class="comment"># Plot module</span></span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line">plt.rcParams[<span class="string">&#x27;font.sans-serif&#x27;</span>] = [<span class="string">&#x27;SimHei&#x27;</span>]</span><br><span class="line"><span class="comment"># Microsoft YaHei, Times New Roman</span></span><br><span class="line">plt.rcParams[<span class="string">&#x27;axes.unicode_minus&#x27;</span>] = <span class="literal">False</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<a id="more"></a>
+<ul>
+<li><p>Plot results</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">plot_result</span>(<span class="params">test_Y, pred_Y, Title</span>):</span></span><br><span class="line">    ylim_min = np.<span class="built_in">round</span>(test_Y.<span class="built_in">min</span>()) - <span class="number">1</span></span><br><span class="line">    ylim_max = np.<span class="built_in">round</span>(test_Y.<span class="built_in">max</span>()) + <span class="number">1</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment"># plot comparison results</span></span><br><span class="line">    fig = plt.figure(figsize = (<span class="number">8</span>, <span class="number">6</span>))</span><br><span class="line">    ax0 = fig.add_subplot(<span class="number">111</span>)</span><br><span class="line">    ax0.scatter(test_Y, pred_Y)</span><br><span class="line">    ax0.plot([ylim_min, ylim_max], [ylim_min, ylim_max], <span class="string">&#x27;--k&#x27;</span>)</span><br><span class="line">    ax0.set_xlabel(<span class="string">&#x27;True Target&#x27;</span>, fontsize = <span class="number">15</span>)</span><br><span class="line">    ax0.set_ylabel(<span class="string">&#x27;Target predicted&#x27;</span>, fontsize = <span class="number">15</span>)</span><br><span class="line">    ax0.set_title(Title , fontsize = <span class="number">16</span>)</span><br><span class="line">    ax0.text(ylim_min + <span class="number">2</span>, ylim_max - <span class="number">4</span>, <span class="string">r&#x27;$R^2$ = %.2f, $MAE$ = %.2f&#x27;</span> %(r2_score(test_Y, pred_Y), </span><br><span class="line">                mean_absolute_error(test_Y, pred_Y)), fontsize = <span class="number">14</span>)</span><br><span class="line">    ax0.text(ylim_min + <span class="number">2</span>, ylim_max - <span class="number">5</span>, <span class="string">r&#x27;$MSE$ = %.2f, $RMSE$ = %.2f&#x27;</span> %(mean_squared_error(test_Y, pred_Y), </span><br><span class="line">                mean_squared_error(test_Y, pred_Y, squared=<span class="literal">False</span>)), fontsize = <span class="number">14</span>)</span><br><span class="line">    </span><br><span class="line">    ax0.set_xlim([ylim_min, ylim_max])</span><br><span class="line">    ax0.set_ylim([ylim_min, ylim_max])</span><br><span class="line">    plt.show()</span><br><span class="line"></span><br><span class="line">    <span class="comment"># Plot prediction and real values</span></span><br><span class="line">    plt.figure(figsize = (<span class="number">8</span>, <span class="number">6</span>)) <span class="comment"># length x width</span></span><br><span class="line">    plt.plot(pred_Y, <span class="string">&#x27;r&#x27;</span>, label=<span class="string">&#x27;prediction&#x27;</span>, lw = <span class="number">0.8</span>)</span><br><span class="line">    plt.plot(test_Y, <span class="string">&#x27;b&#x27;</span>, label=<span class="string">&#x27;real&#x27;</span>, lw = <span class="number">0.8</span>)</span><br><span class="line">    plt.xticks(<span class="built_in">range</span>(<span class="number">19</span>), fontsize = <span class="number">15</span>)</span><br><span class="line">    plt.yticks(fontsize = <span class="number">15</span>)</span><br><span class="line">    plt.title(Title, fontsize = <span class="number">16</span>)</span><br><span class="line">    plt.legend(loc=<span class="string">&#x27;best&#x27;</span>, fontsize  = <span class="number">15</span>)</span><br><span class="line">    plt.show()</span><br></pre></td></tr></table></figure>
+<p>绘制结果图（可选，可通过调整 <code>plot_b</code>
+的值来选择是否绘图），包含两个:</p>
+<p><img src="https://s3.ax1x.com/2020/12/08/rpDV56.md.png" /></p>
+<center>
+<p>Fig. 1-1 Trend figure of Coal</p>
+</center>
+<p><img src="https://s3.ax1x.com/2020/12/08/rpDePK.png" /></p>
+<center>
+<p>Fig. 1-2 Comparison figure of Coal</p>
+</center></li>
+<li><p>Calculate loss</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">calculate_error</span>(<span class="params">test_data, np_Pred_results, title</span>):</span></span><br><span class="line">    <span class="comment"># Storing error results </span></span><br><span class="line">    R2 = r2_score(test_data, np_Pred_results)</span><br><span class="line">    MAE = mean_absolute_error(test_data, np_Pred_results)</span><br><span class="line">    MSE = mean_squared_error(test_data, np_Pred_results)</span><br><span class="line">    RMSE = mean_squared_error(test_data, np_Pred_results, squared=<span class="literal">False</span>)</span><br><span class="line">    </span><br><span class="line">    error = [title, R2, MAE, MSE, RMSE]</span><br><span class="line">    <span class="keyword">return</span> error</span><br></pre></td></tr></table></figure>
+<p>Calculate the loss: R2, MAE, MSE, RMSE</p></li>
+<li><p>Definition of Markov model</p>
+<p>The first step: calculate and return transfer matrix (type:
+np.array)</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">Markov_trans</span>(<span class="params">data_stru, year_start, year_end</span>):</span></span><br><span class="line">    P = np.identity(<span class="number">4</span>)</span><br><span class="line">    K = np.array([<span class="number">1.0</span>, <span class="number">1.</span>, <span class="number">1.</span>, <span class="number">1.</span>])</span><br><span class="line">    </span><br><span class="line">    year_start_data = data_stru.loc[year_start, :]</span><br><span class="line">    year_end_data = data_stru.loc[year_end,:]</span><br><span class="line">    </span><br><span class="line">    bool_value = np.array(year_end_data &lt; year_start_data)</span><br><span class="line">    i = <span class="number">0</span> <span class="comment"># index</span></span><br><span class="line">    <span class="keyword">for</span> b <span class="keyword">in</span> bool_value:</span><br><span class="line">        <span class="keyword">if</span> b == <span class="literal">False</span>: <span class="comment"># Decrease</span></span><br><span class="line">            K[i] =  year_end_data[i] - year_start_data[i]</span><br><span class="line">        <span class="keyword">elif</span> b == <span class="literal">True</span>: <span class="comment"># Increase</span></span><br><span class="line">            P[i, i] = year_end_data[i]/year_start_data[i]</span><br><span class="line">            K[i] = <span class="number">0</span></span><br><span class="line">        i += <span class="number">1</span></span><br><span class="line">          </span><br><span class="line">    KK = <span class="built_in">sum</span>(K)</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">4</span>):</span><br><span class="line">        <span class="keyword">for</span> n <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">4</span>):</span><br><span class="line">            <span class="keyword">if</span> (j != n) &amp; (K[j] == <span class="number">0</span>):</span><br><span class="line">                P[j,n] = (<span class="number">1</span>-P[j,j])*K[n]/KK</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># v 为特征值    Q 为特征向量</span></span><br><span class="line">    P = np.<span class="built_in">round</span>(P, <span class="number">3</span>)</span><br><span class="line">    v, Q = la.eig(P)</span><br><span class="line">    <span class="comment"># diag_P = np.round(np.dot(np.dot(la.inv(Q), P), Q), 3)</span></span><br><span class="line">    V = np.diag(v)**((<span class="number">1</span>)/(year_end-year_start))</span><br><span class="line">    Predict_P =  np.<span class="built_in">round</span>(np.dot(np.dot(Q, V), la.inv(Q)), <span class="number">3</span>)</span><br><span class="line">    <span class="keyword">return</span> Predict_P</span><br></pre></td></tr></table></figure>
+<p>The second step: calculate and return forecasting result (type:
+np.array)</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">Markov_predict</span>(<span class="params">data_stru, P, year_end, year_pred</span>):</span></span><br><span class="line">    year_end_data = data_stru.loc[year_end,:]</span><br><span class="line">    P = np.<span class="built_in">round</span>(P, <span class="number">3</span>)</span><br><span class="line">    v, Q = la.eig(P)</span><br><span class="line">    <span class="comment"># diag_P = np.round(np.dot(np.dot(la.inv(Q), P), Q), 3)</span></span><br><span class="line">    V = np.diag(v)**(year_pred - year_end)</span><br><span class="line">    Predict_P =  np.<span class="built_in">round</span>(np.dot(np.dot(Q, V), la.inv(Q)), <span class="number">3</span>)</span><br><span class="line">    np_year_end_data =np.array(year_end_data)</span><br><span class="line">    Predict_energy_stru = np.around(np.dot(np_year_end_data, Predict_P), <span class="number">3</span>)</span><br><span class="line">    <span class="keyword">return</span> Predict_energy_stru</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="preparation">1.2 Preparation</h2>
+<ul>
+<li><p>Read data file</p>
+<p><code>Data.xlsx</code> 文件需要根程序文件在同一目录</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Read datafile</span></span><br><span class="line">data_stru = pd.read_excel(<span class="string">&#x27;./Data.xlsx&#x27;</span>, header = <span class="number">0</span>, </span><br><span class="line">                          sheet_name = <span class="number">0</span>, index_col= <span class="number">0</span>)</span><br><span class="line">num_year = <span class="built_in">len</span>(data_stru) <span class="comment"># the length of the dataset</span></span><br><span class="line">train_percent = <span class="number">0.7</span> <span class="comment"># Set the first 70% data as train set</span></span><br><span class="line">Error_results = [] <span class="comment"># Store all error results</span></span><br><span class="line">plot_b = <span class="literal">False</span> <span class="comment"># Choose whether plot result</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Dataset start with 1953, end with 2017</span></span><br><span class="line">year_train_start, year_end = <span class="number">1953</span>, <span class="number">2018</span></span><br><span class="line">year_train_end = year_train_start + <span class="built_in">round</span>(<span class="built_in">len</span>(data_stru) * <span class="number">0.7</span>) <span class="comment"># = 1999</span></span><br><span class="line"></span><br><span class="line">test_data = np.array(data_stru.loc[year_train_end:, :]) <span class="comment"># from 1999 to 2017</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="model-application">1.3 Model application</h2>
+<ul>
+<li><p>Avarage trans_P</p>
+<p>Model test based on avarage trans_P</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">trans_P = [] <span class="comment"># store all transfer matric</span></span><br><span class="line"><span class="keyword">for</span> startY <span class="keyword">in</span> <span class="built_in">range</span>(year_train_start, year_train_end - <span class="number">1</span>):</span><br><span class="line">    <span class="keyword">for</span> endY <span class="keyword">in</span> <span class="built_in">range</span>(startY, year_train_end):</span><br><span class="line">        trans_temp = Markov_trans(year_start = year_train_start, </span><br><span class="line">                        year_end = year_train_end, data_stru = data_stru)</span><br><span class="line">        temp = trans_temp.tolist()</span><br><span class="line">        trans_P.append(temp)</span><br><span class="line"></span><br><span class="line">np_trans_P = np.array(trans_P) <span class="comment"># Transfer list into numpy</span></span><br><span class="line">av_trans_P = np.<span class="built_in">sum</span>(np_trans_P, <span class="number">0</span>)/np_trans_P.shape[<span class="number">0</span>] <span class="comment"># Calculate avarage</span></span><br><span class="line"></span><br><span class="line">Pred_results = [] <span class="comment"># Using average transfer matrix to predict energy structure</span></span><br><span class="line"><span class="keyword">for</span> predY <span class="keyword">in</span> <span class="built_in">range</span>(year_train_end, year_end):</span><br><span class="line">    <span class="comment"># Forecasting</span></span><br><span class="line">    Pred_temp = Markov_predict(data_stru = data_stru, P = av_trans_P, </span><br><span class="line">                            year_end = year_train_end - <span class="number">1</span>, year_pred = predY)</span><br><span class="line">    temp = Pred_temp.tolist() <span class="comment"># Turn numpy.array into list</span></span><br><span class="line">    Pred_results.append(temp) <span class="comment"># It&#x27;s convenient to append value using list</span></span><br><span class="line">    </span><br><span class="line">np_Pred_results = np.array(Pred_results) <span class="comment"># Turn list into np.array</span></span><br><span class="line">Columns = data_stru.columns</span><br><span class="line"><span class="comment"># Plot forecasting result if needed</span></span><br><span class="line"><span class="keyword">if</span> plot_b == <span class="literal">True</span>:</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">4</span>):</span><br><span class="line">        test_Y, pred_Y = test_data[:, i], np_Pred_results[:, i]</span><br><span class="line">        Title = <span class="string">&#x27;&#123;&#125; based on average transfer matrix to predict:&#123;&#125;&#x27;</span>.<span class="built_in">format</span>(regression, </span><br><span class="line">                                    Columns[i])</span><br><span class="line">        plot_result(test_Y, pred_Y, Title)</span><br><span class="line">    </span><br><span class="line"><span class="comment"># Storing error results</span></span><br><span class="line">title = <span class="string">&#x27;average transfer matrix&#x27;</span>  </span><br><span class="line"><span class="comment"># Calculate 4 error</span></span><br><span class="line">error = calculate_error(test_data, np_Pred_results, title)</span><br><span class="line">Error_results.append(error)</span><br></pre></td></tr></table></figure></li>
+<li><p>One step and 46 step</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> year_train_start <span class="keyword">in</span> [<span class="number">1953</span>, <span class="number">1998</span>]: <span class="comment"># from &#x27;1953 to 1999&#x27; or &#x27;1998 to 1999&#x27;</span></span><br><span class="line">    year_train_end, year_end = <span class="number">1999</span>, <span class="number">2018</span></span><br><span class="line">    trans_temp = Markov_trans(year_start = year_train_start, </span><br><span class="line">                            year_end = year_train_end, data_stru = data_stru)</span><br><span class="line">    Pred_results = []</span><br><span class="line">    <span class="keyword">for</span> predY <span class="keyword">in</span> <span class="built_in">range</span>(year_train_end, year_end):</span><br><span class="line">        Pred_temp = Markov_predict(data_stru = data_stru, P = trans_temp, </span><br><span class="line">                                year_end = year_train_end - <span class="number">1</span>, year_pred = predY)</span><br><span class="line">        temp = Pred_temp.tolist()</span><br><span class="line">        Pred_results.append(temp)</span><br><span class="line">        </span><br><span class="line">    np_Pred_results = np.array(Pred_results)</span><br><span class="line">    Columns = data_stru.columns</span><br><span class="line">    <span class="keyword">if</span> plot_b == <span class="literal">True</span>:</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">4</span>):</span><br><span class="line">            test_Y, pred_Y = test_data[:, i], np_Pred_results[:, i]</span><br><span class="line">            Title = <span class="string">&#x27;&#123;&#125; based on &#123;&#125; and &#123;&#125; to predict:&#123;&#125;&#x27;</span>.<span class="built_in">format</span>(regression, </span><br><span class="line">                                    year_train_start, year_train_end, Columns[i])             </span><br><span class="line">            plot_result(test_Y, pred_Y, Title)</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># Storing error results  </span></span><br><span class="line">    title = <span class="string">&#x27;&#123;&#125; step&#x27;</span>.<span class="built_in">format</span>(year_train_end - year_train_start)   </span><br><span class="line">    error = calculate_error(test_data, np_Pred_results, title)</span><br><span class="line">    Error_results.append(error)</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="export-result-to-excel">1.4 Export result to excel</h2>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">np_error = np.array(Error_results)</span><br><span class="line">columns = [<span class="string">&#x27;Transfer Matrix&#x27;</span>, <span class="string">&#x27;R2&#x27;</span>, <span class="string">&#x27;MAE&#x27;</span>, <span class="string">&#x27;MSE&#x27;</span>, <span class="string">&#x27;RMSE&#x27;</span>]</span><br><span class="line">pd_error = pd.DataFrame(np_error, columns = columns, dtype = <span class="string">&#x27;object&#x27;</span>)</span><br><span class="line">pd_error.to_excel(<span class="string">&#x27;Error result.xlsx&#x27;</span>, encoding = <span class="string">&#x27;utf_8_sig&#x27;</span>)</span><br></pre></td></tr></table></figure>
+<h2 id="all-codes">1.5 All codes</h2>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Markov model for energy structure prediction#</span></span><br><span class="line"><span class="comment"># ========================= Import modules ====================================</span></span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="keyword">from</span> numpy <span class="keyword">import</span> linalg <span class="keyword">as</span> la</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> sklearn.metrics <span class="keyword">import</span> mean_absolute_error, r2_score</span><br><span class="line"><span class="keyword">from</span> sklearn.metrics <span class="keyword">import</span> mean_squared_error</span><br><span class="line"></span><br><span class="line"><span class="comment"># Plot module</span></span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line">plt.rcParams[<span class="string">&#x27;font.sans-serif&#x27;</span>] = [<span class="string">&#x27;SimHei&#x27;</span>]</span><br><span class="line"><span class="comment"># Microsoft YaHei, Times New Roman</span></span><br><span class="line">plt.rcParams[<span class="string">&#x27;axes.unicode_minus&#x27;</span>] = <span class="literal">False</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># ======================== Preparation =======================================</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Read datafile</span></span><br><span class="line">data_stru = pd.read_excel(<span class="string">&#x27;./Data.xlsx&#x27;</span>, header = <span class="number">0</span>, </span><br><span class="line">                          sheet_name = <span class="number">0</span>, index_col= <span class="number">0</span>)</span><br><span class="line">num_year = <span class="built_in">len</span>(data_stru) <span class="comment"># the length of the dataset</span></span><br><span class="line">train_percent = <span class="number">0.7</span> <span class="comment"># Set the first 70% data as train set</span></span><br><span class="line">Error_results = [] <span class="comment"># Store all error results</span></span><br><span class="line">plot_b = <span class="literal">False</span> <span class="comment"># Choose whether plot result</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Dataset start with 1953, end with 2017</span></span><br><span class="line">year_train_start, year_end = <span class="number">1953</span>, <span class="number">2018</span></span><br><span class="line">year_train_end = year_train_start + <span class="built_in">round</span>(<span class="built_in">len</span>(data_stru) * <span class="number">0.7</span>) <span class="comment"># = 1999</span></span><br><span class="line"></span><br><span class="line">test_data = np.array(data_stru.loc[year_train_end:, :]) <span class="comment"># from 1999 to 2017</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># ======================== Plot Results =====================================</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">plot_result</span>(<span class="params">test_Y, pred_Y, Title</span>):</span></span><br><span class="line">    ylim_min = np.<span class="built_in">round</span>(test_Y.<span class="built_in">min</span>()) - <span class="number">1</span></span><br><span class="line">    ylim_max = np.<span class="built_in">round</span>(test_Y.<span class="built_in">max</span>()) + <span class="number">1</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment"># plot comparison results</span></span><br><span class="line">    fig = plt.figure(figsize = (<span class="number">8</span>, <span class="number">6</span>))</span><br><span class="line">    ax0 = fig.add_subplot(<span class="number">111</span>)</span><br><span class="line">    ax0.scatter(test_Y, pred_Y)</span><br><span class="line">    ax0.plot([ylim_min, ylim_max], [ylim_min, ylim_max], <span class="string">&#x27;--k&#x27;</span>)</span><br><span class="line">    ax0.set_xlabel(<span class="string">&#x27;True Target&#x27;</span>, fontsize = <span class="number">15</span>)</span><br><span class="line">    ax0.set_ylabel(<span class="string">&#x27;Target predicted&#x27;</span>, fontsize = <span class="number">15</span>)</span><br><span class="line">    ax0.set_title(Title , fontsize = <span class="number">16</span>)</span><br><span class="line">    ax0.text(ylim_min + <span class="number">2</span>, ylim_max - <span class="number">4</span>, <span class="string">r&#x27;$R^2$ = %.2f, $MAE$ = %.2f&#x27;</span> %(r2_score(test_Y, pred_Y), </span><br><span class="line">                mean_absolute_error(test_Y, pred_Y)), fontsize = <span class="number">14</span>)</span><br><span class="line">    ax0.text(ylim_min + <span class="number">2</span>, ylim_max - <span class="number">5</span>, <span class="string">r&#x27;$MSE$ = %.2f, $RMSE$ = %.2f&#x27;</span> %(mean_squared_error(test_Y, pred_Y), </span><br><span class="line">                mean_squared_error(test_Y, pred_Y, squared=<span class="literal">False</span>)), fontsize = <span class="number">14</span>)</span><br><span class="line">    </span><br><span class="line">    ax0.set_xlim([ylim_min, ylim_max])</span><br><span class="line">    ax0.set_ylim([ylim_min, ylim_max])</span><br><span class="line">    plt.show()</span><br><span class="line"></span><br><span class="line">    <span class="comment"># Plot prediction and real values</span></span><br><span class="line">    plt.figure(figsize = (<span class="number">8</span>, <span class="number">6</span>)) <span class="comment"># length x width</span></span><br><span class="line">    plt.plot(pred_Y, <span class="string">&#x27;r&#x27;</span>, label=<span class="string">&#x27;prediction&#x27;</span>, lw = <span class="number">0.8</span>)</span><br><span class="line">    plt.plot(test_Y, <span class="string">&#x27;b&#x27;</span>, label=<span class="string">&#x27;real&#x27;</span>, lw = <span class="number">0.8</span>)</span><br><span class="line">    plt.xticks(<span class="built_in">range</span>(<span class="number">19</span>), fontsize = <span class="number">15</span>)</span><br><span class="line">    plt.yticks(fontsize = <span class="number">15</span>)</span><br><span class="line">    plt.title(Title, fontsize = <span class="number">16</span>)</span><br><span class="line">    plt.legend(loc=<span class="string">&#x27;best&#x27;</span>, fontsize  = <span class="number">15</span>)</span><br><span class="line">    plt.show()</span><br><span class="line"></span><br><span class="line"><span class="comment"># Calculate the loss: R2, MAE, MSE, RMSE</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">calculate_error</span>(<span class="params">test_data, np_Pred_results, title</span>):</span></span><br><span class="line">    <span class="comment"># Storing error results </span></span><br><span class="line">    R2 = r2_score(test_data, np_Pred_results)</span><br><span class="line">    MAE = mean_absolute_error(test_data, np_Pred_results)</span><br><span class="line">    MSE = mean_squared_error(test_data, np_Pred_results)</span><br><span class="line">    RMSE = mean_squared_error(test_data, np_Pred_results, squared=<span class="literal">False</span>)</span><br><span class="line">    </span><br><span class="line">    error = [title, R2, MAE, MSE, RMSE]</span><br><span class="line">    <span class="keyword">return</span> error</span><br><span class="line"></span><br><span class="line"><span class="comment"># =================== Markov model definition =============================</span></span><br><span class="line"><span class="comment"># The first step: calculate and return transfer matrix (type: np.array)</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">Markov_trans</span>(<span class="params">data_stru, year_start, year_end</span>):</span></span><br><span class="line">    P = np.identity(<span class="number">4</span>)</span><br><span class="line">    K = np.array([<span class="number">1.0</span>, <span class="number">1.</span>, <span class="number">1.</span>, <span class="number">1.</span>])</span><br><span class="line">    </span><br><span class="line">    year_start_data = data_stru.loc[year_start, :]</span><br><span class="line">    year_end_data = data_stru.loc[year_end,:]</span><br><span class="line">    </span><br><span class="line">    bool_value = np.array(year_end_data &lt; year_start_data)</span><br><span class="line">    i = <span class="number">0</span> <span class="comment"># index</span></span><br><span class="line">    <span class="keyword">for</span> b <span class="keyword">in</span> bool_value:</span><br><span class="line">        <span class="keyword">if</span> b == <span class="literal">False</span>: <span class="comment"># Decrease</span></span><br><span class="line">            K[i] =  year_end_data[i] - year_start_data[i]</span><br><span class="line">        <span class="keyword">elif</span> b == <span class="literal">True</span>: <span class="comment"># Increase</span></span><br><span class="line">            P[i, i] = year_end_data[i]/year_start_data[i]</span><br><span class="line">            K[i] = <span class="number">0</span></span><br><span class="line">        i += <span class="number">1</span></span><br><span class="line">          </span><br><span class="line">    KK = <span class="built_in">sum</span>(K)</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">4</span>):</span><br><span class="line">        <span class="keyword">for</span> n <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">4</span>):</span><br><span class="line">            <span class="keyword">if</span> (j != n) &amp; (K[j] == <span class="number">0</span>):</span><br><span class="line">                P[j,n] = (<span class="number">1</span>-P[j,j])*K[n]/KK</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># v 为特征值    Q 为特征向量</span></span><br><span class="line">    P = np.<span class="built_in">round</span>(P, <span class="number">3</span>)</span><br><span class="line">    v, Q = la.eig(P)</span><br><span class="line">    <span class="comment"># diag_P = np.round(np.dot(np.dot(la.inv(Q), P), Q), 3)</span></span><br><span class="line">    V = np.diag(v)**((<span class="number">1</span>)/(year_end-year_start))</span><br><span class="line">    Predict_P =  np.<span class="built_in">round</span>(np.dot(np.dot(Q, V), la.inv(Q)), <span class="number">3</span>)</span><br><span class="line">    <span class="keyword">return</span> Predict_P</span><br><span class="line"></span><br><span class="line"><span class="comment"># The second step: calculate and return forecasting result (type: np.array)    </span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">Markov_predict</span>(<span class="params">data_stru, P, year_end, year_pred</span>):</span></span><br><span class="line">    year_end_data = data_stru.loc[year_end,:]</span><br><span class="line">    P = np.<span class="built_in">round</span>(P, <span class="number">3</span>)</span><br><span class="line">    v, Q = la.eig(P)</span><br><span class="line">    <span class="comment"># diag_P = np.round(np.dot(np.dot(la.inv(Q), P), Q), 3)</span></span><br><span class="line">    V = np.diag(v)**(year_pred - year_end)</span><br><span class="line">    Predict_P =  np.<span class="built_in">round</span>(np.dot(np.dot(Q, V), la.inv(Q)), <span class="number">3</span>)</span><br><span class="line">    np_year_end_data =np.array(year_end_data)</span><br><span class="line">    Predict_energy_stru = np.around(np.dot(np_year_end_data, Predict_P), <span class="number">3</span>)</span><br><span class="line">    <span class="keyword">return</span> Predict_energy_stru</span><br><span class="line">  </span><br><span class="line"><span class="comment"># Lable</span></span><br><span class="line">regression = <span class="string">&#x27;Markov model&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># =========== Model test based on avarage trans_P ==========================</span></span><br><span class="line">trans_P = [] <span class="comment"># store all transfer matric</span></span><br><span class="line"><span class="keyword">for</span> startY <span class="keyword">in</span> <span class="built_in">range</span>(year_train_start, year_train_end - <span class="number">1</span>):</span><br><span class="line">    <span class="keyword">for</span> endY <span class="keyword">in</span> <span class="built_in">range</span>(startY, year_train_end):</span><br><span class="line">        trans_temp = Markov_trans(year_start = year_train_start, </span><br><span class="line">                        year_end = year_train_end, data_stru = data_stru)</span><br><span class="line">        temp = trans_temp.tolist()</span><br><span class="line">        trans_P.append(temp)</span><br><span class="line"></span><br><span class="line">np_trans_P = np.array(trans_P) <span class="comment"># Transfer list into numpy</span></span><br><span class="line">av_trans_P = np.<span class="built_in">sum</span>(np_trans_P, <span class="number">0</span>)/np_trans_P.shape[<span class="number">0</span>] <span class="comment"># Calculate avarage</span></span><br><span class="line"></span><br><span class="line">Pred_results = [] <span class="comment"># Using average transfer matrix to predict energy structure</span></span><br><span class="line"><span class="keyword">for</span> predY <span class="keyword">in</span> <span class="built_in">range</span>(year_train_end, year_end):</span><br><span class="line">    <span class="comment"># Forecasting</span></span><br><span class="line">    Pred_temp = Markov_predict(data_stru = data_stru, P = av_trans_P, </span><br><span class="line">                            year_end = year_train_end - <span class="number">1</span>, year_pred = predY)</span><br><span class="line">    temp = Pred_temp.tolist() <span class="comment"># Turn numpy.array into list</span></span><br><span class="line">    Pred_results.append(temp) <span class="comment"># It&#x27;s convenient to append value using list</span></span><br><span class="line">    </span><br><span class="line">np_Pred_results = np.array(Pred_results) <span class="comment"># Turn list into np.array</span></span><br><span class="line">Columns = data_stru.columns</span><br><span class="line"><span class="comment"># Plot forecasting result if needed</span></span><br><span class="line"><span class="keyword">if</span> plot_b == <span class="literal">True</span>:</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">4</span>):</span><br><span class="line">        test_Y, pred_Y = test_data[:, i], np_Pred_results[:, i]</span><br><span class="line">        Title = <span class="string">&#x27;&#123;&#125; based on average transfer matrix to predict:&#123;&#125;&#x27;</span>.<span class="built_in">format</span>(regression, </span><br><span class="line">                                    Columns[i])</span><br><span class="line">        plot_result(test_Y, pred_Y, Title)</span><br><span class="line">    </span><br><span class="line"><span class="comment"># Storing error results</span></span><br><span class="line">title = <span class="string">&#x27;average transfer matrix&#x27;</span>  </span><br><span class="line"><span class="comment"># Calculate 4 error</span></span><br><span class="line">error = calculate_error(test_data, np_Pred_results, title)</span><br><span class="line">Error_results.append(error)</span><br><span class="line"></span><br><span class="line"><span class="comment"># ======== Model test based on datas from 1953 to 1999 ==================</span></span><br><span class="line"><span class="keyword">for</span> year_train_start <span class="keyword">in</span> [<span class="number">1953</span>, <span class="number">1998</span>]: <span class="comment"># from &#x27;1953 to 1999&#x27; or &#x27;1998 to 1999&#x27;</span></span><br><span class="line">    year_train_end, year_end = <span class="number">1999</span>, <span class="number">2018</span></span><br><span class="line">    trans_temp = Markov_trans(year_start = year_train_start, </span><br><span class="line">                            year_end = year_train_end, data_stru = data_stru)</span><br><span class="line">    Pred_results = []</span><br><span class="line">    <span class="keyword">for</span> predY <span class="keyword">in</span> <span class="built_in">range</span>(year_train_end, year_end):</span><br><span class="line">        Pred_temp = Markov_predict(data_stru = data_stru, P = trans_temp, </span><br><span class="line">                                year_end = year_train_end - <span class="number">1</span>, year_pred = predY)</span><br><span class="line">        temp = Pred_temp.tolist()</span><br><span class="line">        Pred_results.append(temp)</span><br><span class="line">        </span><br><span class="line">    np_Pred_results = np.array(Pred_results)</span><br><span class="line">    Columns = data_stru.columns</span><br><span class="line">    <span class="keyword">if</span> plot_b == <span class="literal">True</span>:</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">4</span>):</span><br><span class="line">            test_Y, pred_Y = test_data[:, i], np_Pred_results[:, i]</span><br><span class="line">            Title = <span class="string">&#x27;&#123;&#125; based on &#123;&#125; and &#123;&#125; to predict:&#123;&#125;&#x27;</span>.<span class="built_in">format</span>(regression, </span><br><span class="line">                                    year_train_start, year_train_end, Columns[i])             </span><br><span class="line">            plot_result(test_Y, pred_Y, Title)</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># Storing error results  </span></span><br><span class="line">    title = <span class="string">&#x27;&#123;&#125; step&#x27;</span>.<span class="built_in">format</span>(year_train_end - year_train_start)   </span><br><span class="line">    error = calculate_error(test_data, np_Pred_results, title)</span><br><span class="line">    Error_results.append(error)</span><br><span class="line"></span><br><span class="line">np_error = np.array(Error_results)</span><br><span class="line">columns = [<span class="string">&#x27;Transfer Matrix&#x27;</span>, <span class="string">&#x27;R2&#x27;</span>, <span class="string">&#x27;MAE&#x27;</span>, <span class="string">&#x27;MSE&#x27;</span>, <span class="string">&#x27;RMSE&#x27;</span>]</span><br><span class="line">pd_error = pd.DataFrame(np_error, columns = columns, dtype = <span class="string">&#x27;object&#x27;</span>)</span><br><span class="line">pd_error.to_excel(<span class="string">&#x27;Error result.xlsx&#x27;</span>, encoding = <span class="string">&#x27;utf_8_sig&#x27;</span>)</span><br></pre></td></tr></table></figure>
+<h1 id="traditional-models">2 Traditional models</h1>
+<ul>
+<li>Ridge</li>
+<li>Lasso</li>
+<li>PLS</li>
+<li>MLP</li>
+<li>Linear SVM</li>
+<li>DecisionTree</li>
+</ul>
+<p>不同之处在于104 行开始的模型定义不同</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># ========================= Import modules ====================================</span></span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> sklearn.model_selection <span class="keyword">import</span> train_test_split</span><br><span class="line"><span class="keyword">from</span> sklearn.linear_model <span class="keyword">import</span> Ridge, Lasso</span><br><span class="line"><span class="keyword">from</span> sklearn.neural_network <span class="keyword">import</span> MLPRegressor</span><br><span class="line"><span class="keyword">from</span> sklearn.cross_decomposition <span class="keyword">import</span> PLSRegression</span><br><span class="line"><span class="keyword">from</span> sklearn.svm <span class="keyword">import</span> LinearSVR</span><br><span class="line"><span class="keyword">from</span> sklearn.tree <span class="keyword">import</span> DecisionTreeRegressor</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> sklearn.metrics <span class="keyword">import</span> mean_absolute_error, r2_score</span><br><span class="line"><span class="keyword">from</span> sklearn.metrics <span class="keyword">import</span> mean_squared_error</span><br><span class="line"></span><br><span class="line"><span class="comment"># Plot module</span></span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line">plt.rcParams[<span class="string">&#x27;font.sans-serif&#x27;</span>] = [<span class="string">&#x27;SimHei&#x27;</span>]</span><br><span class="line"><span class="comment"># Microsoft YaHei, Times New Roman</span></span><br><span class="line">plt.rcParams[<span class="string">&#x27;axes.unicode_minus&#x27;</span>] = <span class="literal">False</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># ======================== Preparation =======================================</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Read datafile</span></span><br><span class="line">data_stru = pd.read_excel(<span class="string">&#x27;./Data.xlsx&#x27;</span>, header = <span class="number">0</span>, </span><br><span class="line">                          sheet_name = <span class="number">0</span>, index_col= <span class="number">0</span>)</span><br><span class="line">data_stru = data_stru.dropna()</span><br><span class="line">dataset = data_stru.values</span><br><span class="line">dataset = dataset.astype(<span class="string">&#x27;float32&#x27;</span>)</span><br><span class="line"></span><br><span class="line">Columns = data_stru.columns <span class="comment"># columns name</span></span><br><span class="line">num_year = <span class="built_in">len</span>(data_stru) <span class="comment"># the length of the dataset</span></span><br><span class="line">train_percent = <span class="number">0.70</span> <span class="comment"># Set the first 70% data as train set</span></span><br><span class="line">test_percent = <span class="number">1</span> - train_percent</span><br><span class="line">Error_results = [] <span class="comment"># Store all error results</span></span><br><span class="line">input_size = <span class="number">10</span> <span class="comment"># Feed the previous 10 years as the input</span></span><br><span class="line">num_features = <span class="number">4</span> <span class="comment"># 4 energy categories</span></span><br><span class="line">plot_b = <span class="literal">False</span> <span class="comment"># Choose whether plot result</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># # Put NN calculating module into GPU if available</span></span><br><span class="line"><span class="comment"># device = torch.device(&quot;cuda&quot; if torch.cuda.is_available() else &quot;cpu&quot;)</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Feed the previous 10 years as the input and the 11th year as prediction output</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">create_dataset</span>(<span class="params">dataset, look_back = input_size</span>):</span></span><br><span class="line">    dataX, dataY = [], []</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(dataset) - look_back):</span><br><span class="line">        a = dataset[i:(i + look_back)]</span><br><span class="line">        dataX.append(a)</span><br><span class="line">        dataY.append(dataset[i + look_back])</span><br><span class="line">    <span class="keyword">return</span> np.array(dataX), np.array(dataY)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Input datasets and output datasets</span></span><br><span class="line">data_X, data_Y = create_dataset(dataset)</span><br><span class="line">ylim_min = np.<span class="built_in">round</span>(data_Y.<span class="built_in">min</span>()) - <span class="number">1</span></span><br><span class="line">ylim_max = np.<span class="built_in">round</span>(data_Y.<span class="built_in">max</span>()) + <span class="number">1</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Divide training set and test set</span></span><br><span class="line">train_X, test_X, train_Y, test_Y = train_test_split(data_X, data_Y, </span><br><span class="line">        shuffle = <span class="literal">False</span>, test_size = test_percent) </span><br><span class="line"><span class="comment"># shuffle: don&#x27;t shuffle data</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># ======================== Plot Results =====================================</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">plot_result</span>(<span class="params">test_Y, pred_Y, Title</span>):</span></span><br><span class="line">    ylim_min = np.<span class="built_in">round</span>(test_Y.<span class="built_in">min</span>()) - <span class="number">1</span></span><br><span class="line">    ylim_max = np.<span class="built_in">round</span>(test_Y.<span class="built_in">max</span>()) + <span class="number">1</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment"># plot comparison results</span></span><br><span class="line">    fig = plt.figure(figsize = (<span class="number">8</span>, <span class="number">6</span>))</span><br><span class="line">    ax0 = fig.add_subplot(<span class="number">111</span>)</span><br><span class="line">    ax0.scatter(test_Y, pred_Y)</span><br><span class="line">    ax0.plot([ylim_min, ylim_max], [ylim_min, ylim_max], <span class="string">&#x27;--k&#x27;</span>)</span><br><span class="line">    ax0.set_xlabel(<span class="string">&#x27;True Target&#x27;</span>, fontsize = <span class="number">15</span>)</span><br><span class="line">    ax0.set_ylabel(<span class="string">&#x27;Target predicted&#x27;</span>, fontsize = <span class="number">15</span>)</span><br><span class="line">    ax0.set_title(Title , fontsize = <span class="number">16</span>)</span><br><span class="line">    ax0.text(ylim_min + <span class="number">2</span>, ylim_max - <span class="number">4</span>, <span class="string">r&#x27;$R^2$ = %.2f, $MAE$ = %.2f&#x27;</span> %(r2_score(test_Y, pred_Y), </span><br><span class="line">                mean_absolute_error(test_Y, pred_Y)), fontsize = <span class="number">14</span>)</span><br><span class="line">    ax0.text(ylim_min + <span class="number">2</span>, ylim_max - <span class="number">5</span>, <span class="string">r&#x27;$MSE$ = %.2f, $RMSE$ = %.2f&#x27;</span> %(mean_squared_error(test_Y, pred_Y), </span><br><span class="line">                mean_squared_error(test_Y, pred_Y, squared=<span class="literal">False</span>)), fontsize = <span class="number">14</span>)</span><br><span class="line">    </span><br><span class="line">    ax0.set_xlim([ylim_min, ylim_max])</span><br><span class="line">    ax0.set_ylim([ylim_min, ylim_max])</span><br><span class="line">    plt.show()</span><br><span class="line"></span><br><span class="line">    <span class="comment"># Plot prediction and real values</span></span><br><span class="line">    plt.figure(figsize = (<span class="number">8</span>, <span class="number">6</span>)) <span class="comment"># length x width</span></span><br><span class="line">    plt.plot(pred_Y, <span class="string">&#x27;r&#x27;</span>, label=<span class="string">&#x27;prediction&#x27;</span>, lw = <span class="number">0.8</span>)</span><br><span class="line">    plt.plot(test_Y, <span class="string">&#x27;b&#x27;</span>, label=<span class="string">&#x27;real&#x27;</span>, lw = <span class="number">0.8</span>)</span><br><span class="line">    plt.xticks(<span class="built_in">range</span>(<span class="number">19</span>), fontsize = <span class="number">15</span>)</span><br><span class="line">    plt.yticks(fontsize = <span class="number">15</span>)</span><br><span class="line">    plt.title(Title, fontsize = <span class="number">16</span>)</span><br><span class="line">    plt.legend(loc=<span class="string">&#x27;best&#x27;</span>, fontsize  = <span class="number">15</span>)</span><br><span class="line">    plt.show()</span><br><span class="line"></span><br><span class="line"><span class="comment"># Calculate the loss: R2, MAE, MSE, RMSE</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">calculate_error</span>(<span class="params">test_data, np_Pred_results, title</span>):</span></span><br><span class="line">    <span class="comment"># Storing error results</span></span><br><span class="line">    R2 = <span class="built_in">float</span>(<span class="string">&#x27;&#123;:.5f&#125;&#x27;</span>.<span class="built_in">format</span>(r2_score(test_data, np_Pred_results)))</span><br><span class="line">    MAE = <span class="built_in">float</span>(<span class="string">&#x27;&#123;:.5f&#125;&#x27;</span>.<span class="built_in">format</span>(mean_absolute_error(test_data, np_Pred_results)))</span><br><span class="line">    MSE = <span class="built_in">float</span>(<span class="string">&#x27;&#123;:.5f&#125;&#x27;</span>.<span class="built_in">format</span>(mean_squared_error(test_data, np_Pred_results)))</span><br><span class="line">    RMSE =<span class="built_in">float</span>(<span class="string">&#x27;&#123;:.5f&#125;&#x27;</span>.<span class="built_in">format</span>( mean_squared_error(test_data, np_Pred_results, squared=<span class="literal">False</span>)))</span><br><span class="line">    error = [title, R2, MAE, MSE, RMSE]</span><br><span class="line">    <span class="keyword">return</span> error</span><br><span class="line"></span><br><span class="line"><span class="comment"># ================= Ridge Regression =============================</span></span><br><span class="line"><span class="comment"># Ridge model</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">predict_model</span>(<span class="params">model_train_X, model_train_Y</span>):</span></span><br><span class="line">    regr = Ridge()</span><br><span class="line">    regr.fit(model_train_X, model_train_Y)</span><br><span class="line">    model_pred_Y = regr.predict(model_test_X)</span><br><span class="line">    regression_name = <span class="string">&#x27;Ridge Regression&#x27;</span></span><br><span class="line">    <span class="keyword">return</span> model_pred_Y, regression_name</span><br><span class="line"></span><br><span class="line"><span class="comment"># # Lasso model</span></span><br><span class="line"><span class="comment"># def predict_model(model_train_X, model_train_Y):</span></span><br><span class="line"><span class="comment">#     regr = Lasso()</span></span><br><span class="line"><span class="comment">#     regr.fit(model_train_X, model_train_Y)</span></span><br><span class="line"><span class="comment">#     model_pred_Y = regr.predict(model_test_X)</span></span><br><span class="line"><span class="comment">#     regression_name = &#x27;Lasso Model&#x27;</span></span><br><span class="line"><span class="comment">#     return model_pred_Y, regression_name</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># # PLS model</span></span><br><span class="line"><span class="comment"># def predict_model(model_train_X, model_train_Y):</span></span><br><span class="line"><span class="comment">#     regr = PLSRegression(n_components=1)</span></span><br><span class="line"><span class="comment">#     regr.fit(model_train_X, model_train_Y)</span></span><br><span class="line"><span class="comment">#     model_pred_Y = regr.predict(model_test_X)</span></span><br><span class="line"><span class="comment">#     regression_name = &#x27;PLS Regression&#x27;</span></span><br><span class="line"><span class="comment">#     return model_pred_Y, regression_name</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># ================= MLP Regression =============================</span></span><br><span class="line"><span class="comment"># # MLP model</span></span><br><span class="line"><span class="comment"># def predict_model(model_train_X, model_train_Y):</span></span><br><span class="line"><span class="comment">#     regr = MLPRegressor(random_state = 1, max_iter = 500)</span></span><br><span class="line"><span class="comment">#     regr.fit(model_train_X, model_train_Y)</span></span><br><span class="line"><span class="comment">#     model_pred_Y = regr.predict(model_test_X)</span></span><br><span class="line"><span class="comment">#     regression_name = &#x27;MLP Regression&#x27;</span></span><br><span class="line"><span class="comment">#     return model_pred_Y, regression_name</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># ================= Linear SVM regression =============================</span></span><br><span class="line"><span class="comment"># # SVC model</span></span><br><span class="line"><span class="comment"># def predict_model(model_train_X, model_train_Y):</span></span><br><span class="line"><span class="comment">#     regr = LinearSVR(random_state= 0, tol= 1e-5)</span></span><br><span class="line"><span class="comment">#     regr.fit(model_train_X, model_train_Y)</span></span><br><span class="line"><span class="comment">#     model_pred_Y = regr.predict(model_test_X)</span></span><br><span class="line"><span class="comment">#     regression_name = &#x27;Linear SVR Regression&#x27;</span></span><br><span class="line"><span class="comment">#     return model_pred_Y, regression_name</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># ================= DecisionTree Regressor =============================</span></span><br><span class="line"><span class="comment"># # DecisionTree model</span></span><br><span class="line"><span class="comment"># def predict_model(model_train_X, model_train_Y):</span></span><br><span class="line"><span class="comment">#     regr = DecisionTreeRegressor(random_state=0)</span></span><br><span class="line"><span class="comment">#     regr.fit(model_train_X, model_train_Y)</span></span><br><span class="line"><span class="comment">#     model_pred_Y = regr.predict(model_test_X)</span></span><br><span class="line"><span class="comment">#     regression_name = &#x27;Decision-Tree Regression&#x27;</span></span><br><span class="line"><span class="comment">#     return model_pred_Y, regression_name</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Forecasting</span></span><br><span class="line">pred_result = [] <span class="comment"># to store prediction results</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">4</span>):</span><br><span class="line">    <span class="keyword">if</span> i &lt; <span class="number">3</span>:</span><br><span class="line">        model_train_X = train_X[:, :, i].reshape(-<span class="number">1</span>, input_size)</span><br><span class="line">        model_test_X = test_X[:, :, i].reshape(-<span class="number">1</span>, input_size)</span><br><span class="line">        model_train_Y = train_Y[:, i].reshape(-<span class="number">1</span>)</span><br><span class="line">        model_test_Y = test_Y[:, i].reshape(-<span class="number">1</span>)</span><br><span class="line">        model_pred_Y, regression = predict_model(model_train_X = model_train_X,</span><br><span class="line">                    model_train_Y = model_train_Y)</span><br><span class="line">        pred_result.append(model_pred_Y.tolist())</span><br><span class="line">    <span class="keyword">elif</span> i == <span class="number">3</span>:</span><br><span class="line">        <span class="comment"># Calculate the last energy consumption percent</span></span><br><span class="line">        np_pred_result = np.array(pred_result).T</span><br><span class="line">        <span class="keyword">if</span> <span class="built_in">len</span>(np_pred_result.shape) == <span class="number">3</span>: <span class="comment"># Model output is 3-dimension</span></span><br><span class="line">            model_pred_Y = <span class="number">100</span> - np_pred_result.<span class="built_in">sum</span>(<span class="number">2</span>).reshape(-<span class="number">1</span>, <span class="number">1</span>) <span class="comment"># PLS model</span></span><br><span class="line">            np_pred_result = np.concatenate((np_pred_result[<span class="number">0</span>], model_pred_Y), axis = <span class="number">1</span>) <span class="comment"># for PLS model</span></span><br><span class="line">        <span class="keyword">elif</span> <span class="built_in">len</span>(np_pred_result.shape) == <span class="number">2</span>: <span class="comment"># Model output is 2-dimension</span></span><br><span class="line">            model_pred_Y = <span class="number">100</span> - np_pred_result.<span class="built_in">sum</span>(<span class="number">1</span>).reshape(-<span class="number">1</span>, <span class="number">1</span>) <span class="comment"># Lasso model </span></span><br><span class="line">            np_pred_result = np.concatenate((np_pred_result, model_pred_Y), axis = <span class="number">1</span>) <span class="comment"># for Lasso model</span></span><br><span class="line">    Title = <span class="string">&#x27;Using &#123;&#125; to predict:&#123;&#125;&#x27;</span>.<span class="built_in">format</span>(regression, Columns[i])</span><br><span class="line">    <span class="keyword">if</span> plot_b == <span class="literal">True</span>:</span><br><span class="line">        plot_result(model_test_Y, model_pred_Y, Title) </span><br><span class="line">        </span><br><span class="line"><span class="comment"># Updata Error table</span></span><br><span class="line">error = calculate_error(test_Y, np_pred_result, regression)</span><br><span class="line">np_error = np.array(error).reshape(<span class="number">1</span>, -<span class="number">1</span>)</span><br><span class="line">columns = [<span class="string">&#x27;Transfer Matrix&#x27;</span>, <span class="string">&#x27;R2&#x27;</span>, <span class="string">&#x27;MAE&#x27;</span>, <span class="string">&#x27;MSE&#x27;</span>, <span class="string">&#x27;RMSE&#x27;</span>]</span><br><span class="line">pd_error = pd.DataFrame(np_error, columns = columns)</span><br><span class="line"></span><br><span class="line">error_excel =  pd.read_excel(<span class="string">&#x27;./Error result.xlsx&#x27;</span>, header = <span class="number">0</span>, sheet_name = <span class="number">0</span>, index_col= <span class="literal">None</span>)</span><br><span class="line">res = pd.concat([error_excel, pd_error], axis = <span class="number">0</span>, ignore_index = <span class="literal">True</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Updata predict table</span></span><br><span class="line">model_col = []</span><br><span class="line"><span class="keyword">for</span> c <span class="keyword">in</span> Columns:</span><br><span class="line">    temp = <span class="string">&#x27;&#123;&#125;_&#123;&#125;&#x27;</span>.<span class="built_in">format</span>(c, regression.split(<span class="string">&#x27; &#x27;</span>)[<span class="number">0</span>])</span><br><span class="line">    model_col.append(temp)</span><br><span class="line">pd_pred_result = pd.DataFrame(np_pred_result, columns = model_col, index = <span class="built_in">range</span>(<span class="number">2001</span>, <span class="number">2018</span>))</span><br><span class="line">pred_excel =  pd.read_excel(<span class="string">&#x27;./Predict results.xlsx&#x27;</span>, header = <span class="number">0</span>, sheet_name = <span class="number">0</span>, index_col= <span class="number">0</span>)</span><br><span class="line">pred_res = pd.concat([pred_excel, pd_pred_result], axis = <span class="number">1</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Store updated data</span></span><br><span class="line">res.to_excel(<span class="string">&#x27;./Error result.xlsx&#x27;</span>, encoding = <span class="string">&#x27;utf_8_sig&#x27;</span>, header = <span class="literal">True</span>, index = <span class="literal">False</span>)</span><br><span class="line">pred_res.to_excel(<span class="string">&#x27;./Predict results.xlsx&#x27;</span>, encoding = <span class="string">&#x27;utf_8_sig&#x27;</span>,  header = <span class="literal">True</span>, index = <span class="literal">True</span>)</span><br></pre></td></tr></table></figure>
+<h1 id="linear-nn-model">3 Linear NN model</h1>
+
+    </div>
+
+    
+    
+    
+
+    <div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">
+            -------------This blog is over!
+            <i class="fa fa-eye"></i>
+            Thanks for your reading-------------
+        </div>
+    
+</div>
+      
+    </div>
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>Post author:  </strong>YangSu
+  </li>
+  <li class="post-copyright-link">
+    <strong>Post link: </strong>
+    <a href="http://yangsuoly.com/2020/12/08/Energy-Economic/" title="Energy Economic Codes">http://yangsuoly.com/2020/12/08/Energy-Economic/</a>
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/Tags/Deep-learning/" rel="tag"><i class="fa fa-tag"></i> Deep learning</a>
+              <a href="/Tags/Prediction/" rel="tag"><i class="fa fa-tag"></i> Prediction</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/12/05/Prediction-methods/" rel="prev" title="Prediction methods">
+      <i class="fa fa-chevron-left"></i> Prediction methods
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/12/15/Econometrics/" rel="next" title="Econometrics">
+      Econometrics <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div id="music163player">
+      <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=1317956275&auto=0&height=66"></iframe>
+      </iframe>
+    </div>
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#markov-model"><span class="nav-text">1 Markov model</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#preparation-and-definition"><span class="nav-text">1.1 Preparation and definition</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#preparation"><span class="nav-text">1.2 Preparation</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#model-application"><span class="nav-text">1.3 Model application</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#export-result-to-excel"><span class="nav-text">1.4 Export result to excel</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#all-codes"><span class="nav-text">1.5 All codes</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#traditional-models"><span class="nav-text">2 Traditional models</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#linear-nn-model"><span class="nav-text">3 Linear NN model</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="YangSu"
+      src="/images/YangSu.jpg">
+  <p class="site-author-name" itemprop="name">YangSu</p>
+  <div class="site-description" itemprop="description">A blog for recording learning notes...</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">78</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/Categories/">
+          
+        <span class="site-state-item-count">40</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/Tags/">
+          
+        <span class="site-state-item-count">49</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/YangSuoly" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;YangSuoly" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://gitee.com/yangsuoly" title="Gitee → https:&#x2F;&#x2F;gitee.com&#x2F;yangsuoly" rel="noopener" target="_blank"><i class="fab fa-github-square fa-fw"></i>Gitee</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://space.bilibili.com/64518717" title="B 站 → https:&#x2F;&#x2F;space.bilibili.com&#x2F;64518717" rel="noopener" target="_blank"><i class="fa fa-play-circle fa-fw"></i>B 站</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Related links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://www.58pic.com/u/19637930/" title="https:&#x2F;&#x2F;www.58pic.com&#x2F;u&#x2F;19637930&#x2F;" rel="noopener" target="_blank">千图网</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js" integrity="sha384-g7c+Jr9ZivxKLnZTDUhnkOnsh30B4H0rpLUpJ4jAIKs4fnJI+sEnkvrMWph2EDg4" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/auto-render.min.js" integrity="sha384-mll67QQFJfxn0IYznZYonOWZ644AWYC+Pt2cHqMaRhXVrursRwvLnLaebdGIlYNa" crossorigin="anonymous"
+        onload="renderMathInElement(document.body);"></script>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2026</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">YangSu</span>
+</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="Total Visitors">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="Total Views">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script size="300" alpha="0.6" zIndex="-1" src="/lib/canvas-ribbon/canvas-ribbon.js"></script>
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+<script>
+document.querySelectorAll('.pdfobject-container').forEach(element => {
+  let url = element.dataset.target;
+  let pdfOpenParams = {
+    navpanes : 0,
+    toolbar  : 0,
+    statusbar: 0,
+    pagemode : 'thumbs',
+    view     : 'FitH'
+  };
+  let pdfOpenFragment = '#' + Object.entries(pdfOpenParams).map(([key, value]) => `${key}=${encodeURIComponent(value)}`).join('&');
+  let fullURL = `/lib/pdf/web/viewer.html?file=${encodeURIComponent(url)}${pdfOpenFragment}`;
+
+  if (NexT.utils.supportsPDFs()) {
+    element.innerHTML = `<embed class="pdfobject" src="${url + pdfOpenFragment}" type="application/pdf" style="height: ${element.dataset.height};">`;
+  } else {
+    element.innerHTML = `<iframe src="${fullURL}" style="height: ${element.dataset.height};" frameborder="0"></iframe>`;
+  }
+});
+</script>
+
+
+<script>
+if (document.querySelectorAll('pre.mermaid').length) {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js', () => {
+    mermaid.initialize({
+      theme    : 'forest',
+      logLevel : 3,
+      flowchart: { curve     : 'linear' },
+      gantt    : { axisFormat: '%m/%d/%Y' },
+      sequence : { actorMargin: 50 }
+    });
+  }, window.mermaid);
+}
+</script>
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+  <script src="//cdn.jsdelivr.net/npm/quicklink@1/dist/quicklink.umd.js"></script>
+  <script>
+      window.addEventListener('load', () => {
+      quicklink({
+        timeout : 3000,
+        priority: true,
+        ignores : [uri => uri.includes('#'),uri => uri === 'http://yangsuoly.com/2020/12/08/Energy-Economic/',]
+      });
+      });
+  </script>
+
+  
+  <script id="ribbon" src="js/canvas-ribbon.js"></script>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/22.2017.cba-normal.model.json"},"display":{"position":"right","width":300,"height":450},"mobile":{"show":false},"react":{"opacity":0.7},"log":false});</script></body>
+</html>

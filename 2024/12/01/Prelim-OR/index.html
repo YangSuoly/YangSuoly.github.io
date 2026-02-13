@@ -1,0 +1,1219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/blog-logo-32px.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/blog-logo-16px.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <link rel="manifest" href="/images/manifest.json">
+  <meta name="msapplication-config" content="/images/browserconfig.xml">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yangsuoly.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":true},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":true,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="This blog is the learning notes for preparing the preliminary exams of Queue theory, referring to Introduction to operations research  Hillier, F. S., &amp; Lieberman, G. J. (2015). Introduction to op">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Prelim-OR">
+<meta property="og:url" content="http://yangsuoly.com/2024/12/01/Prelim-OR/index.html">
+<meta property="og:site_name" content="独孤诗人的学习驿站">
+<meta property="og:description" content="This blog is the learning notes for preparing the preliminary exams of Queue theory, referring to Introduction to operations research  Hillier, F. S., &amp; Lieberman, G. J. (2015). Introduction to op">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2024-12-01T02:20:28.000Z">
+<meta property="article:modified_time" content="2024-12-01T04:45:14.981Z">
+<meta property="article:author" content="YangSu">
+<meta property="article:tag" content="OR">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://yangsuoly.com/2024/12/01/Prelim-OR/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>Prelim-OR | 独孤诗人的学习驿站</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?f59f5fb59d32ec3903088b0f976956d1";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta custom-logo">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">独孤诗人的学习驿站</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">生活就是一半烟火，一半诗意。手执烟火谋生活，心怀诗意谋未来……</p>
+      <a>
+        <img class="custom-logo-image" src="/images/logo@2x.png" alt="独孤诗人的学习驿站">
+      </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/Tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/Categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+  <a href="https://github.com/YangSuoly" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yangsuoly.com/2024/12/01/Prelim-OR/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/YangSu.jpg">
+      <meta itemprop="name" content="YangSu">
+      <meta itemprop="description" content="A blog for recording learning notes...">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="独孤诗人的学习驿站">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Prelim-OR
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2024-12-01 10:20:28 / Modified: 12:45:14" itemprop="dateCreated datePublished" datetime="2024-12-01T10:20:28+08:00">2024-12-01</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/Categories/Class-Notes/" itemprop="url" rel="index"><span itemprop="name">Class Notes</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/Categories/Class-Notes/Prelim/" itemprop="url" rel="index"><span itemprop="name">Prelim</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="Views" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span><br>
+            <span class="post-meta-item" title="Symbols count in article">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">Symbols count in article: </span>
+              <span>16k</span>
+            </span>
+            <span class="post-meta-item" title="Reading time">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">Reading time &asymp;</span>
+              <span>14 mins.</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>This blog is the learning notes for preparing the preliminary exams
+of Queue theory, referring to <em>Introduction to operations
+research</em></p>
+<ul>
+<li>Hillier, F. S., &amp; Lieberman, G. J. (2015). <em>Introduction to
+operations research</em>. McGraw-Hill.</li>
+</ul>
+<h1 id="introduction">1. Introduction</h1>
+<p>These kinds ofproblems and the need to find a better way to solve
+them provided the environment for theemergence of operations research
+(commonly referred to as OR)</p>
+<p>Many of thestandard tools of OR, such as linear programming, dynamic
+programming, queueing theory,and inventory theory, were relatively well
+developed before the end of the 1950s</p>
+<p>Three main characteristics of OR:</p>
+<ol type="1">
+<li>The research part of the name means that operations research uses an
+approach that resembles the way research is conducted in established
+scientific fields.</li>
+<li>Still another characteristic of OR is its broad viewpoint.</li>
+<li>An additional characteristic is that OR frequently attempts to
+search for a best solution (referred to as an optimal solution) for the
+model that represents the problem under consideration.</li>
+</ol>
+<a id="more"></a>
+<blockquote>
+<p>Note: 本文文字部分借助 <code>obsidian</code> + <code>Annotator</code>
+插件（<code>Annotator</code> 介绍见 <a
+target="_blank" rel="noopener" href="https://github.com/elias-sundqvist/obsidian-annotator">obsidian-annotator</a>)，实现
+<code>pdf</code> 文档标注及文字时时提取功能，能够将所有标注的文字提取到
+<code>markdown</code> 文件中。图片部分借助
+<code>Image auto upload plugin</code> 插件 （见 <a
+target="_blank" rel="noopener" href="https://github.com/renmu123/obsidian-image-auto-upload-plugin">Link</a>
+）和 <code>PicGo</code> 实现图片自动上传到 <code>GitHub</code>
+图床。然后借助 <code>python</code>
+实现简单的文本内容提取，就可以得到纯净的笔记内容。具体
+操作和实现流程，见之前博客<a
+target="_blank" rel="noopener" href="https://www.yangsuoly.com/2023/01/20/Photography-is-simple/">Photography-is-simple/</a>的引言部分教程。</p>
+<p>完整笔记链接见：<a
+href="https://yangsuoly.com/file/Prelim-OR.pdf"><i class="fa fa-download"></i>
+Download Now</a></p>
+</blockquote>
+<p>As its name implies, operations research involves “research on
+operations.” Thus, operations research is applied to problems that
+concern how to conduct and coordinate theoperations (i.e., the
+activities) within an organization. - <em>Algorithms and
+Courseware</em></p>
+<p>You then will use these algorithms to solve a variety of problems on
+a computer.The OR Courseware contained on the book’s website
+(www.mhhe.com/hillier) will be akey tool for doing all this</p>
+<p>One special feature in your OR Courseware is a program called OR
+Tutor. This pro-gram is intended to be your personal tutor to help you
+learn the algorithms. It consists ofmany demonstration examples that
+display and explain the algorithms in action. These“demos” supplement
+the examples in the book</p>
+<p>In addition, your OR Courseware includes a special software package
+calledInteractive Operations Research Tutorial, or IOR Tutorial for
+short.</p>
+<p>After many years, LINDO (and its companion modeling language LINGO)
+continuesto be a popular OR software package</p>
+<h1 id="overview-of-the-operations-research-modeling-approach">2.
+Overview of the Operations Research Modeling Approach</h1>
+<p>One way of summarizing the usual (overlapping) phases of an OR study
+is the following:</p>
+<h2 id="defining-the-problem-and-gathering-data">2.1 Defining the
+Problem and Gathering Data</h2>
+<p>It is difficult to extract a “right”answer from the “wrong”
+problem!</p>
+<p>Frequently, the report to management will identify a number of
+alternatives that areparticularly attractive under different assumptions
+or over a different range of values ofsome policy parameter that can be
+evaluated only by management (e.g., the trade-offbetween cost and
+benefits)</p>
+<p>Ascertaining the appropriate objectives is a very important aspect of
+problem defini-tion.</p>
+<p>A number of studies of U.S. corporations have found that management
+tends toadopt the goal of satisfactory profits, combined with other
+objectives, instead of focusingon long-run profit maximization.</p>
+<h2 id="formulating-a-mathematical-model">2.2 Formulating a Mathematical
+Model</h2>
+<p>Mathematical models are also idealized representations, but they are
+expressed in termsof mathematical symbols and expressions
+<strong>要素</strong>： - decision variables - objective function -
+constraints - parameters</p>
+<p>Determining the appropriate values to assign to the parameters of the
+model (onevalue per parameter) is both a critical and a challenging part
+of the model-building process - Sensitivity anylysis</p>
+<p>Because of the uncer-tainty about the true value of the parameter, it
+is important to analyze how the solutionderived from the model would
+change (if at all) if the value assigned to the parameter werechanged to
+other plausible values.</p>
+<p>One particularly important type that is studied in the next several
+chapters is thelinear programming model, where the mathematical
+functions appearing in both theobjective function and the constraints
+are all linear functions.</p>
+<p>Mathematical models have many advantages over a verbal description of
+the problem - <em>由简入繁</em></p>
+<p>In developing the model, a good approach is to begin with a very
+simple version andthen move in evolutionary fashion toward more
+elaborate models that more nearly reflectthe complexity of the real
+problem.</p>
+<p>If there are multiple objectives, their respective measures commonly
+are thentransformed and combined into a composite measure, called the
+overall measure of performance</p>
+<h2 id="deriving-solutions-from-the-model">2.3 Deriving Solutions from
+the Model</h2>
+<p>A common theme in OR is the search for an optimal, or best,
+solution.</p>
+<p>However, if the model is well for-mulated and tested, the resulting
+solution should tend to be a good approximation to anideal course of
+action for the real problem.</p>
+<p>The late Herbert Simon (an eminent management scientist and a Nobel
+Laureate ineconomics) pointed out that satisficing is much more
+prevalent than optimizing in actualpractice. In coining the term
+satisficing as a combination of the words satisfactory andoptimizing</p>
+<p>“Optimizing is the sci-ence of the ultimate; satisficing is the art
+of the feasible.</p>
+<p>In recognition of this concept,OR teams occasionally use only
+heuristic procedures (i.e., intuitively designed proceduresthat do not
+guarantee an optimal solution) to find a good suboptimal solution.</p>
+<p>In recent years, great progress has been made indeveloping efficient
+and effective metaheuristics that provide both a general structure
+andstrategy guidelines for designing a specific heuristic procedure to
+fit a particular kind ofproblem.</p>
+<p>The discussion thus far has implied that an OR study seeks to find
+only one solution,which may or may not be required to be optimal</p>
+<p>herefore, postoptimality analysis (analysis done after findingan
+optimal solution) is a very important part of most OR studies.</p>
+<p>This analysis also issometimes referred to as what-if analysis
+because it involves addressing some questionsabout what would happen to
+the optimal solution if different assumptions are made aboutfuture
+conditions.</p>
+<p>In part, postoptimality analysis involves conducting sensitivity
+analysis to determinewhich parameters of the model are most critical
+(the “sensitive parameters”) in determin-ing the solution</p>
+<p>Identifying the sensitive parameters is important, because this
+identifies the parameterswhose value must be assigned with special care
+to avoid distorting the output of the model.</p>
+<h2 id="testing-the-model">2.4 Testing the Model</h2>
+<p>Eventually, after a long succession of improved models, theOR team
+concludes that the current model now is giving reasonably valid results.
+Althoughsome minor flaws undoubtedly remain hidden in the model (and may
+never be detected), themajor flaws have been sufficiently eliminated so
+that the model now can be reliably used - Model validation</p>
+<p>This process of testing and improving a model to increase its
+validity is commonlyreferred to as model validation. - 维度一致</p>
+<p>It is also useful to make sure thatall the mathematical expressions
+are dimensionally consistent in the units used - 回溯检验</p>
+<p>A more systematic approach to testing the model is to use a
+retrospective test.</p>
+<p>On the other hand, a disadvantage of retrospective testing is that it
+uses the same datathat guided the formulation of the model.</p>
+<h2 id="preparing-to-apply-the-model">2.5 preparing to Apply the
+Model</h2>
+<p>an interactive computer-based system called a decision support system
+isinstalled to help managers use data and models to support (rather than
+replace) their decisionmaking as needed</p>
+<p>Although the remainder of this book focuses primarily on constructing
+and solving mathe-matical models, in this chapter we have tried to
+emphasize that this constitutes only a por-tion of the overall process
+involved in conducting a typical OR study</p>
+<h1 id="introduction-to-linear-programming">3. Introduction to Linear
+Programming</h1>
+<p>However, a verbal summary may help provide perspective. Briefly, the
+most common typeof application involves the general problem of
+allocating limited resources amongcompeting activities in a best
+possible (i.e., optimal) way</p>
+<p>The adjective linear means that all the mathematical functions in
+this model are required to be linear functions</p>
+<p>The word programming does not refer here to computer
+programming;rather, it is essentially a synonym for planning</p>
+<h1 id="solving-linear-programming-problems-the-simplex-method">4.
+Solving Linear Programming Problems: The Simplex Method</h1>
+<p>标准形式的线性规划问题： 1. <em>Maximization</em> 目标函数最大化 2.
+所有约束条件以 <span class="math inline">\leq</span> 连接 3.
+<em>Non-negativity</em> 所有变量取值为非负的形式； 4. 所有约束右端项
+<span class="math inline">b_i</span> 的值要求为非负</p>
+<p>Optimality test: Consider any linear programming problem that
+possesses atleast one optimal solution. If a CPF solution has no
+adjacent CPF solutions thatare better (as measured by Z ), then it must
+be an optimal solution. Transforming to Standard Form: 1. “minimize”
+objective can be changed to “maximize” by multiplying “<span
+class="math inline">– 1</span>.” 2. All variables can be moved to the
+LHS (don’t forget to change sign). 3. All constants can be moved to the
+RHS (don’t forget to change sign). 4. “<span
+class="math inline">\ge</span>” constraints can be changed to “≤” by
+multiplying “<span class="math inline">–1</span>” on both sides. 5. What
+about “=” constraints? “<span class="math inline">=</span>” constraints
+can be changed to “<span class="math inline">≤</span>” by replacing it
+by two constraints, one “<span class="math inline">≥</span>” and one
+“<span class="math inline">≤</span>”. The “<span
+class="math inline">≥</span>” is then transformed into “<span
+class="math inline">≤</span>” one by multiplying “–1” on both sides.</p>
+<p>e.g. <span class="math display">
+x_1 + x_2 = 7
+</span> is changed to <span class="math display">
+\begin{align}
+x_1 + x_2  &amp; \ge 7 &amp; x_1 + x_2  &amp; \leq 7 \\
+-x_1 - x_2  &amp; \leq -7 &amp; x_1 + x_2  &amp; \leq 7
+\end{align}
+</span></p>
+<p>A demonstration of these properties is provided by the demonstration
+example in your ORTutor entitled Interpretation of the Slack
+Variables</p>
+<figure>
+<img
+src="https://cdn.jsdelivr.net/gh/YangSuoly/Images/Prelim/202412011120504.png"
+alt="Pasted image 20241013144004" />
+<figcaption aria-hidden="true">Pasted image 20241013144004</figcaption>
+</figure>
+<p><strong>Corresponding terminology for the augmented form</strong>: -
+<em>Augmented solution</em> (拓展解): Solution for the original decision
+variables augmented by the slack variables - Example: augmenting
+solution (2,6) yields the augmented solution (2,6,2,0,0) - <em>Basic
+solution</em> (基本解): Augmented corner-point solution - Example:
+augmenting corner-point solution (4,6) yields basic solution(4,6,0,0,-6)
+- <em>Basic feasible (BF) solution</em> (基本可行解): Augmented CPF
+solution - Example: the CPF (0,6) is equivalent to the BF solution
+(0,6,4,0,6)</p>
+<p><em>Note</em>: CPF (and BF) solution can be either <em>feasible</em>
+feasible or <em>infeasible</em>. 基本可行解（BF solution）是拓展的 CPF
+解。</p>
+<p>The only difference between basic solutions and corner-point
+solutions (or betweenBF solutions and CPF solutions) is whether the
+values of the slack variables are included</p>
+<p>This fact gives us 2 degrees of freedom in solving the system, since
+any two variables can bechosen to be set equal to any arbitrary value in
+order to solve the three equations in terms ofthe remaining three
+variables</p>
+<p>A basic solution has the following properties: 方程结构：
+基变量个数=约束条件数 非基变量个数（自由度） = 变量总数-约束条件数</p>
+<p>一个基本解具有如下性质： 1. 每个变量都可以作为非基变量或基变量 2.
+基变量的个数等于约束条件数。因此 <em>非基变量数</em> =
+变量总数减去约束条件个数 3. 非基变量的值设为 0 4.
+基变量的值作为方程组的联立解被求得。 5. 如果基变量满足非负约束，基本解为
+<em>BF 解</em></p>
+<figure>
+<img
+src="https://cdn.jsdelivr.net/gh/YangSuoly/Images/Prelim/202412011120505.png"
+alt="Pasted image 20241013161155" />
+<figcaption aria-hidden="true">Pasted image 20241013161155</figcaption>
+</figure>
+<p><strong>求解等号或大于约束</strong>： - Big M method</p>
+<figure>
+<img
+src="https://cdn.jsdelivr.net/gh/YangSuoly/Images/Prelim/202412011120506.png"
+alt="Pasted image 20241013164051" />
+<figcaption aria-hidden="true">Pasted image 20241013164051</figcaption>
+</figure>
+<ul>
+<li>Two phase method</li>
+</ul>
+<p><img
+src="https://cdn.jsdelivr.net/gh/YangSuoly/Images/Prelim/202412011120507.png"
+alt="Pasted image 20241013163500" /> <img
+src="https://cdn.jsdelivr.net/gh/YangSuoly/Images/Prelim/202412011120508.png"
+alt="Pasted image 20241013164104" /></p>
+<h1 id="theory-of-the-simple-method">5. Theory of the Simple Method</h1>
+<h2 id="foundations-of-the-simplex-method">5.1 Foundations of the
+Simplex Method</h2>
+<p>A corner-point feasible (CPF) solution is a feasible solution that
+does not lieon any line segment1 connecting two other feasible
+solutio</p>
+<p>Properties of CPF Solutions <strong>CPF 解的性质</strong> 1.
+1）如果只有一个是最优解，他一定是 CPF
+解；2）如果有许多最优解（在有界可行域重），至少两个必为相邻 CPF 解 2.
+只有有限个 CPF 解 3. 如果一个 CPF 解没有相邻 CPF 解比它更优（以 <span
+class="math inline">Z</span> 来衡量），那么就不存在任何更好的 CPF
+解。这样，假定这个问题至少有一个最优解（由问题具有可行解和一个有界的可行鱼来保证），这个
+CPF 解就是最优解（性质一）。</p>
+<h2 id="the-simplex-method-in-matrix-form">5.2 The Simplex Method in
+Matrix Form</h2>
+<p>Using matrices, the standard form can be given by: <span
+class="math display">
+\max Z = cX
+</span> subjective to <span class="math display">
+Ax \le b \quad \text{and} \quad  x \ge 0,
+</span></p>
+<figure>
+<img
+src="https://cdn.jsdelivr.net/gh/YangSuoly/Images/Prelim/202412011120509.png"
+alt="Pasted image 20241013173954" />
+<figcaption aria-hidden="true">Pasted image 20241013173954</figcaption>
+</figure>
+<p><strong>Summary of the Matrix form of the simples solution</strong> -
+<em>Initialization</em>: Introduce slack variable to obtain initial
+basic variable. This yields initial 𝑥 𝐵 , 𝑐 𝐵 ,𝐵 . - <em>Iteration</em>
+Step 1: Determine the entering basic variable - Check coefficient of
+nonbasic variable in Eq(0) - Select negative coefficient having the
+largest value Step 2. Determine the leaving basic variable - Use <span
+class="math inline">𝐵^{−1}𝐴 , 𝑥_𝐵 = 𝐵^{−1} 𝑏</span> and minimal ratio
+Step 3. Determine the new BF solution - Update <span
+class="math inline">𝐵, 𝑥_𝐵 , 𝑐_𝐵</span> <em>Optimality</em> test: The
+solution is optimal iff positive <span class="math inline">𝑐_𝐵 𝐵^{−1} 𝐴
+− 𝑐</span> and <span class="math inline">𝑐_𝐵 𝐵^{−1}</span> are
+positive.</p>
+<p>E.g. <img
+src="https://cdn.jsdelivr.net/gh/YangSuoly/Images/Prelim/202412011120510.png"
+alt="Pasted image 20241013200933" /></p>
+<p>These appli-cations are particularly important only when we are
+dealing with the final simplex tableauafter the optimal solution has
+been obtained</p>
+<figure>
+<img
+src="https://cdn.jsdelivr.net/gh/YangSuoly/Images/Prelim/202412011120511.png"
+alt="Pasted image 20241013201522" />
+<figcaption aria-hidden="true">Pasted image 20241013201522</figcaption>
+</figure>
+<p>设 <span class="math inline">B</span>
+是用单纯形法找出最优解时的基矩阵，令 - <span
+class="math inline">S^*=B^{-1}</span> 表示第一行至 <span
+class="math inline">m</span> 行中 <em>松弛变量</em> 的系数 - <span
+class="math inline">A^*=B^{-1}A</span> 表示第一行至 <span
+class="math inline">m</span> 行中 <em>原变量</em> 的系数 - <span
+class="math inline">y^*=c_B B^{-1}</span> 表示第 0 行中
+<em>松弛变量</em> 的系数 - <span class="math inline">z^*=c_B B^{-1}
+A</span> ，所以 <span class="math inline">z^* - c=0</span> 为第 0
+行中<em>原变量</em>的系数 - <span class="math inline">Z^*=c_B B^{-1}
+b</span> 表示目标函数的最优值 - <span class="math inline">b^*=B^{-1}
+b</span> 表示第一行至 <span class="math inline">m</span>
+行最优的右端项值</p>
+<h2 id="the-revised-simplex-method">5.4 The Revised Simplex Method</h2>
+<p><span class="math display">
+\left(\mathbf{B}_{\text {new }}^{-1}\right)_{i
+j}=\left\{\begin{array}{ll}
+\left(\mathbf{B}_{\text {old }}^{-1}\right)_{i j}-\frac{a_{i
+k}^{\prime}}{a_{r k}^{\prime}}\left(\mathbf{B}_{\text {old
+}}^{-1}\right)_{r j} &amp; \text { if } i \neq r \\
+\frac{1}{a_{r k}^{\prime}}\left(\mathbf{B}_{\text {old }}^{-1}\right)_{r
+j} &amp; \text { if } i=r .
+\end{array}\right.
+</span></p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/YangSuoly/Images/Prelim/202412011120512.png"
+alt="Pasted image 20241013203529" /> <img
+src="https://cdn.jsdelivr.net/gh/YangSuoly/Images/Prelim/202412011120513.png"
+alt="Pasted image 20241013203651" /></p>
+<h1 id="duality-theory">6. Duality theory</h1>
+<p>This discovery re-vealed that every linear programming problem has
+associated with it another linear pro-gramming problem called the
+dual.</p>
+<p>The relationships between the dual problem and theoriginal problem
+(called the primal) prove to be extremely useful in a variety of
+ways</p>
+<h2 id="the-essence-of-duality-theory">6.1 The Essence of Duality
+Theory</h2>
+<p>Given our standard form for the primal problem at the left (perhaps
+after conversion fromanother form), its dual problem has the form shown
+to the right. <img
+src="https://cdn.jsdelivr.net/gh/YangSuoly/Images/Prelim/202412011120514.png"
+alt="Pasted image 20241013210515" /></p>
+<p>原问题可以理解为最大利润，对偶问题为最小化成本，所以的得到影子价格，构成目标函数的参数。</p>
+<p>Summary of Primal-Dual Relationships Summary of Primal-Dual
+Relationships 1. <strong>Weak duality property</strong>: If <span
+class="math inline">x</span> is a <em>feasible solution</em> for the
+primal problem and y is a feasible solution for the dual problem, then
+<span class="math inline">cx ≤ yb</span>. One application of the dual is
+to provide a bound for the optimal value. 2. <strong>Strong duality
+property</strong>: If <span class="math inline">x^*</span> is an
+<em>optimal solution</em> for the primal problem and y* is an optimal
+solution for the dual problem, then <span class="math inline">cx^* =
+y^*b</span>.
+这说明，当两个问题中有一个不是最优解，或者两个都不是最优解时，会有 <span
+class="math inline">cx&lt;yb</span>.
+且当两个都是最优解的时候（目标函数相等），则是 <span
+class="math inline">cx=yb</span> 3. <strong>Complementary solutions
+property</strong>: At each iteration, it simultaneously identifies a
+<em>CPF solution</em> <span class="math inline">x</span> for the primal
+problem and a complementary solution (互补解) <span
+class="math inline">y</span> for the dual problem, and <span
+class="math inline">cx=yb</span> 4. <strong>Complementary optimal
+solutions property</strong>: At the final iteration, it simultaneously
+identifies a <em>optimal solution</em> <span
+class="math inline">x^*</span> for the primal problem and a
+complementary optimal solution (最优互补解) <span
+class="math inline">y</span> for the dual problem, and <span
+class="math inline">cx^*=y^* b</span> 5. <strong>Symmetry
+property:</strong>
+对于任意一个远问题和他的对偶问题，两个问题之间的一切关系必定是对称的。
+6. <strong>Duality Property</strong>: The following are the only
+possible relationships between the primal and dual problems.<br />
+-
+如果一个问题拥有可行解和有边界的目标函数（存在最优解），那么另一个问题也会有可行解和有界的目标函数。If
+one problem has feasible solutions and a bounded objective function (and
+so has an optimal solution), then so does the other problem, so both the
+weak and strong duality properties are applicable.<br />
+- 如果一个问题拥有可行解，
+但是目标函数是无界的（无最优解），那么另一个问题没有可行解。If one
+problem has feasible solutions and an unbounded objective function (and
+so no optimal solution), then the other problem has no feasible
+solutions. -
+如果一个问题没有可行解，那么另一个问题或者没有可行解，或者有可行解，但是目标函数无界。If
+one problem has no feasible solutions, then the other problem has either
+no feasible solutions or an unbounded objective function</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/YangSuoly/Images/Prelim/202412011120515.png"
+alt="Pasted image 20241013213509" /> <em>Note</em>: Feasible refers to
+feasible zone, <em>bounded</em> refers to objective function</p>
+<h2 id="prime-dual-relationship">6.3 Prime-Dual Relationship</h2>
+<p>Complementary slackness property</p>
+<figure>
+<img
+src="https://cdn.jsdelivr.net/gh/YangSuoly/Images/Prelim/202412011120516.png"
+alt="Pasted image 20241013224937" />
+<figcaption aria-hidden="true">Pasted image 20241013224937</figcaption>
+</figure>
+<p>Complementary slackness property: Given the association between
+variablesin Table 6.7, the variables in the primal basic solution and
+the complementarydual basic solution satisfy the complementary slackness
+relationship shown inTable 6.8. Furthermore, this relationship is a
+symmetric one, so that these twobasic solutions are complementary to
+each other.</p>
+<h2 id="adapting-to-other-primal-forms">6.4 Adapting to Other Primal
+Forms</h2>
+<ul>
+<li>Sensible-odd-bizarre (大部分、小部分、极个别方法)</li>
+</ul>
+<p>The sensible-odd-bizarre method, or SOB method for short, saysthat
+the form of a functional constraint or the constraint on a variable in
+the dual problemshould be sensible, odd, or bizarre <img
+src="https://cdn.jsdelivr.net/gh/YangSuoly/Images/Prelim/202412011120517.png"
+alt="Pasted image 20241013225537" /></p>
+<figure>
+<img
+src="https://cdn.jsdelivr.net/gh/YangSuoly/Images/Prelim/202412011120518.png"
+alt="Pasted image 20241013230300" />
+<figcaption aria-hidden="true">Pasted image 20241013230300</figcaption>
+</figure>
+<h2 id="sensitive-analysis">6.7 Sensitive Analysis</h2>
+<figure>
+<img
+src="https://cdn.jsdelivr.net/gh/YangSuoly/Images/Prelim/202412011120519.png"
+alt="Pasted image 20241014125018" />
+<figcaption aria-hidden="true">Pasted image 20241014125018</figcaption>
+</figure>
+<figure>
+<img
+src="https://cdn.jsdelivr.net/gh/YangSuoly/Images/Prelim/202412011120520.png"
+alt="Pasted image 20241014132130" />
+<figcaption aria-hidden="true">Pasted image 20241014132130</figcaption>
+</figure>
+<h1 id="nonlinear-programming">13 nonlinear Programming</h1>
+<p>Types of Nonliear Programming Problems - Unconstrained optimization -
+Minimize <span class="math inline">f(x)</span> for all values of <span
+class="math inline">x = (x_1 , x_2, \cdots, x_n )</span> - No
+constraints - Linearly constrained optimization - All constraint
+functions are linear - Objective function is nonlinear - Quadratic
+programming - Linear constraints - Objective function is quadratic and
+convex - Separable programming Each term involves just a single variable
+The function is separable into a sum of functions of individual
+variables <span class="math display">
+    f(x) = \sum\limits_{j=1}^n f_j (x_j)
+    </span> - Nonconvex programming Functions do not satisfy assumptions
+of convex programming No algorithm will find an optimal solution for all
+such problems Some algorithms explore various parts of the feasible
+region and may find a global maximum - <strong>Convex
+programming</strong> <span class="math inline">f(x)</span> and <span
+class="math inline">g_i(x)</span> are convex functions - Geometric
+programming - Fractional programming</p>
+<p><strong>convex function</strong>: A function <span
+class="math inline">f: R^n \to R</span> is convex if dom <span
+class="math inline">f</span> is a convex set and if for all <span
+class="math inline">x, y \in dom f</span> and <span
+class="math inline">\theta</span> with <span class="math inline">0\leq
+\theta\le 1</span>, we have: <span class="math display">
+f(\theta x + (1-\theta)y \le \theta f(x) + (1-\theta)f(y)
+</span></p>
+<p>函数为凹函数,则二阶导数大于0;函数为凸函数,则二阶导数小于零.</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/YangSuoly/Images/Prelim/202412011120521.png"
+alt="Pasted image 20241014145137" /> <img
+src="https://cdn.jsdelivr.net/gh/YangSuoly/Images/Prelim/202412011120522.png"
+alt="Pasted image 20241014145357" /></p>
+<p><strong>Operation that preserve convexity</strong> <img
+src="https://cdn.jsdelivr.net/gh/YangSuoly/Images/Prelim/202412011120523.png"
+alt="Pasted image 20241014161320" /> <img
+src="https://cdn.jsdelivr.net/gh/YangSuoly/Images/Prelim/202412011120524.png"
+alt="Pasted image 20241014161344" /> - <em>Nonnegative weighted
+sums</em> <span class="math display">
+f = w_1 f_1 + \cdots + w_m f_m
+</span> - <em>Pointwise maximum and supremum</em> If <span
+class="math inline">f_1</span> and <span class="math inline">f_2</span>
+are convex functions then their pointwise maximum <span
+class="math inline">f</span>, defined by <span class="math inline">f(x)
+= \max \{f_1(x),f_2(x)\}</span>, is also convex - <em>Composition</em>
+<img
+src="https://cdn.jsdelivr.net/gh/YangSuoly/Images/Prelim/202412011120525.png"
+alt="Pasted image 20241014145731" /></p>
+<p>CONVEX OR CONCAVE FUNCTIONS OF SEVERAL VARIABLES KKT condition <img
+src="https://cdn.jsdelivr.net/gh/YangSuoly/Images/Prelim/202412011120526.png"
+alt="Pasted image 20241014163540" /></p>
+<p>E.g. Ex. 5 Consider the following convex programming problem: <span
+class="math display">
+\begin{align*}
+\quad \text{Maximize} \qquad f(x) = 24 x_1- x_1^2 + 10 x_2 - x_2^2
+\end{align*}
+</span> subject to <span class="math display">
+\begin{align*}
+x_1 \leq 10\\
+x_2 \leq 15
+\end{align*}
+</span> and <span class="math inline">x_1 \geq 0, \quad x_2 \geq
+0</span></p>
+<ol type="1">
+<li>Use the KKT conditions for this problem to derive an optimal
+solution.</li>
+</ol>
+<h3 id="solution-for-5a">Solution for 5a</h3>
+<p>Let <span class="math display">
+\begin{align*}
+F(x) &amp;= f(x) -\alpha g(x_1) - \beta g(x_2)\\
+&amp;=24 x_1 - x_1^2 + 10 x_2 -x_2^2 -\alpha(x_1 -10) -\beta(x_2-15)
+\end{align*}
+</span> where <span class="math inline">\alpha, \beta &gt;\geq 0</span>.
+According to the KKT theorem, for the problem, we can get the following
+conditions: <span class="math display">
+\begin{align*}
+\frac{\partial F(x)}{\partial x_1} = 24 - 2x_1 - \alpha \leq 0 \\
+\frac{\partial F(x)}{\partial x_2} = 10 - 2x_2 - \beta \leq 0 \\
+x_1 \frac{\partial F(x)}{\partial x_1} = x_1(24 - 2x_1 - \alpha) = 0 \\
+x_2 \frac{\partial F(x)}{\partial x_2} = x_2 (10 - 2x_2 - \beta) = 0 \\
+\alpha (x_1 - 10) = 0\\
+\beta (x_2 - 15) = 0 \\
+x_1 - 10 \leq 0\\
+x_2 - 15 \leq 0 \\
+x_1, x_2, \alpha, \beta \geq 0
+\end{align*}
+</span> Then, we can solve the above system, get the following result:
+<span class="math display">
+\begin{align*}
+x_1 = 10 \\
+x_2 = 5\\
+\alpha = 4\\
+\beta = 0
+\end{align*}
+</span> Thus, the optimal maximum results is <span
+class="math inline">f(x) = 24\times 10 - 10^2 + 10\times 5 - 5^2 =
+165</span></p>
+
+    </div>
+
+    
+    
+    
+
+    <div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">
+            -------------This blog is over!
+            <i class="fa fa-eye"></i>
+            Thanks for your reading-------------
+        </div>
+    
+</div>
+      
+    </div>
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>Post author:  </strong>YangSu
+  </li>
+  <li class="post-copyright-link">
+    <strong>Post link: </strong>
+    <a href="http://yangsuoly.com/2024/12/01/Prelim-OR/" title="Prelim-OR">http://yangsuoly.com/2024/12/01/Prelim-OR/</a>
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/Tags/OR/" rel="tag"><i class="fa fa-tag"></i> OR</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2024/05/10/Mac-lid-sleep/" rel="prev" title="Mac-lid-sleep">
+      <i class="fa fa-chevron-left"></i> Mac-lid-sleep
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2024/12/01/Prelim-Simulation/" rel="next" title="Prelim-Simulation">
+      Prelim-Simulation <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div id="music163player">
+      <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=1317956275&auto=0&height=66"></iframe>
+      </iframe>
+    </div>
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#introduction"><span class="nav-text">1. Introduction</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#overview-of-the-operations-research-modeling-approach"><span class="nav-text">2.
+Overview of the Operations Research Modeling Approach</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#defining-the-problem-and-gathering-data"><span class="nav-text">2.1 Defining the
+Problem and Gathering Data</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#formulating-a-mathematical-model"><span class="nav-text">2.2 Formulating a Mathematical
+Model</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#deriving-solutions-from-the-model"><span class="nav-text">2.3 Deriving Solutions from
+the Model</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#testing-the-model"><span class="nav-text">2.4 Testing the Model</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#preparing-to-apply-the-model"><span class="nav-text">2.5 preparing to Apply the
+Model</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#introduction-to-linear-programming"><span class="nav-text">3. Introduction to Linear
+Programming</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#solving-linear-programming-problems-the-simplex-method"><span class="nav-text">4.
+Solving Linear Programming Problems: The Simplex Method</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#theory-of-the-simple-method"><span class="nav-text">5. Theory of the Simple Method</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#foundations-of-the-simplex-method"><span class="nav-text">5.1 Foundations of the
+Simplex Method</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#the-simplex-method-in-matrix-form"><span class="nav-text">5.2 The Simplex Method in
+Matrix Form</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#the-revised-simplex-method"><span class="nav-text">5.4 The Revised Simplex Method</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#duality-theory"><span class="nav-text">6. Duality theory</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#the-essence-of-duality-theory"><span class="nav-text">6.1 The Essence of Duality
+Theory</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#prime-dual-relationship"><span class="nav-text">6.3 Prime-Dual Relationship</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#adapting-to-other-primal-forms"><span class="nav-text">6.4 Adapting to Other Primal
+Forms</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#sensitive-analysis"><span class="nav-text">6.7 Sensitive Analysis</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#nonlinear-programming"><span class="nav-text">13 nonlinear Programming</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#solution-for-5a"><span class="nav-text">Solution for 5a</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="YangSu"
+      src="/images/YangSu.jpg">
+  <p class="site-author-name" itemprop="name">YangSu</p>
+  <div class="site-description" itemprop="description">A blog for recording learning notes...</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">78</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/Categories/">
+          
+        <span class="site-state-item-count">40</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/Tags/">
+          
+        <span class="site-state-item-count">49</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/YangSuoly" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;YangSuoly" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://gitee.com/yangsuoly" title="Gitee → https:&#x2F;&#x2F;gitee.com&#x2F;yangsuoly" rel="noopener" target="_blank"><i class="fab fa-github-square fa-fw"></i>Gitee</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://space.bilibili.com/64518717" title="B 站 → https:&#x2F;&#x2F;space.bilibili.com&#x2F;64518717" rel="noopener" target="_blank"><i class="fa fa-play-circle fa-fw"></i>B 站</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Related links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://www.58pic.com/u/19637930/" title="https:&#x2F;&#x2F;www.58pic.com&#x2F;u&#x2F;19637930&#x2F;" rel="noopener" target="_blank">千图网</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js" integrity="sha384-g7c+Jr9ZivxKLnZTDUhnkOnsh30B4H0rpLUpJ4jAIKs4fnJI+sEnkvrMWph2EDg4" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/auto-render.min.js" integrity="sha384-mll67QQFJfxn0IYznZYonOWZ644AWYC+Pt2cHqMaRhXVrursRwvLnLaebdGIlYNa" crossorigin="anonymous"
+        onload="renderMathInElement(document.body);"></script>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2026</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">YangSu</span>
+</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="Total Visitors">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="Total Views">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script size="300" alpha="0.6" zIndex="-1" src="/lib/canvas-ribbon/canvas-ribbon.js"></script>
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+<script>
+document.querySelectorAll('.pdfobject-container').forEach(element => {
+  let url = element.dataset.target;
+  let pdfOpenParams = {
+    navpanes : 0,
+    toolbar  : 0,
+    statusbar: 0,
+    pagemode : 'thumbs',
+    view     : 'FitH'
+  };
+  let pdfOpenFragment = '#' + Object.entries(pdfOpenParams).map(([key, value]) => `${key}=${encodeURIComponent(value)}`).join('&');
+  let fullURL = `/lib/pdf/web/viewer.html?file=${encodeURIComponent(url)}${pdfOpenFragment}`;
+
+  if (NexT.utils.supportsPDFs()) {
+    element.innerHTML = `<embed class="pdfobject" src="${url + pdfOpenFragment}" type="application/pdf" style="height: ${element.dataset.height};">`;
+  } else {
+    element.innerHTML = `<iframe src="${fullURL}" style="height: ${element.dataset.height};" frameborder="0"></iframe>`;
+  }
+});
+</script>
+
+
+<script>
+if (document.querySelectorAll('pre.mermaid').length) {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js', () => {
+    mermaid.initialize({
+      theme    : 'forest',
+      logLevel : 3,
+      flowchart: { curve     : 'linear' },
+      gantt    : { axisFormat: '%m/%d/%Y' },
+      sequence : { actorMargin: 50 }
+    });
+  }, window.mermaid);
+}
+</script>
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+  <script src="//cdn.jsdelivr.net/npm/quicklink@1/dist/quicklink.umd.js"></script>
+  <script>
+      window.addEventListener('load', () => {
+      quicklink({
+        timeout : 3000,
+        priority: true,
+        ignores : [uri => uri.includes('#'),uri => uri === 'http://yangsuoly.com/2024/12/01/Prelim-OR/',]
+      });
+      });
+  </script>
+
+  
+  <script id="ribbon" src="js/canvas-ribbon.js"></script>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/22.2017.cba-normal.model.json"},"display":{"position":"right","width":300,"height":450},"mobile":{"show":false},"react":{"opacity":0.7},"log":false});</script></body>
+</html>

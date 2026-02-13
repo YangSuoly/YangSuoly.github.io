@@ -1,0 +1,1851 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/blog-logo-32px.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/blog-logo-16px.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <link rel="manifest" href="/images/manifest.json">
+  <meta name="msapplication-config" content="/images/browserconfig.xml">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yangsuoly.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":true},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":true,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="1 Stata data operation 1.1 Data Operation 1.1.1 Browse data  browse &#x2F; edit browse 用于打开或编辑数据浏览器，相当于单击数据浏览器或编辑按钮。命令格式: 1browse&#x2F;edit [varlist] [if] [in] rename rename 用于对变量重新命名。格式： 1rename (oldname) (new">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Stata">
+<meta property="og:url" content="http://yangsuoly.com/2021/03/18/Stata/index.html">
+<meta property="og:site_name" content="独孤诗人的学习驿站">
+<meta property="og:description" content="1 Stata data operation 1.1 Data Operation 1.1.1 Browse data  browse &#x2F; edit browse 用于打开或编辑数据浏览器，相当于单击数据浏览器或编辑按钮。命令格式: 1browse&#x2F;edit [varlist] [if] [in] rename rename 用于对变量重新命名。格式： 1rename (oldname) (new">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://s3.ax1x.com/2021/03/18/62AzJe.png">
+<meta property="og:image" content="https://s3.ax1x.com/2021/03/18/62AoRJ.png">
+<meta property="og:image" content="https://s3.ax1x.com/2021/03/18/62ESRH.md.png">
+<meta property="og:image" content="https://s3.ax1x.com/2021/03/18/62Epzd.md.png">
+<meta property="og:image" content="https://s3.ax1x.com/2021/03/18/62EPsI.md.png">
+<meta property="og:image" content="https://s3.ax1x.com/2021/03/18/62ECQA.png">
+<meta property="og:image" content="https://s3.ax1x.com/2021/03/18/62EiLt.md.png">
+<meta property="og:image" content="https://s3.ax1x.com/2021/03/18/62EAdf.png">
+<meta property="og:image" content="https://s3.ax1x.com/2021/03/18/62Enzj.md.png">
+<meta property="og:image" content="https://s3.ax1x.com/2021/03/18/62A5iF.md.png">
+<meta property="og:image" content="https://s3.ax1x.com/2021/03/18/62AIG4.md.png">
+<meta property="og:image" content="https://s3.ax1x.com/2021/03/18/62AcMn.md.png">
+<meta property="og:image" content="https://s3.ax1x.com/2021/03/18/62AXdK.md.png">
+<meta property="og:image" content="https://s3.ax1x.com/2021/03/18/62AjIO.md.png">
+<meta property="og:image" content="https://s3.ax1x.com/2021/03/18/62AxiD.md.png">
+<meta property="og:image" content="https://s3.ax1x.com/2021/03/18/62EEo8.png">
+<meta property="og:image" content="https://s3.ax1x.com/2021/03/18/62ArGQ.md.png">
+<meta property="og:image" content="https://s3.ax1x.com/2021/03/18/62EmWQ.md.png">
+<meta property="og:image" content="https://s3.ax1x.com/2021/03/18/62EeJg.md.png">
+<meta property="og:image" content="https://s3.ax1x.com/2021/03/18/62Ayxs.md.png">
+<meta property="og:image" content="https://s3.ax1x.com/2021/03/18/62ADPg.md.png">
+<meta property="og:image" content="https://s3.ax1x.com/2021/03/18/62EMyn.md.png">
+<meta property="og:image" content="https://s3.ax1x.com/2021/03/18/62EQLq.md.png">
+<meta property="og:image" content="https://s3.ax1x.com/2021/03/18/62E3wV.png">
+<meta property="og:image" content="https://s3.ax1x.com/2021/03/18/62A2q0.md.png">
+<meta property="og:image" content="https://s3.ax1x.com/2021/03/18/62E8oT.md.png">
+<meta property="og:image" content="https://s3.ax1x.com/2021/03/18/62EYYF.md.png">
+<meta property="og:image" content="https://s3.ax1x.com/2021/03/18/62EmWQ.md.png">
+<meta property="og:image" content="https://s3.ax1x.com/2021/03/18/62EtW4.md.png">
+<meta property="og:image" content="https://s3.ax1x.com/2021/03/18/62EUSJ.md.png">
+<meta property="og:image" content="https://s3.ax1x.com/2021/03/18/62Eal9.md.png">
+<meta property="og:image" content="https://s3.ax1x.com/2021/03/18/62EdyR.md.png">
+<meta property="og:image" content="https://s3.ax1x.com/2021/03/18/62EwO1.md.png">
+<meta property="og:image" content="https://s3.ax1x.com/2021/03/18/62EBex.md.png">
+<meta property="og:image" content="https://s3.ax1x.com/2021/03/18/62EDw6.png">
+<meta property="og:image" content="https://s3.ax1x.com/2021/03/18/62AWZV.md.png">
+<meta property="article:published_time" content="2021-03-18T07:03:25.000Z">
+<meta property="article:modified_time" content="2021-03-19T12:47:10.724Z">
+<meta property="article:author" content="YangSu">
+<meta property="article:tag" content="Econometrics">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s3.ax1x.com/2021/03/18/62AzJe.png">
+
+<link rel="canonical" href="http://yangsuoly.com/2021/03/18/Stata/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>Stata | 独孤诗人的学习驿站</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?f59f5fb59d32ec3903088b0f976956d1";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta custom-logo">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">独孤诗人的学习驿站</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">生活就是一半烟火，一半诗意。手执烟火谋生活，心怀诗意谋未来……</p>
+      <a>
+        <img class="custom-logo-image" src="/images/logo@2x.png" alt="独孤诗人的学习驿站">
+      </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/Tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/Categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+  <a href="https://github.com/YangSuoly" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yangsuoly.com/2021/03/18/Stata/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/YangSu.jpg">
+      <meta itemprop="name" content="YangSu">
+      <meta itemprop="description" content="A blog for recording learning notes...">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="独孤诗人的学习驿站">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Stata
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-03-18 15:03:25" itemprop="dateCreated datePublished" datetime="2021-03-18T15:03:25+08:00">2021-03-18</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-03-19 20:47:10" itemprop="dateModified" datetime="2021-03-19T20:47:10+08:00">2021-03-19</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/Categories/Class-Notes/" itemprop="url" rel="index"><span itemprop="name">Class Notes</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/Categories/Class-Notes/Econometrics/" itemprop="url" rel="index"><span itemprop="name">Econometrics</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="Views" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span><br>
+            <span class="post-meta-item" title="Symbols count in article">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">Symbols count in article: </span>
+              <span>27k</span>
+            </span>
+            <span class="post-meta-item" title="Reading time">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">Reading time &asymp;</span>
+              <span>25 mins.</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="stata-data-operation">1 Stata data operation</h1>
+<h2 id="data-operation">1.1 Data Operation</h2>
+<h3 id="browse-data">1.1.1 Browse data</h3>
+<ul>
+<li><p>browse / edit</p>
+<p><code>browse</code>
+用于打开或编辑数据浏览器，相当于单击数据浏览器或编辑按钮。命令格式:</p>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">browse</span>/<span class="keyword">edit</span> [<span class="keyword">varlist</span>] [<span class="keyword">if</span>] [<span class="keyword">in</span>]</span><br></pre></td></tr></table></figure></li>
+<li><p>rename</p>
+<p><code>rename</code> 用于对变量重新命名。格式：</p>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">rename</span> (oldname) (newname)</span><br></pre></td></tr></table></figure></li>
+</ul>
+<a id="more"></a>
+<ul>
+<li><p>save</p>
+<p><code>save</code> 用于将内存中的数据保存到硬盘上。基本格式：</p>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">save</span> [filename] [, save_options]</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="import-data">1.1.2 Import data</h3>
+<p><strong>导入原则</strong>：</p>
+<ol type="1">
+<li><p>打开新数据集之前，必须用 <code>clear</code>
+命令清除存在于内存中的数据集；</p></li>
+<li><p>如果某些数据集超出了现有的设定的内存空间，则需要使用
+<code>set memory</code> 来设定内存空间大小；</p></li>
+<li><p>使用 <code>use</code> 命令读入 Stata 格式数据，使用
+<code>edit</code> 命令输入数据；</p></li>
+<li><p>使用 excel 文件复制粘贴数据。</p></li>
+<li><p>use</p></li>
+</ol>
+<p>读取 Stata 自身数据的命令，基本语法：</p>
+<p><figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">use</span> filename [, <span class="keyword">clear</span> nolabel]</span><br><span class="line"></span><br><span class="line"><span class="comment">// Clear: 指明目前内存中的数据尚未保存，仍然可以用新的数据来代替它</span></span><br><span class="line"><span class="comment">// Nolabel：在载入数据时不载入相关的标签</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="descriptive-commands">1.1.3 Descriptive commands</h3>
+<ul>
+<li><p><code>describe</code></p>
+<p><code>describe</code>
+用于产生一个对数据集的简明总结表格。输出的结果中包含每个变量的名称、存储方式（<code>byte</code>、<code>float</code>，<code>double</code>
+和 <code>int</code>）、显示格式、变量标签和变量值标签。命令格式：</p>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">describe</span> [<span class="keyword">varlist</span>] [, memory_options]</span><br><span class="line"><span class="keyword">d</span> [<span class="keyword">varlist</span>] [, memory_options]</span><br></pre></td></tr></table></figure>
+<p>memory_options:</p>
+<ul>
+<li>simple(si): display only variable names;</li>
+<li>short(s): display only general information;</li>
+<li>fullnames(f): do not abbreviate variable names;</li>
+<li>numbers(n): display variable number along with name;</li>
+</ul></li>
+<li><p><code>list</code></p>
+<p><code>list</code>
+用于显示变量的数值，其后可以跟需要显示的变量名称。如果没有设定变量，则默认显示所有的变量数值。命令格式：</p>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">list</span> [<span class="keyword">varlist</span>]] [<span class="keyword">if</span>] [<span class="keyword">in</span>] [, options]</span><br><span class="line"><span class="keyword">l</span> [<span class="keyword">varlist</span>]] [<span class="keyword">if</span>] [<span class="keyword">in</span>] [, options]</span><br></pre></td></tr></table></figure></li>
+<li><p><code>codebook</code></p>
+<p><code>codebook</code>
+用于详尽地描述变量的内容，包括变量名称、变量标签和变量的赋值。基本格式：</p>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">codebook</span> [<span class="keyword">varlist</span>] [<span class="keyword">if</span>] [<span class="keyword">in</span>] [, options]</span><br></pre></td></tr></table></figure></li>
+<li><p><code>summarize</code></p>
+<p><code>summarize</code>
+命令计算并显示各种单变量摘要统计信息。如果未指定
+<code>varlist</code>，则计算数据集中所有变量的摘要统计信息。对于任何的数据分析，使用
+<code>summarize</code>
+命令进行数据的核对都是很有必要的，尤其对于缺失值、无效值、奇异值的探测都很有帮助。基本语法：</p>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">summarize</span> [<span class="keyword">varlist</span>] [<span class="keyword">if</span>] [<span class="keyword">in</span>] [weight] [, options]</span><br></pre></td></tr></table></figure>
+<p>其中，<code>varlist</code>表示需要统计的变量，<code>if</code>为样本条件，<code>in</code>为样本范围，<code>weight</code>为样本权重。</p></li>
+<li><p><code>tabstat</code></p>
+<p><code>tabstat</code> 命令主要用于统计量组合，与
+<code>summarize</code> 类似。基本语法：</p>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">tabstat</span> <span class="keyword">varlist</span>  [<span class="keyword">if</span>] [<span class="keyword">in</span>] [weight] [, options]</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">`options`选项中的 `stat` ：示设定所需要的统计量，`col` ：将结果报表转置。</span></span><br><span class="line"><span class="comment">统计量主要有平均数、观测值数目，求和，平均标准误差等。</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">webuse</span> wage</span><br><span class="line"><span class="keyword">generate</span> lwage = <span class="built_in">log</span>(wage)</span><br><span class="line"><span class="keyword">tabstat</span> wage lwage, stat(<span class="keyword">count</span> <span class="keyword">mean</span> p50 p75 skewness <span class="keyword">median</span>)</span><br><span class="line"><span class="keyword">tabstat</span> wage lwage, stat(<span class="keyword">count</span> <span class="keyword">mean</span> p50 p75 skewness <span class="keyword">median</span>) col(stat)</span><br><span class="line"><span class="keyword">tabstat</span> wage lwage, <span class="keyword">by</span>(married) stat(<span class="keyword">count</span> <span class="keyword">mean</span> p50 p75 skewness <span class="keyword">median</span>) col(stat)</span><br></pre></td></tr></table></figure>
+<p>Result:</p>
+<p><img src="https://s3.ax1x.com/2021/03/18/62AzJe.png" /></p></li>
+</ul>
+<h3 id="merge-data">1.1.4 Merge data</h3>
+<ul>
+<li><p>Horizontal merge</p>
+<p>横向合并是指将两个数据文件的变量加总在一起。合并后数据的样本不变，但变量的数目增加了，使得数据文件变宽。横向合并的两个数据的样本是一样的，只是被存储在不同的数据文件里。横向合并主要通过命令
+<code>merge</code> 完成。基本语法：</p>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">merge</span> [<span class="keyword">varlist</span>] using filename [filename...][, option]</span><br><span class="line"></span><br><span class="line"><span class="keyword">merge</span> 1: 1 make using autocost <span class="comment">// 对make变量进行1比1合并autocost文件</span></span><br></pre></td></tr></table></figure></li>
+<li><p>Vertical Merge</p>
+<p>纵向合并指的是把两个数据的样本加总在一起，合并后的数据变量数目不变，但样本数增加了，使得数据变长了。</p>
+<p>最常见的纵向合并情况是使用同样的问卷在不同地方或不同时间调查得来的数据。合并步骤主要包括：</p>
+<ul>
+<li>两个数据文件里相同变量的变量名要一致</li>
+<li>两个数据文件里相同变量的变量数目一致</li>
+<li>两个数据文件里个案序号不能重复</li>
+<li>每个数据要生成一个新的变量来辨别合并后该数据的样本</li>
+</ul>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">append</span> using filename [filename...][, option]</span><br><span class="line"></span><br><span class="line"><span class="keyword">merge</span> 1: 1 make using autocost <span class="comment">// 对make变量进行1比1合并autocost文件</span></span><br></pre></td></tr></table></figure></li>
+<li><p>Cross Merge</p>
+<p>交叉合并指的是把一个数据的个案和另外一个数据的个案交叉搭配生成新的数据。从数据的结构和用途上讲，交叉合并要比纵向和横向合并更加复杂。交叉合并有两类：</p>
+<ul>
+<li><p>组内交叉：<code>joinby</code> 命令；</p>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">joinby</span> [<span class="keyword">varlist</span>] using filename [, options]</span><br><span class="line"></span><br><span class="line"><span class="keyword">webuse</span> child</span><br><span class="line"><span class="keyword">webuse</span> parent</span><br><span class="line">descirbe</span><br><span class="line"><span class="keyword">list</span>, sep(0)</span><br><span class="line"><span class="keyword">sort</span> family_id</span><br><span class="line"><span class="keyword">joinby</span> family_id using https:<span class="comment">//www.stata-press.com/data/r16/child</span></span><br><span class="line"><span class="comment">// 组内合并，将 child 文件中的多余数据交叉合并到 parent中，重复的变量以parent为准</span></span><br></pre></td></tr></table></figure></li>
+<li><p>一一交叉：<code>cross</code> 命令。</p>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">cross</span> using filename</span><br><span class="line"></span><br><span class="line"><span class="keyword">input</span> str6 sex <span class="comment">// create sex dataset</span></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">sex variable:</span></span><br><span class="line"><span class="comment">        sex</span></span><br><span class="line"><span class="comment">1\. male</span></span><br><span class="line"><span class="comment">2\. female</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">then, save sex dataset and drop it from memory</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">input</span> agecat <span class="comment">// create agecat dataset</span></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">      agecat</span></span><br><span class="line"><span class="comment">1\. 20</span></span><br><span class="line"><span class="comment">2\. 30</span></span><br><span class="line"><span class="comment">3\. 40</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">cross</span> using sex <span class="comment">//</span></span><br><span class="line"><span class="keyword">list</span></span><br></pre></td></tr></table></figure>
+<p>Result:</p>
+<p><img src="https://s3.ax1x.com/2021/03/18/62AoRJ.png" /></p></li>
+</ul></li>
+</ul>
+<h3 id="data-extraction">1.1.5 Data extraction</h3>
+<p>对于一些大型的数据，如人口普查数据和计算机记录的市场交易数据，因为其样本量太大，不适宜直接进行分析。最常用的方法是从数据中随机抽取一个样本，然后对样本进行分析，通常使用
+<code>sample</code> 命令完成。语法格式：</p>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">sample</span> # [<span class="keyword">if</span>] [<span class="keyword">in</span>] [, <span class="keyword">count</span> <span class="keyword">by</span> (groupvars)]~~~~</span><br><span class="line"><span class="comment">// 随机从内存里的数据中抽取样本，# 是样本容量</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">webuse</span> nlswork</span><br><span class="line"><span class="keyword">describe</span>, short</span><br><span class="line"><span class="keyword">sample</span> 10</span><br><span class="line"><span class="keyword">describe</span>, short</span><br></pre></td></tr></table></figure>
+<h3 id="数据处理">1.1.6 数据处理</h3>
+<ul>
+<li><p>z 得分</p>
+<p><code>Z</code>
+得分，也叫标准分数（<code>standard score</code>），是一个数与平均数的差再除以标准差的过程。在统计学中，标准分数是一个观测或数据点的值高于被观测值或测量值的平均值的标准差的符号数。等于一个观测值是否异常最方便的方法就是计算
+<code>Z</code> 得分。</p>
+<p>根据切比雪夫法则，不论数据的分布是什么形状，都至少有 <code>3/4</code>
+的测量值落在平均值的两个标准差的范围内，至少有
+<code>8/9</code>的测量值落在均值的三个标准差范围内。</p>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">webuse</span> wage</span><br><span class="line"><span class="keyword">quietly</span> <span class="keyword">summarize</span> wage</span><br><span class="line"><span class="keyword">generate</span> z = (wage - <span class="built_in">r</span>(<span class="keyword">mean</span>))</span><br><span class="line"><span class="keyword">list</span> wage z <span class="keyword">if</span> z &gt; 3</span><br></pre></td></tr></table></figure></li>
+<li><p>箱线图</p>
+<p>箱线图在数据探索中有巨大的作用。箱线图一般指箱型图。箱型图
+(<code>Box-plot</code>)
+又称为盒须图、盒式图或箱线图，是一种用作显示一组数据分散情况资料的统计图。因形状如箱子而得名。在各种领域也经常被使用，常见于品质管理。它主要用于反应原始数据分散的特征。基本语法：</p>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">graph</span> box yvars [<span class="keyword">if</span>] [<span class="keyword">in</span>] [weight] [, options]</span><br><span class="line"><span class="keyword">graph</span> hbox yvars [<span class="keyword">if</span>] [<span class="keyword">in</span>] [weight] [, options]</span><br><span class="line"></span><br><span class="line"><span class="keyword">webuse</span> wage</span><br><span class="line"><span class="keyword">graph</span> box wage</span><br><span class="line"><span class="keyword">graph</span> hbox wage, over(married)</span><br><span class="line"><span class="keyword">graph</span> hbox wage, over(married, <span class="keyword">sort</span>(<span class="keyword">l</span>))</span><br></pre></td></tr></table></figure>
+<p>Result:</p>
+<p><img src="https://s3.ax1x.com/2021/03/18/62ESRH.md.png" /></p>
+<center>
+<p>Fig 箱型图</p>
+</center></li>
+<li><p>分位正态图</p>
+<p>利用分位正态图可以判断一个变量的分布是否近似于正态。基本语法：
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">qnorm</span> varname [<span class="keyword">if</span>] [<span class="keyword">in</span>] [, options]</span><br><span class="line"></span><br><span class="line"><span class="keyword">webuse</span> wage</span><br><span class="line"><span class="keyword">qnorm</span> wage, grid</span><br></pre></td></tr></table></figure> Result:</p>
+<p><img src="https://s3.ax1x.com/2021/03/18/62Epzd.md.png" /></p>
+<center>
+<p>Fig 分位正态图</p>
+</center>
+<p>命令独有的选项是 <code>grid</code>。加入 <code>grid</code>
+选项可以在图中依次标注 0.05、0.10、0.25、0.50、0.75、0.90、0.95
+百分位数的坐标刻度。分位正态图将观测变量分布的分位数 (<code>y</code> 轴)
+与一个具有相同平均数和标准查的理论正态分布的分位数进行比较
+(<code>x</code>
+轴)，这样可以就变量分布的每个部分对正态性的偏离进行直观的审查。</p></li>
+<li><p>偏度-峰度正态性统计检验</p>
+<p>偏度衡量随机变量概率分布的不对称性，是相对于平均值不对称程度的度量，通过对偏度系数的测量，我们能够判定数据分布的不对称程度以及方向。</p>
+<p><img src="https://s3.ax1x.com/2021/03/18/62EPsI.md.png" /></p>
+<center>
+<p>Fig 偏度</p>
+</center>
+<p>峰度，是研究数据分布陡峭或平滑的统计量，通过对峰度系数，可以判定数据相对于正态分布而言是更陡峭还是平缓。</p>
+<p><img src="https://s3.ax1x.com/2021/03/18/62ECQA.png" /></p>
+<center>
+<p>Fig 峰度</p>
+</center>
+<p>基本语法： <figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">sktest</span> <span class="keyword">varlist</span> [<span class="keyword">if</span>] [<span class="keyword">in</span>] [weight] [, noadjust]</span><br><span class="line"></span><br><span class="line"><span class="keyword">webuse</span> wage</span><br><span class="line"><span class="keyword">sktest</span> tenure</span><br></pre></td></tr></table></figure></p>
+<p>Result:</p>
+<p><img src="https://s3.ax1x.com/2021/03/18/62EiLt.md.png" /></p>
+<center>
+<p>Fig. 偏度-峰度检验</p>
+</center>
+<p>其中，<code>kurtosis</code> 的 <code>P</code> 值检验为
+0，落入拒绝域，说明不满足正态分布（<code>P</code>
+值检验口诀：大同小异。小于 0.0000，说明落入拒绝域）。</p></li>
+<li><p><code>Shapiro-Wilk</code> <code>W</code> 统计检验</p>
+<p>夏皮罗-威尔克检验 (<code>shapiro-wilk test</code>)
+是一种在频率上统计检验中检验正态性的方法。它在 1965
+年由夏皮罗和威尔克发表。<code>W</code> 检验基本语法：</p>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">swilk</span> <span class="keyword">varlist</span> [<span class="keyword">if</span>] [<span class="keyword">in</span>] [, options]</span><br></pre></td></tr></table></figure></li>
+<li><p><code>Pearson</code> 相关系数</p>
+<p><code>Pearson</code> 相关系数又叫相关系数或自相关系数，一般用字母
+<code>r</code>
+表示，由两个变量的样本取值得到。是关于描述性相关强度的量，取值于
+<code>-1</code> 和 <code>1</code>
+之间。当两个变量有很强的线性相关时，相关系数接近于 <code>1</code>
+(正相关) 或 <code>-1</code> (负相关)。</p>
+<p><code>correlate</code> 命令计算变量之间的 <code>Pearson</code>
+相关系数或者协方差矩阵，如果不指定变量，则默认对数据集中的所有变量计算响应的矩阵。<code>pwcorr</code>
+命令的好处是尽可能使用两两变量中所有没有缺失的数据，而不像
+<code>correlate</code>
+只采用没有任何缺失数据的完整的观测值。基本命令：</p>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">correlate</span> [<span class="keyword">varlist</span>] [<span class="keyword">if</span>] [<span class="keyword">in</span>] [weight] [, correlate_options]</span><br><span class="line"><span class="keyword">pwcorr</span> [<span class="keyword">varlist</span>] [<span class="keyword">if</span>] [<span class="keyword">in</span>] [weight] [, pwcorr_options]</span><br><span class="line"></span><br><span class="line"><span class="keyword">webuse</span> wage</span><br><span class="line"><span class="keyword">correlate</span> wage hours tenure <span class="comment">// 相关系数</span></span><br><span class="line"><span class="keyword">correlate</span> wage hours tenure, covariance <span class="comment">// 协方差</span></span><br><span class="line"><span class="keyword">pwcorr</span> wage hours tenure, sig star(.05) <span class="keyword">print</span>(.05)</span><br></pre></td></tr></table></figure></li>
+<li><p><code>Spearman</code> 相关系数</p>
+<p><code>Spearman</code>
+相关系数是衡量两个变量的依赖性的非参数指标。它利用单调方程评价两个统计变量的相关性。不管变量之间的关系是不是线性的，只要变量之间具有严格的单调增加的函数关系，变量之间的斯皮尔曼相关系数就是
+<code>1</code>。如果数据中没有重复值，并且当两个变量完全单调相关时，斯皮尔曼相关系数则为
+<code>+1</code> 或 <code>-1</code>。基本语法：</p>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">spearman</span> [<span class="keyword">varlist</span>] [<span class="keyword">if</span>] [<span class="keyword">in</span>] [, spearman_options]</span><br><span class="line"></span><br><span class="line"><span class="keyword">sysuse</span> auto</span><br><span class="line"><span class="keyword">spearman</span> mpg rep78</span><br></pre></td></tr></table></figure></li>
+<li><p>偏相关系数</p>
+<p>偏相关系数类似于多元线性回归。当研究某一种因素对另一种因素的影响或相关程度，把其他因素的影响排除在外，而单独研究这两种因素之间的相关系数时，就要使用偏相关分析方法。</p>
+<p>偏相关程度用片相关系数来衡量。即当有多个变量存在时，为了研究任意两个变量之间的关系，而使与这两个变量有联系的其他变量都保持不变，即控制其他变量，计算这两个变量之间的相关性。使用
+<code>pcorr</code> 可以计算偏相关系数，基本语法：</p>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">pcorr</span> varname1 <span class="keyword">varlist</span> [<span class="keyword">if</span>] [<span class="keyword">in</span>] [weight]</span><br><span class="line"></span><br><span class="line"><span class="keyword">webuse</span> wage</span><br><span class="line"><span class="keyword">pcorr</span> wage tenure hour age</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="数据分布">1.1.7 数据分布</h3>
+<p>如果一个变量不符合正态分布可以考虑对数据进行非线性变换，常用的转换包括平方、三次方、自然对数等。<code>Stata</code>
+提供了一个非常强大的工具 “幂阶梯” (<code>ladder of powers</code>)
+可以尝试转换，然后依次进行偏度-峰度检验。主要的转换包括立方、平方、原始、平方根、对数等。基本命令：</p>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">ladder</span> varname [<span class="keyword">if</span>] [<span class="keyword">in</span>]</span><br><span class="line"></span><br><span class="line"><span class="keyword">webuse</span> wage  </span><br><span class="line"><span class="keyword">ladder</span> wage</span><br></pre></td></tr></table></figure>
+<p>Result:</p>
+<img src="https://s3.ax1x.com/2021/03/18/62EAdf.png" />
+<center>
+Fig. ladder 数据分布
+</center>
+<p>此外，还可以通过 <code>qladder</code> 和 <code>gladder</code>
+分别制作直方图和分位正态图。</p>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">webuse</span> wage</span><br><span class="line"><span class="keyword">qladder</span> wage</span><br><span class="line"><span class="keyword">gladder</span> wage</span><br></pre></td></tr></table></figure>
+<p>Result:</p>
+<img src="https://s3.ax1x.com/2021/03/18/62Enzj.md.png" />
+<center>
+Fig. qladder 分位正态图 (左) 和 gladder 直方图 (右)
+</center>
+<h2 id="operations">1.2 Operations</h2>
+<h3 id="relational-symbols">1.2.1 Relational symbols</h3>
+<ul>
+<li><code>==</code>: Equal;</li>
+<li><code>!=</code>: Not equal;</li>
+</ul>
+<h3 id="mathematical-operation">1.2.2 Mathematical operation</h3>
+<p>数学运算，命令格式：</p>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">display</span> expression</span><br><span class="line"><span class="keyword">di</span> expression</span><br></pre></td></tr></table></figure>
+<h3 id="logical-operation">1.2.3 Logical operation</h3>
+<ul>
+<li><code>!</code>: not</li>
+<li><code>&amp;</code>: and</li>
+<li><code>|</code>: or</li>
+</ul>
+<p>Example:</p>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">sysuse</span> auto, <span class="keyword">Clear</span></span><br><span class="line"><span class="keyword">list</span> price foreign <span class="keyword">if</span> price &gt; 1000</span><br><span class="line"><span class="keyword">list</span> price foreign <span class="keyword">if</span> ((price &gt; 1000) &amp; (price &lt; 4000))</span><br></pre></td></tr></table></figure>
+<h2 id="function">1.3 Function</h2>
+<h3 id="in-函数">1.3.1 in 函数</h3>
+<ul>
+<li><p><code>in</code> 函数简介</p>
+<p><code>in</code>
+用于指定观测值，可以是某一个观测值，也可以是某个区间的观测值。比如从第
+10 个到 20 个观测值，基本语法如下：</p>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">command <span class="keyword">in</span> <span class="keyword">range</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">sysuse</span> auto, <span class="keyword">clear</span></span><br><span class="line"><span class="keyword">list</span> price <span class="keyword">in</span> 300/500</span><br><span class="line"><span class="keyword">list</span> price <span class="keyword">in</span> 10/<span class="keyword">l</span> <span class="comment">//last</span></span><br></pre></td></tr></table></figure>
+<p>其中，<code>command</code> 是命令，<code>range</code>
+是从某个数到另外一个数</p></li>
+</ul>
+<h3 id="if-函数">1.3.2 if 函数</h3>
+<p><code>if</code>
+函数用于一个命令后，用来满足表达式的数据集，基本语法：</p>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">command <span class="keyword">if</span> expression</span><br><span class="line"></span><br><span class="line"><span class="keyword">sysuse</span> auto, <span class="keyword">clear</span></span><br><span class="line"><span class="keyword">list</span> make <span class="keyword">if</span> price  &gt; 10000</span><br></pre></td></tr></table></figure>
+<p>其中，<code>command</code> 代表某个 stata 命令，<code>exp</code>
+是需要满足的表达式，表达式可以利用不同的运算符连接起来变量。</p>
+<h3 id="by-语句">1.3.3 by 语句</h3>
+<p>Stata 语句大部分都允许使用 <code>by</code>
+前置语句，用来对某些变量具有相同赋值的样本子集重复执行命令，<code>by</code>
+语句的语法：</p>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">by</span> <span class="keyword">varlist</span>: stata_cmd</span><br><span class="line"><span class="keyword">bysort</span> <span class="keyword">varlist</span>: stata_cmd</span><br><span class="line"></span><br><span class="line"><span class="keyword">sysuse</span> auto</span><br><span class="line"><span class="keyword">by</span> foreign: <span class="keyword">summarize</span> rep78 <span class="comment">// 按 rep78  变量来进行汇总</span></span><br><span class="line"><span class="keyword">bysort</span> rep78: <span class="keyword">tabulate</span> foreign <span class="comment">// 以表格的形式呈现并排序</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">by</span> group, <span class="keyword">sort</span>: <span class="keyword">regress</span> Y x1 x2</span><br></pre></td></tr></table></figure>
+<p>Result：</p>
+<p><img src="https://s3.ax1x.com/2021/03/18/62A5iF.md.png" /></p>
+<center>
+Fig. 1-1 by 语句
+</center>
+<p><img src="https://s3.ax1x.com/2021/03/18/62AIG4.md.png" /></p>
+<center>
+Fig. 1-2 bysort 语句
+</center>
+<p>其中，<code>stata_cmd</code> 表示要执行的命令，<code>by</code> 和
+<code>bysort</code> 的命令区别是是否对变量进行排序。</p>
+<h3 id="generate-variables">1.3.4 generate variables</h3>
+<p><code>generate</code> 用于创建一个新变量，命令格式：</p>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">generate</span> [<span class="keyword">type</span>] newva = exp [<span class="keyword">if</span>] [<span class="keyword">in</span>]</span><br><span class="line"><span class="comment">//type 默认是浮点型</span></span><br></pre></td></tr></table></figure>
+<h3 id="real-函数简介">1.3.5 real 函数简介</h3>
+<p><code>real</code>
+函数用于从合适的字符串表达式中得到数值，所以这个函数的定义域是各种字符串，而值域是数字和缺失值。命令格式：</p>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">real</span>(expression) = result</span><br><span class="line"></span><br><span class="line"><span class="built_in">real</span>(<span class="string">&quot;5.2&quot;</span>) + 1 = 6.2 <span class="comment">// 从字符串中得到真实数字，若无数字则返回缺失值</span></span><br><span class="line"><span class="built_in">real</span>(<span class="string">&quot;hello&quot;</span>) = . <span class="comment">// &quot;.&quot; 表示缺失值</span></span><br></pre></td></tr></table></figure>
+<h2 id="variables">1.4 Variables</h2>
+<h3 id="dummy-variable">1.4.2 Dummy variable</h3>
+<p>虚拟变量是最常见的指示指标，通常通过一个连续的变量进行转换可得。最简单的类别变量是取值为
+0 和 1 的虚拟变量。生成虚拟变量的方法有两种。</p>
+<ol type="1">
+<li>利用 <code>generate</code> 和 <code>replace</code>
+命令组合生成虚拟变量，基本语法：</li>
+</ol>
+<p><figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">gen</span> college = 0 <span class="comment">// 生成一个常数变量，赋值为 0</span></span><br><span class="line"><span class="keyword">replace</span> college = 1 <span class="keyword">if</span> educ &gt;= 12</span><br></pre></td></tr></table></figure></p>
+<ol start="2" type="1">
+<li>使用 <code>generate newvar</code> 命令生成虚拟变量。基本语法：</li>
+</ol>
+<p><figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">generate</span> college = (educ &gt;= 12) <span class="comment">// 等同于上两个语句</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="classified-variables">1.4.3 Classified variables</h3>
+<p>生成分类变量可以使用很多方法，常用的命令有 <code>generate</code> 和
+<code>replace</code> 命令组合，<code>tabulate</code> 命令以及
+<code>recode</code> 命令，还可以使用
+<code>autocode(), recode(), group()</code> 3 个函数。基本语法：</p>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">recoded <span class="keyword">varlist</span> (rule) [(rule)...] [, <span class="keyword">generate</span>(newvar)]</span><br><span class="line"><span class="comment">// varlist 表示需要进行转换赋值的变量名，rule 是事先确定的转换规则。</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">recode</span> x(1=2), <span class="keyword">gen</span>(nx) <span class="comment">// 将x值由1变为2，并将新变量保存为nx变量</span></span><br><span class="line"><span class="keyword">recode</span> x(1=2)(2=1), <span class="keyword">gen</span>(nx1) <span class="comment">//将1变为2，2变为1</span></span><br><span class="line"><span class="keyword">recode</span> x2(1 2 = 1)(3=2)(4/7=3), <span class="keyword">gen</span>(nx2) <span class="comment">// 将1-2变为1，4-7的值变为3</span></span><br></pre></td></tr></table></figure>
+<h1 id="drawing-operation">2 Drawing operation</h1>
+<h2 id="绘图简介">2.1 绘图简介</h2>
+<p>Stata
+的制图引擎提供了一整套制图工具与选项。不同目的、不同水平的用户都可以自由地选择自己需要的制图工具。如绘制二维散点图:</p>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">graph</span> <span class="keyword">twoway</span> <span class="keyword">scatter</span> var1 var2</span><br><span class="line"></span><br><span class="line"><span class="keyword">webuse</span> autotech</span><br><span class="line"><span class="keyword">graph</span> <span class="keyword">twoway</span> <span class="keyword">scatter</span> weight length <span class="comment">// 创建二维散点图</span></span><br></pre></td></tr></table></figure>
+<p>图形的组成可以分为四部分：</p>
+<ul>
+<li>由横轴和纵轴围成的图行的核心部分；</li>
+<li>核心部分中诸如轴线间隔、连线、数值显示等附件部分；</li>
+<li>用户在核心部分周围添加的诸如图形名称、轴线说明、图例名称、数据来源等文字；</li>
+<li>在复杂图形中，用户添加在黑犀牛部分上的其他图行的叠加部分。</li>
+</ul>
+<h2 id="scatter-plot">2.2 scatter plot</h2>
+<h3 id="散点图简介">2.2.1 散点图简介</h3>
+<p>当用户面对的是两个连续变量时，散点图可以直观将数据呈现。散点图在探索变量的关系，为进一步的统计分级做准备工作中得到较为广泛的运用。基本语法：</p>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">[<span class="keyword">twoway</span>] <span class="keyword">scatter</span> <span class="keyword">varlist</span> [<span class="keyword">if</span>] [<span class="keyword">in</span>] [weight] [, options]</span><br><span class="line"></span><br><span class="line"><span class="keyword">scatter</span> yvar xvar <span class="comment">// 以yvar为y变量，xvar为x变量</span></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">connect: 连线属性，默认none(i)</span></span><br><span class="line"><span class="comment">msymbol：点形状</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">graph</span> export <span class="keyword">test</span>.png <span class="comment">// 导出图片</span></span><br></pre></td></tr></table></figure>
+<p>如果命令后紧跟两个变量名，Stata 会默认第一个变量为 <code>y</code>
+轴变量， 第二个为 <code>x</code>
+轴变量。如果命令后跟着两个以上的变量，Stata 会将除最后一个以外的变量作为
+<code>y</code> 轴变量，最后一个作为 <code>x</code> 轴变量。</p>
+<center>
+Tab. 2-1 散点图的参数
+</center>
+<table>
+<thead>
+<tr class="header">
+<th>options</th>
+<th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>marker_options</td>
+<td>change markers' look (color, size, etc.)</td>
+</tr>
+<tr class="even">
+<td>marker_label_options</td>
+<td>add marker labels; change look, position</td>
+</tr>
+<tr class="odd">
+<td>connect_options</td>
+<td>change look of lines or connecting method</td>
+</tr>
+<tr class="even">
+<td>composite_style_option</td>
+<td>overall style of the plot</td>
+</tr>
+<tr class="odd">
+<td>jitter_options</td>
+<td>jitter marker positions using random noise</td>
+</tr>
+<tr class="even">
+<td>axis_choice_options</td>
+<td>associate plost with alternate axis</td>
+</tr>
+<tr class="odd">
+<td>twoway_options</td>
+<td>titles, legends, axes, aspect ratio, etc.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="散点设定-marker_options">2.2.2 散点设定
+<code>marker_options</code></h3>
+<p>散点显示选项的设定主要包括三点的形状、颜色、大小等。散点的形状
+<code>msymbol(symbolstylelist)</code>、散点的颜色
+<code>mcolor(colorstylelist)</code> 和三点的大小
+<code>msize(markersizestylelist)</code> 等。</p>
+<p>具体设定包含如下5个方面：</p>
+<ul>
+<li>散点的形状 <code>symbol</code>；</li>
+<li>散点的大小 <code>markersize</code>;</li>
+<li>整体颜色；</li>
+<li>内部的填充颜色</li>
+<li>外保险的形状、厚度和颜色。</li>
+</ul>
+<center>
+Tab. 2-2 marker_options
+</center>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: center;">marker_options</th>
+<th style="text-align: left;">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">msymbol (<code>m</code>)</td>
+<td style="text-align: left;">shape of marker</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">mcolor (<code>mc</code>)</td>
+<td style="text-align: left;">color and opacity of marker, inside and
+out</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">msize (<code>msiz</code>)</td>
+<td style="text-align: left;">size of marker</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">msangle (<code>msa</code>)</td>
+<td style="text-align: left;">angle of marker symbol</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">mfcolor (<code>mfc</code>)</td>
+<td style="text-align: left;">inside or "fill" color and opacity</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">mlcolor (<code>mlc</code>)</td>
+<td style="text-align: left;">color and opacity of outline</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">mlwidth (<code>mlw</code>)</td>
+<td style="text-align: left;">thickness of outline</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">mlalign (<code>mla</code>)</td>
+<td style="text-align: left;">outline alignment (inside, outside,
+center)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">mlstyle (<code>mls</code>)</td>
+<td style="text-align: left;">overall style of outline</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">mstyle (<code>msty</code>)</td>
+<td style="text-align: left;">overall style of marker</td>
+</tr>
+</tbody>
+</table>
+<h3 id="标签设定-marker_label_options">2.2.3 标签设定
+<code>marker_label_options</code></h3>
+<p>散点标签选项 <code>marker_label_options</code>
+用于设定散点图标签（位于每个散点旁的用于说明散点所代表个体的文字），常见的选项由：</p>
+<ul>
+<li><code>mlabel(varname)</code>：用于设定标签变量；</li>
+<li><code>mlabstyle(markerlabelstyle)</code>：用于设定标签的整体样式，包括：标签的位置、大小、方向等，取值在
+<code>p1-p15</code> 之间。</li>
+<li><code>mlabposition(clockposstyle)</code>、<code>mlabvposition(varname)</code>：用于设定标签的位置，它们之间是可以相互替代的，前者设定一个常数应用到所有的点，后者设定一个变量指示每个变量的标签的方向，这个变量的取值在
+0~12 之间。</li>
+</ul>
+<center>
+Tab. 2-3 marker_label_options
+</center>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: center;">marker_label_options</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">mlabel</td>
+<td>specify marker variables</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">mlabposition (<code>mlabp</code>)</td>
+<td>where to locate label</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">mlabvposition (<code>mlabv</code>)</td>
+<td>where to locate label 2</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">mlabgap (<code>mlabg</code>)</td>
+<td>gap between marker and label</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">mlabangle (<code>mlabang</code>)</td>
+<td>angle of label</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">mlabsize (<code>mlabs</code>)</td>
+<td>size of label</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">mlabcolor (<code>mlabc</code>)</td>
+<td>color and opacity of label</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">mlabtextstyle (<code>mlabt</code>)</td>
+<td>overall style of text</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">mlabstyle (<code>mlabsty</code>)</td>
+<td>overall style of label</td>
+</tr>
+</tbody>
+</table>
+<h3 id="连线选项-connect_options">2.2.4 连线选项
+<code>connect_options</code></h3>
+<p>散点图的连线设置。</p>
+<center>
+Tab. 2-4 connect_options
+</center>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: center;">connect_options</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">connect (<code>c</code>)</td>
+<td>how to connect points</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">sort</td>
+<td>how to order data before connecting</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">cmissing (<code>cmis</code>)</td>
+<td>missing values are ignored</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">lpattern (<code>l</code>)</td>
+<td>line pattern (solid, dashed, etc.)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">lwidth (<code>lw</code>)</td>
+<td>thickness of line</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">lcolor (<code>lc</code>)</td>
+<td>color and opacity of line</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">lalign (<code>la</code>)</td>
+<td>line alignment (inside, outside, center)</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">lstyle (<code>lsty</code>)</td>
+<td>overall style of line</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><p>connect</p>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">connectstyle  Synonym     Description</span><br><span class="line">---------------------------------------------------------------</span><br><span class="line"> none            i        <span class="keyword">do</span> not connect</span><br><span class="line"> direct          <span class="keyword">l</span>        connect with straight lines</span><br><span class="line"> ascending       <span class="keyword">L</span>        direct, but only <span class="keyword">if</span> x[j+1] &gt; x[j]</span><br><span class="line"> stairstep       J        flat, then vertical</span><br><span class="line"> stepstair                vertical, then flat</span><br><span class="line">---------------------------------------------------------------</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="振荡选项-jitter_options">2.2.5 振荡选项
+<code>jitter_options</code></h3>
+<p>有时候，由于数据点太密集，甚至产生了重叠，使得在观察数据中的趋势时受到影响。这时，需要将这些数据点轻微地挪动位置，使得重合的数据点相互分开，在
+<code>Stata</code> 中振荡选项 <code>jitter_options</code>
+就是用来达到振荡数据点的目的的。一旦设定了振荡选项
+<code>jitter(#)</code>，<code>scatter</code>
+会在绘图前向数据中增加白噪声，选项中的 <code>#</code>
+用来指定一个数字，表明振荡的程度占绘图区域的百分比。基本命令：</p>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">scatter</span> mpg weight, jitter(8)</span><br></pre></td></tr></table></figure>
+<p><img src="https://s3.ax1x.com/2021/03/18/62AcMn.md.png" /></p>
+<center>
+Fig. 2-1 振荡后结果
+</center>
+<h3 id="坐标选项-axis_choice_options">2.2.6 坐标选项
+<code>axis_choice_options</code></h3>
+<p>坐标选项 <code>axis_options</code>。主要包括：</p>
+<ol type="1">
+<li><code>axis_title_options</code>;</li>
+<li><code>axis_label_options</code>;</li>
+<li><code>axis_scale_options</code>;</li>
+<li><code>axis_choice_options</code>;</li>
+<li><code>axis_title_options</code></li>
+</ol>
+<p>坐标轴标题选项组 <code>axis_title_options</code>
+用于设定坐标轴的标题，主要包括:</p>
+<ul>
+<li><code>ytitle(axis_title)</code>;</li>
+<li><code>xtitle(axis_title)</code>;</li>
+<li><code>ttitle(axis_title)</code>;</li>
+<li><code>ztitle(axis_title)</code>;</li>
+</ul>
+<p><figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">scatter</span> mpg price, ytitle(<span class="string">&quot;YYY&quot;</span>) xtitle(<span class="string">&quot;XXX&quot;</span>) <span class="comment">// <span class="doctag">note:</span> &#x27; ！= &quot;</span></span><br><span class="line"><span class="keyword">scatter</span> mpg price, ytitle(<span class="string">&quot;111YYY&quot;</span> <span class="string">&quot;222YYY2&quot;</span>) xtitle(<span class="string">&quot;111XXX&quot;</span> <span class="string">&quot;222XXX&quot;</span> <span class="string">&quot;333XXX&quot;</span>)</span><br></pre></td></tr></table></figure></p>
+<ol start="6" type="1">
+<li><code>axis_label_options</code></li>
+</ol>
+<p>坐标轴刻度选项组 <code>axis_label_options</code>
+主要用于控制坐标轴的刻度和刻度的标识。主要包括:</p>
+<p><figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">axis_label_options                Description</span><br><span class="line">-------------------------------------------------------</span><br><span class="line">&#123;y|x|t|z&#125;<span class="keyword">label</span>(rule_or_values)    major ticks plus labels</span><br><span class="line">&#123;y|x|t|z&#125;tick(rule_or_values)     major ticks only</span><br><span class="line">&#123;y|x|t|z&#125;mlabel(rule_or_values)   minor ticks plus labels</span><br><span class="line">&#123;y|x|t|z&#125;mtick(rule_or_values)    minor ticks only</span><br><span class="line">-------------------------------------------------------</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li><p><code>rule</code> 的设定；</p>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">rule    Example    Description</span><br><span class="line">-------------------------------------------------------</span><br><span class="line">##      #6         approximately 6 nice values</span><br><span class="line">###     ##10       10-1=9 values between major ticks;</span><br><span class="line">           allowed with mlabel() and mtick() only</span><br><span class="line">#(#)#   -4(.5)3    specified <span class="keyword">range</span>: -4 to 3 <span class="keyword">in</span> steps of .5</span><br><span class="line">minmax  minmax     minimum and maximum values</span><br><span class="line">none    none       <span class="keyword">label</span> <span class="keyword">no</span> values</span><br><span class="line">.        .           skip the rule</span><br><span class="line">-------------------------------------------------------</span><br></pre></td></tr></table></figure></li>
+<li><p><code>rules</code> 和 <code>numlists</code> 的设定；</p></li>
+<li><p>子选项 <code>valuelable</code> 的使用；</p></li>
+<li><p><code>alternate</code> 选项的设定；</p></li>
+<li><p><code>grid</code> 和 <code>nogrid</code> 选项的设定。</p></li>
+</ul>
+<p><figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">webuse</span> auto</span><br><span class="line"><span class="keyword">scatter</span> mpg weight, ylabel(#5) xlabel(#5)</span><br><span class="line"><span class="keyword">scatter</span> mpg weight, ylabel(10(5)45) xlabel(1500 2000 3000 4000 4500 5000)</span><br><span class="line"><span class="keyword">scatter</span> mpg weight, ymtick(#20, grid) xmtick(#20, grid gmax)</span><br></pre></td></tr></table></figure></p>
+<ol start="7" type="1">
+<li><code>axis_scale_option</code></li>
+</ol>
+<p>坐标量度选项
+<code>axis_scale_option</code>，用于对坐标轴进行量度科刻画。</p>
+<p><figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">webuse</span> auto</span><br><span class="line"></span><br><span class="line"><span class="keyword">generate</span> ln_weight = <span class="built_in">log</span>(weight)</span><br><span class="line"><span class="keyword">scatter</span> mpg ln_weight</span><br><span class="line"></span><br><span class="line"><span class="keyword">scatter</span> mpg weight, xscale(<span class="keyword">log</span>)</span><br></pre></td></tr></table></figure></p>
+<ol start="8" type="1">
+<li><code>axis_choice_options</code></li>
+</ol>
+<p>坐标尺度选项组
+<code>axis_choice_options</code>，尺度选项的主要功能在于决定坐标轴时采用正常的算术刻度、对数刻度还是反方向刻度，坐标轴的数值范围以及坐标线的显示。主要包括设定
+<code>y</code> 轴的外观、<code>x</code> 轴的外观和设定 <code>t</code>
+轴的外观。在设定的同时，还可以设定子选项的外观。</p>
+<h3 id="twoway_options">2.2.7 twoway_options</h3>
+<p>主要包含如下信息：</p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: center;">twoway_options</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">added_line_options</td>
+<td>draw lines at specified y or x values</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">added_text_options</td>
+<td>display text at specified (y,x) value</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">axis_options</td>
+<td>labels, ticks, grids, log scales</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">title_options</td>
+<td>titles, subtitles, notes, captions</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">legend_options</td>
+<td>legend explaining what means what</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">scale(#)</td>
+<td>resize text and markers</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">region_options</td>
+<td>outlining, shading, aspect ratio</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">aspect_option</td>
+<td>constrain aspect ratio of plot region</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">scheme(schemename)</td>
+<td>overall look</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">play(recordingname)</td>
+<td>play edits from recordingname</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">by(varlist, ...)</td>
+<td>repeat for subgroups</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">nodraw</td>
+<td>suppress display of graph</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">name(name, ...)</td>
+<td>specify name for graph</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">saving(filename, ...)</td>
+<td>save graph in file</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">advanced_options</td>
+<td>difficult to explain</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><p><code>added_line_options</code></p>
+<p>增加线选项 <code>added_line_options</code>
+用于在二维图形上添加增加先，主要包括增加水平线，垂直线和特定的
+<code>t</code> 轴上增加垂直线。基本语法：</p>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">xline(linearing), yline(linearing), tline(linearing)</span><br><span class="line"><span class="comment">// 其中 linearing 表示：numlist [, suboptions]</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">sysuse</span> auto</span><br><span class="line"><span class="keyword">scatter</span> mpg price, yline(10)</span><br><span class="line"><span class="keyword">scatter</span> mpg price, yline(10, lstyle(foreground))</span><br></pre></td></tr></table></figure>
+<p>Result:</p>
+<p><img src="https://s3.ax1x.com/2021/03/18/62AXdK.md.png" /></p>
+<center>
+<p>Fig.2-2 added_line_options</p>
+</center>
+<p>其中，<code>suboptions</code>
+可以设定增加线的总样式、增加线的样式、增加线的粗细和增加线的颜色。</p></li>
+<li><p><code>axis_options</code></p>
+<p>轴选项包括：</p>
+<ul>
+<li><p><code>axis_title_options</code>;</p>
+<p>轴线选择项 <code>yaxis(# [# ...])</code> 和
+<code>xaxis(# [# ...])</code> 用来设定使用的是哪一个坐标，其中
+<code>#</code> 取值为1到9，默认设置是 <code>yaxis(1)</code> 和
+<code>xaxis(1)</code>，最常用的是对于 <code>y</code> 轴的选择，第一个
+<code>y</code> 轴出现在图形的左侧，第二个 <code>y</code>
+轴出现在图形的优策，而设定 <code>yaxis(12)</code>
+将允许用户拥有两个相同的轴线。</p>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">twoway</span>(<span class="keyword">scatter</span> mpg weight)(<span class="keyword">scatter</span> price weight, yaxis(2))</span><br><span class="line"><span class="comment">// 二维图，等价于：</span></span><br><span class="line"><span class="keyword">scatter</span> mpg weight || <span class="keyword">scatter</span> price weight, yaxis(2)</span><br><span class="line"></span><br><span class="line"><span class="keyword">scatter</span> mpg weight || <span class="keyword">scatter</span> price weight, yaxis(2) || ,  xlabel(#10) ytick(#10, axis(2)) ylabel(#8, axis(1))</span><br></pre></td></tr></table></figure>
+<p>Result: <img
+src="https://s3.ax1x.com/2021/03/18/62AOZ6.md.png" /></p>
+<center>
+<p>Fig. 2-3 Example of pie figure</p>
+</center></li>
+<li><p><code>axis_label_options</code>;</p></li>
+<li><p><code>axis_scale_options</code>;</p></li>
+<li><p><code>axis_choice_options</code>。</p></li>
+</ul></li>
+<li><p><code>legend_options</code></p>
+<p>当图形中包含多个组别的相似的内容时，<code>Stata</code>
+将会生成图例。图例表示图形当中的不同符号对应着的内容，它使得读者能够轻松地读懂图中不同符号的含义。基本语法：</p>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">legend([contents] [location])</span><br><span class="line"></span><br><span class="line"><span class="keyword">sysuse</span> uslifeexp</span><br><span class="line"><span class="keyword">line</span> le year</span><br><span class="line"><span class="keyword">line</span> le_m le_f year <span class="comment">// default legend</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">line</span> le year, legend(<span class="keyword">on</span>)</span><br><span class="line"><span class="keyword">line</span> le_m le_f year, legend(off)</span><br><span class="line"></span><br><span class="line"><span class="keyword">label</span> <span class="keyword">var</span> le_m <span class="string">&quot;Males&quot;</span></span><br><span class="line"><span class="keyword">label</span> <span class="keyword">var</span> le_f <span class="string">&quot;Females&quot;</span></span><br><span class="line"><span class="keyword">line</span> le_m le_f year</span><br><span class="line"></span><br><span class="line"><span class="keyword">line</span> le_m le_f year, legend(<span class="keyword">label</span>(1 <span class="string">&quot;Males&quot;</span>) <span class="keyword">label</span>(2 <span class="string">&quot;Females&quot;</span>))</span><br><span class="line"><span class="keyword">scatter</span> le_m le_f year, c(<span class="keyword">l</span>)legend(<span class="keyword">label</span>(1 <span class="string">&quot;Males&quot;</span>) <span class="keyword">label</span>(2 <span class="string">&quot;Females&quot;</span>))</span><br><span class="line"><span class="comment">// c(l): 表示实现连线 connect(line)</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">scatter</span> le_m le_f year, c(<span class="keyword">l</span>)legend(pos(5) ring(0) col(1) <span class="keyword">label</span>(1 <span class="string">&quot;Males&quot;</span>) <span class="keyword">label</span>(2 <span class="string">&quot;Females&quot;</span>))</span><br><span class="line"><span class="comment">// pos指时钟方位，ring(0) 表示离画图区域位置的距离。col指cols</span></span><br></pre></td></tr></table></figure></li>
+<li><p><code>scale(#)</code></p>
+<p><code>scale(#)</code>
+选项设定一个数字以便调整整个图像包括文本、标记和线段的大小，可这个选项实际上是整个图形的放大镜或者缩小镜。</p>
+<ul>
+<li><code>scale(1)</code> ：默认设置，表示不改变图像大小；</li>
+<li><code>scale(1.2)</code>：使整个图像增大20%可以设置；</li>
+<li><code>scake(.8)</code>：为了使整个图像减少 20%，可以设置 。</li>
+</ul>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">sysuse</span> lifeexp</span><br><span class="line"><span class="keyword">scatter</span> lexp lgnp, scale(1.3)</span><br></pre></td></tr></table></figure></li>
+<li><p><code>by_options</code></p>
+<p>设定选项 <code>by()</code> 后，<code>Stata</code>
+会根据变量中的不同取值重复作图，因此 <code>by</code>
+的依据往往是分类变量，比如性别、民族、国内国外等。基本语法：</p>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">by</span>(<span class="keyword">varlist</span> [, byopts])</span><br><span class="line"><span class="comment">// 其中，varlist是作图的根据变量，byopts是子选项关于by选项的设定</span></span><br></pre></td></tr></table></figure>
+<ol type="1">
+<li>选项 <code>total</code>
+表示除了对每一个组别分别作图外，还要添加一个含有全部样本的图行； 2) 选项
+<code>row(#)</code> 和 <code>cols(#)</code>
+是相互替代的，指设定所有图行共排列 <code>#</code> 行或列。</li>
+</ol>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">use</span> auto</span><br><span class="line"><span class="keyword">scatter</span> mpg weight, <span class="keyword">by</span>(foreign)</span><br><span class="line"><span class="keyword">scatter</span> mpg weight, <span class="keyword">by</span>(foreign, <span class="keyword">total</span>)</span><br><span class="line"><span class="keyword">scatter</span> mpg weight, <span class="keyword">by</span>(foreign, <span class="keyword">total</span> row(1))</span><br><span class="line"><span class="keyword">scatter</span> mpg weight, <span class="keyword">by</span>(foreign, <span class="keyword">total</span> title(<span class="string">&quot;test&quot;</span>))</span><br></pre></td></tr></table></figure>
+<p>Result: <img
+src="https://s3.ax1x.com/2021/03/18/62Abs1.md.png" /></p>
+<center>
+<p>Fig.2-4 by_options</p>
+</center></li>
+<li><p><code>save_options</code></p>
+<p><strong>图形保存选项：</strong></p>
+<p>与处理数据文件一样，<code>Stata</code>
+将本身生成的图形存储分为两种形式：一种是内存中的激活状态，另一种是存入硬盘的状态。在用户把当前文件存入硬盘之前，用户所绘制的图形均在内存中。用户可以选择是清楚或者存储，如果用户绘制另外一个图形，则自动清除之前保留在内存中的图形。基本语法：
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">graph</span> <span class="keyword">describe</span></span><br><span class="line"><span class="keyword">graph</span> <span class="keyword">save</span> myfile, <span class="keyword">replace</span></span><br></pre></td></tr></table></figure> <strong>图形输出选项：</strong></p>
+<p>为了使生成的图形与其他设备或者图形、文字处理软件相连接，<code>Stata</code>
+还提供了图形输出的工具，包括将图形输出到打印设备上和将图形输出成为其他格式的文件。主要包括：</p>
+<ol type="1">
+<li>图形的打印 <code>graph print</code>；</li>
+<li>存储为其他格式 <code>graph export newfilename.suffix</code>。</li>
+</ol></li>
+</ul>
+<h3 id="点图">2.2.8 点图</h3>
+<p>点图是一种散点图，其值在垂直方向上组合在一起（如直方图中的"合并"），而绘制的点在水平方向上分开。目的是在一个紧凑的图形中显示几个变量或组的所有数据。基本语法：</p>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">dotplot</span> <span class="keyword">varlist</span> [<span class="keyword">if</span>] [<span class="keyword">in</span>] [, options]</span><br><span class="line"></span><br><span class="line"><span class="keyword">webuse</span> dotgr</span><br><span class="line"><span class="keyword">dotplot</span> g1r1-g1r10</span><br><span class="line"><span class="keyword">dotplot</span> g1r1-g1r10, title(<span class="string">&quot;Tumor volume, cu mm&quot;</span>)</span><br></pre></td></tr></table></figure>
+<h3 id="标绘图">2.2.9 标绘图</h3>
+<ul>
+<li><p>曲线标绘图</p>
+<p>曲线标绘图，就是其中的点用线段连接起来的散点图，和散点图一样，曲线标绘图的不同类型也属于
+<code>Stata</code> 功能强大的 <code>graph twoway</code> 族命令。</p>
+<p>散点图中控制添加坐标轴标签和标识的选项对曲线标绘图也起作用，新的选项可以控制曲线本身的特征。与散点图相比，曲线标绘图往往有不同的用法，如绘制描述随时间变化的变量。</p>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[<span class="keyword">twoway</span>] <span class="keyword">line</span> <span class="keyword">varlist</span> [<span class="keyword">if</span>] [<span class="keyword">in</span>] [,options]</span><br><span class="line"></span><br><span class="line"><span class="keyword">sysuse</span> uslifeexp</span><br><span class="line"><span class="keyword">graph</span> <span class="keyword">twoway</span> <span class="keyword">line</span> le year</span><br><span class="line"><span class="comment">// twoway line le year</span></span><br><span class="line"><span class="comment">// line le year</span></span><br><span class="line"><span class="keyword">scatter</span> le year, msymbol(none) connect(<span class="keyword">l</span>)</span><br></pre></td></tr></table></figure>
+<p>Result:</p>
+<p><img src="https://s3.ax1x.com/2021/03/18/62AjIO.md.png" /></p>
+<center>
+<p>Fig.2-5 曲线标绘图</p>
+</center></li>
+<li><p>连线标绘图</p>
+<p>在曲线标绘图中，数据点是看不见的，只能看到连线，使用连线标绘图可以把图中的数据点加以标记。基本命令：</p>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">twoway</span> connected <span class="keyword">varlist</span> [<span class="keyword">if</span>] [<span class="keyword">in</span>] [weight] [, scatter_options]</span><br><span class="line"></span><br><span class="line"><span class="keyword">sysuse</span> uslifeexp</span><br><span class="line"><span class="keyword">twoway</span> connected le year</span><br><span class="line"><span class="keyword">scatter</span> le year, connect(<span class="keyword">l</span>)</span><br></pre></td></tr></table></figure>
+<p>Result:</p>
+<p><img src="https://s3.ax1x.com/2021/03/18/62AxiD.md.png" /></p>
+<center>
+<p>Fig. 2-6 连线标绘图</p>
+</center></li>
+</ul>
+<h3 id="拟合图">2.2.10 拟合图</h3>
+<ul>
+<li><p>一次拟合图形</p>
+<p>一次拟合图形的绘制分两步：首先 <code>Stata</code> 使用
+<code>yvar</code> 为因变量，<code>xvar</code>
+为自变量进行一元线性回归，然后得到 <code>yvar</code> 的拟合值。比如说是
+<code>hat</code>，然后使用 <code>hat</code> 对 <code>xvar</code>
+做曲线标绘图，同时复合原始数据的散点。基本语法：</p>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">twoway</span> <span class="keyword">lfit</span> yvar xvar [<span class="keyword">if</span>] [<span class="keyword">in</span>] [weight] [, options]</span><br><span class="line"></span><br><span class="line"><span class="keyword">sysuse</span> auto</span><br><span class="line"><span class="keyword">scatter</span> mpg weight || <span class="keyword">lfit</span> mpg weight</span><br><span class="line"><span class="comment">// 等价于下述</span></span><br><span class="line"><span class="keyword">regress</span> mpg weight</span><br><span class="line"><span class="keyword">predict</span> fitted</span><br><span class="line"><span class="keyword">scatter</span> mpg weight || <span class="keyword">line</span> fitter weight</span><br></pre></td></tr></table></figure></li>
+<li><p>二次拟合图形</p>
+<p>二次拟合图形的绘制分两步：首先 <code>Stata</code> 使用
+<code>yvar</code> 为因变量，<code>xvar</code> 和 <code>xvar</code>
+的平方为自变量进行二元线性回归，得到 <code>yvar</code> 的拟合值如取名为
+<code>hat</code>，然后使用 <code>hat</code> 对 <code>xvar</code>
+做曲线标绘图，同时复合原始数据的散点图。基本语法：</p>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">twoway</span> qfit yvar xvar [<span class="keyword">if</span>] [<span class="keyword">in</span>] [weight] [, options]</span><br><span class="line"></span><br><span class="line"><span class="keyword">sysuse</span> auto</span><br><span class="line"><span class="keyword">scatter</span> mpg weight || <span class="keyword">lfit</span> mpg weight</span><br><span class="line"><span class="comment">// 原理类似于下述</span></span><br><span class="line"><span class="keyword">generate</span> <span class="keyword">tempvar</span> = weight^2</span><br><span class="line"><span class="keyword">regress</span> mpg weight <span class="keyword">tempvar</span></span><br><span class="line"><span class="keyword">predict</span> fitted</span><br><span class="line"><span class="keyword">scatter</span> mpg weight || <span class="keyword">line</span> fitted weight</span><br></pre></td></tr></table></figure></li>
+<li><p><code>lowess</code> 拟合图形</p>
+<p>命令 <code>lowess</code> 和 <code>graph twoway lowess</code>
+皆可实现一种被称作 "<code>lowess</code> 修匀"
+的非参数拟合图的绘制。由于具有可对拟合过程进行控制的选项，<code>lowess</code>
+命令总的来说更为专业也更为强大。基本语法：</p>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">twoway</span> <span class="keyword">lowess</span> yvar xvar [<span class="keyword">if</span>] [<span class="keyword">in</span>] [, options]</span><br><span class="line"></span><br><span class="line"><span class="keyword">sysuse</span> auto</span><br><span class="line"><span class="keyword">scatter</span> mpg weight || <span class="keyword">lfit</span> mpg weight || <span class="keyword">lowess</span> mpg weight</span><br><span class="line"><span class="keyword">scatter</span> mpg weight || <span class="keyword">lfit</span> mpg weight || <span class="keyword">lowess</span> mpg weight||, <span class="keyword">by</span>(foreign)</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="饼图">2.3 饼图</h2>
+<h3 id="简介">2.3.1 简介</h3>
+<p>基本语法：</p>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">graph</span> pie varname [<span class="keyword">if</span>] [<span class="keyword">in</span>] [weight], over(varname) [options]</span><br><span class="line"></span><br><span class="line"><span class="keyword">input</span> sales marketing research development</span><br><span class="line"></span><br><span class="line">         sales  marketing   research  develop~t</span><br><span class="line">  1\. 12 14 2 8</span><br><span class="line">  2\. end</span><br><span class="line"></span><br><span class="line"><span class="keyword">label</span> <span class="keyword">var</span> sales <span class="string">&quot;Sales&quot;</span></span><br><span class="line"><span class="keyword">label</span> <span class="keyword">var</span> marketing <span class="string">&quot;Marketing&quot;</span></span><br><span class="line"><span class="keyword">label</span> <span class="keyword">var</span> research <span class="string">&quot;Research&quot;</span></span><br><span class="line"><span class="keyword">label</span> <span class="keyword">var</span> develop  <span class="string">&quot;Development&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">graph</span> pie sales marketing research development, plabel(_all name, size(*1.5) color(white)) legend(off) plotregion(lstyle(none)) title(<span class="string">&quot;Expenditures, XYZ Corp.&quot;</span>) subtitle(<span class="string">&quot;2002&quot;</span>) <span class="keyword">note</span>(<span class="string">&quot;Source:  2002 Financia&gt; l Report (fictional data)&quot;</span>)</span><br></pre></td></tr></table></figure>
+<p>Result: <img
+src="https://s3.ax1x.com/2021/03/18/62Aqqx.md.png" /></p>
+<center>
+Fig. 2-5 Example of pie figure
+</center>
+<h2 id="条形图">2.4 条形图</h2>
+<h3 id="简介-1">2.4.1 简介</h3>
+<p>条形图显示较为直观，可以显示众多的描述性统计量，同一个条形图中可以显示多个变量的统计量，比如均值、中位数、和、计数、标准差、最大值。基本语法：</p>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">graph</span> bar yvar [<span class="keyword">if</span>] [<span class="keyword">in</span>] [weight] [, options] <span class="comment">// 纵向</span></span><br><span class="line"><span class="keyword">graph</span> hbar yvars [<span class="keyword">if</span>] [<span class="keyword">in</span>] [weight] [, options] <span class="comment">// 横向</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">sysuse</span> auto</span><br><span class="line"><span class="keyword">graph</span> bar mpg foreign</span><br></pre></td></tr></table></figure>
+<h1 id="sample-related">3 Sample related</h1>
+<h2 id="列联表-table">3.1 列联表 <code>table</code></h2>
+<p><code>table</code>
+命令可以用于生成一维到多维的列联表，表中不仅可以包含常见的频数，还可以包含任意其他变量的描述性统计量。基本语法：</p>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">table</span> rowvar [colvar [supercolvar]] [<span class="keyword">if</span>] [<span class="keyword">in</span>] [weight] [, options]</span><br><span class="line"><span class="comment">// 其中，`rowvar` 表示行变量，`colvar` 表示列变量，`supercolvar` 代表高阶的列变量。</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">sysuse</span> auto</span><br><span class="line"><span class="keyword">table</span> foreign rep78, c(<span class="keyword">mean</span> mpg) <span class="keyword">format</span>(%9.2f) center <span class="comment">// 居中并 format</span></span><br><span class="line"><span class="keyword">table</span> foreign rep78, c(<span class="keyword">mean</span> mpg) <span class="keyword">format</span>(%9.2f) center row col <span class="comment">// row和col表示添加汇总</span></span><br><span class="line"><span class="keyword">table</span> rep78, contents(<span class="keyword">n</span> mpg <span class="keyword">mean</span> mpg sd mpg <span class="keyword">median</span> mpg)</span><br></pre></td></tr></table></figure>
+<p>Result:</p>
+<img src="https://s3.ax1x.com/2021/03/18/62EEo8.png" />
+<center>
+Fig. 列联表实例
+</center>
+<h2 id="列联表-tabulate">3.2 列联表 <code>tabulate</code></h2>
+<p><code>tabulate</code>
+命令主要用于生成一维或者二维的表格，对于二维表格还可以进行独立性检验。<code>tabulate</code>
+的一维命令主要用于生成含有频数的一维表格。二维 <code>tabulate</code>
+命令在生成二维表格的同时，可以计算多种独立性检验统计量和相关测量统计量，包括常用的
+<code>Pearson's chi-squared</code>、<code>likelihood-ratio chi-squared</code>、<code>Cram's V</code>、<code>Fisher's exact test</code>、<code>Goodman and Kruskal's gamma</code>、
+<code>Kendall's tau-b</code>。基本语法：</p>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">tabulate</span> <span class="keyword">varlist</span> [<span class="keyword">if</span>] [<span class="keyword">in</span>] [weight] [, tab1_options]</span><br><span class="line"></span><br><span class="line"><span class="keyword">sysuse</span> auto</span><br><span class="line"><span class="keyword">tabulate</span> foreign, nolabel</span><br></pre></td></tr></table></figure>
+<h2 id="样本-t-检验">3.3 样本 <code>t</code> 检验</h2>
+<h3 id="单样本-t-检验">3.3.1 单样本 <code>t</code> 检验</h3>
+<p>单样本检验的目的是比较样本均数所代表的未知总体均数 <span
+class="math inline">\mu</span> 和已知总体均数 <span
+class="math inline">\mu_0</span> 是否相等。其千题假设有散点：1)
+已知一个总体均数；2) 可得到一个样本均数及该样本标准误；3)
+样本来自正态或近似正态总体。计算公式为：</p>
+<p><span class="math display">
+t = \frac{\bar{X} - \mu_0}{s/\sqrt{n}}
+</span></p>
+<p>单样本检验步骤： 1. 建立假设，确定检验水准； 2. 计算统计量； 3. 确定
+<span class="math inline">p</span> 值，得出结论。</p>
+<p>基本语法：</p>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">ttest</span> varname  == # [<span class="keyword">if</span>] [<span class="keyword">in</span>] [, level]</span><br><span class="line"></span><br><span class="line"><span class="keyword">sysuse</span> auto</span><br><span class="line"><span class="keyword">ttest</span> mpg == 20</span><br><span class="line"><span class="keyword">ttest</span> mpg == 20, level(90)</span><br></pre></td></tr></table></figure>
+<p>Result:</p>
+<img src="https://s3.ax1x.com/2021/03/18/62ArGQ.md.png" />
+<center>
+Fig. 单样本 t 检验
+</center>
+<h3 id="多样本-t-检验">3.3.2 多样本 <code>t</code> 检验</h3>
+<p>多样本 <code>t</code>
+检验分为两个正态总体的方差检验和两个正态总体的均值检验。基本语法：</p>
+<ul>
+<li><p>两个正态总体的方差检验:</p>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">sdtest</span> varname1 == varname2 [<span class="keyword">if</span>] [<span class="keyword">in</span>], [, level(#)]</span><br><span class="line"><span class="keyword">sdtest</span> varname [<span class="keyword">if</span>] [<span class="keyword">in</span>], <span class="keyword">by</span>(groupvar) [level(#)] <span class="comment">// 借助分组</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">webuse</span> fuel</span><br><span class="line"><span class="keyword">sdtest</span> mpg1 == mpg2</span><br></pre></td></tr></table></figure>
+<p>Result:</p>
+<p><img src="https://s3.ax1x.com/2021/03/18/62EmWQ.md.png" /></p>
+<center>
+<p>Fig. 两个样本的方差检验</p>
+</center>
+<p>其中，<code>P</code>
+值未落入拒绝域，即表明两个方差默认相同。</p></li>
+<li><p>两个正态总体的均值检验：</p>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">ttest</span> varname1 == varname2 [<span class="keyword">if</span>] [<span class="keyword">in</span>] ,[, level(#)]</span><br><span class="line"><span class="keyword">ttest</span> varname [<span class="keyword">if</span>] [<span class="keyword">in</span>], <span class="keyword">by</span>(groupvar) [option] <span class="comment">// 借助分组</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">webuse</span> fuel3</span><br><span class="line"><span class="keyword">ttest</span> mpg, <span class="keyword">by</span>(treated)</span><br></pre></td></tr></table></figure>
+<p>Result:</p>
+<p><img src="https://s3.ax1x.com/2021/03/18/62EeJg.md.png" /></p>
+<center>
+<p>Fig. 两个样本的 t 检验</p>
+</center></li>
+</ul>
+<h2 id="方差分析">3.4 方差分析</h2>
+<h3 id="单因素方差分析">3.4.1 单因素方差分析</h3>
+<p>单因素方差分析是指对单因素试验结果进行分析，检验因素对实验结果有无显著性影响的方法。单因素方差分析是两个样本平均数比较的引伸，它是用来检验多个平均数之间的差异，从而确定因素对实验结果有无显著性影响的一种统计方法。</p>
+<p>单因素方差分析相关概念：1) 因素：影响研究对象的某一指标、变量。2)
+水平：因素变化的各种状态或因素变化所分的等级或组别。3)
+单因素实验：考虑的因素只有一个的试验叫单因素试验。基本命令：</p>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">oneway</span> response_var factor_var [<span class="keyword">if</span>] [<span class="keyword">in</span>] [weight] [, options]</span><br><span class="line"></span><br><span class="line"><span class="keyword">webuse</span> apple</span><br><span class="line"><span class="keyword">oneway</span> weight treatment, <span class="keyword">tabulate</span></span><br><span class="line"><span class="keyword">oneway</span> weight treated</span><br></pre></td></tr></table></figure>
+<p>Result:</p>
+<img src="https://s3.ax1x.com/2021/03/18/62Ayxs.md.png" />
+<center>
+Fig. 单因素方差分析
+</center>
+<h3 id="多因素方差分析">3.4.2 多因素方差分析</h3>
+<p>多因素方差分析法是一种统计分析方法，可以用来分析两个因素的不同水平对结果是否有显著影响。以及两因素之间是否存在交互效应。一般运用双因素方差分析法，先对两个因素的不同水平的组合进行设计试验，要求每个组合下所得到的样本的含量是相同的。基本语法:</p>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">anova</span> varname [termlist] [<span class="keyword">if</span>] [<span class="keyword">in</span>] [weight] [, options]</span><br><span class="line"></span><br><span class="line"><span class="keyword">webuse</span> systolic</span><br><span class="line"><span class="keyword">anova</span> systolic drug <span class="comment">// one-way anova</span></span><br><span class="line"><span class="keyword">anova</span> systolic drug disease <span class="comment">// two-way anova</span></span><br></pre></td></tr></table></figure>
+<p>Result:</p>
+<img src="https://s3.ax1x.com/2021/03/18/62ADPg.md.png" />
+<center>
+Fig. 多因素方差分析
+</center>
+<h3 id="协方差分析">3.4.3 协方差分析</h3>
+<p>协方差分析将人为很难控制的控制因素作为协变量，并在排除协变量对观测变量影响的条件下，分析控制变量（可控）对观测变量的作用，从而更加准确地对控制因素进行评价。</p>
+<p>协方差分析拓展了多因素方差分析，使之可以包含分类变量和连续变量的情况。当出现连续变量时，定义此变量，方差分析便可进行。基本语法：</p>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">anova</span> varname [termlist] [<span class="keyword">if</span>] [<span class="keyword">in</span>] [weight] c.(<span class="keyword">varlist</span>) [, options]</span><br><span class="line"><span class="comment">// c.(varlist) 指明该变量为连续变量，为指明则默认为分类变量。</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">anova</span> drate region c.mage region#c.mage <span class="comment">// # 表示交互项</span></span><br></pre></td></tr></table></figure>
+<p>Result:</p>
+<img src="https://s3.ax1x.com/2021/03/18/62EMyn.md.png" />
+<center>
+Fig. 协方差分析
+</center>
+<h3 id="重复测量方差分析">3.4.4 重复测量方差分析</h3>
+<p>在某些实验研究中，常常需要考虑时间因素对实验的影响，当需要对同一观察单位在不同时间重复进行多次测量，每个样本的测量数据之间存在相关性，因而不能简单地使用方差分析进行研究，而需要使用重复测量方差分析。基本语法：</p>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">anova</span> varname [<span class="keyword">if</span>] [<span class="keyword">in</span>] [weight] [, repeated(varname)]</span><br><span class="line"></span><br><span class="line"><span class="keyword">webuse</span> t43</span><br><span class="line"><span class="keyword">anova</span> <span class="keyword">score</span> person drug, repeated(drug)</span><br><span class="line"><span class="keyword">regress</span></span><br></pre></td></tr></table></figure>
+<p>Result:</p>
+<img src="https://s3.ax1x.com/2021/03/18/62EQLq.md.png" />
+<center>
+Fig. 重复测量方差分析
+</center>
+<h2 id="假设检验">3.5 假设检验</h2>
+<h3 id="单个总体的假设检验分析">3.5.1 单个总体的假设检验分析</h3>
+<p>单个总体的假设检验时利用某些检验统计量，对样本的均值方差进行检验。主要分为三种：一直方差、未知方差、未知期望。基本命令：</p>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">input</span> kdqd</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">        kdqd</span></span><br><span class="line"><span class="comment">1. 32.56</span></span><br><span class="line"><span class="comment">2. 29.66</span></span><br><span class="line"><span class="comment">3. 31.64</span></span><br><span class="line"><span class="comment">4. 20</span></span><br><span class="line"><span class="comment">5. 31.87</span></span><br><span class="line"><span class="comment">6. 31.03</span></span><br><span class="line"><span class="comment">7. end</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">replace</span> kdqd = 30 <span class="keyword">in</span> 4</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>正态分布，方差已知的均值检验</p>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">quietly</span> <span class="keyword">summarize</span></span><br><span class="line"><span class="keyword">scalar</span> z = (<span class="built_in">r</span>(<span class="keyword">mean</span>) - 32.5)/(1.1/<span class="built_in">sqrt</span>(6)) <span class="comment">// z 检验</span></span><br><span class="line"><span class="keyword">scalar</span> cri = <span class="built_in">invnormal</span>(1-0.05/2) <span class="comment">// 95% 置信度水平的临界值</span></span><br><span class="line"><span class="keyword">scalar</span> p = (1-<span class="built_in">normal</span>(<span class="built_in">abs</span>(z)))/2 <span class="comment">// p 值</span></span><br><span class="line"><span class="keyword">scalar</span> <span class="keyword">list</span> z cri p</span><br></pre></td></tr></table></figure>
+<p>Result:</p>
+<p><img src="https://s3.ax1x.com/2021/03/18/62E3wV.png" /></p>
+<center>
+<p>Fig. 方差已知的均值检验</p>
+</center></li>
+<li><p>正态分布，方差未知的均值检验</p>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">ttest</span> varname == # [<span class="keyword">if</span>] [<span class="keyword">in</span>] [, level(#)] <span class="comment">// 正态分布，方差未知的均值检验</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">ttest</span> kdqd == 32.5</span><br></pre></td></tr></table></figure>
+<p>Result:</p>
+<p><img src="https://s3.ax1x.com/2021/03/18/62A2q0.md.png" /></p>
+<center>
+<p>Fig. 方差未知的均值检验</p>
+</center></li>
+<li><p>期望未知检验方差</p>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">sdtest</span> varname == # [<span class="keyword">if</span>] [<span class="keyword">in</span>] [, level(#)] <span class="comment">// 期望未知检验方差。</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">sdtest</span> kdqd == 1.1</span><br></pre></td></tr></table></figure>
+<p>Result:</p>
+<p><img src="https://s3.ax1x.com/2021/03/18/62E8oT.md.png" /></p>
+<center>
+<p>Fig. 期望未知的方差检验</p>
+</center></li>
+</ul>
+<h3 id="两个总体的假设检验">3.5.2 两个总体的假设检验</h3>
+<p>在实际工作中，有时会用到两个正态总体的假设检验，两个正态中体的假设检验通常分为两种情况：
+1. 均值（独立样本）：<span class="math inline">z</span>
+检验（大样本）、<span class="math inline">t</span> 检验（小样本）。</p>
+<p>基本语法：</p>
+<p><figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">ttest</span> varname1 == varname2 [<span class="keyword">if</span>] [<span class="keyword">in</span>] [unequal, welch, level(#)]</span><br><span class="line"></span><br><span class="line"><span class="keyword">ttest</span> mpg1 == mpg2, unpaired <span class="comment">// 非对称样本，数据并非针对同一个体</span></span><br></pre></td></tr></table></figure> Result:</p>
+<img src="https://s3.ax1x.com/2021/03/18/62EYYF.md.png" />
+<center>
+Fig. 均值检验
+</center>
+<ol start="2" type="1">
+<li>方差：<span class="math inline">F</span> 检验。</li>
+</ol>
+<p><figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">sdtest</span> varname1 == varname2 [<span class="keyword">if</span>] [<span class="keyword">in</span>] [, level(#)]</span><br><span class="line"></span><br><span class="line"><span class="keyword">webuse</span> fuel</span><br><span class="line"><span class="keyword">sdtest</span> mpg1 == mpg2</span><br></pre></td></tr></table></figure> Result:</p>
+<img src="https://s3.ax1x.com/2021/03/18/62EmWQ.md.png" />
+<center>
+Fig. 方差检验
+</center>
+<h2 id="最小二乘法分析">3.6 最小二乘法分析</h2>
+<h3 id="小样本的普通最小二乘分析">3.6.1 小样本的普通最小二乘分析</h3>
+<p>普通最小二乘估计方法 (Ordinary Least Square，简记为
+<code>OLS</code>)，是单一方程线性回归模型最常用、最基本的估计方法。<code>OLS</code>
+的基本思想就是通过让残差 <code>e</code>
+的平方和最小，从而使得模型的估计称为可能。基本命令：</p>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">regress</span> depvar [indepvar] [<span class="keyword">if</span>] [<span class="keyword">in</span>] [weight] [, options]</span><br><span class="line"></span><br><span class="line"><span class="keyword">sysuse</span> auto</span><br><span class="line"><span class="keyword">regress</span> mpg weight foreign</span><br></pre></td></tr></table></figure>
+<img src="https://s3.ax1x.com/2021/03/18/62EtW4.md.png" />
+<center>
+Fig. 小样本的 OLS
+</center>
+<h3 id="大样本的普通最小二乘分析">3.6.2 大样本的普通最小二乘分析</h3>
+<p>大样本普通最小二乘估计方法 (<code>OLS</code>)
+适应性更强。在大样本下，只要研究其渐近分布就可以了，而渐近分布比较容易推到。大样本
+<code>OLS</code> 经常采用稳健标准差估计 (<code>robust</code>)。</p>
+<p>稳健标准差是指其标准差对于模型中可能存在的异方差或自相关问题不敏感，基于稳健标准差计算的稳健
+<code>t</code> 统计量仍然渐近服从 <code>t</code> 分布。基本命令：</p>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">regress</span> depvar [indepvar] [<span class="keyword">if</span>] [<span class="keyword">in</span>] [weight] [, robust]</span><br><span class="line"></span><br><span class="line"><span class="keyword">sysuse</span> auto</span><br><span class="line"><span class="keyword">generate</span> gpmw = ((1/mpg)/weight)*100*1000</span><br><span class="line"><span class="keyword">regress</span> gpmw foreign, <span class="keyword">vce</span>(robust)</span><br><span class="line"><span class="comment">// regress gpmw foreign, robust</span></span><br></pre></td></tr></table></figure>
+<p>Result:</p>
+<img src="https://s3.ax1x.com/2021/03/18/62EUSJ.md.png" />
+<center>
+Fig. 大样本的 OLS
+</center>
+<h3 id="约束回归">3.6.3 约束回归</h3>
+<p>在做回归分析时，有时会希望某些变量的系数相同或满足某种关系。约束回归通常可以通过对变量进行变换实现。</p>
+<p><span class="math display">
+Y = \beta_0 + \beta_1 X_1 + \beta_2 X_2
+</span></p>
+<p>基本语法：</p>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">constraint</span> [define] # [exp = exp | coeflist]</span><br><span class="line"><span class="keyword">cnsreg</span> depvar indepvars [<span class="keyword">if</span>] [<span class="keyword">in</span>] [weight] , constraints(constraints) [options]</span><br><span class="line"></span><br><span class="line"><span class="keyword">constraint</span> 1 price = weight</span><br><span class="line"><span class="keyword">constraint</span> 2 displacement = weight</span><br><span class="line"><span class="keyword">cnsreg</span> mpg price weight foreign length, c(1) <span class="comment">// 使用第一个条件</span></span><br></pre></td></tr></table></figure>
+<p>Result:</p>
+<img src="https://s3.ax1x.com/2021/03/18/62Eal9.md.png" />
+<center>
+Fig. 约束回归
+</center>
+<h3 id="非线性最小二乘法">3.6.4 非线性最小二乘法</h3>
+<p>非线性最小二乘 (Nonlinear Least Square, <code>NLS</code>)
+方法是一种以误差的平方和最小为准则来估计非线性静态模型参数的一种参数估计方法。通常情况下，非线性最小二乘方法没有解析解，一般使用数值方法求解。基本语法:</p>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">nl</span> (depvar = &lt;sexp&gt;) [<span class="keyword">if</span>] [<span class="keyword">in</span>] [weight] [, options]</span><br><span class="line"><span class="comment">// &lt;sexp&gt; is a substitutable expression;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// nl (y = &#123;alpha&#125; + &#123;beta&#125;*x^&#123;gamma=1&#125;)</span></span><br><span class="line"><span class="keyword">nl</span> (y = &#123;b0&#125; + &#123;b1&#125; / x), initial(b0 2 b1 3)</span><br></pre></td></tr></table></figure>
+<h1 id="model-specification">4. Model specification</h1>
+<h2 id="dummy-variables">4.1 Dummy variables</h2>
+<p>对于定性数据，通常不能将其直接纳入模型中进行回归分析。需要进行虚拟变量进行处理。一般情况下，如果分类变量总供有
+<code>N</code> 类，为了避免多重共线性的出现，通常引入 <code>N-1</code>
+个虚拟变量。基本语法：</p>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">generate</span> varname = value <span class="comment">// 生成带初始值的虚拟变量</span></span><br></pre></td></tr></table></figure>
+<h2 id="变量分组统计分析">4.2 变量分组统计分析</h2>
+<p><code>statsby</code> 是对变量分组 (<code>bysort</code>) 进行统计分析
+(<code>statstics</code>)。基本语法：</p>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">statsby</span> [exp_list] [, options]: command</span><br><span class="line"><span class="comment">// by(varlist) 用于设定分组变量，如公司代码、行业分类等</span></span><br><span class="line"><span class="comment">// [exp_list] 用于制定返回值。</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">sysuse</span> auto</span><br><span class="line"><span class="keyword">statsby</span> <span class="keyword">mean</span>=<span class="built_in">r</span>(<span class="keyword">mean</span>) sd=<span class="built_in">r</span>(sd) size=<span class="built_in">r</span>(<span class="keyword">N</span>), <span class="keyword">by</span>(rep78):  <span class="keyword">summarize</span> mpg</span><br></pre></td></tr></table></figure>
+<p>Result:</p>
+<img src="https://s3.ax1x.com/2021/03/18/62EdyR.md.png" />
+<center>
+Fig. statsby 分组统计
+</center>
+<h2 id="遗漏变量">4.3 遗漏变量</h2>
+<p>遗漏变量属于解释变量选取错误的一种。因为某些数据难以获取，有时未获得的数据会降低模型的精度。可以通过遗漏变量进行处理。<code>Stata</code>
+提供两种遗漏变量检验方法：<code>Link</code> 检验和 <code>Ramsey</code>
+检验。基本语法：</p>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">linktest</span> [<span class="keyword">if</span>] [<span class="keyword">in</span>] [, cmd_options]</span><br><span class="line"><span class="keyword">estat</span> overtest [, rhs]</span><br></pre></td></tr></table></figure>
+<h2 id="自变量熟练的选择">4.4 自变量熟练的选择</h2>
+<p>在统计模型的设计过程中，通常希望模型简介简单。通常使用信息准则来确定解释变量的个数。常见的信息准则有：</p>
+<ol type="1">
+<li>赤池信息准则</li>
+</ol>
+<p>在衡量统计模型拟合优良性 (<code>Gooodness of fit</code>)
+的一种标准。它建立在熵的概念基础上，可以权衡所估计模型的复杂度和此模型拟合数据的优良性。</p>
+<ol start="2" type="1">
+<li>贝叶斯信息准则</li>
+</ol>
+<p>是在不完全请报下，对部分未知的状态用主观概率估计，然后用贝叶斯公式对发生概率进行修正，最后再利用期望值和修正概率做出最优决策</p>
+<p><figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">estatic [, <span class="keyword">n</span>(#)]</span><br></pre></td></tr></table></figure></p>
+<h2 id="极端数据的诊断与处理">4.5 极端数据的诊断与处理</h2>
+<p>再全体观测值中，会有一些样本和总体样题距离较远，这些样本再回归中可能会对斜率或者截距的估计产生较大的影响。</p>
+<p>在 <code>Stata</code>
+中，如果解释变量过多或者是面板数据，绘图方式并不直观。通常使用
+<code>leverage</code> 影响力方法判断该数据是否是极端数据。若数据的
+<code>leverage</code>
+影响力值高于平均值，则对回归系数影响较大，可能会产生极端数据的影响。</p>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">sysuse</span> auto</span><br><span class="line"><span class="keyword">regress</span> price mpg weight foreign</span><br><span class="line"><span class="keyword">predict</span> lev, <span class="keyword">leverage</span> <span class="comment">// 计算所有观测值的 lev 值，计算数据诊断</span></span><br><span class="line"><span class="keyword">gsort</span> lev <span class="comment">// 降序排列</span></span><br><span class="line"><span class="keyword">sum</span> lev</span><br><span class="line"><span class="keyword">list</span> 1/3</span><br></pre></td></tr></table></figure>
+<p>Result:</p>
+<img src="https://s3.ax1x.com/2021/03/18/62EwO1.md.png" />
+<center>
+Fig. 极端数据诊断
+</center>
+<h2 id="多重共线性与逐步回归法">4.6 多重共线性与逐步回归法</h2>
+<ul>
+<li><p>多重共线性 (陈强，<span class="math inline">P_{171}</span>)</p>
+<p>多重共线性问题，在多元线性回归分析中很常见。非常容易导致方程回归系数估计的标准误差变大，系数估计值的精度降低等。多重共线性的通常症状时，虽然整个回归方程的
+<span class="math inline">\mathcal{R}^2</span> 较大、<span
+class="math inline">F</span> 检验也很显著，但单个系数的 <span
+class="math inline">t</span> 检验却不显著。</p>
+<p>当确认模型存在多重共线性时，通常有两种解决方法来消除影响：1)
+收集更多的数据，增大样本容量。2)
+通过逐步分析回归改进模型的形式。</p></li>
+<li><p>逐步回归法</p>
+<p>逐步回归法的基本原理时分别拟合被解释变量，对于每一个解释变量的一元回归，并将各回归方程的拟合优度按照大小顺序排列，然后将拟合优度最大的解释变量作为基础变量，逐步将其他变量加入模型中，观测
+<code>t</code> 值的变化。</p>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">stepwise</span> [, options] : command</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="异方差检验与处理-陈强p_132">4.7 异方差检验与处理 (陈强，<span
+class="math inline">P_{132}</span>)</h2>
+<p>异方差，是指误差项 <span class="math inline">u</span>
+对不同的的个体是不同的，即条件方差 <span
+class="math inline">Var(\varepsilon_i | X)</span> 依赖于 <span
+class="math inline">i</span>，而不是常数 <span
+class="math inline">\sigma^2</span>。
+违反了球形误差的假设。异方差的检验通常有三种方法： 1.
+较为直观地观察方法进行回归后画出残差图 <code>ecdplot varname</code> 2.
+BP 检验 <code>estat hettest, normal</code> 3. 怀特检验
+<code>estat imtest, white</code></p>
+<p>异方差的处理： 1. 稳健便准差 <code>OLS</code> 法 2. <code>GLS</code>
+法（广义最小二乘法）</p>
+<h2 id="内生性-陈强p_193">4.7 内生性 (陈强，<span
+class="math inline">P_{193}</span>)</h2>
+<p><code>OLS</code>
+能够成立的最重要条件是解释变量于扰动项不相关（同期外生性）。内生性指解释变量于扰动项相关。内生性通常来源于遗漏变量偏差、经典的测量误差问题和联立性（逆向因果）。如果出现内生性问题，通常解决办法是使用工具变量，利用二阶段最小二乘方法进行解决。基本语法:</p>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ivregress 2sls y [<span class="keyword">varlist</span> 1] (varlist2 = instlist) [<span class="keyword">if</span>] [<span class="keyword">in</span>] [weight] [, option]</span><br></pre></td></tr></table></figure>
+<h2 id="二值选择模型">4.8 二值选择模型</h2>
+<h3 id="二值选择模型-陈强p_212">4.8.1 二值选择模型 (陈强，<span
+class="math inline">P_{212}</span>)</h3>
+<p>当被解释的变量可选值只有两个的时候，可以建立二值选择模型进行分析问题。<code>Stata</code>
+二值选择模型主要有 <code>Probit</code> 和 <code>Logit</code>
+模型。基本语法：</p>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">logit</span> depvar [indepvars] [<span class="keyword">if</span>] [<span class="keyword">in</span>] [weight] [, options]</span><br><span class="line"><span class="keyword">probit</span> depvar [indepvars] [<span class="keyword">if</span>] [<span class="keyword">in</span>] [weight] [, options]</span><br></pre></td></tr></table></figure>
+<h3 id="多指选择模型">4.8.2 多指选择模型</h3>
+<p>当选择为多个且互相独立时，可以选用多值选择模型。比如，消费者选择不同品牌，旅游者选择不同的交通方式等。基本语法：</p>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">mlogit</span> depvar [indepvars] [<span class="keyword">if</span>] [<span class="keyword">in</span>] [weight] [, options]</span><br><span class="line"><span class="keyword">mprobit</span> depvar [indepvars] [<span class="keyword">if</span>] [<span class="keyword">in</span>] [weight] [, options]</span><br></pre></td></tr></table></figure>
+<h3 id="排序选择模型">4.8.3 排序选择模型</h3>
+<p>在因变量不止两种选择时，就要用到多元选择模型。多元离散选择问题普遍存在于经济生活中。例如：一个人面临多重职业选择，将可共选择的职业排队，用0，1，2，3
+表示。影响选择的因素有不同职业的收入、发展前景和个人偏好等。所谓“排序”是指在各个选项之间有一定的顺序或级别种类。基本语法：</p>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">ologit</span> depvar [indepvars] [<span class="keyword">if</span>] [<span class="keyword">in</span>] [weight] [, options]</span><br><span class="line"><span class="keyword">oprobit</span> depvar [indepvars] [<span class="keyword">if</span>] [<span class="keyword">in</span>] [weight] [, options]</span><br></pre></td></tr></table></figure>
+<h3 id="条件-logit-模型">4.8.4 条件 Logit 模型</h3>
+<p>面临多个选择时，选择的依据是个体的特点。但有时，在模型选择过程中，个体选择受外部因素影响，此时可以选用条件
+<code>Logit</code>
+模型，模型可以解决解释变量中存在的选择特征问题。基本问题：</p>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">clogit</span> y x1 x2 [<span class="keyword">if</span>] [<span class="keyword">in</span>] [weight] , <span class="built_in">group</span>(varname) [options]</span><br></pre></td></tr></table></figure>
+<h3 id="嵌套-logit-模型">4.8.5 嵌套 Logit 模型</h3>
+<p>在进行模型选择的时候，很多个体的选择是分层次的，下面层次的选择受到上面层次的限制，相同层次之间的选择具有替代性，层次之间的选择又不相关。这时可以选择嵌套
+<code>Logit</code> 模型进行处理。嵌套 <code>Logit</code>
+模型的参数估计方法有两种：一种是两阶段最大似然法；另一种是完全信息最大似然法。基本语法：</p>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">nlogitgen</span> newvar = alvar(bracnchlist) [, nolog]</span><br></pre></td></tr></table></figure>
+<h2 id="主成分分析">4.9 主成分分析</h2>
+<p>主成分分析是设法将原来众多具有一定相关性（比如 <span
+class="math inline">P</span>
+个指标)，重新组合成一组新的互相无关的综合指标来代替原来的指标。在许多领域的研究与应用中，往往需要反映事物的多个变量进行大量的观测，收集大量数据以便进行分析寻找规律。基本语法：</p>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">pca</span> <span class="keyword">varlist</span> [<span class="keyword">if</span>] [<span class="keyword">in</span>] [weight] [, options]</span><br><span class="line"></span><br><span class="line"><span class="keyword">sysuse</span> auto</span><br><span class="line"><span class="keyword">pca</span> price mpg rep78 weight</span><br></pre></td></tr></table></figure>
+<p>Result:</p>
+<img src="https://s3.ax1x.com/2021/03/18/62EBex.md.png" />
+<center>
+Fig. 主成分分析
+</center>
+<h1 id="时间序列">5 时间序列</h1>
+<h2 id="时间序列的定义">5.1 时间序列的定义</h2>
+<p>时间序列分析方法通常适用于多种领域，包括经济、气象、过程控制等。通常依据变量自身的变化规律，利用外推机制描述时间序列的变化。在使用时间序列数据进行分析前，通常需要定义时间变量，通过新的观测值，或者需要对时间序列进行预测。基本语法：</p>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">tsset</span> timevar [, option]</span><br><span class="line"><span class="comment">// tsset 定义时间变量；timevar 用于标识时间序列数据的变量名</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">webuse</span> idle2</span><br><span class="line"><span class="keyword">tsset</span> time</span><br><span class="line"><span class="keyword">generate</span> newm = tm(2003m6) + time - 1</span><br><span class="line"><span class="keyword">list</span> time newm 1/5</span><br><span class="line"><span class="keyword">format</span> newm %tm <span class="comment">// 将时间格式化为以月份显示</span></span><br></pre></td></tr></table></figure>
+Result： <img src="https://s3.ax1x.com/2021/03/18/62EDw6.png" />
+<center>
+Fig. 时间序列
+</center>
+<ul>
+<li><p>时间序列拓展</p>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">webuse</span> idle2</span><br><span class="line"><span class="keyword">generate</span> newm = tm(2003m6) + time - 1</span><br><span class="line"><span class="keyword">tsset</span> newm, monthly</span><br><span class="line"><span class="keyword">tsappend</span>, add(12) <span class="comment">// 时间序列拓展</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="时间序列图与白噪声">5.2 时间序列图与白噪声</h2>
+<p>时间序列的相关性代表了信息，自相关函数和偏自相关函数可以直观观测信息度。同时，可以采用
+<code>Q</code> 统计量来检验白噪声。基本语法:</p>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">corrgram</span> varname [<span class="keyword">if</span>] [<span class="keyword">in</span>], [, corrgram_options]</span><br><span class="line"><span class="keyword">ac</span> varname [<span class="keyword">if</span>] [<span class="keyword">in</span>], [, ac_options] <span class="comment">// 自相关绘制</span></span><br><span class="line"><span class="keyword">pac</span> varname [<span class="keyword">if</span>] [<span class="keyword">in</span>], [pac_options] <span class="comment">// 偏自相关绘制</span></span><br><span class="line"><span class="keyword">wntestq</span> varname [<span class="keyword">if</span>] [<span class="keyword">in</span>], [, lags(#)] <span class="comment">// 白噪声</span></span><br></pre></td></tr></table></figure>
+<h2 id="arima-模型">5.3 ARIMA 模型</h2>
+<h3 id="arima-模型-1">5.3.1 <code>ARIMA</code> 模型</h3>
+<p><code>ARIMA</code>
+模型差分整合移动平均自回归模型，常用模型包括：自回归模型
+(<code>AR</code>)、滑动平均模型
+(<code>MA</code>)、自回归-滑动平均混合模型
+(<code>ARMA</code>)、差分整合移动平均自回归莫i选哪个
+(<code>ARIMA</code>)。基本语法:</p>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">arima</span> depvar [indepvars], ar(<span class="keyword">numlist</span>) <span class="keyword">ma</span>(<span class="keyword">numlist</span>)</span><br><span class="line"><span class="keyword">arima</span> depvar, <span class="keyword">arima</span>(#p, #<span class="keyword">d</span>, #q)</span><br><span class="line"></span><br><span class="line"><span class="keyword">webuse</span> wpi1</span><br><span class="line"><span class="keyword">line</span> wpi t, yline(0)</span><br><span class="line"><span class="keyword">line</span> <span class="keyword">d</span>.wpi1 t, yline(0) <span class="comment">// 一阶差分</span></span><br></pre></td></tr></table></figure>
+<h3 id="smarima-模型">5.3.2 <code>SMARIMA</code> 模型</h3>
+<p>在某些时间序列中，存在明显的周期变化。这种周期是由于季节性变化（包括季度、月度、周度变化）或其他一些固有因素引起的。这类序列称为季节性序列。经济领域中，季节性时间序列更为常见。如季度时间序列、月度时间序列、周度时间序列等。基本语法:</p>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">arima</span> depvar, <span class="keyword">arima</span>(#p, #<span class="keyword">d</span>, #q) sarima(#P, #<span class="keyword">D</span>, #Q, #s)</span><br></pre></td></tr></table></figure>
+<h3 id="arimax-模型">5.3.3 <code>ARIMAX</code> 模型</h3>
+<p><code>ARIMAX</code> 模型，分别是名称 <code>ARMA</code> 和
+<code>ARIMA</code> 的扩展，<code>ARMAX</code> 和
+<code>ARIMAX</code>。添加到末尾 <code>X</code>
+代表“外源”。它表示建议添加一个单独的不同外部变量以帮助测量内生变量。基本语法:</p>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">arima</span> depvar [indepvars] [<span class="keyword">if</span>] [<span class="keyword">in</span>] [weight] [, options]</span><br></pre></td></tr></table></figure>
+<h2 id="自助法">5.3 自助法</h2>
+<p>自助法 (<code>Bootstrap</code>)
+是一种从给定训练样本集中有放回的均匀抽样。每当选中一个样本，它等可能地被再次选中并被再次添加到训练集中。自助法优点是不必对模型的数据生成过程做出假定。基本语法：</p>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">bootstrap</span> exp_list [, options eform_option] : command</span><br><span class="line"></span><br><span class="line"><span class="keyword">sysuse</span> auto</span><br><span class="line"><span class="keyword">bootstrap</span>, reps(100) seed(123): <span class="keyword">regress</span> mpg weight gear foreign</span><br><span class="line"><span class="keyword">estat</span> <span class="keyword">bootstrap</span>, all</span><br></pre></td></tr></table></figure>
+<p>Result:</p>
+<img src="https://s3.ax1x.com/2021/03/18/62AWZV.md.png" />
+<center>
+Fig. Bootstrap 自举法
+</center>
+<h1 id="软件相关">6 软件相关</h1>
+<h2 id="do-文件">6.1 do 文件</h2>
+<p>快捷键：<code>ctrl</code> + <code>9</code></p>
+<h2 id="注释">6.2 注释</h2>
+<ol type="1">
+<li>通过 <code>*</code> 声明一行注释</li>
+<li>通过 <code>/*</code> 和 <code>*/</code> 进行注释</li>
+<li>通过 <code>//</code> 注释</li>
+<li>通过 <code>///</code> 注释</li>
+</ol>
+<h2 id="临时文件">6.3 临时文件</h2>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">tempvar</span> var1 var2 <span class="comment">// 临时变量</span></span><br><span class="line"><span class="keyword">tempname</span> ms1 ms2 <span class="comment">// 临时矩阵</span></span><br><span class="line"><span class="keyword">tempfile</span> file1 file2 <span class="comment">// 临时文件</span></span><br></pre></td></tr></table></figure>
+
+    </div>
+
+    
+    
+    
+
+    <div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">
+            -------------This blog is over!
+            <i class="fa fa-eye"></i>
+            Thanks for your reading-------------
+        </div>
+    
+</div>
+      
+    </div>
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>Post author:  </strong>YangSu
+  </li>
+  <li class="post-copyright-link">
+    <strong>Post link: </strong>
+    <a href="http://yangsuoly.com/2021/03/18/Stata/" title="Stata">http://yangsuoly.com/2021/03/18/Stata/</a>
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/Tags/Econometrics/" rel="tag"><i class="fa fa-tag"></i> Econometrics</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/01/19/Latex/" rel="prev" title="Latex">
+      <i class="fa fa-chevron-left"></i> Latex
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/04/08/Pytorch/" rel="next" title="Pytorch">
+      Pytorch <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div id="music163player">
+      <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=1317956275&auto=0&height=66"></iframe>
+      </iframe>
+    </div>
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#stata-data-operation"><span class="nav-text">1 Stata data operation</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#data-operation"><span class="nav-text">1.1 Data Operation</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#browse-data"><span class="nav-text">1.1.1 Browse data</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#import-data"><span class="nav-text">1.1.2 Import data</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#descriptive-commands"><span class="nav-text">1.1.3 Descriptive commands</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#merge-data"><span class="nav-text">1.1.4 Merge data</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#data-extraction"><span class="nav-text">1.1.5 Data extraction</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86"><span class="nav-text">1.1.6 数据处理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E5%88%86%E5%B8%83"><span class="nav-text">1.1.7 数据分布</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#operations"><span class="nav-text">1.2 Operations</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#relational-symbols"><span class="nav-text">1.2.1 Relational symbols</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mathematical-operation"><span class="nav-text">1.2.2 Mathematical operation</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#logical-operation"><span class="nav-text">1.2.3 Logical operation</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#function"><span class="nav-text">1.3 Function</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#in-%E5%87%BD%E6%95%B0"><span class="nav-text">1.3.1 in 函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#if-%E5%87%BD%E6%95%B0"><span class="nav-text">1.3.2 if 函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#by-%E8%AF%AD%E5%8F%A5"><span class="nav-text">1.3.3 by 语句</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#generate-variables"><span class="nav-text">1.3.4 generate variables</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#real-%E5%87%BD%E6%95%B0%E7%AE%80%E4%BB%8B"><span class="nav-text">1.3.5 real 函数简介</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#variables"><span class="nav-text">1.4 Variables</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#dummy-variable"><span class="nav-text">1.4.2 Dummy variable</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#classified-variables"><span class="nav-text">1.4.3 Classified variables</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#drawing-operation"><span class="nav-text">2 Drawing operation</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BB%98%E5%9B%BE%E7%AE%80%E4%BB%8B"><span class="nav-text">2.1 绘图简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#scatter-plot"><span class="nav-text">2.2 scatter plot</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%A3%E7%82%B9%E5%9B%BE%E7%AE%80%E4%BB%8B"><span class="nav-text">2.2.1 散点图简介</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%A3%E7%82%B9%E8%AE%BE%E5%AE%9A-marker_options"><span class="nav-text">2.2.2 散点设定
+marker_options</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A0%87%E7%AD%BE%E8%AE%BE%E5%AE%9A-marker_label_options"><span class="nav-text">2.2.3 标签设定
+marker_label_options</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%9E%E7%BA%BF%E9%80%89%E9%A1%B9-connect_options"><span class="nav-text">2.2.4 连线选项
+connect_options</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8C%AF%E8%8D%A1%E9%80%89%E9%A1%B9-jitter_options"><span class="nav-text">2.2.5 振荡选项
+jitter_options</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9D%90%E6%A0%87%E9%80%89%E9%A1%B9-axis_choice_options"><span class="nav-text">2.2.6 坐标选项
+axis_choice_options</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#twoway_options"><span class="nav-text">2.2.7 twoway_options</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%82%B9%E5%9B%BE"><span class="nav-text">2.2.8 点图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A0%87%E7%BB%98%E5%9B%BE"><span class="nav-text">2.2.9 标绘图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8B%9F%E5%90%88%E5%9B%BE"><span class="nav-text">2.2.10 拟合图</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A5%BC%E5%9B%BE"><span class="nav-text">2.3 饼图</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AE%80%E4%BB%8B"><span class="nav-text">2.3.1 简介</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9D%A1%E5%BD%A2%E5%9B%BE"><span class="nav-text">2.4 条形图</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AE%80%E4%BB%8B-1"><span class="nav-text">2.4.1 简介</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#sample-related"><span class="nav-text">3 Sample related</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%97%E8%81%94%E8%A1%A8-table"><span class="nav-text">3.1 列联表 table</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%97%E8%81%94%E8%A1%A8-tabulate"><span class="nav-text">3.2 列联表 tabulate</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A0%B7%E6%9C%AC-t-%E6%A3%80%E9%AA%8C"><span class="nav-text">3.3 样本 t 检验</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8D%95%E6%A0%B7%E6%9C%AC-t-%E6%A3%80%E9%AA%8C"><span class="nav-text">3.3.1 单样本 t 检验</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%9A%E6%A0%B7%E6%9C%AC-t-%E6%A3%80%E9%AA%8C"><span class="nav-text">3.3.2 多样本 t 检验</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%B9%E5%B7%AE%E5%88%86%E6%9E%90"><span class="nav-text">3.4 方差分析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8D%95%E5%9B%A0%E7%B4%A0%E6%96%B9%E5%B7%AE%E5%88%86%E6%9E%90"><span class="nav-text">3.4.1 单因素方差分析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%9A%E5%9B%A0%E7%B4%A0%E6%96%B9%E5%B7%AE%E5%88%86%E6%9E%90"><span class="nav-text">3.4.2 多因素方差分析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8D%8F%E6%96%B9%E5%B7%AE%E5%88%86%E6%9E%90"><span class="nav-text">3.4.3 协方差分析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%87%8D%E5%A4%8D%E6%B5%8B%E9%87%8F%E6%96%B9%E5%B7%AE%E5%88%86%E6%9E%90"><span class="nav-text">3.4.4 重复测量方差分析</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%81%87%E8%AE%BE%E6%A3%80%E9%AA%8C"><span class="nav-text">3.5 假设检验</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8D%95%E4%B8%AA%E6%80%BB%E4%BD%93%E7%9A%84%E5%81%87%E8%AE%BE%E6%A3%80%E9%AA%8C%E5%88%86%E6%9E%90"><span class="nav-text">3.5.1 单个总体的假设检验分析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%A4%E4%B8%AA%E6%80%BB%E4%BD%93%E7%9A%84%E5%81%87%E8%AE%BE%E6%A3%80%E9%AA%8C"><span class="nav-text">3.5.2 两个总体的假设检验</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%80%E5%B0%8F%E4%BA%8C%E4%B9%98%E6%B3%95%E5%88%86%E6%9E%90"><span class="nav-text">3.6 最小二乘法分析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B0%8F%E6%A0%B7%E6%9C%AC%E7%9A%84%E6%99%AE%E9%80%9A%E6%9C%80%E5%B0%8F%E4%BA%8C%E4%B9%98%E5%88%86%E6%9E%90"><span class="nav-text">3.6.1 小样本的普通最小二乘分析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%A7%E6%A0%B7%E6%9C%AC%E7%9A%84%E6%99%AE%E9%80%9A%E6%9C%80%E5%B0%8F%E4%BA%8C%E4%B9%98%E5%88%86%E6%9E%90"><span class="nav-text">3.6.2 大样本的普通最小二乘分析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BA%A6%E6%9D%9F%E5%9B%9E%E5%BD%92"><span class="nav-text">3.6.3 约束回归</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%9D%9E%E7%BA%BF%E6%80%A7%E6%9C%80%E5%B0%8F%E4%BA%8C%E4%B9%98%E6%B3%95"><span class="nav-text">3.6.4 非线性最小二乘法</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#model-specification"><span class="nav-text">4. Model specification</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#dummy-variables"><span class="nav-text">4.1 Dummy variables</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%98%E9%87%8F%E5%88%86%E7%BB%84%E7%BB%9F%E8%AE%A1%E5%88%86%E6%9E%90"><span class="nav-text">4.2 变量分组统计分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%81%97%E6%BC%8F%E5%8F%98%E9%87%8F"><span class="nav-text">4.3 遗漏变量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%87%AA%E5%8F%98%E9%87%8F%E7%86%9F%E7%BB%83%E7%9A%84%E9%80%89%E6%8B%A9"><span class="nav-text">4.4 自变量熟练的选择</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9E%81%E7%AB%AF%E6%95%B0%E6%8D%AE%E7%9A%84%E8%AF%8A%E6%96%AD%E4%B8%8E%E5%A4%84%E7%90%86"><span class="nav-text">4.5 极端数据的诊断与处理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%9A%E9%87%8D%E5%85%B1%E7%BA%BF%E6%80%A7%E4%B8%8E%E9%80%90%E6%AD%A5%E5%9B%9E%E5%BD%92%E6%B3%95"><span class="nav-text">4.6 多重共线性与逐步回归法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BC%82%E6%96%B9%E5%B7%AE%E6%A3%80%E9%AA%8C%E4%B8%8E%E5%A4%84%E7%90%86-%E9%99%88%E5%BC%BAp_132"><span class="nav-text">4.7 异方差检验与处理 (陈强，P_{132})</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%86%85%E7%94%9F%E6%80%A7-%E9%99%88%E5%BC%BAp_193"><span class="nav-text">4.7 内生性 (陈强，P_{193})</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E5%80%BC%E9%80%89%E6%8B%A9%E6%A8%A1%E5%9E%8B"><span class="nav-text">4.8 二值选择模型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8C%E5%80%BC%E9%80%89%E6%8B%A9%E6%A8%A1%E5%9E%8B-%E9%99%88%E5%BC%BAp_212"><span class="nav-text">4.8.1 二值选择模型 (陈强，P_{212})</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%9A%E6%8C%87%E9%80%89%E6%8B%A9%E6%A8%A1%E5%9E%8B"><span class="nav-text">4.8.2 多指选择模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8E%92%E5%BA%8F%E9%80%89%E6%8B%A9%E6%A8%A1%E5%9E%8B"><span class="nav-text">4.8.3 排序选择模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9D%A1%E4%BB%B6-logit-%E6%A8%A1%E5%9E%8B"><span class="nav-text">4.8.4 条件 Logit 模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B5%8C%E5%A5%97-logit-%E6%A8%A1%E5%9E%8B"><span class="nav-text">4.8.5 嵌套 Logit 模型</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%BB%E6%88%90%E5%88%86%E5%88%86%E6%9E%90"><span class="nav-text">4.9 主成分分析</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%97%B6%E9%97%B4%E5%BA%8F%E5%88%97"><span class="nav-text">5 时间序列</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%97%B6%E9%97%B4%E5%BA%8F%E5%88%97%E7%9A%84%E5%AE%9A%E4%B9%89"><span class="nav-text">5.1 时间序列的定义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%97%B6%E9%97%B4%E5%BA%8F%E5%88%97%E5%9B%BE%E4%B8%8E%E7%99%BD%E5%99%AA%E5%A3%B0"><span class="nav-text">5.2 时间序列图与白噪声</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#arima-%E6%A8%A1%E5%9E%8B"><span class="nav-text">5.3 ARIMA 模型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#arima-%E6%A8%A1%E5%9E%8B-1"><span class="nav-text">5.3.1 ARIMA 模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#smarima-%E6%A8%A1%E5%9E%8B"><span class="nav-text">5.3.2 SMARIMA 模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#arimax-%E6%A8%A1%E5%9E%8B"><span class="nav-text">5.3.3 ARIMAX 模型</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%87%AA%E5%8A%A9%E6%B3%95"><span class="nav-text">5.3 自助法</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%BD%AF%E4%BB%B6%E7%9B%B8%E5%85%B3"><span class="nav-text">6 软件相关</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#do-%E6%96%87%E4%BB%B6"><span class="nav-text">6.1 do 文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B3%A8%E9%87%8A"><span class="nav-text">6.2 注释</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%B4%E6%97%B6%E6%96%87%E4%BB%B6"><span class="nav-text">6.3 临时文件</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="YangSu"
+      src="/images/YangSu.jpg">
+  <p class="site-author-name" itemprop="name">YangSu</p>
+  <div class="site-description" itemprop="description">A blog for recording learning notes...</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">78</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/Categories/">
+          
+        <span class="site-state-item-count">40</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/Tags/">
+          
+        <span class="site-state-item-count">49</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/YangSuoly" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;YangSuoly" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://gitee.com/yangsuoly" title="Gitee → https:&#x2F;&#x2F;gitee.com&#x2F;yangsuoly" rel="noopener" target="_blank"><i class="fab fa-github-square fa-fw"></i>Gitee</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://space.bilibili.com/64518717" title="B 站 → https:&#x2F;&#x2F;space.bilibili.com&#x2F;64518717" rel="noopener" target="_blank"><i class="fa fa-play-circle fa-fw"></i>B 站</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Related links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://www.58pic.com/u/19637930/" title="https:&#x2F;&#x2F;www.58pic.com&#x2F;u&#x2F;19637930&#x2F;" rel="noopener" target="_blank">千图网</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js" integrity="sha384-g7c+Jr9ZivxKLnZTDUhnkOnsh30B4H0rpLUpJ4jAIKs4fnJI+sEnkvrMWph2EDg4" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/auto-render.min.js" integrity="sha384-mll67QQFJfxn0IYznZYonOWZ644AWYC+Pt2cHqMaRhXVrursRwvLnLaebdGIlYNa" crossorigin="anonymous"
+        onload="renderMathInElement(document.body);"></script>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2026</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">YangSu</span>
+</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="Total Visitors">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="Total Views">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script size="300" alpha="0.6" zIndex="-1" src="/lib/canvas-ribbon/canvas-ribbon.js"></script>
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+<script>
+document.querySelectorAll('.pdfobject-container').forEach(element => {
+  let url = element.dataset.target;
+  let pdfOpenParams = {
+    navpanes : 0,
+    toolbar  : 0,
+    statusbar: 0,
+    pagemode : 'thumbs',
+    view     : 'FitH'
+  };
+  let pdfOpenFragment = '#' + Object.entries(pdfOpenParams).map(([key, value]) => `${key}=${encodeURIComponent(value)}`).join('&');
+  let fullURL = `/lib/pdf/web/viewer.html?file=${encodeURIComponent(url)}${pdfOpenFragment}`;
+
+  if (NexT.utils.supportsPDFs()) {
+    element.innerHTML = `<embed class="pdfobject" src="${url + pdfOpenFragment}" type="application/pdf" style="height: ${element.dataset.height};">`;
+  } else {
+    element.innerHTML = `<iframe src="${fullURL}" style="height: ${element.dataset.height};" frameborder="0"></iframe>`;
+  }
+});
+</script>
+
+
+<script>
+if (document.querySelectorAll('pre.mermaid').length) {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js', () => {
+    mermaid.initialize({
+      theme    : 'forest',
+      logLevel : 3,
+      flowchart: { curve     : 'linear' },
+      gantt    : { axisFormat: '%m/%d/%Y' },
+      sequence : { actorMargin: 50 }
+    });
+  }, window.mermaid);
+}
+</script>
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+  <script src="//cdn.jsdelivr.net/npm/quicklink@1/dist/quicklink.umd.js"></script>
+  <script>
+      window.addEventListener('load', () => {
+      quicklink({
+        timeout : 3000,
+        priority: true,
+        ignores : [uri => uri.includes('#'),uri => uri === 'http://yangsuoly.com/2021/03/18/Stata/',]
+      });
+      });
+  </script>
+
+  
+  <script id="ribbon" src="js/canvas-ribbon.js"></script>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/22.2017.cba-normal.model.json"},"display":{"position":"right","width":300,"height":450},"mobile":{"show":false},"react":{"opacity":0.7},"log":false});</script></body>
+</html>

@@ -1,0 +1,961 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/blog-logo-32px.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/blog-logo-16px.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <link rel="manifest" href="/images/manifest.json">
+  <meta name="msapplication-config" content="/images/browserconfig.xml">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yangsuoly.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":true},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":true,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="1. Problem 1.1 Introduction of background 幸福感是一个古老而深刻的话题，是人类世代追求的方向。与幸福感相关的因素成千上万，这些错综复杂的因素中，我们能找到其中的共性，一窥幸福感的要义吗？">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Ensemble-happiness">
+<meta property="og:url" content="http://yangsuoly.com/2021/05/18/Ensemble-Happiness/index.html">
+<meta property="og:site_name" content="独孤诗人的学习驿站">
+<meta property="og:description" content="1. Problem 1.1 Introduction of background 幸福感是一个古老而深刻的话题，是人类世代追求的方向。与幸福感相关的因素成千上万，这些错综复杂的因素中，我们能找到其中的共性，一窥幸福感的要义吗？">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2021-05-18T15:49:56.000Z">
+<meta property="article:modified_time" content="2021-06-20T09:47:50.330Z">
+<meta property="article:author" content="YangSu">
+<meta property="article:tag" content="Python">
+<meta property="article:tag" content="Ensemble">
+<meta property="article:tag" content="Sklearn">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://yangsuoly.com/2021/05/18/Ensemble-Happiness/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>Ensemble-happiness | 独孤诗人的学习驿站</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?f59f5fb59d32ec3903088b0f976956d1";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta custom-logo">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">独孤诗人的学习驿站</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">生活就是一半烟火，一半诗意。手执烟火谋生活，心怀诗意谋未来……</p>
+      <a>
+        <img class="custom-logo-image" src="/images/logo@2x.png" alt="独孤诗人的学习驿站">
+      </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/Tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/Categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+  <a href="https://github.com/YangSuoly" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yangsuoly.com/2021/05/18/Ensemble-Happiness/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/YangSu.jpg">
+      <meta itemprop="name" content="YangSu">
+      <meta itemprop="description" content="A blog for recording learning notes...">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="独孤诗人的学习驿站">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Ensemble-happiness
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-05-18 23:49:56" itemprop="dateCreated datePublished" datetime="2021-05-18T23:49:56+08:00">2021-05-18</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-06-20 17:47:50" itemprop="dateModified" datetime="2021-06-20T17:47:50+08:00">2021-06-20</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/Categories/DataWhale/" itemprop="url" rel="index"><span itemprop="name">DataWhale</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/Categories/DataWhale/Ensemble/" itemprop="url" rel="index"><span itemprop="name">Ensemble</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/Categories/DataWhale/Ensemble/Cases/" itemprop="url" rel="index"><span itemprop="name">Cases</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="Views" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span><br>
+            <span class="post-meta-item" title="Symbols count in article">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">Symbols count in article: </span>
+              <span>20k</span>
+            </span>
+            <span class="post-meta-item" title="Reading time">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">Reading time &asymp;</span>
+              <span>18 mins.</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="problem">1. Problem</h1>
+<h2 id="introduction-of-background">1.1 Introduction of background</h2>
+<p>幸福感是一个古老而深刻的话题，是人类世代追求的方向。与幸福感相关的因素成千上万，这些错综复杂的因素中，我们能找到其中的共性，一窥幸福感的要义吗？</p>
+<a id="more"></a>
+<p>该案例为幸福感预测这一经典课题，希望在现有社会科学研究外有其他维度的算法尝试，结合多学科各自优势，挖掘潜在的影响因素，发现更多可解释、可理解的相关关系。</p>
+<p>具体来说，该案例就是一个数据挖掘类型的比赛——幸福感预测的baseline。具体来说，我们需要使用包括个体变量（性别、年龄、地域、职业、健康、婚姻与政治面貌等等）、家庭变量（父母、配偶、子女、家庭资本等等）、社会态度（公平、信用、公共服务等等）等139维度的信息来预测其对幸福感的影响。</p>
+<p>数据来源于国家官方的《中国综合社会调查（CGSS）》文件中的调查结果中的数据，数据来源可靠可依赖。</p>
+<p>数据包下载地址: <a
+href="https://yangsuoly.com/file/Data-of-forcasting-happiness.rar">Data
+of case</a>。</p>
+<h2 id="data-information">1.2 Data information</h2>
+<p>要求使用以上 139 维的特征，使用 8000
+余组数据进行对于个人幸福感的预测（预测值为1，2，3，4，5，其中1代表幸福感最低，5代
+表幸福感最高）。
+因为考虑到变量个数较多，部分变量间关系复杂，数据分为完整版和精简版两类。同时给出了
+<code>index</code>
+文件中包含每个变量对应的问卷题目，以及变量取值的含义；<code>survey</code>
+文件中为原版问卷，作为补充以方便理解问题背景。</p>
+<h1 id="data-process">2. Data process</h1>
+<h2 id="load-data">2.1 Load data</h2>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"></span><br><span class="line">train = pd.read_csv(<span class="string">&quot;train.csv&quot;</span>, parse_dates=[<span class="string">&#x27;survey_time&#x27;</span>],encoding=<span class="string">&#x27;latin-1&#x27;</span>)</span><br><span class="line">test = pd.read_csv(<span class="string">&quot;test.csv&quot;</span>, parse_dates=[<span class="string">&#x27;survey_time&#x27;</span>],encoding=<span class="string">&#x27;latin-1&#x27;</span>)</span><br><span class="line"><span class="comment">#latin-1向下兼容ASCII</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>Deleting the rows that happiness values equal to -8</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Deleting the rows that happiness values equal to -8</span></span><br><span class="line">target_name = <span class="string">&#x27;happiness&#x27;</span></span><br><span class="line">train_copy = train.copy()</span><br></pre></td></tr></table></figure></li>
+<li><p>Train and target set</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">train = train[train[target_name] != -<span class="number">8</span>].reset_index(drop = <span class="literal">True</span>)</span><br><span class="line">target = train_copy[target_name] <span class="comment"># Target</span></span><br></pre></td></tr></table></figure></li>
+<li><p>Concatenation</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">del</span> train_copy[target_name] <span class="comment"># Drop the target column</span></span><br><span class="line"><span class="comment"># Store the train set(without happiness values)</span></span><br><span class="line"></span><br><span class="line">data = pd.concat([train_copy, test], axis = <span class="number">0</span>, ignore_index = <span class="literal">True</span>)</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="information">2.2 Information</h2>
+<ul>
+<li><p><code>describe</code></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">train.happiness.describe()</span><br></pre></td></tr></table></figure>
+<p>Results:</p>
+<pre><code>count    7988.000000
+mean        3.867927
+std         0.818717
+min         1.000000
+25%         4.000000
+50%         4.000000
+75%         4.000000
+max         5.000000
+Name: happiness, dtype: float64</code></pre></li>
+<li><p><code>info</code></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">train.info()</span><br></pre></td></tr></table></figure>
+<pre><code>&lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
+RangeIndex: 8000 entries, 0 to 7999
+Columns: 140 entries, id to public_service_9
+dtypes: datetime64[ns](1), float64(25), int64(111), object(3)
+memory usage: 8.5+ MB</code></pre></li>
+</ul>
+<h2 id="data-preparation">2.3 Data preparation</h2>
+<h3 id="missing-values">2.3.1 Missing values</h3>
+<ul>
+<li><p>Number of columns having missing values</p>
+<p>通过如下代码了解数据中的缺省值信息：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">data_nomiss = data.dropna(axis=<span class="number">1</span>, inplace = <span class="literal">False</span>) <span class="comment"># 没有缺失值的数据信息</span></span><br><span class="line"></span><br><span class="line">name_data = data.columns</span><br><span class="line">name_miss = name_data.drop(data_nomiss.columns) <span class="comment"># 含有缺失值的列名称</span></span><br><span class="line"></span><br><span class="line">data_miss = data.loc[:, name_miss] <span class="comment"># 存储含有缺失值的数据，方便查看数据</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>data_miss.shape</span><br><span class="line"></span><br><span class="line">(<span class="number">10968</span>, <span class="number">25</span>)</span><br></pre></td></tr></table></figure>
+<p>可以发现，数据集中 25 列中含有缺失值，具体的列名称如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>miss_name</span><br><span class="line"></span><br><span class="line">Index([<span class="string">&#x27;edu_other&#x27;</span>, <span class="string">&#x27;edu_status&#x27;</span>, <span class="string">&#x27;edu_yr&#x27;</span>, <span class="string">&#x27;join_party&#x27;</span>, <span class="string">&#x27;property_other&#x27;</span>, <span class="string">&#x27;hukou_loc&#x27;</span>, <span class="string">&#x27;social_neighbor&#x27;</span>, <span class="string">&#x27;social_friend&#x27;</span>, <span class="string">&#x27;work_status&#x27;</span>, <span class="string">&#x27;work_yr&#x27;</span>, <span class="string">&#x27;work_type&#x27;</span>, <span class="string">&#x27;work_manage&#x27;</span>, <span class="string">&#x27;family_income&#x27;</span>, <span class="string">&#x27;invest_other&#x27;</span>, <span class="string">&#x27;minor_child&#x27;</span>, <span class="string">&#x27;marital_1st&#x27;</span>, <span class="string">&#x27;s_birth&#x27;</span>, <span class="string">&#x27;marital_now&#x27;</span>, <span class="string">&#x27;s_edu&#x27;</span>, <span class="string">&#x27;s_political&#x27;</span>, <span class="string">&#x27;s_hukou&#x27;</span>, <span class="string">&#x27;s_income&#x27;</span>, <span class="string">&#x27;s_work_exper&#x27;</span>, <span class="string">&#x27;s_work_status&#x27;</span>, <span class="string">&#x27;s_work_type&#x27;</span>], dtype=<span class="string">&#x27;object&#x27;</span>)</span><br></pre></td></tr></table></figure></li>
+<li><p>Processing</p>
+<p>进一步查看缺失数据的信息：</p>
+<pre><code>&gt;&gt;&gt; data_miss.info()
+
+&lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
+RangeIndex: 10968 entries, 0 to 10967
+Data columns (total 25 columns):
+ #   Column           Non-Null Count  Dtype  
+---  ------           --------------  -----  
+ 0   edu_other        6 non-null      object
+ 1   edu_status       9399 non-null   float64
+ 2   edu_yr           8212 non-null   float64
+ 3   join_party       1126 non-null   float64
+ 4   property_other   89 non-null     object
+ 5   hukou_loc        10964 non-null  float64
+ 6   social_neighbor  9871 non-null   float64
+ 7   social_friend    9871 non-null   float64
+ 8   work_status      4029 non-null   float64
+ 9   work_yr          4029 non-null   float64
+ 10  work_type        4030 non-null   float64
+ 11  work_manage      4030 non-null   float64
+ 12  family_income    10967 non-null  float64
+ 13  invest_other     45 non-null     object
+ 14  minor_child      9520 non-null   float64
+ 15  marital_1st      9839 non-null   float64
+ 16  s_birth          8601 non-null   float64
+ 17  marital_now      8521 non-null   float64
+ 18  s_edu            8601 non-null   float64
+ 19  s_political      8601 non-null   float64
+ 20  s_hukou          8601 non-null   float64
+ 21  s_income         8601 non-null   float64
+ 22  s_work_exper     8601 non-null   float64
+ 23  s_work_status    3524 non-null   float64
+ 24  s_work_type      3524 non-null   float64
+dtypes: float64(22), object(3)
+memory usage: 2.1+ MB</code></pre>
+<p>可以发现，<code>edu_other</code>, <code>join_party</code>,
+<code>property_other</code>, <code>invest_other</code>,
+四列含有缺失值较多，占到了样本总体的90%以上，综合考虑后，选择将这四个变量从分析中剔除。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">name_del = [<span class="string">&#x27;edu_other&#x27;</span>, <span class="string">&#x27;join_party&#x27;</span>, <span class="string">&#x27;property_other&#x27;</span>, <span class="string">&#x27;invest_other&#x27;</span>]</span><br><span class="line">name_data = name_data.drop(name_del)</span><br><span class="line">name_miss = name_miss.drop(name_del) <span class="comment"># 剔除上述四个变量</span></span><br><span class="line"></span><br><span class="line">data_miss = data_miss.loc[:, name_miss]</span><br><span class="line">data = data.copy().loc[:, name_miss]</span><br></pre></td></tr></table></figure></li>
+<li><p>Information</p>
+<p>查看每列缺失值的数量：</p>
+<pre><code>&gt;&gt;&gt; data_miss.isnull().sum()
+
+edu_status         0
+edu_yr             0
+hukou_loc          0
+social_neighbor    0
+social_friend      0
+work_status        0
+work_yr            0
+work_type          0
+work_manage        0
+family_income      0
+minor_child        0
+marital_1st        0
+s_birth            0
+marital_now        0
+s_edu              0
+s_political        0
+s_hukou            0
+s_income           0
+s_work_exper       0
+s_work_status      0
+s_work_type        0
+dtype: int64</code></pre></li>
+<li><p>Fillna</p>
+<p>可以发现，部分列缺失值比较多，部分缺失值较少，为此，我们对缺失值做如下处理：</p>
+<ul>
+<li>缺失值数量少于总数的 20% (即
+2193.6)的列，用该列的众数进行填充；</li>
+<li>缺失值数量大于2193的列，用0进行填充，防止过分干预数据而导致失真。</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(name_miss)):</span><br><span class="line">    num_nulls = data_miss.isnull().<span class="built_in">sum</span>() <span class="comment"># 对缺失值进行计数</span></span><br><span class="line">    num_null = num_nulls[i] <span class="comment"># 当前列的缺失值数</span></span><br><span class="line">    name = name_miss[i] <span class="comment"># 当前列的名称</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> num_null &lt; <span class="number">0.2</span>*data.shape[<span class="number">0</span>]:</span><br><span class="line">        data.loc[:, name].fillna(data_miss.mode().loc[<span class="number">0</span>, name], inplace = <span class="literal">True</span>)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        data.loc[:, name].fillna(<span class="number">0</span>, inplace = <span class="literal">True</span>)                    </span><br><span class="line">data_miss = data.loc[:, name_miss]</span><br></pre></td></tr></table></figure></li>
+</ul>
+<p>至此，缺失值处理完成。</p>
+<h3 id="negative-values">2.3.2 Negative values</h3>
+<p>对数据中的连续出现的负的数值进行处理。由于数据中的负值只有 -1, -2,
+-3, -8，故进行如下处理：</p>
+<ul>
+<li><p>Self definition function</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># make feature +5</span></span><br><span class="line"><span class="comment">#csv中有复数值：-1、-2、-3、-8，将他们视为有问题的特征，但是不删去</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">getres1</span>(<span class="params">row</span>):</span></span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">len</span>([x <span class="keyword">for</span> x <span class="keyword">in</span> row.values <span class="keyword">if</span> <span class="built_in">type</span>(x)==<span class="built_in">int</span> <span class="keyword">and</span> x&lt;<span class="number">0</span>])</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">getres2</span>(<span class="params">row</span>):</span></span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">len</span>([x <span class="keyword">for</span> x <span class="keyword">in</span> row.values <span class="keyword">if</span> <span class="built_in">type</span>(x)==<span class="built_in">int</span> <span class="keyword">and</span> x==-<span class="number">8</span>])</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">getres3</span>(<span class="params">row</span>):</span></span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">len</span>([x <span class="keyword">for</span> x <span class="keyword">in</span> row.values <span class="keyword">if</span> <span class="built_in">type</span>(x)==<span class="built_in">int</span> <span class="keyword">and</span> x==-<span class="number">1</span>])</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">getres4</span>(<span class="params">row</span>):</span></span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">len</span>([x <span class="keyword">for</span> x <span class="keyword">in</span> row.values <span class="keyword">if</span> <span class="built_in">type</span>(x)==<span class="built_in">int</span> <span class="keyword">and</span> x==-<span class="number">2</span>])</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">getres5</span>(<span class="params">row</span>):</span></span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">len</span>([x <span class="keyword">for</span> x <span class="keyword">in</span> row.values <span class="keyword">if</span> <span class="built_in">type</span>(x)==<span class="built_in">int</span> <span class="keyword">and</span> x==-<span class="number">3</span>])</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#检查数据</span></span><br><span class="line">data[<span class="string">&#x27;neg1&#x27;</span>] = data[data.columns].apply(<span class="keyword">lambda</span> row:getres1(row),axis=<span class="number">1</span>)</span><br><span class="line">data.loc[data[<span class="string">&#x27;neg1&#x27;</span>]&gt;<span class="number">20</span>,<span class="string">&#x27;neg1&#x27;</span>] = <span class="number">20</span> <span class="comment">#平滑处理,最多出现20次</span></span><br><span class="line">data[<span class="string">&#x27;neg2&#x27;</span>] = data[data.columns].apply(<span class="keyword">lambda</span> row:getres2(row),axis=<span class="number">1</span>)</span><br><span class="line">data[<span class="string">&#x27;neg3&#x27;</span>] = data[data.columns].apply(<span class="keyword">lambda</span> row:getres3(row),axis=<span class="number">1</span>)</span><br><span class="line">data[<span class="string">&#x27;neg4&#x27;</span>] = data[data.columns].apply(<span class="keyword">lambda</span> row:getres4(row),axis=<span class="number">1</span>)</span><br><span class="line">data[<span class="string">&#x27;neg5&#x27;</span>] = data[data.columns].apply(<span class="keyword">lambda</span> row:getres5(row),axis=<span class="number">1</span>)</span><br></pre></td></tr></table></figure></li>
+<li><p>Process</p>
+<p>记录下含有负值的列名称，然后对比 index.csv
+中的信息对这些负值进行填充性处理。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 首先将问卷时间变为年份</span></span><br><span class="line">data[<span class="string">&#x27;survey_time&#x27;</span>] = pd.to_datetime(data[<span class="string">&#x27;survey_time&#x27;</span>], <span class="built_in">format</span> = <span class="string">&#x27;%Y-%m-%d&#x27;</span>,</span><br><span class="line">                                errors = <span class="string">&#x27;coerce&#x27;</span>) <span class="comment"># 强制转换</span></span><br><span class="line">data[<span class="string">&#x27;survey_time&#x27;</span>] = data[<span class="string">&#x27;survey_time&#x27;</span>].dt.year <span class="comment"># 截取年份，用于计算年龄</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看所有含有负值的列</span></span><br><span class="line">neg_name = data.<span class="built_in">min</span>()[data.<span class="built_in">min</span>()&lt;<span class="number">0</span>].index <span class="comment"># 存储 data 中最小的值小于 0 的列名称</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 借助 index.csv 查看缺失值的信息</span></span><br><span class="line">data_index = pd.read_csv(<span class="string">&quot;index.csv&quot;</span>, encoding=<span class="string">&#x27;utf-8&#x27;</span>)</span><br><span class="line">data_index.set_index(<span class="string">&#x27;变量名&#x27;</span>, inplace = <span class="literal">True</span>)</span><br><span class="line">data_index_column = data_index.columns</span><br><span class="line"></span><br><span class="line">print(<span class="string">&#x27;There are &#123;&#125; columns have negative values&#x27;</span>.<span class="built_in">format</span>(<span class="built_in">len</span>(neg_name)))</span><br></pre></td></tr></table></figure>
+<pre><code>There are 100 columns have negative values</code></pre>
+<p>可以到整个数据表中有 <code>100</code> 列中含有负值。</p></li>
+<li><p>查看字段详细信息</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">data_index.loc[neg_name, data_index_column[<span class="number">1</span>:<span class="number">3</span>]].head()</span><br></pre></td></tr></table></figure>
+<table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th>
+</th>
+<th>
+<p>问题</p>
+</th>
+<th>
+<p>取值含义</p>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>
+<p>nationality</p>
+</th>
+<td>
+<p>您的民族</p>
+</td>
+<td>
+<p>1 = 汉; 2 = 蒙; 3 = 满; 4 = 回; 5 = 藏; 6 = 壮; 7 = ...</p>
+</td>
+</tr>
+<tr>
+<th>
+<p>religion</p>
+</th>
+<td>
+<p>您的宗教信仰-不信仰宗教</p>
+</td>
+<td>
+<p>0 = 否; 1 = 是;</p>
+</td>
+</tr>
+<tr>
+<th>
+<p>religion_freq</p>
+</th>
+<td>
+<p>您参加宗教活动的频繁程度</p>
+</td>
+<td>
+<p>1 = 从来没有参加过; 2 = 一年不到1次; 3 = 一年大概1到2次; 4 =
+一年几...</p>
+</td>
+</tr>
+<tr>
+<th>
+<p>edu</p>
+</th>
+<td>
+<p>您目前的最高教育程度（包括目前在读的）</p>
+</td>
+<td>
+<p>1 = 没有受过任何教育; 2 = 私塾、扫盲班; 3 = 小学; 4 = 初中; 5 =
+...</p>
+</td>
+</tr>
+<tr>
+<th>
+<p>edu_status</p>
+</th>
+<td>
+<p>您目前的最高教育程度的状态</p>
+</td>
+<td>
+<p>1 = 正在读; 2 = 辍学和中途退学; 3 = 肄业; 4 = 毕业;</p>
+</td>
+</tr>
+</tbody>
+</table></li>
+<li><p>填充</p>
+<p>根据实际情况，对数据进行填充处理，填充分为如下几种方式：</p>
+<ul>
+<li>根据生活常识进行填充</li>
+<li>根据非负数中的众数进行填充</li>
+<li>根据非负数中的均值进行填充</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> col <span class="keyword">in</span> neg_name:</span><br><span class="line">    <span class="keyword">if</span>(data[col].loc[data[col]&lt;<span class="number">0</span>].count()&gt;<span class="number">1000</span>):</span><br><span class="line">        print(col, data[col].loc[data[col]&lt;<span class="number">0</span>].count(), sep = <span class="string">&#x27; | &#x27;</span>)</span><br></pre></td></tr></table></figure>
+<pre><code>edu_yr | 1679
+marital_1st | 1901
+f_birth | 4664
+m_birth | 4448
+inc_ability | 1325
+inc_exp | 1501
+trust_3 | 1399
+trust_4 | 1413
+trust_6 | 1562
+trust_8 | 1381
+trust_10 | 2451
+trust_11 | 5456
+trust_12 | 3382</code></pre>
+<p>通过上述预处理，可以发现，仅有 5列数据中的负值多余2000</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># ===================== 生活常识 ========================</span></span><br><span class="line"><span class="comment"># 民族</span></span><br><span class="line">data.loc[data[<span class="string">&#x27;nationality&#x27;</span>]&lt;<span class="number">0</span>,<span class="string">&#x27;nationality&#x27;</span>] = <span class="number">1</span> <span class="comment"># 1为汉族</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 宗教</span></span><br><span class="line">data.loc[data[<span class="string">&#x27;religion&#x27;</span>]&lt;<span class="number">0</span>,<span class="string">&#x27;religion&#x27;</span>] = <span class="number">1</span> <span class="comment"># 1为不信仰宗教</span></span><br><span class="line">data.loc[data[<span class="string">&#x27;religion_freq&#x27;</span>]&lt;<span class="number">0</span>,<span class="string">&#x27;religion_freq&#x27;</span>] = <span class="number">1</span> <span class="comment"># 1为从来没参加过宗教活动</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># ======================= 众数 ============================</span></span><br><span class="line"><span class="comment"># 教育</span></span><br><span class="line">data.loc[data[<span class="string">&#x27;edu&#x27;</span>]&lt;<span class="number">0</span>,<span class="string">&#x27;edu&#x27;</span>] = data[<span class="string">&#x27;edu&#x27;</span>].mode()[<span class="number">0</span>]  <span class="comment"># 众数为 4，初中</span></span><br><span class="line">data.loc[data[<span class="string">&#x27;edu_status&#x27;</span>]&lt;<span class="number">0</span>,<span class="string">&#x27;edu_status&#x27;</span>] = data[<span class="string">&#x27;edu_status&#x27;</span>].mode()[<span class="number">0</span>] <span class="comment"># 众数为 4，毕业</span></span><br><span class="line">data.loc[data[<span class="string">&#x27;edu_yr&#x27;</span>]&lt;<span class="number">0</span>,<span class="string">&#x27;edu_yr&#x27;</span>] = <span class="number">0</span> <span class="comment"># 毕业年份</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 政治面貌</span></span><br><span class="line">data.loc[data[<span class="string">&#x27;political&#x27;</span>]&lt;<span class="number">0</span>,<span class="string">&#x27;political&#x27;</span>] = data[<span class="string">&#x27;political&#x27;</span>].mode()[<span class="number">0</span>] <span class="comment"># 众数为 1，群众</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 健康</span></span><br><span class="line">data.loc[data[<span class="string">&#x27;health&#x27;</span>]&lt;<span class="number">0</span>,<span class="string">&#x27;health&#x27;</span>] = data[<span class="string">&#x27;health&#x27;</span>].mode()[<span class="number">0</span>] <span class="comment"># 众数为 4，比较健康</span></span><br><span class="line">data.loc[data[<span class="string">&#x27;health_problem&#x27;</span>]&lt;<span class="number">0</span>,<span class="string">&#x27;health_problem&#x27;</span>] = data[<span class="string">&#x27;health_problem&#x27;</span>].mode()[<span class="number">0</span>] <span class="comment"># 众数为 4，比较健康</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 沮丧</span></span><br><span class="line">data.loc[data[<span class="string">&#x27;depression&#x27;</span>]&lt;<span class="number">0</span>,<span class="string">&#x27;depression&#x27;</span>] = data[<span class="string">&#x27;depression&#x27;</span>].mode()[<span class="number">0</span>] <span class="comment"># 众数为 4，很少</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 媒体：报纸、杂志、广播、电视、互联网、手机定值消息</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">6</span>):</span><br><span class="line">    col = <span class="string">&#x27;media_&#x27;</span> + <span class="built_in">str</span>(i+<span class="number">1</span>)</span><br><span class="line">    data.loc[data[col]&lt;<span class="number">0</span>,col] = data[col].mode()[<span class="number">0</span>] <span class="comment"># 以众数填充</span></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string">data.loc[data[&#x27;media_1&#x27;]&lt;0,&#x27;media_1&#x27;] = data[&#x27;media_1&#x27;].mode().values # 众数为1，从不</span></span><br><span class="line"><span class="string">data.loc[data[&#x27;media_2&#x27;]&lt;0,&#x27;media_2&#x27;] = data[&#x27;media_2&#x27;].mode().values # 众数为1，从不</span></span><br><span class="line"><span class="string">data.loc[data[&#x27;media_3&#x27;]&lt;0,&#x27;media_3&#x27;] = data[&#x27;media_3&#x27;].mode().values # 众数为1，从不</span></span><br><span class="line"><span class="string">data.loc[data[&#x27;media_4&#x27;]&lt;0,&#x27;media_4&#x27;] = data[&#x27;media_4&#x27;].mode().values # 众数为4，经常</span></span><br><span class="line"><span class="string">data.loc[data[&#x27;media_5&#x27;]&lt;0,&#x27;media_5&#x27;] = data[&#x27;media_5&#x27;].mode().values # 众数为1，从不</span></span><br><span class="line"><span class="string">data.loc[data[&#x27;media_6&#x27;]&lt;0,&#x27;media_6&#x27;] = data[&#x27;media_6&#x27;].mode().values # 众数为1，经常</span></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 空闲：看碟、看电影、逛街购物、读书、文化活动等共12项</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">12</span>):</span><br><span class="line">    col = <span class="string">&#x27;leisure_&#x27;</span> + <span class="built_in">str</span>(i+<span class="number">1</span>)</span><br><span class="line">    data.loc[data[col]&lt;<span class="number">0</span>,col] = data[col].mode()[<span class="number">0</span>] <span class="comment"># 以众数填充</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string">socialize、relax、learn、social_neighbor、learn、social_neighbor、</span></span><br><span class="line"><span class="string">social_friend、socia_outing、equity、class、class_10_before、</span></span><br><span class="line"><span class="string">class_10_after、class_14、work_status、work_yr、work_type、work_manage、</span></span><br><span class="line"><span class="string">insur_1、insur_2、insur_3、insur_4</span></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">29</span>, <span class="number">48</span>):</span><br><span class="line">    col = neg_name[i]</span><br><span class="line">    data.loc[data[col]&lt;<span class="number">0</span>,col] = data[col].mode()[<span class="number">0</span>] <span class="comment"># 以众数填充</span></span><br><span class="line">data.loc[data[<span class="string">&#x27;socialize&#x27;</span>]&lt;<span class="number">0</span>,<span class="string">&#x27;socialize&#x27;</span>] = data[<span class="string">&#x27;socialize&#x27;</span>].mode()[<span class="number">0</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 收入状态</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">49</span>, <span class="number">56</span>):</span><br><span class="line">    col = neg_name[i]</span><br><span class="line">    data.loc[data[col]&lt;<span class="number">0</span>,col] = data[col].mode()[<span class="number">0</span>] <span class="comment"># 以众数填充</span></span><br><span class="line">data.loc[data[<span class="string">&#x27;socialize&#x27;</span>]&lt;<span class="number">0</span>,<span class="string">&#x27;socialize&#x27;</span>] = data[<span class="string">&#x27;socialize&#x27;</span>].mode()[<span class="number">0</span>]</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">58</span>, <span class="number">64</span>):</span><br><span class="line">    col = neg_name[i]</span><br><span class="line">    data.loc[data[col]&lt;<span class="number">0</span>,col] = data[col].mode()[<span class="number">0</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 信任</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">77</span>, <span class="number">100</span>):</span><br><span class="line">    col = neg_name[i]</span><br><span class="line">    <span class="comment"># 考虑到 trust 中包含较多负数，故考虑在大于零的数中取众数</span></span><br><span class="line">    data.loc[data[col]&lt;<span class="number">0</span>,col] = data[name].loc[data[name]&gt;<span class="number">0</span>].mode()[<span class="number">0</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment"># ========================= 均值 ==========================</span></span><br><span class="line"><span class="comment"># 收入</span></span><br><span class="line">data.loc[data[<span class="string">&#x27;income&#x27;</span>]&lt;<span class="number">0</span>,<span class="string">&#x27;income&#x27;</span>] = data[<span class="string">&#x27;income&#x27;</span>].mean() <span class="comment"># 取均值填充收入</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 家庭收入：49列</span></span><br><span class="line">data.loc[data[<span class="string">&#x27;family_income&#x27;</span>]&lt;<span class="number">0</span>,<span class="string">&#x27;family_income&#x27;</span>] = data[<span class="string">&#x27;family_income&#x27;</span>].mean()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 预期收入：76</span></span><br><span class="line">data.loc[data[<span class="string">&#x27;inc_exp&#x27;</span>]&lt;<span class="number">0</span>,<span class="string">&#x27;inc_exp&#x27;</span>] = data[<span class="string">&#x27;inc_exp&#x27;</span>].mean()</span><br><span class="line"></span><br><span class="line"><span class="comment"># ======================== 0 填充 ===========================</span></span><br><span class="line"><span class="comment"># 婚姻：56-57</span></span><br><span class="line">data.loc[data[<span class="string">&#x27;marital_1st&#x27;</span>]&lt;<span class="number">0</span>,<span class="string">&#x27;marital_1st&#x27;</span>] = <span class="number">0</span> <span class="comment"># 首次结婚</span></span><br><span class="line">data.loc[data[<span class="string">&#x27;marital_now&#x27;</span>]&lt;<span class="number">0</span>,<span class="string">&#x27;marital_now&#x27;</span>] = <span class="number">0</span> <span class="comment"># 现在</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 父亲：64</span></span><br><span class="line">data.loc[data[<span class="string">&#x27;f_birth&#x27;</span>]&lt;<span class="number">0</span>,<span class="string">&#x27;f_birth&#x27;</span>] = <span class="number">0</span> <span class="comment"># 出生年份</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">65</span>, <span class="number">68</span>):</span><br><span class="line">    col = neg_name[i]</span><br><span class="line">    data.loc[data[col]&lt;<span class="number">0</span>,col] = data[col].mode()[<span class="number">0</span>]<span class="comment"># 众数</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 母亲：68</span></span><br><span class="line">data.loc[data[<span class="string">&#x27;m_birth&#x27;</span>]&lt;<span class="number">0</span>,<span class="string">&#x27;m_birth&#x27;</span>] = <span class="number">0</span> <span class="comment"># 出生年份</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">69</span>, <span class="number">76</span>):</span><br><span class="line">    col = neg_name[i]</span><br><span class="line">    data.loc[data[col]&lt;<span class="number">0</span>,col] = data[col].mode()[<span class="number">0</span>] <span class="comment"># 众数</span></span><br></pre></td></tr></table></figure></li>
+<li><p>确认负值处理完成</p>
+<p>对所有的列进行查看，确认是否所有的列中的负值都已处理完成。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">neg_count = <span class="built_in">len</span>(data.<span class="built_in">min</span>()[data.<span class="built_in">min</span>()&lt;<span class="number">0</span>].index) <span class="comment"># 记录负值列的个数</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> neg_count != <span class="number">0</span>:</span><br><span class="line">    print(<span class="string">&#x27;&#123;&#125; columns still have Negative values!&#x27;</span>.<span class="built_in">format</span>(neg_count))</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    print(<span class="string">&#x27;Congratulations! No columns have negative values!&#x27;</span>)</span><br></pre></td></tr></table></figure>
+<pre><code>Congratulations! No columns have negative values!</code></pre></li>
+</ul>
+<p>可以发现所有的负值都已处理完成。</p>
+<h3 id="special-infromation-process">Special infromation process</h3>
+<ul>
+<li><p>Age strafitication</p>
+<p>考虑到年龄对于收入水平、教育水平等都有重要的影响，因此，根据表格信息<code>survey_time</code>
+和 <code>birth</code> 两列的信息计算年龄，并对年龄进行分段。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Calculate age</span></span><br><span class="line">data[<span class="string">&#x27;age&#x27;</span>] = data[<span class="string">&#x27;survey_time&#x27;</span>] - data[<span class="string">&#x27;birth&#x27;</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment"># Age strafitication</span></span><br><span class="line">bins = [<span class="number">0</span>, <span class="number">17</span>, <span class="number">26</span>, <span class="number">34</span>, <span class="number">50</span>, <span class="number">63</span>, <span class="number">100</span>]</span><br><span class="line">data[<span class="string">&#x27;age_bin&#x27;</span>] = pd.cut(data[<span class="string">&#x27;age&#x27;</span>], bins, labels = [<span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>]) <span class="comment"># 分层</span></span><br></pre></td></tr></table></figure></li>
+<li><p>Data augmentation</p>
+<p>为了挖掘更多信息，我们需要进一步分析每个特征之间的关系，进行数据增广。经过仔细分析，加入了如下特征：</p>
+<ul>
+<li>第一次结婚年龄</li>
+<li>最近结婚年龄</li>
+<li>是否再婚</li>
+<li>配偶年龄</li>
+<li>配偶年龄差</li>
+<li>各种收入比（与配偶之间的收入比、十年后预期收入与现在的收入比等）</li>
+<li>收入与住房买诺记比（包括10年后期望收入等）</li>
+<li>社会阶级（10年后的社会阶级、14年后的社会阶级等）</li>
+<li>悠闲指数</li>
+<li>满意指数</li>
+<li>信任指数</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 第一次结婚年龄 143</span></span><br><span class="line">new_col = <span class="string">&#x27;marital_1stbir&#x27;</span></span><br><span class="line">data[new_col] = data[<span class="string">&#x27;marital_1st&#x27;</span>] - data[<span class="string">&#x27;birth&#x27;</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 最近结婚年龄 144</span></span><br><span class="line">new_col = <span class="string">&#x27;marital_nowtbir&#x27;</span></span><br><span class="line">data[new_col] = data[<span class="string">&#x27;marital_now&#x27;</span>] - data[<span class="string">&#x27;birth&#x27;</span>]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 是否再婚 145</span></span><br><span class="line">new_col = <span class="string">&#x27;mar&#x27;</span></span><br><span class="line">data[new_col] = data[<span class="string">&#x27;marital_nowtbir&#x27;</span>] - data[<span class="string">&#x27;marital_1stbir&#x27;</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 配偶年龄 146</span></span><br><span class="line">new_col = <span class="string">&#x27;marital_sbir&#x27;</span></span><br><span class="line">data[new_col] = data[<span class="string">&#x27;marital_now&#x27;</span>]-data[<span class="string">&#x27;s_birth&#x27;</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 配偶年龄差 147</span></span><br><span class="line">new_col = <span class="string">&#x27;age__&#x27;</span></span><br><span class="line">data[new_col] = data[<span class="string">&#x27;marital_nowtbir&#x27;</span>] - data[<span class="string">&#x27;marital_sbir&#x27;</span>]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 收入比 147+7 = 154</span></span><br><span class="line">data[<span class="string">&#x27;income/s_income&#x27;</span>] = data[<span class="string">&#x27;income&#x27;</span>]/(data[<span class="string">&#x27;s_income&#x27;</span>]+<span class="number">1</span>)</span><br><span class="line">data[<span class="string">&#x27;income+s_income&#x27;</span>] = data[<span class="string">&#x27;income&#x27;</span>]+(data[<span class="string">&#x27;s_income&#x27;</span>]+<span class="number">1</span>)</span><br><span class="line">data[<span class="string">&#x27;income/family_income&#x27;</span>] = data[<span class="string">&#x27;income&#x27;</span>]/(data[<span class="string">&#x27;family_income&#x27;</span>]+<span class="number">1</span>)</span><br><span class="line">data[<span class="string">&#x27;all_income/family_income&#x27;</span>] = (data[<span class="string">&#x27;income&#x27;</span>]+data[<span class="string">&#x27;s_income&#x27;</span>])/(data[<span class="string">&#x27;family_income&#x27;</span>]+<span class="number">1</span>)</span><br><span class="line">data[<span class="string">&#x27;income/inc_exp&#x27;</span>] = data[<span class="string">&#x27;income&#x27;</span>]/(data[<span class="string">&#x27;inc_exp&#x27;</span>]+<span class="number">1</span>)</span><br><span class="line">data[<span class="string">&#x27;family_income/m&#x27;</span>] = data[<span class="string">&#x27;family_income&#x27;</span>]/(data[<span class="string">&#x27;family_m&#x27;</span>]+<span class="number">0.01</span>)</span><br><span class="line">data[<span class="string">&#x27;income/m&#x27;</span>] = data[<span class="string">&#x27;income&#x27;</span>]/(data[<span class="string">&#x27;family_m&#x27;</span>]+<span class="number">0.01</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 收入/面积比 154+4=158</span></span><br><span class="line">data[<span class="string">&#x27;income/floor_area&#x27;</span>] = data[<span class="string">&#x27;income&#x27;</span>]/(data[<span class="string">&#x27;floor_area&#x27;</span>]+<span class="number">0.01</span>)</span><br><span class="line">data[<span class="string">&#x27;all_income/floor_area&#x27;</span>] = (data[<span class="string">&#x27;income&#x27;</span>]+data[<span class="string">&#x27;s_income&#x27;</span>])/(data[<span class="string">&#x27;floor_area&#x27;</span>]+<span class="number">0.01</span>)</span><br><span class="line">data[<span class="string">&#x27;family_income/floor_area&#x27;</span>] = data[<span class="string">&#x27;family_income&#x27;</span>]/(data[<span class="string">&#x27;floor_area&#x27;</span>]+<span class="number">0.01</span>)</span><br><span class="line">data[<span class="string">&#x27;floor_area/m&#x27;</span>] = data[<span class="string">&#x27;floor_area&#x27;</span>]/(data[<span class="string">&#x27;family_m&#x27;</span>]+<span class="number">0.01</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># class 158+3=161</span></span><br><span class="line">data[<span class="string">&#x27;class_10_diff&#x27;</span>] = (data[<span class="string">&#x27;class_10_after&#x27;</span>] - data[<span class="string">&#x27;class&#x27;</span>])</span><br><span class="line">data[<span class="string">&#x27;class_diff&#x27;</span>] = data[<span class="string">&#x27;class&#x27;</span>] - data[<span class="string">&#x27;class_10_before&#x27;</span>]</span><br><span class="line">data[<span class="string">&#x27;class_14_diff&#x27;</span>] = data[<span class="string">&#x27;class&#x27;</span>] - data[<span class="string">&#x27;class_14&#x27;</span>]</span><br><span class="line"><span class="comment"># 悠闲指数 162</span></span><br><span class="line">leisure_fea_lis = [<span class="string">&#x27;leisure_&#x27;</span>+<span class="built_in">str</span>(i) <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>,<span class="number">13</span>)]</span><br><span class="line">data[<span class="string">&#x27;leisure_sum&#x27;</span>] = data[leisure_fea_lis].<span class="built_in">sum</span>(axis=<span class="number">1</span>) <span class="comment">#skew</span></span><br><span class="line"><span class="comment"># 满意指数 163</span></span><br><span class="line">public_service_fea_lis = [<span class="string">&#x27;public_service_&#x27;</span>+<span class="built_in">str</span>(i) <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>,<span class="number">10</span>)]</span><br><span class="line">data[<span class="string">&#x27;public_service_sum&#x27;</span>] = data[public_service_fea_lis].<span class="built_in">sum</span>(axis=<span class="number">1</span>) <span class="comment">#skew</span></span><br><span class="line"><span class="comment"># 信任指数 164</span></span><br><span class="line">trust_fea_lis = [<span class="string">&#x27;trust_&#x27;</span>+<span class="built_in">str</span>(i) <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>,<span class="number">14</span>)]</span><br><span class="line">data[<span class="string">&#x27;trust_sum&#x27;</span>] = data[trust_fea_lis].<span class="built_in">sum</span>(axis=<span class="number">1</span>) <span class="comment">#skew</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># province mean 164+13=177</span></span><br><span class="line">data[<span class="string">&#x27;province_income_mean&#x27;</span>] = data.groupby([<span class="string">&#x27;province&#x27;</span>])[<span class="string">&#x27;income&#x27;</span>].transform(<span class="string">&#x27;mean&#x27;</span>).values</span><br><span class="line">data[<span class="string">&#x27;province_family_income_mean&#x27;</span>] = data.groupby([<span class="string">&#x27;province&#x27;</span>])[<span class="string">&#x27;family_income&#x27;</span>].transform(<span class="string">&#x27;mean&#x27;</span>).values</span><br><span class="line">data[<span class="string">&#x27;province_equity_mean&#x27;</span>] = data.groupby([<span class="string">&#x27;province&#x27;</span>])[<span class="string">&#x27;equity&#x27;</span>].transform(<span class="string">&#x27;mean&#x27;</span>).values</span><br><span class="line">data[<span class="string">&#x27;province_depression_mean&#x27;</span>] = data.groupby([<span class="string">&#x27;province&#x27;</span>])[<span class="string">&#x27;depression&#x27;</span>].transform(<span class="string">&#x27;mean&#x27;</span>).values</span><br><span class="line">data[<span class="string">&#x27;province_floor_area_mean&#x27;</span>] = data.groupby([<span class="string">&#x27;province&#x27;</span>])[<span class="string">&#x27;floor_area&#x27;</span>].transform(<span class="string">&#x27;mean&#x27;</span>).values</span><br><span class="line">data[<span class="string">&#x27;province_health_mean&#x27;</span>] = data.groupby([<span class="string">&#x27;province&#x27;</span>])[<span class="string">&#x27;health&#x27;</span>].transform(<span class="string">&#x27;mean&#x27;</span>).values</span><br><span class="line">data[<span class="string">&#x27;province_class_10_diff_mean&#x27;</span>] = data.groupby([<span class="string">&#x27;province&#x27;</span>])[<span class="string">&#x27;class_10_diff&#x27;</span>].transform(<span class="string">&#x27;mean&#x27;</span>).values</span><br><span class="line">data[<span class="string">&#x27;province_class_mean&#x27;</span>] = data.groupby([<span class="string">&#x27;province&#x27;</span>])[<span class="string">&#x27;class&#x27;</span>].transform(<span class="string">&#x27;mean&#x27;</span>).values</span><br><span class="line">data[<span class="string">&#x27;province_health_problem_mean&#x27;</span>] = data.groupby([<span class="string">&#x27;province&#x27;</span>])[<span class="string">&#x27;health_problem&#x27;</span>].transform(<span class="string">&#x27;mean&#x27;</span>).values</span><br><span class="line">data[<span class="string">&#x27;province_family_status_mean&#x27;</span>] = data.groupby([<span class="string">&#x27;province&#x27;</span>])[<span class="string">&#x27;family_status&#x27;</span>].transform(<span class="string">&#x27;mean&#x27;</span>).values</span><br><span class="line">data[<span class="string">&#x27;province_leisure_sum_mean&#x27;</span>] = data.groupby([<span class="string">&#x27;province&#x27;</span>])[<span class="string">&#x27;leisure_sum&#x27;</span>].transform(<span class="string">&#x27;mean&#x27;</span>).values</span><br><span class="line">data[<span class="string">&#x27;province_public_service_sum_mean&#x27;</span>] = data.groupby([<span class="string">&#x27;province&#x27;</span>])</span><br><span class="line">[<span class="string">&#x27;public_service_sum&#x27;</span>].transform(<span class="string">&#x27;mean&#x27;</span>).values</span><br><span class="line">data[<span class="string">&#x27;province_trust_sum_mean&#x27;</span>] = data.groupby([<span class="string">&#x27;province&#x27;</span>])[<span class="string">&#x27;trust_sum&#x27;</span>].transform(<span class="string">&#x27;mean&#x27;</span>).values</span><br><span class="line"></span><br><span class="line"><span class="comment"># city mean 177+13=190</span></span><br><span class="line">data[<span class="string">&#x27;city_income_mean&#x27;</span>] = data.groupby([<span class="string">&#x27;city&#x27;</span>])[<span class="string">&#x27;income&#x27;</span>].transform(<span class="string">&#x27;mean&#x27;</span>).values</span><br><span class="line">data[<span class="string">&#x27;city_family_income_mean&#x27;</span>] = data.groupby([<span class="string">&#x27;city&#x27;</span>])[<span class="string">&#x27;family_income&#x27;</span>].transform(<span class="string">&#x27;mean&#x27;</span>).values</span><br><span class="line">data[<span class="string">&#x27;city_equity_mean&#x27;</span>] = data.groupby([<span class="string">&#x27;city&#x27;</span>])[<span class="string">&#x27;equity&#x27;</span>].transform(<span class="string">&#x27;mean&#x27;</span>).values</span><br><span class="line">data[<span class="string">&#x27;city_depression_mean&#x27;</span>] = data.groupby([<span class="string">&#x27;city&#x27;</span>])[<span class="string">&#x27;depression&#x27;</span>].transform(<span class="string">&#x27;mean&#x27;</span>).values</span><br><span class="line">data[<span class="string">&#x27;city_floor_area_mean&#x27;</span>] = data.groupby([<span class="string">&#x27;city&#x27;</span>])[<span class="string">&#x27;floor_area&#x27;</span>].transform(<span class="string">&#x27;mean&#x27;</span>).values</span><br><span class="line">data[<span class="string">&#x27;city_health_mean&#x27;</span>] = data.groupby([<span class="string">&#x27;city&#x27;</span>])[<span class="string">&#x27;health&#x27;</span>].transform(<span class="string">&#x27;mean&#x27;</span>).values</span><br><span class="line">data[<span class="string">&#x27;city_class_10_diff_mean&#x27;</span>] = data.groupby([<span class="string">&#x27;city&#x27;</span>])[<span class="string">&#x27;class_10_diff&#x27;</span>].transform(<span class="string">&#x27;mean&#x27;</span>).values</span><br><span class="line">data[<span class="string">&#x27;city_class_mean&#x27;</span>] = data.groupby([<span class="string">&#x27;city&#x27;</span>])[<span class="string">&#x27;class&#x27;</span>].transform(<span class="string">&#x27;mean&#x27;</span>).values</span><br><span class="line">data[<span class="string">&#x27;city_health_problem_mean&#x27;</span>] = data.groupby([<span class="string">&#x27;city&#x27;</span>])[<span class="string">&#x27;health_problem&#x27;</span>].transform(<span class="string">&#x27;mean&#x27;</span>).values</span><br><span class="line">data[<span class="string">&#x27;city_family_status_mean&#x27;</span>] = data.groupby([<span class="string">&#x27;city&#x27;</span>])[<span class="string">&#x27;family_status&#x27;</span>].transform(<span class="string">&#x27;mean&#x27;</span>).values</span><br><span class="line">data[<span class="string">&#x27;city_leisure_sum_mean&#x27;</span>] = data.groupby([<span class="string">&#x27;city&#x27;</span>])[<span class="string">&#x27;leisure_sum&#x27;</span>].transform(<span class="string">&#x27;mean&#x27;</span>).values</span><br><span class="line">data[<span class="string">&#x27;city_public_service_sum_mean&#x27;</span>] = data.groupby([<span class="string">&#x27;city&#x27;</span>])[<span class="string">&#x27;public_service_sum&#x27;</span>].transform(<span class="string">&#x27;mean&#x27;</span>).values</span><br><span class="line">data[<span class="string">&#x27;city_trust_sum_mean&#x27;</span>] = data.groupby([<span class="string">&#x27;city&#x27;</span>])[<span class="string">&#x27;trust_sum&#x27;</span>].transform(<span class="string">&#x27;mean&#x27;</span>).values</span><br><span class="line"></span><br><span class="line"><span class="comment"># county mean 190 + 13 = 203</span></span><br><span class="line">data[<span class="string">&#x27;county_income_mean&#x27;</span>] = data.groupby([<span class="string">&#x27;county&#x27;</span>])[<span class="string">&#x27;income&#x27;</span>].transform(<span class="string">&#x27;mean&#x27;</span>).values</span><br><span class="line">data[<span class="string">&#x27;county_family_income_mean&#x27;</span>] = data.groupby([<span class="string">&#x27;county&#x27;</span>])[<span class="string">&#x27;family_income&#x27;</span>].transform(<span class="string">&#x27;mean&#x27;</span>).values</span><br><span class="line">data[<span class="string">&#x27;county_equity_mean&#x27;</span>] = data.groupby([<span class="string">&#x27;county&#x27;</span>])[<span class="string">&#x27;equity&#x27;</span>].transform(<span class="string">&#x27;mean&#x27;</span>).values</span><br><span class="line">data[<span class="string">&#x27;county_depression_mean&#x27;</span>] = data.groupby([<span class="string">&#x27;county&#x27;</span>])[<span class="string">&#x27;depression&#x27;</span>].transform(<span class="string">&#x27;mean&#x27;</span>).values</span><br><span class="line">data[<span class="string">&#x27;county_floor_area_mean&#x27;</span>] = data.groupby([<span class="string">&#x27;county&#x27;</span>])[<span class="string">&#x27;floor_area&#x27;</span>].transform(<span class="string">&#x27;mean&#x27;</span>).values</span><br><span class="line">data[<span class="string">&#x27;county_health_mean&#x27;</span>] = data.groupby([<span class="string">&#x27;county&#x27;</span>])[<span class="string">&#x27;health&#x27;</span>].transform(<span class="string">&#x27;mean&#x27;</span>).values</span><br><span class="line">data[<span class="string">&#x27;county_class_10_diff_mean&#x27;</span>] = data.groupby([<span class="string">&#x27;county&#x27;</span>])[<span class="string">&#x27;class_10_diff&#x27;</span>].transform(<span class="string">&#x27;mean&#x27;</span>).values</span><br><span class="line">data[<span class="string">&#x27;county_class_mean&#x27;</span>] = data.groupby([<span class="string">&#x27;county&#x27;</span>])[<span class="string">&#x27;class&#x27;</span>].transform(<span class="string">&#x27;mean&#x27;</span>).values</span><br><span class="line">data[<span class="string">&#x27;county_health_problem_mean&#x27;</span>] = data.groupby([<span class="string">&#x27;county&#x27;</span>])[<span class="string">&#x27;health_problem&#x27;</span>].transform(<span class="string">&#x27;mean&#x27;</span>).values</span><br><span class="line">data[<span class="string">&#x27;county_family_status_mean&#x27;</span>] = data.groupby([<span class="string">&#x27;county&#x27;</span>])[<span class="string">&#x27;family_status&#x27;</span>].transform(<span class="string">&#x27;mean&#x27;</span>).values</span><br><span class="line">data[<span class="string">&#x27;county_leisure_sum_mean&#x27;</span>] = data.groupby([<span class="string">&#x27;county&#x27;</span>])[<span class="string">&#x27;leisure_sum&#x27;</span>].transform(<span class="string">&#x27;mean&#x27;</span>).values</span><br><span class="line">data[<span class="string">&#x27;county_public_service_sum_mean&#x27;</span>] = data.groupby([<span class="string">&#x27;county&#x27;</span>])</span><br><span class="line">[<span class="string">&#x27;public_service_sum&#x27;</span>].transform(<span class="string">&#x27;mean&#x27;</span>).values</span><br><span class="line">data[<span class="string">&#x27;county_trust_sum_mean&#x27;</span>] = data.groupby([<span class="string">&#x27;county&#x27;</span>])[<span class="string">&#x27;trust_sum&#x27;</span>].transform(<span class="string">&#x27;mean&#x27;</span>).values</span><br><span class="line"></span><br><span class="line"><span class="comment"># ratio 相比同省 203 + 13 =216</span></span><br><span class="line">data[<span class="string">&#x27;income/province&#x27;</span>] = data[<span class="string">&#x27;income&#x27;</span>]/(data[<span class="string">&#x27;province_income_mean&#x27;</span>])</span><br><span class="line">data[<span class="string">&#x27;family_income/province&#x27;</span>] = data[<span class="string">&#x27;family_income&#x27;</span>]/(data[<span class="string">&#x27;province_family_income_mean&#x27;</span>])</span><br><span class="line">data[<span class="string">&#x27;equity/province&#x27;</span>] = data[<span class="string">&#x27;equity&#x27;</span>]/(data[<span class="string">&#x27;province_equity_mean&#x27;</span>])</span><br></pre></td></tr></table></figure></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">
+            -------------This blog is over!
+            <i class="fa fa-eye"></i>
+            Thanks for your reading-------------
+        </div>
+    
+</div>
+      
+    </div>
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>Post author:  </strong>YangSu
+  </li>
+  <li class="post-copyright-link">
+    <strong>Post link: </strong>
+    <a href="http://yangsuoly.com/2021/05/18/Ensemble-Happiness/" title="Ensemble-happiness">http://yangsuoly.com/2021/05/18/Ensemble-Happiness/</a>
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/Tags/Python/" rel="tag"><i class="fa fa-tag"></i> Python</a>
+              <a href="/Tags/Ensemble/" rel="tag"><i class="fa fa-tag"></i> Ensemble</a>
+              <a href="/Tags/Sklearn/" rel="tag"><i class="fa fa-tag"></i> Sklearn</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/05/13/Ensemble-Stacking/" rel="prev" title="Ensemble-Stacking">
+      <i class="fa fa-chevron-left"></i> Ensemble-Stacking
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/05/22/Ensemble-Steam/" rel="next" title="Ensemble-Steam">
+      Ensemble-Steam <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div id="music163player">
+      <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=1317956275&auto=0&height=66"></iframe>
+      </iframe>
+    </div>
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#problem"><span class="nav-text">1. Problem</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#introduction-of-background"><span class="nav-text">1.1 Introduction of background</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#data-information"><span class="nav-text">1.2 Data information</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#data-process"><span class="nav-text">2. Data process</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#load-data"><span class="nav-text">2.1 Load data</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#information"><span class="nav-text">2.2 Information</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#data-preparation"><span class="nav-text">2.3 Data preparation</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#missing-values"><span class="nav-text">2.3.1 Missing values</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#negative-values"><span class="nav-text">2.3.2 Negative values</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#special-infromation-process"><span class="nav-text">Special infromation process</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="YangSu"
+      src="/images/YangSu.jpg">
+  <p class="site-author-name" itemprop="name">YangSu</p>
+  <div class="site-description" itemprop="description">A blog for recording learning notes...</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">78</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/Categories/">
+          
+        <span class="site-state-item-count">40</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/Tags/">
+          
+        <span class="site-state-item-count">49</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/YangSuoly" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;YangSuoly" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://gitee.com/yangsuoly" title="Gitee → https:&#x2F;&#x2F;gitee.com&#x2F;yangsuoly" rel="noopener" target="_blank"><i class="fab fa-github-square fa-fw"></i>Gitee</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://space.bilibili.com/64518717" title="B 站 → https:&#x2F;&#x2F;space.bilibili.com&#x2F;64518717" rel="noopener" target="_blank"><i class="fa fa-play-circle fa-fw"></i>B 站</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Related links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://www.58pic.com/u/19637930/" title="https:&#x2F;&#x2F;www.58pic.com&#x2F;u&#x2F;19637930&#x2F;" rel="noopener" target="_blank">千图网</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js" integrity="sha384-g7c+Jr9ZivxKLnZTDUhnkOnsh30B4H0rpLUpJ4jAIKs4fnJI+sEnkvrMWph2EDg4" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/auto-render.min.js" integrity="sha384-mll67QQFJfxn0IYznZYonOWZ644AWYC+Pt2cHqMaRhXVrursRwvLnLaebdGIlYNa" crossorigin="anonymous"
+        onload="renderMathInElement(document.body);"></script>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2026</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">YangSu</span>
+</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="Total Visitors">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="Total Views">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script size="300" alpha="0.6" zIndex="-1" src="/lib/canvas-ribbon/canvas-ribbon.js"></script>
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+<script>
+document.querySelectorAll('.pdfobject-container').forEach(element => {
+  let url = element.dataset.target;
+  let pdfOpenParams = {
+    navpanes : 0,
+    toolbar  : 0,
+    statusbar: 0,
+    pagemode : 'thumbs',
+    view     : 'FitH'
+  };
+  let pdfOpenFragment = '#' + Object.entries(pdfOpenParams).map(([key, value]) => `${key}=${encodeURIComponent(value)}`).join('&');
+  let fullURL = `/lib/pdf/web/viewer.html?file=${encodeURIComponent(url)}${pdfOpenFragment}`;
+
+  if (NexT.utils.supportsPDFs()) {
+    element.innerHTML = `<embed class="pdfobject" src="${url + pdfOpenFragment}" type="application/pdf" style="height: ${element.dataset.height};">`;
+  } else {
+    element.innerHTML = `<iframe src="${fullURL}" style="height: ${element.dataset.height};" frameborder="0"></iframe>`;
+  }
+});
+</script>
+
+
+<script>
+if (document.querySelectorAll('pre.mermaid').length) {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js', () => {
+    mermaid.initialize({
+      theme    : 'forest',
+      logLevel : 3,
+      flowchart: { curve     : 'linear' },
+      gantt    : { axisFormat: '%m/%d/%Y' },
+      sequence : { actorMargin: 50 }
+    });
+  }, window.mermaid);
+}
+</script>
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+  <script src="//cdn.jsdelivr.net/npm/quicklink@1/dist/quicklink.umd.js"></script>
+  <script>
+      window.addEventListener('load', () => {
+      quicklink({
+        timeout : 3000,
+        priority: true,
+        ignores : [uri => uri.includes('#'),uri => uri === 'http://yangsuoly.com/2021/05/18/Ensemble-Happiness/',]
+      });
+      });
+  </script>
+
+  
+  <script id="ribbon" src="js/canvas-ribbon.js"></script>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/22.2017.cba-normal.model.json"},"display":{"position":"right","width":300,"height":450},"mobile":{"show":false},"react":{"opacity":0.7},"log":false});</script></body>
+</html>

@@ -1,0 +1,1089 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/blog-logo-32px.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/blog-logo-16px.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <link rel="manifest" href="/images/manifest.json">
+  <meta name="msapplication-config" content="/images/browserconfig.xml">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yangsuoly.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":true},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":true,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="10. 大模型之 Adaptation 使用语言模型（例如在上下文学习中）通过仅给出提示，我们已经能够执行一些任务。然而，提示方法并不适用于全部的下游任务，如自然语言推理 NLI、问题回答 QA、将网络表格转换为文本、解析电子健康记录 EHR 等。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Large-lm-8-Adaptation">
+<meta property="og:url" content="http://yangsuoly.com/2023/09/19/Large-lm-8-Adaptation/index.html">
+<meta property="og:site_name" content="独孤诗人的学习驿站">
+<meta property="og:description" content="10. 大模型之 Adaptation 使用语言模型（例如在上下文学习中）通过仅给出提示，我们已经能够执行一些任务。然而，提示方法并不适用于全部的下游任务，如自然语言推理 NLI、问题回答 QA、将网络表格转换为文本、解析电子健康记录 EHR 等。">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/YangSuoly/Images/RL-notes/202309191031934.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/YangSuoly/Images/RL-notes/202309191109470.png">
+<meta property="article:published_time" content="2023-09-19T02:29:20.000Z">
+<meta property="article:modified_time" content="2023-09-19T03:17:23.558Z">
+<meta property="article:author" content="YangSu">
+<meta property="article:tag" content="LM">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/YangSuoly/Images/RL-notes/202309191031934.png">
+
+<link rel="canonical" href="http://yangsuoly.com/2023/09/19/Large-lm-8-Adaptation/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>Large-lm-8-Adaptation | 独孤诗人的学习驿站</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?f59f5fb59d32ec3903088b0f976956d1";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta custom-logo">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">独孤诗人的学习驿站</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">生活就是一半烟火，一半诗意。手执烟火谋生活，心怀诗意谋未来……</p>
+      <a>
+        <img class="custom-logo-image" src="/images/logo@2x.png" alt="独孤诗人的学习驿站">
+      </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/Tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/Categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+  <a href="https://github.com/YangSuoly" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yangsuoly.com/2023/09/19/Large-lm-8-Adaptation/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/YangSu.jpg">
+      <meta itemprop="name" content="YangSu">
+      <meta itemprop="description" content="A blog for recording learning notes...">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="独孤诗人的学习驿站">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Large-lm-8-Adaptation
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2023-09-19 10:29:20 / Modified: 11:17:23" itemprop="dateCreated datePublished" datetime="2023-09-19T10:29:20+08:00">2023-09-19</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/Categories/DataWhale/" itemprop="url" rel="index"><span itemprop="name">DataWhale</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/Categories/DataWhale/Large-LM/" itemprop="url" rel="index"><span itemprop="name">Large LM</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="Views" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span><br>
+            <span class="post-meta-item" title="Symbols count in article">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">Symbols count in article: </span>
+              <span>7.8k</span>
+            </span>
+            <span class="post-meta-item" title="Reading time">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">Reading time &asymp;</span>
+              <span>7 mins.</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="大模型之-adaptation">10. 大模型之 Adaptation</h1>
+<p>使用语言模型（例如在上下文学习中）通过仅给出提示，我们已经能够执行一些任务。然而，提示方法并不适用于全部的下游任务，如自然语言推理
+<code>NLI</code>、问题回答
+<code>QA</code>、将网络表格转换为文本、解析电子健康记录 <code>EHR</code>
+等。</p>
+<a id="more"></a>
+<p><img src="https://cdn.jsdelivr.net/gh/YangSuoly/Images/RL-notes/202309191031934.png" style="zoom:80%;" /></p>
+<p>下游任务与语言模型的训练数据（例如，<code>Pile</code>
+数据集）可能在格式和主题上有所不同，或者需要随时间更新新知识。因此，语言模型需要使用特定于任务的数据或领域知识来针对下游任务进行适配</p>
+<h2 id="为什么需要adaptation">10.1 为什么需要Adaptation</h2>
+<p>在探讨这一问题之前，我们需要理解语言模型如何被训练，并明确下游任务与原始训练任务之间可能存在的不同之处。</p>
+<p>从语言模型的训练方式来说，语言模型，例如
+<code>GPT-3</code>，通常是任务不可知（task-agnostic）的，这意味着它们在一个广泛的领域内进行训练，而不是针对特定任务。这种方法的优点在于模型具有广泛的适用性，但也带来了一些挑战。</p>
+<p>由于下游任务的多样性，语言模型的预训练方式可以非常不同，这可能导致问题。例如，自然语言推理
+<code>NLI</code> 任务与 <code>Pile</code>
+数据集上的语言建模任务可能完全不同。</p>
+<p>例子：</p>
+<ul>
+<li><strong>Premise</strong>: I have never seen an apple that is not
+red.</li>
+<li><strong>Hypothesis</strong>: I have never seen an apple.</li>
+<li><strong>Correct output</strong>: Not entailment (the reverse
+direction would be entailment)</li>
+</ul>
+<p>这种格式对模型来说可能并不自然，因为它远离了模型的训练范围。另外在处理下游任务时，与原始训练任务之间的差异可能造成一些挑战。</p>
+<ol type="1">
+<li><p><strong>格式的不同</strong>:</p>
+<ul>
+<li><p><strong>自然语言推理（NLI）</strong>: 下游任务如 <code>NLI</code>
+涉及两个句子的比较，以产生单一的二进制输出。这与语言模型通常用于生成下一个标记或填充
+<code>MASK</code> 标记的任务截然不同。</p>
+<p>例如，<code>NLI</code>
+的逻辑推理过程涉及多层次的比较和理解，而不仅仅是根据给定的上下文生成下一个可能的词。</p></li>
+<li><p><strong>BERT 训练与 MASK 标记</strong>: <code>BERT</code>
+训练过程中使用了 <code>MASK</code>
+标记，而许多下游任务可能并不使用这些标记。</p>
+<p>这种不同可能导致在针对具体任务时需要对模型进行显著的调整。</p></li>
+</ul></li>
+<li><p><strong>主题转变</strong>:</p>
+<ul>
+<li><p><strong>特定领域的需求</strong>:
+下游任务可能集中在特定的主题或领域上。</p>
+<p>例如医疗记录分析或法律文档解析。这些任务可能涉及专门的术语和知识，与模型的通用训练任务相去甚远。</p></li>
+<li><p><strong>广泛主题的灵活性</strong>:
+语言模型可能需要处理各种不同的主题。</p>
+<p>如果下游任务突然聚焦在一个新的或非常独特的领域上，这可能会超出模型的训练范围。</p></li>
+</ul></li>
+<li><p><strong>时间转变</strong>:</p>
+<ul>
+<li><p><strong>新知识的需求</strong>:
+随着时间的推移，新的信息和知识不断涌现。</p>
+<p>例如，<code>GPT-3</code>
+在拜登成为总统之前就已训练完毕，因此可能缺乏有关他总统任期的最新信息。</p></li>
+<li><p><strong>非公开信息的需求</strong>:
+有时下游任务可能涉及在训练期间不公开的信息。</p>
+<p>这可能需要更多特定领域的专业知识和调整。</p></li>
+</ul></li>
+</ol>
+<h2 id="通用的-adaptation-配置">10.2 通用的 adaptation 配置</h2>
+<p>下面提供使用预训练语言模型（LM）的参数来适配（adapt）下游任务的一般设置。</p>
+<ol type="1">
+<li><p><strong>预训练语言模型（Pre-trained LM）</strong>:
+在适配阶段的开始，我们已经有了一个预训练的语言模型，用参数 <span
+class="math inline">θLM</span>
+表示。这个模型被训练来理解和生成语言，但不是特别针对任何特定任务。</p></li>
+<li><p><strong>下游任务数据集（Downstream Task Dataset）</strong>:
+我们获得了一组来自下游任务分布 <span class="math inline">P_{task}</span>
+的样本数据。这些数据可以是文本分类、情感分析等任务的特定实例，每个样本由输入
+<span class="math inline">x</span> 和目标输出 <span
+class="math inline">y</span> 组成，如：<span
+class="math inline">\left(x^{(1)}, y^{(1)}\right), \ldots,\left(x^{(n)},
+y^{(n)}\right)</span>。</p></li>
+<li><p><strong>适配参数（Adaptation Parameters）</strong>:
+为了使预训练的 <code>LM</code> 适合特定的下游任务，我们需要找到一组参数
+<span
+class="math inline">\gamma</span>，这组参数可以来自现有参数的子集或引入的新的参数，<span
+class="math inline">\Gamma</span>。这些参数将用于调整模型，以便它在特定任务上的表现更好。</p></li>
+<li><p><strong>任务损失函数（Task Loss Function）</strong>:
+我们需要定义一个损失函数 <span class="math inline">\ell_{\text {task
+}}</span>
+来衡量模型在下游任务上的表现。例如，交叉熵损失是一种常见的选择，用于衡量模型预测的概率分布与真实分布之间的差异。</p></li>
+<li><p><strong>优化问题（Optimization Problem）</strong>:
+我们的目标是找到一组适配参数 <span class="math inline">\gamma_{\text
+{adapt
+}}</span>，使得任务损失在整个下游数据集上最小化。数学上，这可以通过以下优化问题表示：</p></li>
+</ol>
+<p><span class="math display">
+\gamma_{\text {adapt }}=\operatorname{argmin}_{\gamma \in \Gamma}
+\frac{1}{n} \sum_{i=1}^n \ell_{\text {task }}\left(\gamma,
+\theta_{\mathrm{LM}}, x_i, y_i\right) .
+</span></p>
+<p>通过这个过程，我们可以取得一组适配参数 <span
+class="math inline">\gamma_{\text {adapt
+}}</span>，用于参数化适配后的模型<span
+class="math inline">p_{adapt}</span>。这样，我们就可以将通用的、任务无关的预训练语言模型适配到特定的下游任务上，以实现更好的性能。</p>
+<p>这种适配方法将模型的通用性与特定任务的效能结合在一起，既保留了模型的灵活性，又确保了在特定任务上的高效表现。</p>
+<p><strong>当前主流的几种 Adaptation 方法</strong>：</p>
+<ul>
+<li>Probing</li>
+<li>Fine-tuning</li>
+<li>Lightweight Fine-tuning</li>
+</ul>
+<h2 id="总体总结">10.3 总体总结</h2>
+<p>在实际应用过程中，需要将大型语言模型适配到各种不同的下游任务中，这些任务可能与语言建模有很大不同。</p>
+<ol type="1">
+<li><strong>探测法（Probing）</strong>：探测法在冻结的语言模型之上训练一个特定任务的预测头，将语言模型视为良好的表示提取器。冻结语言模型倾向于限制该方法的表现能力。</li>
+<li><strong>微调（Fine-tuning）</strong>：微调将大型语言模型参数视为下游任务的进一步训练的初始化，这比探测更具表现力，但也更昂贵，因为我们必须为每个下游任务保存整个模型。</li>
+<li><strong>轻量级微调（Lightweight
+fine-tuning）</strong>：轻量级微调在微调和探测之间取得了平衡，只优化少量参数（模型的&lt;1%），但它优化了模型的高杠杆部分，因此仍然非常具有表现力。
+通过上述方法，可以更灵活地应对各种不同的下游任务，既实现了对特定任务的精确适配，又在一定程度上控制了计算和存储的成本，从而在实际应用中取得更好的性能和效率。</li>
+</ol>
+<h2 id="reference">10.4 Reference</h2>
+<ul>
+<li><p><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2110.08207.pdf">Multitask Prompted
+Training Enables Zero-Shot Task Generalization</a>. <em>Victor Sanh et
+al.</em>. 2021. Introduces <strong>T0</strong> from BigScience.</p></li>
+<li><p><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2109.01652.pdf">Finetuned Language
+Models Are Zero-Shot Learners</a>. <em>Jason Wei, Maarten Bosma, Vincent
+Zhao, Kelvin Guu, Adams Wei Yu, Brian Lester, Nan Du, Andrew M. Dai,
+Quoc V. Le</em>. 2021. Introduces <strong>FLAN</strong> from
+Google.</p></li>
+<li><p><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2101.00190.pdf">Prefix-Tuning:
+Optimizing Continuous Prompts for Generation</a>. <em>Xiang Lisa Li,
+Percy Liang</em>. ACL/IJCNLP 2021.</p></li>
+<li><p><a
+target="_blank" rel="noopener" href="https://cdn.openai.com/papers/Training_language_models_to_follow_instructions_with_human_feedback.pdf">Training
+language models to follow instructions with human feedback</a>.Long
+Ouyang et al.. InstructGPT paper.</p></li>
+<li><p><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2104.08691.pdf">The Power of Scale
+for Parameter-Efficient Prompt Tuning</a>, Brian Lester, Rami Al-Rfou,
+Noah Constant. EMNLP 2021. Introduces prompt tuning.</p></li>
+<li><p><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2110.04366.pdf">Towards a Unified
+View of Parameter-Efficient Transfer Learning</a>, Junxian He, Chunting
+Zhou, Xuezhe Ma, Taylor Berg-Kirkpatrick, Graham Neubig. ICLR
+2022.</p></li>
+<li><p><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2110.07602.pdf">P-Tuning v2:
+Prompt Tuning Can Be Comparable to Fine-tuning Universally Across Scales
+and Tasks</a>, Xiao Liu et al. arXiv 2021.</p></li>
+</ul>
+<h1 id="环境影响">11. 环境影响</h1>
+<p>本章讨论一个问题：大语言模型对环境的影响是什么？</p>
+<p>这里给出的一个答案是：<strong>气候变化</strong></p>
+<p>一方面，我们都听说过气候变化的严重影响 (<a
+target="_blank" rel="noopener" href="https://www.cnn.com/2021/09/17/us/catastrophic-climate-change-un-report/index.html">Paper
+1</a>、<a href="%22https://climate.nasa.gov/effects/">Paper 2</a>)：</p>
+<ul>
+<li>我们已经比工业革命前的水平高出1.2°C</li>
+<li>需要保持在1.5°C以下以避免气候危机</li>
+<li>根据目前的轨迹，在未来几十年内将达到2.7°C</li>
+</ul>
+<p>另一方面，我们看到训练大语言模型所需的计算量大幅增加（从而导致二氧化碳排放）。以下是一些数据：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/1906.02243.pdf">Strubell et al.,
+2018</a> 估计，训练排放了626,000磅二氧化碳（5辆汽车终生的排放量）。</li>
+<li>DeepMind的 <a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2112.11446.pdf">Gopher</a>
+报告称，训练产生的二氧化碳估计为380吨。</li>
+</ul>
+<p>本章将学习如何将大语言模型与环境影响联系起来。</p>
+<h2 id="introduction">11. 1 Introduction</h2>
+<p>学习目标：</p>
+<ul>
+<li>全面了解大语言模型对环境的影响。</li>
+<li>能够计算训练特定语言模型产生的排放量。</li>
+<li>提高对监测和减轻（负面）环境影响的认识，甚至承担个人责任。</li>
+</ul>
+<p>注意事项：</p>
+<ul>
+<li>本章的重点是了解（环境）成本。</li>
+<li>大语言模型大幅提升了效果，但是需要考虑成本。如何权衡（trade-off）非常具有挑战性。</li>
+<li>与此同时，世界人口的收益和成本往往非常不均衡，成本“不成比例地落在穷人和弱势群体身上”。</li>
+<li>所提供的所有数字都是估计，因为：
+<ul>
+<li>缺乏对数据中心的监控和信息</li>
+<li>这些信息通常是私有的</li>
+<li>很难用摊余成本进行信用/责任分配（例如，建立数据中心+训练多个模型，训练一个模型+使其适配许多下游任务）。</li>
+</ul></li>
+</ul>
+<h2 id="生命周期评估">11.2 生命周期评估</h2>
+<p>本节主要基于 <a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2110.11822.pdf">Ligozat
+et al. (2021)</a> 的论文，从多个角度进行探讨语言模型 <code>AI</code>
+对气候影响的内容：</p>
+<ul>
+<li><p>从<strong>哲学角度</strong>来说，大多数关于人工智能和机器学习对环境影响的工作都集中在温室气体排放（受气候变化启发）上，但更重要的是（尽管很难）采取系统方法来思考：</p>
+<ul>
+<li><p>对环境的全面影响（排放、水足迹）</p></li>
+<li><p>IT设备的整个生命周期（例如，生产、使用、寿命终止）</p></li>
+</ul></li>
+<li><p>从<strong>生命周期评估（LCA）</strong>的角度来说：</p>
+<ul>
+<li><p>生命周期评估（LCA）（ISO
+14040和14044）为实现这一点提供了一个框架。</p></li>
+<li><p>需要“从系统的角度”来避免“一个问题的解决方案会产生几个新的、经常被忽视的问题”。</p></li>
+</ul></li>
+<li><p>从<strong>IT设备的生命周期</strong>来说：</p>
+<ul>
+<li><p>生产：</p>
+<ul>
+<li>原材料提取：提取矿石以及转化为金属的所有过程</li>
+<li>制造：包括制造设备的所有过程</li>
+<li>运输：设备运输过程</li>
+</ul></li>
+<li><p>使用：设备的实际能耗</p></li>
+<li><p>寿命终止：拆除、回收/处置设备</p></li>
+</ul></li>
+<li><p>从<strong>环境影响</strong>的角度来说：</p>
+<ul>
+<li>温室气体排放：导致气候变化
+<ul>
+<li><p>水足迹：淡水在一些地区是稀缺资源</p></li>
+<li><p>数据中心使用水进行冷却（需要电力）</p></li>
+<li><p>发电是第二大用水需求，处理水和废水需要电力</p></li>
+</ul></li>
+<li><a
+target="_blank" rel="noopener" href="https://lc-impact.eu/HHhuman_toxicity.html">对人类的危害</a>：释放到环境中（空气、水、土壤）的化学物质，可导致癌症等。
+<ul>
+<li>芯片制造在制造种产生有毒废料</li>
+</ul></li>
+<li>非生物资源枯竭
+<ul>
+<li>化石燃料</li>
+<li>用于制造电子设备的矿物（锂、钴）。您可以通过<a
+target="_blank" rel="noopener" href="https://iopscience.iop.org/article/10.1088/1748-9326/abfba1/pdf">此链接</a>了解更多关于数据中心对环境的影响。</li>
+</ul></li>
+</ul></li>
+<li><p>其他二阶效应（<a
+target="_blank" rel="noopener" href="https://crfm.stanford.edu/assets/report.pdf#environment">更多细节</a>）：</p>
+<ul>
+<li><p>更高的效率创造更多的需求（<a
+target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Rebound_effect_(conservation)">反弹效应</a>
+和 <a
+target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Jevons_paradox">杰文悖论</a>）</p></li>
+<li><p>环境变化（荒漠化加速，灭绝率上升）</p></li>
+<li><p>冻土融化反过来又加速了温室气体排放</p></li>
+<li><p>芯片短缺导致汽车制造业停工</p></li>
+</ul>
+<p><span class="math display">
+\text{language model} \quad\Rightarrow\quad \text{compute}
+\quad\Rightarrow\quad \text{energy use} \quad\Rightarrow\quad
+\text{greenhouse gas emissions} \quad\Rightarrow\quad
+\text{environmental impact}
+</span></p></li>
+</ul>
+<h2 id="气候变化">11.3 气候变化</h2>
+<p>虽然考虑整个生命周期很重要，但我们将主要关注气候变化和温室气体排放，因为这是大部分研究人工智能和机器学习对环境的影响所关注的。</p>
+<p>气温正在上升：</p>
+<ul>
+<li>自1900年以来，平均表面温度增加了2.14˚F（1.19˚C）。</li>
+<li>自2005年以来，出现了10个最热年份。</li>
+<li>温度随时间增加。</li>
+</ul>
+<p>负面影响：</p>
+<ul>
+<li>自然灾害增加（极端热浪、洪水、干旱、野火）</li>
+<li>海平面上升破坏沿海社区和野生动物生态系统</li>
+</ul>
+<p>原因：</p>
+<ul>
+<li>排放到大气中的<a
+target="_blank" rel="noopener" href="https://www.epa.gov/ghgemissions/overview-greenhouse-gases">温室气体</a>（二氧化碳、甲烷、一氧化二氮）锁住了太阳的热量（过去80万年的<a
+target="_blank" rel="noopener" href="https://www.ncei.noaa.gov/sites/default/files/2021-11/8%20-%20Temperature%20Change%20and%20Carbon%20Dioxide%20Change%20-%20FINAL%20OCT%202021.pdf">相关性</a>）</li>
+<li>自1970年以来增长了90%</li>
+</ul>
+<p>人类活动加速：</p>
+<ul>
+<li>燃烧化石燃料（煤、石油、天然气）发电、制造、运输（汽车、卡车、船舶、飞机）</li>
+<li>种植作物（肥料）</li>
+<li>砍伐森林（例如，建立农场）</li>
+</ul>
+<h2 id="能源使用和温室气体排放">11.4 能源使用和温室气体排放</h2>
+<p>到目前为止，我们已经讨论了温室气体排放及其对气候变化的影响，气候变化是环境影响的一种特别突出的形式。数据中心使用能源（以电力的形式）。这是如何映射到排放量上的？答案是，这取决于电力是如何产生的。</p>
+<p><strong>碳强度（Carbon
+intensity:）</strong>：使用每千瓦时能源排放的碳量（<a
+target="_blank" rel="noopener" href="https://lowcarbonpower.org/blog/emissions">来源</a>）</p>
+<ul>
+<li><p>化石燃料（煤、天然气）产生的排放量最多（来自直接排放）</p></li>
+<li><p>如果考虑到整个生命周期（发电厂建设、采矿、废物管理），其他绿色能源（太阳能、风能）也会产生排放</p></li>
+<li><p>在魁北克运行同样的任务（水电）的排放量将比爱沙尼亚（煤炭）少30倍</p>
+<p><img src="https://cdn.jsdelivr.net/gh/YangSuoly/Images/RL-notes/202309191109470.png" style="zoom:80%;" /></p></li>
+</ul>
+<p><strong>数据中心</strong>统计数字 (<a
+target="_blank" rel="noopener" href="https://iopscience.iop.org/article/10.1088/1748-9326/abfba1/pdf">Md
+Abu Bakar Siddik et al., 2021</a>)：</p>
+<ul>
+<li>2018年，全球数据中心用电量为2050亿千瓦时（占总用电量的1%）。</li>
+<li>在美国，2014年数据中心用电量占总用电量的1.8%。</li>
+<li>30%的数据中心位于美国。</li>
+<li>美国温室气体排放总量的0.5%来自于于数据中心。</li>
+<li>好消息：从2010年到2018年，计算量增加了550%，但电力消耗仅增加了6%（由于能源效率的提高）。</li>
+</ul>
+<h2 id="估算训练模型的排放量">11.5 估算训练模型的排放量</h2>
+<p>现在让我们试着计算训练所需的能源使用量，从而计算温室气体排放量。</p>
+<ol type="1">
+<li><strong>ML CO2 Impact Calculator</strong></li>
+</ol>
+<p><a target="_blank" rel="noopener" href="https://mlco2.github.io/impact/">ML CO2 Impact
+Calculator</a>（<a
+href="%22https://arxiv.org/pdf/1910.09700.pdf">Lacoste et al.,
+2019</a>）提供了一种基于硬件、使用的小时数、供应商和地区来估计排放量的简单方法。</p>
+<ol start="2" type="1">
+<li><p><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/1906.02243.pdf">Strubell et al.,
+2018</a></p>
+<p>计算功耗（kWh）：</p>
+<ul>
+<li><span
+class="math inline">p_\text{cpu}</span>：CPU的平均功率（W）</li>
+<li><span
+class="math inline">p_\text{gpu}</span>：GPU的平均功率（W）</li>
+<li><span
+class="math inline">p_\text{dram}</span>：DRAM的平均功率（W）</li>
+<li><span
+class="math inline">\text{PUE}</span>：用电效率：提供给数据中心的总功率/IT设备消耗的功率</li>
+</ul>
+<p><span class="math display">
+\text{emissions} = R_{\text{power} \to \text{emit}} \text{PUE}
+(p_\text{cpu} + p_\text{gpu} + p_\text{dram})
+</span></p>
+<p>平均值：</p>
+<ul>
+<li><p><span
+class="math inline">\text{PUE}=1.58</span>（2018年全球数据中心平均值）</p></li>
+<li><p><span class="math inline">R_{\text{power} \to
+\text{emit}}=0.954</span>（2018年平均排放量-磅/千瓦时）</p></li>
+</ul>
+<p>结果</p>
+<ul>
+<li><p>BERT-base（110M参数）：1438 lbs CO2eq</p>
+<ul>
+<li><p>NVIDIA在64个V100 GPU上训练79.2小时</p></li>
+<li><p>神经结构搜索（213M参数）以获得Evolved Transformer <a
+target="_blank" rel="noopener" href="https://arxiv.org/pdf/1901.11117.pdf">So et al. (2019)</a>：626155
+lbs CO2eq</p></li>
+</ul></li>
+<li><p>1名乘客乘坐从纽约到旧金山的往返航班：1984 lbs
+CO2eq（0.9吨）</p></li>
+<li><p>汽车生命周期：126,000 lbs CO2eq</p></li>
+</ul></li>
+<li><p><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2104.10350.pdf">Patterson et al.,
+2021</a></p>
+<p>简单形式： <span class="math display">
+\text{emissions} = R_{\text{power} \to \text{emit}} (\text{energy-train}
++ \text{queries} \cdot \text{energy-inference})
+</span></p>
+<ul>
+<li>NVIDIA：80%的ML工作负载是推理，而不是训练</li>
+</ul>
+<p>许多设计决策：</p>
+<ul>
+<li><p>模型架构：Transformer与Evolved Transformer</p></li>
+<li><p>处理器：NVIDIA的P100与Google的TPU</p></li>
+<li><p>数据中心：平均（1.58）与谷歌（1.11）</p></li>
+<li><p>能源供应组合（如煤炭、水电）：平均（0.429千克二氧化碳/千瓦时）与谷歌（0.080千克二氧化碳/千瓦时）</p>
+<ul>
+<li>注：总额为0.478，净额为0.080</li>
+<li>扣除出售给其他公司的清洁能源</li>
+</ul></li>
+</ul></li>
+</ol>
+<h2 id="总体总结-1">11.6 总体总结</h2>
+<ul>
+<li><p>环境影响是一个巨大的话题。一切都是相互联系的，很难得出一个干净的定量指标。但要真正着眼于全局。</p></li>
+<li><p>尽管如今大语言模型的还很少，但它正在快速增长。</p></li>
+<li><p>大语言模型的通用性提供了节省成本的潜力（“一次性训练”并适用于许多不同的任务）。但它们的成本要高得多，需要可能需要重新训练。这里的权衡是什么？</p></li>
+<li><p><strong>缓解措施</strong>：</p>
+<ul>
+<li>尝试在使用清洁能源的数据中心训练模型</li>
+<li>碳抵消的效果各不相同（森林种植活动产生单一种植）</li>
+<li>更高效的模型架构、训练程序、硬件（但要注意反弹效应）</li>
+</ul></li>
+<li><p><strong>在论文报告排放量</strong>：</p>
+<ul>
+<li>可以提高认识（想象一下，如果每一篇论文都能报告排放量）</li>
+<li>调整激励（人们目前关注准确性，但碳排放也很重要！）</li>
+</ul></li>
+</ul>
+<h2 id="reference-1">11.7 Reference</h2>
+<p>推荐的Python包</p>
+<ul>
+<li><a
+target="_blank" rel="noopener" href="https://github.com/Breakend/experiment-impact-tracker">Environment
+Impact Tracker</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/lfwa/carbontracker">Carbon
+Tracker</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/mlco2/codecarbon">CodeCarbon</a></li>
+</ul>
+<p>通用信息</p>
+<ul>
+<li><p><a
+target="_blank" rel="noopener" href="https://crfm.stanford.edu/assets/report.pdf#environment">Foundation
+models report (environment section</a></p></li>
+<li><p><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/1906.02243.pdf">Energy and Policy
+Considerations for Deep Learning in NLP</a>. Emma Strubell, Ananya
+Ganesh, A. McCallum. ACL 2019.</p></li>
+<li><p><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/1910.09700.pdf">Quantifying the
+Carbon Emissions of Machine Learning</a>. Alexandre Lacoste, Alexandra
+Luccioni, V. Schmidt, Thomas Dandres. 2019. Introduces ML Carbon
+Emissions Calculator.</p></li>
+<li><p><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2002.05651.pdf">Towards the
+Systematic Reporting of the Energy and Carbon Footprints of Machine
+Learning</a>. Peter Henderson et al. 2020. Introduces the environment
+impact tracker tool.</p></li>
+<li><p><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2104.10350.pdf">Carbon Emissions
+and Large Neural Network Training</a>. David Patterson, Joseph Gonzalez,
+Quoc V. Le, Chen Liang, Lluís-Miquel Munguía, D. Rothchild, David R. So,
+Maud Texier, J. Dean. 2021. From Google.</p></li>
+<li><p><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2111.00364.pdf">Sustainable AI:
+Environmental Implications, Challenges and Opportunities</a>.
+Carole-Jean Wu, R et al. 2021. From Facebook.</p></li>
+<li><p><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2110.11822.pdf">Unraveling the
+hidden environmental impacts of AI solutions for environment</a>.
+Anne-Laure Ligozat, J. Lefèvre, A. Bugeau, Jacques Combaz.
+2021.</p></li>
+<li><p><a
+target="_blank" rel="noopener" href="https://iopscience.iop.org/article/10.1088/1748-9326/abfba1/pdf">The
+environmental footprint of data centers in the United
+States</a>.</p></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">
+            -------------This blog is over!
+            <i class="fa fa-eye"></i>
+            Thanks for your reading-------------
+        </div>
+    
+</div>
+      
+    </div>
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>Post author:  </strong>YangSu
+  </li>
+  <li class="post-copyright-link">
+    <strong>Post link: </strong>
+    <a href="http://yangsuoly.com/2023/09/19/Large-lm-8-Adaptation/" title="Large-lm-8-Adaptation">http://yangsuoly.com/2023/09/19/Large-lm-8-Adaptation/</a>
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/Tags/LM/" rel="tag"><i class="fa fa-tag"></i> LM</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2023/09/16/Large-lm-7-Mixed-Framework/" rel="prev" title="Large-lm-7-Mixed-Framework">
+      <i class="fa fa-chevron-left"></i> Large-lm-7-Mixed-Framework
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2024/01/26/hexo-blog/" rel="next" title="Hexo-blog">
+      Hexo-blog <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div id="music163player">
+      <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=1317956275&auto=0&height=66"></iframe>
+      </iframe>
+    </div>
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%A4%A7%E6%A8%A1%E5%9E%8B%E4%B9%8B-adaptation"><span class="nav-text">10. 大模型之 Adaptation</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E9%9C%80%E8%A6%81adaptation"><span class="nav-text">10.1 为什么需要Adaptation</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%80%9A%E7%94%A8%E7%9A%84-adaptation-%E9%85%8D%E7%BD%AE"><span class="nav-text">10.2 通用的 adaptation 配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%BB%E4%BD%93%E6%80%BB%E7%BB%93"><span class="nav-text">10.3 总体总结</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#reference"><span class="nav-text">10.4 Reference</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%8E%AF%E5%A2%83%E5%BD%B1%E5%93%8D"><span class="nav-text">11. 环境影响</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#introduction"><span class="nav-text">11. 1 Introduction</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E8%AF%84%E4%BC%B0"><span class="nav-text">11.2 生命周期评估</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B0%94%E5%80%99%E5%8F%98%E5%8C%96"><span class="nav-text">11.3 气候变化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%83%BD%E6%BA%90%E4%BD%BF%E7%94%A8%E5%92%8C%E6%B8%A9%E5%AE%A4%E6%B0%94%E4%BD%93%E6%8E%92%E6%94%BE"><span class="nav-text">11.4 能源使用和温室气体排放</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BC%B0%E7%AE%97%E8%AE%AD%E7%BB%83%E6%A8%A1%E5%9E%8B%E7%9A%84%E6%8E%92%E6%94%BE%E9%87%8F"><span class="nav-text">11.5 估算训练模型的排放量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%BB%E4%BD%93%E6%80%BB%E7%BB%93-1"><span class="nav-text">11.6 总体总结</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#reference-1"><span class="nav-text">11.7 Reference</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="YangSu"
+      src="/images/YangSu.jpg">
+  <p class="site-author-name" itemprop="name">YangSu</p>
+  <div class="site-description" itemprop="description">A blog for recording learning notes...</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">78</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/Categories/">
+          
+        <span class="site-state-item-count">40</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/Tags/">
+          
+        <span class="site-state-item-count">49</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/YangSuoly" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;YangSuoly" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://gitee.com/yangsuoly" title="Gitee → https:&#x2F;&#x2F;gitee.com&#x2F;yangsuoly" rel="noopener" target="_blank"><i class="fab fa-github-square fa-fw"></i>Gitee</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://space.bilibili.com/64518717" title="B 站 → https:&#x2F;&#x2F;space.bilibili.com&#x2F;64518717" rel="noopener" target="_blank"><i class="fa fa-play-circle fa-fw"></i>B 站</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Related links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://www.58pic.com/u/19637930/" title="https:&#x2F;&#x2F;www.58pic.com&#x2F;u&#x2F;19637930&#x2F;" rel="noopener" target="_blank">千图网</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js" integrity="sha384-g7c+Jr9ZivxKLnZTDUhnkOnsh30B4H0rpLUpJ4jAIKs4fnJI+sEnkvrMWph2EDg4" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/auto-render.min.js" integrity="sha384-mll67QQFJfxn0IYznZYonOWZ644AWYC+Pt2cHqMaRhXVrursRwvLnLaebdGIlYNa" crossorigin="anonymous"
+        onload="renderMathInElement(document.body);"></script>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2026</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">YangSu</span>
+</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="Total Visitors">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="Total Views">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script size="300" alpha="0.6" zIndex="-1" src="/lib/canvas-ribbon/canvas-ribbon.js"></script>
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+<script>
+document.querySelectorAll('.pdfobject-container').forEach(element => {
+  let url = element.dataset.target;
+  let pdfOpenParams = {
+    navpanes : 0,
+    toolbar  : 0,
+    statusbar: 0,
+    pagemode : 'thumbs',
+    view     : 'FitH'
+  };
+  let pdfOpenFragment = '#' + Object.entries(pdfOpenParams).map(([key, value]) => `${key}=${encodeURIComponent(value)}`).join('&');
+  let fullURL = `/lib/pdf/web/viewer.html?file=${encodeURIComponent(url)}${pdfOpenFragment}`;
+
+  if (NexT.utils.supportsPDFs()) {
+    element.innerHTML = `<embed class="pdfobject" src="${url + pdfOpenFragment}" type="application/pdf" style="height: ${element.dataset.height};">`;
+  } else {
+    element.innerHTML = `<iframe src="${fullURL}" style="height: ${element.dataset.height};" frameborder="0"></iframe>`;
+  }
+});
+</script>
+
+
+<script>
+if (document.querySelectorAll('pre.mermaid').length) {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js', () => {
+    mermaid.initialize({
+      theme    : 'forest',
+      logLevel : 3,
+      flowchart: { curve     : 'linear' },
+      gantt    : { axisFormat: '%m/%d/%Y' },
+      sequence : { actorMargin: 50 }
+    });
+  }, window.mermaid);
+}
+</script>
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+  <script src="//cdn.jsdelivr.net/npm/quicklink@1/dist/quicklink.umd.js"></script>
+  <script>
+      window.addEventListener('load', () => {
+      quicklink({
+        timeout : 3000,
+        priority: true,
+        ignores : [uri => uri.includes('#'),uri => uri === 'http://yangsuoly.com/2023/09/19/Large-lm-8-Adaptation/',]
+      });
+      });
+  </script>
+
+  
+  <script id="ribbon" src="js/canvas-ribbon.js"></script>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/22.2017.cba-normal.model.json"},"display":{"position":"right","width":300,"height":450},"mobile":{"show":false},"react":{"opacity":0.7},"log":false});</script></body>
+</html>

@@ -1,0 +1,914 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/blog-logo-32px.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/blog-logo-16px.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <link rel="manifest" href="/images/manifest.json">
+  <meta name="msapplication-config" content="/images/browserconfig.xml">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yangsuoly.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":true},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":true,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="3. 大模型的有害性 3.1 Introduction 本次内容主要探讨大型语言模型的有害性（危害），常见的几种危害包括:  性能差异 社会偏见和刻板印象 有害信息 虚假信息">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Large-lm-3-Shortcomings">
+<meta property="og:url" content="http://yangsuoly.com/2023/09/12/Large-lm-3-Shortcomings/index.html">
+<meta property="og:site_name" content="独孤诗人的学习驿站">
+<meta property="og:description" content="3. 大模型的有害性 3.1 Introduction 本次内容主要探讨大型语言模型的有害性（危害），常见的几种危害包括:  性能差异 社会偏见和刻板印象 有害信息 虚假信息">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2023-09-12T10:01:47.000Z">
+<meta property="article:modified_time" content="2023-09-13T09:21:19.040Z">
+<meta property="article:author" content="YangSu">
+<meta property="article:tag" content="LM">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://yangsuoly.com/2023/09/12/Large-lm-3-Shortcomings/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>Large-lm-3-Shortcomings | 独孤诗人的学习驿站</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?f59f5fb59d32ec3903088b0f976956d1";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta custom-logo">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">独孤诗人的学习驿站</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">生活就是一半烟火，一半诗意。手执烟火谋生活，心怀诗意谋未来……</p>
+      <a>
+        <img class="custom-logo-image" src="/images/logo@2x.png" alt="独孤诗人的学习驿站">
+      </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/Tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/Categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+  <a href="https://github.com/YangSuoly" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yangsuoly.com/2023/09/12/Large-lm-3-Shortcomings/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/YangSu.jpg">
+      <meta itemprop="name" content="YangSu">
+      <meta itemprop="description" content="A blog for recording learning notes...">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="独孤诗人的学习驿站">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Large-lm-3-Shortcomings
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2023-09-12 18:01:47" itemprop="dateCreated datePublished" datetime="2023-09-12T18:01:47+08:00">2023-09-12</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2023-09-13 17:21:19" itemprop="dateModified" datetime="2023-09-13T17:21:19+08:00">2023-09-13</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/Categories/DataWhale/" itemprop="url" rel="index"><span itemprop="name">DataWhale</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/Categories/DataWhale/Large-LM/" itemprop="url" rel="index"><span itemprop="name">Large LM</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="Views" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span><br>
+            <span class="post-meta-item" title="Symbols count in article">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">Symbols count in article: </span>
+              <span>4.9k</span>
+            </span>
+            <span class="post-meta-item" title="Reading time">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">Reading time &asymp;</span>
+              <span>4 mins.</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="大模型的有害性">3. 大模型的有害性</h1>
+<h2 id="introduction">3.1 Introduction</h2>
+<p>本次内容主要探讨大型语言模型的有害性（危害），常见的几种危害包括:</p>
+<ul>
+<li>性能差异</li>
+<li>社会偏见和刻板印象</li>
+<li>有害信息</li>
+<li>虚假信息</li>
+</ul>
+<a id="more"></a>
+<p>另外在之后的课程中会讲述其他更多层面的危害性：</p>
+<ul>
+<li>安全和隐私风险</li>
+<li>版权和法律保护</li>
+<li>环境影响</li>
+<li>权力集中</li>
+</ul>
+<p>本节将主要专注于将专注于 <code>LLM</code>
+的危害相关的相对具体但是级别较低的一些关注点，主要集中于以下两个点：</p>
+<ul>
+<li><strong>性能差异相关的危害</strong>。对于特定任务（e.g.,
+question-answer），性能差异意味着模型在某些群体中表现更好，在其他群体中表现更差。
+<ul>
+<li>自动语音识别 <code>ASR</code>
+系统在黑人说话者的识别性能要差于白人说话者（<a
+target="_blank" rel="noopener" href="https://www.pnas.org/content/117/14/7684">Koenecke e t al.,
+2020</a>）。</li>
+</ul></li>
+<li><strong>社会偏见和刻板印象相关的危害</strong>。
+<ul>
+<li>社会偏见：将某个概念（例如科学）与某些群体相对其他群体（例如男女性）进行系统关联。</li>
+<li>刻板印象：一种特定且普遍存在的社会偏见形式，其中的关联是被广泛持有、过度简化并且一般固定的。</li>
+</ul></li>
+<li><strong>有害信息和虚假信息</strong>
+<ul>
+<li>生成有毒的内容，恶意行为者可以利用它们来扩大自己的信息传播；</li>
+<li>检测虚假信息，从而帮助进行内容审核。</li>
+</ul></li>
+</ul>
+<h2 id="性能差异">3.2 性能差异</h2>
+<p>在美国，受保护的属性是指那些不可作为决策基础的人口特征，包括</p>
+<ul>
+<li>种族；</li>
+<li>性别；</li>
+<li>性取向；</li>
+<li>宗教；</li>
+<li>年龄；</li>
+<li>国籍；</li>
+<li>残障状况；</li>
+<li>体貌；</li>
+<li>社会经济状况等。</li>
+</ul>
+<h2 id="社会偏见">3.3 社会偏见</h2>
+<p>大模型通过使用大规模预训练数据进行训练，因此数据的偏见可能会导致
+<code>LLM</code> 性能和社会偏见危害。</p>
+<h3 id="名字偏见">3.3.1 名字偏见</h3>
+<p>这里我们首先将大模型在 <code>SQuAD</code>
+数据进行训练，然后设计一个新的任务进行测试。</p>
+<ul>
+<li>动机：测试模型在涉及人名的文本中的理解和行为方式。</li>
+<li>原始任务：<a
+target="_blank" rel="noopener" href="https://rajpurkar.github.io/SQuAD-explorer/">SQuAD - Stanford
+Question Answering Datasets</a> (Rajpurkar et al., 2016)</li>
+<li>修改后的任务：使用 <code>SQuAD</code>
+数据构建额外的测试例子，将之前的测试答案中的两个名字进行交换。最终测试模型的回答正确性。</li>
+<li>指标：翻转表示交换名称会改变模型输出的名称对的百分比。</li>
+</ul>
+<p>结果：</p>
+<ul>
+<li>模型通常会预测与他们所知名人物相关的名称，符合他们所擅长的领域。</li>
+<li>对于不太知名的人，效果会很快减弱。</li>
+<li>当交换名称时，模型通常不会改变它们的预测结果。</li>
+</ul>
+<h3 id="刻板印象">3.3.2 刻板印象</h3>
+<ul>
+<li>动机：评估模型在涉及刻板印象的文本中的行为方式</li>
+<li>任务：比较模型对具有刻板印象和反刻板印象关联的句子的概率</li>
+<li>指标：刻板印象得分是模型偏好刻板印象示例的比例。作者表示，得分为0.5是理想的。</li>
+</ul>
+<p>结果：</p>
+<ul>
+<li>所有模型都显示出对刻板印象数据的系统偏好。</li>
+<li>较大的模型往往具有较高的刻板印象得分。</li>
+</ul>
+<h2 id="toxicity">3.4 Toxicity</h2>
+<h3 id="definition">3.4.1 Definition</h3>
+<p>有毒性指的是伤害涉及到的是人，即
+“粗鲁、不尊重或不合理的行为，可能使某人想要离开一场对话”。如：</p>
+<ul>
+<li><em>I bet China would be happy to help Puerto Rico rebuild in
+exchange for a nice military base.</em> [toxicity: 0]
+(我打赌中国会愿意帮助波多黎各重建，换取一个漂亮的军事基地)</li>
+<li><em>The ignorance and bigotry comes from your post!</em> [toxicity:
+80%] (无知和偏见来自你的帖子！)</li>
+</ul>
+<p>有毒性方面可能对两类人带来伤害：</p>
+<ul>
+<li>基于语言模型系统的用户。聊天机器人可能会回复有毒的响应，或者自动完成系统可能会提出有毒的建议。</li>
+<li>用户生成内容的接收者。用户可能会在社交媒体上发布有毒内容，无论他们是否有恶意。</li>
+</ul>
+<h3 id="perspective-api">3.4.2 Perspective API</h3>
+<p><code>Google</code> 的 <code>Jigsaw</code>
+部门（专注于用技术解决社会问题，如极端主义）在 2017
+年开发了一项广受欢迎的有关毒性分类的专有服务——Perspective
+API。这是一个机器学习模型，可以为每个输入分配一个介于 <code>0</code> 和
+<code>1</code> 之间的毒性分数。</p>
+<p>实例：</p>
+<ul>
+<li>“hello”（毒性：低）</li>
+<li>“You suck”（毒性：95.89%）</li>
+</ul>
+<p>但并非总是有效：</p>
+<ul>
+<li>“You’re like Hitler.”（毒性：低）</li>
+<li>“I hope you lose your right arm.”（毒性：低）</li>
+<li>“I read The Idiot by Fyodor Dostoevsky
+yesterday.”（毒性：86.06%）</li>
+<li>“That is f—— good.”（毒性：85.50%）。</li>
+</ul>
+<p>总的来说，虽然Perspective
+API是机器学习和自然语言处理社区广泛使用的一个起点，但是使用时需要持有适度的怀疑态度。因为该模型标注的一致性很低，不能捕获标注者的身份或更广泛的语言或社会环境。它可能会对某些人群产生偏见，因为身份词（如“gay”）的出现与毒性有关，这是因为他们受到的有毒评论过多。</p>
+<h2 id="虚假信息">3.5 虚假信息</h2>
+<ul>
+<li><p>误导性信息（Misinformation）：不论意图如何，被误导性地呈现为真实的错误信息。</p></li>
+<li><p>虚假信息（Disinformation）：有意为之地呈现错误或误导性信息以欺骗某一特定受众，其中存在对抗性质。</p></li>
+</ul>
+<p><strong>注</strong>：误导性和虚假信息并非一定可被验证；有时，它会引起人们的疑虑或将举证责任转移给听众。此外，一些并非真实的内容并不被视为误导性或虚假信息，如完全虚构的小说。</p>
+<p>目前，我们尚不了解是否有由语言模型驱动的严重虚假信息战役。关键问题是：语言模型能否生成新颖，通顺的文本，传达特定信息，并且针对目标人群（在线超定向）？</p>
+<p>GPT-3论文已经表明，生成的新闻文章与真实文章几乎无法区分。这意味着语言模型可以是新颖和通顺的，但它们是否具有说服力？</p>
+<ul>
+<li><p><a
+target="_blank" rel="noopener" href="https://www.cambridge.org/core/services/aop-cambridge-core/content/view/40F27F0661B839FA47375F538C19FA59/S2052263020000378a.pdf/all-the-news-thats-fit-to-fabricate-ai-generated-text-as-a-tool-of-media-misinformation.pdf">Kreps
+et al. (2020)</a>
+在2020年生成的关于朝鲜扣押船只的文章（使用经过微调的GPT-2），用户研究参与者发现这些故事具有可信度。用户发现针对他们政治信仰量身定制的故事更具有可信度（在线超定向有效）。增加模型大小（在GPT-2内）只产生了边际效益。</p></li>
+<li><p><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2009.06807.pdf">McGuffie &amp;
+Newhouse (2020)</a>
+在2020年指出，GPT-2需要微调，GPT-3只需要提示（更快适应/控制）。GPT-3具有深厚的极端社区知识（例如，QAnon，瓦格纳组，原子武器师）。GPT-3可以表现得像一个QAnon信徒。他们指出GPT-3可能在网络激进化中的作用（创建群体身份，传播影响思想和感情的叙事）。结论：我们应该非常担心（GPT-3可以产生具有意识形态一致性，互动性，规范性的环境）。风险缓解：针对大型语言模型的保护措施，提升数字素养，检测模型。</p></li>
+<li><p><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/1905.12616.pdf">Zellers et al.
+(2020)</a>
+在2020年训练Grover（一个GPT-2大小的模型）在RealNews上生成假新闻。模型：按照不同的顺序生成（领域，日期，作者，标题，正文）。当前的检测器：73%的准确性。对Grover进行微调以检测假新闻，准确性为92%。</p></li>
+<li><p><a
+target="_blank" rel="noopener" href="https://cset.georgetown.edu/wp-content/uploads/CSET-Truth-Lies-and-Automation.pdf">Buchanan
+et al. (2021)</a>
+在2021年强调人类与GPT-3共同生成虚假信息的有效性，技术娴熟的政府（如中国和俄罗斯）可能部署这样的系统。风险缓解：专注于假账户而不是内容。</p></li>
+</ul>
+<h2 id="内容审查">3.6 内容审查</h2>
+<p>我们已经讨论过语言模型生成有害内容的问题，但如果它们能生成此类内容，也可能被用于检测有害内容。</p>
+<p>Facebook（或Meta）长期以来一直在打击有害内容，最近开始利用语言模型自动检测这类内容。例如，RoBERTa已经被使用了几年。</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/YangSuoly/Images/Large-LM/202309131700845.png" /></p>
+<p>"少量样本学习器"（Few-Shot
+Learner）是Meta最新强大的内容审查模型。该模型在大量原始文本和历史数据上进行训练，将任务简化为蕴涵（entailment)。例如：</p>
+<ul>
+<li>𝖨 𝗅𝗈𝗏𝖾 𝗒𝗈𝗎𝗋 𝖾𝗍𝗁𝗇𝗂𝖼 𝗀𝗋𝗈𝗎𝗉. 𝖩𝖪. 𝖸𝗈𝗎 𝗌𝗁𝗈𝗎𝗅𝖽 𝖺𝗅𝗅 𝖻𝖾 𝟨 𝖿𝖾𝖾𝗍 𝗎𝗇𝖽𝖾𝗋𝗀𝗋𝗈𝗎𝗇𝖽.
+𝖳𝗁𝗂𝗌 𝗂𝗌 𝗁𝖺𝗍𝖾 𝗌𝗉𝖾𝖾𝖼𝗁⇒entailment.
+(我爱你的族群。开玩笑。你们都应该埋在六英尺地下。这是仇恨言论。⇒
+蕴涵)</li>
+</ul>
+<p>以下是一些微妙言论的实例，这些言论被正确地判定为有害内容：</p>
+<ul>
+<li>Discouraging COVID vaccines: <em>Vaccine or DNA changer?</em></li>
+<li>Inciting violence: <em>Does that guy need all of his
+teeth?</em></li>
+</ul>
+<h2 id="reference">3.7 Reference</h2>
+<p>Risk of Foundation Models</p>
+<ul>
+<li><p><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2108.07258.pdf">Bommasani et al.,
+2021</a></p></li>
+<li><p><a
+target="_blank" rel="noopener" href="https://dl.acm.org/doi/pdf/10.1145/3442188.3445922">Bender and
+Gebru et al., 2020</a></p></li>
+<li><p><a target="_blank" rel="noopener" href="https://aclanthology.org/2020.acl-main.485.pdf">Blodgett
+et al., 2020</a></p></li>
+<li><p><a target="_blank" rel="noopener" href="https://aclanthology.org/2021.acl-long.81.pdf">Blodgett
+et al., 2021</a></p></li>
+<li><p><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2112.04359.pdf">Weidinger et al.,
+2021</a></p></li>
+<li><p><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2112.11446.pdf">Scaling Language
+Models: Methods, Analysis&amp;Insights from Training
+Gopher</a>. <em>Jack W. Rae et al.</em> 2021. Introduces the Gopher
+model from DeepMind. Has extensive analysis on biases and
+toxicity.</p></li>
+<li><p><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2112.04359.pdf">Ethical and social
+risks of harm from Language Models</a>. <em>Laura Weidinge et al</em>.
+2021. Taxonomy of harms from DeepMind.</p></li>
+</ul>
+<p>Performance disparities:</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/1608.08868.pdf">Demographic Dialectal
+Variation in Social Media: A Case Study of African-American
+English</a>. <em>Su Lin Blodgett, L. Green, Brendan T. O’Connor</em>.
+EMNLP, 2016.</li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/1707.00061.pdf">Racial Disparity in
+Natural Language Processing: A Case Study of Social Media
+African-American English</a>. <em>Su Lin Blodgett, Brendan T.
+O’Connor</em>. FATML, 2017.</li>
+</ul>
+<p>Content moderation:</p>
+<ul>
+<li><a
+target="_blank" rel="noopener" href="https://journals.sagepub.com/doi/pdf/10.1177/2053951719897945">Algorithmic
+content moderation: technical and political challenges in the automation
+of platform governance</a></li>
+<li><a target="_blank" rel="noopener" href="https://dl.acm.org/doi/pdf/10.1145/3274301">The Internet’s
+Hidden Rules: An Empirical Study of Reddit Norm Violations at Micro,
+Meso, and Macro Scales</a></li>
+</ul>
+<p>Toxicity:</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2009.11462.pdf">RealToxicityPrompts:
+Evaluating Neural Toxic Degeneration in Language Models</a>. <em>Samuel
+Gehman et al</em>. Findings of EMNLP, 2020.</li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2109.07445.pdf">Challenges in
+Detoxifying Language Models</a>. <em>Johannes Welbl et al.</em> EMNLP
+2021.</li>
+</ul>
+<p>Disinformation:</p>
+<ul>
+<li><a
+target="_blank" rel="noopener" href="https://www.cambridge.org/core/services/aop-cambridge-core/content/view/40F27F0661B839FA47375F538C19FA59/S2052263020000378a.pdf/all-the-news-thats-fit-to-fabricate-ai-generated-text-as-a-tool-of-media-misinformation.pdf">All
+the News That’s Fit to Fabricate: AI-Generated Text as a Tool of Media
+Misinformation</a>. <em>Sarah Kreps et al.</em> Journal of Experimental
+Political Science, 2020.</li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/1908.09203.pdf">Release Strategies
+and the Social Impacts of Language Models</a>. <em>Irene Solaiman et
+al.</em>. 2019.</li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2009.06807.pdf">The Radicalization
+Risks of GPT-3 and Advanced Neural Language Models</a>. <em>Kris
+McGuffie, Alex Newhouse</em>. 2020.</li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/1905.12616.pdf">Defending Against
+Neural Fake News</a>. <em>Rowan Zellers et al.</em>. NeurIPS 2019.
+Trained <strong>Grover</strong> to generate and detect fake news.</li>
+<li><a
+target="_blank" rel="noopener" href="https://cset.georgetown.edu/wp-content/uploads/CSET-Truth-Lies-and-Automation.pdf">Truth,
+Lies, and Automation</a>. <em>Ben Buchanan, Andrew Lohn, Micah Musser,
+Katerina Sedova.</em> CSET report, 2021.</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">
+            -------------This blog is over!
+            <i class="fa fa-eye"></i>
+            Thanks for your reading-------------
+        </div>
+    
+</div>
+      
+    </div>
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>Post author:  </strong>YangSu
+  </li>
+  <li class="post-copyright-link">
+    <strong>Post link: </strong>
+    <a href="http://yangsuoly.com/2023/09/12/Large-lm-3-Shortcomings/" title="Large-lm-3-Shortcomings">http://yangsuoly.com/2023/09/12/Large-lm-3-Shortcomings/</a>
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/Tags/LM/" rel="tag"><i class="fa fa-tag"></i> LM</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2023/09/12/Large-lm-2-Capacity/" rel="prev" title="Large-lm-2-Capacity">
+      <i class="fa fa-chevron-left"></i> Large-lm-2-Capacity
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2023/09/13/Large-lm-4-Data-and-Law/" rel="next" title="Large-lm-4-Data-and-Law">
+      Large-lm-4-Data-and-Law <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div id="music163player">
+      <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=1317956275&auto=0&height=66"></iframe>
+      </iframe>
+    </div>
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%A4%A7%E6%A8%A1%E5%9E%8B%E7%9A%84%E6%9C%89%E5%AE%B3%E6%80%A7"><span class="nav-text">3. 大模型的有害性</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#introduction"><span class="nav-text">3.1 Introduction</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%A7%E8%83%BD%E5%B7%AE%E5%BC%82"><span class="nav-text">3.2 性能差异</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%A4%BE%E4%BC%9A%E5%81%8F%E8%A7%81"><span class="nav-text">3.3 社会偏见</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%90%8D%E5%AD%97%E5%81%8F%E8%A7%81"><span class="nav-text">3.3.1 名字偏见</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%BB%E6%9D%BF%E5%8D%B0%E8%B1%A1"><span class="nav-text">3.3.2 刻板印象</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#toxicity"><span class="nav-text">3.4 Toxicity</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#definition"><span class="nav-text">3.4.1 Definition</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#perspective-api"><span class="nav-text">3.4.2 Perspective API</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%99%9A%E5%81%87%E4%BF%A1%E6%81%AF"><span class="nav-text">3.5 虚假信息</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%86%85%E5%AE%B9%E5%AE%A1%E6%9F%A5"><span class="nav-text">3.6 内容审查</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#reference"><span class="nav-text">3.7 Reference</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="YangSu"
+      src="/images/YangSu.jpg">
+  <p class="site-author-name" itemprop="name">YangSu</p>
+  <div class="site-description" itemprop="description">A blog for recording learning notes...</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">78</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/Categories/">
+          
+        <span class="site-state-item-count">40</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/Tags/">
+          
+        <span class="site-state-item-count">49</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/YangSuoly" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;YangSuoly" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://gitee.com/yangsuoly" title="Gitee → https:&#x2F;&#x2F;gitee.com&#x2F;yangsuoly" rel="noopener" target="_blank"><i class="fab fa-github-square fa-fw"></i>Gitee</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://space.bilibili.com/64518717" title="B 站 → https:&#x2F;&#x2F;space.bilibili.com&#x2F;64518717" rel="noopener" target="_blank"><i class="fa fa-play-circle fa-fw"></i>B 站</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Related links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://www.58pic.com/u/19637930/" title="https:&#x2F;&#x2F;www.58pic.com&#x2F;u&#x2F;19637930&#x2F;" rel="noopener" target="_blank">千图网</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js" integrity="sha384-g7c+Jr9ZivxKLnZTDUhnkOnsh30B4H0rpLUpJ4jAIKs4fnJI+sEnkvrMWph2EDg4" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/auto-render.min.js" integrity="sha384-mll67QQFJfxn0IYznZYonOWZ644AWYC+Pt2cHqMaRhXVrursRwvLnLaebdGIlYNa" crossorigin="anonymous"
+        onload="renderMathInElement(document.body);"></script>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2026</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">YangSu</span>
+</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="Total Visitors">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="Total Views">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script size="300" alpha="0.6" zIndex="-1" src="/lib/canvas-ribbon/canvas-ribbon.js"></script>
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+<script>
+document.querySelectorAll('.pdfobject-container').forEach(element => {
+  let url = element.dataset.target;
+  let pdfOpenParams = {
+    navpanes : 0,
+    toolbar  : 0,
+    statusbar: 0,
+    pagemode : 'thumbs',
+    view     : 'FitH'
+  };
+  let pdfOpenFragment = '#' + Object.entries(pdfOpenParams).map(([key, value]) => `${key}=${encodeURIComponent(value)}`).join('&');
+  let fullURL = `/lib/pdf/web/viewer.html?file=${encodeURIComponent(url)}${pdfOpenFragment}`;
+
+  if (NexT.utils.supportsPDFs()) {
+    element.innerHTML = `<embed class="pdfobject" src="${url + pdfOpenFragment}" type="application/pdf" style="height: ${element.dataset.height};">`;
+  } else {
+    element.innerHTML = `<iframe src="${fullURL}" style="height: ${element.dataset.height};" frameborder="0"></iframe>`;
+  }
+});
+</script>
+
+
+<script>
+if (document.querySelectorAll('pre.mermaid').length) {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js', () => {
+    mermaid.initialize({
+      theme    : 'forest',
+      logLevel : 3,
+      flowchart: { curve     : 'linear' },
+      gantt    : { axisFormat: '%m/%d/%Y' },
+      sequence : { actorMargin: 50 }
+    });
+  }, window.mermaid);
+}
+</script>
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+  <script src="//cdn.jsdelivr.net/npm/quicklink@1/dist/quicklink.umd.js"></script>
+  <script>
+      window.addEventListener('load', () => {
+      quicklink({
+        timeout : 3000,
+        priority: true,
+        ignores : [uri => uri.includes('#'),uri => uri === 'http://yangsuoly.com/2023/09/12/Large-lm-3-Shortcomings/',]
+      });
+      });
+  </script>
+
+  
+  <script id="ribbon" src="js/canvas-ribbon.js"></script>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/22.2017.cba-normal.model.json"},"display":{"position":"right","width":300,"height":450},"mobile":{"show":false},"react":{"opacity":0.7},"log":false});</script></body>
+</html>

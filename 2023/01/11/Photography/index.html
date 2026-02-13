@@ -1,0 +1,2039 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/blog-logo-32px.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/blog-logo-16px.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <link rel="manifest" href="/images/manifest.json">
+  <meta name="msapplication-config" content="/images/browserconfig.xml">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yangsuoly.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":true},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":true,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="本文是学习B站视频教程从零开始手把手教你学摄影所记录的笔记，借助插件 bilibiliNoteExport 将B站的学习笔记导出成PDF，随后将其导出成 Word，将文中的图片提炼出来。然后拷贝B站的文字笔记到Markdown 文件（无法将图片复制出来），再通过编程的方式将提炼出来的图片与 Markdown 文件的图片进行关联，最终得到笔记的全部内容。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Photography">
+<meta property="og:url" content="http://yangsuoly.com/2023/01/11/Photography/index.html">
+<meta property="og:site_name" content="独孤诗人的学习驿站">
+<meta property="og:description" content="本文是学习B站视频教程从零开始手把手教你学摄影所记录的笔记，借助插件 bilibiliNoteExport 将B站的学习笔记导出成PDF，随后将其导出成 Word，将文中的图片提炼出来。然后拷贝B站的文字笔记到Markdown 文件（无法将图片复制出来），再通过编程的方式将提炼出来的图片与 Markdown 文件的图片进行关联，最终得到笔记的全部内容。">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213747982">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213748119">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213748082">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213748102">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111215126163">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213748068">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213748132">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213748068-3444268.">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213748173">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213748161">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213748206">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213748195">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213748202">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213748200">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213748272">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213748277">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213748261">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213748306">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213748279">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213748293">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213748342">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213748348">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213748408">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213748390">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213748406">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213748374">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213748412">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213748450">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213748468">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213748464">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213748505">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213748512">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213748530">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213748486">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213748563">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213748584">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213748593">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213748610">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213748585">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213818071">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213748638">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213748696">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213748681">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213748700">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213748709">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213748743">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213748707">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213748793-3444268.">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213748793">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213748794">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213748811">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213748868">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213748886">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213829901">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213748842">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213748897">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213748894">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213748912">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213748920">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213748957">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213749003">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213748976">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213749016">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213749005">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213748997">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213749054">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213749050">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213749117">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213749083">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213749080">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213749118">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213749144">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213749152">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213749157">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213749167">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213749194">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213749203">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213749234">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213749222">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213749257">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213749251">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213749295">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213749268">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213749304">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213836259">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213749331">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213749346">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213749367">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213749365">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213749376">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213749424">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213749402">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213749472">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213749471">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213749442">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213749480">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213749511">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213749531">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213749551">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213749591">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213749643">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213749560">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213749625">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213749608">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213749665">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213749660">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213749705">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213749692">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213749731">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213749756">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213749764">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213749776">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213749785">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213749813">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213749795">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213749855">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213749843">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213749874">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213749887">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213749899">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213749925">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213749939">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213749935">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213749975">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213749966">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213749970">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213750028">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213750063">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213750003">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213750078">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213750052">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213750053">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213750097">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213750104">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213750126">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213750125">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213750188">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213750181">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213750194">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213750181-3444270.">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213750202">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213750272">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213750278-3444270.">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213750278">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213750292">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213750321-3444270.">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213750321">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213750375">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213750384">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213750360">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213750370">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213750442">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213750422">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213750465">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213750480">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213750449">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213750464">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213750498">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213750529">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213750549">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213750575">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213750567">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213750593">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213750564">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213750637">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213750653">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213750641">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213750660">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213750679">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213750714">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213750711">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213750705">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213750750">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213750748">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213750761">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213750801">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213750815">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213750832">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213750836">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213750857">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213750884">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213750870">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213750913">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213750909">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213750934">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213750961">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213750974">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213750989">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213751037-3444271.">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213751037">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213751052">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213751036">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213751068">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213751078">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213751123">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213751131">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213751108">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213751173">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213751139">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213751185">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213751218">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213751241">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213751230">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213751225">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213751247">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213751316">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213751289">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213751319">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213751335">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213751358">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213751323">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213751370">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213751394">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213751392">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213751403">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213751504">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213751422">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213841669">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213751498">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213751499">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213751500">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213751494">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213751563">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213751599">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213751578">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213751580">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213751581">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213751589">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213751661">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213751683">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213751656">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213751667">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213751698">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213751681">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213751767">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213751763">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213751732">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213751755">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213751782">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213751802">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213751819">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213751828">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213751848">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213751885">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213751870">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213751915">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213751917">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213751903">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213751918">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213852228">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213751984">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213751977">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213752009">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213752026">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213752010">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213752053">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213752094">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213752091">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213912409">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213752108">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213752125">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213752163">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213752193">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213752168">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213752173">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213752198">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213752208">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213752266">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213752257">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213752251">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213752265">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213752300">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213752305">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213752368">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213752344-3444272.">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213752344">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213752352">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213752401">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213752387">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213752441">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213752412">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213752439">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213752469">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213752478">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213752470">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213752729">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213752523">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213752536">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213752553">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213752572">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213752593">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213752627">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213752628">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213752653">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213752645">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213752738">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213752706">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213752701">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213752717">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213752750">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213752801">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213752799">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213752794">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213752813">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213752832">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213752847">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213752868">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213752900">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213752879">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213752921">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213752920">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213752946">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213752934">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213752965">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213753018">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213752997">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213753009">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213753025">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213753029">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213753062">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213753121">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213753125">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213753130">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213753141">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213753124">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213753143">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213753189">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213753223">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213753240">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213753218">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213753233">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213753244">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213753299">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213753327">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213753318">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213753316">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213753332">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213753344">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213753407">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213753440">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213753392">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213753412">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213753408">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213753441">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213753494">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213753509">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213753526">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213753519">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213753535">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213753523">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213753576">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213753603">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213753617">
+<meta property="og:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213753606">
+<meta property="article:published_time" content="2023-01-11T14:02:05.000Z">
+<meta property="article:modified_time" content="2023-03-21T11:30:10.213Z">
+<meta property="article:author" content="YangSu">
+<meta property="article:tag" content="Photography">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://yangsuoly.com/2023/01/11/Photography/image-20230111213747982">
+
+<link rel="canonical" href="http://yangsuoly.com/2023/01/11/Photography/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>Photography | 独孤诗人的学习驿站</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?f59f5fb59d32ec3903088b0f976956d1";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta custom-logo">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">独孤诗人的学习驿站</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">生活就是一半烟火，一半诗意。手执烟火谋生活，心怀诗意谋未来……</p>
+      <a>
+        <img class="custom-logo-image" src="/images/logo@2x.png" alt="独孤诗人的学习驿站">
+      </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/Tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/Categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+  <a href="https://github.com/YangSuoly" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yangsuoly.com/2023/01/11/Photography/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/YangSu.jpg">
+      <meta itemprop="name" content="YangSu">
+      <meta itemprop="description" content="A blog for recording learning notes...">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="独孤诗人的学习驿站">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Photography
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2023-01-11 22:02:05" itemprop="dateCreated datePublished" datetime="2023-01-11T22:02:05+08:00">2023-01-11</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2023-03-21 19:30:10" itemprop="dateModified" datetime="2023-03-21T19:30:10+08:00">2023-03-21</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/Categories/Notes/" itemprop="url" rel="index"><span itemprop="name">Notes</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/Categories/Notes/Photography/" itemprop="url" rel="index"><span itemprop="name">Photography</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="Views" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span><br>
+            <span class="post-meta-item" title="Symbols count in article">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">Symbols count in article: </span>
+              <span>11k</span>
+            </span>
+            <span class="post-meta-item" title="Reading time">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">Reading time &asymp;</span>
+              <span>10 mins.</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>本文是学习B站视频教程<a
+target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1pv411H78e/?note=open&amp;p=1&amp;t=375&amp;vd_source=ed04dacb9e3f8845a9f0fa7b8130e4f1">从零开始手把手教你学摄影</a>所记录的笔记，借助插件
+<a
+target="_blank" rel="noopener" href="https://gitee.com/fireworks99/bilibiliNoteExport">bilibiliNoteExport</a>
+将B站的学习笔记导出成PDF，随后将其导出成
+Word，将文中的图片提炼出来。然后拷贝B站的文字笔记到<code>Markdown</code>
+文件（无法将图片复制出来），再通过编程的方式将提炼出来的图片与
+<code>Markdown</code> 文件的图片进行关联，最终得到笔记的全部内容。
+<a id="more"></a></p>
+<p>考虑到博客没法使用时间戳功能，因此有两个解决方案：</p>
+<ul>
+<li><p>使用从笔记中导出的 <code>PDF</code>，可以借助 PDF
+文件直接链接B站的时间戳，下载链接如下：<a
+href="https://yangsuoly.com/file/Photography-note.pdf">Photography
+Note</a></p></li>
+<li><p>使用 <code>Obsidian</code> 软件，借助插件
+<code>Meida extended</code>
+插件，再结合编程自定义生成时间戳功能，可以在本地实现对B站视频的时间戳记录，便于进行笔记管理（略）。</p></li>
+</ul>
+<p>原教程视频如下：</p>
+<iframe src="//player.bilibili.com/player.html?aid=248876776&amp;bvid=BV1pv411H78e&amp;cid=362874796&amp;autoplay=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true">
+</iframe>
+<h1 id="p1.-认识相机">P1. 认识相机</h1>
+<p>01 认识你的相机，传感器和镜头 P1 - 06:15传感器大小分类</p>
+<p><img src="image-20230111213747982" /></p>
+<p>01 认识你的相机，传感器和镜头 P1 - 10:17佳能相机产品线（EOS）</p>
+<p><img src="image-20230111213748119" /></p>
+<p>01 认识你的相机，传感器和镜头 P1 - 15:44尼康相机产品线(</p>
+<p><img src="image-20230111213748082" /></p>
+<p>01 认识你的相机，传感器和镜头 P1 - 17:30索尼相机产品线</p>
+<p><img src="image-20230111213748102" /></p>
+<p>01 认识你的相机，传感器和镜头 P1 - 21:15焦距</p>
+<p><img src="image-20230111215126163" /></p>
+<p>01 认识你的相机，传感器和镜头 P1 - 24:39镜头的参数</p>
+<p><img src="image-20230111213748068" /></p>
+<p>01 认识你的相机，传感器和镜头 P1 - 30:48镜头自动AF与手动变焦MF</p>
+<p>镜头自动变焦（AF）和手动变焦（MF）</p>
+<p>01 认识你的相机，传感器和镜头 P1 - 33:51镜头里的黑话</p>
+<p><img src="image-20230111213748132" /></p>
+<ol type="1">
+<li>牙膏厂（佳能）</li>
+<li>出家为尼（索尼）</li>
+<li>回家的诱惑（佳能）</li>
+<li>牛头、狗头（坏）</li>
+<li>大光定（大光圈定焦镜头）</li>
+<li>大三元/小三元（组合变焦镜头）</li>
+<li>红圈（佳能）/金圈（尼康）/G-M（索尼优秀镜头）</li>
+<li>天涯静（大的变焦柄）/小痰盂（特指佳能50 1.8）</li>
+<li>饼干头（小镜头）/大炮（长、远射镜头）</li>
+<li>灭门（镜头更新，全更新）</li>
+</ol>
+<p>01 认识你的相机，传感器和镜头 P1 - 37:39常见镜头：变焦镜头</p>
+<p><img src="image-20230111213748068-3444268." /></p>
+<p>01 认识你的相机，传感器和镜头 P1 - 40:01定焦镜头</p>
+<p><img src="image-20230111213748173" /></p>
+<p>01 认识你的相机，传感器和镜头 P1 - 42:41特种镜头</p>
+<p><img src="image-20230111213748161" /></p>
+<p>01 认识你的相机，传感器和镜头 P1 - 43:24全画幅镜头推荐</p>
+<p><img src="image-20230111213748206" /></p>
+<p>01 认识你的相机，传感器和镜头 P1 - 44:11全画幅镜头组合</p>
+<p><img src="image-20230111213748195" /></p>
+<p>01 认识你的相机，传感器和镜头 P1 - 45:33选购相机</p>
+<p><img src="image-20230111213748202" /></p>
+<p><img src="image-20230111213748200" /></p>
+<h1 id="p2.-相机和器材的名次">P2. 相机和器材的名次</h1>
+<p>02 关于器材，你必须要了解的那些事 P2 - 00:40像素</p>
+<p><img src="image-20230111213748272" /></p>
+<p>02 关于器材，你必须要了解的那些事 P2 - 03:03宽容度与动态范围</p>
+<p><img src="image-20230111213748277" /></p>
+<p><img src="image-20230111213748261" /></p>
+<p><img src="image-20230111213748306" /></p>
+<p>02 关于器材，你必须要了解的那些事 P2 - 06:37转接环</p>
+<p><img src="image-20230111213748279" /></p>
+<p>02 关于器材，你必须要了解的那些事 P2 - 09:25相机评判要点</p>
+<p><img src="image-20230111213748293" /></p>
+<p>02 关于器材，你必须要了解的那些事 P2 - 14:27优质器材信息网站</p>
+<p><img src="image-20230111213748342" /></p>
+<p>02 关于器材，你必须要了解的那些事 P2 - 14:53关于拍摄和操作的名词</p>
+<p><img src="image-20230111213748348" /></p>
+<p>02 关于器材，你必须要了解的那些事 P2 - 15:10拍摄格式</p>
+<p><img src="image-20230111213748408" /></p>
+<p>02 关于器材，你必须要了解的那些事 P2 - 19:33联机拍摄软件</p>
+<p><img src="image-20230111213748390" /></p>
+<p>02 关于器材，你必须要了解的那些事 P2 - 24:08远程操作</p>
+<p><img src="image-20230111213748406" /></p>
+<p>02 关于器材，你必须要了解的那些事 P2 - 25:15知识总结</p>
+<p><img src="image-20230111213748374" /></p>
+<h1 id="p3.-相机基础操作指南">P3. 相机基础操作指南</h1>
+<p>03 告别说明书，基础相机操作指南 P3 - 00:22知识点</p>
+<p><img src="image-20230111213748412" /></p>
+<p>03 告别说明书，基础相机操作指南 P3 - 02:37通用设置思路</p>
+<p><img src="image-20230111213748450" /></p>
+<p>03 告别说明书，基础相机操作指南 P3 - 04:10相机部位名称讲解</p>
+<p><img src="image-20230111213748468" /></p>
+<h1 id="p4.-附件介绍">P4. 附件介绍</h1>
+<p>04 常用器材附件介绍及使用指南 P4 - 00:38P4知识点</p>
+<p><img src="image-20230111213748464" /></p>
+<p>04 常用器材附件介绍及使用指南 P4 - 02:46三脚架命名</p>
+<p><img src="image-20230111213748505" /></p>
+<p><img src="image-20230111213748512" /></p>
+<p>04 常用器材附件介绍及使用指南 P4 - 13:57云台</p>
+<p><img src="image-20230111213748530" /></p>
+<p>04 常用器材附件介绍及使用指南 P4 - 15:44球形云台民命</p>
+<p><img src="image-20230111213748486" /></p>
+<p>04 常用器材附件介绍及使用指南 P4 - 20:15快装板</p>
+<p><img src="image-20230111213748563" /></p>
+<p>04 常用器材附件介绍及使用指南 P4 - 23:05滤镜形状</p>
+<p><img src="image-20230111213748584" /></p>
+<p>04 常用器材附件介绍及使用指南 P4 - 25:20CPL偏振镜</p>
+<p><img src="image-20230111213748593" /></p>
+<p>04 常用器材附件介绍及使用指南 P4 - 25:52ND减光滤镜</p>
+<p><img src="image-20230111213748610" /></p>
+<p>04 常用器材附件介绍及使用指南 P4 - 30:08常用的ND档位</p>
+<p><img src="image-20230111213748585" /></p>
+<p><img src="image-20230111213818071" /></p>
+<p><img src="image-20230111213748638" /></p>
+<p>04 常用器材附件介绍及使用指南 P4 - 31:05闪光灯系统</p>
+<p><img src="image-20230111213748696" /></p>
+<p>04 常用器材附件介绍及使用指南 P4 - 33:03常亮灯</p>
+<p><img src="image-20230111213748681" /></p>
+<p><img src="image-20230111213748700" /></p>
+<p>04 常用器材附件介绍及使用指南 P4 - 36:20灯架</p>
+<p><img src="image-20230111213748709" /></p>
+<p>04 常用器材附件介绍及使用指南 P4 - 36:60快门线</p>
+<p><img src="image-20230111213748743" /></p>
+<p>04 常用器材附件介绍及使用指南 P4 - 38:00储存设备</p>
+<p><img src="image-20230111213748707" /></p>
+<p><img src="image-20230111213748793-3444268." /></p>
+<p>04 常用器材附件介绍及使用指南 P4 - 40:02清洁套装</p>
+<p><img src="image-20230111213748793" /></p>
+<p>04 常用器材附件介绍及使用指南 P4 - 40:44转换螺丝及扳手</p>
+<p><img src="image-20230111213748794" /></p>
+<p>04 常用器材附件介绍及使用指南 P4 - 42:30快拆肩带</p>
+<p><img src="image-20230111213748811" /></p>
+<p>04 常用器材附件介绍及使用指南 P4 - 43:30P4 知识总结</p>
+<p><img src="image-20230111213748868" /></p>
+<h1 id="p5.-手机摄影">P5. 手机摄影</h1>
+<p>05 初识手机摄影，常用设置及附... P5 - 00:28P5手机摄影</p>
+<p><img src="image-20230111213748886" /></p>
+<p>05 初识手机摄影，常用设置及附... P5 - 08:08手机拍摄特性</p>
+<p><img src="image-20230111213829901" /></p>
+<p>05 初识手机摄影，常用设置及附... P5 - 09:17手机拍摄的常用设置</p>
+<p>05 初识手机摄影，常用设置及附... P5 - 12:17附加镜</p>
+<p><img src="image-20230111213748842" /></p>
+<p><img src="image-20230111213748897" /></p>
+<p>05 初识手机摄影，常用设置及附... P5 - 14:25蜗牛云台和魔术手</p>
+<p><img src="image-20230111213748894" /></p>
+<p>05 初识手机摄影，常用设置及附... P5 - 15:49P5知识点总结</p>
+<p><img src="image-20230111213748912" /></p>
+<h1 id="p6.-焦距透视和畸变">P6. 焦距、透视和畸变</h1>
+<p>06学会这课，焦距，透视，畸变三... P6 - 00:25P6 知识点</p>
+<p><img src="image-20230111213748920" /></p>
+<p>06学会这课，焦距，透视，畸变三... P6 - 01:26焦距与视角</p>
+<p><img src="image-20230111213748957" /></p>
+<p>06学会这课，焦距，透视，畸变三... P6 - 03:54超广角</p>
+<p><img src="image-20230111213749003" /></p>
+<p>具有冲击力的一些照片（室外）</p>
+<p>06学会这课，焦距，透视，畸变三... P6 - 04:0124mm焦距</p>
+<p><img src="image-20230111213748976" /></p>
+<p>不需要太大冲击里的景物照，如室内照片</p>
+<p>06学会这课，焦距，透视，畸变三... P6 - 04:1725mm焦距</p>
+<p><img src="image-20230111213749016" /></p>
+<p>人文大知识角度，如人文、人像、街拍。可以容纳人物，也可以容纳一定的背景。</p>
+<p>06学会这课，焦距，透视，畸变三... P6 - 04:4250mm</p>
+<p><img src="image-20230111213749005" /></p>
+<p>比较符合人眼观看的视角，如毕业照。</p>
+<p>06学会这课，焦距，透视，畸变三... P6 - 04:5985mm焦距</p>
+<p><img src="image-20230111213748997" /></p>
+<p>人像的黄金焦段、可以拍摄人物特写，以及站在远处拍摄一些具有压缩感的人像照片</p>
+<p>06学会这课，焦距，透视，畸变三... P6 - 05:11200长焦</p>
+<p><img src="image-20230111213749054" /></p>
+<p>拍摄细节，如建筑、人物、景物的细节，比较近的动物题材。</p>
+<p>06学会这课，焦距，透视，畸变三... P6 - 05:28超长焦</p>
+<p><img src="image-20230111213749050" /></p>
+<p>400-600mm以上，拍摄野生动物、体育摄影题材、大月亮</p>
+<p>06学会这课，焦距，透视，畸变三... P6 - 05:54常见焦距焦距</p>
+<p><img src="image-20230111213749117" /></p>
+<p>人物：35、50、85、135.</p>
+<p>06学会这课，焦距，透视，畸变三... P6 -
+06:43任何焦段都可以拍摄任何题材</p>
+<p><img src="image-20230111213749083" /></p>
+<p>06学会这课，焦距，透视，畸变三... P6 - 07:47传感器</p>
+<p><img src="image-20230111213749080" /></p>
+<p>06学会这课，焦距，透视，畸变三... P6 - 09:12等效焦距</p>
+<p><img src="image-20230111213749118" /></p>
+<p>06学会这课，焦距，透视，畸变三... P6 - 11:15透视</p>
+<p><img src="image-20230111213749144" /></p>
+<p>06学会这课，焦距，透视，畸变三... P6 - 12:12透视</p>
+<p><img src="image-20230111213749152" /></p>
+<p>透视的核心：近大远小</p>
+<p><img src="image-20230111213749157" /></p>
+<p>06学会这课，焦距，透视，畸变三... P6 - 14:08平行透视</p>
+<p><img src="image-20230111213749167" /></p>
+<p>06学会这课，焦距，透视，畸变三... P6 - 14:53一点透视</p>
+<p><img src="image-20230111213749194" /></p>
+<p>06学会这课，焦距，透视，畸变三... P6 - 16:00两点透视</p>
+<p><img src="image-20230111213749203" /></p>
+<p><img src="image-20230111213749234" /></p>
+<p>06学会这课，焦距，透视，畸变三... P6 - 16:57三点透视</p>
+<p><img src="image-20230111213749222" /></p>
+<p><img src="image-20230111213749257" /></p>
+<p>06学会这课，焦距，透视，畸变三... P6 - 17:33影响透视的因素</p>
+<p><img src="image-20230111213749251" /></p>
+<p><img src="image-20230111213749295" /></p>
+<p>06学会这课，焦距，透视，畸变三... P6 - 19:00为什么广角透视感强</p>
+<p><img src="image-20230111213749268" /></p>
+<p><img src="image-20230111213749304" /></p>
+<p>06学会这课，焦距，透视，畸变三... P6 - 20:19平行投影</p>
+<p><img src="image-20230111213836259" /></p>
+<p><img src="image-20230111213749331" /></p>
+<p>06学会这课，焦距，透视，畸变三... P6 - 21:45透视总结</p>
+<p><img src="image-20230111213749346" /></p>
+<p>06学会这课，焦距，透视，畸变三... P6 - 23:03透视及畸变</p>
+<p>06学会这课，焦距，透视，畸变三... P6 - 23:12畸变对画面的影响</p>
+<p><img src="image-20230111213749367" /></p>
+<p>06学会这课，焦距，透视，畸变三... P6 - 23:56畸变和透视的对比</p>
+<p><img src="image-20230111213749365" /></p>
+<p>06学会这课，焦距，透视，畸变三... P6 - 24:28P6知识总结</p>
+<p><img src="image-20230111213749376" /></p>
+<h1 id="p7.-曝光参数">P7. 曝光参数</h1>
+<p>07 一节课教会你掌握正确的曝光参数 P7 - 00:21P7知识点</p>
+<p><img src="image-20230111213749424" /></p>
+<p>07 一节课教会你掌握正确的曝光参数 P7 - 01:08判断什么是正确曝光</p>
+<p><img src="image-20230111213749402" /></p>
+<p>07 一节课教会你掌握正确的曝光参数 P7 - 01:45主管感受的判断标准</p>
+<p><img src="image-20230111213749472" /></p>
+<p><img src="image-20230111213749471" /></p>
+<p>07 一节课教会你掌握正确的曝光参数 P7 - 03:15主体元素曝光正确</p>
+<p><img src="image-20230111213749442" /></p>
+<p>07 一节课教会你掌握正确的曝光参数 P7 - 04:35还原场景观看感受</p>
+<p><img src="image-20230111213749480" /></p>
+<p>07 一节课教会你掌握正确的曝光参数 P7 - 05:55曝光光三要素</p>
+<p><img src="image-20230111213749511" /></p>
+<p>07 一节课教会你掌握正确的曝光参数 P7 - 08:51光圈</p>
+<p><img src="image-20230111213749531" /></p>
+<p>07 一节课教会你掌握正确的曝光参数 P7 - 11:59快门</p>
+<p><img src="image-20230111213749551" /></p>
+<p>07 一节课教会你掌握正确的曝光参数 P7 - 14:06感光度</p>
+<p><img src="image-20230111213749591" /></p>
+<p>07 一节课教会你掌握正确的曝光参数 P7 - 16:27互易率</p>
+<p><img src="image-20230111213749643" /></p>
+<p><img src="image-20230111213749560" /></p>
+<p>07 一节课教会你掌握正确的曝光参数 P7 - 21:33曝光补偿</p>
+<p><img src="image-20230111213749625" /></p>
+<p>07 一节课教会你掌握正确的曝光参数 P7 - 23:15曝光补偿</p>
+<p><img src="image-20230111213749608" /></p>
+<p>07 一节课教会你掌握正确的曝光参数 P7 - 24:19P7知识点总结</p>
+<p><img src="image-20230111213749665" /></p>
+<h1 id="p8.-常用拍摄模式及适用题材">P8. 常用拍摄模式及适用题材</h1>
+<p>08 常用拍摄模式及适用题材 P8 - 00:32P8知识点</p>
+<p><img src="image-20230111213749660" /></p>
+<p>08 常用拍摄模式及适用题材 P8 - 01:03曝光组合</p>
+<p><img src="image-20230111213749705" /></p>
+<p>08 常用拍摄模式及适用题材 P8 - 01:41全自动</p>
+<p><img src="image-20230111213749692" /></p>
+<p>08 常用拍摄模式及适用题材 P8 - 01:59P-半自动档</p>
+<p><img src="image-20230111213749731" /></p>
+<p>08 常用拍摄模式及适用题材 P8 - 02:31A/AV光圈优先</p>
+<p><img src="image-20230111213749756" /></p>
+<p><img src="image-20230111213749764" /></p>
+<p><img src="image-20230111213749776" /></p>
+<p>08 常用拍摄模式及适用题材 P8 - 03:22S/TV快门优先档</p>
+<p><img src="image-20230111213749785" /></p>
+<p><img src="image-20230111213749813" /></p>
+<p>08 常用拍摄模式及适用题材 P8 - 03:54M手动挡</p>
+<p><img src="image-20230111213749795" /></p>
+<p>08 常用拍摄模式及适用题材 P8 - 05:19M档案例</p>
+<p><img src="image-20230111213749855" /></p>
+<p>08 常用拍摄模式及适用题材 P8 - 06:29B档</p>
+<p><img src="image-20230111213749843" /></p>
+<p>08 常用拍摄模式及适用题材 P8 - 06:59C档</p>
+<p><img src="image-20230111213749874" /></p>
+<p>08 常用拍摄模式及适用题材 P8 - 07:52手机原生相机</p>
+<p><img src="image-20230111213749887" /></p>
+<p>08 常用拍摄模式及适用题材 P8 - 13:21手机夜景模式</p>
+<p><img src="image-20230111213749899" /></p>
+<p>08 常用拍摄模式及适用题材 P8 - 13:51慢门/长曝光/流光快门</p>
+<p><img src="image-20230111213749925" /></p>
+<p>08 常用拍摄模式及适用题材 P8 - 15:08HDR</p>
+<p><img src="image-20230111213749939" /></p>
+<p>08 常用拍摄模式及适用题材 P8 - 15:34全景模式</p>
+<p><img src="image-20230111213749935" /></p>
+<p>08 常用拍摄模式及适用题材 P8 - 17:39P8知识点总结</p>
+<p><img src="image-20230111213749975" /></p>
+<h1 id="p9.-对焦景深和虚化">P9. 对焦、景深和虚化</h1>
+<p>09 一节课弄懂对焦，景深和虚化... P9 - 00:24P9知识点</p>
+<p><img src="image-20230111213749966" /></p>
+<p>09 一节课弄懂对焦，景深和虚化... P9 - 01:19景深</p>
+<p><img src="image-20230111213749970" /></p>
+<p>09 一节课弄懂对焦，景深和虚化... P9 - 02:44自动对焦与手动对焦</p>
+<p><img src="image-20230111213750028" /></p>
+<p>09 一节课弄懂对焦，景深和虚化... P9 - 04:42对焦模式</p>
+<p><img src="image-20230111213750063" /></p>
+<p>09 一节课弄懂对焦，景深和虚化... P9 - 06:21对焦区域</p>
+<p><img src="image-20230111213750003" /></p>
+<p>09 一节课弄懂对焦，景深和虚化... P9 - 07:31对焦点</p>
+<p><img src="image-20230111213750078" /></p>
+<p>09 一节课弄懂对焦，景深和虚化... P9 - 08:38使用对焦</p>
+<p><img src="image-20230111213750052" /></p>
+<p>09 一节课弄懂对焦，景深和虚化... P9 - 09:59为什么对不上焦</p>
+<p><img src="image-20230111213750053" /></p>
+<p>09 一节课弄懂对焦，景深和虚化... P9 - 12:38如何拍出背景虚化</p>
+<p><img src="image-20230111213750097" /></p>
+<p>09 一节课弄懂对焦，景深和虚化... P9 - 13:02背景虚化核心四要素</p>
+<p><img src="image-20230111213750104" /></p>
+<p><img src="image-20230111213750126" /></p>
+<p><img src="image-20230111213750125" /></p>
+<p><img src="image-20230111213750188" /></p>
+<p>09 一节课弄懂对焦，景深和虚化... P9 - 16:34画面虚实控制</p>
+<p><img src="image-20230111213750181" /></p>
+<p><img src="image-20230111213750194" /></p>
+<p>09 一节课弄懂对焦，景深和虚化... P9 - 17:42焦点合成</p>
+<p><img src="image-20230111213750181-3444270." /></p>
+<p>09 一节课弄懂对焦，景深和虚化... P9 - 18:22可以虚化的场景</p>
+<p><img src="image-20230111213750202" /></p>
+<p>09 一节课弄懂对焦，景深和虚化... P9 - 18:49为什么画面拍虚了</p>
+<p><img src="image-20230111213750272" /></p>
+<p>09 一节课弄懂对焦，景深和虚化... P9 - 21:42P9知识点总结</p>
+<p><img src="image-20230111213750278-3444270." /></p>
+<h1 id="p10.-构图">P10. 构图</h1>
+<p>10 摄影构图核心的奥秘 P10 - 00:22P10知识点</p>
+<p><img src="image-20230111213750278" /></p>
+<p>10 摄影构图核心的奥秘 P10 - 01:33构图的核心</p>
+<p><img src="image-20230111213750292" /></p>
+<p>10 摄影构图核心的奥秘 P10 - 02:37如何选取取景范围</p>
+<p><img src="image-20230111213750321-3444270." /></p>
+<p><img src="image-20230111213750321" /></p>
+<p>10 摄影构图核心的奥秘 P10 - 05:29让画面更吸引人</p>
+<p><img src="image-20230111213750375" /></p>
+<p><img src="image-20230111213750384" /></p>
+<p>10 摄影构图核心的奥秘 P10 - 06:28视觉凝聚</p>
+<ul>
+<li>明亮的部分吸引视觉</li>
+</ul>
+<p><img src="image-20230111213750360" /></p>
+<ul>
+<li>鲜艳/对比色</li>
+</ul>
+<p><img src="image-20230111213750370" /></p>
+<ul>
+<li>清晰</li>
+</ul>
+<p><img src="image-20230111213750442" /></p>
+<ul>
+<li>重复元素</li>
+</ul>
+<p><img src="image-20230111213750422" /></p>
+<p>10 摄影构图核心的奥秘 P10 - 08:44视觉引导</p>
+<ul>
+<li>引导线</li>
+</ul>
+<p><img src="image-20230111213750465" /></p>
+<ul>
+<li>视线</li>
+</ul>
+<p><img src="image-20230111213750480" /></p>
+<ul>
+<li>框架</li>
+</ul>
+<p><img src="image-20230111213750449" /></p>
+<p>10 摄影构图核心的奥秘 P10 - 10:38常见的构图技巧</p>
+<ul>
+<li>三分法（人物？）</li>
+</ul>
+<p><img src="image-20230111213750464" /></p>
+<ul>
+<li>三分法（水天分界线）</li>
+</ul>
+<p><img src="image-20230111213750498" /></p>
+<ul>
+<li>居中法（对称的物体，庄严肃穆的物体）</li>
+</ul>
+<p><img src="image-20230111213750529" /></p>
+<ul>
+<li>三角形构图（三个重要物体，连成三角形）</li>
+</ul>
+<p><img src="image-20230111213750549" /></p>
+<ul>
+<li>前中后景（层次构图）</li>
+</ul>
+<p><img src="image-20230111213750575" /></p>
+<ul>
+<li>综合运用</li>
+</ul>
+<p><img src="image-20230111213750567" /></p>
+<p>10 摄影构图核心的奥秘 P10 - 13:27活用三分法和居中法</p>
+<p><img src="image-20230111213750593" /></p>
+<p><img src="image-20230111213750564" /></p>
+<p><img src="image-20230111213750637" /></p>
+<p>10 摄影构图核心的奥秘 P10 - 17:07留白</p>
+<ul>
+<li>主体视线、运动方向留白</li>
+</ul>
+<p><img src="image-20230111213750653" /></p>
+<ul>
+<li>在留白处点缀</li>
+</ul>
+<p><img src="image-20230111213750641" /></p>
+<p>10 摄影构图核心的奥秘 P10 - 18:37P10 知识总结</p>
+<p><img src="image-20230111213750660" /></p>
+<h1 id="p11.-正确曝光与影调">P11. 正确曝光与影调</h1>
+<p>11 数码时代的正确曝光与影调 P11 - 00:41P11知识点</p>
+<p><img src="image-20230111213750679" /></p>
+<p>11 数码时代的正确曝光与影调 P11 - 00:58影调</p>
+<p><img src="image-20230111213750714" /></p>
+<p>11 数码时代的正确曝光与影调 P11 - 01:42明暗</p>
+<p><img src="image-20230111213750711" /></p>
+<p>11 数码时代的正确曝光与影调 P11 - 02:29画面中的明暗</p>
+<p><img src="image-20230111213750705" /></p>
+<p><img src="image-20230111213750750" /></p>
+<p>11 数码时代的正确曝光与影调 P11 - 04:04低调</p>
+<ul>
+<li>低短调（亮度轴中跨度比较小，较为冷峻）</li>
+</ul>
+<p><img src="image-20230111213750748" /></p>
+<ul>
+<li>低中调（较为柔和）</li>
+</ul>
+<p><img src="image-20230111213750761" /></p>
+<ul>
+<li>低长调（细节比较丰富）</li>
+</ul>
+<p><img src="image-20230111213750801" /></p>
+<p>Note：</p>
+<ol type="1">
+<li>明暗情绪的表达</li>
+<li>根据高中低进行扩展成九个影调</li>
+</ol>
+<p>11 数码时代的正确曝光与影调 P11 - 05:079+1影调</p>
+<p><img src="image-20230111213750815" /></p>
+<ul>
+<li>全长调</li>
+</ul>
+<p><img src="image-20230111213750832" /></p>
+<p>11 数码时代的正确曝光与影调 P11 - 05:36量化影调</p>
+<p><img src="image-20230111213750836" /></p>
+<p>11 数码时代的正确曝光与影调 P11 - 05:58测光模式</p>
+<p><img src="image-20230111213750857" /></p>
+<p>11 数码时代的正确曝光与影调 P11 - 06:52直方图</p>
+<p><img src="image-20230111213750884" /></p>
+<p>11 数码时代的正确曝光与影调 P11 - 08:21直方图与曝光</p>
+<p><img src="image-20230111213750870" /></p>
+<p>11 数码时代的正确曝光与影调 P11 - 09:23直方图与影调</p>
+<p><img src="image-20230111213750913" /></p>
+<p>11 数码时代的正确曝光与影调 P11 - 11:27数码时代的最佳曝光方式</p>
+<p><img src="image-20230111213750909" /></p>
+<p>11 数码时代的正确曝光与影调 P11 - 12:14向右曝光</p>
+<p><img src="image-20230111213750934" /></p>
+<p>11 数码时代的正确曝光与影调 P11 - 16:26P11知识总结</p>
+<p><img src="image-20230111213750961" /></p>
+<p>11 数码时代的正确曝光与影调 P11 - 16:45画面明暗知识树</p>
+<p><img src="image-20230111213750974" /></p>
+<h1 id="p12.-大光比">P12. 大光比</h1>
+<p>12 大光比场景下，平衡光比的多... P12 - 00:44P12知识点</p>
+<p><img src="image-20230111213750989" /></p>
+<p>12 大光比场景下，平衡光比的多... P12 - 01:18大光比</p>
+<p>大光比：明暗反差大</p>
+<p><img src="image-20230111213751037-3444271." /></p>
+<p><img src="image-20230111213751037" /></p>
+<p>12 大光比场景下，平衡光比的多... P12 - 03:18大光比下直方图</p>
+<p><img src="image-20230111213751052" /></p>
+<p>12 大光比场景下，平衡光比的多... P12 - 03:53常见大光比场景</p>
+<p>日出日落、城市夜景</p>
+<p><img src="image-20230111213751036" /></p>
+<p>12 大光比场景下，平衡光比的多... P12 - 05:03平衡光比</p>
+<p><img src="image-20230111213751068" /></p>
+<p>12 大光比场景下，平衡光比的多... P12 - 05:47曝光合成</p>
+<p><img src="image-20230111213751078" /></p>
+<p>12 大光比场景下，平衡光比的多... P12 - 06:51曝光合成</p>
+<p><img src="image-20230111213751123" /></p>
+<p>12 大光比场景下，平衡光比的多... P12 - 08:27HDR照片合成</p>
+<p><img src="image-20230111213751131" /></p>
+<p>12 大光比场景下，平衡光比的多... P12 - 12:10宁欠勿过</p>
+<ul>
+<li>风光</li>
+</ul>
+<p><img src="image-20230111213751108" /></p>
+<ul>
+<li>人像：进行补光</li>
+</ul>
+<p><img src="image-20230111213751173" /></p>
+<ul>
+<li>剪影拍摄</li>
+</ul>
+<p><img src="image-20230111213751139" /></p>
+<p>12 大光比场景下，平衡光比的多... P12 - 16:48P12知识点总结</p>
+<p><img src="image-20230111213751185" /></p>
+<h1 id="p13.-摄影用光指南">P13. 摄影用光指南</h1>
+<p>13 摄影用光指南：如何利用好光线 P13 - 00:25P13知识点</p>
+<p><img src="image-20230111213751218" /></p>
+<p>13 摄影用光指南：如何利用好光线 P13 - 00:52光线的特性</p>
+<p><img src="image-20230111213751241" /></p>
+<p>13 摄影用光指南：如何利用好光线 P13 - 01:08色温</p>
+<p><img src="image-20230111213751230" /></p>
+<p>13 摄影用光指南：如何利用好光线 P13 - 03:08白平衡</p>
+<p><img src="image-20230111213751225" /></p>
+<p>13 摄影用光指南：如何利用好光线 P13 - 04:24利用白平衡</p>
+<p><img src="image-20230111213751247" /></p>
+<p>13 摄影用光指南：如何利用好光线 P13 - 05:26方向</p>
+<p><img src="image-20230111213751316" /></p>
+<p><img src="image-20230111213751289" /></p>
+<p>13 摄影用光指南：如何利用好光线 P13 - 07:19软硬</p>
+<p><img src="image-20230111213751319" /></p>
+<ul>
+<li>软光：柔光，面部亮部与阴影的分割线，如果分割过度，是均匀、自然的过渡。</li>
+<li>硬光：如果过渡比较生硬，分割线的硬线。</li>
+</ul>
+<p>13 摄影用光指南：如何利用好光线 P13 - 08:04自然光拍摄指南</p>
+<p><img src="image-20230111213751335" /></p>
+<p>13 摄影用光指南：如何利用好光线 P13 - 08:14一天中光线的变化</p>
+<p><img src="image-20230111213751358" /></p>
+<p>13 摄影用光指南：如何利用好光线 P13 - 09:47柔光/补光</p>
+<p><img src="image-20230111213751323" /></p>
+<p>13 摄影用光指南：如何利用好光线 P13 - 10:49人造光拍摄指南</p>
+<p><img src="image-20230111213751370" /></p>
+<p>13 摄影用光指南：如何利用好光线 P13 - 11:53持续光源/瞬间光源</p>
+<p><img src="image-20230111213751394" /></p>
+<p>13 摄影用光指南：如何利用好光线 P13 - 15:06机顶闪光灯</p>
+<p><img src="image-20230111213751392" /></p>
+<p>TTL：自动曝光</p>
+<p>13 摄影用光指南：如何利用好光线 P13 - 18:38闪光灯曝光指南</p>
+<p><img src="image-20230111213751403" /></p>
+<p>13 摄影用光指南：如何利用好光线 P13 - 20:43三点布光</p>
+<p><img src="image-20230111213751504" /></p>
+<p>13 摄影用光指南：如何利用好光线 P13 - 22:33伦勃朗光</p>
+<p><img src="image-20230111213751422" /></p>
+<p>13 摄影用光指南：如何利用好光线 P13 - 22:58蝴蝶光</p>
+<p><img src="image-20230111213841669" /></p>
+<p>13 摄影用光指南：如何利用好光线 P13 - 23:45P13知识点总结</p>
+<p><img src="image-20230111213751498" /></p>
+<h1 id="p14.-常用拍摄技巧和建议">P14. 常用拍摄技巧和建议</h1>
+<p>14 常用拍摄技巧和建议 P14 - 00:22P14知识点</p>
+<p><img src="image-20230111213751499" /></p>
+<p>14 常用拍摄技巧和建议 P14 - 01:15噪点</p>
+<p><img src="image-20230111213751500" /></p>
+<p>14 常用拍摄技巧和建议 P14 - 03:21前期降噪思路</p>
+<p><img src="image-20230111213751494" /></p>
+<p>14 常用拍摄技巧和建议 P14 - 04:42提升ISO</p>
+<p><img src="image-20230111213751563" /></p>
+<p>14 常用拍摄技巧和建议 P14 - 06:09降噪软件：DeNoiseAI</p>
+<p><img src="image-20230111213751599" /></p>
+<p>14 常用拍摄技巧和建议 P14 - 06:24综合运用</p>
+<p><img src="image-20230111213751578" /></p>
+<p>14 常用拍摄技巧和建议 P14 - 07:29反光</p>
+<p><img src="image-20230111213751580" /></p>
+<ul>
+<li>人像</li>
+</ul>
+<p><img src="image-20230111213751581" /></p>
+<ul>
+<li>风光</li>
+</ul>
+<p><img src="image-20230111213751589" /></p>
+<p>14 常用拍摄技巧和建议 P14 - 08:42消除反光</p>
+<p><img src="image-20230111213751661" /></p>
+<p><img src="image-20230111213751683" /></p>
+<p>14 常用拍摄技巧和建议 P14 - 09:30身边拍摄</p>
+<p><img src="image-20230111213751656" /></p>
+<p><img src="image-20230111213751667" /></p>
+<p>14 常用拍摄技巧和建议 P14 - 10:34光线</p>
+<p><img src="image-20230111213751698" /></p>
+<p>14 常用拍摄技巧和建议 P14 - 11:23寻找细节</p>
+<p><img src="image-20230111213751681" /></p>
+<p>14 常用拍摄技巧和建议 P14 - 12:23小建议</p>
+<p><img src="image-20230111213751767" /></p>
+<ul>
+<li>多角度拍摄</li>
+</ul>
+<p><img src="image-20230111213751763" /></p>
+<ul>
+<li>长期主题拍摄</li>
+</ul>
+<p><img src="image-20230111213751732" /></p>
+<ul>
+<li>体现自己的成长</li>
+</ul>
+<p><img src="image-20230111213751755" /></p>
+<p><img src="image-20230111213751782" /></p>
+<p>14 常用拍摄技巧和建议 P14 - 15:17摄影不止是摄影</p>
+<p>n</p>
+<p><img src="image-20230111213751802" /></p>
+<h1 id="p15.-如何对优秀作品进行拆解和分析">P15.
+如何对优秀作品进行拆解和分析</h1>
+<p>15 如何对优秀摄影作品进行分析... P15 - 00:49P15知识点</p>
+<p><img src="image-20230111213751819" /></p>
+<p>15 如何对优秀摄影作品进行分析... P15 - 01:22好照片标准</p>
+<ul>
+<li>明确的主题</li>
+</ul>
+<p><img src="image-20230111213751828" /></p>
+<ul>
+<li>突出的主体/兴趣点</li>
+</ul>
+<p><img src="image-20230111213751848" /></p>
+<ul>
+<li>简洁的画面/好看的形式</li>
+</ul>
+<p><img src="image-20230111213751885" /></p>
+<ul>
+<li>细节完备、完成度高</li>
+</ul>
+<p><img src="image-20230111213751870" /></p>
+<p>15 如何对优秀摄影作品进行分析... P15 - 03:16欣赏优秀作品的网址</p>
+<p><img src="image-20230111213751915" /></p>
+<p>15 如何对优秀摄影作品进行分析... P15 - 05:28好照片的分析要点</p>
+<p><img src="image-20230111213751917" /></p>
+<p><img src="image-20230111213751903" /></p>
+<p>Note：内容指导形式，形式知道技巧</p>
+<p>15 如何对优秀摄影作品进行分析... P15 - 08:14内容/观感</p>
+<ul>
+<li>风光</li>
+</ul>
+<p><img src="image-20230111213751918" /></p>
+<ul>
+<li>人像</li>
+</ul>
+<p><img src="image-20230111213852228" /></p>
+<p>15 如何对优秀摄影作品进行分析... P15 - 09:44形式分析</p>
+<p><img src="image-20230111213751984" /></p>
+<p>15 如何对优秀摄影作品进行分析... P15 - 11:12技巧分析</p>
+<p><img src="image-20230111213751977" /></p>
+<p>15 如何对优秀摄影作品进行分析... P15 - 12:44Tips：不要备数值</p>
+<p><img src="image-20230111213752009" /></p>
+<p>15 如何对优秀摄影作品进行分析... P15 - 14:36如何拆解模仿照片</p>
+<p><img src="image-20230111213752026" /></p>
+<p>15 如何对优秀摄影作品进行分析... P15 - 15:23风光照片分析</p>
+<p><img src="image-20230111213752010" /></p>
+<p>15 如何对优秀摄影作品进行分析... P15 - 19:12人像照片分析</p>
+<p><img src="image-20230111213752053" /></p>
+<p>15 如何对优秀摄影作品进行分析... P15 - 22:03建议</p>
+<p><img src="image-20230111213752094" /></p>
+<p>15 如何对优秀摄影作品进行分析... P15 - 23:15P15 知识点总结</p>
+<p><img src="image-20230111213752091" /></p>
+<h1 id="p16.-风光拍摄实战">P16. 风光拍摄实战</h1>
+<p>16 实战案例：自然风光拍摄指南 P16 - 01:30P16 知识点</p>
+<p><img src="image-20230111213912409" /></p>
+<p>16 实战案例：自然风光拍摄指南 P16 - 02:01自然风光拍摄流程</p>
+<p><img src="image-20230111213752108" /></p>
+<p>16 实战案例：自然风光拍摄指南 P16 - 05:35风光摄影器材</p>
+<p><img src="image-20230111213752125" /></p>
+<p>16 实战案例：自然风光拍摄指南 P16 - 07:13风光摄影常见题材及技巧</p>
+<p><img src="image-20230111213752163" /></p>
+<p>16 实战案例：自然风光拍摄指南 P16 - 11:04常见出片时机</p>
+<p><img src="image-20230111213752193" /></p>
+<p>16 实战案例：自然风光拍摄指南 P16 - 11:44风光摄影常见题材及技巧</p>
+<p><img src="image-20230111213752168" /></p>
+<p>16 实战案例：自然风光拍摄指南 P16 - 12:47山川</p>
+<p>时间：火烧云、晚霞时刻</p>
+<p><img src="image-20230111213752173" /></p>
+<p>16 实战案例：自然风光拍摄指南 P16 - 13:42海景</p>
+<p><img src="image-20230111213752198" /></p>
+<ul>
+<li>雾化、平静的海面：30s左右的长曝光</li>
+<li>拉丝的效果（左边两张）：1/4s快门速度</li>
+<li>海水迸溅的效果（右边）：1/10s快门速度</li>
+<li>清澈见底的海面：CPL滤镜</li>
+</ul>
+<p>16 实战案例：自然风光拍摄指南 P16 - 14:34森林瀑布题材</p>
+<ul>
+<li>构图：铺叙展开的层次构图，前景、中景、后景，拉开具备层次感的构图方式</li>
+<li>滤镜：CPL滤镜消除反光，ND滤镜（中灰镜）减少曝光，让瀑布形成拉丝水流的柔顺效果。</li>
+<li>其他：随身携带擦镜布。</li>
+</ul>
+<p><img src="image-20230111213752208" /></p>
+<p>16 实战案例：自然风光拍摄指南 P16 - 15:27沙漠题材</p>
+<ul>
+<li>长焦、注意防尘</li>
+</ul>
+<p><img src="image-20230111213752266" /></p>
+<p>16 实战案例：自然风光拍摄指南 P16 - 16:23摄影派别</p>
+<ul>
+<li>梦幻魔幻派</li>
+</ul>
+<p><img src="image-20230111213752257" /></p>
+<ul>
+<li>宁静致远派</li>
+</ul>
+<p><img src="image-20230111213752251" /></p>
+<ul>
+<li>细微小景派</li>
+</ul>
+<p><img src="image-20230111213752265" /></p>
+<ul>
+<li>黑白极简派</li>
+</ul>
+<p><img src="image-20230111213752300" /></p>
+<p>16 实战案例：自然风光拍摄指南 P16 - 20:34跟着大师学构图</p>
+<ul>
+<li>构图套路：引导线（瀑布）</li>
+</ul>
+<p><img src="image-20230111213752305" /></p>
+<ul>
+<li>构图套路：视线引导（人是兴趣点，增加画面平衡视线方向指向想表达的内容）</li>
+</ul>
+<p><img src="image-20230111213752368" /></p>
+<ul>
+<li>构图套路：三分法（天和地面的水平线）</li>
+</ul>
+<p><img src="image-20230111213752344-3444272." /></p>
+<ul>
+<li>构图套路：框架（运用树、岩石、洞作为框架，框住想表达的内容）</li>
+</ul>
+<p><img src="image-20230111213752344" /></p>
+<ul>
+<li>构图套路：前中后景（前景为花朵、枯木，中景为岩石、山峰，远景为天空，对不同地方进行对焦，后期进行对焦合成）</li>
+</ul>
+<p><img src="image-20230111213752352" /></p>
+<ul>
+<li>构图套路：视觉引导（明暗视觉引导，前景暗后面量；清晰与不清晰模糊的层次感引导，前景清晰，后景模糊，空气透视）</li>
+</ul>
+<p><img src="image-20230111213752401" /></p>
+<p>16 实战案例：自然风光拍摄指南 P16 - 22:53如何拍出风光作品</p>
+<p><img src="image-20230111213752387" /></p>
+<p>16 实战案例：自然风光拍摄指南 P16 - 25:15自然风光案例照片拆解复盘</p>
+<p><img src="image-20230111213752441" /></p>
+<p>16 实战案例：自然风光拍摄指南 P16 - 25:30朝霞拍摄</p>
+<p><img src="image-20230111213752412" /></p>
+<p>参数设定：</p>
+<ul>
+<li>设备：三脚架</li>
+<li>镜头：16-35广角镜头</li>
+<li>光圈：小光圈</li>
+<li>档位：A档</li>
+<li>ISO：100</li>
+<li>构图：前中后景（石头前景，水和山峰为中景，远景为火烧云的天空）</li>
+<li>连拍：多张水面，后期进行堆量合成来对水面进行模糊，以及云彩的长曝光效果</li>
+<li>曝光：向左曝光，保护高光</li>
+</ul>
+<p>16 实战案例：自然风光拍摄指南 P16 - 30:00P16知识点总结</p>
+<p><img src="image-20230111213752439" /></p>
+<h1 id="p17.-城市风光">P17. 城市风光</h1>
+<p>17 实战案例：城市风光拍摄指南 P17 - 00:30P17 知识点</p>
+<p><img src="image-20230111213752469" /></p>
+<p>17 实战案例：城市风光拍摄指南 P17 - 01:13时机选择</p>
+<p><img src="image-20230111213752478" /></p>
+<ul>
+<li>黄金时刻：日落之前半小时左右、日出之后半小时</li>
+<li>蓝调时间：日落之后的半小时、日出之前半小时</li>
+</ul>
+<p>17 实战案例：城市风光拍摄指南 P17 - 02:38黄金时刻查询</p>
+<p><img src="image-20230111213752470" /></p>
+<p>17 实战案例：城市风光拍摄指南 P17 - 03:31天气选择</p>
+<p><img src="image-20230111213752729" /></p>
+<p>17 实战案例：城市风光拍摄指南 P17 - 04:43天气选择APP</p>
+<p><img src="image-20230111213752523" /></p>
+<p>17 实战案例：城市风光拍摄指南 P17 - 05:31晚霞预报APP</p>
+<p><img src="image-20230111213752536" /></p>
+<p>17 实战案例：城市风光拍摄指南 P17 - 05:46机位选择</p>
+<p><img src="image-20230111213752553" /></p>
+<p>17 实战案例：城市风光拍摄指南 P17 - 06:28找机位技巧</p>
+<p><img src="image-20230111213752572" /></p>
+<p><img src="image-20230111213752593" /></p>
+<p>17 实战案例：城市风光拍摄指南 P17 - 08:38城市风光器材与参数</p>
+<p><img src="image-20230111213752627" /></p>
+<p>17 实战案例：城市风光拍摄指南 P17 - 08:57星芒</p>
+<p><img src="image-20230111213752628" /></p>
+<ul>
+<li>小光圈（f11及以上）</li>
+</ul>
+<p><img src="image-20230111213752653" /></p>
+<p>Note：F16光圈</p>
+<p><img src="image-20230111213752645" /></p>
+<p>Note：F13光圈+长曝光</p>
+<p>17 实战案例：城市风光拍摄指南 P17 - 10:06如何拍出长曝光</p>
+<p><img src="image-20230111213752738" /></p>
+<ul>
+<li>如何拍好看的车轨</li>
+</ul>
+<p><img src="image-20230111213752706" /></p>
+<p>Note:</p>
+<ol type="1">
+<li>曝光时间较长，让车轨可以铺满画面</li>
+<li>尽可能拍摄多张，方便后期挑选或堆栈</li>
+<li>尽量选对拍摄时机：车流最大的时候</li>
+<li>多次拍摄来车方向：拍摄多向车轨</li>
+</ol>
+<p>17 实战案例：城市风光拍摄指南 P17 - 11:51ND镜的曝光计算器</p>
+<p><img src="image-20230111213752701" /></p>
+<ul>
+<li>ND8：蓝调</li>
+<li>ND64：黄金时刻</li>
+<li>ND1000：白天太阳下</li>
+</ul>
+<p>17 实战案例：城市风光拍摄指南 P17 - 14:40城市风光拍摄案例拆解</p>
+<p><img src="image-20230111213752717" /></p>
+<p>17 实战案例：城市风光拍摄指南 P17 - 14:44城市风光案例</p>
+<p><img src="image-20230111213752750" /></p>
+<p>参数设置：</p>
+<ul>
+<li>镜头：佳能f1.8 50定焦镜头（600左右）</li>
+<li>设备：三脚架</li>
+<li>方式：连拍堆栈</li>
+<li>效果：模糊水面和云的流动</li>
+<li>构图：三分法（建筑横平竖直）</li>
+<li>光圈：小光圈</li>
+<li>档位：A档</li>
+<li>ISO：100</li>
+<li>曝光：单张拍摄，向左曝光，后期进行对堆栈，保证路灯不过曝</li>
+<li>后期：蓝金色调，高明度、高饱和的金色，搭配低明度、低饱和的蓝色。</li>
+</ul>
+<p>17 实战案例：城市风光拍摄指南 P17 - 17:09P17知识点总结</p>
+<p><img src="image-20230111213752801" /></p>
+<h1 id="人像拍摄指南">18. 人像拍摄指南</h1>
+<p>18 实战案例：人像写真拍摄指南 P18 - 00:45P18 知识点</p>
+<p><img src="image-20230111213752799" /></p>
+<p>18 实战案例：人像写真拍摄指南 P18 - 01:04如何策划人像拍摄</p>
+<p><img src="image-20230111213752794" /></p>
+<p>18 实战案例：人像写真拍摄指南 P18 - 02:25拍照风格</p>
+<ul>
+<li>日系风格（清新欢快，贴近生活，较为自然）</li>
+</ul>
+<p><img src="image-20230111213752813" /></p>
+<ul>
+<li>欧美风格（更加暗调）</li>
+</ul>
+<p><img src="image-20230111213752832" /></p>
+<ul>
+<li>时尚大片（精细的设计，精致的妆容、细节）</li>
+</ul>
+<p><img src="image-20230111213752847" /></p>
+<p>18 实战案例：人像写真拍摄指南 P18 - 04:26人像写真常用器材</p>
+<p><img src="image-20230111213752868" /></p>
+<p>18 实战案例：人像写真拍摄指南 P18 - 04:31器材</p>
+<p><img src="image-20230111213752900" /></p>
+<p>18 实战案例：人像写真拍摄指南 P18 - 06:21常用器材——补光</p>
+<p><img src="image-20230111213752879" /></p>
+<p>18 实战案例：人像写真拍摄指南 P18 - 07:56人像拍摄常用参数</p>
+<p><img src="image-20230111213752921" /></p>
+<p>18 实战案例：人像写真拍摄指南 P18 - 11:38人像拍摄技巧</p>
+<ul>
+<li>利用道具</li>
+</ul>
+<p><img src="image-20230111213752920" /></p>
+<ul>
+<li>利用前景</li>
+</ul>
+<p><img src="image-20230111213752946" /></p>
+<ul>
+<li>寻找窗户</li>
+</ul>
+<p><img src="image-20230111213752934" /></p>
+<ul>
+<li>跟着光走</li>
+</ul>
+<p><img src="image-20230111213752965" /></p>
+<p>18 实战案例：人像写真拍摄指南 P18 - 13:44人像拍摄案例拆解复盘</p>
+<p><img src="image-20230111213753018" /></p>
+<p>18 实战案例：人像写真拍摄指南 P18 - 14:19海边沙滩案例</p>
+<p><img src="image-20230111213752997" /></p>
+<p>小建议：</p>
+<ul>
+<li>背影或侧影：减少紧张感</li>
+<li>在场景中自由玩耍：精彩瞬间抓拍</li>
+</ul>
+<p>参数设置：</p>
+<ul>
+<li>小道具：雨伞、风景特写，插入组图之中增添趣味</li>
+<li>风格：低饱和，低对比场景</li>
+<li>妆造：淡妆</li>
+<li>服装：淡雅、素</li>
+<li>时机：日落前后，非正日落火烧云时</li>
+</ul>
+<p>18 实战案例：人像写真拍摄指南 P18 - 17:08P18知识点总结</p>
+<p><img src="image-20230111213753009" /></p>
+<h1 id="p19.-月亮拍摄">P19. 月亮拍摄</h1>
+<p>19 实战案例：月亮如何拍 P19 - 00:33P19知识点</p>
+<p><img src="image-20230111213753025" /></p>
+<p>19 实战案例：月亮如何拍 P19 - 01:08常规月相</p>
+<p><img src="image-20230111213753029" /></p>
+<p>19 实战案例：月亮如何拍 P19 - 03:37特殊月相</p>
+<p><img src="image-20230111213753062" /></p>
+<p>2018.1.31 超级蓝血月</p>
+<ul>
+<li>超级月亮：近地点，月亮看起来比平时大，更加亮，一年出现几次</li>
+<li>蓝月：一个月出现两次的满月情况</li>
+<li>血月：月全食，食甚时刻月亮是血红色，光的折射</li>
+</ul>
+<p>19 实战案例：月亮如何拍 P19 - 05:21月食</p>
+<p><img src="image-20230111213753121" /></p>
+<p>19 实战案例：月亮如何拍 P19 - 06:30特殊月相：月食</p>
+<p><img src="image-20230111213753125" /></p>
+<p>19 实战案例：月亮如何拍 P19 - 08:21如何选择月相进行拍摄</p>
+<p><img src="image-20230111213753130" /></p>
+<p>19 实战案例：月亮如何拍 P19 - 08:55如何查看月相</p>
+<ul>
+<li>网站查询</li>
+</ul>
+<p><img src="image-20230111213753141" /></p>
+<ul>
+<li>太阳测量师</li>
+</ul>
+<p><img src="image-20230111213753124" /></p>
+<ul>
+<li>SkyGuide</li>
+</ul>
+<p><img src="image-20230111213753143" /></p>
+<ul>
+<li>Planit</li>
+</ul>
+<p><img src="image-20230111213753189" /></p>
+<p>19 实战案例：月亮如何拍 P19 - 10:25拍摄参数与器材选择</p>
+<p><img src="image-20230111213753223" /></p>
+<p>19 实战案例：月亮如何拍 P19 - 11:02拍摄器材选择</p>
+<ul>
+<li>长焦镜头+三脚架</li>
+</ul>
+<p><img src="image-20230111213753240" /></p>
+<p>19 实战案例：月亮如何拍 P19 - 11:38拍摄参数设置</p>
+<p><img src="image-20230111213753218" /></p>
+<p>19 实战案例：月亮如何拍 P19 - 11:59手机拍摄参数</p>
+<p><img src="image-20230111213753233" /></p>
+<p>19 实战案例：月亮如何拍 P19 - 12:30拍摄月亮的新思路</p>
+<p><img src="image-20230111213753244" /></p>
+<p>19 实战案例：月亮如何拍 P19 - 12:42加些点缀拍摄月亮</p>
+<p><img src="image-20230111213753299" /></p>
+<p>Note：月亮作为点缀因素，增加照片的光彩</p>
+<ul>
+<li>增添前景</li>
+</ul>
+<p><img src="image-20230111213753327" /></p>
+<p>技巧：</p>
+<ul>
+<li>结合前景进行拍摄月亮</li>
+<li>利用蓝调时刻，减少光比</li>
+</ul>
+<p>19 实战案例：月亮如何拍 P19 - 14:23进行伴月</p>
+<ul>
+<li>金星伴月</li>
+</ul>
+<p><img src="image-20230111213753318" /></p>
+<ul>
+<li>ISS</li>
+</ul>
+<p><img src="image-20230111213753316" /></p>
+<ul>
+<li>人物剪影</li>
+</ul>
+<p><img src="image-20230111213753332" /></p>
+<ul>
+<li>城市景观</li>
+</ul>
+<p><img src="image-20230111213753344" /></p>
+<p><img src="image-20230111213753407" /></p>
+<p>19 实战案例：月亮如何拍 P19 - 17:16如何利用Planit计划穿月</p>
+<p><img src="image-20230111213753440" /></p>
+<p>19 实战案例：月亮如何拍 P19 - 17:48月轨</p>
+<p><img src="image-20230111213753392" /></p>
+<p>19 实战案例：月亮如何拍 P19 - 18:27P19知识点总结</p>
+<p><img src="image-20230111213753412" /></p>
+<h1 id="p20.-星空拍摄">P20. 星空拍摄</h1>
+<p>20 实战案例：星空如何拍 P20 - 00:25P20 知识点</p>
+<p><img src="image-20230111213753408" /></p>
+<p>20 实战案例：星空如何拍 P20 - 01:26星空的类型</p>
+<p><img src="image-20230111213753441" /></p>
+<p>20 实战案例：星空如何拍 P20 - 02:58前期规划</p>
+<ul>
+<li>天气选择：少云/无云（Windy网站）</li>
+</ul>
+<p><img src="image-20230111213753494" /></p>
+<ul>
+<li>月相选择</li>
+</ul>
+<p><img src="image-20230111213753509" /></p>
+<p>Note：避开满月（星空）与新月（星轨）；月升之前、月落之后时拍摄星空，可以进行时间合成（月出时）</p>
+<p>20 实战案例：星空如何拍 P20 - 05:01光污染地图</p>
+<p><img src="image-20230111213753526" /></p>
+<p>20 实战案例：星空如何拍 P20 - 06:48地点选择：关键星</p>
+<ul>
+<li>APP：Planit 和 Star Walk 2</li>
+</ul>
+<p><img src="image-20230111213753519" /></p>
+<p>Tips：不要只关注银河或单颗星星，可以结合好看的低景进行拍摄。</p>
+<p>20 实战案例：星空如何拍 P20 - 08:59常用器材</p>
+<p><img src="image-20230111213753535" /></p>
+<p>设定：</p>
+<ul>
+<li>相机：光感比较好的相机</li>
+<li>镜头：大光圈广角镜头，至少F4光圈镜头，F2.8</li>
+</ul>
+<p>20 实战案例：星空如何拍 P20 - 10:49常用参数设定</p>
+<p><img src="image-20230111213753523" /></p>
+<p>Note：</p>
+<ul>
+<li>快门，使用星空500法则，比如14mm要低于30s的快门时间，否则使用赤道仪。相机高像素、高分辨率，则可以使用星空300法则，可以获得更加清晰锐利的星空。</li>
+<li>弱光，可能对不上焦。可以使用手动对焦，关闭JPG降噪，不然会演唱拍摄时间（拍多久，降噪多久）</li>
+<li>白平衡手动设定</li>
+<li>星轨：不推荐长曝光，可以使用堆栈的连拍方式</li>
+</ul>
+<p>20 实战案例：星空如何拍 P20 - 14:19NEOWISE</p>
+<p><img src="image-20230111213753576" /></p>
+<p>20 实战案例：星空如何拍 P20 - 14:42彗星拍摄案例</p>
+<p><img src="image-20230111213753603" /></p>
+<p>20 实战案例：星空如何拍 P20 - 15:57参数设定</p>
+<p><img src="image-20230111213753617" /></p>
+<p>设定：</p>
+<ul>
+<li>焦距：大光圈的中长焦</li>
+<li>构图：前景拍摄，山体为山景</li>
+<li>焦段：85mm</li>
+<li>档位：M 档</li>
+<li>光圈：F1.4</li>
+<li>感光度：1600-3200</li>
+<li>不拖尾：500法则</li>
+<li>后期：降噪，调色，堆栈降噪（软件）</li>
+</ul>
+<p>20 实战案例：星空如何拍 P20 - 17:53P20知识点总结</p>
+<p><img src="image-20230111213753606" /></p>
+
+    </div>
+
+    
+    
+    
+
+    <div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">
+            -------------This blog is over!
+            <i class="fa fa-eye"></i>
+            Thanks for your reading-------------
+        </div>
+    
+</div>
+      
+    </div>
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>Post author:  </strong>YangSu
+  </li>
+  <li class="post-copyright-link">
+    <strong>Post link: </strong>
+    <a href="http://yangsuoly.com/2023/01/11/Photography/" title="Photography">http://yangsuoly.com/2023/01/11/Photography/</a>
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/Tags/Photography/" rel="tag"><i class="fa fa-tag"></i> Photography</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2023/01/08/Grammar-in-use-1/" rel="prev" title="Grammar-in-use-1">
+      <i class="fa fa-chevron-left"></i> Grammar-in-use-1
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2023/01/15/English-Speaking/" rel="next" title="English-Speaking">
+      English-Speaking <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div id="music163player">
+      <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=1317956275&auto=0&height=66"></iframe>
+      </iframe>
+    </div>
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#p1.-%E8%AE%A4%E8%AF%86%E7%9B%B8%E6%9C%BA"><span class="nav-text">P1. 认识相机</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#p2.-%E7%9B%B8%E6%9C%BA%E5%92%8C%E5%99%A8%E6%9D%90%E7%9A%84%E5%90%8D%E6%AC%A1"><span class="nav-text">P2. 相机和器材的名次</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#p3.-%E7%9B%B8%E6%9C%BA%E5%9F%BA%E7%A1%80%E6%93%8D%E4%BD%9C%E6%8C%87%E5%8D%97"><span class="nav-text">P3. 相机基础操作指南</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#p4.-%E9%99%84%E4%BB%B6%E4%BB%8B%E7%BB%8D"><span class="nav-text">P4. 附件介绍</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#p5.-%E6%89%8B%E6%9C%BA%E6%91%84%E5%BD%B1"><span class="nav-text">P5. 手机摄影</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#p6.-%E7%84%A6%E8%B7%9D%E9%80%8F%E8%A7%86%E5%92%8C%E7%95%B8%E5%8F%98"><span class="nav-text">P6. 焦距、透视和畸变</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#p7.-%E6%9B%9D%E5%85%89%E5%8F%82%E6%95%B0"><span class="nav-text">P7. 曝光参数</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#p8.-%E5%B8%B8%E7%94%A8%E6%8B%8D%E6%91%84%E6%A8%A1%E5%BC%8F%E5%8F%8A%E9%80%82%E7%94%A8%E9%A2%98%E6%9D%90"><span class="nav-text">P8. 常用拍摄模式及适用题材</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#p9.-%E5%AF%B9%E7%84%A6%E6%99%AF%E6%B7%B1%E5%92%8C%E8%99%9A%E5%8C%96"><span class="nav-text">P9. 对焦、景深和虚化</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#p10.-%E6%9E%84%E5%9B%BE"><span class="nav-text">P10. 构图</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#p11.-%E6%AD%A3%E7%A1%AE%E6%9B%9D%E5%85%89%E4%B8%8E%E5%BD%B1%E8%B0%83"><span class="nav-text">P11. 正确曝光与影调</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#p12.-%E5%A4%A7%E5%85%89%E6%AF%94"><span class="nav-text">P12. 大光比</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#p13.-%E6%91%84%E5%BD%B1%E7%94%A8%E5%85%89%E6%8C%87%E5%8D%97"><span class="nav-text">P13. 摄影用光指南</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#p14.-%E5%B8%B8%E7%94%A8%E6%8B%8D%E6%91%84%E6%8A%80%E5%B7%A7%E5%92%8C%E5%BB%BA%E8%AE%AE"><span class="nav-text">P14. 常用拍摄技巧和建议</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#p15.-%E5%A6%82%E4%BD%95%E5%AF%B9%E4%BC%98%E7%A7%80%E4%BD%9C%E5%93%81%E8%BF%9B%E8%A1%8C%E6%8B%86%E8%A7%A3%E5%92%8C%E5%88%86%E6%9E%90"><span class="nav-text">P15.
+如何对优秀作品进行拆解和分析</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#p16.-%E9%A3%8E%E5%85%89%E6%8B%8D%E6%91%84%E5%AE%9E%E6%88%98"><span class="nav-text">P16. 风光拍摄实战</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#p17.-%E5%9F%8E%E5%B8%82%E9%A3%8E%E5%85%89"><span class="nav-text">P17. 城市风光</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BA%BA%E5%83%8F%E6%8B%8D%E6%91%84%E6%8C%87%E5%8D%97"><span class="nav-text">18. 人像拍摄指南</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#p19.-%E6%9C%88%E4%BA%AE%E6%8B%8D%E6%91%84"><span class="nav-text">P19. 月亮拍摄</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#p20.-%E6%98%9F%E7%A9%BA%E6%8B%8D%E6%91%84"><span class="nav-text">P20. 星空拍摄</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="YangSu"
+      src="/images/YangSu.jpg">
+  <p class="site-author-name" itemprop="name">YangSu</p>
+  <div class="site-description" itemprop="description">A blog for recording learning notes...</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">78</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/Categories/">
+          
+        <span class="site-state-item-count">40</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/Tags/">
+          
+        <span class="site-state-item-count">49</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/YangSuoly" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;YangSuoly" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://gitee.com/yangsuoly" title="Gitee → https:&#x2F;&#x2F;gitee.com&#x2F;yangsuoly" rel="noopener" target="_blank"><i class="fab fa-github-square fa-fw"></i>Gitee</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://space.bilibili.com/64518717" title="B 站 → https:&#x2F;&#x2F;space.bilibili.com&#x2F;64518717" rel="noopener" target="_blank"><i class="fa fa-play-circle fa-fw"></i>B 站</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Related links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://www.58pic.com/u/19637930/" title="https:&#x2F;&#x2F;www.58pic.com&#x2F;u&#x2F;19637930&#x2F;" rel="noopener" target="_blank">千图网</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js" integrity="sha384-g7c+Jr9ZivxKLnZTDUhnkOnsh30B4H0rpLUpJ4jAIKs4fnJI+sEnkvrMWph2EDg4" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/auto-render.min.js" integrity="sha384-mll67QQFJfxn0IYznZYonOWZ644AWYC+Pt2cHqMaRhXVrursRwvLnLaebdGIlYNa" crossorigin="anonymous"
+        onload="renderMathInElement(document.body);"></script>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2026</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">YangSu</span>
+</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="Total Visitors">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="Total Views">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script size="300" alpha="0.6" zIndex="-1" src="/lib/canvas-ribbon/canvas-ribbon.js"></script>
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+<script>
+document.querySelectorAll('.pdfobject-container').forEach(element => {
+  let url = element.dataset.target;
+  let pdfOpenParams = {
+    navpanes : 0,
+    toolbar  : 0,
+    statusbar: 0,
+    pagemode : 'thumbs',
+    view     : 'FitH'
+  };
+  let pdfOpenFragment = '#' + Object.entries(pdfOpenParams).map(([key, value]) => `${key}=${encodeURIComponent(value)}`).join('&');
+  let fullURL = `/lib/pdf/web/viewer.html?file=${encodeURIComponent(url)}${pdfOpenFragment}`;
+
+  if (NexT.utils.supportsPDFs()) {
+    element.innerHTML = `<embed class="pdfobject" src="${url + pdfOpenFragment}" type="application/pdf" style="height: ${element.dataset.height};">`;
+  } else {
+    element.innerHTML = `<iframe src="${fullURL}" style="height: ${element.dataset.height};" frameborder="0"></iframe>`;
+  }
+});
+</script>
+
+
+<script>
+if (document.querySelectorAll('pre.mermaid').length) {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js', () => {
+    mermaid.initialize({
+      theme    : 'forest',
+      logLevel : 3,
+      flowchart: { curve     : 'linear' },
+      gantt    : { axisFormat: '%m/%d/%Y' },
+      sequence : { actorMargin: 50 }
+    });
+  }, window.mermaid);
+}
+</script>
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+  <script src="//cdn.jsdelivr.net/npm/quicklink@1/dist/quicklink.umd.js"></script>
+  <script>
+      window.addEventListener('load', () => {
+      quicklink({
+        timeout : 3000,
+        priority: true,
+        ignores : [uri => uri.includes('#'),uri => uri === 'http://yangsuoly.com/2023/01/11/Photography/',]
+      });
+      });
+  </script>
+
+  
+  <script id="ribbon" src="js/canvas-ribbon.js"></script>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/22.2017.cba-normal.model.json"},"display":{"position":"right","width":300,"height":450},"mobile":{"show":false},"react":{"opacity":0.7},"log":false});</script></body>
+</html>
