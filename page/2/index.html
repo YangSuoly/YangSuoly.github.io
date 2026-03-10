@@ -249,11 +249,11 @@
               </span>
               <span class="post-meta-item-text">In</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/Categories/Notes/" itemprop="url" rel="index"><span itemprop="name">Notes</span></a>
+                  <a href="/categories/Notes/" itemprop="url" rel="index"><span itemprop="name">Notes</span></a>
                 </span>
                   , 
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/Categories/Notes/Claude-Code/" itemprop="url" rel="index"><span itemprop="name">Claude-Code</span></a>
+                  <a href="/categories/Notes/Claude-Code/" itemprop="url" rel="index"><span itemprop="name">Claude-Code</span></a>
                 </span>
             </span>
 
@@ -282,19 +282,17 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="02-claude-code-核心功能全解析"><a class="markdownIt-Anchor" href="#02-claude-code-核心功能全解析"></a> 02-Claude Code 核心功能全解析</h1>
-<blockquote>
-<p>Skills + <a target="_blank" rel="noopener" href="http://CLAUDE.md">CLAUDE.md</a> + Memory 三大法宝</p>
+          <h1 id="02-Claude-Code-核心功能全解析"><a href="#02-Claude-Code-核心功能全解析" class="headerlink" title="02-Claude Code 核心功能全解析"></a>02-Claude Code 核心功能全解析</h1><blockquote>
+<p>Skills + CLAUDE.md + Memory 三大法宝</p>
 </blockquote>
-<h2 id="前言"><a class="markdownIt-Anchor" href="#前言"></a> 📝 前言</h2>
-<p>上回书说到，咱们用智谱 GLM-4.7 把 Claude Code 配起来了，也能跑起来了。但说实话，那只是&quot;能用&quot;，离&quot;好用&quot;还有一定距离。</p>
-<p>真正让我觉得&quot;真香&quot;的，是 Claude Code 的三大核心功能：</p>
+<h2 id="📝-前言"><a href="#📝-前言" class="headerlink" title="📝 前言"></a>📝 前言</h2><p>上回书说到，咱们用智谱 GLM-4.7 把 Claude Code 配起来了，也能跑起来了。但说实话，那只是”能用”，离”好用”还有一定距离。</p>
+<p>真正让我觉得”真香”的，是 Claude Code 的三大核心功能：</p>
 <ul>
 <li><strong>Skills 系统</strong> - 就像给 Claude 装了各种专业插件</li>
-<li><strong><a target="_blank" rel="noopener" href="http://CLAUDE.md">CLAUDE.md</a></strong> - 每个项目都配一本专属使用说明书</li>
+<li><strong>CLAUDE.md</strong> - 每个项目都配一本专属使用说明书</li>
 <li><strong>Memory</strong> - 让 Claude 记住你的偏好和习惯</li>
 </ul>
-<p>这三样东西配合起来，Claude 就从一个&quot;通用聊天机器人&quot;变成了&quot;懂你、懂项目、懂专业领域&quot;的超级助手。说实话，用了一段时间后，再回到普通 ChatGPT 真是各种不习惯。</p>
+<p>这三样东西配合起来，Claude 就从一个”通用聊天机器人”变成了”懂你、懂项目、懂专业领域”的超级助手。说实话，用了一段时间后，再回到普通 ChatGPT 真是各种不习惯。</p>
 <p>这篇笔记咱们就把这三样东西彻底搞清楚，保证看完就能上手，上手就能提升效率。</p>
           <!--noindex-->
             <div class="post-button">
@@ -365,11 +363,11 @@
               </span>
               <span class="post-meta-item-text">In</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/Categories/Notes/" itemprop="url" rel="index"><span itemprop="name">Notes</span></a>
+                  <a href="/categories/Notes/" itemprop="url" rel="index"><span itemprop="name">Notes</span></a>
                 </span>
                   , 
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/Categories/Notes/Claude-Code/" itemprop="url" rel="index"><span itemprop="name">Claude-Code</span></a>
+                  <a href="/categories/Notes/Claude-Code/" itemprop="url" rel="index"><span itemprop="name">Claude-Code</span></a>
                 </span>
             </span>
 
@@ -379,7 +377,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">Symbols count in article: </span>
-              <span>5.8k</span>
+              <span>5.7k</span>
             </span>
             <span class="post-meta-item" title="Reading time">
               <span class="post-meta-item-icon">
@@ -398,9 +396,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="玩转-claude-code全平台接入智谱-glm-47-配置实战"><a class="markdownIt-Anchor" href="#玩转-claude-code全平台接入智谱-glm-47-配置实战"></a> 玩转 Claude Code：全平台接入智谱 GLM-4.7 配置实战</h1>
-<h2 id="前言"><a class="markdownIt-Anchor" href="#前言"></a> 📝 前言</h2>
-<p>起因是半年前买的 Cursor 教育 Pro 版失效了，刚好最近有非常刚需的项目变成需求，于是花了点时间做调研，查看是否有更 fancy 的方法能让我实现代码编写和项目管理，最后发现 Claude Code是真香。</p>
+          <h1 id="玩转-Claude-Code：全平台接入智谱-GLM-4-7-配置实战"><a href="#玩转-Claude-Code：全平台接入智谱-GLM-4-7-配置实战" class="headerlink" title="玩转 Claude Code：全平台接入智谱 GLM-4.7 配置实战"></a>玩转 Claude Code：全平台接入智谱 GLM-4.7 配置实战</h1><h2 id="📝-前言"><a href="#📝-前言" class="headerlink" title="📝 前言"></a>📝 前言</h2><p>起因是半年前买的 Cursor 教育 Pro 版失效了，刚好最近有非常刚需的项目变成需求，于是花了点时间做调研，查看是否有更 fancy 的方法能让我实现代码编写和项目管理，最后发现 Claude Code是真香。</p>
 <p>但在国内直连 Anthropic 官方 API 不仅门槛高，成本也不低。好在许多国产的模型，如智谱 AI (ChatGLM) ，豆包，Minmax 等现在非常给力，提供了完全兼容 Anthropic 协议的接口，可以轻松地平替掉 Claude 内置的模型，绕过ip的限制。</p>
 <p>这意味着我们完全可以<strong>用 Claude Code 的壳，跑国产模型 （如GLM-4.7 ）的芯</strong>。不仅访问速度起飞，成本也大大降低。这篇笔记整理了我在 Windows、macOS 和 Ubuntu 上跑通智谱 GLM-4.7 模型流程的配置方法，希望能帮大家少走弯路。</p>
           <!--noindex-->
@@ -466,11 +462,11 @@
               </span>
               <span class="post-meta-item-text">In</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/Categories/Notes/" itemprop="url" rel="index"><span itemprop="name">Notes</span></a>
+                  <a href="/categories/Notes/" itemprop="url" rel="index"><span itemprop="name">Notes</span></a>
                 </span>
                   , 
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/Categories/Notes/Markdown/" itemprop="url" rel="index"><span itemprop="name">Markdown</span></a>
+                  <a href="/categories/Notes/Markdown/" itemprop="url" rel="index"><span itemprop="name">Markdown</span></a>
                 </span>
             </span>
 
@@ -499,12 +495,10 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="1-关于mermaid"><a class="markdownIt-Anchor" href="#1-关于mermaid"></a> 1. 关于Mermaid</h1>
-<p>最近在使用Markdown写文章过程中，遇到了画流程图的问题，最后发现可以用 <code>mermaid</code> 完美实现，于是记录下学习笔记。</p>
+          <h1 id="1-关于Mermaid"><a href="#1-关于Mermaid" class="headerlink" title="1. 关于Mermaid"></a>1. 关于Mermaid</h1><p>最近在使用Markdown写文章过程中，遇到了画流程图的问题，最后发现可以用 <code>mermaid</code> 完美实现，于是记录下学习笔记。</p>
 <p><strong>Mermaid 允许使用文本和代码创建图表和可视化。</strong></p>
 <blockquote>
-<p>官网：<a target="_blank" rel="noopener" href="https://mermaidjs.github.io/">https://mermaidjs.github.io/</a><br />
-<a target="_blank" rel="noopener" href="https://so.csdn.net/so/search?q=Github&amp;spm=1001.2101.3001.7020">Github</a> 项目地址：<a target="_blank" rel="noopener" href="https://github.com/knsv/mermaid">https://github.com/knsv/mermaid</a></p>
+<p>官网：<a target="_blank" rel="noopener" href="https://mermaidjs.github.io/">https://mermaidjs.github.io/</a><br><a target="_blank" rel="noopener" href="https://so.csdn.net/so/search?q=Github&amp;spm=1001.2101.3001.7020">Github</a> 项目地址：<a target="_blank" rel="noopener" href="https://github.com/knsv/mermaid">https://github.com/knsv/mermaid</a></p>
 </blockquote>
           <!--noindex-->
             <div class="post-button">
@@ -569,11 +563,11 @@
               </span>
               <span class="post-meta-item-text">In</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/Categories/Class-Notes/" itemprop="url" rel="index"><span itemprop="name">Class Notes</span></a>
+                  <a href="/categories/Class-Notes/" itemprop="url" rel="index"><span itemprop="name">Class Notes</span></a>
                 </span>
                   , 
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/Categories/Class-Notes/Prelim/" itemprop="url" rel="index"><span itemprop="name">Prelim</span></a>
+                  <a href="/categories/Class-Notes/Prelim/" itemprop="url" rel="index"><span itemprop="name">Prelim</span></a>
                 </span>
             </span>
 
@@ -583,14 +577,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">Symbols count in article: </span>
-              <span>3.3k</span>
+              <span>282</span>
             </span>
             <span class="post-meta-item" title="Reading time">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">Reading time &asymp;</span>
-              <span>3 mins.</span>
+              <span>1 mins.</span>
             </span>
 
         </div>
@@ -602,15 +596,12 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="13-排队论"><a class="markdownIt-Anchor" href="#13-排队论"></a> 13 排队论</h1>
-<h2 id="1-背景知识"><a class="markdownIt-Anchor" href="#1-背景知识"></a> 1. 背景知识</h2>
-<h3 id="11-notation"><a class="markdownIt-Anchor" href="#11-notation"></a> 1.1 Notation</h3>
-<ul>
-<li><strong>肯德尔记号</strong> (Kendall)：输入分布/输出分布/并联服务台数（<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>X</mi><mi mathvariant="normal">/</mi><mi>Y</mi><mi mathvariant="normal">/</mi><mi>Z</mi></mrow><annotation encoding="application/x-tex">X/Y/Z</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.07847em;">X</span><span class="mord">/</span><span class="mord mathdefault" style="margin-right:0.22222em;">Y</span><span class="mord">/</span><span class="mord mathdefault" style="margin-right:0.07153em;">Z</span></span></span></span>）</li>
+          <h1 id="13-排队论"><a href="#13-排队论" class="headerlink" title="13 排队论"></a>13 排队论</h1><h2 id="1-背景知识"><a href="#1-背景知识" class="headerlink" title="1. 背景知识"></a>1. 背景知识</h2><h3 id="1-1-Notation"><a href="#1-1-Notation" class="headerlink" title="1.1 Notation"></a>1.1 Notation</h3><ul>
+<li><strong>肯德尔记号</strong> (Kendall)：输入分布/输出分布/并联服务台数（$X/Y/Z$）</li>
 </ul>
-<p>1971 年，国际排队符号标准会上扩展至六项，记为 (<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>X</mi><mi mathvariant="normal">/</mi><mi>Y</mi><mi mathvariant="normal">/</mi><mi>Z</mi><mi mathvariant="normal">/</mi><mi>A</mi><mi mathvariant="normal">/</mi><mi>B</mi><mi mathvariant="normal">/</mi><mi>C</mi></mrow><annotation encoding="application/x-tex">X/Y/Z/A/B/C</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.07847em;">X</span><span class="mord">/</span><span class="mord mathdefault" style="margin-right:0.22222em;">Y</span><span class="mord">/</span><span class="mord mathdefault" style="margin-right:0.07153em;">Z</span><span class="mord">/</span><span class="mord mathdefault">A</span><span class="mord">/</span><span class="mord mathdefault" style="margin-right:0.05017em;">B</span><span class="mord">/</span><span class="mord mathdefault" style="margin-right:0.07153em;">C</span></span></span></span>)：</p>
+<p>1971 年，国际排队符号标准会上扩展至六项，记为 ($X/Y/Z/A/B/C$)：</p>
 <figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">输入分布/输出分布/并联服务台数/系统容量（队长）/系统状态（顾客源数）/服务规则</span><br></pre></td></tr></table></figure>
-<p>e.g. <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>M</mi><mi mathvariant="normal">/</mi><mi>M</mi><mi mathvariant="normal">/</mi><mn>1</mn><mi mathvariant="normal">/</mi><mi mathvariant="normal">∞</mi><mi mathvariant="normal">/</mi><mi mathvariant="normal">∞</mi><mi mathvariant="normal">/</mi><mi>F</mi><mi>C</mi><mi>F</mi><mi>S</mi></mrow><annotation encoding="application/x-tex">M/M/1/\infty/\infty/FCFS</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.10903em;">M</span><span class="mord">/</span><span class="mord mathdefault" style="margin-right:0.10903em;">M</span><span class="mord">/</span><span class="mord">1</span><span class="mord">/</span><span class="mord">∞</span><span class="mord">/</span><span class="mord">∞</span><span class="mord">/</span><span class="mord mathdefault" style="margin-right:0.13889em;">F</span><span class="mord mathdefault" style="margin-right:0.07153em;">C</span><span class="mord mathdefault" style="margin-right:0.13889em;">F</span><span class="mord mathdefault" style="margin-right:0.05764em;">S</span></span></span></span></p>
+<p>e.g. $M/M/1/\infty/\infty/FCFS$ </p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2024/12/01/Queue-Theory/#more" rel="contents">
@@ -664,21 +655,27 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2024-12-01 11:30:22 / Modified: 12:41:46" itemprop="dateCreated datePublished" datetime="2024-12-01T11:30:22+08:00">2024-12-01</time>
+              <time title="Created: 2024-12-01 11:30:22" itemprop="dateCreated datePublished" datetime="2024-12-01T11:30:22+08:00">2024-12-01</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2026-03-10 22:51:40" itemprop="dateModified" datetime="2026-03-10T22:51:40+08:00">2026-03-10</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
               </span>
               <span class="post-meta-item-text">In</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/Categories/Class-Notes/" itemprop="url" rel="index"><span itemprop="name">Class Notes</span></a>
+                  <a href="/categories/Class-Notes/" itemprop="url" rel="index"><span itemprop="name">Class Notes</span></a>
                 </span>
                   , 
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/Categories/Class-Notes/Prelim/" itemprop="url" rel="index"><span itemprop="name">Prelim</span></a>
+                  <a href="/categories/Class-Notes/Prelim/" itemprop="url" rel="index"><span itemprop="name">Prelim</span></a>
                 </span>
             </span>
 
@@ -688,14 +685,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">Symbols count in article: </span>
-              <span>62k</span>
+              <span>57k</span>
             </span>
             <span class="post-meta-item" title="Reading time">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">Reading time &asymp;</span>
-              <span>56 mins.</span>
+              <span>51 mins.</span>
             </span>
 
         </div>
@@ -711,9 +708,7 @@
 <ul>
 <li>Snyder, L. V., &amp; Shen, Z. J. M. (2019). <em>Fundamentals of supply chain theory</em>. John Wiley &amp; Sons.</li>
 </ul>
-<h1 id="1-introduction"><a class="markdownIt-Anchor" href="#1-introduction"></a> 1. Introduction</h1>
-<h2 id="11-the-evolution-of-supply-chain-theory"><a class="markdownIt-Anchor" href="#11-the-evolution-of-supply-chain-theory"></a> 1.1 The Evolution of Supply Chain Theory</h2>
-<p>Supply chains used to be viewed, at least by some managers, as “necessary evils.”</p>
+<h1 id="1-Introduction"><a href="#1-Introduction" class="headerlink" title="1. Introduction"></a>1. Introduction</h1><h2 id="1-1-The-Evolution-of-Supply-Chain-Theory"><a href="#1-1-The-Evolution-of-Supply-Chain-Theory" class="headerlink" title="1.1 The Evolution of Supply Chain Theory"></a>1.1 The Evolution of Supply Chain Theory</h2><p>Supply chains used to be viewed, at least by some managers, as “necessary evils.”</p>
 <p>By the end of the last century, however, the purpose of the supply chain had begun to change as some firms discovered that supply chains could be a source of competitive advantage, rather than simply a cost driver.</p>
 <p>The final chapter of this book is devoted to exploring how the tools of supply chain theory are used in a few of these application areas—electricity systems, health care, and public sector operations.</p>
           <!--noindex-->
@@ -779,11 +774,11 @@
               </span>
               <span class="post-meta-item-text">In</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/Categories/Class-Notes/" itemprop="url" rel="index"><span itemprop="name">Class Notes</span></a>
+                  <a href="/categories/Class-Notes/" itemprop="url" rel="index"><span itemprop="name">Class Notes</span></a>
                 </span>
                   , 
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/Categories/Class-Notes/Prelim/" itemprop="url" rel="index"><span itemprop="name">Prelim</span></a>
+                  <a href="/categories/Class-Notes/Prelim/" itemprop="url" rel="index"><span itemprop="name">Prelim</span></a>
                 </span>
             </span>
 
@@ -816,13 +811,11 @@
 <ul>
 <li>Buchholz, B. M., &amp; Styczynski, Z. (2014). <em>Smart Grids-fundamentals and technologies in electricity networks</em> (Vol. 396). Heidelberg: Springer.</li>
 </ul>
-<h1 id="1-vision-and-strategy-for-the-electricity-networks-of-the-future"><a class="markdownIt-Anchor" href="#1-vision-and-strategy-for-the-electricity-networks-of-the-future"></a> 1. Vision and Strategy for the Electricity Networks of the Future</h1>
-<h2 id="11-drivers-of-smart-grids"><a class="markdownIt-Anchor" href="#11-drivers-of-smart-grids"></a> 1.1 Drivers of Smart Grids</h2>
-<p>The main challenges that need to be solved in the European Union are [1]:</p>
+<h1 id="1-Vision-and-Strategy-for-the-Electricity-Networks-of-the-Future"><a href="#1-Vision-and-Strategy-for-the-Electricity-Networks-of-the-Future" class="headerlink" title="1. Vision and Strategy for the Electricity Networks of the Future"></a>1. Vision and Strategy for the Electricity Networks of the Future</h1><h2 id="1-1-Drivers-of-Smart-Grids"><a href="#1-1-Drivers-of-Smart-Grids" class="headerlink" title="1.1 Drivers of Smart Grids"></a>1.1 Drivers of Smart Grids</h2><p>The main challenges that need to be solved in the European Union are [1]:</p>
 <ul>
-<li>the decreasing availability of fossil and nuclear primary energy sources (PES) and,</li>
-<li>accordingly, their rapidly increasing prices,</li>
-<li>the 70% dependency of Central Europe on imported PES,</li>
+<li>the decreasing availability of fossil and nuclear primary energy sources (PES) and,  </li>
+<li>accordingly, their rapidly increasing prices,  </li>
+<li>the 70% dependency of Central Europe on imported PES,  </li>
 <li>the increasing impact of greenhouse emissions on the environment.</li>
 </ul>
           <!--noindex-->
@@ -878,21 +871,27 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2024-12-01 11:30:10 / Modified: 12:46:05" itemprop="dateCreated datePublished" datetime="2024-12-01T11:30:10+08:00">2024-12-01</time>
+              <time title="Created: 2024-12-01 11:30:10" itemprop="dateCreated datePublished" datetime="2024-12-01T11:30:10+08:00">2024-12-01</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2026-03-10 22:46:29" itemprop="dateModified" datetime="2026-03-10T22:46:29+08:00">2026-03-10</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
               </span>
               <span class="post-meta-item-text">In</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/Categories/Class-Notes/" itemprop="url" rel="index"><span itemprop="name">Class Notes</span></a>
+                  <a href="/categories/Class-Notes/" itemprop="url" rel="index"><span itemprop="name">Class Notes</span></a>
                 </span>
                   , 
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/Categories/Class-Notes/Prelim/" itemprop="url" rel="index"><span itemprop="name">Prelim</span></a>
+                  <a href="/categories/Class-Notes/Prelim/" itemprop="url" rel="index"><span itemprop="name">Prelim</span></a>
                 </span>
             </span>
 
@@ -902,14 +901,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">Symbols count in article: </span>
-              <span>29k</span>
+              <span>20k</span>
             </span>
             <span class="post-meta-item" title="Reading time">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">Reading time &asymp;</span>
-              <span>26 mins.</span>
+              <span>18 mins.</span>
             </span>
 
         </div>
@@ -925,8 +924,7 @@
 <ul>
 <li>Shortle, J. F., Thompson, J. M., Gross, D., &amp; Harris, C. M. (2018). <em>Fundamentals of queueing theory</em> (Vol. 399). John Wiley &amp; Sons.</li>
 </ul>
-<h1 id="1-introduction"><a class="markdownIt-Anchor" href="#1-introduction"></a> 1. Introduction</h1>
-<p>Queueing theory attempts to answer these questions through detailed mathematical analysis</p>
+<h1 id="1-Introduction"><a href="#1-Introduction" class="headerlink" title="1. Introduction"></a>1. Introduction</h1><p>Queueing theory attempts to answer these questions through detailed mathematical analysis</p>
 <p>There are many valuable applications of queueing theory including traffic flow(vehicles, aircraft, people, communications), scheduling (patients in hospitals, jobson machines, programs on a computer), and facility design (banks, post offices, amusement parks, fast-food restaurants).</p>
           <!--noindex-->
             <div class="post-button">
@@ -991,11 +989,11 @@
               </span>
               <span class="post-meta-item-text">In</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/Categories/Class-Notes/" itemprop="url" rel="index"><span itemprop="name">Class Notes</span></a>
+                  <a href="/categories/Class-Notes/" itemprop="url" rel="index"><span itemprop="name">Class Notes</span></a>
                 </span>
                   , 
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/Categories/Class-Notes/Prelim/" itemprop="url" rel="index"><span itemprop="name">Prelim</span></a>
+                  <a href="/categories/Class-Notes/Prelim/" itemprop="url" rel="index"><span itemprop="name">Prelim</span></a>
                 </span>
             </span>
 
@@ -1005,14 +1003,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">Symbols count in article: </span>
-              <span>53k</span>
+              <span>13k</span>
             </span>
             <span class="post-meta-item" title="Reading time">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">Reading time &asymp;</span>
-              <span>48 mins.</span>
+              <span>12 mins.</span>
             </span>
 
         </div>
@@ -1028,10 +1026,8 @@
 <ul>
 <li>Law, A. M., Kelton, W. D., &amp; Kelton, W. D. (2014). <em>Simulation modeling and analysis</em> (Vol. 3). New York: Mcgraw-hill.</li>
 </ul>
-<h1 id="1-basic-simulation-modeling"><a class="markdownIt-Anchor" href="#1-basic-simulation-modeling"></a> 1 Basic Simulation Modeling</h1>
-<p>Basic Simulation Modeling</p>
-<h2 id="11-the-nature-of-simulation"><a class="markdownIt-Anchor" href="#11-the-nature-of-simulation"></a> 1.1 The Nature of Simulation</h2>
-<blockquote>
+<h1 id="1-Basic-Simulation-Modeling"><a href="#1-Basic-Simulation-Modeling" class="headerlink" title="1 Basic Simulation Modeling"></a>1 Basic Simulation Modeling</h1><p>Basic Simulation Modeling</p>
+<h2 id="1-1-The-Nature-of-Simulation"><a href="#1-1-The-Nature-of-Simulation" class="headerlink" title="1.1 The Nature of Simulation"></a>1.1 The Nature of Simulation</h2><blockquote>
 <p>Lectures:</p>
 <ul>
 <li><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1RR4y1A7of/?spm_id_from=333.337.search-card.all.click&amp;vd_source=ed04dacb9e3f8845a9f0fa7b8130e4f1">Simulation and modeling of natural processes | 自然过程的仿真与建模 | Python | ABM_哔哩哔哩_bilibili</a></li>
@@ -1092,21 +1088,27 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2024-12-01 10:20:28 / Modified: 12:45:14" itemprop="dateCreated datePublished" datetime="2024-12-01T10:20:28+08:00">2024-12-01</time>
+              <time title="Created: 2024-12-01 10:20:28" itemprop="dateCreated datePublished" datetime="2024-12-01T10:20:28+08:00">2024-12-01</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2026-03-10 22:48:06" itemprop="dateModified" datetime="2026-03-10T22:48:06+08:00">2026-03-10</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
               </span>
               <span class="post-meta-item-text">In</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/Categories/Class-Notes/" itemprop="url" rel="index"><span itemprop="name">Class Notes</span></a>
+                  <a href="/categories/Class-Notes/" itemprop="url" rel="index"><span itemprop="name">Class Notes</span></a>
                 </span>
                   , 
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/Categories/Class-Notes/Prelim/" itemprop="url" rel="index"><span itemprop="name">Prelim</span></a>
+                  <a href="/categories/Class-Notes/Prelim/" itemprop="url" rel="index"><span itemprop="name">Prelim</span></a>
                 </span>
             </span>
 
@@ -1123,7 +1125,7 @@
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">Reading time &asymp;</span>
-              <span>15 mins.</span>
+              <span>14 mins.</span>
             </span>
 
         </div>
@@ -1139,8 +1141,7 @@
 <ul>
 <li>Hillier, F. S., &amp; Lieberman, G. J. (2015). <em>Introduction to operations research</em>. McGraw-Hill.</li>
 </ul>
-<h1 id="1-introduction"><a class="markdownIt-Anchor" href="#1-introduction"></a> 1. Introduction</h1>
-<p>These kinds ofproblems and the need to find a better way to solve them provided the environment for theemergence of operations research (commonly referred to as OR)</p>
+<h1 id="1-Introduction"><a href="#1-Introduction" class="headerlink" title="1. Introduction"></a>1. Introduction</h1><p>These kinds ofproblems and the need to find a better way to solve them provided the environment for theemergence of operations research (commonly referred to as OR)</p>
 <p>Many of thestandard tools of OR, such as linear programming, dynamic programming, queueing theory,and inventory theory, were relatively well developed before the end of the 1950s</p>
 <p>Three main characteristics of OR:</p>
 <ol>
@@ -1211,11 +1212,11 @@
               </span>
               <span class="post-meta-item-text">In</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/Categories/Notes/" itemprop="url" rel="index"><span itemprop="name">Notes</span></a>
+                  <a href="/categories/Notes/" itemprop="url" rel="index"><span itemprop="name">Notes</span></a>
                 </span>
                   , 
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/Categories/Notes/OS/" itemprop="url" rel="index"><span itemprop="name">OS</span></a>
+                  <a href="/categories/Notes/OS/" itemprop="url" rel="index"><span itemprop="name">OS</span></a>
                 </span>
             </span>
 
@@ -1225,7 +1226,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">Symbols count in article: </span>
-              <span>346</span>
+              <span>344</span>
             </span>
             <span class="post-meta-item" title="Reading time">
               <span class="post-meta-item-icon">
@@ -1353,7 +1354,7 @@
       <div class="site-state-item site-state-categories">
             <a href="/Categories/">
           
-        <span class="site-state-item-count">42</span>
+        <span class="site-state-item-count">40</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">

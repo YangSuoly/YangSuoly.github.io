@@ -24,12 +24,12 @@
     var CONFIG = {"hostname":"yangsuoly.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":true},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":true,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="1. Introduction Blending 集成方法的学习过程中，可以发现 Blending 在集成过程中只使用到了验证集的数据，这就造成了很大的浪费。因此可以靠用使用 Stacking 集成方法进行改进。">
+  <meta name="description" content="1. IntroductionBlending 集成方法的学习过程中，可以发现 Blending 在集成过程中只使用到了验证集的数据，这就造成了很大的浪费。因此可以靠用使用 Stacking 集成方法进行改进。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Ensemble-Stacking">
 <meta property="og:url" content="http://yangsuoly.com/2021/05/13/Ensemble-Stacking/index.html">
 <meta property="og:site_name" content="独孤诗人的学习驿站">
-<meta property="og:description" content="1. Introduction Blending 集成方法的学习过程中，可以发现 Blending 在集成过程中只使用到了验证集的数据，这就造成了很大的浪费。因此可以靠用使用 Stacking 集成方法进行改进。">
+<meta property="og:description" content="1. IntroductionBlending 集成方法的学习过程中，可以发现 Blending 在集成过程中只使用到了验证集的数据，这就造成了很大的浪费。因此可以靠用使用 Stacking 集成方法进行改进。">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://z3.ax1x.com/2021/05/13/g0zJv4.png">
 <meta property="og:image" content="https://z3.ax1x.com/2021/05/13/g0ztKJ.png">
@@ -256,11 +256,11 @@
               </span>
               <span class="post-meta-item-text">In</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/Categories/DataWhale/" itemprop="url" rel="index"><span itemprop="name">DataWhale</span></a>
+                  <a href="/categories/DataWhale/" itemprop="url" rel="index"><span itemprop="name">DataWhale</span></a>
                 </span>
                   , 
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/Categories/DataWhale/Ensemble/" itemprop="url" rel="index"><span itemprop="name">Ensemble</span></a>
+                  <a href="/categories/DataWhale/Ensemble/" itemprop="url" rel="index"><span itemprop="name">Ensemble</span></a>
                 </span>
             </span>
 
@@ -277,7 +277,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">Symbols count in article: </span>
-              <span>4.7k</span>
+              <span>4.8k</span>
             </span>
             <span class="post-meta-item" title="Reading time">
               <span class="post-meta-item-icon">
@@ -296,34 +296,26 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h1 id="1-introduction"><a class="markdownIt-Anchor" href="#1-introduction"></a> 1. Introduction</h1>
-<p>Blending 集成方法的学习过程中，可以发现 Blending 在集成过程中只使用到了验证集的数据，这就造成了很大的浪费。因此可以靠用使用 Stacking 集成方法进行改进。</p>
+        <h1 id="1-Introduction"><a href="#1-Introduction" class="headerlink" title="1. Introduction"></a>1. Introduction</h1><p>Blending 集成方法的学习过程中，可以发现 Blending 在集成过程中只使用到了验证集的数据，这就造成了很大的浪费。因此可以靠用使用 Stacking 集成方法进行改进。</p>
 <a id="more"></a>
 <p>Blending 产生验证集的方式是使用分割的方式，产生一组训练集和验证集，那么是否可以将这种方式改进为交叉验证的方式呢？于是就有了如下的 Stacking 集成方法，其步骤如下：</p>
 <ol>
-<li>记初始训练集为 <code>Train set</code>，测试集为 <code>Test set</code>，shape 分别为 <code>(train_size, 1)</code> 和 <code>(test_size, 1)</code>。 将 <code>Train set</code> 划分为多个部分（如 10 个），如下图 (Source: <a target="_blank" rel="noopener" href="https://courses.analyticsvidhya.com/courses/take/ensemble-learning-and-ensemble-learning-techniques/texts/11125921-stacking">Analytics Vidhya</a>)；</li>
-</ol>
-<p><img src="https://z3.ax1x.com/2021/05/13/g0zJv4.png" alt="" /></p>
-<ol start="2">
-<li>用划分后的的 9/10 作为训练集 (<code>train_set</code>) 训练基准模型 (如决策树)，并用训练好的模型对剩下的 1/10 数据 (验证集, <code>val_set</code>) 和测试集 (<code>Test_set</code>) 来预测数据；</li>
+<li><p>记初始训练集为 <code>Train set</code>，测试集为 <code>Test set</code>，shape 分别为 <code>(train_size, 1)</code> 和 <code>(test_size, 1)</code>。 将 <code>Train set</code> 划分为多个部分（如 10 个），如下图 (Source: <a target="_blank" rel="noopener" href="https://courses.analyticsvidhya.com/courses/take/ensemble-learning-and-ensemble-learning-techniques/texts/11125921-stacking">Analytics Vidhya</a>)；</p>
+<p><img src="https://z3.ax1x.com/2021/05/13/g0zJv4.png" alt=""></p>
+</li>
+<li><p>用划分后的的 9/10 作为训练集 (<code>train_set</code>) 训练基准模型 (如决策树)，并用训练好的模型对剩下的 1/10 数据 (验证集, <code>val_set</code>) 和测试集 (<code>Test_set</code>) 来预测数据；</p>
+</li>
 <li>重复迭代训练 10 次直到所有数据都作为 <code>val_set</code>，并将 <code>val_set</code> 的 10 份预测的数据拼接为一个 shape 为 (<code>train_size</code>, 1) 的矩阵 (记为 <code>Trainset</code>)。</li>
 <li>对迭代过程中得到的 10 份测试集 (<code>Test set</code>) 的预测数据取加权平均，得到一个shape 为 (<code>test_size</code>, 1)的矩阵。</li>
-<li>重复步骤 2-4 训练其他基准模型 (如 knn) :<br />
-<img src="https://z3.ax1x.com/2021/05/13/g0ztKJ.png" alt="" /></li>
+<li>重复步骤 2-4 训练其他基准模型 (如 knn) :<br> <img src="https://z3.ax1x.com/2021/05/13/g0ztKJ.png" alt=""></li>
 <li>将上述训练得到的一系列 Trainset 串联，得到一个形状为 <code>(train_size, num_features)</code> 的矩阵，并用该矩阵训练第二层的模型，然后用训练好的新模型来做测试集的预测，并作为最终预测结果。</li>
 </ol>
-<p>下面借助实例来体验 Stacking 的魅力（参考案例：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/Christina-Notebook/p/10063146.html">cnblogs</a>）：<br />
-注：<code>sklearn</code> 模块并没有 <code>Stacking</code> 的方法，因此需要使用 <code>mlxtend</code> 工具包。</p>
-<h1 id="2-a-example-of-stacking-model"><a class="markdownIt-Anchor" href="#2-a-example-of-stacking-model"></a> 2. A example of stacking model</h1>
-<h2 id="21-data-process"><a class="markdownIt-Anchor" href="#21-data-process"></a> 2.1 Data process</h2>
-<ul>
-<li>
-<p>Import modules</p>
+<p>下面借助实例来体验 Stacking 的魅力（参考案例：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/Christina-Notebook/p/10063146.html">cnblogs</a>）：<br>注：<code>sklearn</code> 模块并没有 <code>Stacking</code> 的方法，因此需要使用 <code>mlxtend</code> 工具包。</p>
+<h1 id="2-A-example-of-stacking-model"><a href="#2-A-example-of-stacking-model" class="headerlink" title="2. A example of stacking model"></a>2. A example of stacking model</h1><h2 id="2-1-Data-process"><a href="#2-1-Data-process" class="headerlink" title="2.1 Data process"></a>2.1 Data process</h2><ul>
+<li><p>Import modules</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> sklearn.model_selection <span class="keyword">import</span> cross_val_score</span><br><span class="line"><span class="keyword">from</span> sklearn.linear_model <span class="keyword">import</span> LogisticRegression</span><br><span class="line"><span class="keyword">from</span> sklearn.neighbors <span class="keyword">import</span> KNeighborsClassifier</span><br><span class="line"><span class="keyword">from</span> sklearn.naive_bayes <span class="keyword">import</span> GaussianNB</span><br><span class="line"><span class="keyword">from</span> sklearn.ensemble <span class="keyword">import</span> RandomForestClassifier</span><br><span class="line"><span class="keyword">from</span> mlxtend.classifier <span class="keyword">import</span> StackingCVClassifier</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> sklearn.metrics <span class="keyword">import</span> accuracy_score <span class="keyword">as</span> ac</span><br><span class="line"><span class="keyword">from</span> sklearn.model_selection <span class="keyword">import</span> train_test_split</span><br><span class="line">%matplotlib inline</span><br></pre></td></tr></table></figure>
 </li>
-<li>
-<p>Load data<br />
-本案例使用了 <code>Kaggle</code> 比赛中的一份泰坦尼克号乘客的数据来进行处理，下载链接：<a href="https://yangsuoly.com/file/titanic-data.csv">Titanic-data.csv</a></p>
+<li><p>Load data<br>本案例使用了 <code>Kaggle</code> 比赛中的一份泰坦尼克号乘客的数据来进行处理，下载链接：<a href="https://yangsuoly.com/file/titanic-data.csv">Titanic-data.csv</a></p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">data = pd.read_csv(<span class="string">&#x27;./titanic-data.csv&#x27;</span>)</span><br></pre></td></tr></table></figure>
 <p><strong>Information</strong>:</p>
 <ul>
@@ -341,79 +333,59 @@
 <li>embarked：表示乘客上船的码头距离泰坦尼克出发码头的距离，数值越大表示距离越远</li>
 </ul>
 </li>
-<li>
-<p>Statistical description</p>
+<li><p>Statistical description</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">data.info() <span class="comment"># See datatype</span></span><br></pre></td></tr></table></figure>
 <p>Results:</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">&lt;<span class="class"><span class="keyword">class</span> &#x27;<span class="title">pandas</span>.<span class="title">core</span>.<span class="title">frame</span>.<span class="title">DataFrame</span>&#x27;&gt;</span></span><br><span class="line"><span class="class"><span class="title">RangeIndex</span>:</span> <span class="number">891</span> entries, <span class="number">0</span> to <span class="number">890</span></span><br><span class="line">Data columns (total <span class="number">12</span> columns):</span><br><span class="line"> <span class="comment">#   Column       Non-Null Count  Dtype  </span></span><br><span class="line">---  ------       --------------  -----  </span><br><span class="line"> <span class="number">0</span>   PassengerId  <span class="number">891</span> non-null    int64  </span><br><span class="line"> <span class="number">1</span>   Survived     <span class="number">891</span> non-null    int64  </span><br><span class="line"> <span class="number">2</span>   Pclass       <span class="number">891</span> non-null    int64  </span><br><span class="line"> <span class="number">3</span>   Name         <span class="number">891</span> non-null    <span class="built_in">object</span></span><br><span class="line"> <span class="number">4</span>   Sex          <span class="number">891</span> non-null    <span class="built_in">object</span></span><br><span class="line"> <span class="number">5</span>   Age          <span class="number">714</span> non-null    float64</span><br><span class="line"> <span class="number">6</span>   SibSp        <span class="number">891</span> non-null    int64  </span><br><span class="line"> <span class="number">7</span>   Parch        <span class="number">891</span> non-null    int64  </span><br><span class="line"> <span class="number">8</span>   Ticket       <span class="number">891</span> non-null    <span class="built_in">object</span></span><br><span class="line"> <span class="number">9</span>   Fare         <span class="number">891</span> non-null    float64</span><br><span class="line"> <span class="number">10</span>  Cabin        <span class="number">204</span> non-null    <span class="built_in">object</span></span><br><span class="line"> <span class="number">11</span>  Embarked     <span class="number">889</span> non-null    <span class="built_in">object</span></span><br><span class="line">dtypes: float64(<span class="number">2</span>), int64(<span class="number">5</span>), <span class="built_in">object</span>(<span class="number">5</span>)</span><br><span class="line">memory usage: <span class="number">83.7</span>+ KB</span><br></pre></td></tr></table></figure>
 </li>
-<li>
-<p>Missing values processing</p>
+<li><p>Missing values processing</p>
 <ul>
-<li>
-<p>Embarked</p>
+<li><p>Embarked</p>
 <p>Embarked 列仅有两个缺失值，而 ‘S’ 占比最高，故将缺失值用 ‘S’ 填充；</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">data[<span class="string">&#x27;Embarked&#x27;</span>] = data[<span class="string">&#x27;Embarked&#x27;</span>].fillna(<span class="string">&#x27;S&#x27;</span>)</span><br></pre></td></tr></table></figure>
 </li>
-<li>
-<p>Age</p>
+<li><p>Age</p>
 <p>Age 包含较多缺失值，用均值填充；</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">dmean_age = data[<span class="string">&#x27;Age&#x27;</span>].mean()</span><br><span class="line">data[<span class="string">&#x27;Age&#x27;</span>] = data[<span class="string">&#x27;Age&#x27;</span>].fillna(mean_age)</span><br></pre></td></tr></table></figure>
 </li>
-<li>
-<p>Cabin</p>
+<li><p>Cabin</p>
 <p>Cabin 值缺失过多，且每位乘客房间号均不一样，且无规律，故舍去。</p>
 </li>
 </ul>
 </li>
-<li>
-<p>Datatype transformation</p>
+<li><p>Datatype transformation</p>
 <ul>
-<li>
-<p>Sex<br />
-将性别转换未数值型数据，用 0 表示男性，1 表示女性</p>
+<li><p>Sex<br>将性别转换未数值型数据，用 0 表示男性，1 表示女性</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">data.loc[data[<span class="string">&#x27;Sex&#x27;</span>] == <span class="string">&#x27;male&#x27;</span>, <span class="string">&#x27;Sex&#x27;</span>] = <span class="number">0</span> <span class="comment"># &#x27;male&#x27; -&gt; 0</span></span><br><span class="line">data.loc[data[<span class="string">&#x27;Sex&#x27;</span>] == <span class="string">&#x27;female&#x27;</span>, <span class="string">&#x27;Sex&#x27;</span>] = <span class="number">1</span> <span class="comment"># &#x27;female&#x27; -&gt; 1</span></span><br></pre></td></tr></table></figure>
 </li>
-<li>
-<p>Embarked</p>
+<li><p>Embarked</p>
 <p>将 ‘C’ 所在位置的值改为 1, ‘S’ 所在位置的值改为 2, ‘Q’ 所在位置的值改为 3；</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">data.loc[data[<span class="string">&#x27;Embarked&#x27;</span>] == <span class="string">&#x27;C&#x27;</span>, <span class="string">&#x27;Embarked&#x27;</span>] = <span class="number">1</span> <span class="comment"># &#x27;C&#x27; -&gt; 1</span></span><br><span class="line">data.loc[data[<span class="string">&#x27;Embarked&#x27;</span>] == <span class="string">&#x27;S&#x27;</span>, <span class="string">&#x27;Embarked&#x27;</span>] = <span class="number">2</span> <span class="comment"># &#x27;S&#x27; -&gt; 2</span></span><br><span class="line">data.loc[data[<span class="string">&#x27;Embarked&#x27;</span>] == <span class="string">&#x27;Q&#x27;</span>, <span class="string">&#x27;Embarked&#x27;</span>] = <span class="number">3</span> <span class="comment"># &#x27;Q&#x27; -&gt; 3</span></span><br></pre></td></tr></table></figure>
 </li>
-<li>
-<p>Drop irrelevant variables</p>
+<li><p>Drop irrelevant variables</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">columns = data.columns</span><br><span class="line">columns = columns.drop([<span class="string">&#x27;PassengerId&#x27;</span>, <span class="string">&#x27;Cabin&#x27;</span>, <span class="string">&#x27;Name&#x27;</span>, <span class="string">&#x27;Ticket&#x27;</span>])</span><br><span class="line">data = data.loc[:, columns]</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
 </li>
-<li>
-<p>Parameters setting<br />
-可以直到 data的列名称为 <code>['Survived', 'Pclass', 'Sex', 'Age', 'SibSp', 'Parch', 'Fare', 'Embarked']</code>。选择最后一列作为分类标准。</p>
+<li><p>Parameters setting<br>可以直到 data的列名称为 <code>[&#39;Survived&#39;, &#39;Pclass&#39;, &#39;Sex&#39;, &#39;Age&#39;, &#39;SibSp&#39;, &#39;Parch&#39;, &#39;Fare&#39;, &#39;Embarked&#39;]</code>。选择最后一列作为分类标准。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">test_percent = <span class="number">0.10</span> <span class="comment"># 测试集大小</span></span><br><span class="line"></span><br><span class="line">train_X = train.loc[:, data.columns[<span class="number">1</span>:]]</span><br><span class="line">train_Y = train.loc[:, data.columns[<span class="number">0</span>]].values.reshape(-<span class="number">1</span>,)</span><br><span class="line">test_X = test.loc[:, data.columns[<span class="number">1</span>:]]</span><br><span class="line">test_Y = test.loc[:, data.columns[<span class="number">0</span>]].values.reshape(-<span class="number">1</span>,)</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
-<h2 id="22-creating-stacking-model"><a class="markdownIt-Anchor" href="#22-creating-stacking-model"></a> 2.2 Creating Stacking model</h2>
-<ul>
-<li>
-<p>Stacking</p>
+<h2 id="2-2-Creating-Stacking-model"><a href="#2-2-Creating-Stacking-model" class="headerlink" title="2.2 Creating Stacking model"></a>2.2 Creating Stacking model</h2><ul>
+<li><p>Stacking</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">RANDOM_SEED = <span class="number">42</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># The first layer</span></span><br><span class="line">clf1 = KNeighborsClassifier(n_neighbors=<span class="number">1</span>)</span><br><span class="line">clf2 = RandomForestClassifier(random_state=RANDOM_SEED)</span><br><span class="line">clf3 = GaussianNB()</span><br><span class="line">lr = LogisticRegression()</span><br><span class="line"></span><br><span class="line"><span class="comment"># Starting from v0.16.0, StackingCVRegressor supports</span></span><br><span class="line"><span class="comment"># `random_state` to get deterministic result.</span></span><br><span class="line">sclf = StackingCVClassifier(</span><br><span class="line">      classifiers=[clf1, clf2, clf3],  <span class="comment"># The first layer</span></span><br><span class="line">      meta_classifier=lr,   <span class="comment"># THe second layer</span></span><br><span class="line">      random_state=RANDOM_SEED)</span><br><span class="line"></span><br><span class="line">print(<span class="string">&#x27;3-fold cross validation:\n&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> clf, label <span class="keyword">in</span> <span class="built_in">zip</span>([clf1, clf2, clf3, sclf], [<span class="string">&#x27;KNN&#x27;</span>, <span class="string">&#x27;Random Forest&#x27;</span>, <span class="string">&#x27;Naive Bayes&#x27;</span>,<span class="string">&#x27;StackingClassifier&#x27;</span>]):</span><br><span class="line">    scores = cross_val_score(clf, train_X, train_Y,</span><br><span class="line">              cv=<span class="number">3</span>, scoring=<span class="string">&#x27;accuracy&#x27;</span>)</span><br><span class="line">    print(<span class="string">&quot;Accuracy: %0.2f (+/- %0.2f) [%s]&quot;</span> % (scores.mean(),</span><br><span class="line">               scores.std(), label))</span><br></pre></td></tr></table></figure>
 <p>Result:</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">3</span>-fold cross validation:</span><br><span class="line"></span><br><span class="line">Accuracy: <span class="number">0.70</span> (+/- <span class="number">0.02</span>) [KNN]</span><br><span class="line">Accuracy: <span class="number">0.80</span> (+/- <span class="number">0.01</span>) [Random Forest]</span><br><span class="line">Accuracy: <span class="number">0.76</span> (+/- <span class="number">0.02</span>) [Naive Bayes]</span><br><span class="line">Accuracy: <span class="number">0.79</span> (+/- <span class="number">0.01</span>) [StackingClassifier]</span><br></pre></td></tr></table></figure>
 </li>
-<li>
-<p>Ploting decision region<br />
-由于使用了多维数据，决策边界暂无法成功绘制，有时间了再琢磨。</p>
+<li><p>Ploting decision region<br>由于使用了多维数据，决策边界暂无法成功绘制，有时间了再琢磨。</p>
 </li>
 </ul>
-<h1 id="3-conclusion"><a class="markdownIt-Anchor" href="#3-conclusion"></a> 3. Conclusion</h1>
-<h2 id="31-blending-和-stacking-对比"><a class="markdownIt-Anchor" href="#31-blending-和-stacking-对比"></a> 3.1 Blending 和 Stacking 对比</h2>
-<ul>
-<li>Blending 优点：
-<ul>
+<h1 id="3-Conclusion"><a href="#3-Conclusion" class="headerlink" title="3. Conclusion"></a>3. Conclusion</h1><h2 id="3-1-Blending-和-Stacking-对比"><a href="#3-1-Blending-和-Stacking-对比" class="headerlink" title="3.1 Blending 和 Stacking 对比"></a>3.1 Blending 和 Stacking 对比</h2><ul>
+<li>Blending 优点：<ul>
 <li>比 Stacking 简单，不用进行 <code>K</code> 次的交叉验证来获得 stacker feature</li>
 </ul>
 </li>
-<li>缺点：
-<ul>
+<li>缺点：<ul>
 <li>在训练第二层的模型的时候，仅使用了很少的数据；</li>
 <li>由于第二层训练数据较少，容易导致过拟合</li>
 <li>stacking 使用多测的 CV 会比较文件。</li>
@@ -458,9 +430,9 @@
       <footer class="post-footer">
           
           <div class="post-tags">
-              <a href="/Tags/Python/" rel="tag"><i class="fa fa-tag"></i> Python</a>
-              <a href="/Tags/Ensemble/" rel="tag"><i class="fa fa-tag"></i> Ensemble</a>
-              <a href="/Tags/Sklearn/" rel="tag"><i class="fa fa-tag"></i> Sklearn</a>
+              <a href="/tags/Python/" rel="tag"><i class="fa fa-tag"></i> Python</a>
+              <a href="/tags/Ensemble/" rel="tag"><i class="fa fa-tag"></i> Ensemble</a>
+              <a href="/tags/Sklearn/" rel="tag"><i class="fa fa-tag"></i> Sklearn</a>
           </div>
 
         
@@ -538,7 +510,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-introduction"><span class="nav-text"> 1. Introduction</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-a-example-of-stacking-model"><span class="nav-text"> 2. A example of stacking model</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#21-data-process"><span class="nav-text"> 2.1 Data process</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#22-creating-stacking-model"><span class="nav-text"> 2.2 Creating Stacking model</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-conclusion"><span class="nav-text"> 3. Conclusion</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#31-blending-%E5%92%8C-stacking-%E5%AF%B9%E6%AF%94"><span class="nav-text"> 3.1 Blending 和 Stacking 对比</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-Introduction"><span class="nav-text">1. Introduction</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-A-example-of-stacking-model"><span class="nav-text">2. A example of stacking model</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1-Data-process"><span class="nav-text">2.1 Data process</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2-Creating-Stacking-model"><span class="nav-text">2.2 Creating Stacking model</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-Conclusion"><span class="nav-text">3. Conclusion</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#3-1-Blending-%E5%92%8C-Stacking-%E5%AF%B9%E6%AF%94"><span class="nav-text">3.1 Blending 和 Stacking 对比</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -561,7 +533,7 @@
       <div class="site-state-item site-state-categories">
             <a href="/Categories/">
           
-        <span class="site-state-item-count">42</span>
+        <span class="site-state-item-count">40</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
