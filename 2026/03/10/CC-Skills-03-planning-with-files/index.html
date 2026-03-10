@@ -24,20 +24,22 @@
     var CONFIG = {"hostname":"yangsuoly.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":true},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":true,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="Planning-With-Files 完整教程  项目仓库: OthmanAdi&#x2F;planning-with-files   📝 前言 当 Claude Code 会话结束后，如何让下一个会话快速了解项目的当前状态？Planning-With-Files-Skill 提供了完美的解决方案——它通过基于文件的规划方式，让 Claude 能够自我管理任务、恢复上下文、追踪进度，实现更可靠和可审计的">
+  <meta name="description" content="Planning-With-Files 完整教程  项目仓库: OthmanAdi&#x2F;planning-with-files    📝 前言 当 Claude Code 会话结束后，如何让下一个会话快速了解项目的当前状态？Planning-With-Files-Skill 提供了完美的解决方案——它通过基于文件的规划方式，让 Claude 能够自我管理任务、恢复上下文、追踪进度，实现更可靠和可审">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Planning-With-Files 完整教程">
 <meta property="og:url" content="http://yangsuoly.com/2026/03/10/CC-Skills-03-planning-with-files/index.html">
 <meta property="og:site_name" content="独孤诗人的学习驿站">
-<meta property="og:description" content="Planning-With-Files 完整教程  项目仓库: OthmanAdi&#x2F;planning-with-files   📝 前言 当 Claude Code 会话结束后，如何让下一个会话快速了解项目的当前状态？Planning-With-Files-Skill 提供了完美的解决方案——它通过基于文件的规划方式，让 Claude 能够自我管理任务、恢复上下文、追踪进度，实现更可靠和可审计的">
+<meta property="og:description" content="Planning-With-Files 完整教程  项目仓库: OthmanAdi&#x2F;planning-with-files    📝 前言 当 Claude Code 会话结束后，如何让下一个会话快速了解项目的当前状态？Planning-With-Files-Skill 提供了完美的解决方案——它通过基于文件的规划方式，让 Claude 能够自我管理任务、恢复上下文、追踪进度，实现更可靠和可审">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/YangSuoly/Images/Claude-code/202603102222108.png">
 <meta property="article:published_time" content="2026-03-09T16:00:00.000Z">
-<meta property="article:modified_time" content="2026-03-10T14:49:49.805Z">
+<meta property="article:modified_time" content="2026-03-10T15:05:03.676Z">
 <meta property="article:author" content="YangSu">
 <meta property="article:tag" content="Tool">
 <meta property="article:tag" content="AI-Development">
 <meta property="article:tag" content="Planning">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/YangSuoly/Images/Claude-code/202603102222108.png">
 
 <link rel="canonical" href="http://yangsuoly.com/2026/03/10/CC-Skills-03-planning-with-files/">
 
@@ -239,7 +241,7 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2026-03-10 00:00:00 / Modified: 22:49:49" itemprop="dateCreated datePublished" datetime="2026-03-10T00:00:00+08:00">2026-03-10</time>
+              <time title="Created: 2026-03-10 00:00:00 / Modified: 23:05:03" itemprop="dateCreated datePublished" datetime="2026-03-10T00:00:00+08:00">2026-03-10</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -252,6 +254,10 @@
                   , 
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
                   <a href="/categories/Notes/Claude-Code/" itemprop="url" rel="index"><span itemprop="name">Claude-Code</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Notes/Claude-Code/Skills/" itemprop="url" rel="index"><span itemprop="name">Skills</span></a>
                 </span>
             </span>
 
@@ -287,72 +293,63 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h1 id="planning-with-files-完整教程">Planning-With-Files 完整教程</h1>
+        <h1 id="planning-with-files-完整教程"><a class="markdownIt-Anchor" href="#planning-with-files-完整教程"></a> Planning-With-Files 完整教程</h1>
 <blockquote>
-<p><strong>项目仓库</strong>: <a
-target="_blank" rel="noopener" href="https://github.com/OthmanAdi/planning-with-files">OthmanAdi/planning-with-files</a></p>
+<p><strong>项目仓库</strong>: <a target="_blank" rel="noopener" href="https://github.com/OthmanAdi/planning-with-files">OthmanAdi/planning-with-files</a></p>
 </blockquote>
 <hr />
-<h2 id="前言">📝 前言</h2>
-<p>当 Claude Code
-会话结束后，如何让下一个会话快速了解项目的当前状态？<strong>Planning-With-Files-Skill</strong>
-提供了完美的解决方案——它通过<strong>基于文件的规划</strong>方式，让
-Claude 能够自我管理任务、恢复上下文、追踪进度，实现更可靠和可审计的 AI
-辅助开发流程。</p>
-<p><img
-src="https://cdn.jsdelivr.net/gh/YangSuoly/Images/Claude-code/202603102222108.png" /></p>
+<h2 id="前言"><a class="markdownIt-Anchor" href="#前言"></a> 📝 前言</h2>
+<p>当 Claude Code 会话结束后，如何让下一个会话快速了解项目的当前状态？<strong>Planning-With-Files-Skill</strong> 提供了完美的解决方案——它通过<strong>基于文件的规划</strong>方式，让 Claude 能够自我管理任务、恢复上下文、追踪进度，实现更可靠和可审计的 AI 辅助开发流程。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/YangSuoly/Images/Claude-code/202603102222108.png" alt="" /></p>
 <a id="more"></a>
 <hr />
-<p>Planning-With-Files-Skill 是一个为 Claude Code 实现类 Manus
-工作流模式的技能。它通过<strong>基于文件的规划</strong>方式，让 Claude
-能够自我管理任务、恢复上下文、追踪进度，从而实现更可靠和可审计的 AI
-辅助开发流程。</p>
-<p><strong>项目特点</strong>： - 🎯 <strong>类 Manus
-工作流模式</strong>: 让 Claude 具备类似 AI Agent 的自主规划能力 - 📁
-<strong>三文件架构</strong>:
-通过计划文件、日志文件、摘要文件实现结构化管理 - 🔄
-<strong>会话恢复</strong>: 无限续写能力,即使会话中断也能无缝恢复 - 🚀
-<strong>自动创建</strong>: 首次使用时自动生成必要的目录和文件结构</p>
+<p>Planning-With-Files-Skill 是一个为 Claude Code 实现类 Manus 工作流模式的技能。它通过<strong>基于文件的规划</strong>方式，让 Claude 能够自我管理任务、恢复上下文、追踪进度，从而实现更可靠和可审计的 AI 辅助开发流程。</p>
+<p><strong>项目特点</strong>：</p>
+<ul>
+<li>🎯 <strong>类 Manus 工作流模式</strong>: 让 Claude 具备类似 AI Agent 的自主规划能力</li>
+<li>📁 <strong>三文件架构</strong>: 通过计划文件、日志文件、摘要文件实现结构化管理</li>
+<li>🔄 <strong>会话恢复</strong>: 无限续写能力,即使会话中断也能无缝恢复</li>
+<li>🚀 <strong>自动创建</strong>: 首次使用时自动生成必要的目录和文件结构</li>
+</ul>
 <hr />
-<h2 id="二核心功能">二、核心功能</h2>
-<h3 id="三文件模式the-three-file-pattern">2.1 三文件模式（The Three-File
-Pattern）</h3>
+<h2 id="二-核心功能"><a class="markdownIt-Anchor" href="#二-核心功能"></a> 二、核心功能</h2>
+<h3 id="21-三文件模式the-three-file-pattern"><a class="markdownIt-Anchor" href="#21-三文件模式the-three-file-pattern"></a> 2.1 三文件模式（The Three-File Pattern）</h3>
 <p>项目的核心是基于三个关键文件的规划架构：</p>
-<h4 id="plan.md---计划文件">PLAN.md - 计划文件</h4>
+<h4 id="planmd"><a class="markdownIt-Anchor" href="#planmd"></a> <a target="_blank" rel="noopener" href="http://PLAN.md">PLAN.md</a> - 计划文件</h4>
 <ul>
 <li><strong>作用</strong>: 定义项目目标、任务列表和里程碑</li>
 <li><strong>内容</strong>: 结构化的任务分解、优先级排序</li>
 <li><strong>格式</strong>: Markdown 格式,便于人类和 AI 共同阅读</li>
 <li><strong>更新</strong>: 随项目进展动态调整</li>
 </ul>
-<h4 id="log.md---日志文件">LOG.md - 日志文件</h4>
+<h4 id="logmd"><a class="markdownIt-Anchor" href="#logmd"></a> <a target="_blank" rel="noopener" href="http://LOG.md">LOG.md</a> - 日志文件</h4>
 <ul>
 <li><strong>作用</strong>: 记录所有已完成的任务和决策过程</li>
 <li><strong>内容</strong>: 时间戳、执行动作、结果摘要</li>
 <li><strong>价值</strong>: 提供完整的执行轨迹和审计线索</li>
 <li><strong>用法</strong>: 每次 Claude 执行任务后自动追加记录</li>
 </ul>
-<h4 id="summary.md---摘要文件">SUMMARY.md - 摘要文件</h4>
+<h4 id="summarymd"><a class="markdownIt-Anchor" href="#summarymd"></a> <a target="_blank" rel="noopener" href="http://SUMMARY.md">SUMMARY.md</a> - 摘要文件</h4>
 <ul>
 <li><strong>作用</strong>: 维护项目当前状态的简洁概览</li>
 <li><strong>内容</strong>: 进度百分比、关键成就、阻塞项</li>
 <li><strong>用途</strong>: 快速恢复上下文,了解项目整体状况</li>
 <li><strong>更新</strong>: 在重要里程碑时更新</li>
 </ul>
-<h3 id="自动初始化">2.2 自动初始化</h3>
+<h3 id="22-自动初始化"><a class="markdownIt-Anchor" href="#22-自动初始化"></a> 2.2 自动初始化</h3>
 <ul>
 <li>🏗️ 首次使用自动创建 <code>.planning/</code> 目录</li>
 <li>📝 自动生成三个核心文件模板</li>
 <li>⚙️ 零配置开箱即用</li>
 </ul>
-<h3 id="会话恢复机制">2.3 会话恢复机制</h3>
+<h3 id="23-会话恢复机制"><a class="markdownIt-Anchor" href="#23-会话恢复机制"></a> 2.3 会话恢复机制</h3>
 <ul>
 <li>🔄 无限续写能力</li>
-<li>📍 通过读取 SUMMARY.md 快速恢复上下文</li>
+<li>📍 通过读取 <a target="_blank" rel="noopener" href="http://SUMMARY.md">SUMMARY.md</a> 快速恢复上下文</li>
 <li>🧠 Claude 自动理解项目当前状态</li>
 <li>⏭️ 从上次中断处继续执行</li>
 </ul>
-<h3 id="人类可审计">2.4 人类可审计</h3>
+<h3 id="24-人类可审计"><a class="markdownIt-Anchor" href="#24-人类可审计"></a> 2.4 人类可审计</h3>
 <ul>
 <li>👀 所有文件采用 Markdown 纯文本格式</li>
 <li>📖 开发者可随时查看计划、日志和摘要</li>
@@ -360,71 +357,97 @@ Pattern）</h3>
 <li>🤝 人机协作友好</li>
 </ul>
 <hr />
-<h2 id="三安装方法">三、安装方法</h2>
-<h3 id="通过-skill-registry-安装推荐">3.1 通过 Skill Registry
-安装（推荐）</h3>
+<h2 id="三-安装方法"><a class="markdownIt-Anchor" href="#三-安装方法"></a> 三、安装方法</h2>
+<h3 id="31-通过-skill-registry-安装推荐"><a class="markdownIt-Anchor" href="#31-通过-skill-registry-安装推荐"></a> 3.1 通过 Skill Registry 安装（推荐）</h3>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">skill install https://github.com/OthmanAdi/planning-with-files</span><br></pre></td></tr></table></figure>
-<h3 id="使用-skill-creator-安装">3.2 使用 skill-creator 安装</h3>
+<h3 id="32-使用-skill-creator-安装"><a class="markdownIt-Anchor" href="#32-使用-skill-creator-安装"></a> 3.2 使用 skill-creator 安装</h3>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 如果你已经安装了 skill-creator</span></span><br><span class="line">skill create planning-with-files https://github.com/OthmanAdi/planning-with-files</span><br></pre></td></tr></table></figure>
-<h3 id="手动安装">3.3 手动安装</h3>
-<ol type="1">
-<li><p><strong>克隆仓库</strong> <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://github.com/OthmanAdi/planning-with-files.git</span><br><span class="line"><span class="built_in">cd</span> planning-with-files</span><br></pre></td></tr></table></figure></p></li>
-<li><p><strong>复制到技能目录</strong> <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 复制到 Claude Code 的 skills 目录</span></span><br><span class="line">cp -r . ~/.claude/skills/planning-with-files-skill</span><br></pre></td></tr></table></figure></p></li>
-<li><p><strong>在配置中注册</strong></p></li>
+<h3 id="33-手动安装"><a class="markdownIt-Anchor" href="#33-手动安装"></a> 3.3 手动安装</h3>
+<ol>
+<li><strong>克隆仓库</strong></li>
 </ol>
-<p>在项目的 <code>.claude/settings.json</code> 中添加：
-<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">&quot;skills&quot;</span>: [<span class="string">&quot;planning-with-files&quot;</span>]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h3 id="使用-mcp-服务器注册">3.4 使用 MCP 服务器注册</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://github.com/OthmanAdi/planning-with-files.git</span><br><span class="line"><span class="built_in">cd</span> planning-with-files</span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li><strong>复制到技能目录</strong></li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 复制到 Claude Code 的 skills 目录</span></span><br><span class="line">cp -r . ~/.claude/skills/planning-with-files-skill</span><br></pre></td></tr></table></figure>
+<ol start="3">
+<li><strong>在配置中注册</strong></li>
+</ol>
+<p>在项目的 <code>.claude/settings.json</code> 中添加：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">&quot;skills&quot;</span>: [<span class="string">&quot;planning-with-files&quot;</span>]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="34-使用-mcp-服务器注册"><a class="markdownIt-Anchor" href="#34-使用-mcp-服务器注册"></a> 3.4 使用 MCP 服务器注册</h3>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 访问 MCP Servers 注册中心</span></span><br><span class="line"><span class="comment"># https://mcpservers.org/claude-skills/OthmanAdi/planning-with-files</span></span><br></pre></td></tr></table></figure>
 <hr />
-<h2 id="四使用场景和示例">四、使用场景和示例</h2>
-<h3 id="启动新项目">4.1 启动新项目</h3>
-<p><strong>用户指令</strong>: <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">我想开发一个 Python CLI 工具，用于自动化文件整理。</span><br><span class="line">使用 planning-with-files-skill 来规划这个项目。</span><br></pre></td></tr></table></figure></p>
+<h2 id="四-使用场景和示例"><a class="markdownIt-Anchor" href="#四-使用场景和示例"></a> 四、使用场景和示例</h2>
+<h3 id="41-启动新项目"><a class="markdownIt-Anchor" href="#41-启动新项目"></a> 4.1 启动新项目</h3>
+<p><strong>用户指令</strong>:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">我想开发一个 Python CLI 工具，用于自动化文件整理。</span><br><span class="line">使用 planning-with-files-skill 来规划这个项目。</span><br></pre></td></tr></table></figure>
 <p><strong>Claude 的操作流程</strong>:</p>
-<ol type="1">
-<li><p><strong>自动创建目录结构</strong> <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">.planning&#x2F;</span><br><span class="line">├── PLAN.md      # 项目计划</span><br><span class="line">├── LOG.md       # 执行日志</span><br><span class="line">└── SUMMARY.md   # 项目摘要</span><br></pre></td></tr></table></figure></p></li>
-<li><p><strong>生成 PLAN.md</strong> <figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="section"># 文件整理 CLI 工具 - 项目计划</span></span><br><span class="line"></span><br><span class="line"><span class="section">## 项目目标</span></span><br><span class="line">开发一个 Python CLI 工具,根据文件类型自动整理文件到对应文件夹。</span><br><span class="line"></span><br><span class="line"><span class="section">## 任务列表</span></span><br><span class="line"><span class="bullet">-</span> [ ] 1. 项目初始化</span><br><span class="line"><span class="bullet">  -</span> [ ] 1.1 创建项目结构</span><br><span class="line"><span class="bullet">  -</span> [ ] 1.2 配置依赖管理</span><br><span class="line"><span class="bullet">  -</span> [ ] 1.3 设置测试框架</span><br><span class="line"><span class="bullet">-</span> [ ] 2. 核心功能开发</span><br><span class="line"><span class="bullet">  -</span> [ ] 2.1 文件分类逻辑</span><br><span class="line"><span class="bullet">  -</span> [ ] 2.2 CLI 参数解析</span><br><span class="line"><span class="bullet">  -</span> [ ] 2.3 文件移动功能</span><br><span class="line"><span class="bullet">-</span> [ ] 3. 测试与文档</span><br><span class="line"><span class="bullet">  -</span> [ ] 3.1 单元测试</span><br><span class="line"><span class="bullet">  -</span> [ ] 3.2 集成测试</span><br><span class="line"><span class="bullet">  -</span> [ ] 3.3 README 文档</span><br><span class="line"></span><br><span class="line"><span class="section">## 里程碑</span></span><br><span class="line"><span class="bullet">-</span> M1: MVP 版本 (任务 1-2)</span><br><span class="line"><span class="bullet">-</span> M2: 完整版本 (任务 3)</span><br></pre></td></tr></table></figure></p></li>
-<li><p><strong>初始化 LOG.md</strong> <figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="section"># 执行日志</span></span><br><span class="line"></span><br><span class="line"><span class="section">## 2026-02-13 10:00</span></span><br><span class="line"><span class="bullet">-</span> ✅ 创建项目计划</span><br><span class="line"><span class="bullet">-</span> ✅ 定义任务结构</span><br></pre></td></tr></table></figure></p></li>
-<li><p><strong>初始化 SUMMARY.md</strong> <figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="section"># 项目摘要</span></span><br><span class="line"></span><br><span class="line"><span class="strong">**进度**</span>: 0%</span><br><span class="line"><span class="strong">**当前阶段**</span>: 项目启动</span><br><span class="line"><span class="strong">**已完成**</span>: 0/10 任务</span><br><span class="line"><span class="strong">**下一步**</span>: 开始项目初始化</span><br></pre></td></tr></table></figure></p></li>
+<ol>
+<li><strong>自动创建目录结构</strong></li>
 </ol>
-<h3 id="继续中断的项目">4.2 继续中断的项目</h3>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">.planning&#x2F;</span><br><span class="line">├── PLAN.md      # 项目计划</span><br><span class="line">├── LOG.md       # 执行日志</span><br><span class="line">└── SUMMARY.md   # 项目摘要</span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li><strong>生成 <a target="_blank" rel="noopener" href="http://PLAN.md">PLAN.md</a></strong></li>
+</ol>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="section"># 文件整理 CLI 工具 - 项目计划</span></span><br><span class="line"></span><br><span class="line"><span class="section">## 项目目标</span></span><br><span class="line">开发一个 Python CLI 工具,根据文件类型自动整理文件到对应文件夹。</span><br><span class="line"></span><br><span class="line"><span class="section">## 任务列表</span></span><br><span class="line"><span class="bullet">-</span> [ ] 1. 项目初始化</span><br><span class="line"><span class="bullet">  -</span> [ ] 1.1 创建项目结构</span><br><span class="line"><span class="bullet">  -</span> [ ] 1.2 配置依赖管理</span><br><span class="line"><span class="bullet">  -</span> [ ] 1.3 设置测试框架</span><br><span class="line"><span class="bullet">-</span> [ ] 2. 核心功能开发</span><br><span class="line"><span class="bullet">  -</span> [ ] 2.1 文件分类逻辑</span><br><span class="line"><span class="bullet">  -</span> [ ] 2.2 CLI 参数解析</span><br><span class="line"><span class="bullet">  -</span> [ ] 2.3 文件移动功能</span><br><span class="line"><span class="bullet">-</span> [ ] 3. 测试与文档</span><br><span class="line"><span class="bullet">  -</span> [ ] 3.1 单元测试</span><br><span class="line"><span class="bullet">  -</span> [ ] 3.2 集成测试</span><br><span class="line"><span class="bullet">  -</span> [ ] 3.3 README 文档</span><br><span class="line"></span><br><span class="line"><span class="section">## 里程碑</span></span><br><span class="line"><span class="bullet">-</span> M1: MVP 版本 (任务 1-2)</span><br><span class="line"><span class="bullet">-</span> M2: 完整版本 (任务 3)</span><br></pre></td></tr></table></figure>
+<ol start="3">
+<li><strong>初始化 <a target="_blank" rel="noopener" href="http://LOG.md">LOG.md</a></strong></li>
+</ol>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="section"># 执行日志</span></span><br><span class="line"></span><br><span class="line"><span class="section">## 2026-02-13 10:00</span></span><br><span class="line"><span class="bullet">-</span> ✅ 创建项目计划</span><br><span class="line"><span class="bullet">-</span> ✅ 定义任务结构</span><br></pre></td></tr></table></figure>
+<ol start="4">
+<li><strong>初始化 <a target="_blank" rel="noopener" href="http://SUMMARY.md">SUMMARY.md</a></strong></li>
+</ol>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="section"># 项目摘要</span></span><br><span class="line"></span><br><span class="line"><span class="strong">**进度**</span>: 0%</span><br><span class="line"><span class="strong">**当前阶段**</span>: 项目启动</span><br><span class="line"><span class="strong">**已完成**</span>: 0/10 任务</span><br><span class="line"><span class="strong">**下一步**</span>: 开始项目初始化</span><br></pre></td></tr></table></figure>
+<h3 id="42-继续中断的项目"><a class="markdownIt-Anchor" href="#42-继续中断的项目"></a> 4.2 继续中断的项目</h3>
 <p><strong>背景</strong>: 你昨天开发到一半会话结束了,今天想继续。</p>
-<p><strong>用户指令</strong>: <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">继续开发昨天的文件整理工具项目</span><br></pre></td></tr></table></figure></p>
+<p><strong>用户指令</strong>:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">继续开发昨天的文件整理工具项目</span><br></pre></td></tr></table></figure>
 <p><strong>Claude 的操作流程</strong>:</p>
-<ol type="1">
-<li><p><strong>读取 SUMMARY.md</strong> <figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="strong">**进度**</span>: 40%</span><br><span class="line"><span class="strong">**当前阶段**</span>: 核心功能开发中</span><br><span class="line"><span class="strong">**已完成**</span>: 4/10 任务</span><br><span class="line"><span class="bullet">  -</span> ✅ 项目初始化</span><br><span class="line"><span class="bullet">  -</span> ✅ 文件分类逻辑</span><br><span class="line"><span class="bullet">  -</span> ❌ CLI 参数解析 (进行中)</span><br><span class="line"><span class="strong">**阻塞项**</span>: 无</span><br></pre></td></tr></table></figure></p></li>
-<li><p><strong>自动恢复上下文</strong> <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">我看到项目已经完成了 40%,正在开发 CLI 参数解析功能。</span><br><span class="line">让我继续完成这个任务...</span><br></pre></td></tr></table></figure></p></li>
-<li><p><strong>继续执行并记录</strong> <figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">## 2026-02-14 09:15</span></span><br><span class="line"><span class="bullet">-</span> ✅ 完成 CLI 参数解析</span><br><span class="line"><span class="bullet">-</span> ✅ 实现文件移动功能</span><br><span class="line"><span class="bullet">-</span> 📝 更新项目进度至 60%</span><br></pre></td></tr></table></figure></p></li>
+<ol>
+<li><strong>读取 <a target="_blank" rel="noopener" href="http://SUMMARY.md">SUMMARY.md</a></strong></li>
 </ol>
-<h3 id="复杂的多阶段项目">4.3 复杂的多阶段项目</h3>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="strong">**进度**</span>: 40%</span><br><span class="line"><span class="strong">**当前阶段**</span>: 核心功能开发中</span><br><span class="line"><span class="strong">**已完成**</span>: 4/10 任务</span><br><span class="line"><span class="bullet">  -</span> ✅ 项目初始化</span><br><span class="line"><span class="bullet">  -</span> ✅ 文件分类逻辑</span><br><span class="line"><span class="bullet">  -</span> ❌ CLI 参数解析 (进行中)</span><br><span class="line"><span class="strong">**阻塞项**</span>: 无</span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li><strong>自动恢复上下文</strong></li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">我看到项目已经完成了 40%,正在开发 CLI 参数解析功能。</span><br><span class="line">让我继续完成这个任务...</span><br></pre></td></tr></table></figure>
+<ol start="3">
+<li><strong>继续执行并记录</strong></li>
+</ol>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">## 2026-02-14 09:15</span></span><br><span class="line"><span class="bullet">-</span> ✅ 完成 CLI 参数解析</span><br><span class="line"><span class="bullet">-</span> ✅ 实现文件移动功能</span><br><span class="line"><span class="bullet">-</span> 📝 更新项目进度至 60%</span><br></pre></td></tr></table></figure>
+<h3 id="43-复杂的多阶段项目"><a class="markdownIt-Anchor" href="#43-复杂的多阶段项目"></a> 4.3 复杂的多阶段项目</h3>
 <p><strong>项目</strong>: 构建一个完整的 Web 应用</p>
-<p><strong>PLAN.md 示例</strong>: <figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="section"># Web 应用开发计划</span></span><br><span class="line"></span><br><span class="line"><span class="section">## 项目信息</span></span><br><span class="line"><span class="bullet">-</span> <span class="strong">**项目名称**</span>: TaskFlow</span><br><span class="line"><span class="bullet">-</span> <span class="strong">**技术栈**</span>: FastAPI + React + PostgreSQL</span><br><span class="line"><span class="bullet">-</span> <span class="strong">**预计周期**</span>: 4 周</span><br><span class="line"></span><br><span class="line"><span class="section">## 阶段划分</span></span><br><span class="line"></span><br><span class="line"><span class="section">### 第一阶段: 后端基础 (Week 1)</span></span><br><span class="line"><span class="bullet">-</span> [ ] 1.1 项目脚手架</span><br><span class="line"><span class="bullet">-</span> [ ] 1.2 数据库模型设计</span><br><span class="line"><span class="bullet">-</span> [ ] 1.3 API 路由设计</span><br><span class="line"><span class="bullet">-</span> [ ] 1.4 用户认证系统</span><br><span class="line"></span><br><span class="line"><span class="section">### 第二阶段: 前端开发 (Week 2)</span></span><br><span class="line"><span class="bullet">-</span> [ ] 2.1 React 项目初始化</span><br><span class="line"><span class="bullet">-</span> [ ] 2.2 组件库搭建</span><br><span class="line"><span class="bullet">-</span> [ ] 2.3 API 集成</span><br><span class="line"><span class="bullet">-</span> [ ] 2.4 状态管理</span><br><span class="line"></span><br><span class="line"><span class="section">### 第三阶段: 功能完善 (Week 3)</span></span><br><span class="line"><span class="bullet">-</span> [ ] 3.1 任务 CRUD 功能</span><br><span class="line"><span class="bullet">-</span> [ ] 3.2 实时通知</span><br><span class="line"><span class="bullet">-</span> [ ] 3.3 文件上传</span><br><span class="line"></span><br><span class="line"><span class="section">### 第四阶段: 测试与部署 (Week 4)</span></span><br><span class="line"><span class="bullet">-</span> [ ] 4.1 单元测试</span><br><span class="line"><span class="bullet">-</span> [ ] 4.2 集成测试</span><br><span class="line"><span class="bullet">-</span> [ ] 4.3 CI/CD 配置</span><br><span class="line"><span class="bullet">-</span> [ ] 4.4 生产部署</span><br><span class="line"></span><br><span class="line"><span class="section">## 当前进度</span></span><br><span class="line">🎯 <span class="strong">**正在执行**</span>: 阶段 1.2 - 数据库模型设计</span><br></pre></td></tr></table></figure></p>
-<p><strong>SUMMARY.md 示例</strong>: <figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="section"># 项目摘要 - TaskFlow</span></span><br><span class="line"></span><br><span class="line"><span class="strong">**总体进度**</span>: 15%</span><br><span class="line"><span class="strong">**当前阶段**</span>: 第一阶段 - 后端基础</span><br><span class="line"><span class="strong">**已完成**</span>: 3/20 任务</span><br><span class="line"></span><br><span class="line"><span class="section">### 最近成就 ✨</span></span><br><span class="line"><span class="bullet">-</span> ✅ 搭建 FastAPI 项目结构</span><br><span class="line"><span class="bullet">-</span> ✅ 配置 SQLAlchemy</span><br><span class="line"><span class="bullet">-</span> ✅ 实现基础用户模型</span><br><span class="line"></span><br><span class="line"><span class="section">### 进行中 🚧</span></span><br><span class="line"><span class="bullet">-</span> 🔄 设计任务关联模型</span><br><span class="line"><span class="bullet">-</span> 🔄 添加数据库索引</span><br><span class="line"></span><br><span class="line"><span class="section">### 阻塞项 ⚠️</span></span><br><span class="line"><span class="bullet">-</span> 无</span><br><span class="line"></span><br><span class="line"><span class="section">### 下一步 📋</span></span><br><span class="line"><span class="bullet">-</span> 完成数据库迁移</span><br><span class="line"><span class="bullet">-</span> 实现用户注册 API</span><br></pre></td></tr></table></figure></p>
+<p><strong><a target="_blank" rel="noopener" href="http://PLAN.md">PLAN.md</a> 示例</strong>:</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="section"># Web 应用开发计划</span></span><br><span class="line"></span><br><span class="line"><span class="section">## 项目信息</span></span><br><span class="line"><span class="bullet">-</span> <span class="strong">**项目名称**</span>: TaskFlow</span><br><span class="line"><span class="bullet">-</span> <span class="strong">**技术栈**</span>: FastAPI + React + PostgreSQL</span><br><span class="line"><span class="bullet">-</span> <span class="strong">**预计周期**</span>: 4 周</span><br><span class="line"></span><br><span class="line"><span class="section">## 阶段划分</span></span><br><span class="line"></span><br><span class="line"><span class="section">### 第一阶段: 后端基础 (Week 1)</span></span><br><span class="line"><span class="bullet">-</span> [ ] 1.1 项目脚手架</span><br><span class="line"><span class="bullet">-</span> [ ] 1.2 数据库模型设计</span><br><span class="line"><span class="bullet">-</span> [ ] 1.3 API 路由设计</span><br><span class="line"><span class="bullet">-</span> [ ] 1.4 用户认证系统</span><br><span class="line"></span><br><span class="line"><span class="section">### 第二阶段: 前端开发 (Week 2)</span></span><br><span class="line"><span class="bullet">-</span> [ ] 2.1 React 项目初始化</span><br><span class="line"><span class="bullet">-</span> [ ] 2.2 组件库搭建</span><br><span class="line"><span class="bullet">-</span> [ ] 2.3 API 集成</span><br><span class="line"><span class="bullet">-</span> [ ] 2.4 状态管理</span><br><span class="line"></span><br><span class="line"><span class="section">### 第三阶段: 功能完善 (Week 3)</span></span><br><span class="line"><span class="bullet">-</span> [ ] 3.1 任务 CRUD 功能</span><br><span class="line"><span class="bullet">-</span> [ ] 3.2 实时通知</span><br><span class="line"><span class="bullet">-</span> [ ] 3.3 文件上传</span><br><span class="line"></span><br><span class="line"><span class="section">### 第四阶段: 测试与部署 (Week 4)</span></span><br><span class="line"><span class="bullet">-</span> [ ] 4.1 单元测试</span><br><span class="line"><span class="bullet">-</span> [ ] 4.2 集成测试</span><br><span class="line"><span class="bullet">-</span> [ ] 4.3 CI/CD 配置</span><br><span class="line"><span class="bullet">-</span> [ ] 4.4 生产部署</span><br><span class="line"></span><br><span class="line"><span class="section">## 当前进度</span></span><br><span class="line">🎯 <span class="strong">**正在执行**</span>: 阶段 1.2 - 数据库模型设计</span><br></pre></td></tr></table></figure>
+<p><strong><a target="_blank" rel="noopener" href="http://SUMMARY.md">SUMMARY.md</a> 示例</strong>:</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="section"># 项目摘要 - TaskFlow</span></span><br><span class="line"></span><br><span class="line"><span class="strong">**总体进度**</span>: 15%</span><br><span class="line"><span class="strong">**当前阶段**</span>: 第一阶段 - 后端基础</span><br><span class="line"><span class="strong">**已完成**</span>: 3/20 任务</span><br><span class="line"></span><br><span class="line"><span class="section">### 最近成就 ✨</span></span><br><span class="line"><span class="bullet">-</span> ✅ 搭建 FastAPI 项目结构</span><br><span class="line"><span class="bullet">-</span> ✅ 配置 SQLAlchemy</span><br><span class="line"><span class="bullet">-</span> ✅ 实现基础用户模型</span><br><span class="line"></span><br><span class="line"><span class="section">### 进行中 🚧</span></span><br><span class="line"><span class="bullet">-</span> 🔄 设计任务关联模型</span><br><span class="line"><span class="bullet">-</span> 🔄 添加数据库索引</span><br><span class="line"></span><br><span class="line"><span class="section">### 阻塞项 ⚠️</span></span><br><span class="line"><span class="bullet">-</span> 无</span><br><span class="line"></span><br><span class="line"><span class="section">### 下一步 📋</span></span><br><span class="line"><span class="bullet">-</span> 完成数据库迁移</span><br><span class="line"><span class="bullet">-</span> 实现用户注册 API</span><br></pre></td></tr></table></figure>
 <hr />
-<h2 id="五核心功能列表">五、核心功能列表</h2>
-<h3 id="规划功能">5.1 规划功能</h3>
+<h2 id="五-核心功能列表"><a class="markdownIt-Anchor" href="#五-核心功能列表"></a> 五、核心功能列表</h2>
+<h3 id="51-规划功能"><a class="markdownIt-Anchor" href="#51-规划功能"></a> 5.1 规划功能</h3>
 <ul>
 <li>✅ 自动创建 <code>.planning/</code> 目录</li>
-<li>✅ 生成结构化 PLAN.md</li>
+<li>✅ 生成结构化 <a target="_blank" rel="noopener" href="http://PLAN.md">PLAN.md</a></li>
 <li>✅ 任务优先级排序</li>
 <li>✅ 里程碑定义</li>
 <li>✅ 依赖关系管理</li>
 </ul>
-<h3 id="执行跟踪">5.2 执行跟踪</h3>
+<h3 id="52-执行跟踪"><a class="markdownIt-Anchor" href="#52-执行跟踪"></a> 5.2 执行跟踪</h3>
 <ul>
-<li>✅ 实时更新 LOG.md</li>
+<li>✅ 实时更新 <a target="_blank" rel="noopener" href="http://LOG.md">LOG.md</a></li>
 <li>✅ 时间戳记录</li>
 <li>✅ 决策过程文档化</li>
 <li>✅ 错误与重试记录</li>
 </ul>
-<h3 id="状态管理">5.3 状态管理</h3>
+<h3 id="53-状态管理"><a class="markdownIt-Anchor" href="#53-状态管理"></a> 5.3 状态管理</h3>
 <ul>
 <li>✅ 进度百分比计算</li>
 <li>✅ 当前任务高亮</li>
 <li>✅ 阻塞项标记</li>
 <li>✅ 快速上下文恢复</li>
 </ul>
-<h3 id="交互特性">5.4 交互特性</h3>
+<h3 id="54-交互特性"><a class="markdownIt-Anchor" href="#54-交互特性"></a> 5.4 交互特性</h3>
 <ul>
 <li>✅ 人类可读的 Markdown 格式</li>
 <li>✅ 版本控制友好</li>
@@ -432,54 +455,73 @@ Pattern）</h3>
 <li>✅ 可审计的决策轨迹</li>
 </ul>
 <hr />
-<h2 id="六最佳实践">六、最佳实践</h2>
-<h3 id="任务粒度控制">6.1 任务粒度控制</h3>
-<p><strong>推荐</strong>: 中等粒度任务 <figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="bullet">-</span> [ ] 实现用户认证功能</span><br><span class="line"><span class="bullet">  -</span> [ ] 设计用户模型</span><br><span class="line"><span class="bullet">  -</span> [ ] 实现密码加密</span><br><span class="line"><span class="bullet">  -</span> [ ] 添加 JWT 支持</span><br></pre></td></tr></table></figure></p>
-<p><strong>避免</strong>: 过大或过小 <figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">❌ - [ ] 开发整个系统  # 太大</span><br><span class="line">❌ - [ ] 写一行代码     # 太小</span><br></pre></td></tr></table></figure></p>
-<h3 id="定期更新摘要">6.2 定期更新摘要</h3>
-<p><strong>建议频率</strong>: - 每完成一个主要任务 - 每个工作会话结束 -
-遇到阻塞时</p>
-<h3 id="利用版本控制">6.3 利用版本控制</h3>
+<h2 id="六-最佳实践"><a class="markdownIt-Anchor" href="#六-最佳实践"></a> 六、最佳实践</h2>
+<h3 id="61-任务粒度控制"><a class="markdownIt-Anchor" href="#61-任务粒度控制"></a> 6.1 任务粒度控制</h3>
+<p><strong>推荐</strong>: 中等粒度任务</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="bullet">-</span> [ ] 实现用户认证功能</span><br><span class="line"><span class="bullet">  -</span> [ ] 设计用户模型</span><br><span class="line"><span class="bullet">  -</span> [ ] 实现密码加密</span><br><span class="line"><span class="bullet">  -</span> [ ] 添加 JWT 支持</span><br></pre></td></tr></table></figure>
+<p><strong>避免</strong>: 过大或过小</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">❌ - [ ] 开发整个系统  # 太大</span><br><span class="line">❌ - [ ] 写一行代码     # 太小</span><br></pre></td></tr></table></figure>
+<h3 id="62-定期更新摘要"><a class="markdownIt-Anchor" href="#62-定期更新摘要"></a> 6.2 定期更新摘要</h3>
+<p><strong>建议频率</strong>:</p>
+<ul>
+<li>每完成一个主要任务</li>
+<li>每个工作会话结束</li>
+<li>遇到阻塞时</li>
+</ul>
+<h3 id="63-利用版本控制"><a class="markdownIt-Anchor" href="#63-利用版本控制"></a> 6.3 利用版本控制</h3>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 将 .planning/ 目录纳入 Git</span></span><br><span class="line">git add .planning/</span><br><span class="line">git commit -m <span class="string">&quot;更新项目计划: 完成用户认证模块&quot;</span></span><br></pre></td></tr></table></figure>
-<p><strong>好处</strong>: - 追踪计划变更历史 - 团队成员同步进度 -
-回滚到之前的状态</p>
-<h3 id="与其他-skill-配合使用">6.4 与其他 Skill 配合使用</h3>
+<p><strong>好处</strong>:</p>
+<ul>
+<li>追踪计划变更历史</li>
+<li>团队成员同步进度</li>
+<li>回滚到之前的状态</li>
+</ul>
+<h3 id="64-与其他-skill-配合使用"><a class="markdownIt-Anchor" href="#64-与其他-skill-配合使用"></a> 6.4 与其他 Skill 配合使用</h3>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 配合 test-gen skill</span></span><br><span class="line"><span class="string">&quot;根据 PLAN.md 中的测试任务,生成测试代码&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 配合 code-review skill</span></span><br><span class="line"><span class="string">&quot;审查 LOG.md 中记录的最近提交&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 配合 doc-gen skill</span></span><br><span class="line"><span class="string">&quot;基于 SUMMARY.md 生成项目文档&quot;</span></span><br></pre></td></tr></table></figure>
-<h3 id="会话恢复最佳实践">6.5 会话恢复最佳实践</h3>
-<p><strong>高效恢复流程</strong>: 1. Claude 自动读取 SUMMARY.md 2.
-理解当前进度和阻塞项 3. 查看 LOG.md 了解最近操作 4. 从断点继续执行</p>
-<p><strong>提示词示例</strong>: <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">请继续上次的项目,根据 .planning&#x2F; 中的计划执行下一个任务</span><br></pre></td></tr></table></figure></p>
-<h3 id="任务完成标记">6.6 任务完成标记</h3>
-<p><strong>使用清晰的标记</strong>: <figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="bullet">-</span> [ ] 未开始</span><br><span class="line"><span class="bullet">-</span> [🔄] 进行中</span><br><span class="line"><span class="bullet">-</span> [✅] 已完成</span><br><span class="line"><span class="bullet">-</span> [❌] 已取消</span><br><span class="line"><span class="bullet">-</span> [⚠️] 有阻塞</span><br></pre></td></tr></table></figure></p>
+<h3 id="65-会话恢复最佳实践"><a class="markdownIt-Anchor" href="#65-会话恢复最佳实践"></a> 6.5 会话恢复最佳实践</h3>
+<p><strong>高效恢复流程</strong>:</p>
+<ol>
+<li>Claude 自动读取 <a target="_blank" rel="noopener" href="http://SUMMARY.md">SUMMARY.md</a></li>
+<li>理解当前进度和阻塞项</li>
+<li>查看 <a target="_blank" rel="noopener" href="http://LOG.md">LOG.md</a> 了解最近操作</li>
+<li>从断点继续执行</li>
+</ol>
+<p><strong>提示词示例</strong>:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">请继续上次的项目,根据 .planning&#x2F; 中的计划执行下一个任务</span><br></pre></td></tr></table></figure>
+<h3 id="66-任务完成标记"><a class="markdownIt-Anchor" href="#66-任务完成标记"></a> 6.6 任务完成标记</h3>
+<p><strong>使用清晰的标记</strong>:</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="bullet">-</span> [ ] 未开始</span><br><span class="line"><span class="bullet">-</span> [🔄] 进行中</span><br><span class="line"><span class="bullet">-</span> [✅] 已完成</span><br><span class="line"><span class="bullet">-</span> [❌] 已取消</span><br><span class="line"><span class="bullet">-</span> [⚠️] 有阻塞</span><br></pre></td></tr></table></figure>
 <hr />
-<h2 id="七社区分支项目">七、社区分支项目</h2>
-<h3 id="planning-with-tests-skill">7.1 Planning-With-Tests-Skill</h3>
+<h2 id="七-社区分支项目"><a class="markdownIt-Anchor" href="#七-社区分支项目"></a> 七、社区分支项目</h2>
+<h3 id="71-planning-with-tests-skill"><a class="markdownIt-Anchor" href="#71-planning-with-tests-skill"></a> 7.1 Planning-With-Tests-Skill</h3>
 <ul>
 <li><strong>仓库</strong>: 社区贡献</li>
 <li><strong>特点</strong>: 结合测试驱动开发(TDD)</li>
-<li><strong>功能</strong>: 在 PLAN.md 中自动生成测试任务</li>
+<li><strong>功能</strong>: 在 <a target="_blank" rel="noopener" href="http://PLAN.md">PLAN.md</a> 中自动生成测试任务</li>
 </ul>
-<h3 id="planning-with-git-skill">7.2 Planning-With-Git-Skill</h3>
+<h3 id="72-planning-with-git-skill"><a class="markdownIt-Anchor" href="#72-planning-with-git-skill"></a> 7.2 Planning-With-Git-Skill</h3>
 <ul>
 <li><strong>特点</strong>: 与 Git 工作流深度集成</li>
 <li><strong>功能</strong>:
 <ul>
 <li>自动为每个任务创建分支</li>
-<li>根据 PLAN.md 生成提交信息</li>
+<li>根据 <a target="_blank" rel="noopener" href="http://PLAN.md">PLAN.md</a> 生成提交信息</li>
 <li>自动关联 PR 与任务</li>
-</ul></li>
 </ul>
-<h3 id="planning-with-notion-skill">7.3 Planning-With-Notion-Skill</h3>
+</li>
+</ul>
+<h3 id="73-planning-with-notion-skill"><a class="markdownIt-Anchor" href="#73-planning-with-notion-skill"></a> 7.3 Planning-With-Notion-Skill</h3>
 <ul>
 <li><strong>特点</strong>: 同步到 Notion</li>
 <li><strong>功能</strong>:
 <ul>
-<li>将 PLAN.md 同步到 Notion 看板</li>
+<li>将 <a target="_blank" rel="noopener" href="http://PLAN.md">PLAN.md</a> 同步到 Notion 看板</li>
 <li>双向更新项目状态</li>
 <li>团队可视化协作</li>
-</ul></li>
 </ul>
-<h3 id="planning-dashboard">7.4 Planning-Dashboard</h3>
+</li>
+</ul>
+<h3 id="74-planning-dashboard"><a class="markdownIt-Anchor" href="#74-planning-dashboard"></a> 7.4 Planning-Dashboard</h3>
 <ul>
 <li><strong>特点</strong>: Web 可视化界面</li>
 <li><strong>功能</strong>:
@@ -487,75 +529,60 @@ Pattern）</h3>
 <li>图表化展示进度</li>
 <li>甘特图视图</li>
 <li>团队协作面板</li>
-</ul></li>
+</ul>
+</li>
 </ul>
 <hr />
-<h2 id="八快速命令参考">八、快速命令参考</h2>
-<h3 id="安装">8.1 安装</h3>
+<h2 id="八-快速命令参考"><a class="markdownIt-Anchor" href="#八-快速命令参考"></a> 八、快速命令参考</h2>
+<h3 id="81-安装"><a class="markdownIt-Anchor" href="#81-安装"></a> 8.1 安装</h3>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 方法 1: 通过 skill 命令</span></span><br><span class="line">skill install https://github.com/OthmanAdi/planning-with-files</span><br><span class="line"></span><br><span class="line"><span class="comment"># 方法 2: 手动克隆</span></span><br><span class="line">git <span class="built_in">clone</span> https://github.com/disler/planning-with-files-skill.git</span><br></pre></td></tr></table></figure>
-<h3 id="在-claude-code-中使用">8.2 在 Claude Code 中使用</h3>
+<h3 id="82-在-claude-code-中使用"><a class="markdownIt-Anchor" href="#82-在-claude-code-中使用"></a> 8.2 在 Claude Code 中使用</h3>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"># 启动新项目规划</span><br><span class="line">&quot;使用 planning-with-files-skill 创建一个新项目计划&quot;</span><br><span class="line"></span><br><span class="line"># 继续项目</span><br><span class="line">&quot;继续执行 .planning&#x2F;PLAN.md 中的下一个任务&quot;</span><br><span class="line"></span><br><span class="line"># 查看进度</span><br><span class="line">&quot;显示项目的当前进度和状态&quot;</span><br><span class="line"></span><br><span class="line"># 更新计划</span><br><span class="line">&quot;在 PLAN.md 中添加新的任务项&quot;</span><br></pre></td></tr></table></figure>
-<h3 id="文件操作">8.3 文件操作</h3>
+<h3 id="83-文件操作"><a class="markdownIt-Anchor" href="#83-文件操作"></a> 8.3 文件操作</h3>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看计划</span></span><br><span class="line">cat .planning/PLAN.md</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看日志</span></span><br><span class="line">tail -f .planning/LOG.md</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看摘要</span></span><br><span class="line">cat .planning/SUMMARY.md</span><br><span class="line"></span><br><span class="line"><span class="comment"># Git 提交</span></span><br><span class="line">git add .planning/</span><br><span class="line">git commit -m <span class="string">&quot;更新项目计划&quot;</span></span><br></pre></td></tr></table></figure>
 <hr />
-<h2 id="九常见问题">九、常见问题</h2>
-<h3 id="q1-如何在团队中使用">Q1: 如何在团队中使用?</h3>
-<p><strong>A</strong>: 将 <code>.planning/</code>
-目录纳入版本控制,团队成员通过 Git 同步计划和进度。</p>
-<h3 id="q2-可以自定义文件名吗">Q2: 可以自定义文件名吗?</h3>
-<p><strong>A</strong>: 可以修改 skill 配置,但建议使用默认的
-PLAN.md、LOG.md、SUMMARY.md 以保持一致性。</p>
-<h3 id="q3-支持多项目管理吗">Q3: 支持多项目管理吗?</h3>
-<p><strong>A</strong>: 支持。每个项目可以有独立的
-<code>.planning/</code> 目录。</p>
-<h3 id="q4-如何与其他-ai-agent-工具集成">Q4: 如何与其他 AI Agent
-工具集成?</h3>
-<p><strong>A</strong>: Planning-With-Files-Skill 使用标准 Markdown
-格式,可与其他工具互操作。</p>
-<h3 id="q5-会话恢复时上下文会丢失吗">Q5: 会话恢复时上下文会丢失吗?</h3>
-<p><strong>A</strong>: 不会。Claude
-通过读取三个文件完全恢复上下文,包括项目历史和当前状态。</p>
+<h2 id="九-常见问题"><a class="markdownIt-Anchor" href="#九-常见问题"></a> 九、常见问题</h2>
+<h3 id="q1-如何在团队中使用"><a class="markdownIt-Anchor" href="#q1-如何在团队中使用"></a> Q1: 如何在团队中使用?</h3>
+<p><strong>A</strong>: 将 <code>.planning/</code> 目录纳入版本控制,团队成员通过 Git 同步计划和进度。</p>
+<h3 id="q2-可以自定义文件名吗"><a class="markdownIt-Anchor" href="#q2-可以自定义文件名吗"></a> Q2: 可以自定义文件名吗?</h3>
+<p><strong>A</strong>: 可以修改 skill 配置,但建议使用默认的 <a target="_blank" rel="noopener" href="http://PLAN.md">PLAN.md</a>、<a target="_blank" rel="noopener" href="http://LOG.md">LOG.md</a>、<a target="_blank" rel="noopener" href="http://SUMMARY.md">SUMMARY.md</a> 以保持一致性。</p>
+<h3 id="q3-支持多项目管理吗"><a class="markdownIt-Anchor" href="#q3-支持多项目管理吗"></a> Q3: 支持多项目管理吗?</h3>
+<p><strong>A</strong>: 支持。每个项目可以有独立的 <code>.planning/</code> 目录。</p>
+<h3 id="q4-如何与其他-ai-agent-工具集成"><a class="markdownIt-Anchor" href="#q4-如何与其他-ai-agent-工具集成"></a> Q4: 如何与其他 AI Agent 工具集成?</h3>
+<p><strong>A</strong>: Planning-With-Files-Skill 使用标准 Markdown 格式,可与其他工具互操作。</p>
+<h3 id="q5-会话恢复时上下文会丢失吗"><a class="markdownIt-Anchor" href="#q5-会话恢复时上下文会丢失吗"></a> Q5: 会话恢复时上下文会丢失吗?</h3>
+<p><strong>A</strong>: 不会。Claude 通过读取三个文件完全恢复上下文,包括项目历史和当前状态。</p>
 <hr />
-<h2 id="十相关资源">十、相关资源</h2>
-<h3 id="官方文档">官方文档</h3>
+<h2 id="十-相关资源"><a class="markdownIt-Anchor" href="#十-相关资源"></a> 十、相关资源</h2>
+<h3 id="官方文档"><a class="markdownIt-Anchor" href="#官方文档"></a> 官方文档</h3>
 <ul>
-<li><a target="_blank" rel="noopener" href="https://github.com/OthmanAdi/planning-with-files">GitHub
-仓库</a></li>
-<li><a
-target="_blank" rel="noopener" href="https://github.com/OthmanAdi/planning-with-files/blob/main/README.md">README.md</a></li>
-<li><a
-target="_blank" rel="noopener" href="https://github.com/OthmanAdi/planning-with-files/tree/main/examples">使用示例</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/OthmanAdi/planning-with-files">GitHub 仓库</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/OthmanAdi/planning-with-files/blob/main/README.md">README.md</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/OthmanAdi/planning-with-files/tree/main/examples">使用示例</a></li>
 </ul>
-<h3 id="社区文章">社区文章</h3>
+<h3 id="社区文章"><a class="markdownIt-Anchor" href="#社区文章"></a> 社区文章</h3>
 <ul>
-<li><a
-target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/1995802528294646467">我至今用到最好的
-Claude Code Skills</a></li>
-<li><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/1996724780209047225">2026 最新
-Claude Skills 保姆级教程</a></li>
-<li><a
-target="_blank" rel="noopener" href="https://github.com/OthmanAdi/planning-with-files/wiki/Manus-Pattern">Manus
-工作流模式解析</a></li>
+<li><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/1995802528294646467">我至今用到最好的 Claude Code Skills</a></li>
+<li><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/1996724780209047225">2026 最新 Claude Skills 保姆级教程</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/OthmanAdi/planning-with-files/wiki/Manus-Pattern">Manus 工作流模式解析</a></li>
 </ul>
-<h3 id="相关项目">相关项目</h3>
+<h3 id="相关项目"><a class="markdownIt-Anchor" href="#相关项目"></a> 相关项目</h3>
 <ul>
-<li><a target="_blank" rel="noopener" href="https://github.com/manus-ai/manus">Manus AI Agent</a> -
-原始 Manus 项目</li>
-<li><a target="_blank" rel="noopener" href="https://claude.ai/claude-code">Claude Code
-官方文档</a></li>
-<li><a
-target="_blank" rel="noopener" href="https://mcpservers.org/claude-skills/OthmanAdi/planning-with-files">MCP
-Servers Registry</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/manus-ai/manus">Manus AI Agent</a> - 原始 Manus 项目</li>
+<li><a target="_blank" rel="noopener" href="https://claude.ai/claude-code">Claude Code 官方文档</a></li>
+<li><a target="_blank" rel="noopener" href="https://mcpservers.org/claude-skills/OthmanAdi/planning-with-files">MCP Servers Registry</a></li>
 </ul>
 <hr />
-<h2 id="十一结语">十一、结语</h2>
-<p>Planning-With-Files-Skill 通过简单的三文件模式,为 Claude Code
-带来了强大的项目规划和执行跟踪能力。它不仅让 AI
-辅助开发更加可靠,还提供了完整的人类可审计轨迹。</p>
-<p><strong>核心优势总结</strong>: - 🎯 结构化的任务规划 - 🔄
-无缝的会话恢复 - 👀 透明的决策过程 - 🤝 友好的人机协作</p>
-<p>开始使用 Planning-With-Files-Skill,让你的 Claude Code
-开发体验更加专业和高效!</p>
+<h2 id="十一-结语"><a class="markdownIt-Anchor" href="#十一-结语"></a> 十一、结语</h2>
+<p>Planning-With-Files-Skill 通过简单的三文件模式,为 Claude Code 带来了强大的项目规划和执行跟踪能力。它不仅让 AI 辅助开发更加可靠,还提供了完整的人类可审计轨迹。</p>
+<p><strong>核心优势总结</strong>:</p>
+<ul>
+<li>🎯 结构化的任务规划</li>
+<li>🔄 无缝的会话恢复</li>
+<li>👀 透明的决策过程</li>
+<li>🤝 友好的人机协作</li>
+</ul>
+<p>开始使用 Planning-With-Files-Skill,让你的 Claude Code 开发体验更加专业和高效!</p>
 <hr />
 <p><strong>Happy Planning! 🚀</strong></p>
 
@@ -607,8 +634,8 @@ Servers Registry</a></li>
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2026/03/10/CC-Skills-02.1-ecc-sc-integration/" rel="prev" title="ECC vs SC 命令整合策略分析">
-      <i class="fa fa-chevron-left"></i> ECC vs SC 命令整合策略分析
+    <a href="/2026/03/10/CC-Skills-04-ralph-wiggum/" rel="prev" title="Ralph-Wiggum-Skill 完整教程">
+      <i class="fa fa-chevron-left"></i> Ralph-Wiggum-Skill 完整教程
     </a></div>
       <div class="post-nav-item">
     <a href="/2026/03/10/CC-Skills-01-everything-claude-code/" rel="next" title="Everything Claude Code 完整教程">
@@ -676,10 +703,7 @@ Servers Registry</a></li>
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#planning-with-files-%E5%AE%8C%E6%95%B4%E6%95%99%E7%A8%8B"><span class="nav-text">Planning-With-Files 完整教程</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-text">📝 前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E6%A0%B8%E5%BF%83%E5%8A%9F%E8%83%BD"><span class="nav-text">二、核心功能</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%89%E6%96%87%E4%BB%B6%E6%A8%A1%E5%BC%8Fthe-three-file-pattern"><span class="nav-text">2.1 三文件模式（The Three-File
-Pattern）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#plan.md---%E8%AE%A1%E5%88%92%E6%96%87%E4%BB%B6"><span class="nav-text">PLAN.md - 计划文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#log.md---%E6%97%A5%E5%BF%97%E6%96%87%E4%BB%B6"><span class="nav-text">LOG.md - 日志文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#summary.md---%E6%91%98%E8%A6%81%E6%96%87%E4%BB%B6"><span class="nav-text">SUMMARY.md - 摘要文件</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%87%AA%E5%8A%A8%E5%88%9D%E5%A7%8B%E5%8C%96"><span class="nav-text">2.2 自动初始化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BC%9A%E8%AF%9D%E6%81%A2%E5%A4%8D%E6%9C%BA%E5%88%B6"><span class="nav-text">2.3 会话恢复机制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%BA%E7%B1%BB%E5%8F%AF%E5%AE%A1%E8%AE%A1"><span class="nav-text">2.4 人类可审计</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89%E5%AE%89%E8%A3%85%E6%96%B9%E6%B3%95"><span class="nav-text">三、安装方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%80%9A%E8%BF%87-skill-registry-%E5%AE%89%E8%A3%85%E6%8E%A8%E8%8D%90"><span class="nav-text">3.1 通过 Skill Registry
-安装（推荐）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8-skill-creator-%E5%AE%89%E8%A3%85"><span class="nav-text">3.2 使用 skill-creator 安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%89%8B%E5%8A%A8%E5%AE%89%E8%A3%85"><span class="nav-text">3.3 手动安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8-mcp-%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%B3%A8%E5%86%8C"><span class="nav-text">3.4 使用 MCP 服务器注册</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%9B%E4%BD%BF%E7%94%A8%E5%9C%BA%E6%99%AF%E5%92%8C%E7%A4%BA%E4%BE%8B"><span class="nav-text">四、使用场景和示例</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%90%AF%E5%8A%A8%E6%96%B0%E9%A1%B9%E7%9B%AE"><span class="nav-text">4.1 启动新项目</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%A7%E7%BB%AD%E4%B8%AD%E6%96%AD%E7%9A%84%E9%A1%B9%E7%9B%AE"><span class="nav-text">4.2 继续中断的项目</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%8D%E6%9D%82%E7%9A%84%E5%A4%9A%E9%98%B6%E6%AE%B5%E9%A1%B9%E7%9B%AE"><span class="nav-text">4.3 复杂的多阶段项目</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%94%E6%A0%B8%E5%BF%83%E5%8A%9F%E8%83%BD%E5%88%97%E8%A1%A8"><span class="nav-text">五、核心功能列表</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A7%84%E5%88%92%E5%8A%9F%E8%83%BD"><span class="nav-text">5.1 规划功能</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%89%A7%E8%A1%8C%E8%B7%9F%E8%B8%AA"><span class="nav-text">5.2 执行跟踪</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%8A%B6%E6%80%81%E7%AE%A1%E7%90%86"><span class="nav-text">5.3 状态管理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%A4%E4%BA%92%E7%89%B9%E6%80%A7"><span class="nav-text">5.4 交互特性</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%AD%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5"><span class="nav-text">六、最佳实践</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%BB%E5%8A%A1%E7%B2%92%E5%BA%A6%E6%8E%A7%E5%88%B6"><span class="nav-text">6.1 任务粒度控制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9A%E6%9C%9F%E6%9B%B4%E6%96%B0%E6%91%98%E8%A6%81"><span class="nav-text">6.2 定期更新摘要</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%A9%E7%94%A8%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6"><span class="nav-text">6.3 利用版本控制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%8E%E5%85%B6%E4%BB%96-skill-%E9%85%8D%E5%90%88%E4%BD%BF%E7%94%A8"><span class="nav-text">6.4 与其他 Skill 配合使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BC%9A%E8%AF%9D%E6%81%A2%E5%A4%8D%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5"><span class="nav-text">6.5 会话恢复最佳实践</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%BB%E5%8A%A1%E5%AE%8C%E6%88%90%E6%A0%87%E8%AE%B0"><span class="nav-text">6.6 任务完成标记</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%83%E7%A4%BE%E5%8C%BA%E5%88%86%E6%94%AF%E9%A1%B9%E7%9B%AE"><span class="nav-text">七、社区分支项目</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#planning-with-tests-skill"><span class="nav-text">7.1 Planning-With-Tests-Skill</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#planning-with-git-skill"><span class="nav-text">7.2 Planning-With-Git-Skill</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#planning-with-notion-skill"><span class="nav-text">7.3 Planning-With-Notion-Skill</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#planning-dashboard"><span class="nav-text">7.4 Planning-Dashboard</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%AB%E5%BF%AB%E9%80%9F%E5%91%BD%E4%BB%A4%E5%8F%82%E8%80%83"><span class="nav-text">八、快速命令参考</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85"><span class="nav-text">8.1 安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9C%A8-claude-code-%E4%B8%AD%E4%BD%BF%E7%94%A8"><span class="nav-text">8.2 在 Claude Code 中使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C"><span class="nav-text">8.3 文件操作</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B9%9D%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98"><span class="nav-text">九、常见问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#q1-%E5%A6%82%E4%BD%95%E5%9C%A8%E5%9B%A2%E9%98%9F%E4%B8%AD%E4%BD%BF%E7%94%A8"><span class="nav-text">Q1: 如何在团队中使用?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#q2-%E5%8F%AF%E4%BB%A5%E8%87%AA%E5%AE%9A%E4%B9%89%E6%96%87%E4%BB%B6%E5%90%8D%E5%90%97"><span class="nav-text">Q2: 可以自定义文件名吗?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#q3-%E6%94%AF%E6%8C%81%E5%A4%9A%E9%A1%B9%E7%9B%AE%E7%AE%A1%E7%90%86%E5%90%97"><span class="nav-text">Q3: 支持多项目管理吗?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#q4-%E5%A6%82%E4%BD%95%E4%B8%8E%E5%85%B6%E4%BB%96-ai-agent-%E5%B7%A5%E5%85%B7%E9%9B%86%E6%88%90"><span class="nav-text">Q4: 如何与其他 AI Agent
-工具集成?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#q5-%E4%BC%9A%E8%AF%9D%E6%81%A2%E5%A4%8D%E6%97%B6%E4%B8%8A%E4%B8%8B%E6%96%87%E4%BC%9A%E4%B8%A2%E5%A4%B1%E5%90%97"><span class="nav-text">Q5: 会话恢复时上下文会丢失吗?</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8D%81%E7%9B%B8%E5%85%B3%E8%B5%84%E6%BA%90"><span class="nav-text">十、相关资源</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%98%E6%96%B9%E6%96%87%E6%A1%A3"><span class="nav-text">官方文档</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A4%BE%E5%8C%BA%E6%96%87%E7%AB%A0"><span class="nav-text">社区文章</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%9B%B8%E5%85%B3%E9%A1%B9%E7%9B%AE"><span class="nav-text">相关项目</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8D%81%E4%B8%80%E7%BB%93%E8%AF%AD"><span class="nav-text">十一、结语</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#planning-with-files-%E5%AE%8C%E6%95%B4%E6%95%99%E7%A8%8B"><span class="nav-text"> Planning-With-Files 完整教程</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-text"> 📝 前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C-%E6%A0%B8%E5%BF%83%E5%8A%9F%E8%83%BD"><span class="nav-text"> 二、核心功能</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#21-%E4%B8%89%E6%96%87%E4%BB%B6%E6%A8%A1%E5%BC%8Fthe-three-file-pattern"><span class="nav-text"> 2.1 三文件模式（The Three-File Pattern）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#planmd"><span class="nav-text"> PLAN.md - 计划文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#logmd"><span class="nav-text"> LOG.md - 日志文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#summarymd"><span class="nav-text"> SUMMARY.md - 摘要文件</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#22-%E8%87%AA%E5%8A%A8%E5%88%9D%E5%A7%8B%E5%8C%96"><span class="nav-text"> 2.2 自动初始化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#23-%E4%BC%9A%E8%AF%9D%E6%81%A2%E5%A4%8D%E6%9C%BA%E5%88%B6"><span class="nav-text"> 2.3 会话恢复机制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#24-%E4%BA%BA%E7%B1%BB%E5%8F%AF%E5%AE%A1%E8%AE%A1"><span class="nav-text"> 2.4 人类可审计</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89-%E5%AE%89%E8%A3%85%E6%96%B9%E6%B3%95"><span class="nav-text"> 三、安装方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#31-%E9%80%9A%E8%BF%87-skill-registry-%E5%AE%89%E8%A3%85%E6%8E%A8%E8%8D%90"><span class="nav-text"> 3.1 通过 Skill Registry 安装（推荐）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#32-%E4%BD%BF%E7%94%A8-skill-creator-%E5%AE%89%E8%A3%85"><span class="nav-text"> 3.2 使用 skill-creator 安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#33-%E6%89%8B%E5%8A%A8%E5%AE%89%E8%A3%85"><span class="nav-text"> 3.3 手动安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#34-%E4%BD%BF%E7%94%A8-mcp-%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%B3%A8%E5%86%8C"><span class="nav-text"> 3.4 使用 MCP 服务器注册</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%9B-%E4%BD%BF%E7%94%A8%E5%9C%BA%E6%99%AF%E5%92%8C%E7%A4%BA%E4%BE%8B"><span class="nav-text"> 四、使用场景和示例</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#41-%E5%90%AF%E5%8A%A8%E6%96%B0%E9%A1%B9%E7%9B%AE"><span class="nav-text"> 4.1 启动新项目</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#42-%E7%BB%A7%E7%BB%AD%E4%B8%AD%E6%96%AD%E7%9A%84%E9%A1%B9%E7%9B%AE"><span class="nav-text"> 4.2 继续中断的项目</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#43-%E5%A4%8D%E6%9D%82%E7%9A%84%E5%A4%9A%E9%98%B6%E6%AE%B5%E9%A1%B9%E7%9B%AE"><span class="nav-text"> 4.3 复杂的多阶段项目</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%94-%E6%A0%B8%E5%BF%83%E5%8A%9F%E8%83%BD%E5%88%97%E8%A1%A8"><span class="nav-text"> 五、核心功能列表</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#51-%E8%A7%84%E5%88%92%E5%8A%9F%E8%83%BD"><span class="nav-text"> 5.1 规划功能</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#52-%E6%89%A7%E8%A1%8C%E8%B7%9F%E8%B8%AA"><span class="nav-text"> 5.2 执行跟踪</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#53-%E7%8A%B6%E6%80%81%E7%AE%A1%E7%90%86"><span class="nav-text"> 5.3 状态管理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#54-%E4%BA%A4%E4%BA%92%E7%89%B9%E6%80%A7"><span class="nav-text"> 5.4 交互特性</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%AD-%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5"><span class="nav-text"> 六、最佳实践</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#61-%E4%BB%BB%E5%8A%A1%E7%B2%92%E5%BA%A6%E6%8E%A7%E5%88%B6"><span class="nav-text"> 6.1 任务粒度控制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#62-%E5%AE%9A%E6%9C%9F%E6%9B%B4%E6%96%B0%E6%91%98%E8%A6%81"><span class="nav-text"> 6.2 定期更新摘要</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#63-%E5%88%A9%E7%94%A8%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6"><span class="nav-text"> 6.3 利用版本控制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#64-%E4%B8%8E%E5%85%B6%E4%BB%96-skill-%E9%85%8D%E5%90%88%E4%BD%BF%E7%94%A8"><span class="nav-text"> 6.4 与其他 Skill 配合使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#65-%E4%BC%9A%E8%AF%9D%E6%81%A2%E5%A4%8D%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5"><span class="nav-text"> 6.5 会话恢复最佳实践</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#66-%E4%BB%BB%E5%8A%A1%E5%AE%8C%E6%88%90%E6%A0%87%E8%AE%B0"><span class="nav-text"> 6.6 任务完成标记</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%83-%E7%A4%BE%E5%8C%BA%E5%88%86%E6%94%AF%E9%A1%B9%E7%9B%AE"><span class="nav-text"> 七、社区分支项目</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#71-planning-with-tests-skill"><span class="nav-text"> 7.1 Planning-With-Tests-Skill</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#72-planning-with-git-skill"><span class="nav-text"> 7.2 Planning-With-Git-Skill</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#73-planning-with-notion-skill"><span class="nav-text"> 7.3 Planning-With-Notion-Skill</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#74-planning-dashboard"><span class="nav-text"> 7.4 Planning-Dashboard</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%AB-%E5%BF%AB%E9%80%9F%E5%91%BD%E4%BB%A4%E5%8F%82%E8%80%83"><span class="nav-text"> 八、快速命令参考</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#81-%E5%AE%89%E8%A3%85"><span class="nav-text"> 8.1 安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#82-%E5%9C%A8-claude-code-%E4%B8%AD%E4%BD%BF%E7%94%A8"><span class="nav-text"> 8.2 在 Claude Code 中使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#83-%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C"><span class="nav-text"> 8.3 文件操作</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B9%9D-%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98"><span class="nav-text"> 九、常见问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#q1-%E5%A6%82%E4%BD%95%E5%9C%A8%E5%9B%A2%E9%98%9F%E4%B8%AD%E4%BD%BF%E7%94%A8"><span class="nav-text"> Q1: 如何在团队中使用?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#q2-%E5%8F%AF%E4%BB%A5%E8%87%AA%E5%AE%9A%E4%B9%89%E6%96%87%E4%BB%B6%E5%90%8D%E5%90%97"><span class="nav-text"> Q2: 可以自定义文件名吗?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#q3-%E6%94%AF%E6%8C%81%E5%A4%9A%E9%A1%B9%E7%9B%AE%E7%AE%A1%E7%90%86%E5%90%97"><span class="nav-text"> Q3: 支持多项目管理吗?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#q4-%E5%A6%82%E4%BD%95%E4%B8%8E%E5%85%B6%E4%BB%96-ai-agent-%E5%B7%A5%E5%85%B7%E9%9B%86%E6%88%90"><span class="nav-text"> Q4: 如何与其他 AI Agent 工具集成?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#q5-%E4%BC%9A%E8%AF%9D%E6%81%A2%E5%A4%8D%E6%97%B6%E4%B8%8A%E4%B8%8B%E6%96%87%E4%BC%9A%E4%B8%A2%E5%A4%B1%E5%90%97"><span class="nav-text"> Q5: 会话恢复时上下文会丢失吗?</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8D%81-%E7%9B%B8%E5%85%B3%E8%B5%84%E6%BA%90"><span class="nav-text"> 十、相关资源</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%98%E6%96%B9%E6%96%87%E6%A1%A3"><span class="nav-text"> 官方文档</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A4%BE%E5%8C%BA%E6%96%87%E7%AB%A0"><span class="nav-text"> 社区文章</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%9B%B8%E5%85%B3%E9%A1%B9%E7%9B%AE"><span class="nav-text"> 相关项目</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8D%81%E4%B8%80-%E7%BB%93%E8%AF%AD"><span class="nav-text"> 十一、结语</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -702,7 +726,7 @@ Pattern）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a c
       <div class="site-state-item site-state-categories">
             <a href="/Categories/">
           
-        <span class="site-state-item-count">40</span>
+        <span class="site-state-item-count">41</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">

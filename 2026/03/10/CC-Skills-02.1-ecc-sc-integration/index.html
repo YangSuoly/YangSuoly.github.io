@@ -24,20 +24,22 @@
     var CONFIG = {"hostname":"yangsuoly.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":true},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":true,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="ECC vs SC 命令整合策略分析  📝 前言 安装了 Everything Claude Code 和 SuperClaude 两大框架后，面对 60+ 个命令我们该如何选择？本教程将深入分析两个框架的功能重叠与差异，提供实用的整合策略建议，帮助你找到最适合的工作流组合。">
+  <meta name="description" content="ECC vs SC 命令整合策略分析   📝 前言 安装了 Everything Claude Code 和 SuperClaude 两大框架后，面对 60+ 个命令我们该如何选择？本教程将深入分析两个框架的功能重叠与差异，提供实用的整合策略建议，帮助你找到最适合的工作流组合。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="ECC vs SC 命令整合策略分析">
 <meta property="og:url" content="http://yangsuoly.com/2026/03/10/CC-Skills-02.1-ecc-sc-integration/index.html">
 <meta property="og:site_name" content="独孤诗人的学习驿站">
-<meta property="og:description" content="ECC vs SC 命令整合策略分析  📝 前言 安装了 Everything Claude Code 和 SuperClaude 两大框架后，面对 60+ 个命令我们该如何选择？本教程将深入分析两个框架的功能重叠与差异，提供实用的整合策略建议，帮助你找到最适合的工作流组合。">
+<meta property="og:description" content="ECC vs SC 命令整合策略分析   📝 前言 安装了 Everything Claude Code 和 SuperClaude 两大框架后，面对 60+ 个命令我们该如何选择？本教程将深入分析两个框架的功能重叠与差异，提供实用的整合策略建议，帮助你找到最适合的工作流组合。">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/YangSuoly/Images/Claude-code/202603102224120.png">
 <meta property="article:published_time" content="2026-03-09T16:00:00.000Z">
-<meta property="article:modified_time" content="2026-03-10T14:49:56.137Z">
+<meta property="article:modified_time" content="2026-03-10T15:04:56.963Z">
 <meta property="article:author" content="YangSu">
 <meta property="article:tag" content="Analysis">
 <meta property="article:tag" content="Command">
 <meta property="article:tag" content="Integration">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/YangSuoly/Images/Claude-code/202603102224120.png">
 
 <link rel="canonical" href="http://yangsuoly.com/2026/03/10/CC-Skills-02.1-ecc-sc-integration/">
 
@@ -239,7 +241,7 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2026-03-10 00:00:00 / Modified: 22:49:56" itemprop="dateCreated datePublished" datetime="2026-03-10T00:00:00+08:00">2026-03-10</time>
+              <time title="Created: 2026-03-10 00:00:00 / Modified: 23:04:56" itemprop="dateCreated datePublished" datetime="2026-03-10T00:00:00+08:00">2026-03-10</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -252,6 +254,10 @@
                   , 
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
                   <a href="/categories/Notes/Claude-Code/" itemprop="url" rel="index"><span itemprop="name">Claude-Code</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Notes/Claude-Code/Skills/" itemprop="url" rel="index"><span itemprop="name">Skills</span></a>
                 </span>
             </span>
 
@@ -287,27 +293,18 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h1 id="ecc-vs-sc-命令整合策略分析">ECC vs SC 命令整合策略分析</h1>
+        <h1 id="ecc-vs-sc-命令整合策略分析"><a class="markdownIt-Anchor" href="#ecc-vs-sc-命令整合策略分析"></a> ECC vs SC 命令整合策略分析</h1>
 <hr />
-<h2 id="前言">📝 前言</h2>
-<p>安装了 Everything Claude Code 和 SuperClaude 两大框架后，面对
-<strong>60+
-个命令</strong>我们该如何选择？本教程将深入分析两个框架的功能重叠与差异，提供实用的整合策略建议，帮助你找到最适合的工作流组合。</p>
-<p><img
-src="https://cdn.jsdelivr.net/gh/YangSuoly/Images/Claude-code/202603102224120.png" /></p>
+<h2 id="前言"><a class="markdownIt-Anchor" href="#前言"></a> 📝 前言</h2>
+<p>安装了 Everything Claude Code 和 SuperClaude 两大框架后，面对 <strong>60+ 个命令</strong>我们该如何选择？本教程将深入分析两个框架的功能重叠与差异，提供实用的整合策略建议，帮助你找到最适合的工作流组合。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/YangSuoly/Images/Claude-code/202603102224120.png" alt="" /></p>
 <a id="more"></a>
 <hr />
-<h3 id="完全不重叠的功能各有所长">1.1 完全不重叠的功能（各有所长）</h3>
-<h4 id="superclaude-独有功能-保留">SuperClaude 独有功能 ✅ 保留</h4>
+<h3 id="11-完全不重叠的功能各有所长"><a class="markdownIt-Anchor" href="#11-完全不重叠的功能各有所长"></a> 1.1 完全不重叠的功能（各有所长）</h3>
+<h4 id="superclaude-独有功能-保留"><a class="markdownIt-Anchor" href="#superclaude-独有功能-保留"></a> SuperClaude 独有功能 ✅ 保留</h4>
 <table>
-<colgroup>
-<col style="width: 20%" />
-<col style="width: 20%" />
-<col style="width: 26%" />
-<col style="width: 33%" />
-</colgroup>
 <thead>
-<tr class="header">
+<tr>
 <th>命令</th>
 <th>功能</th>
 <th>独特性</th>
@@ -315,61 +312,61 @@ src="https://cdn.jsdelivr.net/gh/YangSuoly/Images/Claude-code/202603102224120.pn
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td><code>/sc:research</code></td>
 <td>深度网络研究 (Tavily MCP)</td>
 <td><strong>无可替代</strong></td>
 <td>⭐⭐⭐⭐⭐</td>
 </tr>
-<tr class="even">
+<tr>
 <td><code>/sc:brainstorm</code></td>
 <td>Socratic 需求发现</td>
 <td><strong>无可替代</strong></td>
 <td>⭐⭐⭐⭐⭐</td>
 </tr>
-<tr class="odd">
+<tr>
 <td><code>/sc:pm</code></td>
 <td>PM Agent 自动协调</td>
 <td><strong>无可替代</strong></td>
 <td>⭐⭐⭐⭐⭐</td>
 </tr>
-<tr class="even">
+<tr>
 <td><code>/sc:reflect</code></td>
 <td>跨会话反思 (Serena MCP)</td>
 <td><strong>无可替代</strong></td>
 <td>⭐⭐⭐⭐</td>
 </tr>
-<tr class="odd">
+<tr>
 <td><code>/sc:load</code> / <code>/sc:save</code></td>
 <td>会话管理 (Serena MCP)</td>
 <td><strong>无可替代</strong></td>
 <td>⭐⭐⭐⭐</td>
 </tr>
-<tr class="even">
+<tr>
 <td><code>/sc:recommend</code></td>
 <td>智能命令推荐</td>
 <td><strong>无可替代</strong></td>
 <td>⭐⭐⭐</td>
 </tr>
-<tr class="odd">
+<tr>
 <td><code>/sc:spec-panel</code></td>
 <td>多专家规范审查</td>
 <td>独特功能</td>
 <td>⭐⭐⭐</td>
 </tr>
-<tr class="even">
+<tr>
 <td><code>/sc:business-panel</code></td>
 <td>商业分析面板</td>
 <td>独特功能</td>
 <td>⭐⭐⭐</td>
 </tr>
-<tr class="odd">
+<tr>
 <td><code>/sc:select-tool</code></td>
 <td>MCP 工具选择</td>
 <td>独特功能</td>
 <td>⭐⭐</td>
 </tr>
-<tr class="even">
+<tr>
 <td><code>/sc:estimate</code></td>
 <td>开发估算</td>
 <td>独特功能</td>
@@ -377,17 +374,10 @@ src="https://cdn.jsdelivr.net/gh/YangSuoly/Images/Claude-code/202603102224120.pn
 </tr>
 </tbody>
 </table>
-<h4 id="everything-claude-code-独有功能-保留">Everything Claude Code
-独有功能 ✅ 保留</h4>
+<h4 id="everything-claude-code-独有功能-保留"><a class="markdownIt-Anchor" href="#everything-claude-code-独有功能-保留"></a> Everything Claude Code 独有功能 ✅ 保留</h4>
 <table>
-<colgroup>
-<col style="width: 20%" />
-<col style="width: 20%" />
-<col style="width: 26%" />
-<col style="width: 33%" />
-</colgroup>
 <thead>
-<tr class="header">
+<tr>
 <th>命令</th>
 <th>功能</th>
 <th>独特性</th>
@@ -395,85 +385,85 @@ src="https://cdn.jsdelivr.net/gh/YangSuoly/Images/Claude-code/202603102224120.pn
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td><code>/ecc:tdd</code></td>
 <td>完整 TDD 工作流</td>
 <td><strong>无可替代</strong></td>
 <td>⭐⭐⭐⭐⭐</td>
 </tr>
-<tr class="even">
+<tr>
 <td><code>/ecc:verify</code></td>
 <td>全面质量验证</td>
 <td><strong>无可替代</strong></td>
 <td>⭐⭐⭐⭐⭐</td>
 </tr>
-<tr class="odd">
+<tr>
 <td><code>/ecc:learn</code> + <code>/evolve</code></td>
 <td>三层学习系统</td>
 <td><strong>无可替代</strong></td>
 <td>⭐⭐⭐⭐⭐</td>
 </tr>
-<tr class="even">
+<tr>
 <td><code>/instinct-*</code> 系列</td>
 <td>Instinct 管理</td>
 <td><strong>无可替代</strong></td>
 <td>⭐⭐⭐⭐</td>
 </tr>
-<tr class="odd">
+<tr>
 <td><code>/ecc:multi-*</code> 系列 (5个)</td>
 <td>多模型协作</td>
 <td><strong>无可替代</strong></td>
 <td>⭐⭐⭐⭐⭐</td>
 </tr>
-<tr class="even">
+<tr>
 <td><code>/ecc:python-review</code></td>
 <td>Python 专业审查</td>
 <td><strong>无可替代</strong></td>
 <td>⭐⭐⭐⭐⭐</td>
 </tr>
-<tr class="odd">
+<tr>
 <td><code>/ecc:go-review</code> + <code>/go-test</code></td>
 <td>Go 专业支持</td>
 <td><strong>无可替代</strong></td>
 <td>⭐⭐⭐⭐⭐</td>
 </tr>
-<tr class="even">
+<tr>
 <td><code>/ecc:build-fix</code></td>
 <td>TypeScript 构建修复</td>
 <td><strong>无可替代</strong></td>
 <td>⭐⭐⭐⭐</td>
 </tr>
-<tr class="odd">
+<tr>
 <td><code>/go-build</code></td>
 <td>Go 构建修复</td>
 <td><strong>无可替代</strong></td>
 <td>⭐⭐⭐⭐</td>
 </tr>
-<tr class="even">
+<tr>
 <td><code>/ecc:refactor-clean</code></td>
 <td>死代码检测清理</td>
 <td><strong>无可替代</strong></td>
 <td>⭐⭐⭐⭐</td>
 </tr>
-<tr class="odd">
+<tr>
 <td><code>/ecc:e2e</code></td>
 <td>E2E 测试 (Playwright)</td>
 <td><strong>无可替代</strong></td>
 <td>⭐⭐⭐⭐</td>
 </tr>
-<tr class="even">
+<tr>
 <td><code>/ecc:test-coverage</code></td>
 <td>测试覆盖率分析</td>
 <td><strong>无可替代</strong></td>
 <td>⭐⭐⭐⭐</td>
 </tr>
-<tr class="odd">
+<tr>
 <td><code>/skill-create</code></td>
 <td>从 Git 历史生成技能</td>
 <td><strong>无可替代</strong></td>
 <td>⭐⭐⭐⭐</td>
 </tr>
-<tr class="even">
+<tr>
 <td><code>/update-codemaps</code></td>
 <td>代码地图生成</td>
 <td><strong>无可替代</strong></td>
@@ -481,18 +471,10 @@ src="https://cdn.jsdelivr.net/gh/YangSuoly/Images/Claude-code/202603102224120.pn
 </tr>
 </tbody>
 </table>
-<h3 id="功能重叠但各有侧重建议都保留">1.2
-功能重叠但各有侧重（建议都保留）</h3>
+<h3 id="12-功能重叠但各有侧重建议都保留"><a class="markdownIt-Anchor" href="#12-功能重叠但各有侧重建议都保留"></a> 1.2 功能重叠但各有侧重（建议都保留）</h3>
 <table>
-<colgroup>
-<col style="width: 12%" />
-<col style="width: 25%" />
-<col style="width: 29%" />
-<col style="width: 19%" />
-<col style="width: 12%" />
-</colgroup>
 <thead>
-<tr class="header">
+<tr>
 <th>功能</th>
 <th>SuperClaude</th>
 <th>Everything CC</th>
@@ -501,77 +483,77 @@ src="https://cdn.jsdelivr.net/gh/YangSuoly/Images/Claude-code/202603102224120.pn
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td><strong>规划</strong></td>
 <td><code>/sc:pm</code></td>
 <td><code>/ecc:plan</code></td>
 <td>SC: 自动协调<br>ECC: 等待确认</td>
 <td>✅ 都保留</td>
 </tr>
-<tr class="even">
+<tr>
 <td><strong>实现</strong></td>
 <td><code>/sc:implement</code></td>
 <td><code>/ecc:multi-execute</code></td>
 <td>SC: 单模型<br>ECC: 多模型</td>
 <td>✅ 都保留</td>
 </tr>
-<tr class="odd">
+<tr>
 <td><strong>设计</strong></td>
 <td><code>/sc:design</code></td>
 <td><code>/ecc:multi-plan</code></td>
 <td>SC: 系统设计<br>ECC: 多模型规划</td>
 <td>✅ 都保留</td>
 </tr>
-<tr class="even">
+<tr>
 <td><strong>分析</strong></td>
 <td><code>/sc:analyze</code></td>
 <td><code>/ecc:code-review</code></td>
 <td>SC: 通用分析<br>ECC: 专业审查</td>
 <td>✅ 都保留</td>
 </tr>
-<tr class="odd">
+<tr>
 <td><strong>测试</strong></td>
 <td><code>/sc:test</code></td>
 <td><code>/ecc:tdd</code> + <code>/ecc:test-coverage</code></td>
 <td>SC: 执行测试<br>ECC: TDD 工作流</td>
 <td>✅ 都保留</td>
 </tr>
-<tr class="even">
+<tr>
 <td><strong>构建</strong></td>
 <td><code>/sc:build</code></td>
 <td><code>/ecc:build-fix</code></td>
 <td>SC: 构建项目<br>ECC: 修复构建错误</td>
 <td>✅ 都保留</td>
 </tr>
-<tr class="odd">
+<tr>
 <td><strong>清理</strong></td>
 <td><code>/sc:cleanup</code></td>
 <td><code>/ecc:refactor-clean</code></td>
 <td>SC: 代码清理<br>ECC: 死代码检测</td>
 <td>✅ 都保留</td>
 </tr>
-<tr class="even">
+<tr>
 <td><strong>文档</strong></td>
 <td><code>/sc:document</code></td>
 <td><code>/update-docs</code></td>
 <td>SC: 生成文档<br>ECC: 同步文档</td>
 <td>✅ 都保留</td>
 </tr>
-<tr class="odd">
+<tr>
 <td><strong>解释</strong></td>
 <td><code>/sc:explain</code></td>
 <td>-</td>
 <td>SC: 代码解释</td>
 <td>✅ 保留 SC</td>
 </tr>
-<tr class="even">
+<tr>
 <td><strong>Git</strong></td>
 <td><code>/sc:git</code></td>
 <td>-</td>
 <td>SC: Git 操作</td>
 <td>✅ 保留 SC</td>
 </tr>
-<tr class="odd">
+<tr>
 <td><strong>问题诊断</strong></td>
 <td><code>/sc:troubleshoot</code></td>
 <td>-</td>
@@ -580,17 +562,10 @@ src="https://cdn.jsdelivr.net/gh/YangSuoly/Images/Claude-code/202603102224120.pn
 </tr>
 </tbody>
 </table>
-<h3 id="功能高度重叠建议选择一个">1.3 功能高度重叠（建议选择一个）</h3>
+<h3 id="13-功能高度重叠建议选择一个"><a class="markdownIt-Anchor" href="#13-功能高度重叠建议选择一个"></a> 1.3 功能高度重叠（建议选择一个）</h3>
 <table>
-<colgroup>
-<col style="width: 13%" />
-<col style="width: 27%" />
-<col style="width: 31%" />
-<col style="width: 13%" />
-<col style="width: 13%" />
-</colgroup>
 <thead>
-<tr class="header">
+<tr>
 <th>功能</th>
 <th>SuperClaude</th>
 <th>Everything CC</th>
@@ -599,56 +574,56 @@ src="https://cdn.jsdelivr.net/gh/YangSuoly/Images/Claude-code/202603102224120.pn
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td><strong>任务管理</strong></td>
 <td><code>/sc:task</code></td>
 <td>-</td>
 <td>✅ SC</td>
 <td>ECC 无对应功能</td>
 </tr>
-<tr class="even">
+<tr>
 <td><strong>工作流生成</strong></td>
 <td><code>/sc:workflow</code></td>
 <td>-</td>
 <td>✅ SC</td>
 <td>ECC 无对应功能</td>
 </tr>
-<tr class="odd">
+<tr>
 <td><strong>索引</strong></td>
 <td><code>/sc:index</code> + <code>/sc:index-repo</code></td>
 <td>-</td>
 <td>✅ SC</td>
 <td>ECC 无对应功能</td>
 </tr>
-<tr class="even">
+<tr>
 <td><strong>会话管理</strong></td>
 <td><code>/sc:sessions</code></td>
 <td><code>/sessions</code></td>
 <td>✅ SC</td>
 <td>SC 有 Serena MCP 集成</td>
 </tr>
-<tr class="odd">
+<tr>
 <td><strong>Agent 编排</strong></td>
 <td><code>/sc:agent</code> + <code>/sc:spawn</code></td>
 <td><code>/ecc:orchestrate</code></td>
 <td>✅ 都保留</td>
 <td>SC: 动态 persona<br>ECC: 固定编排</td>
 </tr>
-<tr class="even">
+<tr>
 <td><strong>检查点</strong></td>
 <td>-</td>
 <td><code>/checkpoint</code></td>
 <td>✅ ECC</td>
 <td>SC 无对应功能</td>
 </tr>
-<tr class="odd">
+<tr>
 <td><strong>PM2</strong></td>
 <td>-</td>
 <td><code>/ecc:pm2</code> + <code>/ecc:setup-pm</code></td>
 <td>❌ 删除</td>
 <td>使用场景有限</td>
 </tr>
-<tr class="even">
+<tr>
 <td><strong>评估</strong></td>
 <td>-</td>
 <td><code>/eval</code></td>
@@ -658,121 +633,147 @@ src="https://cdn.jsdelivr.net/gh/YangSuoly/Images/Claude-code/202603102224120.pn
 </tbody>
 </table>
 <hr />
-<h2 id="二整合策略建议">二、整合策略建议</h2>
-<h3 id="策略-a完全分离推荐">2.1 策略 A：完全分离（推荐）⭐⭐⭐⭐⭐</h3>
+<h2 id="二-整合策略建议"><a class="markdownIt-Anchor" href="#二-整合策略建议"></a> 二、整合策略建议</h2>
+<h3 id="21-策略-a完全分离推荐"><a class="markdownIt-Anchor" href="#21-策略-a完全分离推荐"></a> 2.1 策略 A：完全分离（推荐）⭐⭐⭐⭐⭐</h3>
 <p><strong>原则</strong>：保持两套命令系统独立，各司其职</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">SuperClaude (&#x2F;sc:*)</span><br><span class="line">├─ 核心定位：项目管理 + 研究 + 需求发现</span><br><span class="line">├─ 保留命令：全部 31 个</span><br><span class="line">└─ 优势：PM Agent、深度研究、上下文保存</span><br><span class="line"></span><br><span class="line">Everything Claude Code (无前缀)</span><br><span class="line">├─ 核心定位：专业开发 + 质量保障 + 学习系统</span><br><span class="line">├─ 保留命令：31 个全部</span><br><span class="line">└─ 优势：专业审查、TDD、多模型协作</span><br></pre></td></tr></table></figure>
-<p><strong>优势</strong>： - ✅ 无需任何改动，立即可用 - ✅
-功能完整保留，无损失 - ✅ 清晰的职责分工 - ✅ 便于未来升级</p>
-<p><strong>劣势</strong>： - ⚠️ 62 个命令，学习曲线陡峭 - ⚠️
-部分功能重叠可能造成选择困难</p>
-<p><strong>适用场景</strong>： - 专业开发团队 - 需要完整的工具链 -
-愿意投入学习时间</p>
-<h3 id="策略-b精简整合推荐">2.2 策略 B：精简整合（推荐）⭐⭐⭐⭐</h3>
+<p><strong>优势</strong>：</p>
+<ul>
+<li>✅ 无需任何改动，立即可用</li>
+<li>✅ 功能完整保留，无损失</li>
+<li>✅ 清晰的职责分工</li>
+<li>✅ 便于未来升级</li>
+</ul>
+<p><strong>劣势</strong>：</p>
+<ul>
+<li>⚠️ 62 个命令，学习曲线陡峭</li>
+<li>⚠️ 部分功能重叠可能造成选择困难</li>
+</ul>
+<p><strong>适用场景</strong>：</p>
+<ul>
+<li>专业开发团队</li>
+<li>需要完整的工具链</li>
+<li>愿意投入学习时间</li>
+</ul>
+<h3 id="22-策略-b精简整合推荐"><a class="markdownIt-Anchor" href="#22-策略-b精简整合推荐"></a> 2.2 策略 B：精简整合（推荐）⭐⭐⭐⭐</h3>
 <p><strong>原则</strong>：删除低价值命令，保留核心功能</p>
-<h4 id="删除建议">删除建议</h4>
-<p><strong>Everything Claude Code 删除</strong>（低使用频率）：
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">❌ /pm2              <span class="comment"># PM2 配置，使用场景有限</span></span><br><span class="line">❌ /setup-pm         <span class="comment"># 包管理器配置，很少使用</span></span><br><span class="line">❌ /orchestrate      <span class="comment"># 与 /sc:agent 功能重叠</span></span><br></pre></td></tr></table></figure></p>
+<h4 id="删除建议"><a class="markdownIt-Anchor" href="#删除建议"></a> 删除建议</h4>
+<p><strong>Everything Claude Code 删除</strong>（低使用频率）：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">❌ /pm2              <span class="comment"># PM2 配置，使用场景有限</span></span><br><span class="line">❌ /setup-pm         <span class="comment"># 包管理器配置，很少使用</span></span><br><span class="line">❌ /orchestrate      <span class="comment"># 与 /sc:agent 功能重叠</span></span><br></pre></td></tr></table></figure>
 <p><strong>SuperClaude 保留全部</strong>（每个命令都有独特价值）</p>
-<h4 id="整合后的命令数量">整合后的命令数量</h4>
+<h4 id="整合后的命令数量"><a class="markdownIt-Anchor" href="#整合后的命令数量"></a> 整合后的命令数量</h4>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">SuperClaude: 31 个 (全部保留)</span><br><span class="line">Everything CC: 28 个 (删除 3 个)</span><br><span class="line">总计: 59 个命令</span><br></pre></td></tr></table></figure>
-<p><strong>优势</strong>： - ✅ 减少冗余命令 - ✅ 保留所有核心功能 - ✅
-降低认知负担</p>
-<p><strong>劣势</strong>： - ⚠️ 需要手动删除文件 - ⚠️
-未来更新可能冲突</p>
-<h3 id="策略-c主次分明推荐">2.3 策略 C：主次分明（推荐）⭐⭐⭐⭐⭐</h3>
+<p><strong>优势</strong>：</p>
+<ul>
+<li>✅ 减少冗余命令</li>
+<li>✅ 保留所有核心功能</li>
+<li>✅ 降低认知负担</li>
+</ul>
+<p><strong>劣势</strong>：</p>
+<ul>
+<li>⚠️ 需要手动删除文件</li>
+<li>⚠️ 未来更新可能冲突</li>
+</ul>
+<h3 id="23-策略-c主次分明推荐"><a class="markdownIt-Anchor" href="#23-策略-c主次分明推荐"></a> 2.3 策略 C：主次分明（推荐）⭐⭐⭐⭐⭐</h3>
 <p><strong>原则</strong>：确定一个为主系统，另一个为辅助</p>
-<h4 id="推荐方案everything-cc-为主superclaude-为辅">推荐方案：Everything
-CC 为主，SuperClaude 为辅</h4>
-<p><strong>原因</strong>： - Everything CC 功能更全面（13 Agents + 37
-Skills + 23 Rules） - 专业审查、TDD、多模型协作无可替代 -
-学习系统是长期优势</p>
+<h4 id="推荐方案everything-cc-为主superclaude-为辅"><a class="markdownIt-Anchor" href="#推荐方案everything-cc-为主superclaude-为辅"></a> 推荐方案：Everything CC 为主，SuperClaude 为辅</h4>
+<p><strong>原因</strong>：</p>
+<ul>
+<li>Everything CC 功能更全面（13 Agents + 37 Skills + 23 Rules）</li>
+<li>专业审查、TDD、多模型协作无可替代</li>
+<li>学习系统是长期优势</li>
+</ul>
 <p><strong>使用模式</strong>：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">日常开发（主系统：Everything CC）</span><br><span class="line">├─ &#x2F;plan          # 规划</span><br><span class="line">├─ &#x2F;tdd           # TDD 开发</span><br><span class="line">├─ &#x2F;python-review # 代码审查</span><br><span class="line">├─ &#x2F;verify        # 质量验证</span><br><span class="line">└─ &#x2F;learn         # 学习积累</span><br><span class="line"></span><br><span class="line">特殊场景（辅助：SuperClaude）</span><br><span class="line">├─ &#x2F;sc:research   # 深度研究</span><br><span class="line">├─ &#x2F;sc:brainstorm # 需求发现</span><br><span class="line">├─ &#x2F;sc:pm         # 复杂项目管理</span><br><span class="line">└─ &#x2F;sc:save&#x2F;load  # 跨会话保存</span><br></pre></td></tr></table></figure>
 <p><strong>命令映射表</strong>（快速决策指南）：</p>
 <table>
 <thead>
-<tr class="header">
+<tr>
 <th>场景</th>
 <th>首选命令</th>
 <th>备选命令</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td><strong>需求发现</strong></td>
 <td><code>/sc:brainstorm</code></td>
 <td>-</td>
 </tr>
-<tr class="even">
+<tr>
 <td><strong>技术研究</strong></td>
 <td><code>/sc:research</code></td>
 <td>-</td>
 </tr>
-<tr class="odd">
+<tr>
 <td><strong>项目规划</strong></td>
 <td><code>/ecc:plan</code></td>
 <td><code>/sc:pm</code></td>
 </tr>
-<tr class="even">
+<tr>
 <td><strong>架构设计</strong></td>
 <td><code>/sc:design</code></td>
 <td><code>/ecc:multi-plan</code></td>
 </tr>
-<tr class="odd">
+<tr>
 <td><strong>功能实现</strong></td>
 <td><code>/ecc:tdd</code></td>
 <td><code>/sc:implement</code></td>
 </tr>
-<tr class="even">
+<tr>
 <td><strong>代码审查</strong></td>
 <td><code>/ecc:python-review</code></td>
 <td><code>/sc:analyze</code></td>
 </tr>
-<tr class="odd">
+<tr>
 <td><strong>测试</strong></td>
 <td><code>/ecc:tdd</code></td>
 <td><code>/sc:test</code></td>
 </tr>
-<tr class="even">
+<tr>
 <td><strong>构建修复</strong></td>
 <td><code>/ecc:build-fix</code></td>
 <td><code>/sc:build</code></td>
 </tr>
-<tr class="odd">
+<tr>
 <td><strong>质量验证</strong></td>
 <td><code>/ecc:verify</code></td>
 <td>-</td>
 </tr>
-<tr class="even">
+<tr>
 <td><strong>学习积累</strong></td>
 <td><code>/ecc:learn</code></td>
 <td><code>/sc:reflect</code></td>
 </tr>
-<tr class="odd">
+<tr>
 <td><strong>Git 操作</strong></td>
 <td><code>/sc:git</code></td>
 <td>-</td>
 </tr>
-<tr class="even">
+<tr>
 <td><strong>文档生成</strong></td>
 <td><code>/update-docs</code></td>
 <td><code>/sc:document</code></td>
 </tr>
 </tbody>
 </table>
-<h3 id="策略-d深度融合不推荐">2.4 策略 D：深度融合（不推荐）⭐⭐</h3>
+<h3 id="24-策略-d深度融合不推荐"><a class="markdownIt-Anchor" href="#24-策略-d深度融合不推荐"></a> 2.4 策略 D：深度融合（不推荐）⭐⭐</h3>
 <p><strong>原则</strong>：创建统一的前缀系统</p>
 <p><strong>示例</strong>：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 统一前缀：/ecc:*</span></span><br><span class="line">/ecc:plan         <span class="comment"># 来自 ECC</span></span><br><span class="line">/ecc:tdd          <span class="comment"># 来自 ECC</span></span><br><span class="line">/ecc:python-review<span class="comment"># 来自 ECC</span></span><br><span class="line">/ecc:research     <span class="comment"># 来自 SC (重命名)</span></span><br><span class="line">/ecc:brainstorm   <span class="comment"># 来自 SC (重命名)</span></span><br><span class="line">/ecc:pm           <span class="comment"># 来自 SC (重命名)</span></span><br></pre></td></tr></table></figure>
-<p><strong>问题</strong>： - ❌ 需要大量文件重命名 - ❌ 破坏原有命令结构
-- ❌ 未来更新困难 - ❌ 文档混乱</p>
+<p><strong>问题</strong>：</p>
+<ul>
+<li>❌ 需要大量文件重命名</li>
+<li>❌ 破坏原有命令结构</li>
+<li>❌ 未来更新困难</li>
+<li>❌ 文档混乱</li>
+</ul>
 <hr />
-<h2 id="三最终推荐方案">三、最终推荐方案</h2>
-<h3 id="推荐策略-c---主次分明">🏆 推荐：策略 C - 主次分明</h3>
-<h4 id="核心理念">核心理念</h4>
+<h2 id="三-最终推荐方案"><a class="markdownIt-Anchor" href="#三-最终推荐方案"></a> 三、最终推荐方案</h2>
+<h3 id="推荐策略-c-主次分明"><a class="markdownIt-Anchor" href="#推荐策略-c-主次分明"></a> 🏆 推荐：策略 C - 主次分明</h3>
+<h4 id="核心理念"><a class="markdownIt-Anchor" href="#核心理念"></a> 核心理念</h4>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Everything Claude Code &#x3D; 主力开发工具</span><br><span class="line">├─ 日常开发 90% 的场景</span><br><span class="line">├─ 代码审查、测试，质量保障</span><br><span class="line">└─ 学习积累、知识管理</span><br><span class="line"></span><br><span class="line">SuperClaude &#x3D; 战略工具</span><br><span class="line">├─ 项目启动阶段</span><br><span class="line">├─ 深度研究和需求发现</span><br><span class="line">├─ 复杂项目管理</span><br><span class="line">└─ 跨会话保存</span><br></pre></td></tr></table></figure>
-<h4 id="具体实施">具体实施</h4>
+<h4 id="具体实施"><a class="markdownIt-Anchor" href="#具体实施"></a> 具体实施</h4>
 <p><strong>1. 保持两套命令系统独立</strong></p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 无需任何改动</span></span><br><span class="line">~/.claude/commands/sc/     <span class="comment"># SuperClaude 31 个命令</span></span><br><span class="line">~/.claude/commands/        <span class="comment"># Everything CC 31 个命令</span></span><br></pre></td></tr></table></figure>
 <p><strong>2. 创建快速决策指南</strong></p>
@@ -780,75 +781,79 @@ Skills + 23 Rules） - 专业审查、TDD、多模型协作无可替代 -
 <figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="section"># 命令选择指南</span></span><br><span class="line"></span><br><span class="line"><span class="section">## 日常开发（使用 Everything CC）</span></span><br><span class="line"><span class="bullet">-</span> <span class="code">`/ecc:plan`</span> - 规划</span><br><span class="line"><span class="bullet">-</span> <span class="code">`/ecc:tdd`</span> - TDD 开发</span><br><span class="line"><span class="bullet">-</span> <span class="code">`/ecc:python-review`</span> / <span class="code">`/ecc:go-review`</span> - 代码审查</span><br><span class="line"><span class="bullet">-</span> <span class="code">`/ecc:verify`</span> - 质量验证</span><br><span class="line"><span class="bullet">-</span> <span class="code">`/ecc:learn`</span> - 学习积累</span><br><span class="line"></span><br><span class="line"><span class="section">## 特殊场景（使用 SuperClaude）</span></span><br><span class="line"><span class="bullet">-</span> <span class="code">`/sc:research`</span> - 深度研究</span><br><span class="line"><span class="bullet">-</span> <span class="code">`/sc:brainstorm`</span> - 需求发现</span><br><span class="line"><span class="bullet">-</span> <span class="code">`/sc:pm`</span> - 复杂项目管理</span><br><span class="line"><span class="bullet">-</span> <span class="code">`/sc:save`</span> / <span class="code">`/sc:load`</span> - 会话保存</span><br><span class="line"></span><br><span class="line"><span class="section">## 快速决策</span></span><br><span class="line">| 场景 | 命令 |</span><br><span class="line">|------|------|</span><br><span class="line">| 需求不明确 | <span class="code">`/sc:brainstorm`</span> |</span><br><span class="line">| 需要研究 | <span class="code">`/sc:research`</span> |</span><br><span class="line">| 开始开发 | <span class="code">`/ecc:tdd`</span> |</span><br><span class="line">| 代码审查 | <span class="code">`/ecc:python-review`</span> |</span><br><span class="line">| 质量验证 | <span class="code">`/ecc:verify`</span> |</span><br><span class="line">| 学习总结 | <span class="code">`/ecc:learn`</span> |</span><br></pre></td></tr></table></figure>
 <p><strong>3. 可选：删除低价值命令</strong></p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 如果觉得命令太多，可以删除这些</span></span><br><span class="line">rm ~/.claude/commands/pm2.md</span><br><span class="line">rm ~/.claude/commands/setup-pm.md</span><br></pre></td></tr></table></figure>
-<h4 id="优势总结">优势总结</h4>
-<p>✅ <strong>无迁移成本</strong>：保持原有命令系统 ✅
-<strong>功能完整</strong>：两套系统的优势都保留 ✅
-<strong>职责清晰</strong>：主次分明，快速决策 ✅
-<strong>未来兼容</strong>：便于单独升级</p>
+<h4 id="优势总结"><a class="markdownIt-Anchor" href="#优势总结"></a> 优势总结</h4>
+<p>✅ <strong>无迁移成本</strong>：保持原有命令系统<br />
+✅ <strong>功能完整</strong>：两套系统的优势都保留<br />
+✅ <strong>职责清晰</strong>：主次分明，快速决策<br />
+✅ <strong>未来兼容</strong>：便于单独升级</p>
 <hr />
-<h2 id="四不同场景的最佳实践">四、不同场景的最佳实践</h2>
-<h3 id="新项目启动">4.1 新项目启动</h3>
+<h2 id="四-不同场景的最佳实践"><a class="markdownIt-Anchor" href="#四-不同场景的最佳实践"></a> 四、不同场景的最佳实践</h2>
+<h3 id="41-新项目启动"><a class="markdownIt-Anchor" href="#41-新项目启动"></a> 4.1 新项目启动</h3>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">1. /sc:brainstorm          <span class="comment"># 需求发现</span></span><br><span class="line">2. /sc:research <span class="string">&quot;技术栈&quot;</span>    <span class="comment"># 深度研究</span></span><br><span class="line">3. /sc:design              <span class="comment"># 架构设计</span></span><br><span class="line">4. /plan                   <span class="comment"># 详细规划</span></span><br><span class="line">5. /tdd                    <span class="comment"># 开始 TDD 开发</span></span><br></pre></td></tr></table></figure>
-<h3 id="日常功能开发">4.2 日常功能开发</h3>
+<h3 id="42-日常功能开发"><a class="markdownIt-Anchor" href="#42-日常功能开发"></a> 4.2 日常功能开发</h3>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">1. /plan <span class="string">&quot;新功能&quot;</span>           <span class="comment"># 规划（ECC）</span></span><br><span class="line">2. /tdd <span class="string">&quot;功能实现&quot;</span>          <span class="comment"># TDD 开发</span></span><br><span class="line">3. /python-review          <span class="comment"># 代码审查</span></span><br><span class="line">4. /verify                 <span class="comment"># 质量验证</span></span><br><span class="line">5. /learn                  <span class="comment"># 学习总结</span></span><br></pre></td></tr></table></figure>
-<h3 id="代码质量提升">4.3 代码质量提升</h3>
+<h3 id="43-代码质量提升"><a class="markdownIt-Anchor" href="#43-代码质量提升"></a> 4.3 代码质量提升</h3>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">1. /sc:analyze             <span class="comment"># 代码分析</span></span><br><span class="line">2. /python-review          <span class="comment"># Python 审查</span></span><br><span class="line">3. /refactor-clean         <span class="comment"># 清理死代码</span></span><br><span class="line">4. /test-coverage          <span class="comment"># 测试覆盖率</span></span><br><span class="line">5. /verify                 <span class="comment"># 全面验证</span></span><br></pre></td></tr></table></figure>
-<h3 id="跨会话项目">4.4 跨会话项目</h3>
+<h3 id="44-跨会话项目"><a class="markdownIt-Anchor" href="#44-跨会话项目"></a> 4.4 跨会话项目</h3>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">1. /sc:save                <span class="comment"># 保存当前会话</span></span><br><span class="line">2. [下次会话]</span><br><span class="line">3. /sc:load                <span class="comment"># 加载会话</span></span><br><span class="line">4. /sc:reflect             <span class="comment"># 反思总结</span></span><br><span class="line">5. /learn                  <span class="comment"># 提取模式</span></span><br></pre></td></tr></table></figure>
-<h3 id="多模型协作">4.5 多模型协作</h3>
+<h3 id="45-多模型协作"><a class="markdownIt-Anchor" href="#45-多模型协作"></a> 4.5 多模型协作</h3>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1. /multi-plan             <span class="comment"># 多模型规划</span></span><br><span class="line">2. /multi-execute          <span class="comment"># 多模型执行</span></span><br><span class="line">3. /verify                 <span class="comment"># 验证</span></span><br></pre></td></tr></table></figure>
 <hr />
-<h2 id="五命令使用频率预测">五、命令使用频率预测</h2>
-<h3 id="高频使用每天">高频使用（每天）</h3>
+<h2 id="五-命令使用频率预测"><a class="markdownIt-Anchor" href="#五-命令使用频率预测"></a> 五、命令使用频率预测</h2>
+<h3 id="高频使用每天"><a class="markdownIt-Anchor" href="#高频使用每天"></a> 高频使用（每天）</h3>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;tdd              # TDD 开发</span><br><span class="line">&#x2F;python-review    # 代码审查</span><br><span class="line">&#x2F;verify           # 质量验证</span><br><span class="line">&#x2F;sc:git           # Git 操作</span><br></pre></td></tr></table></figure>
-<h3 id="中频使用每周">中频使用（每周）</h3>
+<h3 id="中频使用每周"><a class="markdownIt-Anchor" href="#中频使用每周"></a> 中频使用（每周）</h3>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;plan             # 规划</span><br><span class="line">&#x2F;learn            # 学习</span><br><span class="line">&#x2F;test-coverage    # 测试覆盖率</span><br><span class="line">&#x2F;refactor-clean   # 代码清理</span><br><span class="line">&#x2F;sc:research     # 深度研究</span><br></pre></td></tr></table></figure>
-<h3 id="低频使用按需">低频使用（按需）</h3>
+<h3 id="低频使用按需"><a class="markdownIt-Anchor" href="#低频使用按需"></a> 低频使用（按需）</h3>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;sc:brainstorm    # 需求发现</span><br><span class="line">&#x2F;sc:pm            # 项目管理</span><br><span class="line">&#x2F;multi-*          # 多模型协作</span><br><span class="line">&#x2F;sc:save&#x2F;load    # 会话管理</span><br><span class="line">&#x2F;e2e              # E2E 测试</span><br></pre></td></tr></table></figure>
-<h3 id="极低频使用几乎不用">极低频使用（几乎不用）</h3>
+<h3 id="极低频使用几乎不用"><a class="markdownIt-Anchor" href="#极低频使用几乎不用"></a> 极低频使用（几乎不用）</h3>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;pm2              # PM2 配置</span><br><span class="line">&#x2F;setup-pm         # 包管理器</span><br><span class="line">&#x2F;eval             # 评估</span><br></pre></td></tr></table></figure>
 <hr />
-<h2 id="六总结建议">六、总结建议</h2>
-<h3 id="最优方案策略-c">最优方案：策略 C</h3>
-<p><strong>核心原则</strong>： - ✅ 保持两套命令系统独立 - ✅ Everything
-CC 为主（90% 场景） - ✅ SuperClaude 为辅（特殊场景） - ✅
-创建决策指南，快速选择</p>
-<p><strong>具体行动</strong>： 1. ✅ 无需任何文件修改 2. ✅ 创建
-<code>DECISION-GUIDE.md</code> 快速参考 3. ⚠️ 可选：删除
-<code>/ecc:pm2</code> 和 <code>/ecc:setup-pm</code>
-(如果觉得命令太多)</p>
-<p><strong>预期效果</strong>： - 📉 学习曲线：中等（需要熟悉两套系统） -
-📈 功能完整：100%（无功能损失） - 🚀 开发效率：显著提升 - 🎯
-代码质量：专业保障</p>
-<hr />
-<h2 id="七实施检查清单">七、实施检查清单</h2>
-<h3 id="第一阶段立即实施无需改动">第一阶段：立即实施（无需改动）</h3>
-<ul class="task-list">
-<li><input type="checkbox" disabled=""
-checked="" />确认两套命令系统都已安装</li>
-<li><input type="checkbox" disabled=""
-checked="" />理解各命令的定位和用途</li>
-<li><input type="checkbox" disabled="" />创建
-<code>DECISION-GUIDE.md</code> 快速参考</li>
-<li><input type="checkbox"
-disabled="" />在实际项目中试用，找到最佳组合</li>
+<h2 id="六-总结建议"><a class="markdownIt-Anchor" href="#六-总结建议"></a> 六、总结建议</h2>
+<h3 id="最优方案策略-c"><a class="markdownIt-Anchor" href="#最优方案策略-c"></a> 最优方案：策略 C</h3>
+<p><strong>核心原则</strong>：</p>
+<ul>
+<li>✅ 保持两套命令系统独立</li>
+<li>✅ Everything CC 为主（90% 场景）</li>
+<li>✅ SuperClaude 为辅（特殊场景）</li>
+<li>✅ 创建决策指南，快速选择</li>
 </ul>
-<h3 id="第二阶段优化调整可选">第二阶段：优化调整（可选）</h3>
-<ul class="task-list">
-<li><input type="checkbox" disabled="" />删除低频使用的命令（如
-<code>/ecc:pm2</code>, <code>/ecc:setup-pm</code>）</li>
-<li><input type="checkbox" disabled="" />根据使用频率调整决策指南</li>
-<li><input type="checkbox" disabled="" />总结最佳实践，更新文档</li>
-</ul>
-<h3 id="第三阶段长期维护">第三阶段：长期维护</h3>
-<ul class="task-list">
-<li><input type="checkbox" disabled="" />定期回顾命令使用情况</li>
-<li><input type="checkbox" disabled="" />更新两个框架（独立更新）</li>
-<li><input type="checkbox" disabled="" />分享最佳实践给团队</li>
+<p><strong>具体行动</strong>：</p>
+<ol>
+<li>✅ 无需任何文件修改</li>
+<li>✅ 创建 <code>DECISION-GUIDE.md</code> 快速参考</li>
+<li>⚠️ 可选：删除 <code>/ecc:pm2</code> 和 <code>/ecc:setup-pm</code> (如果觉得命令太多)</li>
+</ol>
+<p><strong>预期效果</strong>：</p>
+<ul>
+<li>📉 学习曲线：中等（需要熟悉两套系统）</li>
+<li>📈 功能完整：100%（无功能损失）</li>
+<li>🚀 开发效率：显著提升</li>
+<li>🎯 代码质量：专业保障</li>
 </ul>
 <hr />
-<p><strong>最终建议</strong>：采用策略
-C（主次分明），无需删除任何命令，创建快速决策指南即可。两套系统各有优势，组合使用效果最佳。</p>
+<h2 id="七-实施检查清单"><a class="markdownIt-Anchor" href="#七-实施检查清单"></a> 七、实施检查清单</h2>
+<h3 id="第一阶段立即实施无需改动"><a class="markdownIt-Anchor" href="#第一阶段立即实施无需改动"></a> 第一阶段：立即实施（无需改动）</h3>
+<ul>
+<li>[x] 确认两套命令系统都已安装</li>
+<li>[x] 理解各命令的定位和用途</li>
+<li>[ ] 创建 <code>DECISION-GUIDE.md</code> 快速参考</li>
+<li>[ ] 在实际项目中试用，找到最佳组合</li>
+</ul>
+<h3 id="第二阶段优化调整可选"><a class="markdownIt-Anchor" href="#第二阶段优化调整可选"></a> 第二阶段：优化调整（可选）</h3>
+<ul>
+<li>[ ] 删除低频使用的命令（如 <code>/ecc:pm2</code>, <code>/ecc:setup-pm</code>）</li>
+<li>[ ] 根据使用频率调整决策指南</li>
+<li>[ ] 总结最佳实践，更新文档</li>
+</ul>
+<h3 id="第三阶段长期维护"><a class="markdownIt-Anchor" href="#第三阶段长期维护"></a> 第三阶段：长期维护</h3>
+<ul>
+<li>[ ] 定期回顾命令使用情况</li>
+<li>[ ] 更新两个框架（独立更新）</li>
+<li>[ ] 分享最佳实践给团队</li>
+</ul>
+<hr />
+<p><strong>最终建议</strong>：采用策略 C（主次分明），无需删除任何命令，创建快速决策指南即可。两套系统各有优势，组合使用效果最佳。</p>
 
     </div>
 
@@ -898,12 +903,12 @@ C（主次分明），无需删除任何命令，创建快速决策指南即可�
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2026/03/10/CC-Skills-05-CCG-workflow/" rel="prev" title="Claude Code 进阶：CCG-Workflow 多模型协作实战指南">
-      <i class="fa fa-chevron-left"></i> Claude Code 进阶：CCG-Workflow 多模型协作实战指南
+    <a href="/2026/03/10/CC-Skills-01-everything-claude-code/" rel="prev" title="Everything Claude Code 完整教程">
+      <i class="fa fa-chevron-left"></i> Everything Claude Code 完整教程
     </a></div>
       <div class="post-nav-item">
-    <a href="/2026/03/10/CC-Skills-03-planning-with-files/" rel="next" title="Planning-With-Files 完整教程">
-      Planning-With-Files 完整教程 <i class="fa fa-chevron-right"></i>
+    <a href="/2026/03/10/CC-Skills-02-superclaude-framework/" rel="next" title="SuperClaude Framework 完整教程">
+      SuperClaude Framework 完整教程 <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -967,10 +972,7 @@ C（主次分明），无需删除任何命令，创建快速决策指南即可�
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#ecc-vs-sc-%E5%91%BD%E4%BB%A4%E6%95%B4%E5%90%88%E7%AD%96%E7%95%A5%E5%88%86%E6%9E%90"><span class="nav-text">ECC vs SC 命令整合策略分析</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-text">📝 前言</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%8C%E5%85%A8%E4%B8%8D%E9%87%8D%E5%8F%A0%E7%9A%84%E5%8A%9F%E8%83%BD%E5%90%84%E6%9C%89%E6%89%80%E9%95%BF"><span class="nav-text">1.1 完全不重叠的功能（各有所长）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#superclaude-%E7%8B%AC%E6%9C%89%E5%8A%9F%E8%83%BD-%E4%BF%9D%E7%95%99"><span class="nav-text">SuperClaude 独有功能 ✅ 保留</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#everything-claude-code-%E7%8B%AC%E6%9C%89%E5%8A%9F%E8%83%BD-%E4%BF%9D%E7%95%99"><span class="nav-text">Everything Claude Code
-独有功能 ✅ 保留</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8A%9F%E8%83%BD%E9%87%8D%E5%8F%A0%E4%BD%86%E5%90%84%E6%9C%89%E4%BE%A7%E9%87%8D%E5%BB%BA%E8%AE%AE%E9%83%BD%E4%BF%9D%E7%95%99"><span class="nav-text">1.2
-功能重叠但各有侧重（建议都保留）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8A%9F%E8%83%BD%E9%AB%98%E5%BA%A6%E9%87%8D%E5%8F%A0%E5%BB%BA%E8%AE%AE%E9%80%89%E6%8B%A9%E4%B8%80%E4%B8%AA"><span class="nav-text">1.3 功能高度重叠（建议选择一个）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E6%95%B4%E5%90%88%E7%AD%96%E7%95%A5%E5%BB%BA%E8%AE%AE"><span class="nav-text">二、整合策略建议</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AD%96%E7%95%A5-a%E5%AE%8C%E5%85%A8%E5%88%86%E7%A6%BB%E6%8E%A8%E8%8D%90"><span class="nav-text">2.1 策略 A：完全分离（推荐）⭐⭐⭐⭐⭐</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AD%96%E7%95%A5-b%E7%B2%BE%E7%AE%80%E6%95%B4%E5%90%88%E6%8E%A8%E8%8D%90"><span class="nav-text">2.2 策略 B：精简整合（推荐）⭐⭐⭐⭐</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%A0%E9%99%A4%E5%BB%BA%E8%AE%AE"><span class="nav-text">删除建议</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%95%B4%E5%90%88%E5%90%8E%E7%9A%84%E5%91%BD%E4%BB%A4%E6%95%B0%E9%87%8F"><span class="nav-text">整合后的命令数量</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AD%96%E7%95%A5-c%E4%B8%BB%E6%AC%A1%E5%88%86%E6%98%8E%E6%8E%A8%E8%8D%90"><span class="nav-text">2.3 策略 C：主次分明（推荐）⭐⭐⭐⭐⭐</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%8E%A8%E8%8D%90%E6%96%B9%E6%A1%88everything-cc-%E4%B8%BA%E4%B8%BBsuperclaude-%E4%B8%BA%E8%BE%85"><span class="nav-text">推荐方案：Everything
-CC 为主，SuperClaude 为辅</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AD%96%E7%95%A5-d%E6%B7%B1%E5%BA%A6%E8%9E%8D%E5%90%88%E4%B8%8D%E6%8E%A8%E8%8D%90"><span class="nav-text">2.4 策略 D：深度融合（不推荐）⭐⭐</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89%E6%9C%80%E7%BB%88%E6%8E%A8%E8%8D%90%E6%96%B9%E6%A1%88"><span class="nav-text">三、最终推荐方案</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8E%A8%E8%8D%90%E7%AD%96%E7%95%A5-c---%E4%B8%BB%E6%AC%A1%E5%88%86%E6%98%8E"><span class="nav-text">🏆 推荐：策略 C - 主次分明</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A0%B8%E5%BF%83%E7%90%86%E5%BF%B5"><span class="nav-text">核心理念</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%B7%E4%BD%93%E5%AE%9E%E6%96%BD"><span class="nav-text">具体实施</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BC%98%E5%8A%BF%E6%80%BB%E7%BB%93"><span class="nav-text">优势总结</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%9B%E4%B8%8D%E5%90%8C%E5%9C%BA%E6%99%AF%E7%9A%84%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5"><span class="nav-text">四、不同场景的最佳实践</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%B0%E9%A1%B9%E7%9B%AE%E5%90%AF%E5%8A%A8"><span class="nav-text">4.1 新项目启动</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%97%A5%E5%B8%B8%E5%8A%9F%E8%83%BD%E5%BC%80%E5%8F%91"><span class="nav-text">4.2 日常功能开发</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81%E8%B4%A8%E9%87%8F%E6%8F%90%E5%8D%87"><span class="nav-text">4.3 代码质量提升</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%B7%A8%E4%BC%9A%E8%AF%9D%E9%A1%B9%E7%9B%AE"><span class="nav-text">4.4 跨会话项目</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%9A%E6%A8%A1%E5%9E%8B%E5%8D%8F%E4%BD%9C"><span class="nav-text">4.5 多模型协作</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%94%E5%91%BD%E4%BB%A4%E4%BD%BF%E7%94%A8%E9%A2%91%E7%8E%87%E9%A2%84%E6%B5%8B"><span class="nav-text">五、命令使用频率预测</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%AB%98%E9%A2%91%E4%BD%BF%E7%94%A8%E6%AF%8F%E5%A4%A9"><span class="nav-text">高频使用（每天）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%AD%E9%A2%91%E4%BD%BF%E7%94%A8%E6%AF%8F%E5%91%A8"><span class="nav-text">中频使用（每周）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%8E%E9%A2%91%E4%BD%BF%E7%94%A8%E6%8C%89%E9%9C%80"><span class="nav-text">低频使用（按需）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9E%81%E4%BD%8E%E9%A2%91%E4%BD%BF%E7%94%A8%E5%87%A0%E4%B9%8E%E4%B8%8D%E7%94%A8"><span class="nav-text">极低频使用（几乎不用）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%AD%E6%80%BB%E7%BB%93%E5%BB%BA%E8%AE%AE"><span class="nav-text">六、总结建议</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%80%E4%BC%98%E6%96%B9%E6%A1%88%E7%AD%96%E7%95%A5-c"><span class="nav-text">最优方案：策略 C</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%83%E5%AE%9E%E6%96%BD%E6%A3%80%E6%9F%A5%E6%B8%85%E5%8D%95"><span class="nav-text">七、实施检查清单</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC%E4%B8%80%E9%98%B6%E6%AE%B5%E7%AB%8B%E5%8D%B3%E5%AE%9E%E6%96%BD%E6%97%A0%E9%9C%80%E6%94%B9%E5%8A%A8"><span class="nav-text">第一阶段：立即实施（无需改动）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC%E4%BA%8C%E9%98%B6%E6%AE%B5%E4%BC%98%E5%8C%96%E8%B0%83%E6%95%B4%E5%8F%AF%E9%80%89"><span class="nav-text">第二阶段：优化调整（可选）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC%E4%B8%89%E9%98%B6%E6%AE%B5%E9%95%BF%E6%9C%9F%E7%BB%B4%E6%8A%A4"><span class="nav-text">第三阶段：长期维护</span></a></li></ol></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#ecc-vs-sc-%E5%91%BD%E4%BB%A4%E6%95%B4%E5%90%88%E7%AD%96%E7%95%A5%E5%88%86%E6%9E%90"><span class="nav-text"> ECC vs SC 命令整合策略分析</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-text"> 📝 前言</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#11-%E5%AE%8C%E5%85%A8%E4%B8%8D%E9%87%8D%E5%8F%A0%E7%9A%84%E5%8A%9F%E8%83%BD%E5%90%84%E6%9C%89%E6%89%80%E9%95%BF"><span class="nav-text"> 1.1 完全不重叠的功能（各有所长）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#superclaude-%E7%8B%AC%E6%9C%89%E5%8A%9F%E8%83%BD-%E4%BF%9D%E7%95%99"><span class="nav-text"> SuperClaude 独有功能 ✅ 保留</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#everything-claude-code-%E7%8B%AC%E6%9C%89%E5%8A%9F%E8%83%BD-%E4%BF%9D%E7%95%99"><span class="nav-text"> Everything Claude Code 独有功能 ✅ 保留</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#12-%E5%8A%9F%E8%83%BD%E9%87%8D%E5%8F%A0%E4%BD%86%E5%90%84%E6%9C%89%E4%BE%A7%E9%87%8D%E5%BB%BA%E8%AE%AE%E9%83%BD%E4%BF%9D%E7%95%99"><span class="nav-text"> 1.2 功能重叠但各有侧重（建议都保留）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#13-%E5%8A%9F%E8%83%BD%E9%AB%98%E5%BA%A6%E9%87%8D%E5%8F%A0%E5%BB%BA%E8%AE%AE%E9%80%89%E6%8B%A9%E4%B8%80%E4%B8%AA"><span class="nav-text"> 1.3 功能高度重叠（建议选择一个）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C-%E6%95%B4%E5%90%88%E7%AD%96%E7%95%A5%E5%BB%BA%E8%AE%AE"><span class="nav-text"> 二、整合策略建议</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#21-%E7%AD%96%E7%95%A5-a%E5%AE%8C%E5%85%A8%E5%88%86%E7%A6%BB%E6%8E%A8%E8%8D%90"><span class="nav-text"> 2.1 策略 A：完全分离（推荐）⭐⭐⭐⭐⭐</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#22-%E7%AD%96%E7%95%A5-b%E7%B2%BE%E7%AE%80%E6%95%B4%E5%90%88%E6%8E%A8%E8%8D%90"><span class="nav-text"> 2.2 策略 B：精简整合（推荐）⭐⭐⭐⭐</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%A0%E9%99%A4%E5%BB%BA%E8%AE%AE"><span class="nav-text"> 删除建议</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%95%B4%E5%90%88%E5%90%8E%E7%9A%84%E5%91%BD%E4%BB%A4%E6%95%B0%E9%87%8F"><span class="nav-text"> 整合后的命令数量</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#23-%E7%AD%96%E7%95%A5-c%E4%B8%BB%E6%AC%A1%E5%88%86%E6%98%8E%E6%8E%A8%E8%8D%90"><span class="nav-text"> 2.3 策略 C：主次分明（推荐）⭐⭐⭐⭐⭐</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%8E%A8%E8%8D%90%E6%96%B9%E6%A1%88everything-cc-%E4%B8%BA%E4%B8%BBsuperclaude-%E4%B8%BA%E8%BE%85"><span class="nav-text"> 推荐方案：Everything CC 为主，SuperClaude 为辅</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#24-%E7%AD%96%E7%95%A5-d%E6%B7%B1%E5%BA%A6%E8%9E%8D%E5%90%88%E4%B8%8D%E6%8E%A8%E8%8D%90"><span class="nav-text"> 2.4 策略 D：深度融合（不推荐）⭐⭐</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89-%E6%9C%80%E7%BB%88%E6%8E%A8%E8%8D%90%E6%96%B9%E6%A1%88"><span class="nav-text"> 三、最终推荐方案</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8E%A8%E8%8D%90%E7%AD%96%E7%95%A5-c-%E4%B8%BB%E6%AC%A1%E5%88%86%E6%98%8E"><span class="nav-text"> 🏆 推荐：策略 C - 主次分明</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A0%B8%E5%BF%83%E7%90%86%E5%BF%B5"><span class="nav-text"> 核心理念</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%B7%E4%BD%93%E5%AE%9E%E6%96%BD"><span class="nav-text"> 具体实施</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BC%98%E5%8A%BF%E6%80%BB%E7%BB%93"><span class="nav-text"> 优势总结</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%9B-%E4%B8%8D%E5%90%8C%E5%9C%BA%E6%99%AF%E7%9A%84%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5"><span class="nav-text"> 四、不同场景的最佳实践</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#41-%E6%96%B0%E9%A1%B9%E7%9B%AE%E5%90%AF%E5%8A%A8"><span class="nav-text"> 4.1 新项目启动</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#42-%E6%97%A5%E5%B8%B8%E5%8A%9F%E8%83%BD%E5%BC%80%E5%8F%91"><span class="nav-text"> 4.2 日常功能开发</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#43-%E4%BB%A3%E7%A0%81%E8%B4%A8%E9%87%8F%E6%8F%90%E5%8D%87"><span class="nav-text"> 4.3 代码质量提升</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#44-%E8%B7%A8%E4%BC%9A%E8%AF%9D%E9%A1%B9%E7%9B%AE"><span class="nav-text"> 4.4 跨会话项目</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#45-%E5%A4%9A%E6%A8%A1%E5%9E%8B%E5%8D%8F%E4%BD%9C"><span class="nav-text"> 4.5 多模型协作</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%94-%E5%91%BD%E4%BB%A4%E4%BD%BF%E7%94%A8%E9%A2%91%E7%8E%87%E9%A2%84%E6%B5%8B"><span class="nav-text"> 五、命令使用频率预测</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%AB%98%E9%A2%91%E4%BD%BF%E7%94%A8%E6%AF%8F%E5%A4%A9"><span class="nav-text"> 高频使用（每天）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%AD%E9%A2%91%E4%BD%BF%E7%94%A8%E6%AF%8F%E5%91%A8"><span class="nav-text"> 中频使用（每周）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%8E%E9%A2%91%E4%BD%BF%E7%94%A8%E6%8C%89%E9%9C%80"><span class="nav-text"> 低频使用（按需）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9E%81%E4%BD%8E%E9%A2%91%E4%BD%BF%E7%94%A8%E5%87%A0%E4%B9%8E%E4%B8%8D%E7%94%A8"><span class="nav-text"> 极低频使用（几乎不用）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%AD-%E6%80%BB%E7%BB%93%E5%BB%BA%E8%AE%AE"><span class="nav-text"> 六、总结建议</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%80%E4%BC%98%E6%96%B9%E6%A1%88%E7%AD%96%E7%95%A5-c"><span class="nav-text"> 最优方案：策略 C</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%83-%E5%AE%9E%E6%96%BD%E6%A3%80%E6%9F%A5%E6%B8%85%E5%8D%95"><span class="nav-text"> 七、实施检查清单</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC%E4%B8%80%E9%98%B6%E6%AE%B5%E7%AB%8B%E5%8D%B3%E5%AE%9E%E6%96%BD%E6%97%A0%E9%9C%80%E6%94%B9%E5%8A%A8"><span class="nav-text"> 第一阶段：立即实施（无需改动）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC%E4%BA%8C%E9%98%B6%E6%AE%B5%E4%BC%98%E5%8C%96%E8%B0%83%E6%95%B4%E5%8F%AF%E9%80%89"><span class="nav-text"> 第二阶段：优化调整（可选）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC%E4%B8%89%E9%98%B6%E6%AE%B5%E9%95%BF%E6%9C%9F%E7%BB%B4%E6%8A%A4"><span class="nav-text"> 第三阶段：长期维护</span></a></li></ol></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -993,7 +995,7 @@ CC 为主，SuperClaude 为辅</span></a></li></ol></li><li class="nav-item nav-
       <div class="site-state-item site-state-categories">
             <a href="/Categories/">
           
-        <span class="site-state-item-count">40</span>
+        <span class="site-state-item-count">41</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">

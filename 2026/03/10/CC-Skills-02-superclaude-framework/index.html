@@ -24,20 +24,22 @@
     var CONFIG = {"hostname":"yangsuoly.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":true},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":true,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="SuperClaude Framework 完整教程  项目仓库: SuperClaude-Org&#x2F;SuperClaude_Framework   📝 前言 除了 Everything Claude Code，另一个值得关注的增强框架是 SuperClaude Framework。它是一个元编程配置框架，通过行为指令注入和组件编排，将 Claude Code 转换为结构化开发平台。无论是 30">
+  <meta name="description" content="SuperClaude Framework 完整教程  项目仓库: SuperClaude-Org&#x2F;SuperClaude_Framework    📝 前言 除了 Everything Claude Code，另一个值得关注的增强框架是 SuperClaude Framework。它是一个元编程配置框架，通过行为指令注入和组件编排，将 Claude Code 转换为结构化开发平台。无论是 3">
 <meta property="og:type" content="article">
 <meta property="og:title" content="SuperClaude Framework 完整教程">
 <meta property="og:url" content="http://yangsuoly.com/2026/03/10/CC-Skills-02-superclaude-framework/index.html">
 <meta property="og:site_name" content="独孤诗人的学习驿站">
-<meta property="og:description" content="SuperClaude Framework 完整教程  项目仓库: SuperClaude-Org&#x2F;SuperClaude_Framework   📝 前言 除了 Everything Claude Code，另一个值得关注的增强框架是 SuperClaude Framework。它是一个元编程配置框架，通过行为指令注入和组件编排，将 Claude Code 转换为结构化开发平台。无论是 30">
+<meta property="og:description" content="SuperClaude Framework 完整教程  项目仓库: SuperClaude-Org&#x2F;SuperClaude_Framework    📝 前言 除了 Everything Claude Code，另一个值得关注的增强框架是 SuperClaude Framework。它是一个元编程配置框架，通过行为指令注入和组件编排，将 Claude Code 转换为结构化开发平台。无论是 3">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/YangSuoly/Images/Claude-code/202603102222286.png">
 <meta property="article:published_time" content="2026-03-09T16:00:00.000Z">
-<meta property="article:modified_time" content="2026-03-10T14:50:01.580Z">
+<meta property="article:modified_time" content="2026-03-10T15:04:47.765Z">
 <meta property="article:author" content="YangSu">
 <meta property="article:tag" content="Tool">
-<meta property="article:tag" content="AI-Development">
 <meta property="article:tag" content="SuperClaude">
+<meta property="article:tag" content="AI-Development">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/YangSuoly/Images/Claude-code/202603102222286.png">
 
 <link rel="canonical" href="http://yangsuoly.com/2026/03/10/CC-Skills-02-superclaude-framework/">
 
@@ -239,7 +241,7 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2026-03-10 00:00:00 / Modified: 22:50:01" itemprop="dateCreated datePublished" datetime="2026-03-10T00:00:00+08:00">2026-03-10</time>
+              <time title="Created: 2026-03-10 00:00:00 / Modified: 23:04:47" itemprop="dateCreated datePublished" datetime="2026-03-10T00:00:00+08:00">2026-03-10</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -252,6 +254,10 @@
                   , 
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
                   <a href="/categories/Notes/Claude-Code/" itemprop="url" rel="index"><span itemprop="name">Claude-Code</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Notes/Claude-Code/Skills/" itemprop="url" rel="index"><span itemprop="name">Skills</span></a>
                 </span>
             </span>
 
@@ -268,7 +274,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">Symbols count in article: </span>
-              <span>6.6k</span>
+              <span>6.7k</span>
             </span>
             <span class="post-meta-item" title="Reading time">
               <span class="post-meta-item-icon">
@@ -287,44 +293,45 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h1 id="superclaude-framework-完整教程">SuperClaude Framework
-完整教程</h1>
+        <h1 id="superclaude-framework-完整教程"><a class="markdownIt-Anchor" href="#superclaude-framework-完整教程"></a> SuperClaude Framework 完整教程</h1>
 <blockquote>
-<p><strong>项目仓库</strong>: <a
-target="_blank" rel="noopener" href="https://github.com/SuperClaude-Org/SuperClaude_Framework">SuperClaude-Org/SuperClaude_Framework</a></p>
+<p><strong>项目仓库</strong>: <a target="_blank" rel="noopener" href="https://github.com/SuperClaude-Org/SuperClaude_Framework">SuperClaude-Org/SuperClaude_Framework</a></p>
 </blockquote>
 <hr />
-<h2 id="前言">📝 前言</h2>
-<p>除了 Everything Claude Code，另一个值得关注的增强框架是
-<strong>SuperClaude
-Framework</strong>。它是一个元编程配置框架，通过行为指令注入和组件编排，将
-Claude Code 转换为结构化开发平台。无论是 <strong>30
-个斜杠命令</strong>、<strong>PM Agent
-模式</strong>，还是<strong>深度网络研究能力</strong>，SuperClaude
-都能为你的开发工作带来全新的体验。</p>
-<p><img
-src="https://cdn.jsdelivr.net/gh/YangSuoly/Images/Claude-code/202603102222286.png" /></p>
+<h2 id="前言"><a class="markdownIt-Anchor" href="#前言"></a> 📝 前言</h2>
+<p>除了 Everything Claude Code，另一个值得关注的增强框架是 <strong>SuperClaude Framework</strong>。它是一个元编程配置框架，通过行为指令注入和组件编排，将 Claude Code 转换为结构化开发平台。无论是 <strong>30 个斜杠命令</strong>、<strong>PM Agent 模式</strong>，还是<strong>深度网络研究能力</strong>，SuperClaude 都能为你的开发工作带来全新的体验。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/YangSuoly/Images/Claude-code/202603102222286.png" alt="" /></p>
 <a id="more"></a>
 <hr />
-<p>SuperClaude Framework
-是一个元编程配置框架，通过行为指令注入和组件编排，将 Claude Code
-转换为结构化开发平台。它提供系统化的工作流自动化，配备强大的工具和智能代理。</p>
-<p><strong>核心功能</strong>： - 🚀 30 个斜杠命令覆盖完整开发生命周期 -
-🤖 PM Agent 模式实现智能项目管理 - 🔍 深度网络研究能力 - ⚡
-令牌高效的并行执行（3.5 倍速度提升） - 🛡️ 预执行置信度检查和后实现验证 -
-🧠 跨会话学习能力</p>
+<p>SuperClaude Framework 是一个元编程配置框架，通过行为指令注入和组件编排，将 Claude Code 转换为结构化开发平台。它提供系统化的工作流自动化，配备强大的工具和智能代理。</p>
+<p><strong>核心功能</strong>：</p>
+<ul>
+<li>🚀 30 个斜杠命令覆盖完整开发生命周期</li>
+<li>🤖 PM Agent 模式实现智能项目管理</li>
+<li>🔍 深度网络研究能力</li>
+<li>⚡ 令牌高效的并行执行（3.5 倍速度提升）</li>
+<li>🛡️ 预执行置信度检查和后实现验证</li>
+<li>🧠 跨会话学习能力</li>
+</ul>
 <hr />
-<h2 id="二核心特性">二、核心特性</h2>
-<h3 id="行为指令注入">2.1 行为指令注入</h3>
-<p>通过 <code>CLAUDE.md</code> 文件注入行为指令，定制 Claude Code
-的工作方式。</p>
-<h3 id="pm-agent-模式">2.2 PM Agent 模式</h3>
-<p>PM Agent 是核心组件，自动完成： - 上下文恢复 - 任务委托给不同角色 -
-PDCA 循环（Plan-Do-Check-Act） - 会话进度保存</p>
-<p><strong>示例</strong>：当你说"我想添加认证"时，PM Agent 会： 1.
-激活头脑风暴模式 2. 委托给需求分析师、系统架构师、安全工程师等角色 3.
-生成完整的实施方案</p>
-<h3 id="七种自适应行为模式">2.3 七种自适应行为模式</h3>
+<h2 id="二-核心特性"><a class="markdownIt-Anchor" href="#二-核心特性"></a> 二、核心特性</h2>
+<h3 id="21-行为指令注入"><a class="markdownIt-Anchor" href="#21-行为指令注入"></a> 2.1 行为指令注入</h3>
+<p>通过 <code>CLAUDE.md</code> 文件注入行为指令，定制 Claude Code 的工作方式。</p>
+<h3 id="22-pm-agent-模式"><a class="markdownIt-Anchor" href="#22-pm-agent-模式"></a> 2.2 PM Agent 模式</h3>
+<p>PM Agent 是核心组件，自动完成：</p>
+<ul>
+<li>上下文恢复</li>
+<li>任务委托给不同角色</li>
+<li>PDCA 循环（Plan-Do-Check-Act）</li>
+<li>会话进度保存</li>
+</ul>
+<p><strong>示例</strong>：当你说&quot;我想添加认证&quot;时，PM Agent 会：</p>
+<ol>
+<li>激活头脑风暴模式</li>
+<li>委托给需求分析师、系统架构师、安全工程师等角色</li>
+<li>生成完整的实施方案</li>
+</ol>
+<h3 id="23-七种自适应行为模式"><a class="markdownIt-Anchor" href="#23-七种自适应行为模式"></a> 2.3 七种自适应行为模式</h3>
 <ul>
 <li><strong>头脑风暴</strong>：提出正确问题</li>
 <li><strong>商业面板</strong>：多专家战略分析</li>
@@ -334,278 +341,285 @@ PDCA 循环（Plan-Do-Check-Act） - 会话进度保存</p>
 <li><strong>任务管理</strong>：系统化组织</li>
 <li><strong>内省</strong>：元认知分析</li>
 </ul>
-<h3 id="质量保证机制">2.4 质量保证机制</h3>
+<h3 id="24-质量保证机制"><a class="markdownIt-Anchor" href="#24-质量保证机制"></a> 2.4 质量保证机制</h3>
 <ul>
 <li><strong>预执行置信度检查</strong>：防止错误方向的工作</li>
 <li><strong>后实现验证</strong>：防止幻觉</li>
 <li><strong>跨会话学习</strong>：通过反射模式实现</li>
 </ul>
 <hr />
-<h2 id="三快速开始">三、快速开始</h2>
-<h3 id="前提条件">3.1 前提条件</h3>
-<p>确保系统满足以下要求： - <strong>Python</strong>: 3.10+ -
-<strong>Node.js</strong>: 18+ (如果使用 npm 安装) - <strong>Claude
-CLI</strong>: 最新版本 - <strong>pipx</strong>: 最新版本 (推荐) -
-<strong>Docker</strong>: (可选，用于 AIRIS MCP Gateway)</p>
-<h3 id="安装依赖">3.2 安装依赖</h3>
+<h2 id="三-快速开始"><a class="markdownIt-Anchor" href="#三-快速开始"></a> 三、快速开始</h2>
+<h3 id="31-前提条件"><a class="markdownIt-Anchor" href="#31-前提条件"></a> 3.1 前提条件</h3>
+<p>确保系统满足以下要求：</p>
+<ul>
+<li><strong>Python</strong>: 3.10+</li>
+<li><strong>Node.js</strong>: 18+ (如果使用 npm 安装)</li>
+<li><strong>Claude CLI</strong>: 最新版本</li>
+<li><strong>pipx</strong>: 最新版本 (推荐)</li>
+<li><strong>Docker</strong>: (可选，用于 AIRIS MCP Gateway)</li>
+</ul>
+<h3 id="32-安装依赖"><a class="markdownIt-Anchor" href="#32-安装依赖"></a> 3.2 安装依赖</h3>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 安装 pipx (macOS/Linux)</span></span><br><span class="line">python -m pip install --user pipx</span><br><span class="line">python -m pipx ensurepath</span><br><span class="line"></span><br><span class="line"><span class="comment"># 安装 Claude CLI</span></span><br><span class="line">npm install -g @anthropic-ai/claude-cli</span><br></pre></td></tr></table></figure>
-<h3 id="安装-superclaude">3.3 安装 SuperClaude</h3>
-<h4 id="方法一-pipx-安装推荐">方法一: pipx 安装（推荐）</h4>
+<h3 id="33-安装-superclaude"><a class="markdownIt-Anchor" href="#33-安装-superclaude"></a> 3.3 安装 SuperClaude</h3>
+<h4 id="方法一-pipx-安装推荐"><a class="markdownIt-Anchor" href="#方法一-pipx-安装推荐"></a> 方法一: pipx 安装（推荐）</h4>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 1. 安装 SuperClaude 包</span></span><br><span class="line">pipx install superclaude</span><br><span class="line"></span><br><span class="line"><span class="comment"># 2. 安装斜杠命令</span></span><br><span class="line">superclaude install</span><br><span class="line"></span><br><span class="line"><span class="comment"># 3. 验证安装</span></span><br><span class="line">superclaude install --list</span><br><span class="line">superclaude doctor</span><br></pre></td></tr></table></figure>
-<h4 id="方法二-npm-安装">方法二: NPM 安装</h4>
+<h4 id="方法二-npm-安装"><a class="markdownIt-Anchor" href="#方法二-npm-安装"></a> 方法二: NPM 安装</h4>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 安装 NPM 包（会自动安装 Python 包和命令）</span></span><br><span class="line">npm install -g @bifrost_inc/superclaude</span><br><span class="line"></span><br><span class="line"><span class="comment"># 验证安装</span></span><br><span class="line"><span class="built_in">which</span> superclaude</span><br><span class="line">superclaude doctor</span><br></pre></td></tr></table></figure>
-<h4 id="方法三-git-仓库安装">方法三: Git 仓库安装</h4>
+<h4 id="方法三-git-仓库安装"><a class="markdownIt-Anchor" href="#方法三-git-仓库安装"></a> 方法三: Git 仓库安装</h4>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 克隆仓库</span></span><br><span class="line">git <span class="built_in">clone</span> https://github.com/SuperClaude-Org/SuperClaude_Framework.git</span><br><span class="line"><span class="built_in">cd</span> SuperClaude_Framework</span><br><span class="line"></span><br><span class="line"><span class="comment"># 运行安装脚本</span></span><br><span class="line">chmod +x install.sh</span><br><span class="line">./install.sh</span><br></pre></td></tr></table></figure>
 <hr />
-<h2 id="四配置-mcp-服务器可选">四、配置 MCP 服务器（可选）</h2>
-<p>MCP (Model Context Protocol) 服务器可以提供更快的执行速度和更少的
-token 消耗。</p>
-<h3 id="交互式安装">4.1 交互式安装</h3>
+<h2 id="四-配置-mcp-服务器可选"><a class="markdownIt-Anchor" href="#四-配置-mcp-服务器可选"></a> 四、配置 MCP 服务器（可选）</h2>
+<p>MCP (Model Context Protocol) 服务器可以提供更快的执行速度和更少的 token 消耗。</p>
+<h3 id="41-交互式安装"><a class="markdownIt-Anchor" href="#41-交互式安装"></a> 4.1 交互式安装</h3>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 交互式选择要安装的 MCP 服务器</span></span><br><span class="line">superclaude mcp</span><br></pre></td></tr></table></figure>
-<h3 id="列出可用服务器">4.2 列出可用服务器</h3>
+<h3 id="42-列出可用服务器"><a class="markdownIt-Anchor" href="#42-列出可用服务器"></a> 4.2 列出可用服务器</h3>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">superclaude mcp --list</span><br></pre></td></tr></table></figure>
-<h3 id="安装特定服务器">4.3 安装特定服务器</h3>
+<h3 id="43-安装特定服务器"><a class="markdownIt-Anchor" href="#43-安装特定服务器"></a> 4.3 安装特定服务器</h3>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 安装 Tavily (网络搜索) 和 Context7 (官方文档)</span></span><br><span class="line">superclaude mcp --servers tavily --servers context7</span><br></pre></td></tr></table></figure>
-<h3 id="airis-mcp-gateway推荐">4.4 AIRIS MCP Gateway（推荐）</h3>
-<p>AIRIS Gateway 需要 Docker，提供以下服务： - <strong>Serena</strong>:
-代码理解 - <strong>Sequential</strong>: 推理 - <strong>Tavily</strong>:
-网络搜索</p>
-<p>安装过程会自动： 1. 检查 Docker 2. 创建相关目录 3. 下载
-<code>docker-compose.yml</code> 4. 启动容器 5. 向 Claude Code 注册</p>
+<h3 id="44-airis-mcp-gateway推荐"><a class="markdownIt-Anchor" href="#44-airis-mcp-gateway推荐"></a> 4.4 AIRIS MCP Gateway（推荐）</h3>
+<p>AIRIS Gateway 需要 Docker，提供以下服务：</p>
+<ul>
+<li><strong>Serena</strong>: 代码理解</li>
+<li><strong>Sequential</strong>: 推理</li>
+<li><strong>Tavily</strong>: 网络搜索</li>
+</ul>
+<p>安装过程会自动：</p>
+<ol>
+<li>检查 Docker</li>
+<li>创建相关目录</li>
+<li>下载 <code>docker-compose.yml</code></li>
+<li>启动容器</li>
+<li>向 Claude Code 注册</li>
+</ol>
 <hr />
-<h2 id="五30-个斜杠命令">五、30 个斜杠命令</h2>
+<h2 id="五-30-个斜杠命令"><a class="markdownIt-Anchor" href="#五-30-个斜杠命令"></a> 五、30 个斜杠命令</h2>
 <p>所有命令都使用 <code>/sc:</code> 前缀，避免与用户自定义命令冲突。</p>
-<h3 id="命令分类">5.1 命令分类</h3>
-<h4 id="编排-orchestration">编排 (Orchestration)</h4>
+<h3 id="51-命令分类"><a class="markdownIt-Anchor" href="#51-命令分类"></a> 5.1 命令分类</h3>
+<h4 id="编排-orchestration"><a class="markdownIt-Anchor" href="#编排-orchestration"></a> 编排 (Orchestration)</h4>
 <table>
 <thead>
-<tr class="header">
+<tr>
 <th>命令</th>
 <th>说明</th>
 <th>示例</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td><code>/sc:pm</code></td>
 <td>项目管理</td>
-<td><code>/sc:pm "添加用户认证功能"</code></td>
+<td><code>/sc:pm &quot;添加用户认证功能&quot;</code></td>
 </tr>
-<tr class="even">
+<tr>
 <td><code>/sc:spawn</code></td>
 <td>生成子任务</td>
-<td><code>/sc:spawn "实现 API 端点"</code></td>
+<td><code>/sc:spawn &quot;实现 API 端点&quot;</code></td>
 </tr>
-<tr class="odd">
+<tr>
 <td><code>/sc:task</code></td>
 <td>任务跟踪</td>
 <td><code>/sc:task list</code></td>
 </tr>
-<tr class="even">
+<tr>
 <td><code>/sc:workflow</code></td>
 <td>工作流管理</td>
 <td><code>/sc:workflow create</code></td>
 </tr>
 </tbody>
 </table>
-<h4 id="发现-discovery">发现 (Discovery)</h4>
+<h4 id="发现-discovery"><a class="markdownIt-Anchor" href="#发现-discovery"></a> 发现 (Discovery)</h4>
 <table>
 <thead>
-<tr class="header">
+<tr>
 <th>命令</th>
 <th>说明</th>
 <th>示例</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td><code>/sc:brainstorm</code></td>
 <td>结构化头脑风暴</td>
-<td><code>/sc:brainstorm "如何优化性能"</code></td>
+<td><code>/sc:brainstorm &quot;如何优化性能&quot;</code></td>
 </tr>
-<tr class="even">
+<tr>
 <td><code>/sc:research</code></td>
 <td>深度网络研究</td>
-<td><code>/sc:research "React 18 新特性"</code></td>
+<td><code>/sc:research &quot;React 18 新特性&quot;</code></td>
 </tr>
 </tbody>
 </table>
-<h4 id="实现-implementation">实现 (Implementation)</h4>
+<h4 id="实现-implementation"><a class="markdownIt-Anchor" href="#实现-implementation"></a> 实现 (Implementation)</h4>
 <table>
 <thead>
-<tr class="header">
+<tr>
 <th>命令</th>
 <th>说明</th>
 <th>示例</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td><code>/sc:implement</code></td>
 <td>代码实现</td>
-<td><code>/sc:implement "添加 JWT 认证"</code></td>
+<td><code>/sc:implement &quot;添加 JWT 认证&quot;</code></td>
 </tr>
-<tr class="even">
+<tr>
 <td><code>/sc:design</code></td>
 <td>系统架构设计</td>
-<td><code>/sc:design "微服务架构"</code></td>
+<td><code>/sc:design &quot;微服务架构&quot;</code></td>
 </tr>
 </tbody>
 </table>
-<h4 id="质量-quality">质量 (Quality)</h4>
+<h4 id="质量-quality"><a class="markdownIt-Anchor" href="#质量-quality"></a> 质量 (Quality)</h4>
 <table>
 <thead>
-<tr class="header">
+<tr>
 <th>命令</th>
 <th>说明</th>
 <th>示例</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td><code>/sc:analyze</code></td>
 <td>代码分析</td>
 <td><code>/sc:analyze src/</code></td>
 </tr>
-<tr class="even">
+<tr>
 <td><code>/sc:troubleshoot</code></td>
 <td>故障排查</td>
-<td><code>/sc:troubleshoot "API 超时"</code></td>
+<td><code>/sc:troubleshoot &quot;API 超时&quot;</code></td>
 </tr>
-<tr class="odd">
+<tr>
 <td><code>/sc:test</code></td>
 <td>测试生成和执行</td>
 <td><code>/sc:test --coverage</code></td>
 </tr>
-<tr class="even">
+<tr>
 <td><code>/sc:build</code></td>
 <td>构建项目</td>
 <td><code>/sc:build --production</code></td>
 </tr>
 </tbody>
 </table>
-<h4 id="改进-improvement">改进 (Improvement)</h4>
+<h4 id="改进-improvement"><a class="markdownIt-Anchor" href="#改进-improvement"></a> 改进 (Improvement)</h4>
 <table>
 <thead>
-<tr class="header">
+<tr>
 <th>命令</th>
 <th>说明</th>
 <th>示例</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td><code>/sc:improve</code></td>
 <td>代码改进</td>
 <td><code>/sc:improve src/utils.py</code></td>
 </tr>
-<tr class="even">
+<tr>
 <td><code>/sc:cleanup</code></td>
 <td>代码清理</td>
 <td><code>/sc:cleanup --unused</code></td>
 </tr>
 </tbody>
 </table>
-<h4 id="文档-documentation">文档 (Documentation)</h4>
+<h4 id="文档-documentation"><a class="markdownIt-Anchor" href="#文档-documentation"></a> 文档 (Documentation)</h4>
 <table>
 <thead>
-<tr class="header">
+<tr>
 <th>命令</th>
 <th>说明</th>
 <th>示例</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td><code>/sc:explain</code></td>
 <td>代码解释</td>
 <td><code>/sc:explain src/auth.py</code></td>
 </tr>
-<tr class="even">
+<tr>
 <td><code>/sc:document</code></td>
 <td>文档生成</td>
 <td><code>/sc:document src/</code></td>
 </tr>
-<tr class="odd">
+<tr>
 <td><code>/sc:index-repo</code></td>
 <td>仓库索引</td>
 <td><code>/sc:index-repo</code></td>
 </tr>
 </tbody>
 </table>
-<h4 id="专家面板-expert-panels">专家面板 (Expert Panels)</h4>
+<h4 id="专家面板-expert-panels"><a class="markdownIt-Anchor" href="#专家面板-expert-panels"></a> 专家面板 (Expert Panels)</h4>
 <table>
-<colgroup>
-<col style="width: 33%" />
-<col style="width: 33%" />
-<col style="width: 33%" />
-</colgroup>
 <thead>
-<tr class="header">
+<tr>
 <th>命令</th>
 <th>说明</th>
 <th>示例</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td><code>/sc:spec-panel</code></td>
 <td>规范专家面板</td>
-<td><code>/sc:spec-panel "API 设计"</code></td>
+<td><code>/sc:spec-panel &quot;API 设计&quot;</code></td>
 </tr>
-<tr class="even">
+<tr>
 <td><code>/sc:business-panel</code></td>
 <td>商业专家面板</td>
-<td><code>/sc:business-panel "产品策略"</code></td>
+<td><code>/sc:business-panel &quot;产品策略&quot;</code></td>
 </tr>
 </tbody>
 </table>
-<h4 id="实用工具-utilities">实用工具 (Utilities)</h4>
+<h4 id="实用工具-utilities"><a class="markdownIt-Anchor" href="#实用工具-utilities"></a> 实用工具 (Utilities)</h4>
 <table>
 <thead>
-<tr class="header">
+<tr>
 <th>命令</th>
 <th>说明</th>
 <th>示例</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td><code>/sc:git</code></td>
 <td>Git 操作</td>
 <td><code>/sc:git commit</code></td>
 </tr>
-<tr class="even">
+<tr>
 <td><code>/sc:estimate</code></td>
 <td>工作量估算</td>
-<td><code>/sc:estimate "新功能"</code></td>
+<td><code>/sc:estimate &quot;新功能&quot;</code></td>
 </tr>
-<tr class="odd">
+<tr>
 <td><code>/sc:reflect</code></td>
 <td>反思和学习</td>
 <td><code>/sc:reflect</code></td>
 </tr>
-<tr class="even">
+<tr>
 <td><code>/sc:load</code></td>
 <td>加载上下文</td>
 <td><code>/sc:load session.json</code></td>
 </tr>
-<tr class="odd">
+<tr>
 <td><code>/sc:save</code></td>
 <td>保存上下文</td>
 <td><code>/sc:save session.json</code></td>
 </tr>
-<tr class="even">
+<tr>
 <td><code>/sc:agent</code></td>
 <td>启动 AI 代理</td>
 <td><code>/sc:agent --type researcher</code></td>
 </tr>
-<tr class="odd">
+<tr>
 <td><code>/sc:recommend</code></td>
 <td>命令推荐</td>
 <td><code>/sc:recommend</code></td>
 </tr>
-<tr class="even">
+<tr>
 <td><code>/sc</code></td>
 <td>显示帮助</td>
 <td><code>/sc</code></td>
@@ -613,120 +627,158 @@ token 消耗。</p>
 </tbody>
 </table>
 <hr />
-<h2 id="六核心命令详解">六、核心命令详解</h2>
-<h3 id="scresearch---深度网络研究">6.1 /sc:research - 深度网络研究</h3>
-<p>用于进行深度网络研究，支持并行搜索。如果安装了 Tavily MCP
-服务器，研究能力会得到增强。</p>
-<p><strong>使用场景</strong>： - 技术调研 - 最佳实践研究 - 竞品分析 -
-新技术学习</p>
+<h2 id="六-核心命令详解"><a class="markdownIt-Anchor" href="#六-核心命令详解"></a> 六、核心命令详解</h2>
+<h3 id="61-scresearch-深度网络研究"><a class="markdownIt-Anchor" href="#61-scresearch-深度网络研究"></a> 6.1 /sc:research - 深度网络研究</h3>
+<p>用于进行深度网络研究，支持并行搜索。如果安装了 Tavily MCP 服务器，研究能力会得到增强。</p>
+<p><strong>使用场景</strong>：</p>
+<ul>
+<li>技术调研</li>
+<li>最佳实践研究</li>
+<li>竞品分析</li>
+<li>新技术学习</li>
+</ul>
 <p><strong>示例</strong>：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 研究 React 18 新特性</span></span><br><span class="line">/sc:research React 18 new features</span><br><span class="line"></span><br><span class="line"><span class="comment"># 研究 LLM Agent 架构</span></span><br><span class="line">/sc:research LLM agent architectures 2024</span><br><span class="line"></span><br><span class="line"><span class="comment"># 研究 Python 异步最佳实践</span></span><br><span class="line">/sc:research Python async best practices</span><br></pre></td></tr></table></figure>
-<h3 id="scimplement---代码实现">6.2 /sc:implement - 代码实现</h3>
+<h3 id="62-scimplement-代码实现"><a class="markdownIt-Anchor" href="#62-scimplement-代码实现"></a> 6.2 /sc:implement - 代码实现</h3>
 <p>用于编写代码以实现功能，支持多种编程语言和框架。</p>
-<p><strong>使用场景</strong>： - 新功能开发 - API 端点实现 - 组件创建 -
-数据层重构</p>
+<p><strong>使用场景</strong>：</p>
+<ul>
+<li>新功能开发</li>
+<li>API 端点实现</li>
+<li>组件创建</li>
+<li>数据层重构</li>
+</ul>
 <p><strong>示例</strong>：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 添加 JWT 认证</span></span><br><span class="line">/sc:implement <span class="string">&quot;Add user authentication to the API using JWT&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建 React 组件</span></span><br><span class="line">/sc:implement <span class="string">&quot;Create a new React component for a user profile page&quot;</span></span><br></pre></td></tr></table></figure>
-<h3 id="sctest---测试生成和执行">6.3 /sc:test - 测试生成和执行</h3>
-<p>用于生成测试和执行测试，包括覆盖率分析。如果安装了 Playwright MCP
-服务器，可以进行 E2E 测试。</p>
+<h3 id="63-sctest-测试生成和执行"><a class="markdownIt-Anchor" href="#63-sctest-测试生成和执行"></a> 6.3 /sc:test - 测试生成和执行</h3>
+<p>用于生成测试和执行测试，包括覆盖率分析。如果安装了 Playwright MCP 服务器，可以进行 E2E 测试。</p>
 <p><strong>示例</strong>：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 运行所有测试</span></span><br><span class="line">/sc:<span class="built_in">test</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 测试特定目录并生成覆盖率报告</span></span><br><span class="line">/sc:<span class="built_in">test</span> src/components --<span class="built_in">type</span> unit --coverage</span><br><span class="line"></span><br><span class="line"><span class="comment"># 运行 E2E 测试（需要 Playwright MCP）</span></span><br><span class="line">/sc:<span class="built_in">test</span> --<span class="built_in">type</span> e2e</span><br></pre></td></tr></table></figure>
-<h3 id="scpm---项目管理">6.4 /sc:pm - 项目管理</h3>
+<h3 id="64-scpm-项目管理"><a class="markdownIt-Anchor" href="#64-scpm-项目管理"></a> 6.4 /sc:pm - 项目管理</h3>
 <p>启动 PM Agent 模式，自动管理项目开发流程。</p>
-<p><strong>使用场景</strong>： - 复杂功能开发 - 多步骤任务 -
-需要多角色协作的任务</p>
+<p><strong>使用场景</strong>：</p>
+<ul>
+<li>复杂功能开发</li>
+<li>多步骤任务</li>
+<li>需要多角色协作的任务</li>
+</ul>
 <p><strong>示例</strong>：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 添加用户认证功能</span></span><br><span class="line">/sc:pm <span class="string">&quot;添加用户认证功能&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 优化数据库性能</span></span><br><span class="line">/sc:pm <span class="string">&quot;优化数据库查询性能&quot;</span></span><br></pre></td></tr></table></figure>
-<p><strong>PM Agent 工作流程</strong>： 1. 理解需求 2.
-激活相应的行为模式 3. 委托给专家角色（需求分析师、架构师、开发者等） 4.
-执行 PDCA 循环 5. 保存进度和学习</p>
-<h3 id="scbrainstorm---结构化头脑风暴">6.5 /sc:brainstorm -
-结构化头脑风暴</h3>
+<p><strong>PM Agent 工作流程</strong>：</p>
+<ol>
+<li>理解需求</li>
+<li>激活相应的行为模式</li>
+<li>委托给专家角色（需求分析师、架构师、开发者等）</li>
+<li>执行 PDCA 循环</li>
+<li>保存进度和学习</li>
+</ol>
+<h3 id="65-scbrainstorm-结构化头脑风暴"><a class="markdownIt-Anchor" href="#65-scbrainstorm-结构化头脑风暴"></a> 6.5 /sc:brainstorm - 结构化头脑风暴</h3>
 <p>用于结构化的头脑风暴，提出正确的问题。</p>
-<p><strong>使用场景</strong>： - 需求分析 - 问题定义 - 方案设计 -
-技术选型</p>
-<h3 id="scindex-repo---仓库索引">6.6 /sc:index-repo - 仓库索引</h3>
+<p><strong>使用场景</strong>：</p>
+<ul>
+<li>需求分析</li>
+<li>问题定义</li>
+<li>方案设计</li>
+<li>技术选型</li>
+</ul>
+<h3 id="66-scindex-repo-仓库索引"><a class="markdownIt-Anchor" href="#66-scindex-repo-仓库索引"></a> 6.6 /sc:index-repo - 仓库索引</h3>
 <p>索引仓库以优化上下文，提高后续命令的执行效率。</p>
-<p><strong>使用场景</strong>： - 新项目开始时 - 大型代码库 -
-需要频繁查询代码</p>
+<p><strong>使用场景</strong>：</p>
+<ul>
+<li>新项目开始时</li>
+<li>大型代码库</li>
+<li>需要频繁查询代码</li>
+</ul>
 <hr />
-<h2 id="七完整工作流程示例">七、完整工作流程示例</h2>
-<h3 id="开发新功能">7.1 开发新功能</h3>
+<h2 id="七-完整工作流程示例"><a class="markdownIt-Anchor" href="#七-完整工作流程示例"></a> 七、完整工作流程示例</h2>
+<h3 id="71-开发新功能"><a class="markdownIt-Anchor" href="#71-开发新功能"></a> 7.1 开发新功能</h3>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 1. 头脑风暴和需求分析</span></span><br><span class="line">/sc:brainstorm <span class="string">&quot;用户认证功能需求&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 2. 研究最佳实践</span></span><br><span class="line">/sc:research <span class="string">&quot;JWT authentication best practices 2024&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 3. 设计系统架构</span></span><br><span class="line">/sc:design <span class="string">&quot;用户认证系统架构&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 4. 实现代码</span></span><br><span class="line">/sc:implement <span class="string">&quot;实现 JWT 认证中间件&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 5. 生成测试</span></span><br><span class="line">/sc:<span class="built_in">test</span> src/auth/ --coverage</span><br><span class="line"></span><br><span class="line"><span class="comment"># 6. 生成文档</span></span><br><span class="line">/sc:document src/auth/</span><br><span class="line"></span><br><span class="line"><span class="comment"># 7. 代码审查</span></span><br><span class="line">/sc:analyze src/auth/</span><br><span class="line"></span><br><span class="line"><span class="comment"># 8. Git 提交</span></span><br><span class="line">/sc:git commit <span class="string">&quot;feat: add JWT authentication&quot;</span></span><br></pre></td></tr></table></figure>
-<h3 id="性能优化">7.2 性能优化</h3>
+<h3 id="72-性能优化"><a class="markdownIt-Anchor" href="#72-性能优化"></a> 7.2 性能优化</h3>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 1. 分析性能问题</span></span><br><span class="line">/sc:troubleshoot <span class="string">&quot;API 响应慢&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 2. 研究优化方案</span></span><br><span class="line">/sc:research <span class="string">&quot;API performance optimization techniques&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 3. 实施优化</span></span><br><span class="line">/sc:improve src/api/</span><br><span class="line"></span><br><span class="line"><span class="comment"># 4. 测试性能</span></span><br><span class="line">/sc:<span class="built_in">test</span> --<span class="built_in">type</span> performance</span><br><span class="line"></span><br><span class="line"><span class="comment"># 5. 反思和学习</span></span><br><span class="line">/sc:reflect</span><br></pre></td></tr></table></figure>
-<h3 id="使用-pm-agent">7.3 使用 PM Agent</h3>
+<h3 id="73-使用-pm-agent"><a class="markdownIt-Anchor" href="#73-使用-pm-agent"></a> 7.3 使用 PM Agent</h3>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 启动 PM Agent，自动完成整个流程</span></span><br><span class="line">/sc:pm <span class="string">&quot;添加用户认证功能，包括 JWT、密码加密、权限管理&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># PM Agent 会自动：</span></span><br><span class="line"><span class="comment"># 1. 激活头脑风暴模式</span></span><br><span class="line"><span class="comment"># 2. 委托给需求分析师、架构师，安全工程师</span></span><br><span class="line"><span class="comment"># 3. 生成实施方案</span></span><br><span class="line"><span class="comment"># 4. 执行开发任务</span></span><br><span class="line"><span class="comment"># 5. 生成测试和文档</span></span><br><span class="line"><span class="comment"># 6. 保存进度</span></span><br></pre></td></tr></table></figure>
 <hr />
-<h2 id="八项目结构">八、项目结构</h2>
+<h2 id="八-项目结构"><a class="markdownIt-Anchor" href="#八-项目结构"></a> 八、项目结构</h2>
 <p>SuperClaude Framework 的核心组件：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">SuperClaude_Framework&#x2F;</span><br><span class="line">├── src&#x2F;superclaude&#x2F;</span><br><span class="line">│   ├── pytest_plugin.py          # pytest 插件（自动加载）</span><br><span class="line">│   ├── pm_agent&#x2F;                 # PM Agent 模式</span><br><span class="line">│   │   ├── confidence.py         # 预执行置信度检查</span><br><span class="line">│   │   ├── self_check.py         # 后实现验证</span><br><span class="line">│   │   └── reflexion.py          # 错误学习</span><br><span class="line">│   ├── execution&#x2F;                # 并行执行模式</span><br><span class="line">│   │   └── parallel.py           # Wave→Checkpoint→Wave 模式</span><br><span class="line">│   └── cli&#x2F;                      # 命令行工具</span><br><span class="line">│       ├── main.py               # superclaude 命令</span><br><span class="line">│       └── doctor.py             # 健康检查</span><br><span class="line">├── commands&#x2F;                     # 30 个斜杠命令</span><br><span class="line">│   ├── sc-research.md</span><br><span class="line">│   ├── sc-implement.md</span><br><span class="line">│   ├── sc-test.md</span><br><span class="line">│   └── ...</span><br><span class="line">└── install.sh                    # 安装脚本</span><br></pre></td></tr></table></figure>
 <hr />
-<h2 id="九高级功能">九、高级功能</h2>
-<h3 id="并行执行">9.1 并行执行</h3>
+<h2 id="九-高级功能"><a class="markdownIt-Anchor" href="#九-高级功能"></a> 九、高级功能</h2>
+<h3 id="91-并行执行"><a class="markdownIt-Anchor" href="#91-并行执行"></a> 9.1 并行执行</h3>
 <p>SuperClaude 支持令牌高效的并行执行，实现 3.5 倍速度提升。</p>
-<p><strong>Wave→Checkpoint→Wave 模式</strong>： 1. Wave 1:
-并行执行多个独立任务 2. Checkpoint: 验证结果 3. Wave 2: 基于 Wave 1
-的结果继续并行执行</p>
-<h3 id="跨会话学习">9.2 跨会话学习</h3>
-<p>通过反射模式实现跨会话学习： - 记录错误和解决方案 - 学习最佳实践 -
-优化未来决策</p>
-<h3 id="令牌效率优化">9.3 令牌效率优化</h3>
+<p><strong>Wave→Checkpoint→Wave 模式</strong>：</p>
+<ol>
+<li>Wave 1: 并行执行多个独立任务</li>
+<li>Checkpoint: 验证结果</li>
+<li>Wave 2: 基于 Wave 1 的结果继续并行执行</li>
+</ol>
+<h3 id="92-跨会话学习"><a class="markdownIt-Anchor" href="#92-跨会话学习"></a> 9.2 跨会话学习</h3>
+<p>通过反射模式实现跨会话学习：</p>
+<ul>
+<li>记录错误和解决方案</li>
+<li>学习最佳实践</li>
+<li>优化未来决策</li>
+</ul>
+<h3 id="93-令牌效率优化"><a class="markdownIt-Anchor" href="#93-令牌效率优化"></a> 9.3 令牌效率优化</h3>
 <ul>
 <li>30-50% 上下文节省</li>
 <li>智能上下文管理</li>
 <li>增量更新而非完全重写</li>
 </ul>
-<h3 id="专家面板">9.4 专家面板</h3>
-<p>多专家协作模式： - <strong>规范专家面板</strong>: 技术规范设计 -
-<strong>商业专家面板</strong>: 战略分析和决策</p>
+<h3 id="94-专家面板"><a class="markdownIt-Anchor" href="#94-专家面板"></a> 9.4 专家面板</h3>
+<p>多专家协作模式：</p>
+<ul>
+<li><strong>规范专家面板</strong>: 技术规范设计</li>
+<li><strong>商业专家面板</strong>: 战略分析和决策</li>
+</ul>
 <hr />
-<h2 id="十注意事项">十、注意事项</h2>
-<h3 id="命令前缀">10.1 命令前缀</h3>
-<p>所有 SuperClaude 命令都使用 <code>/sc:</code>
-前缀，避免与用户自定义命令冲突。</p>
-<h3 id="mcp-服务器">10.2 MCP 服务器</h3>
-<p>MCP 服务器是可选的，但可以显著提升性能和功能： -
-<strong>Tavily</strong>: 增强网络研究能力 - <strong>Context7</strong>:
-提供官方文档查找 - <strong>Serena</strong>: 增强代码理解 -
-<strong>Playwright</strong>: 支持 E2E 测试</p>
-<h3 id="docker-要求">10.3 Docker 要求</h3>
-<p>AIRIS MCP Gateway 需要 Docker。如果不使用 AIRIS，可以单独安装其他 MCP
-服务器。</p>
-<h3 id="python-版本">10.4 Python 版本</h3>
+<h2 id="十-注意事项"><a class="markdownIt-Anchor" href="#十-注意事项"></a> 十、注意事项</h2>
+<h3 id="101-命令前缀"><a class="markdownIt-Anchor" href="#101-命令前缀"></a> 10.1 命令前缀</h3>
+<p>所有 SuperClaude 命令都使用 <code>/sc:</code> 前缀，避免与用户自定义命令冲突。</p>
+<h3 id="102-mcp-服务器"><a class="markdownIt-Anchor" href="#102-mcp-服务器"></a> 10.2 MCP 服务器</h3>
+<p>MCP 服务器是可选的，但可以显著提升性能和功能：</p>
+<ul>
+<li><strong>Tavily</strong>: 增强网络研究能力</li>
+<li><strong>Context7</strong>: 提供官方文档查找</li>
+<li><strong>Serena</strong>: 增强代码理解</li>
+<li><strong>Playwright</strong>: 支持 E2E 测试</li>
+</ul>
+<h3 id="103-docker-要求"><a class="markdownIt-Anchor" href="#103-docker-要求"></a> 10.3 Docker 要求</h3>
+<p>AIRIS MCP Gateway 需要 Docker。如果不使用 AIRIS，可以单独安装其他 MCP 服务器。</p>
+<h3 id="104-python-版本"><a class="markdownIt-Anchor" href="#104-python-版本"></a> 10.4 Python 版本</h3>
 <p>需要 Python 3.10+，建议使用最新版本。</p>
 <hr />
-<h2 id="十一常见问题">十一、常见问题</h2>
-<h3 id="q1-如何查看所有可用命令">Q1: 如何查看所有可用命令？</h3>
+<h2 id="十一-常见问题"><a class="markdownIt-Anchor" href="#十一-常见问题"></a> 十一、常见问题</h2>
+<h3 id="q1-如何查看所有可用命令"><a class="markdownIt-Anchor" href="#q1-如何查看所有可用命令"></a> Q1: 如何查看所有可用命令？</h3>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 显示所有 SuperClaude 命令</span></span><br><span class="line">/sc</span><br><span class="line"></span><br><span class="line"><span class="comment"># 列出已安装的命令</span></span><br><span class="line">superclaude install --list</span><br></pre></td></tr></table></figure>
-<h3 id="q2如何验证安装是否成功">Q2:如何验证安装是否成功？</h3>
+<h3 id="q2如何验证安装是否成功"><a class="markdownIt-Anchor" href="#q2如何验证安装是否成功"></a> Q2:如何验证安装是否成功？</h3>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 运行健康检查</span></span><br><span class="line">superclaude doctor</span><br><span class="line"></span><br><span class="line"><span class="comment"># 检查包安装</span></span><br><span class="line">pipx list | grep superclaude</span><br></pre></td></tr></table></figure>
-<h3 id="q3如何更新-superclaude">Q3:如何更新 SuperClaude？</h3>
+<h3 id="q3如何更新-superclaude"><a class="markdownIt-Anchor" href="#q3如何更新-superclaude"></a> Q3:如何更新 SuperClaude？</h3>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># pipx 安装的更新方法</span></span><br><span class="line">pipx upgrade superclaude</span><br><span class="line">superclaude install  <span class="comment"># 重新安装命令</span></span><br></pre></td></tr></table></figure>
-<h3 id="q4如何卸载-superclaude">Q4:如何卸载 SuperClaude？</h3>
+<h3 id="q4如何卸载-superclaude"><a class="markdownIt-Anchor" href="#q4如何卸载-superclaude"></a> Q4:如何卸载 SuperClaude？</h3>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 卸载命令</span></span><br><span class="line">superclaude uninstall</span><br><span class="line"></span><br><span class="line"><span class="comment"># 卸载包（pipx）</span></span><br><span class="line">pipx uninstall superclaude</span><br></pre></td></tr></table></figure>
 <hr />
-<h2 id="十二最佳实践">十二、最佳实践</h2>
-<h3 id="项目初始化">12.1 项目初始化</h3>
-<p>新项目开始时： <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 1. 索引仓库</span></span><br><span class="line">/sc:index-repo</span><br><span class="line"></span><br><span class="line"><span class="comment"># 2. 创建项目规划</span></span><br><span class="line">/sc:pm <span class="string">&quot;项目初始化和架构设计&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 3. 生成文档</span></span><br><span class="line">/sc:document</span><br></pre></td></tr></table></figure></p>
-<h3 id="开发流程">12.2 开发流程</h3>
-<p>遵循标准开发流程： <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">研究 → 设计 → 实现 → 测试 → 文档 → 审查 → 提交</span><br></pre></td></tr></table></figure></p>
-<h3 id="使用-pm-agent-1">12.3 使用 PM Agent</h3>
-<p>对于复杂任务，优先使用 PM Agent： <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/sc:pm <span class="string">&quot;详细描述你的需求&quot;</span></span><br></pre></td></tr></table></figure></p>
-<h3 id="定期反思">12.4 定期反思</h3>
-<p>定期使用反思命令学习和改进： <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/sc:reflect</span><br></pre></td></tr></table></figure></p>
-<h3 id="保存和加载上下文">12.5 保存和加载上下文</h3>
-<p>长期项目中保存上下文： <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 保存当前上下文</span></span><br><span class="line">/sc:save project-context.json</span><br><span class="line"></span><br><span class="line"><span class="comment"># 加载上下文</span></span><br><span class="line">/sc:load project-context.json</span><br></pre></td></tr></table></figure></p>
+<h2 id="十二-最佳实践"><a class="markdownIt-Anchor" href="#十二-最佳实践"></a> 十二、最佳实践</h2>
+<h3 id="121-项目初始化"><a class="markdownIt-Anchor" href="#121-项目初始化"></a> 12.1 项目初始化</h3>
+<p>新项目开始时：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 1. 索引仓库</span></span><br><span class="line">/sc:index-repo</span><br><span class="line"></span><br><span class="line"><span class="comment"># 2. 创建项目规划</span></span><br><span class="line">/sc:pm <span class="string">&quot;项目初始化和架构设计&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 3. 生成文档</span></span><br><span class="line">/sc:document</span><br></pre></td></tr></table></figure>
+<h3 id="122-开发流程"><a class="markdownIt-Anchor" href="#122-开发流程"></a> 12.2 开发流程</h3>
+<p>遵循标准开发流程：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">研究 → 设计 → 实现 → 测试 → 文档 → 审查 → 提交</span><br></pre></td></tr></table></figure>
+<h3 id="123-使用-pm-agent"><a class="markdownIt-Anchor" href="#123-使用-pm-agent"></a> 12.3 使用 PM Agent</h3>
+<p>对于复杂任务，优先使用 PM Agent：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/sc:pm <span class="string">&quot;详细描述你的需求&quot;</span></span><br></pre></td></tr></table></figure>
+<h3 id="124-定期反思"><a class="markdownIt-Anchor" href="#124-定期反思"></a> 12.4 定期反思</h3>
+<p>定期使用反思命令学习和改进：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/sc:reflect</span><br></pre></td></tr></table></figure>
+<h3 id="125-保存和加载上下文"><a class="markdownIt-Anchor" href="#125-保存和加载上下文"></a> 12.5 保存和加载上下文</h3>
+<p>长期项目中保存上下文：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 保存当前上下文</span></span><br><span class="line">/sc:save project-context.json</span><br><span class="line"></span><br><span class="line"><span class="comment"># 加载上下文</span></span><br><span class="line">/sc:load project-context.json</span><br></pre></td></tr></table></figure>
 <hr />
-<h2 id="十三相关资源">十三、相关资源</h2>
+<h2 id="十三-相关资源"><a class="markdownIt-Anchor" href="#十三-相关资源"></a> 十三、相关资源</h2>
 <ul>
-<li><strong>GitHub 仓库</strong>:
-https://github.com/SuperClaude-Org/SuperClaude_Framework</li>
-<li><strong>文档</strong>:
-https://github.com/SuperClaude-Org/SuperClaude_Framework/wiki</li>
-<li><strong>问题反馈</strong>:
-https://github.com/SuperClaude-Org/SuperClaude_Framework/issues</li>
+<li><strong>GitHub 仓库</strong>: <a target="_blank" rel="noopener" href="https://github.com/SuperClaude-Org/SuperClaude_Framework">https://github.com/SuperClaude-Org/SuperClaude_Framework</a></li>
+<li><strong>文档</strong>: <a target="_blank" rel="noopener" href="https://github.com/SuperClaude-Org/SuperClaude_Framework/wiki">https://github.com/SuperClaude-Org/SuperClaude_Framework/wiki</a></li>
+<li><strong>问题反馈</strong>: <a target="_blank" rel="noopener" href="https://github.com/SuperClaude-Org/SuperClaude_Framework/issues">https://github.com/SuperClaude-Org/SuperClaude_Framework/issues</a></li>
 </ul>
 <hr />
 <p><strong>祝你使用愉快！🎉</strong></p>
@@ -769,8 +821,8 @@ https://github.com/SuperClaude-Org/SuperClaude_Framework/issues</li>
           
           <div class="post-tags">
               <a href="/tags/Tool/" rel="tag"><i class="fa fa-tag"></i> Tool</a>
-              <a href="/tags/AI-Development/" rel="tag"><i class="fa fa-tag"></i> AI-Development</a>
               <a href="/tags/SuperClaude/" rel="tag"><i class="fa fa-tag"></i> SuperClaude</a>
+              <a href="/tags/AI-Development/" rel="tag"><i class="fa fa-tag"></i> AI-Development</a>
           </div>
 
         
@@ -779,13 +831,10 @@ https://github.com/SuperClaude-Org/SuperClaude_Framework/issues</li>
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2026/03/10/CC-Skills-01-everything-claude-code/" rel="prev" title="Everything Claude Code 完整教程">
-      <i class="fa fa-chevron-left"></i> Everything Claude Code 完整教程
+    <a href="/2026/03/10/CC-Skills-02.1-ecc-sc-integration/" rel="prev" title="ECC vs SC 命令整合策略分析">
+      <i class="fa fa-chevron-left"></i> ECC vs SC 命令整合策略分析
     </a></div>
-      <div class="post-nav-item">
-    <a href="/2026/03/10/CC-Skills-04-ralph-wiggum/" rel="next" title="Ralph-Wiggum-Skill 完整教程">
-      Ralph-Wiggum-Skill 完整教程 <i class="fa fa-chevron-right"></i>
-    </a></div>
+      <div class="post-nav-item"></div>
     </div>
       </footer>
     
@@ -848,9 +897,7 @@ https://github.com/SuperClaude-Org/SuperClaude_Framework/issues</li>
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#superclaude-framework-%E5%AE%8C%E6%95%B4%E6%95%99%E7%A8%8B"><span class="nav-text">SuperClaude Framework
-完整教程</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-text">📝 前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E6%A0%B8%E5%BF%83%E7%89%B9%E6%80%A7"><span class="nav-text">二、核心特性</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A1%8C%E4%B8%BA%E6%8C%87%E4%BB%A4%E6%B3%A8%E5%85%A5"><span class="nav-text">2.1 行为指令注入</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#pm-agent-%E6%A8%A1%E5%BC%8F"><span class="nav-text">2.2 PM Agent 模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%83%E7%A7%8D%E8%87%AA%E9%80%82%E5%BA%94%E8%A1%8C%E4%B8%BA%E6%A8%A1%E5%BC%8F"><span class="nav-text">2.3 七种自适应行为模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%B4%A8%E9%87%8F%E4%BF%9D%E8%AF%81%E6%9C%BA%E5%88%B6"><span class="nav-text">2.4 质量保证机制</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89%E5%BF%AB%E9%80%9F%E5%BC%80%E5%A7%8B"><span class="nav-text">三、快速开始</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%89%8D%E6%8F%90%E6%9D%A1%E4%BB%B6"><span class="nav-text">3.1 前提条件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85%E4%BE%9D%E8%B5%96"><span class="nav-text">3.2 安装依赖</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85-superclaude"><span class="nav-text">3.3 安装 SuperClaude</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%B9%E6%B3%95%E4%B8%80-pipx-%E5%AE%89%E8%A3%85%E6%8E%A8%E8%8D%90"><span class="nav-text">方法一: pipx 安装（推荐）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%B9%E6%B3%95%E4%BA%8C-npm-%E5%AE%89%E8%A3%85"><span class="nav-text">方法二: NPM 安装</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%B9%E6%B3%95%E4%B8%89-git-%E4%BB%93%E5%BA%93%E5%AE%89%E8%A3%85"><span class="nav-text">方法三: Git 仓库安装</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%9B%E9%85%8D%E7%BD%AE-mcp-%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%8F%AF%E9%80%89"><span class="nav-text">四、配置 MCP 服务器（可选）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%A4%E4%BA%92%E5%BC%8F%E5%AE%89%E8%A3%85"><span class="nav-text">4.1 交互式安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%97%E5%87%BA%E5%8F%AF%E7%94%A8%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="nav-text">4.2 列出可用服务器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85%E7%89%B9%E5%AE%9A%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="nav-text">4.3 安装特定服务器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#airis-mcp-gateway%E6%8E%A8%E8%8D%90"><span class="nav-text">4.4 AIRIS MCP Gateway（推荐）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%9430-%E4%B8%AA%E6%96%9C%E6%9D%A0%E5%91%BD%E4%BB%A4"><span class="nav-text">五、30 个斜杠命令</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%91%BD%E4%BB%A4%E5%88%86%E7%B1%BB"><span class="nav-text">5.1 命令分类</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BC%96%E6%8E%92-orchestration"><span class="nav-text">编排 (Orchestration)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8F%91%E7%8E%B0-discovery"><span class="nav-text">发现 (Discovery)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0-implementation"><span class="nav-text">实现 (Implementation)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%B4%A8%E9%87%8F-quality"><span class="nav-text">质量 (Quality)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%94%B9%E8%BF%9B-improvement"><span class="nav-text">改进 (Improvement)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%87%E6%A1%A3-documentation"><span class="nav-text">文档 (Documentation)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%93%E5%AE%B6%E9%9D%A2%E6%9D%BF-expert-panels"><span class="nav-text">专家面板 (Expert Panels)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%9E%E7%94%A8%E5%B7%A5%E5%85%B7-utilities"><span class="nav-text">实用工具 (Utilities)</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%AD%E6%A0%B8%E5%BF%83%E5%91%BD%E4%BB%A4%E8%AF%A6%E8%A7%A3"><span class="nav-text">六、核心命令详解</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#scresearch---%E6%B7%B1%E5%BA%A6%E7%BD%91%E7%BB%9C%E7%A0%94%E7%A9%B6"><span class="nav-text">6.1 &#x2F;sc:research - 深度网络研究</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#scimplement---%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0"><span class="nav-text">6.2 &#x2F;sc:implement - 代码实现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#sctest---%E6%B5%8B%E8%AF%95%E7%94%9F%E6%88%90%E5%92%8C%E6%89%A7%E8%A1%8C"><span class="nav-text">6.3 &#x2F;sc:test - 测试生成和执行</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#scpm---%E9%A1%B9%E7%9B%AE%E7%AE%A1%E7%90%86"><span class="nav-text">6.4 &#x2F;sc:pm - 项目管理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#scbrainstorm---%E7%BB%93%E6%9E%84%E5%8C%96%E5%A4%B4%E8%84%91%E9%A3%8E%E6%9A%B4"><span class="nav-text">6.5 &#x2F;sc:brainstorm -
-结构化头脑风暴</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#scindex-repo---%E4%BB%93%E5%BA%93%E7%B4%A2%E5%BC%95"><span class="nav-text">6.6 &#x2F;sc:index-repo - 仓库索引</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%83%E5%AE%8C%E6%95%B4%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B%E7%A4%BA%E4%BE%8B"><span class="nav-text">七、完整工作流程示例</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BC%80%E5%8F%91%E6%96%B0%E5%8A%9F%E8%83%BD"><span class="nav-text">7.1 开发新功能</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96"><span class="nav-text">7.2 性能优化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8-pm-agent"><span class="nav-text">7.3 使用 PM Agent</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%AB%E9%A1%B9%E7%9B%AE%E7%BB%93%E6%9E%84"><span class="nav-text">八、项目结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B9%9D%E9%AB%98%E7%BA%A7%E5%8A%9F%E8%83%BD"><span class="nav-text">九、高级功能</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B9%B6%E8%A1%8C%E6%89%A7%E8%A1%8C"><span class="nav-text">9.1 并行执行</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%B7%A8%E4%BC%9A%E8%AF%9D%E5%AD%A6%E4%B9%A0"><span class="nav-text">9.2 跨会话学习</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%A4%E7%89%8C%E6%95%88%E7%8E%87%E4%BC%98%E5%8C%96"><span class="nav-text">9.3 令牌效率优化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%93%E5%AE%B6%E9%9D%A2%E6%9D%BF"><span class="nav-text">9.4 专家面板</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8D%81%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9"><span class="nav-text">十、注意事项</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%91%BD%E4%BB%A4%E5%89%8D%E7%BC%80"><span class="nav-text">10.1 命令前缀</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mcp-%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="nav-text">10.2 MCP 服务器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#docker-%E8%A6%81%E6%B1%82"><span class="nav-text">10.3 Docker 要求</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#python-%E7%89%88%E6%9C%AC"><span class="nav-text">10.4 Python 版本</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8D%81%E4%B8%80%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98"><span class="nav-text">十一、常见问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#q1-%E5%A6%82%E4%BD%95%E6%9F%A5%E7%9C%8B%E6%89%80%E6%9C%89%E5%8F%AF%E7%94%A8%E5%91%BD%E4%BB%A4"><span class="nav-text">Q1: 如何查看所有可用命令？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#q2%E5%A6%82%E4%BD%95%E9%AA%8C%E8%AF%81%E5%AE%89%E8%A3%85%E6%98%AF%E5%90%A6%E6%88%90%E5%8A%9F"><span class="nav-text">Q2:如何验证安装是否成功？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#q3%E5%A6%82%E4%BD%95%E6%9B%B4%E6%96%B0-superclaude"><span class="nav-text">Q3:如何更新 SuperClaude？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#q4%E5%A6%82%E4%BD%95%E5%8D%B8%E8%BD%BD-superclaude"><span class="nav-text">Q4:如何卸载 SuperClaude？</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8D%81%E4%BA%8C%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5"><span class="nav-text">十二、最佳实践</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%A1%B9%E7%9B%AE%E5%88%9D%E5%A7%8B%E5%8C%96"><span class="nav-text">12.1 项目初始化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BC%80%E5%8F%91%E6%B5%81%E7%A8%8B"><span class="nav-text">12.2 开发流程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8-pm-agent-1"><span class="nav-text">12.3 使用 PM Agent</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9A%E6%9C%9F%E5%8F%8D%E6%80%9D"><span class="nav-text">12.4 定期反思</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BF%9D%E5%AD%98%E5%92%8C%E5%8A%A0%E8%BD%BD%E4%B8%8A%E4%B8%8B%E6%96%87"><span class="nav-text">12.5 保存和加载上下文</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8D%81%E4%B8%89%E7%9B%B8%E5%85%B3%E8%B5%84%E6%BA%90"><span class="nav-text">十三、相关资源</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#superclaude-framework-%E5%AE%8C%E6%95%B4%E6%95%99%E7%A8%8B"><span class="nav-text"> SuperClaude Framework 完整教程</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-text"> 📝 前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C-%E6%A0%B8%E5%BF%83%E7%89%B9%E6%80%A7"><span class="nav-text"> 二、核心特性</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#21-%E8%A1%8C%E4%B8%BA%E6%8C%87%E4%BB%A4%E6%B3%A8%E5%85%A5"><span class="nav-text"> 2.1 行为指令注入</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#22-pm-agent-%E6%A8%A1%E5%BC%8F"><span class="nav-text"> 2.2 PM Agent 模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#23-%E4%B8%83%E7%A7%8D%E8%87%AA%E9%80%82%E5%BA%94%E8%A1%8C%E4%B8%BA%E6%A8%A1%E5%BC%8F"><span class="nav-text"> 2.3 七种自适应行为模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#24-%E8%B4%A8%E9%87%8F%E4%BF%9D%E8%AF%81%E6%9C%BA%E5%88%B6"><span class="nav-text"> 2.4 质量保证机制</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89-%E5%BF%AB%E9%80%9F%E5%BC%80%E5%A7%8B"><span class="nav-text"> 三、快速开始</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#31-%E5%89%8D%E6%8F%90%E6%9D%A1%E4%BB%B6"><span class="nav-text"> 3.1 前提条件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#32-%E5%AE%89%E8%A3%85%E4%BE%9D%E8%B5%96"><span class="nav-text"> 3.2 安装依赖</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#33-%E5%AE%89%E8%A3%85-superclaude"><span class="nav-text"> 3.3 安装 SuperClaude</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%B9%E6%B3%95%E4%B8%80-pipx-%E5%AE%89%E8%A3%85%E6%8E%A8%E8%8D%90"><span class="nav-text"> 方法一: pipx 安装（推荐）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%B9%E6%B3%95%E4%BA%8C-npm-%E5%AE%89%E8%A3%85"><span class="nav-text"> 方法二: NPM 安装</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%B9%E6%B3%95%E4%B8%89-git-%E4%BB%93%E5%BA%93%E5%AE%89%E8%A3%85"><span class="nav-text"> 方法三: Git 仓库安装</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%9B-%E9%85%8D%E7%BD%AE-mcp-%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%8F%AF%E9%80%89"><span class="nav-text"> 四、配置 MCP 服务器（可选）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#41-%E4%BA%A4%E4%BA%92%E5%BC%8F%E5%AE%89%E8%A3%85"><span class="nav-text"> 4.1 交互式安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#42-%E5%88%97%E5%87%BA%E5%8F%AF%E7%94%A8%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="nav-text"> 4.2 列出可用服务器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#43-%E5%AE%89%E8%A3%85%E7%89%B9%E5%AE%9A%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="nav-text"> 4.3 安装特定服务器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#44-airis-mcp-gateway%E6%8E%A8%E8%8D%90"><span class="nav-text"> 4.4 AIRIS MCP Gateway（推荐）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%94-30-%E4%B8%AA%E6%96%9C%E6%9D%A0%E5%91%BD%E4%BB%A4"><span class="nav-text"> 五、30 个斜杠命令</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#51-%E5%91%BD%E4%BB%A4%E5%88%86%E7%B1%BB"><span class="nav-text"> 5.1 命令分类</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BC%96%E6%8E%92-orchestration"><span class="nav-text"> 编排 (Orchestration)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8F%91%E7%8E%B0-discovery"><span class="nav-text"> 发现 (Discovery)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0-implementation"><span class="nav-text"> 实现 (Implementation)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%B4%A8%E9%87%8F-quality"><span class="nav-text"> 质量 (Quality)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%94%B9%E8%BF%9B-improvement"><span class="nav-text"> 改进 (Improvement)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%87%E6%A1%A3-documentation"><span class="nav-text"> 文档 (Documentation)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%93%E5%AE%B6%E9%9D%A2%E6%9D%BF-expert-panels"><span class="nav-text"> 专家面板 (Expert Panels)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%9E%E7%94%A8%E5%B7%A5%E5%85%B7-utilities"><span class="nav-text"> 实用工具 (Utilities)</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%AD-%E6%A0%B8%E5%BF%83%E5%91%BD%E4%BB%A4%E8%AF%A6%E8%A7%A3"><span class="nav-text"> 六、核心命令详解</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#61-scresearch-%E6%B7%B1%E5%BA%A6%E7%BD%91%E7%BB%9C%E7%A0%94%E7%A9%B6"><span class="nav-text"> 6.1 &#x2F;sc:research - 深度网络研究</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#62-scimplement-%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0"><span class="nav-text"> 6.2 &#x2F;sc:implement - 代码实现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#63-sctest-%E6%B5%8B%E8%AF%95%E7%94%9F%E6%88%90%E5%92%8C%E6%89%A7%E8%A1%8C"><span class="nav-text"> 6.3 &#x2F;sc:test - 测试生成和执行</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#64-scpm-%E9%A1%B9%E7%9B%AE%E7%AE%A1%E7%90%86"><span class="nav-text"> 6.4 &#x2F;sc:pm - 项目管理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#65-scbrainstorm-%E7%BB%93%E6%9E%84%E5%8C%96%E5%A4%B4%E8%84%91%E9%A3%8E%E6%9A%B4"><span class="nav-text"> 6.5 &#x2F;sc:brainstorm - 结构化头脑风暴</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#66-scindex-repo-%E4%BB%93%E5%BA%93%E7%B4%A2%E5%BC%95"><span class="nav-text"> 6.6 &#x2F;sc:index-repo - 仓库索引</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%83-%E5%AE%8C%E6%95%B4%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B%E7%A4%BA%E4%BE%8B"><span class="nav-text"> 七、完整工作流程示例</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#71-%E5%BC%80%E5%8F%91%E6%96%B0%E5%8A%9F%E8%83%BD"><span class="nav-text"> 7.1 开发新功能</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#72-%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96"><span class="nav-text"> 7.2 性能优化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#73-%E4%BD%BF%E7%94%A8-pm-agent"><span class="nav-text"> 7.3 使用 PM Agent</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%AB-%E9%A1%B9%E7%9B%AE%E7%BB%93%E6%9E%84"><span class="nav-text"> 八、项目结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B9%9D-%E9%AB%98%E7%BA%A7%E5%8A%9F%E8%83%BD"><span class="nav-text"> 九、高级功能</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#91-%E5%B9%B6%E8%A1%8C%E6%89%A7%E8%A1%8C"><span class="nav-text"> 9.1 并行执行</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#92-%E8%B7%A8%E4%BC%9A%E8%AF%9D%E5%AD%A6%E4%B9%A0"><span class="nav-text"> 9.2 跨会话学习</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#93-%E4%BB%A4%E7%89%8C%E6%95%88%E7%8E%87%E4%BC%98%E5%8C%96"><span class="nav-text"> 9.3 令牌效率优化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#94-%E4%B8%93%E5%AE%B6%E9%9D%A2%E6%9D%BF"><span class="nav-text"> 9.4 专家面板</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8D%81-%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9"><span class="nav-text"> 十、注意事项</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#101-%E5%91%BD%E4%BB%A4%E5%89%8D%E7%BC%80"><span class="nav-text"> 10.1 命令前缀</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#102-mcp-%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="nav-text"> 10.2 MCP 服务器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#103-docker-%E8%A6%81%E6%B1%82"><span class="nav-text"> 10.3 Docker 要求</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#104-python-%E7%89%88%E6%9C%AC"><span class="nav-text"> 10.4 Python 版本</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8D%81%E4%B8%80-%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98"><span class="nav-text"> 十一、常见问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#q1-%E5%A6%82%E4%BD%95%E6%9F%A5%E7%9C%8B%E6%89%80%E6%9C%89%E5%8F%AF%E7%94%A8%E5%91%BD%E4%BB%A4"><span class="nav-text"> Q1: 如何查看所有可用命令？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#q2%E5%A6%82%E4%BD%95%E9%AA%8C%E8%AF%81%E5%AE%89%E8%A3%85%E6%98%AF%E5%90%A6%E6%88%90%E5%8A%9F"><span class="nav-text"> Q2:如何验证安装是否成功？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#q3%E5%A6%82%E4%BD%95%E6%9B%B4%E6%96%B0-superclaude"><span class="nav-text"> Q3:如何更新 SuperClaude？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#q4%E5%A6%82%E4%BD%95%E5%8D%B8%E8%BD%BD-superclaude"><span class="nav-text"> Q4:如何卸载 SuperClaude？</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8D%81%E4%BA%8C-%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5"><span class="nav-text"> 十二、最佳实践</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#121-%E9%A1%B9%E7%9B%AE%E5%88%9D%E5%A7%8B%E5%8C%96"><span class="nav-text"> 12.1 项目初始化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#122-%E5%BC%80%E5%8F%91%E6%B5%81%E7%A8%8B"><span class="nav-text"> 12.2 开发流程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#123-%E4%BD%BF%E7%94%A8-pm-agent"><span class="nav-text"> 12.3 使用 PM Agent</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#124-%E5%AE%9A%E6%9C%9F%E5%8F%8D%E6%80%9D"><span class="nav-text"> 12.4 定期反思</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#125-%E4%BF%9D%E5%AD%98%E5%92%8C%E5%8A%A0%E8%BD%BD%E4%B8%8A%E4%B8%8B%E6%96%87"><span class="nav-text"> 12.5 保存和加载上下文</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8D%81%E4%B8%89-%E7%9B%B8%E5%85%B3%E8%B5%84%E6%BA%90"><span class="nav-text"> 十三、相关资源</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -873,7 +920,7 @@ https://github.com/SuperClaude-Org/SuperClaude_Framework/issues</li>
       <div class="site-state-item site-state-categories">
             <a href="/Categories/">
           
-        <span class="site-state-item-count">40</span>
+        <span class="site-state-item-count">41</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
