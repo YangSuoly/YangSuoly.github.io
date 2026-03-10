@@ -24,12 +24,12 @@
     var CONFIG = {"hostname":"yangsuoly.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":true},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":true,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="1. Study goals 学习词向量的概念 用 Skip-thought 模型训练词向量 学习使用 PyTorch dataset和 dataloader 学习定义 PyTorch 模型 学习 torch.nn 中常见的 Module Embedding   学习常见的 PyTorch operations bmm logsigmoid   保存和读取 PyTorch 模型">
+  <meta name="description" content="1. Study goals  学习词向量的概念 用 Skip-thought 模型训练词向量 学习使用 PyTorch dataset和 dataloader 学习定义 PyTorch 模型 学习 torch.nn 中常见的 Module  Embedding  学习常见的 PyTorch operations  bmm logsigmoid  保存和读取 PyTorch 模型">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Pytorch-3-Word2vec">
 <meta property="og:url" content="http://yangsuoly.com/2021/08/05/Pytorch-3-Word2vec/index.html">
 <meta property="og:site_name" content="独孤诗人的学习驿站">
-<meta property="og:description" content="1. Study goals 学习词向量的概念 用 Skip-thought 模型训练词向量 学习使用 PyTorch dataset和 dataloader 学习定义 PyTorch 模型 学习 torch.nn 中常见的 Module Embedding   学习常见的 PyTorch operations bmm logsigmoid   保存和读取 PyTorch 模型">
+<meta property="og:description" content="1. Study goals  学习词向量的概念 用 Skip-thought 模型训练词向量 学习使用 PyTorch dataset和 dataloader 学习定义 PyTorch 模型 学习 torch.nn 中常见的 Module  Embedding  学习常见的 PyTorch operations  bmm logsigmoid  保存和读取 PyTorch 模型">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://z3.ax1x.com/2021/08/05/fZCUoR.png">
 <meta property="og:image" content="https://z3.ax1x.com/2021/08/05/fZPM0H.png">
@@ -312,24 +312,26 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h1 id="1-Study-goals"><a href="#1-Study-goals" class="headerlink" title="1. Study goals"></a>1. Study goals</h1><ul>
+        <h1 id="study-goals">1. Study goals</h1>
+<ul>
 <li>学习词向量的概念</li>
 <li>用 Skip-thought 模型训练词向量</li>
 <li>学习使用 PyTorch dataset和 dataloader</li>
 <li>学习定义 PyTorch 模型</li>
-<li>学习 torch.nn 中常见的 Module<ul>
+<li>学习 torch.nn 中常见的 Module
+<ul>
 <li>Embedding</li>
-</ul>
-</li>
-<li>学习常见的 PyTorch operations<ul>
+</ul></li>
+<li>学习常见的 PyTorch operations
+<ul>
 <li>bmm</li>
 <li>logsigmoid</li>
-</ul>
-</li>
+</ul></li>
 <li>保存和读取 PyTorch 模型</li>
 </ul>
 <a id="more"></a>
-<h1 id="2-Word-vector"><a href="#2-Word-vector" class="headerlink" title="2. Word vector"></a>2. Word vector</h1><p>在计算机中如何表示一个词：</p>
+<h1 id="word-vector">2. Word vector</h1>
+<p>在计算机中如何表示一个词：</p>
 <p><img src="https://z3.ax1x.com/2021/08/05/fZCUoR.png" style="zoom:80%;" /></p>
 <p>可以使用一些上位词或同义词来形容某个词。但这样表示存在如下问题：</p>
 <ul>
@@ -339,164 +341,226 @@
 <li>无法发现新词</li>
 <li>难以精确计算词之间的相似度</li>
 </ul>
-<h2 id="2-1-Discrete-representation"><a href="#2-1-Discrete-representation" class="headerlink" title="2.1 Discrete representation"></a>2.1 Discrete representation</h2><h3 id="2-1-1-One-hot"><a href="#2-1-1-One-hot" class="headerlink" title="2.1.1 One-hot"></a>2.1.1 One-hot</h3><p>使用 <code>One-hot</code> 来离散表示词向量。</p>
+<h2 id="discrete-representation">2.1 Discrete representation</h2>
+<h3 id="one-hot">2.1.1 One-hot</h3>
+<p>使用 <code>One-hot</code> 来离散表示词向量。</p>
 <ul>
 <li><p>语料库 (Corpus)：</p>
-<p>John likes to watch movies. Mary likes too.\<br>John also likes to watch football games.</p>
-</li>
+<p>John likes to watch movies. Mary likes too.<br />
+John also likes to watch football games.</p></li>
 <li><p>词典 (Dictionary)</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;<span class="string">&quot;John&quot;</span>: <span class="number">1</span>, <span class="string">&quot;likes&quot;</span>: <span class="number">2</span>, <span class="string">&quot;to&quot;</span>: <span class="number">3</span>, <span class="string">&quot;watch&quot;</span>: <span class="number">4</span>, <span class="string">&quot;movies&quot;</span>: <span class="number">5</span>, <span class="string">&quot;also&quot;</span>: <span class="number">6</span>, <span class="string">&quot;football&quot;</span>: <span class="number">7</span>, <span class="string">&quot;games&quot;</span>: <span class="number">8</span>, <span class="string">&quot;Mary&quot;</span>: <span class="number">9</span>, <span class="string">&quot;too&quot;</span>: <span class="number">10</span>&#125;</span><br></pre></td></tr></table></figure>
-</li>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;<span class="string">&quot;John&quot;</span>: <span class="number">1</span>, <span class="string">&quot;likes&quot;</span>: <span class="number">2</span>, <span class="string">&quot;to&quot;</span>: <span class="number">3</span>, <span class="string">&quot;watch&quot;</span>: <span class="number">4</span>, <span class="string">&quot;movies&quot;</span>: <span class="number">5</span>, <span class="string">&quot;also&quot;</span>: <span class="number">6</span>, <span class="string">&quot;football&quot;</span>: <span class="number">7</span>, <span class="string">&quot;games&quot;</span>: <span class="number">8</span>, <span class="string">&quot;Mary&quot;</span>: <span class="number">9</span>, <span class="string">&quot;too&quot;</span>: <span class="number">10</span>&#125;</span><br></pre></td></tr></table></figure></li>
 <li><p>One-hot representation</p>
-<p>John: [1, 0, 0, 0, 0, 0, 0, 0, 0, 0]<br>likes: [0, 1, 0, 0, 0, 0, 0, 0, 0, 0]<br>too: [0, 0, 0, 0, 0, 0, 0, 0, 0, 1]</p>
-</li>
+<p>John: [1, 0, 0, 0, 0, 0, 0, 0, 0, 0] likes: [0, 1, 0, 0, 0, 0, 0, 0,
+0, 0] too: [0, 0, 0, 0, 0, 0, 0, 0, 0, 1]</p></li>
 </ul>
 <p><code>One-hot</code> 表示的特点：</p>
-<ol>
+<ol type="1">
 <li>词典包含 10 个单词，每个单词有唯一索引</li>
 <li>在词典中的顺序和在句子中的顺序没有关联</li>
 </ol>
-<h3 id="2-2-2-Bag-of-Words"><a href="#2-2-2-Bag-of-Words" class="headerlink" title="2.2.2 Bag of Words"></a>2.2.2 Bag of Words</h3><ul>
+<h3 id="bag-of-words">2.2.2 Bag of Words</h3>
+<ul>
 <li><p>文档的向量表示可以直接将各词的词向量表示加和。如：</p>
-<p><img src="https://z3.ax1x.com/2021/08/05/fZPM0H.png" alt=""></p>
-</li>
+<p><img src="https://z3.ax1x.com/2021/08/05/fZPM0H.png" /></p></li>
 </ul>
 <p>词权重表示（词在文档中的顺序没有被考虑）：</p>
-<ol>
-<li><p><code>TF-IDF</code>(Term Frequency - Inverse Document Frequency)</p>
-<p>Specifically, <code>TF-IDF</code> is defines as:</p>
-<script type="math/tex; mode=display">{\rm{tf}\text{-}\rm{idf}}(t, d, D) = f _{t,d} \cdot \log \frac{N}{n_t}</script><p>where $f_{t, d}$ is the raw frequency of term $t$ in document $d$, $N$ is the total number of documents in the corpus, and $n_t$ is the total number of documents containing at least one occurrence of term $t$.</p>
-<p><img src="https://z3.ax1x.com/2021/08/05/fZCNw9.png" alt=""></p>
-</li>
-<li><p>Binary weighting</p>
-<p><img src="https://z3.ax1x.com/2021/08/05/fZPbjO.png" alt=""></p>
-</li>
+<ol type="1">
+<li><code>TF-IDF</code>(Term Frequency - Inverse Document
+Frequency)</li>
 </ol>
-<h3 id="2-2-3-Bi-gram-and-N-gram"><a href="#2-2-3-Bi-gram-and-N-gram" class="headerlink" title="2.2.3 Bi-gram and N-gram"></a>2.2.3 Bi-gram and N-gram</h3><p>为 <code>2-gram</code> 建立索引：</p>
+<p>Specifically, <code>TF-IDF</code> is defines as: <span
+class="math display"> {\rm{tf}\text{-}\rm{idf}}(t, d, D) = f _{t,d}
+\cdot \log \frac{N}{n_t} </span></p>
+<p>where <span class="math inline">f_{t, d}</span> is the raw frequency
+of term <span class="math inline">t</span> in document <span
+class="math inline">d</span>, <span class="math inline">N</span> is the
+total number of documents in the corpus, and <span
+class="math inline">n_t</span> is the total number of documents
+containing at least one occurrence of term <span
+class="math inline">t</span>.</p>
+<p><img src="https://z3.ax1x.com/2021/08/05/fZCNw9.png" /></p>
+<ol start="2" type="1">
+<li>Binary weighting</li>
+</ol>
+<p><img src="https://z3.ax1x.com/2021/08/05/fZPbjO.png" /></p>
+<h3 id="bi-gram-and-n-gram">2.2.3 Bi-gram and N-gram</h3>
+<p>为 <code>2-gram</code> 建立索引：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot;John likes&quot;</span>:       <span class="number">1</span>,</span><br><span class="line"><span class="string">&quot;likes to&quot;</span>:         <span class="number">2</span>,</span><br><span class="line"><span class="string">&quot;to watch&quot;</span>:         <span class="number">3</span>,</span><br><span class="line"><span class="string">&quot;watch movies&quot;</span>:     <span class="number">4</span>,</span><br><span class="line"><span class="string">&quot;Mary likes&quot;</span>:       <span class="number">5</span>,</span><br><span class="line"><span class="string">&quot;likes too&quot;</span>:        <span class="number">6</span>,</span><br><span class="line"><span class="string">&quot;John also&quot;</span>:        <span class="number">7</span>,</span><br><span class="line"><span class="string">&quot;also likes&quot;</span>:       <span class="number">8</span>,</span><br><span class="line"><span class="string">&quot;watch football&quot;</span>:   <span class="number">9</span>,</span><br><span class="line"><span class="string">&quot;football games&quot;</span>:  <span class="number">10</span>,</span><br></pre></td></tr></table></figure>
 <p>所以可以得到如下表示：</p>
 <p><img src="https://z3.ax1x.com/2021/08/05/fZCJL4.png" style="zoom:80%;" /></p>
 <p>而 <code>N-gram</code> 模型参数与 <code>N</code> 之间的关系：</p>
-<center><img src="https://z3.ax1x.com/2021/08/05/fZipCt.png" style="zoom:50%;" /></center>
-
+<center>
+<img src="https://z3.ax1x.com/2021/08/05/fZipCt.png" style="zoom:50%;" />
+</center>
 <p><code>N-gram</code> 的优缺点：</p>
 <ul>
 <li>优点：考虑了词的顺序</li>
 <li>缺点：词表的膨胀</li>
 </ul>
-<h2 id="2-3-Distributed-representation"><a href="#2-3-Distributed-representation" class="headerlink" title="2.3 Distributed representation"></a>2.3 Distributed representation</h2><h3 id="2-3-1-Preface"><a href="#2-3-1-Preface" class="headerlink" title="2.3.1 Preface"></a>2.3.1 Preface</h3><p>从上一小节可以发现离散表示存在如下问题：</p>
-<ol>
+<h2 id="distributed-representation">2.3 Distributed representation</h2>
+<h3 id="preface">2.3.1 Preface</h3>
+<p>从上一小节可以发现离散表示存在如下问题：</p>
+<ol type="1">
 <li><p>无法衡量词向量之间的关系</p>
-<p>太稀疏，难以捕捉文本的含义。各种度量（与或非、距离）都不合适.</p>
-<center><img src="https://z3.ax1x.com/2021/08/05/fZCGyF.png" style="zoom:50%;" /></center>
-</li>
-<li><p>词表维度随着语料库增长膨胀</p>
-</li>
+<p>太稀疏，难以捕捉文本的含义。各种度量（与或非、距离）都不合适.</p></li>
+</ol>
+<center>
+<img src="https://z3.ax1x.com/2021/08/05/fZCGyF.png" style="zoom:50%;" />
+</center>
+<ol start="2" type="1">
+<li>词表维度随着语料库增长膨胀</li>
 <li><code>N-gram</code> 词序列随着语料库膨胀更快</li>
 <li>数据稀疏性问题</li>
 </ol>
 <p>为了弥补这些不足，对词编码表示提出如下要求：</p>
-<ol>
+<ol type="1">
 <li><p>词编码需要保证词的相似性。</p>
-<p><img src="https://z3.ax1x.com/2021/08/05/fZC0W6.md.png" alt=""></p>
-</li>
+<p><img src="https://z3.ax1x.com/2021/08/05/fZC0W6.md.png" /></p></li>
 <li><p>向量空间分布的相似性</p>
-<p><img src="https://z3.ax1x.com/2021/08/05/fZCwJx.png" alt=""></p>
-</li>
+<p><img src="https://z3.ax1x.com/2021/08/05/fZCwJx.png" /></p></li>
 <li><p>向量空间子结构</p>
-<p><img src="https://z3.ax1x.com/2021/08/05/fZCsyD.md.png" alt=""></p>
-<script type="math/tex; mode=display">
+<p><img src="https://z3.ax1x.com/2021/08/05/fZCsyD.md.png" /></p>
+<p><span class="math display">
 \begin{align}
-V_{King} - V_{Queen} + V_{Women} &= V_{Man} \\
-V_{Paris} - V_{France} + V_{German} &= V_{Berlin}
-\end{align}</script></li>
+V_{King} - V_{Queen} + V_{Women} &amp;= V_{Man} \\
+V_{Paris} - V_{France} + V_{German} &amp;= V_{Berlin}
+\end{align}
+</span></p></li>
 </ol>
 <p><strong>最终目标</strong>：词向量表示作为机器学习、特别是深度学习的输入和表示空间。</p>
 <p>因此，有学者考虑使用分布式表示来生成词向量。分布式表示即用一个词附近的其他词来表示该词。这也是现代统计自然语言处理中最有创意的想法之一。</p>
-<p>如， <code>banking</code> 附近的词将会代表 <code>banking</code> 的含义。</p>
-<p><img src="https://z3.ax1x.com/2021/08/05/fZCXYq.png" alt=""></p>
-<h3 id="2-3-2-Word2Vec-Skip-Gram-model"><a href="#2-3-2-Word2Vec-Skip-Gram-model" class="headerlink" title="2.3.2 Word2Vec: Skip-Gram model"></a>2.3.2 Word2Vec: Skip-Gram model</h3><p>该模型具有以下特点：</p>
-<ol>
+<p>如， <code>banking</code> 附近的词将会代表 <code>banking</code>
+的含义。</p>
+<p><img src="https://z3.ax1x.com/2021/08/05/fZCXYq.png" /></p>
+<h3 id="word2vec-skip-gram-model">2.3.2 Word2Vec: Skip-Gram model</h3>
+<p>该模型具有以下特点：</p>
+<ol type="1">
 <li>无隐层</li>
 <li>投影层也可省略</li>
 <li>每个词向量作为log-linear模型的输入</li>
 </ol>
-<center><img src = "https://z3.ax1x.com/2021/08/05/fZCDSK.png" style = "zoom:60%" /></center>
-
+<center>
+<img src = "https://z3.ax1x.com/2021/08/05/fZCDSK.png" style = "zoom:60%" />
+</center>
 <ul>
 <li><p>目标函数 (Objective function)：</p>
-<script type="math/tex; mode=display">\frac{1}{T} \sum^{T}_{t=1} \sum_{-c \leq j \leq c,\ j \neq 0}  \log (p(w_{t+j} | w_t ))</script></li>
+<p><span class="math display"> \frac{1}{T} \sum^{T}_{t=1} \sum_{-c \leq
+j \leq c,\ j \neq 0}  \log (p(w_{t+j} | w_t ))</span></p></li>
 <li><p>概率密度 (Probability density)</p>
 <p>概率密度由 <code>Softmax</code> 给出：</p>
-<script type="math/tex; mode=display">p(o|c) = \frac{\exp \left(u^T_o v_c \right)}{\sum^W_{w=1} \exp \left(u^T_w v_c \right)}</script><p>$o$ 表示 <code>output</code>, $c$ 表示 <code>center word</code> 即输入。该训练模型存在一个问题：分母有一个 <code>summation</code> 操作，表示需要用中心词对语料库中所有词做一个点积，这会导致需要非常大的内容，训练过程会很慢。</p>
-</li>
+<p><span class="math display"> p(o|c) = \frac{\exp \left(u^T_o v_c
+\right)}{\sum^W_{w=1} \exp \left(u^T_w v_c \right)} </span></p>
+<p><span class="math inline">o</span> 表示 <code>output</code>, <span
+class="math inline">c</span> 表示 <code>center word</code>
+即输入。该训练模型存在一个问题：分母有一个 <code>summation</code>
+操作，表示需要用中心词对语料库中所有词做一个点积，这会导致需要非常大的内容，训练过程会很慢。</p></li>
 <li><p>损失函数 (Loss function)</p>
-<script type="math/tex; mode=display">
+<p><span class="math display">
 \begin{aligned}
-  \min J &= -\log P\left(w_{c-m}, \ldots, w_{c-1}, w_{c+1}, \ldots, w_{c+m} \mid w_{c}\right) \\
-  &=-\log \prod_{j=0, j \neq m}^{2 m} P\left(w_{c-m+j} \mid w_{c}\right) \\
-  &=-\log \prod_{j=0, j \neq m}^{2 m} P\left(u_{c-m+j} \mid v_{c}\right) \\
-  &=-\log \prod_{j=0, j \neq m}^{2 m} \frac{\exp \left(u_{c-m+j}^{T} v_{c}\right)}{\sum_{k=1}^{|V|} \exp \left(u_{k}^{T} v_{c}\right)} \\
-  &=-\sum_{j=0, j \neq m}^{2 m} u_{c-m+j}^{T} v_{c}+2 m \log \sum_{k=1}^{|V|} \exp \left(u_{k}^{T} v_{c}\right)
-\end{aligned}</script></li>
+  \min J &amp;= -\log P\left(w_{c-m}, \ldots, w_{c-1}, w_{c+1}, \ldots,
+w_{c+m} \mid w_{c}\right) \\
+  &amp;=-\log \prod_{j=0, j \neq m}^{2 m} P\left(w_{c-m+j} \mid
+w_{c}\right) \\
+  &amp;=-\log \prod_{j=0, j \neq m}^{2 m} P\left(u_{c-m+j} \mid
+v_{c}\right) \\
+  &amp;=-\log \prod_{j=0, j \neq m}^{2 m} \frac{\exp \left(u_{c-m+j}^{T}
+v_{c}\right)}{\sum_{k=1}^{|V|} \exp \left(u_{k}^{T} v_{c}\right)} \\
+  &amp;=-\sum_{j=0, j \neq m}^{2 m} u_{c-m+j}^{T} v_{c}+2 m \log
+\sum_{k=1}^{|V|} \exp \left(u_{k}^{T} v_{c}\right)
+\end{aligned}
+</span></p></li>
 <li><p>负采样 (Negative sampling)</p>
-<p>$P(w|\text{context}(w))$：一个正样本，$V-1$ 个负样本，对负样本做采样。</p>
-<script type="math/tex; mode=display">
+<p><span
+class="math inline">P(w|\text{context}(w))</span>：一个正样本，<span
+class="math inline">V-1</span> 个负样本，对负样本做采样。</p>
+<p><span class="math display">
 \begin{align}
-P(D=1 \mid w, c, \theta) &= \frac{1}{1+e^{\left(-v_{c}^{T} v_{w}\right)}} \\
-\log \sigma\left(u_{c-m+j}^{T} \cdot v_{c}\right) &+ \sum_{k=1}^{K} \log \sigma\left(-\tilde{u}_{k}^{T} \cdot v_{c}\right)
-\end{align}</script><p>where, $\{ \tilde{u}_k | k = 1 \dots K \}$ is obtained by negative sampling.</p>
-</li>
+P(D=1 \mid w, c, \theta) &amp;= \frac{1}{1+e^{\left(-v_{c}^{T}
+v_{w}\right)}} \\
+\log \sigma\left(u_{c-m+j}^{T} \cdot v_{c}\right) &amp;+ \sum_{k=1}^{K}
+\log \sigma\left(-\tilde{u}_{k}^{T} \cdot v_{c}\right)
+\end{align}
+</span></p>
+<p>where, <span class="math inline">\{ \tilde{u}_k | k = 1 \dots K
+\}</span> is obtained by negative sampling.</p></li>
 </ul>
-<h3 id="2-3-3-Word-embendding-visualization"><a href="#2-3-3-Word-embendding-visualization" class="headerlink" title="2.3.3 Word embendding visualization"></a>2.3.3 Word embendding visualization</h3><ul>
+<h3 id="word-embendding-visualization">2.3.3 Word embendding
+visualization</h3>
+<ul>
 <li><p>词向：公司 —— CEO</p>
-<p><img src="https://z3.ax1x.com/2021/08/05/fZCrQO.md.png" alt=""></p>
-<script type="math/tex; mode=display">
+<p><img src="https://z3.ax1x.com/2021/08/05/fZCrQO.md.png" /></p>
+<p><span class="math display">
 \begin{align*}
   \text{Fig. 公司} \leftrightarrow \rm{CEO}
-\end{align*}</script></li>
+\end{align*}
+</span></p></li>
 <li><p>词向：比较级和最高级</p>
-<p><img src="https://z3.ax1x.com/2021/08/05/fZCOkn.png" alt=""></p>
-<center> Fig. 比较级和最高级 </center>
-</li>
+<p><img src="https://z3.ax1x.com/2021/08/05/fZCOkn.png" /></p>
+<center>
+<p>Fig. 比较级和最高级</p>
+</center></li>
 <li><p>评估效果：词类比任务</p>
-<p><img src="https://z3.ax1x.com/2021/08/05/fZCyOe.md.png" alt=""></p>
-<center> Fig. Accuracy on the analogy task for 300-D vectors trained on different corpora </center>
-
+<p><img src="https://z3.ax1x.com/2021/08/05/fZCyOe.md.png" /></p>
+<center>
+<p>Fig. Accuracy on the analogy task for 300-D vectors trained on
+different corpora</p>
+</center>
 <p>19544个类比问题:</p>
 <ul>
 <li>Athens is to Greece as Berlin is to __?</li>
 <li>Bigger is to Big as Greater is to __?</li>
-</ul>
-</li>
+</ul></li>
 <li><p>效果评估：词相似度任务</p>
-<center><img src = "https://z3.ax1x.com/2021/08/05/fZCceH.png" style = "zoom:60%" /></center>
-
-<p>其中，<code>SVD</code> 模型只保留出现次数最大的 1 万个词，记为 $X_{trunc}$，<code>SVD-S</code> 为 $\sqrt{X_{trunc}}$，<code>SVD-L</code> 为 $\log (1+X_{trunc})$。</p>
-</li>
+<center>
+<p><img src = "https://z3.ax1x.com/2021/08/05/fZCceH.png" style = "zoom:60%" /></p>
+</center>
+<p>其中，<code>SVD</code> 模型只保留出现次数最大的 1 万个词，记为 <span
+class="math inline">X_{trunc}</span>，<code>SVD-S</code> 为 <span
+class="math inline">\sqrt{X_{trunc}}</span>，<code>SVD-L</code> 为 <span
+class="math inline">\log (1+X_{trunc})</span>。</p></li>
 <li><p>效果评估：作为特征用于 <code>CRF</code> 实体识别</p>
-<p><code>NER</code> 任务包含 437, 905 个离散特征，额外的 50 维连续特征。</p>
-<center><img src = "https://z3.ax1x.com/2021/08/05/fZC2TA.png" style = "zoom:60%" /></center>
-
-</li>
+<p><code>NER</code> 任务包含 437, 905 个离散特征，额外的 50
+维连续特征。</p>
+<center>
+<p><img src = "https://z3.ax1x.com/2021/08/05/fZC2TA.png" style = "zoom:60%" /></p>
+</center></li>
 </ul>
-<h1 id="3-Implement-Word2Vec-with-pytorch"><a href="#3-Implement-Word2Vec-with-pytorch" class="headerlink" title="3. Implement Word2Vec with pytorch"></a>3. Implement Word2Vec with pytorch</h1><h2 id="3-1-简介"><a href="#3-1-简介" class="headerlink" title="3.1 简介"></a>3.1 简介</h2><p>该文档中使用的训练数据可从如下方式下载：<a target="_blank" rel="noopener" href="https://www.aliyundrive.com/s/SVoAJqKvsME">Click Here</a>。</p>
-<p>在本节的代码中，尽可能尝试复现论文 <a target="_blank" rel="noopener" href="http://papers.nips.cc/paper/5021-distributed-representations-of-words-and-phrases-and-their-compositionality.pdf">Distributed Representations of Words and Phrases and their Compositionality</a> 中训练词向量的方法. 我们会实现 <code>Skip-gram</code> 模型，并且使用论文中 <code>noice contrastive sampling</code> 的目标函数。</p>
+<h1 id="implement-word2vec-with-pytorch">3. Implement Word2Vec with
+pytorch</h1>
+<h2 id="简介">3.1 简介</h2>
+<p>该文档中使用的训练数据可从如下方式下载：<a
+target="_blank" rel="noopener" href="https://www.aliyundrive.com/s/SVoAJqKvsME">Click Here</a>。</p>
+<p>在本节的代码中，尽可能尝试复现论文 <a
+target="_blank" rel="noopener" href="http://papers.nips.cc/paper/5021-distributed-representations-of-words-and-phrases-and-their-compositionality.pdf">Distributed
+Representations of Words and Phrases and their Compositionality</a>
+中训练词向量的方法. 我们会实现 <code>Skip-gram</code>
+模型，并且使用论文中 <code>noice contrastive sampling</code>
+的目标函数。</p>
 <p>这篇论文有很多模型实现的细节，这些细节对于词向量的好坏至关重要。虽然无法完全复现论文中的实验结果，主要是由于计算资源等各种细节原因，但是我们还是可以大致展示如何训练词向量。</p>
 <p>以下是没有实现的细节:</p>
 <ul>
 <li>subsampling：参考论文section 2.3</li>
 </ul>
-<p>本章节的代码主要借助 <a target="_blank" rel="noopener" href="https://colab.research.google.com/notebooks/intro.ipynb">Google colab</a> 平台进行实现。</p>
-<h2 id="3-2-Implementation"><a href="#3-2-Implementation" class="headerlink" title="3.2 Implementation"></a>3.2 Implementation</h2><h3 id="3-2-1-Platform-and-enviroment-setting"><a href="#3-2-1-Platform-and-enviroment-setting" class="headerlink" title="3.2.1 Platform and enviroment setting"></a>3.2.1 Platform and enviroment setting</h3><ul>
+<p>本章节的代码主要借助 <a
+target="_blank" rel="noopener" href="https://colab.research.google.com/notebooks/intro.ipynb">Google
+colab</a> 平台进行实现。</p>
+<h2 id="implementation">3.2 Implementation</h2>
+<h3 id="platform-and-enviroment-setting">3.2.1 Platform and enviroment
+setting</h3>
+<ul>
 <li><p>Mount google driver</p>
-<p>借助 <code>Google driver</code> 可以上传个人文件以及保存 <code>notebook</code>。</p>
+<p>借助 <code>Google driver</code> 可以上传个人文件以及保存
+<code>notebook</code>。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> google.colab <span class="keyword">import</span> drive</span><br><span class="line">drive.mount(<span class="string">&#x27;/content/drive&#x27;</span>)</span><br></pre></td></tr></table></figure>
 <p>Results:</p>
-<pre><code>Drive already mounted at /content/drive; to attempt to forcibly remount, call drive.mount(&quot;/content/drive&quot;, force_remount=True).
-</code></pre></li>
+<pre><code>Drive already mounted at /content/drive; to attempt to forcibly remount, call drive.mount(&quot;/content/drive&quot;, force_remount=True).</code></pre></li>
 <li><p>GPU Setting and information</p>
-<p>由于训练量较大，使用 <code>GPU</code> 进行训练词嵌入模型，<code>Colab</code> 可以免费使用 <code>GPU</code> 和 <code>TPU</code>。操作方式：$\rm{Edit \rightarrow Notebook settings \rightarrow Hardware accelerator \rightarrow GPU \rightarrow Save}$。</p>
+<p>由于训练量较大，使用 <code>GPU</code>
+进行训练词嵌入模型，<code>Colab</code> 可以免费使用 <code>GPU</code> 和
+<code>TPU</code>。操作方式：<span class="math inline">\rm{Edit
+\rightarrow Notebook settings \rightarrow Hardware accelerator
+\rightarrow GPU \rightarrow Save}</span>。</p>
 <p>查看装在的 <code>GPU</code> 信息。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">!nvidia-smi</span><br></pre></td></tr></table></figure>
 <p>Results:</p>
@@ -519,38 +583,50 @@ P(D=1 \mid w, c, \theta) &= \frac{1}{1+e^{\left(-v_{c}^{T} v_{w}\right)}} \\
 |        ID   ID                                                   Usage      |
 |=============================================================================|
 |  No running processes found                                                 |
-+-----------------------------------------------------------------------------+
-</code></pre></li>
++-----------------------------------------------------------------------------+</code></pre></li>
 </ul>
-<h3 id="3-2-2-Load-modules-and-procession"><a href="#3-2-2-Load-modules-and-procession" class="headerlink" title="3.2.2 Load modules and procession"></a>3.2.2 Load modules and procession</h3><ul>
+<h3 id="load-modules-and-procession">3.2.2 Load modules and
+procession</h3>
+<ul>
 <li><p>Load modules</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> torch</span><br><span class="line"><span class="keyword">import</span> torch.nn <span class="keyword">as</span> nn</span><br><span class="line"><span class="keyword">import</span> torch.nn.functional <span class="keyword">as</span> F</span><br><span class="line"><span class="keyword">import</span> torch.utils.data <span class="keyword">as</span> tud</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> collections <span class="keyword">import</span> Counter</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="keyword">import</span> random</span><br><span class="line"><span class="keyword">import</span> math</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> scipy</span><br><span class="line"><span class="keyword">import</span> sklearn</span><br><span class="line"><span class="keyword">from</span> sklearn.metrics.pairwise <span class="keyword">import</span> cosine_similarity</span><br><span class="line"></span><br><span class="line">USE_CUDA = torch.cuda.is_available()</span><br><span class="line"></span><br><span class="line">random.seed(<span class="number">1</span>)</span><br><span class="line">np.random.seed(<span class="number">1</span>)</span><br><span class="line">torch.manual_seed(<span class="number">1</span>)</span><br><span class="line"><span class="keyword">if</span> USE_CUDA:</span><br><span class="line">  torch.cuda.manual_seed(<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Seting hyper parameters</span></span><br><span class="line">K = <span class="number">100</span> <span class="comment"># number of negative samples</span></span><br><span class="line">C = <span class="number">3</span> <span class="comment"># context window</span></span><br><span class="line">NUM_EPOCHS = <span class="number">2</span> <span class="comment"># The number of epochs of training</span></span><br><span class="line">MAX_VOCAB_SIZE = <span class="number">30000</span> <span class="comment"># the vocabulary size</span></span><br><span class="line">BATCH_SIZE = <span class="number">128</span> <span class="comment"># the batch size</span></span><br><span class="line">LEARNING_RATE = <span class="number">0.2</span> <span class="comment"># the initial learning rate</span></span><br><span class="line">EMBEDDING_SIZE = <span class="number">100</span></span><br><span class="line"></span><br><span class="line">LOG_FILE = <span class="string">&quot;word-embedding.log&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">word_tokenize</span>(<span class="params">text</span>):</span></span><br><span class="line">  <span class="keyword">return</span> text.split()</span><br></pre></td></tr></table></figure>
-</li>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> torch</span><br><span class="line"><span class="keyword">import</span> torch.nn <span class="keyword">as</span> nn</span><br><span class="line"><span class="keyword">import</span> torch.nn.functional <span class="keyword">as</span> F</span><br><span class="line"><span class="keyword">import</span> torch.utils.data <span class="keyword">as</span> tud</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> collections <span class="keyword">import</span> Counter</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="keyword">import</span> random</span><br><span class="line"><span class="keyword">import</span> math</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> scipy</span><br><span class="line"><span class="keyword">import</span> sklearn</span><br><span class="line"><span class="keyword">from</span> sklearn.metrics.pairwise <span class="keyword">import</span> cosine_similarity</span><br><span class="line"></span><br><span class="line">USE_CUDA = torch.cuda.is_available()</span><br><span class="line"></span><br><span class="line">random.seed(<span class="number">1</span>)</span><br><span class="line">np.random.seed(<span class="number">1</span>)</span><br><span class="line">torch.manual_seed(<span class="number">1</span>)</span><br><span class="line"><span class="keyword">if</span> USE_CUDA:</span><br><span class="line">  torch.cuda.manual_seed(<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Seting hyper parameters</span></span><br><span class="line">K = <span class="number">100</span> <span class="comment"># number of negative samples</span></span><br><span class="line">C = <span class="number">3</span> <span class="comment"># context window</span></span><br><span class="line">NUM_EPOCHS = <span class="number">2</span> <span class="comment"># The number of epochs of training</span></span><br><span class="line">MAX_VOCAB_SIZE = <span class="number">30000</span> <span class="comment"># the vocabulary size</span></span><br><span class="line">BATCH_SIZE = <span class="number">128</span> <span class="comment"># the batch size</span></span><br><span class="line">LEARNING_RATE = <span class="number">0.2</span> <span class="comment"># the initial learning rate</span></span><br><span class="line">EMBEDDING_SIZE = <span class="number">100</span></span><br><span class="line"></span><br><span class="line">LOG_FILE = <span class="string">&quot;word-embedding.log&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">word_tokenize</span>(<span class="params">text</span>):</span></span><br><span class="line">  <span class="keyword">return</span> text.split()</span><br></pre></td></tr></table></figure></li>
 <li><p>Load data and count data</p>
 <ul>
-<li>从文本文件中读取所有的文字，通过这些文本创建一个 <code>vocabulary</code></li>
-<li>由于单词数量可能太大，我们只选取最常见的 <code>MAX_VOCAB_SIZE</code> 个单词</li>
+<li>从文本文件中读取所有的文字，通过这些文本创建一个
+<code>vocabulary</code></li>
+<li>由于单词数量可能太大，我们只选取最常见的 <code>MAX_VOCAB_SIZE</code>
+个单词</li>
 <li>我们添加一个 <code>UNK</code> 单词表示所有不常见的单词</li>
-<li>我们需要记录单词到 <code>index</code> 的 <code>mapping</code>，以及 <code>index</code> 到单词的 <code>mapping</code>，单词的 <code>count</code>，单词的 <code>(normalized) frequency</code>，以及单词总数。</li>
+<li>我们需要记录单词到 <code>index</code> 的 <code>mapping</code>，以及
+<code>index</code> 到单词的 <code>mapping</code>，单词的
+<code>count</code>，单词的
+<code>(normalized) frequency</code>，以及单词总数。</li>
 </ul>
 <p>加载数据和计算词频：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&#x27;/content/drive/MyDrive/Word_embedding/text8.train.txt&#x27;</span>, <span class="string">&#x27;r&#x27;</span>) <span class="keyword">as</span> fin:</span><br><span class="line">  text = fin.read()</span><br><span class="line"></span><br><span class="line">text = text.split()</span><br><span class="line">vocab = <span class="built_in">dict</span>(Counter(text).most_common(MAX_VOCAB_SIZE - <span class="number">1</span>))</span><br><span class="line">vocab[<span class="string">&#x27;&lt;unk&gt;&#x27;</span>] = <span class="built_in">len</span>(text) - np.<span class="built_in">sum</span>(<span class="built_in">list</span>(vocab.values()))</span><br><span class="line"></span><br><span class="line">idx_to_word = [word <span class="keyword">for</span> word <span class="keyword">in</span> vocab.keys()]</span><br><span class="line">word_to_idx = &#123;word:i <span class="keyword">for</span> i, word <span class="keyword">in</span> <span class="built_in">enumerate</span>(idx_to_word)&#125;</span><br><span class="line"></span><br><span class="line">word_counts = np.array([count <span class="keyword">for</span> count <span class="keyword">in</span> vocab.values()], dtype = np.float32)</span><br><span class="line">word_freqs = word_counts / np.<span class="built_in">sum</span>(word_counts)</span><br><span class="line">word_freqs = word_freqs ** (<span class="number">3.</span>/<span class="number">4.</span>)</span><br><span class="line">word_freqs = word_counts / np.<span class="built_in">sum</span>(word_counts)  <span class="comment"># 用来做 negative sampling</span></span><br><span class="line">VOCAB_SIZE = <span class="built_in">len</span>(idx_to_word)</span><br></pre></td></tr></table></figure>
-<p><strong>Notes:</strong> 本人将项目文件存储在谷歌云盘的 <code>/content/drive/MyDrive/Word_embedding/</code> 目录下，如想复现改代码，应将该项目文件夹改为个人文件夹目录，下同。</p>
-</li>
+<p><strong>Notes:</strong> 本人将项目文件存储在谷歌云盘的
+<code>/content/drive/MyDrive/Word_embedding/</code>
+目录下，如想复现改代码，应将该项目文件夹改为个人文件夹目录，下同。</p></li>
 <li><p>Create Dateset and Dataloader</p>
 <p>一个 <code>dataloader</code> 需要以下内容：</p>
 <ul>
-<li>把所有text编码成数字，然后用 <code>subsampling</code> 预处理这些文字。</li>
+<li>把所有text编码成数字，然后用 <code>subsampling</code>
+预处理这些文字。</li>
 <li>保存 vocabulary，单词 count，normalized word frequency</li>
 <li>每个 iteration sample 一个中心词</li>
 <li>根据当前的中心词返回 <code>context</code> 单词</li>
 <li>根据中心词 sample 一些 negative 单词</li>
 <li>返回单词的 counts</li>
 </ul>
-<p>有了 dataloader 之后，我们可以轻松随机打乱整个数据集，拿到一个 batch 的数据等等。这里有一个好的 tutorial 介绍如何使用 <a target="_blank" rel="noopener" href="https://pytorch.org/tutorials/beginner/data_loading_tutorial.html">PyTorch dataloader</a>.<br>为了使用 dataloader，我们需要定义以下两个 function:</p>
+<p>有了 dataloader 之后，我们可以轻松随机打乱整个数据集，拿到一个 batch
+的数据等等。这里有一个好的 tutorial 介绍如何使用 <a
+target="_blank" rel="noopener" href="https://pytorch.org/tutorials/beginner/data_loading_tutorial.html">PyTorch
+dataloader</a>. 为了使用 dataloader，我们需要定义以下两个 function:</p>
 <ul>
-<li><code>__len__</code> $\rm Function$ 需要返回整个数据集中有多少个 <code>item</code></li>
-<li><code>__get__</code> 根据给定的 <code>index</code> 返回一个 <code>item</code></li>
+<li><code>__len__</code> <span class="math inline">\rm Function</span>
+需要返回整个数据集中有多少个 <code>item</code></li>
+<li><code>__get__</code> 根据给定的 <code>index</code> 返回一个
+<code>item</code></li>
 </ul>
 <p>先创建 <code>Dataset</code> 类：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">WordEmbeddingDataset</span>(<span class="params">tud.Dataset</span>):</span>    </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self, text, word_to_idx, idx_to_word, word_freqs, word_counts</span>):</span>        </span><br><span class="line">        <span class="string">&#x27;&#x27;&#x27; text: a list of words, all text from the training dataset            </span></span><br><span class="line"><span class="string">        	word_to_idx: the dictionary from word to idx            </span></span><br><span class="line"><span class="string">        	idx_to_word: idx to word mapping            </span></span><br><span class="line"><span class="string">        	word_freq: the frequency of each word            </span></span><br><span class="line"><span class="string">        	word_counts: the word counts        &#x27;&#x27;&#x27;</span>        </span><br><span class="line">        <span class="built_in">super</span>(WordEmbeddingDataset, self).__init__()        </span><br><span class="line">        self.text_encoded = [word_to_idx.get(t, VOCAB_SIZE-<span class="number">1</span>) <span class="keyword">for</span> t <span class="keyword">in</span> text]        </span><br><span class="line">        self.text_encoded = torch.Tensor(self.text_encoded).long()        </span><br><span class="line">        self.word_to_idx = word_to_idx        </span><br><span class="line">        self.idx_to_word = idx_to_word        </span><br><span class="line">        self.word_freqs = torch.Tensor(word_freqs)        </span><br><span class="line">        self.word_counts = torch.Tensor(word_counts)    </span><br><span class="line">        </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__len__</span>(<span class="params">self</span>):</span>        </span><br><span class="line">        <span class="string">&#x27;&#x27;&#x27; 返回整个数据集（所有单词）的长度        &#x27;&#x27;&#x27;</span>        </span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">len</span>(self.text_encoded)    </span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__getitem__</span>(<span class="params">self, idx</span>):</span>        </span><br><span class="line">        <span class="string">&#x27;&#x27;&#x27; 这个function返回以下数据用于训练            </span></span><br><span class="line"><span class="string">        	- 中心词            </span></span><br><span class="line"><span class="string">        	- 这个单词附近的(positive)单词            </span></span><br><span class="line"><span class="string">        	- 随机采样的K个单词作为negative sample        </span></span><br><span class="line"><span class="string">        &#x27;&#x27;&#x27;</span>        </span><br><span class="line">        center_word = self.text_encoded[idx]        </span><br><span class="line">        pos_indices = <span class="built_in">list</span>(<span class="built_in">range</span>(idx-C, idx)) + <span class="built_in">list</span>(<span class="built_in">range</span>(idx+<span class="number">1</span>, idx+C+<span class="number">1</span>)) <span class="comment"># window 内单词的 index        </span></span><br><span class="line">        pos_indices = [i%<span class="built_in">len</span>(self.text_encoded) <span class="keyword">for</span> i <span class="keyword">in</span> pos_indices] <span class="comment"># 取余，防止超出 text 长度，将文本闭环 -1%10 = 9        </span></span><br><span class="line">        pos_words = self.text_encoded[pos_indices]  <span class="comment"># 周围单词        </span></span><br><span class="line">        neg_words = torch.multinomial(self.word_freqs, K * pos_words.shape[<span class="number">0</span>], <span class="literal">True</span>) <span class="comment"># 负采样单词        </span></span><br><span class="line">        <span class="keyword">return</span> center_word, pos_words, neg_words</span><br></pre></td></tr></table></figure>
@@ -1150,16 +1226,14 @@ tensor([[   32,    37,   276,  ..., 29999,    30,    17],
         ...,
         [ 2525,    13,    37,  ...,    33,  1831,    11],
         [    5,  7315,    34,  ...,   108,    23,   147],
-        [    0,     0, 15665,  ...,  6368,  1104, 19705]])
-</code></pre></li>
+        [    0,     0, 15665,  ...,  6368,  1104, 19705]])</code></pre></li>
 </ul>
-<h3 id="3-2-3-Define-Embedding-model"><a href="#3-2-3-Define-Embedding-model" class="headerlink" title="3.2.3 Define Embedding model"></a>3.2.3 Define Embedding model</h3><ul>
+<h3 id="define-embedding-model">3.2.3 Define Embedding model</h3>
+<ul>
 <li><p>创建 <code>Embedding</code> 类：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">EmbeddingModel</span>(<span class="params">nn.Module</span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self, vocab_size, embed_size</span>):</span></span><br><span class="line">        <span class="string">&#x27;&#x27;&#x27; 初始化输出和输出embedding</span></span><br><span class="line"><span class="string">        &#x27;&#x27;&#x27;</span></span><br><span class="line">        <span class="built_in">super</span>(EmbeddingModel, self).__init__()</span><br><span class="line">        self.vocab_size = vocab_size</span><br><span class="line">        self.embed_size = embed_size</span><br><span class="line"></span><br><span class="line">        initrange = <span class="number">0.5</span> / self.embed_size</span><br><span class="line">        self.out_embed = nn.Embedding(self.vocab_size, self.embed_size, sparse=<span class="literal">False</span>)</span><br><span class="line">        self.out_embed.weight.data.uniform_(-initrange, initrange)</span><br><span class="line"></span><br><span class="line">        self.in_embed = nn.Embedding(self.vocab_size, self.embed_size, sparse=<span class="literal">False</span>)</span><br><span class="line">        self.in_embed.weight.data.uniform_(-initrange, initrange)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">forward</span>(<span class="params">self, input_labels, pos_labels, neg_labels</span>):</span></span><br><span class="line">        <span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string">        input_labels: 中心词, [batch_size]</span></span><br><span class="line"><span class="string">        pos_labels: 中心词周围 context window 出现过的单词 [batch_size * (window_size * 2)]</span></span><br><span class="line"><span class="string">        neg_labelss: 中心词周围没有出现过的单词，从 negative sampling 得到 [batch_size, (window_size * 2 * K)]</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        return: loss, [batch_size]</span></span><br><span class="line"><span class="string">        &#x27;&#x27;&#x27;</span></span><br><span class="line"></span><br><span class="line">        batch_size = input_labels.size(<span class="number">0</span>)</span><br><span class="line"></span><br><span class="line">        input_embedding = self.in_embed(input_labels) <span class="comment"># B * embed_size, [batch_size, embed_size]</span></span><br><span class="line">        pos_embedding = self.out_embed(pos_labels) <span class="comment"># B * (2*C) * embed_size, [batch_size, embed_size]</span></span><br><span class="line">        neg_embedding = self.out_embed(neg_labels) <span class="comment"># B * (2*C * K) * embed_size, [batch_size, (window_size * 2 * k), embed_size]</span></span><br><span class="line"></span><br><span class="line">        <span class="comment"># input_embedding = input_embedding.unsqueeze(2) # [batch_size, embed_size, 1]</span></span><br><span class="line">        log_pos = torch.bmm(pos_embedding, input_embedding.unsqueeze(<span class="number">2</span>)).squeeze() <span class="comment"># B * (2*C), [batch_size, (window_size * 2)]</span></span><br><span class="line">        log_neg = torch.bmm(neg_embedding, -input_embedding.unsqueeze(<span class="number">2</span>)).squeeze() <span class="comment"># B * (2*C*K), [batch_size, (window_size * 2 * k)]</span></span><br><span class="line"></span><br><span class="line">        log_pos = F.logsigmoid(log_pos).<span class="built_in">sum</span>(<span class="number">1</span>)</span><br><span class="line">        log_neg = F.logsigmoid(log_neg).<span class="built_in">sum</span>(<span class="number">1</span>) <span class="comment"># batch_size</span></span><br><span class="line"></span><br><span class="line">        loss = log_pos + log_neg</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> -loss</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">input_embeddings</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="keyword">return</span> self.in_embed.weight.data.cpu().numpy()</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-</li>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">EmbeddingModel</span>(<span class="params">nn.Module</span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self, vocab_size, embed_size</span>):</span></span><br><span class="line">        <span class="string">&#x27;&#x27;&#x27; 初始化输出和输出embedding</span></span><br><span class="line"><span class="string">        &#x27;&#x27;&#x27;</span></span><br><span class="line">        <span class="built_in">super</span>(EmbeddingModel, self).__init__()</span><br><span class="line">        self.vocab_size = vocab_size</span><br><span class="line">        self.embed_size = embed_size</span><br><span class="line"></span><br><span class="line">        initrange = <span class="number">0.5</span> / self.embed_size</span><br><span class="line">        self.out_embed = nn.Embedding(self.vocab_size, self.embed_size, sparse=<span class="literal">False</span>)</span><br><span class="line">        self.out_embed.weight.data.uniform_(-initrange, initrange)</span><br><span class="line"></span><br><span class="line">        self.in_embed = nn.Embedding(self.vocab_size, self.embed_size, sparse=<span class="literal">False</span>)</span><br><span class="line">        self.in_embed.weight.data.uniform_(-initrange, initrange)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">forward</span>(<span class="params">self, input_labels, pos_labels, neg_labels</span>):</span></span><br><span class="line">        <span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string">        input_labels: 中心词, [batch_size]</span></span><br><span class="line"><span class="string">        pos_labels: 中心词周围 context window 出现过的单词 [batch_size * (window_size * 2)]</span></span><br><span class="line"><span class="string">        neg_labelss: 中心词周围没有出现过的单词，从 negative sampling 得到 [batch_size, (window_size * 2 * K)]</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        return: loss, [batch_size]</span></span><br><span class="line"><span class="string">        &#x27;&#x27;&#x27;</span></span><br><span class="line"></span><br><span class="line">        batch_size = input_labels.size(<span class="number">0</span>)</span><br><span class="line"></span><br><span class="line">        input_embedding = self.in_embed(input_labels) <span class="comment"># B * embed_size, [batch_size, embed_size]</span></span><br><span class="line">        pos_embedding = self.out_embed(pos_labels) <span class="comment"># B * (2*C) * embed_size, [batch_size, embed_size]</span></span><br><span class="line">        neg_embedding = self.out_embed(neg_labels) <span class="comment"># B * (2*C * K) * embed_size, [batch_size, (window_size * 2 * k), embed_size]</span></span><br><span class="line"></span><br><span class="line">        <span class="comment"># input_embedding = input_embedding.unsqueeze(2) # [batch_size, embed_size, 1]</span></span><br><span class="line">        log_pos = torch.bmm(pos_embedding, input_embedding.unsqueeze(<span class="number">2</span>)).squeeze() <span class="comment"># B * (2*C), [batch_size, (window_size * 2)]</span></span><br><span class="line">        log_neg = torch.bmm(neg_embedding, -input_embedding.unsqueeze(<span class="number">2</span>)).squeeze() <span class="comment"># B * (2*C*K), [batch_size, (window_size * 2 * k)]</span></span><br><span class="line"></span><br><span class="line">        log_pos = F.logsigmoid(log_pos).<span class="built_in">sum</span>(<span class="number">1</span>)</span><br><span class="line">        log_neg = F.logsigmoid(log_neg).<span class="built_in">sum</span>(<span class="number">1</span>) <span class="comment"># batch_size</span></span><br><span class="line"></span><br><span class="line">        loss = log_pos + log_neg</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> -loss</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">input_embeddings</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="keyword">return</span> self.in_embed.weight.data.cpu().numpy()</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
 <li><p>实例化模型并移动到 <code>GPU</code></p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">model = EmbeddingModel(VOCAB_SIZE, EMBEDDING_SIZE)</span><br><span class="line"><span class="keyword">if</span> USE_CUDA:  </span><br><span class="line">  model.cuda()</span><br></pre></td></tr></table></figure>
-</li>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">model = EmbeddingModel(VOCAB_SIZE, EMBEDDING_SIZE)</span><br><span class="line"><span class="keyword">if</span> USE_CUDA:  </span><br><span class="line">  model.cuda()</span><br></pre></td></tr></table></figure></li>
 <li><p>模型训练</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">optimizer = torch.optim.SGD(model.parameters(), lr = LEARNING_RATE)</span><br><span class="line"><span class="keyword">for</span> e <span class="keyword">in</span> <span class="built_in">range</span>(NUM_EPOCHS):</span><br><span class="line">  <span class="keyword">for</span> i, (input_labels, pos_labels, neg_labels) <span class="keyword">in</span> <span class="built_in">enumerate</span>(dataloader):</span><br><span class="line">    input_labels = input_labels.long()</span><br><span class="line">    pos_labels = pos_labels.long()</span><br><span class="line">    neg_labels = neg_labels.long()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> USE_CUDA:</span><br><span class="line">      input_labels = input_labels.cuda()</span><br><span class="line">      pos_labels = pos_labels.cuda()</span><br><span class="line">      neg_labels = neg_labels.cuda()</span><br><span class="line"></span><br><span class="line">    optimizer.zero_grad()</span><br><span class="line">    loss = model(input_labels, pos_labels, neg_labels).mean()</span><br><span class="line">    loss.backward()</span><br><span class="line">    optimizer.step()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> i%<span class="number">10000</span> == <span class="number">0</span>:</span><br><span class="line">      print(<span class="string">&#x27;epoch&#x27;</span>, e, <span class="string">&#x27;iteration&#x27;</span>, i, loss.cpu().item())</span><br></pre></td></tr></table></figure>
 <pre><code>epoch 0 iteration 0 420.04754638671875
@@ -1185,43 +1259,43 @@ epoch 1 iteration 70000 32.37131881713867
 epoch 1 iteration 80000 31.90352439880371
 epoch 1 iteration 90000 31.634069442749023
 epoch 1 iteration 100000 31.78694725036621
-epoch 1 iteration 110000 32.359596252441406
-</code></pre></li>
+epoch 1 iteration 110000 32.359596252441406</code></pre></li>
 <li><p>保存参数</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">embedding_weights = model.input_embeddings()np.save(<span class="string">&quot;/content/drive/MyDrive/Word_embedding/embedding-&#123;&#125;&quot;</span>.<span class="built_in">format</span>(EMBEDDING_SIZE), embedding_weights)</span><br><span class="line">torch.save(model.state_dict(), <span class="string">&quot;/content/drive/MyDrive/Word_embedding/embedding-&#123;&#125;.th&quot;</span>.<span class="built_in">format</span>(EMBEDDING_SIZE))</span><br></pre></td></tr></table></figure>
-</li>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">embedding_weights = model.input_embeddings()np.save(<span class="string">&quot;/content/drive/MyDrive/Word_embedding/embedding-&#123;&#125;&quot;</span>.<span class="built_in">format</span>(EMBEDDING_SIZE), embedding_weights)</span><br><span class="line">torch.save(model.state_dict(), <span class="string">&quot;/content/drive/MyDrive/Word_embedding/embedding-&#123;&#125;.th&quot;</span>.<span class="built_in">format</span>(EMBEDDING_SIZE))</span><br></pre></td></tr></table></figure></li>
 <li><p>加载保存的模型</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">model.load_state_dict(torch.load(<span class="string">&quot;/content/drive/MyDrive/Word_embedding/embedding-&#123;&#125;.th&quot;</span>.<span class="built_in">format</span>(EMBEDDING_SIZE)))</span><br></pre></td></tr></table></figure>
-</li>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">model.load_state_dict(torch.load(<span class="string">&quot;/content/drive/MyDrive/Word_embedding/embedding-&#123;&#125;.th&quot;</span>.<span class="built_in">format</span>(EMBEDDING_SIZE)))</span><br></pre></td></tr></table></figure></li>
 <li><p>模型评估</p>
 <p>下面是评估模型的代码，以及训练模型的代码</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">evaluate</span>(<span class="params">filename, embedding_weights</span>):</span> </span><br><span class="line">    <span class="keyword">if</span> filename.endswith(<span class="string">&quot;.csv&quot;</span>):</span><br><span class="line">        data = pd.read_csv(filename, sep=<span class="string">&quot;,&quot;</span>)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        data = pd.read_csv(filename, sep=<span class="string">&quot;\t&quot;</span>)</span><br><span class="line">    human_similarity = []</span><br><span class="line">    model_similarity = []</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> data.iloc[:, <span class="number">0</span>:<span class="number">2</span>].index:</span><br><span class="line">        word1, word2 = data.iloc[i, <span class="number">0</span>], data.iloc[i, <span class="number">1</span>]</span><br><span class="line">        <span class="keyword">if</span> word1 <span class="keyword">not</span> <span class="keyword">in</span> word_to_idx <span class="keyword">or</span> word2 <span class="keyword">not</span> <span class="keyword">in</span> word_to_idx:</span><br><span class="line">            <span class="keyword">continue</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            word1_idx, word2_idx = word_to_idx[word1], word_to_idx[word2]</span><br><span class="line">            word1_embed, word2_embed = embedding_weights[[word1_idx]], embedding_weights[[word2_idx]]</span><br><span class="line">            model_similarity.append(<span class="built_in">float</span>(sklearn.metrics.pairwise.cosine_similarity(word1_embed, word2_embed)))</span><br><span class="line">            human_similarity.append(<span class="built_in">float</span>(data.iloc[i, <span class="number">2</span>]))</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> scipy.stats.spearmanr(human_similarity, model_similarity)<span class="comment"># , model_similarity</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">find_nearest</span>(<span class="params">word</span>):</span></span><br><span class="line">    index = word_to_idx[word]</span><br><span class="line">    embedding = embedding_weights[index]</span><br><span class="line">    cos_dis = np.array([scipy.spatial.distance.cosine(e, embedding) <span class="keyword">for</span> e <span class="keyword">in</span> embedding_weights])</span><br><span class="line">    <span class="keyword">return</span> [idx_to_word[i] <span class="keyword">for</span> i <span class="keyword">in</span> cos_dis.argsort()[:<span class="number">10</span>]]</span><br></pre></td></tr></table></figure>
-</li>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">evaluate</span>(<span class="params">filename, embedding_weights</span>):</span> </span><br><span class="line">    <span class="keyword">if</span> filename.endswith(<span class="string">&quot;.csv&quot;</span>):</span><br><span class="line">        data = pd.read_csv(filename, sep=<span class="string">&quot;,&quot;</span>)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        data = pd.read_csv(filename, sep=<span class="string">&quot;\t&quot;</span>)</span><br><span class="line">    human_similarity = []</span><br><span class="line">    model_similarity = []</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> data.iloc[:, <span class="number">0</span>:<span class="number">2</span>].index:</span><br><span class="line">        word1, word2 = data.iloc[i, <span class="number">0</span>], data.iloc[i, <span class="number">1</span>]</span><br><span class="line">        <span class="keyword">if</span> word1 <span class="keyword">not</span> <span class="keyword">in</span> word_to_idx <span class="keyword">or</span> word2 <span class="keyword">not</span> <span class="keyword">in</span> word_to_idx:</span><br><span class="line">            <span class="keyword">continue</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            word1_idx, word2_idx = word_to_idx[word1], word_to_idx[word2]</span><br><span class="line">            word1_embed, word2_embed = embedding_weights[[word1_idx]], embedding_weights[[word2_idx]]</span><br><span class="line">            model_similarity.append(<span class="built_in">float</span>(sklearn.metrics.pairwise.cosine_similarity(word1_embed, word2_embed)))</span><br><span class="line">            human_similarity.append(<span class="built_in">float</span>(data.iloc[i, <span class="number">2</span>]))</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> scipy.stats.spearmanr(human_similarity, model_similarity)<span class="comment"># , model_similarity</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">find_nearest</span>(<span class="params">word</span>):</span></span><br><span class="line">    index = word_to_idx[word]</span><br><span class="line">    embedding = embedding_weights[index]</span><br><span class="line">    cos_dis = np.array([scipy.spatial.distance.cosine(e, embedding) <span class="keyword">for</span> e <span class="keyword">in</span> embedding_weights])</span><br><span class="line">    <span class="keyword">return</span> [idx_to_word[i] <span class="keyword">for</span> i <span class="keyword">in</span> cos_dis.argsort()[:<span class="number">10</span>]]</span><br></pre></td></tr></table></figure></li>
 <li><p>训练模型步骤：</p>
 <ul>
 <li>模型一般需要训练若干个 <code>epoch</code></li>
-<li>每个 <code>epoch</code> 我们都把所有的数据分成若干个 <code>batch</code></li>
+<li>每个 <code>epoch</code> 我们都把所有的数据分成若干个
+<code>batch</code></li>
 <li>把每个 <code>batch</code> 的输入和输出都包装成 cuda tensor</li>
 <li>forward pass，通过输入的句子预测每个单词的下一个单词</li>
 <li>用模型的预测和正确的下一个单词计算 cross entropy loss</li>
 <li>清空模型当前 <code>gradient</code></li>
 <li>backward pass</li>
 <li>更新模型参数</li>
-<li>每隔一定的 <code>iteration</code> 输出模型在当前 <code>iteration</code> 的 <code>loss，以及在验证数据集上做模型的评估</code></li>
+<li>每隔一定的 <code>iteration</code> 输出模型在当前
+<code>iteration</code> 的
+<code>loss，以及在验证数据集上做模型的评估</code></li>
+</ul></li>
 </ul>
-</li>
-</ul>
-<h3 id="3-2-4-在测试集上进行模型评估"><a href="#3-2-4-在测试集上进行模型评估" class="headerlink" title="3.2.4 在测试集上进行模型评估"></a>3.2.4 在测试集上进行模型评估</h3><p>本例中，使用 MEN 和 Simplex-999 数据集进行样本外评估</p>
+<h3 id="在测试集上进行模型评估">3.2.4 在测试集上进行模型评估</h3>
+<p>本例中，使用 MEN 和 Simplex-999 数据集进行样本外评估</p>
 <ul>
 <li><p>加载数据和评估</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">embedding_weights = model.input_embeddings()</span><br><span class="line">print(<span class="string">&quot;simlex-999&quot;</span>, evaluate(<span class="string">&quot;/content/drive/MyDrive/Word_embedding/simlex-999.txt&quot;</span>, embedding_weights))</span><br><span class="line">print(<span class="string">&quot;men&quot;</span>, evaluate(<span class="string">&quot;/content/drive/MyDrive/Word_embedding/men.txt&quot;</span>, embedding_weights))</span><br><span class="line">print(<span class="string">&quot;wordsim353&quot;</span>, evaluate(<span class="string">&quot;/content/drive/MyDrive/Word_embedding/wordsim353.csv&quot;</span>, embedding_weights))</span><br></pre></td></tr></table></figure>
 <p>Results:</p>
 <pre><code>simlex-999 SpearmanrResult(correlation=0.16835319824603753, pvalue=1.6908393994875427e-07)
 men SpearmanrResult(correlation=0.18093374889038655, pvalue=1.9329614120922215e-20)
-wordsim353 SpearmanrResult(correlation=0.28416412711604, pvalue=2.440437723067791e-07)
-</code></pre></li>
+wordsim353 SpearmanrResult(correlation=0.28416412711604, pvalue=2.440437723067791e-07)</code></pre></li>
 </ul>
-<h3 id="3-2-5-Look-for-nearest-neighbors"><a href="#3-2-5-Look-for-nearest-neighbors" class="headerlink" title="3.2.5 Look for nearest neighbors"></a>3.2.5 Look for nearest neighbors</h3><ul>
+<h3 id="look-for-nearest-neighbors">3.2.5 Look for nearest
+neighbors</h3>
+<ul>
 <li><p>相似度分析</p>
 <p>查找与给定单词最相关的词：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> word <span class="keyword">in</span> [<span class="string">&quot;good&quot;</span>, <span class="string">&quot;fresh&quot;</span>, <span class="string">&quot;monster&quot;</span>, <span class="string">&quot;green&quot;</span>, <span class="string">&quot;like&quot;</span>, <span class="string">&quot;america&quot;</span>, <span class="string">&quot;chicago&quot;</span>, <span class="string">&quot;work&quot;</span>, <span class="string">&quot;computer&quot;</span>, <span class="string">&quot;language&quot;</span>]:</span><br><span class="line">    print(word, find_nearest(word))</span><br></pre></td></tr></table></figure>
@@ -1234,10 +1308,10 @@ america [&#39;america&#39;, &#39;africa&#39;, &#39;korea&#39;, &#39;india&#39;, 
 chicago [&#39;chicago&#39;, &#39;boston&#39;, &#39;texas&#39;, &#39;london&#39;, &#39;illinois&#39;, &#39;berkeley&#39;, &#39;florida&#39;, &#39;massachusetts&#39;, &#39;indiana&#39;, &#39;austin&#39;]
 work [&#39;work&#39;, &#39;writing&#39;, &#39;job&#39;, &#39;marx&#39;, &#39;recording&#39;, &#39;writings&#39;, &#39;speech&#39;, &#39;vision&#39;, &#39;label&#39;, &#39;ideas&#39;]
 computer [&#39;computer&#39;, &#39;digital&#39;, &#39;software&#39;, &#39;audio&#39;, &#39;electronic&#39;, &#39;video&#39;, &#39;hardware&#39;, &#39;computers&#39;, &#39;graphics&#39;, &#39;programs&#39;]
-language [&#39;language&#39;, &#39;languages&#39;, &#39;alphabet&#39;, &#39;arabic&#39;, &#39;spoken&#39;, &#39;programming&#39;, &#39;grammar&#39;, &#39;pronunciation&#39;, &#39;dialects&#39;, &#39;dialect&#39;]
-</code></pre></li>
+language [&#39;language&#39;, &#39;languages&#39;, &#39;alphabet&#39;, &#39;arabic&#39;, &#39;spoken&#39;, &#39;programming&#39;, &#39;grammar&#39;, &#39;pronunciation&#39;, &#39;dialects&#39;, &#39;dialect&#39;]</code></pre></li>
 </ul>
-<h3 id="3-2-6-单词之间的关系"><a href="#3-2-6-单词之间的关系" class="headerlink" title="3.2.6 单词之间的关系"></a>3.2.6 单词之间的关系</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">man_idx = word_to_idx[<span class="string">&quot;man&quot;</span>]</span><br><span class="line">king_idx = word_to_idx[<span class="string">&quot;king&quot;</span>]</span><br><span class="line">woman_idx = word_to_idx[<span class="string">&quot;woman&quot;</span>]</span><br><span class="line">embedding = embedding_weights[woman_idx] - embedding_weights[man_idx] + embedding_weights[king_idx]</span><br><span class="line">cos_dis = np.array([scipy.spatial.distance.cosine(e, embedding) <span class="keyword">for</span> e <span class="keyword">in</span> embedding_weights])</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> cos_dis.argsort()[:<span class="number">20</span>]:</span><br><span class="line">    print(idx_to_word[i])</span><br></pre></td></tr></table></figure>
+<h3 id="单词之间的关系">3.2.6 单词之间的关系</h3>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">man_idx = word_to_idx[<span class="string">&quot;man&quot;</span>]</span><br><span class="line">king_idx = word_to_idx[<span class="string">&quot;king&quot;</span>]</span><br><span class="line">woman_idx = word_to_idx[<span class="string">&quot;woman&quot;</span>]</span><br><span class="line">embedding = embedding_weights[woman_idx] - embedding_weights[man_idx] + embedding_weights[king_idx]</span><br><span class="line">cos_dis = np.array([scipy.spatial.distance.cosine(e, embedding) <span class="keyword">for</span> e <span class="keyword">in</span> embedding_weights])</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> cos_dis.argsort()[:<span class="number">20</span>]:</span><br><span class="line">    print(idx_to_word[i])</span><br></pre></td></tr></table></figure>
 <pre><code>king
 henry
 charles
@@ -1257,8 +1331,9 @@ mary
 william
 francis
 albert
-joseph
-</code></pre><p>理想的效果的是得到的结果是 <code>queen</code> 的词向量，可以发现出现在第四位，勉强能捕捉到这一信息，但精度还有待提高，这跟训练的次数和语料库大小有关。</p>
+joseph</code></pre>
+<p>理想的效果的是得到的结果是 <code>queen</code>
+的词向量，可以发现出现在第四位，勉强能捕捉到这一信息，但精度还有待提高，这跟训练的次数和语料库大小有关。</p>
 
     </div>
 
@@ -1377,7 +1452,12 @@ joseph
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-Study-goals"><span class="nav-text">1. Study goals</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-Word-vector"><span class="nav-text">2. Word vector</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1-Discrete-representation"><span class="nav-text">2.1 Discrete representation</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-1-One-hot"><span class="nav-text">2.1.1 One-hot</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-2-Bag-of-Words"><span class="nav-text">2.2.2 Bag of Words</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-3-Bi-gram-and-N-gram"><span class="nav-text">2.2.3 Bi-gram and N-gram</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-3-Distributed-representation"><span class="nav-text">2.3 Distributed representation</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-1-Preface"><span class="nav-text">2.3.1 Preface</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-2-Word2Vec-Skip-Gram-model"><span class="nav-text">2.3.2 Word2Vec: Skip-Gram model</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-3-Word-embendding-visualization"><span class="nav-text">2.3.3 Word embendding visualization</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-Implement-Word2Vec-with-pytorch"><span class="nav-text">3. Implement Word2Vec with pytorch</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#3-1-%E7%AE%80%E4%BB%8B"><span class="nav-text">3.1 简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-2-Implementation"><span class="nav-text">3.2 Implementation</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-1-Platform-and-enviroment-setting"><span class="nav-text">3.2.1 Platform and enviroment setting</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-2-Load-modules-and-procession"><span class="nav-text">3.2.2 Load modules and procession</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-3-Define-Embedding-model"><span class="nav-text">3.2.3 Define Embedding model</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-4-%E5%9C%A8%E6%B5%8B%E8%AF%95%E9%9B%86%E4%B8%8A%E8%BF%9B%E8%A1%8C%E6%A8%A1%E5%9E%8B%E8%AF%84%E4%BC%B0"><span class="nav-text">3.2.4 在测试集上进行模型评估</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-5-Look-for-nearest-neighbors"><span class="nav-text">3.2.5 Look for nearest neighbors</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-6-%E5%8D%95%E8%AF%8D%E4%B9%8B%E9%97%B4%E7%9A%84%E5%85%B3%E7%B3%BB"><span class="nav-text">3.2.6 单词之间的关系</span></a></li></ol></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#study-goals"><span class="nav-text">1. Study goals</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#word-vector"><span class="nav-text">2. Word vector</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#discrete-representation"><span class="nav-text">2.1 Discrete representation</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#one-hot"><span class="nav-text">2.1.1 One-hot</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#bag-of-words"><span class="nav-text">2.2.2 Bag of Words</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#bi-gram-and-n-gram"><span class="nav-text">2.2.3 Bi-gram and N-gram</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#distributed-representation"><span class="nav-text">2.3 Distributed representation</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#preface"><span class="nav-text">2.3.1 Preface</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#word2vec-skip-gram-model"><span class="nav-text">2.3.2 Word2Vec: Skip-Gram model</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#word-embendding-visualization"><span class="nav-text">2.3.3 Word embendding
+visualization</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#implement-word2vec-with-pytorch"><span class="nav-text">3. Implement Word2Vec with
+pytorch</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AE%80%E4%BB%8B"><span class="nav-text">3.1 简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#implementation"><span class="nav-text">3.2 Implementation</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#platform-and-enviroment-setting"><span class="nav-text">3.2.1 Platform and enviroment
+setting</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#load-modules-and-procession"><span class="nav-text">3.2.2 Load modules and
+procession</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#define-embedding-model"><span class="nav-text">3.2.3 Define Embedding model</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9C%A8%E6%B5%8B%E8%AF%95%E9%9B%86%E4%B8%8A%E8%BF%9B%E8%A1%8C%E6%A8%A1%E5%9E%8B%E8%AF%84%E4%BC%B0"><span class="nav-text">3.2.4 在测试集上进行模型评估</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#look-for-nearest-neighbors"><span class="nav-text">3.2.5 Look for nearest
+neighbors</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8D%95%E8%AF%8D%E4%B9%8B%E9%97%B4%E7%9A%84%E5%85%B3%E7%B3%BB"><span class="nav-text">3.2.6 单词之间的关系</span></a></li></ol></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 

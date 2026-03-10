@@ -24,22 +24,20 @@
     var CONFIG = {"hostname":"yangsuoly.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":true},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":true,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="Everything Claude Code 完整教程 项目仓库: affaan-m&#x2F;everything-claude-code   📝 前言在之前的教程中，我们介绍了 Claude Code 的基础配置。但在实际开发中，如何更高效地使用 Claude Code，如何让它更好地辅助我们的开发工作？Everything Claude Code 给出了一个完整的解决方案——它通过 13 个专业智能">
+  <meta name="description" content="Everything Claude Code 完整教程  项目仓库: affaan-m&#x2F;everything-claude-code   📝 前言 在之前的教程中，我们介绍了 Claude Code 的基础配置。但在实际开发中，如何更高效地使用 Claude Code，如何让它更好地辅助我们的开发工作？Everything Claude Code 给出了一个完整的解决方案——它通过 13 个专业">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Everything Claude Code 完整教程">
 <meta property="og:url" content="http://yangsuoly.com/2026/03/10/CC-Skills-01-everything-claude-code/index.html">
 <meta property="og:site_name" content="独孤诗人的学习驿站">
-<meta property="og:description" content="Everything Claude Code 完整教程 项目仓库: affaan-m&#x2F;everything-claude-code   📝 前言在之前的教程中，我们介绍了 Claude Code 的基础配置。但在实际开发中，如何更高效地使用 Claude Code，如何让它更好地辅助我们的开发工作？Everything Claude Code 给出了一个完整的解决方案——它通过 13 个专业智能">
+<meta property="og:description" content="Everything Claude Code 完整教程  项目仓库: affaan-m&#x2F;everything-claude-code   📝 前言 在之前的教程中，我们介绍了 Claude Code 的基础配置。但在实际开发中，如何更高效地使用 Claude Code，如何让它更好地辅助我们的开发工作？Everything Claude Code 给出了一个完整的解决方案——它通过 13 个专业">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://cdn.jsdelivr.net/gh/YangSuoly/Images/Claude-code/202603102142860.png">
 <meta property="article:published_time" content="2026-03-09T16:00:00.000Z">
 <meta property="article:modified_time" content="2026-03-10T14:50:07.332Z">
 <meta property="article:author" content="YangSu">
 <meta property="article:tag" content="Tool">
-<meta property="article:tag" content="Claude-Code-Skill">
 <meta property="article:tag" content="AI-Development">
+<meta property="article:tag" content="Claude-Code-Skill">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/YangSuoly/Images/Claude-code/202603102142860.png">
 
 <link rel="canonical" href="http://yangsuoly.com/2026/03/10/CC-Skills-01-everything-claude-code/">
 
@@ -289,355 +287,389 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h1 id="Everything-Claude-Code-完整教程"><a href="#Everything-Claude-Code-完整教程" class="headerlink" title="Everything Claude Code 完整教程"></a>Everything Claude Code 完整教程</h1><blockquote>
-<p><strong>项目仓库</strong>: <a target="_blank" rel="noopener" href="https://github.com/affaan-m/everything-claude-code">affaan-m/everything-claude-code</a></p>
+        <h1 id="everything-claude-code-完整教程">Everything Claude Code
+完整教程</h1>
+<blockquote>
+<p><strong>项目仓库</strong>: <a
+target="_blank" rel="noopener" href="https://github.com/affaan-m/everything-claude-code">affaan-m/everything-claude-code</a></p>
 </blockquote>
-<hr>
-<h2 id="📝-前言"><a href="#📝-前言" class="headerlink" title="📝 前言"></a>📝 前言</h2><p>在之前的教程中，我们介绍了 Claude Code 的基础配置。但在实际开发中，如何更高效地使用 Claude Code，如何让它更好地辅助我们的开发工作？<strong>Everything Claude Code</strong> 给出了一个完整的解决方案——它通过 <strong>13 个专业智能体</strong>、<strong>31 个命令</strong>、<strong>37+ 个技能包</strong> 和 <strong>23 个分层规则</strong>，将 Claude Code 打造成一个功能强大的开发工具链。</p>
-<p><img src="https://cdn.jsdelivr.net/gh/YangSuoly/Images/Claude-code/202603102142860.png" alt=""></p>
+<hr />
+<h2 id="前言">📝 前言</h2>
+<p>在之前的教程中，我们介绍了 Claude Code
+的基础配置。但在实际开发中，如何更高效地使用 Claude
+Code，如何让它更好地辅助我们的开发工作？<strong>Everything Claude
+Code</strong> 给出了一个完整的解决方案——它通过 <strong>13
+个专业智能体</strong>、<strong>31 个命令</strong>、<strong>37+
+个技能包</strong> 和 <strong>23 个分层规则</strong>，将 Claude Code
+打造成一个功能强大的开发工具链。</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/YangSuoly/Images/Claude-code/202603102142860.png" /></p>
 <a id="more"></a>
-<hr>
-<p>Everything Claude Code 是一个功能强大的 Claude Code 增强框架，提供了完整的开发工具链解决方案。它通过 <strong>13 个专业智能体</strong>、<strong>31 个命令</strong>、<strong>37+ 个技能包</strong> 和 <strong>23 个分层规则</strong>，覆盖了从规划、开发、测试到部署的完整开发生命周期。</p>
-<p><strong>核心特点</strong>：</p>
-<ul>
-<li>🤖 <strong>13 个专业智能体</strong>: 战略层、审查层、修复层、验证层、文档层分工明确</li>
-<li>⚡ <strong>31 个命令</strong> (使用 <code>/ecc:</code> 前缀): 高效的工作流快捷方式</li>
-<li>📚 <strong>37+ 个技能包</strong>: 从 TDD 工作流到安全审查，一应俱全</li>
-<li>📏 <strong>23 个分层规则</strong>: Common + Python + TypeScript + Go 特定规范</li>
-<li>🧪 <strong>完整 TDD 生态</strong>: RED→GREEN→REFACTOR 循环，强制 80%+ 覆盖率</li>
-<li>🤝 <strong>多模型协作</strong>: Codex (后端) + Gemini (前端) 并行工作</li>
-<li>📖 <strong>三层学习系统</strong>: Instinct → Skill → Agent 演进路径</li>
-</ul>
-<hr>
-<h2 id="二、核心架构"><a href="#二、核心架构" class="headerlink" title="二、核心架构"></a>二、核心架构</h2><h3 id="2-1-智能体系统-13-个"><a href="#2-1-智能体系统-13-个" class="headerlink" title="2.1 智能体系统 (13 个)"></a>2.1 智能体系统 (13 个)</h3><p>Everything Claude Code 采用分层专业化架构：</p>
+<hr />
+<p>Everything Claude Code 是一个功能强大的 Claude Code
+增强框架，提供了完整的开发工具链解决方案。它通过 <strong>13
+个专业智能体</strong>、<strong>31 个命令</strong>、<strong>37+
+个技能包</strong> 和 <strong>23
+个分层规则</strong>，覆盖了从规划、开发、测试到部署的完整开发生命周期。</p>
+<p><strong>核心特点</strong>： - 🤖 <strong>13 个专业智能体</strong>:
+战略层、审查层、修复层、验证层、文档层分工明确 - ⚡ <strong>31
+个命令</strong> (使用 <code>/ecc:</code> 前缀): 高效的工作流快捷方式 -
+📚 <strong>37+ 个技能包</strong>: 从 TDD 工作流到安全审查，一应俱全 - 📏
+<strong>23 个分层规则</strong>: Common + Python + TypeScript + Go
+特定规范 - 🧪 <strong>完整 TDD 生态</strong>: RED→GREEN→REFACTOR
+循环，强制 80%+ 覆盖率 - 🤝 <strong>多模型协作</strong>: Codex (后端) +
+Gemini (前端) 并行工作 - 📖 <strong>三层学习系统</strong>: Instinct →
+Skill → Agent 演进路径</p>
+<hr />
+<h2 id="二核心架构">二、核心架构</h2>
+<h3 id="智能体系统-13-个">2.1 智能体系统 (13 个)</h3>
+<p>Everything Claude Code 采用分层专业化架构：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">战略层 (Opus 模型 - 最高智能)</span><br><span class="line">├─ architect   - 系统架构设计、技术决策</span><br><span class="line">└─ planner     - 实施计划制定、任务分解</span><br><span class="line"></span><br><span class="line">审查层 (Sonnet 模型 - 高质量分析)</span><br><span class="line">├─ code-reviewer       - 通用代码审查 (React&#x2F;Next.js&#x2F;Node.js)</span><br><span class="line">├─ python-reviewer     - Python 专用 (PEP 8&#x2F;类型&#x2F;安全)</span><br><span class="line">├─ go-reviewer         - Go 专用 (惯用模式&#x2F;并发)</span><br><span class="line">├─ security-reviewer   - OWASP Top 10 安全审查</span><br><span class="line">└─ database-reviewer   - PostgreSQL 查询优化&#x2F;Schema 设计</span><br><span class="line"></span><br><span class="line">修复层 (Sonnet 模型)</span><br><span class="line">├─ build-error-resolver  - TypeScript 构建错误修复</span><br><span class="line">├─ go-build-resolver     - Go 编译错误修复</span><br><span class="line">└─ refactor-cleaner      - 死代码检测&#x2F;依赖清理</span><br><span class="line"></span><br><span class="line">验证层 (Sonnet 模型)</span><br><span class="line">├─ tdd-guide    - TDD 测试驱动开发 (80%+ 覆盖率)</span><br><span class="line">└─ e2e-runner   - E2E 端到端测试 (Playwright)</span><br><span class="line"></span><br><span class="line">文档层 (Haiku 模型 - 快速轻量)</span><br><span class="line">└─ doc-updater  - Codemap 生成&#x2F;文档同步</span><br></pre></td></tr></table></figure>
-<p><strong>智能体特点</strong>：</p>
-<ul>
-<li><strong>模型精准分配</strong>: Opus 处理复杂决策，Sonnet 处理分析，Haiku 处理简单任务</li>
-<li><strong>单一职责</strong>: 每个智能体专注于特定领域</li>
-<li><strong>并行执行</strong>: 独立智能体可并行工作，提升效率</li>
-</ul>
-<h3 id="2-2-命令系统-31-个，使用-ecc-前缀"><a href="#2-2-命令系统-31-个，使用-ecc-前缀" class="headerlink" title="2.2 命令系统 (31 个，使用 /ecc: 前缀)"></a>2.2 命令系统 (31 个，使用 <code>/ecc:</code> 前缀)</h3><p>所有命令使用 <code>/ecc:</code> 前缀，便于与其他框架（如 SuperClaude 的 <code>/sc:</code>）区分：</p>
-<h4 id="核心工作流-6个"><a href="#核心工作流-6个" class="headerlink" title="核心工作流 (6个)"></a>核心工作流 (6个)</h4><div class="table-container">
+<p><strong>智能体特点</strong>： - <strong>模型精准分配</strong>: Opus
+处理复杂决策，Sonnet 处理分析，Haiku 处理简单任务 -
+<strong>单一职责</strong>: 每个智能体专注于特定领域 -
+<strong>并行执行</strong>: 独立智能体可并行工作，提升效率</p>
+<h3 id="命令系统-31-个使用-ecc-前缀">2.2 命令系统 (31 个，使用
+<code>/ecc:</code> 前缀)</h3>
+<p>所有命令使用 <code>/ecc:</code> 前缀，便于与其他框架（如 SuperClaude
+的 <code>/sc:</code>）区分：</p>
+<h4 id="核心工作流-6个">核心工作流 (6个)</h4>
 <table>
 <thead>
-<tr>
+<tr class="header">
 <th>命令</th>
 <th>功能</th>
 <th>何时使用</th>
 </tr>
 </thead>
 <tbody>
-<tr>
+<tr class="odd">
 <td><code>/ecc:plan</code></td>
 <td><strong>规划命令</strong></td>
 <td>开始新功能、架构变更、复杂重构</td>
 </tr>
-<tr>
+<tr class="even">
 <td><code>/ecc:tdd</code></td>
 <td><strong>TDD 工作流</strong></td>
 <td>实现新功能、修复 bug、重构代码</td>
 </tr>
-<tr>
+<tr class="odd">
 <td><code>/ecc:code-review</code></td>
 <td><strong>代码审查</strong></td>
 <td>代码完成后、提交前</td>
 </tr>
-<tr>
+<tr class="even">
 <td><code>/ecc:verify</code></td>
 <td><strong>验证系统</strong></td>
 <td>提交前全面质量检查</td>
 </tr>
-<tr>
+<tr class="odd">
 <td><code>/ecc:learn</code></td>
 <td><strong>学习模式</strong></td>
 <td>完成复杂任务后提取模式</td>
 </tr>
-<tr>
+<tr class="even">
 <td><code>/ecc:orchestrate</code></td>
 <td><strong>编排命令</strong></td>
 <td>顺序代理工作流</td>
 </tr>
 </tbody>
 </table>
-</div>
-<p><strong>核心工作流示例</strong>：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">/ecc:plan <span class="string">&quot;用户认证&quot;</span>     <span class="comment"># 1. 规划</span></span><br><span class="line">/ecc:tdd <span class="string">&quot;实现认证&quot;</span>      <span class="comment"># 2. TDD 开发</span></span><br><span class="line">/ecc:python-review       <span class="comment"># 3. 代码审查</span></span><br><span class="line">/ecc:verify              <span class="comment"># 4. 质量验证</span></span><br><span class="line">/ecc:learn               <span class="comment"># 5. 学习总结</span></span><br></pre></td></tr></table></figure></p>
-<h4 id="多模型协作-5个"><a href="#多模型协作-5个" class="headerlink" title="多模型协作 (5个)"></a>多模型协作 (5个)</h4><div class="table-container">
+<p><strong>核心工作流示例</strong>： <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">/ecc:plan <span class="string">&quot;用户认证&quot;</span>     <span class="comment"># 1. 规划</span></span><br><span class="line">/ecc:tdd <span class="string">&quot;实现认证&quot;</span>      <span class="comment"># 2. TDD 开发</span></span><br><span class="line">/ecc:python-review       <span class="comment"># 3. 代码审查</span></span><br><span class="line">/ecc:verify              <span class="comment"># 4. 质量验证</span></span><br><span class="line">/ecc:learn               <span class="comment"># 5. 学习总结</span></span><br></pre></td></tr></table></figure></p>
+<h4 id="多模型协作-5个">多模型协作 (5个)</h4>
 <table>
+<colgroup>
+<col style="width: 28%" />
+<col style="width: 28%" />
+<col style="width: 42%" />
+</colgroup>
 <thead>
-<tr>
+<tr class="header">
 <th>命令</th>
 <th>功能</th>
 <th>模型分配</th>
 </tr>
 </thead>
 <tbody>
-<tr>
+<tr class="odd">
 <td><code>/ecc:multi-plan</code></td>
 <td><strong>多模型规划</strong></td>
 <td>Codex + Gemini 并行分析</td>
 </tr>
-<tr>
+<tr class="even">
 <td><code>/ecc:multi-execute</code></td>
 <td><strong>多模型执行</strong></td>
 <td>智能路由（后端→Codex，前端→Gemini）</td>
 </tr>
-<tr>
+<tr class="odd">
 <td><code>/ecc:multi-backend</code></td>
 <td><strong>后端工作流</strong></td>
 <td>Codex 主导</td>
 </tr>
-<tr>
+<tr class="even">
 <td><code>/ecc:multi-frontend</code></td>
 <td><strong>前端工作流</strong></td>
 <td>Gemini 主导</td>
 </tr>
-<tr>
+<tr class="odd">
 <td><code>/ecc:multi-workflow</code></td>
 <td><strong>综合工作流</strong></td>
 <td>智能路由</td>
 </tr>
 </tbody>
 </table>
-</div>
-<p><strong>关键协议</strong>：</p>
-<ul>
-<li>🌐 <strong>语言协议</strong>: 工具交互用英语，用户交互用中文</li>
-<li>🔒 <strong>代码主权</strong>: 外部模型无文件系统写入权限</li>
-<li>🎯 <strong>信任规则</strong>: 后端听从 Codex，前端听从 Gemini</li>
-</ul>
-<h4 id="测试相关-4个"><a href="#测试相关-4个" class="headerlink" title="测试相关 (4个)"></a>测试相关 (4个)</h4><div class="table-container">
+<p><strong>关键协议</strong>： - 🌐 <strong>语言协议</strong>:
+工具交互用英语，用户交互用中文 - 🔒 <strong>代码主权</strong>:
+外部模型无文件系统写入权限 - 🎯 <strong>信任规则</strong>: 后端听从
+Codex，前端听从 Gemini</p>
+<h4 id="测试相关-4个">测试相关 (4个)</h4>
 <table>
 <thead>
-<tr>
+<tr class="header">
 <th>命令</th>
 <th>功能</th>
 <th>目标</th>
 </tr>
 </thead>
 <tbody>
-<tr>
+<tr class="odd">
 <td><code>/ecc:tdd</code></td>
 <td><strong>TDD 工作流</strong></td>
 <td>RED→GREEN→REFACTOR 循环</td>
 </tr>
-<tr>
+<tr class="even">
 <td><code>/ecc:test-coverage</code></td>
 <td><strong>覆盖率分析</strong></td>
 <td>80%+ 覆盖率</td>
 </tr>
-<tr>
+<tr class="odd">
 <td><code>/ecc:e2e</code></td>
 <td><strong>E2E 测试</strong></td>
 <td>Playwright 端到端测试</td>
 </tr>
-<tr>
+<tr class="even">
 <td><code>/ecc:go-test</code></td>
 <td><strong>Go TDD</strong></td>
 <td>表驱动测试</td>
 </tr>
 </tbody>
 </table>
-</div>
-<h4 id="构建与修复-4个"><a href="#构建与修复-4个" class="headerlink" title="构建与修复 (4个)"></a>构建与修复 (4个)</h4><div class="table-container">
+<h4 id="构建与修复-4个">构建与修复 (4个)</h4>
 <table>
 <thead>
-<tr>
+<tr class="header">
 <th>命令</th>
 <th>功能</th>
 <th>何时使用</th>
 </tr>
 </thead>
 <tbody>
-<tr>
+<tr class="odd">
 <td><code>/ecc:build-fix</code></td>
 <td><strong>TS 构建修复</strong></td>
 <td>TypeScript 编译/类型错误</td>
 </tr>
-<tr>
+<tr class="even">
 <td><code>/ecc:go-build</code></td>
 <td><strong>Go 构建修复</strong></td>
 <td>Go 编译/vet/lint 错误</td>
 </tr>
-<tr>
+<tr class="odd">
 <td><code>/ecc:refactor-clean</code></td>
 <td><strong>代码清理</strong></td>
 <td>检测并移除死代码</td>
 </tr>
-<tr>
+<tr class="even">
 <td><code>/ecc:checkpoint</code></td>
 <td><strong>检查点</strong></td>
 <td>创建/验证工作流检查点</td>
 </tr>
 </tbody>
 </table>
-</div>
-<h4 id="语言特定审查-3个"><a href="#语言特定审查-3个" class="headerlink" title="语言特定审查 (3个)"></a>语言特定审查 (3个)</h4><div class="table-container">
+<h4 id="语言特定审查-3个">语言特定审查 (3个)</h4>
 <table>
 <thead>
-<tr>
+<tr class="header">
 <th>命令</th>
 <th>目标语言</th>
 <th>检查内容</th>
 </tr>
 </thead>
 <tbody>
-<tr>
+<tr class="odd">
 <td><code>/ecc:code-review</code></td>
 <td><strong>通用</strong></td>
 <td>安全、质量、最佳实践</td>
 </tr>
-<tr>
+<tr class="even">
 <td><code>/ecc:python-review</code></td>
 <td><strong>Python</strong></td>
 <td>PEP 8、类型提示、Pythonic</td>
 </tr>
-<tr>
+<tr class="odd">
 <td><code>/ecc:go-review</code></td>
 <td><strong>Go</strong></td>
 <td>惯用模式、并发安全、错误处理</td>
 </tr>
 </tbody>
 </table>
-</div>
-<h4 id="学习与知识-6个"><a href="#学习与知识-6个" class="headerlink" title="学习与知识 (6个)"></a>学习与知识 (6个)</h4><div class="table-container">
+<h4 id="学习与知识-6个">学习与知识 (6个)</h4>
 <table>
 <thead>
-<tr>
+<tr class="header">
 <th>命令</th>
 <th>功能</th>
 <th>输出</th>
 </tr>
 </thead>
 <tbody>
-<tr>
+<tr class="odd">
 <td><code>/ecc:learn</code></td>
 <td><strong>提取模式</strong></td>
 <td>保存到 <code>~/.claude/skills/learned/</code></td>
 </tr>
-<tr>
+<tr class="even">
 <td><code>/ecc:instinct-status</code></td>
 <td><strong>查看本能</strong></td>
 <td>显示已学习的 instincts</td>
 </tr>
-<tr>
+<tr class="odd">
 <td><code>/ecc:instinct-export</code></td>
 <td><strong>导出本能</strong></td>
 <td>分享给团队</td>
 </tr>
-<tr>
+<tr class="even">
 <td><code>/ecc:instinct-import</code></td>
 <td><strong>导入本能</strong></td>
 <td>接收他人的学习成果</td>
 </tr>
-<tr>
+<tr class="odd">
 <td><code>/ecc:evolve</code></td>
 <td><strong>演进</strong></td>
 <td>Instincts → Skill/Command/Agent</td>
 </tr>
-<tr>
+<tr class="even">
 <td><code>/ecc:skill-create</code></td>
 <td><strong>生成技能</strong></td>
 <td>从 Git 历史提取模式</td>
 </tr>
 </tbody>
 </table>
-</div>
-<h4 id="文档与管理-3个"><a href="#文档与管理-3个" class="headerlink" title="文档与管理 (3个)"></a>文档与管理 (3个)</h4><div class="table-container">
+<h4 id="文档与管理-3个">文档与管理 (3个)</h4>
 <table>
 <thead>
-<tr>
+<tr class="header">
 <th>命令</th>
 <th>功能</th>
 <th>输出</th>
 </tr>
 </thead>
 <tbody>
-<tr>
+<tr class="odd">
 <td><code>/ecc:update-docs</code></td>
 <td><strong>同步文档</strong></td>
 <td>更新代码相关文档</td>
 </tr>
-<tr>
+<tr class="even">
 <td><code>/ecc:update-codemaps</code></td>
 <td><strong>生成地图</strong></td>
 <td>代码架构图</td>
 </tr>
-<tr>
+<tr class="odd">
 <td><code>/ecc:sessions</code></td>
 <td><strong>会话管理</strong></td>
 <td>列表、加载、别名</td>
 </tr>
 </tbody>
 </table>
-</div>
-<h3 id="2-3-技能系统-37-个"><a href="#2-3-技能系统-37-个" class="headerlink" title="2.3 技能系统 (37+ 个)"></a>2.3 技能系统 (37+ 个)</h3><p>技能是可自动激活或手动调用的功能模块：</p>
-<h4 id="核心开发模式-4个"><a href="#核心开发模式-4个" class="headerlink" title="核心开发模式 (4个)"></a>核心开发模式 (4个)</h4><ul>
+<h3 id="技能系统-37-个">2.3 技能系统 (37+ 个)</h3>
+<p>技能是可自动激活或手动调用的功能模块：</p>
+<h4 id="核心开发模式-4个">核心开发模式 (4个)</h4>
+<ul>
 <li><code>tdd-workflow</code> - TDD 工作流</li>
 <li><code>verification-loop</code> - 验证循环</li>
 <li><code>continuous-learning</code> v1 &amp; v2 - 持续学习系统</li>
 </ul>
-<h4 id="语言-框架模式-15-个"><a href="#语言-框架模式-15-个" class="headerlink" title="语言/框架模式 (15+个)"></a>语言/框架模式 (15+个)</h4><ul>
+<h4 id="语言框架模式-15个">语言/框架模式 (15+个)</h4>
+<ul>
 <li><code>python-patterns</code> - Python 开发模式</li>
 <li><code>golang-patterns</code> - Go 开发模式</li>
 <li><code>django-*</code> - Django 框架模式</li>
 <li><code>springboot-*</code> - Spring Boot 模式</li>
 </ul>
-<h4 id="数据库与存储-4个"><a href="#数据库与存储-4个" class="headerlink" title="数据库与存储 (4个)"></a>数据库与存储 (4个)</h4><ul>
+<h4 id="数据库与存储-4个">数据库与存储 (4个)</h4>
+<ul>
 <li><code>postgres-patterns</code> - PostgreSQL 模式</li>
 <li><code>database-migrations</code> - 数据库迁移</li>
 <li><code>docker-patterns</code> - Docker 模式</li>
 <li><code>clickhouse-io</code> - ClickHouse 模式</li>
 </ul>
-<h4 id="安全与质量-3个"><a href="#安全与质量-3个" class="headerlink" title="安全与质量 (3个)"></a>安全与质量 (3个)</h4><ul>
+<h4 id="安全与质量-3个">安全与质量 (3个)</h4>
+<ul>
 <li><code>security-review</code> - 安全审查</li>
 <li><code>security-scan</code> - 安全扫描</li>
 <li><code>coding-standards</code> - 编码规范</li>
 </ul>
-<h4 id="文档生成-4个"><a href="#文档生成-4个" class="headerlink" title="文档生成 (4个)"></a>文档生成 (4个)</h4><ul>
+<h4 id="文档生成-4个">文档生成 (4个)</h4>
+<ul>
 <li><code>pptx</code> - PPT 生成</li>
 <li><code>xlsx</code> - Excel 生成</li>
 <li><code>pdf</code> - PDF 生成</li>
 <li><code>markitdown</code> - Markdown 转换</li>
 </ul>
-<h4 id="工具集成-3-个"><a href="#工具集成-3-个" class="headerlink" title="工具集成 (3+个)"></a>工具集成 (3+个)</h4><ul>
+<h4 id="工具集成-3个">工具集成 (3+个)</h4>
+<ul>
 <li><code>agent-browser</code> - 浏览器自动化</li>
 <li><code>planning-with-files</code> - 文件规划</li>
 <li><code>conversation-export</code> - 对话导出</li>
 </ul>
-<h3 id="2-4-规则系统-23-个"><a href="#2-4-规则系统-23-个" class="headerlink" title="2.4 规则系统 (23 个)"></a>2.4 规则系统 (23 个)</h3><p>规则系统提供分层的代码质量保障：</p>
+<h3 id="规则系统-23-个">2.4 规则系统 (23 个)</h3>
+<p>规则系统提供分层的代码质量保障：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">~&#x2F;.claude&#x2F;rules&#x2F;</span><br><span class="line">├── common&#x2F;          # 通用规则 (8个)</span><br><span class="line">│   ├── coding-style.md</span><br><span class="line">│   ├── git-workflow.md</span><br><span class="line">│   ├── testing.md</span><br><span class="line">│   ├── performance.md</span><br><span class="line">│   ├── patterns.md</span><br><span class="line">│   ├── hooks.md</span><br><span class="line">│   ├── agents.md</span><br><span class="line">│   └── security.md</span><br><span class="line">├── python&#x2F;          # Python 特定 (5个)</span><br><span class="line">├── typescript&#x2F;      # TypeScript&#x2F;JS (5个)</span><br><span class="line">└── golang&#x2F;          # Go 规则 (5个)</span><br></pre></td></tr></table></figure>
-<p><strong>关键规则</strong>：</p>
-<ul>
-<li><strong>coding-style.md</strong>: 不可变性 (CRITICAL)、文件组织 (200-400行)</li>
-<li><strong>testing.md</strong>: 最低覆盖率 80%、TDD 工作流强制</li>
-<li><strong>security.md</strong>: 提交前强制检查清单、8 项安全检查</li>
-<li><strong>Python 特定</strong>: PEP 8 合规、类型注解强制、工具链 (black + isort + ruff + mypy)</li>
-<li><strong>Go 特定</strong>: gofmt + goimports 强制、表驱动测试、竞态检测</li>
-</ul>
-<hr>
-<h2 id="三、安装方法"><a href="#三、安装方法" class="headerlink" title="三、安装方法"></a>三、安装方法</h2><h3 id="3-1-环境准备"><a href="#3-1-环境准备" class="headerlink" title="3.1 环境准备"></a>3.1 环境准备</h3><p>确保你已经安装了 Claude Code CLI：</p>
+<p><strong>关键规则</strong>： - <strong>coding-style.md</strong>:
+不可变性 (CRITICAL)、文件组织 (200-400行) - <strong>testing.md</strong>:
+最低覆盖率 80%、TDD 工作流强制 - <strong>security.md</strong>:
+提交前强制检查清单、8 项安全检查 - <strong>Python 特定</strong>: PEP 8
+合规、类型注解强制、工具链 (black + isort + ruff + mypy) - <strong>Go
+特定</strong>: gofmt + goimports 强制、表驱动测试、竞态检测</p>
+<hr />
+<h2 id="三安装方法">三、安装方法</h2>
+<h3 id="环境准备">3.1 环境准备</h3>
+<p>确保你已经安装了 Claude Code CLI：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 检查 Claude Code 版本</span></span><br><span class="line">claude --version</span><br><span class="line"></span><br><span class="line"><span class="comment"># 要求版本 &gt;= 2.0.0</span></span><br></pre></td></tr></table></figure>
-<h3 id="3-2-克隆仓库"><a href="#3-2-克隆仓库" class="headerlink" title="3.2 克隆仓库"></a>3.2 克隆仓库</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 克隆 Everything Claude Code 仓库</span></span><br><span class="line">git <span class="built_in">clone</span> https://github.com/affaan-m/everything-claude-code.git</span><br><span class="line"><span class="built_in">cd</span> everything-claude-code</span><br></pre></td></tr></table></figure>
-<h3 id="3-3-安装组件"><a href="#3-3-安装组件" class="headerlink" title="3.3 安装组件"></a>3.3 安装组件</h3><p><strong>完整安装</strong>（推荐）：</p>
+<h3 id="克隆仓库">3.2 克隆仓库</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 克隆 Everything Claude Code 仓库</span></span><br><span class="line">git <span class="built_in">clone</span> https://github.com/affaan-m/everything-claude-code.git</span><br><span class="line"><span class="built_in">cd</span> everything-claude-code</span><br></pre></td></tr></table></figure>
+<h3 id="安装组件">3.3 安装组件</h3>
+<p><strong>完整安装</strong>（推荐）：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 安装所有组件</span></span><br><span class="line">bash install.sh python typescript golang</span><br><span class="line"></span><br><span class="line"><span class="comment"># 这将安装：</span></span><br><span class="line"><span class="comment"># - 13 个 Agents → ~/.claude/agents/</span></span><br><span class="line"><span class="comment"># - 31 个 Commands → ~/.claude/commands/ecc/</span></span><br><span class="line"><span class="comment"># - 37+ 个 Skills → ~/.claude/skills/</span></span><br><span class="line"><span class="comment"># - 23 个 Rules → ~/.claude/rules/</span></span><br></pre></td></tr></table></figure>
 <p><strong>选择性安装</strong>：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 仅安装 Agents 和 Commands</span></span><br><span class="line">cp -r agents/*.md ~/.claude/agents/</span><br><span class="line">cp -r commands/*.md ~/.claude/commands/ecc/</span><br><span class="line"></span><br><span class="line"><span class="comment"># 仅安装 Python 规则</span></span><br><span class="line">bash install.sh python</span><br><span class="line"></span><br><span class="line"><span class="comment"># 仅安装 TypeScript 规则</span></span><br><span class="line">bash install.sh typescript</span><br><span class="line"></span><br><span class="line"><span class="comment"># 仅安装 Go 规则</span></span><br><span class="line">bash install.sh golang</span><br></pre></td></tr></table></figure>
-<h3 id="3-4-验证安装"><a href="#3-4-验证安装" class="headerlink" title="3.4 验证安装"></a>3.4 验证安装</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看已安装的命令</span></span><br><span class="line">ls ~/.claude/commands/ecc/</span><br><span class="line"></span><br><span class="line"><span class="comment"># 测试命令是否可用</span></span><br><span class="line">/ecc</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看智能体</span></span><br><span class="line">ls ~/.claude/agents/</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看技能</span></span><br><span class="line">ls ~/.claude/skills/</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看规则</span></span><br><span class="line">ls ~/.claude/rules/</span><br></pre></td></tr></table></figure>
-<hr>
-<h2 id="四、智能体、技能包、规则详细使用指南"><a href="#四、智能体、技能包、规则详细使用指南" class="headerlink" title="四、智能体、技能包、规则详细使用指南"></a>四、智能体、技能包、规则详细使用指南</h2><h3 id="4-1-智能体（Agents）使用方法"><a href="#4-1-智能体（Agents）使用方法" class="headerlink" title="4.1 智能体（Agents）使用方法"></a>4.1 智能体（Agents）使用方法</h3><h4 id="4-1-1-什么是智能体？"><a href="#4-1-1-什么是智能体？" class="headerlink" title="4.1.1 什么是智能体？"></a>4.1.1 什么是智能体？</h4><p>智能体是 Everything Claude Code 的核心组件，它们是<strong>专业化的 AI 助手</strong>，每个智能体专注于特定领域的任务。</p>
-<p><strong>智能体的特点</strong>：</p>
-<ul>
-<li>🎯 <strong>单一职责</strong>：每个智能体只做一件事，但做到极致</li>
-<li>🤖 <strong>自动激活</strong>：Claude Code 会根据任务自动选择合适的智能体</li>
-<li>🔄 <strong>并行执行</strong>：独立的智能体可以同时工作，提升效率</li>
-<li>📊 <strong>模型优化</strong>：不同智能体使用不同的 AI 模型（Opus/Sonnet/Haiku）</li>
-</ul>
-<h4 id="4-1-2-智能体列表与使用场景"><a href="#4-1-2-智能体列表与使用场景" class="headerlink" title="4.1.2 智能体列表与使用场景"></a>4.1.2 智能体列表与使用场景</h4><p><strong>战略层智能体（Opus 模型）</strong>：</p>
-<div class="table-container">
-<table>
+<h3 id="验证安装">3.4 验证安装</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看已安装的命令</span></span><br><span class="line">ls ~/.claude/commands/ecc/</span><br><span class="line"></span><br><span class="line"><span class="comment"># 测试命令是否可用</span></span><br><span class="line">/ecc</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看智能体</span></span><br><span class="line">ls ~/.claude/agents/</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看技能</span></span><br><span class="line">ls ~/.claude/skills/</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看规则</span></span><br><span class="line">ls ~/.claude/rules/</span><br></pre></td></tr></table></figure>
+<hr />
+<h2
+id="四智能体技能包规则详细使用指南">四、智能体、技能包、规则详细使用指南</h2>
+<h3 id="智能体agents使用方法">4.1 智能体（Agents）使用方法</h3>
+<h4 id="什么是智能体">4.1.1 什么是智能体？</h4>
+<p>智能体是 Everything Claude Code 的核心组件，它们是<strong>专业化的 AI
+助手</strong>，每个智能体专注于特定领域的任务。</p>
+<p><strong>智能体的特点</strong>： - 🎯
+<strong>单一职责</strong>：每个智能体只做一件事，但做到极致 - 🤖
+<strong>自动激活</strong>：Claude Code 会根据任务自动选择合适的智能体 -
+🔄 <strong>并行执行</strong>：独立的智能体可以同时工作，提升效率 - 📊
+<strong>模型优化</strong>：不同智能体使用不同的 AI
+模型（Opus/Sonnet/Haiku）</p>
+<h4 id="智能体列表与使用场景">4.1.2 智能体列表与使用场景</h4>
+<p><strong>战略层智能体（Opus 模型）</strong>：</p>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 22%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+</colgroup>
 <thead>
-<tr>
+<tr class="header">
 <th>智能体</th>
 <th>文件位置</th>
 <th>何时使用</th>
@@ -645,13 +677,13 @@
 </tr>
 </thead>
 <tbody>
-<tr>
+<tr class="odd">
 <td><code>architect</code></td>
 <td><code>~/.claude/agents/architect.md</code></td>
 <td>系统架构设计、技术选型</td>
 <td>自动激活或 <code>/ecc:plan</code></td>
 </tr>
-<tr>
+<tr class="even">
 <td><code>planner</code></td>
 <td><code>~/.claude/agents/planner.md</code></td>
 <td>功能规划、任务分解</td>
@@ -659,12 +691,16 @@
 </tr>
 </tbody>
 </table>
-</div>
 <p><strong>审查层智能体（Sonnet 模型）</strong>：</p>
-<div class="table-container">
-<table>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 22%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+</colgroup>
 <thead>
-<tr>
+<tr class="header">
 <th>智能体</th>
 <th>文件位置</th>
 <th>何时使用</th>
@@ -672,31 +708,31 @@
 </tr>
 </thead>
 <tbody>
-<tr>
+<tr class="odd">
 <td><code>code-reviewer</code></td>
 <td><code>~/.claude/agents/code-reviewer.md</code></td>
 <td>通用代码审查</td>
 <td><code>/ecc:code-review</code></td>
 </tr>
-<tr>
+<tr class="even">
 <td><code>python-reviewer</code></td>
 <td><code>~/.claude/agents/python-reviewer.md</code></td>
 <td>Python 专业审查</td>
 <td><code>/ecc:python-review</code></td>
 </tr>
-<tr>
+<tr class="odd">
 <td><code>go-reviewer</code></td>
 <td><code>~/.claude/agents/go-reviewer.md</code></td>
 <td>Go 专业审查</td>
 <td><code>/ecc:go-review</code></td>
 </tr>
-<tr>
+<tr class="even">
 <td><code>security-reviewer</code></td>
 <td><code>~/.claude/agents/security-reviewer.md</code></td>
 <td>安全漏洞分析</td>
 <td>自动激活或 <code>/ecc:code-review --focus security</code></td>
 </tr>
-<tr>
+<tr class="odd">
 <td><code>database-reviewer</code></td>
 <td><code>~/.claude/agents/database-reviewer.md</code></td>
 <td>数据库优化</td>
@@ -704,12 +740,16 @@
 </tr>
 </tbody>
 </table>
-</div>
 <p><strong>修复层智能体（Sonnet 模型）</strong>：</p>
-<div class="table-container">
-<table>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 22%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+</colgroup>
 <thead>
-<tr>
+<tr class="header">
 <th>智能体</th>
 <th>文件位置</th>
 <th>何时使用</th>
@@ -717,19 +757,19 @@
 </tr>
 </thead>
 <tbody>
-<tr>
+<tr class="odd">
 <td><code>build-error-resolver</code></td>
 <td><code>~/.claude/agents/build-error-resolver.md</code></td>
 <td>TypeScript 构建错误</td>
 <td><code>/ecc:build-fix</code></td>
 </tr>
-<tr>
-<td>`go</td>
-<td><code>~/.cl-build-resolver</code>aude/agents/go-build-resolver.md`</td>
+<tr class="even">
+<td><code>go |</code>~/.cl-build-resolver<code>aude/agents/go-build-resolver.md</code></td>
 <td>Go 编译错误</td>
 <td><code>/ecc:go-build</code></td>
+<td></td>
 </tr>
-<tr>
+<tr class="odd">
 <td><code>refactor-cleaner</code></td>
 <td><code>~/.claude/agents/refactor-cleaner.md</code></td>
 <td>死代码清理</td>
@@ -737,12 +777,16 @@
 </tr>
 </tbody>
 </table>
-</div>
 <p><strong>验证层智能体（Sonnet 模型）</strong>：</p>
-<div class="table-container">
-<table>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 22%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+</colgroup>
 <thead>
-<tr>
+<tr class="header">
 <th>智能体</th>
 <th>文件位置</th>
 <th>何时使用</th>
@@ -750,13 +794,13 @@
 </tr>
 </thead>
 <tbody>
-<tr>
+<tr class="odd">
 <td><code>tdd-guide</code></td>
 <td><code>~/.claude/agents/tdd-guide.md</code></td>
 <td>TDD 开发</td>
 <td><code>/ecc:tdd</code></td>
 </tr>
-<tr>
+<tr class="even">
 <td><code>e2e-runner</code></td>
 <td><code>~/.claude/agents/e2e-runner.md</code></td>
 <td>E2E 测试</td>
@@ -764,12 +808,16 @@
 </tr>
 </tbody>
 </table>
-</div>
 <p><strong>文档层智能体（Haiku 模型）</strong>：</p>
-<div class="table-container">
-<table>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 22%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+</colgroup>
 <thead>
-<tr>
+<tr class="header">
 <th>智能体</th>
 <th>文件位置</th>
 <th>何时使用</th>
@@ -777,7 +825,7 @@
 </tr>
 </thead>
 <tbody>
-<tr>
+<tr class="odd">
 <td><code>doc-updater</code></td>
 <td><code>~/.claude/agents/doc-updater.md</code></td>
 <td>文档同步</td>
@@ -785,28 +833,32 @@
 </tr>
 </tbody>
 </table>
-</div>
-<h4 id="4-1-3-智能体使用示例"><a href="#4-1-3-智能体使用示例" class="headerlink" title="4.1.3 智能体使用示例"></a>4.1.3 智能体使用示例</h4><p><strong>示例 1：自动激活智能体</strong></p>
+<h4 id="智能体使用示例">4.1.3 智能体使用示例</h4>
+<p><strong>示例 1：自动激活智能体</strong></p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 用户请求</span></span><br><span class="line"><span class="string">&quot;帮我审查这段 Python 代码的安全性&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Claude Code 自动流程</span></span><br><span class="line">1. 分析请求 → 识别为<span class="string">&quot;Python 代码审查 + 安全检查&quot;</span></span><br><span class="line">2. 激活智能体 → python-reviewer + security-reviewer</span><br><span class="line">3. 并行执行 → 两个智能体同时工作</span><br><span class="line">4. 汇总结果 → 生成综合报告</span><br></pre></td></tr></table></figure>
 <p><strong>示例 2：手动调用智能体</strong></p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 方式 1：通过命令调用</span></span><br><span class="line">/ecc:python-review</span><br><span class="line"></span><br><span class="line"><span class="comment"># 方式 2：在对话中明确指定</span></span><br><span class="line"><span class="string">&quot;请使用 python-reviewer 智能体审查 src/auth.py&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 方式 3：通过 Task 工具调用</span></span><br><span class="line">Task: 使用 python-reviewer 智能体审查代码质量</span><br></pre></td></tr></table></figure>
-<h3 id="4-2-技能包（Skills）使用方法"><a href="#4-2-技能包（Skills）使用方法" class="headerlink" title="4.2 技能包（Skills）使用方法"></a>4.2 技能包（Skills）使用方法</h3><h4 id="4-2-1-什么是技能包？"><a href="#4-2-1-什么是技能包？" class="headerlink" title="4.2.1 什么是技能包？"></a>4.2.1 什么是技能包？</h4><p>技能包是<strong>可复用的知识库和工作流定义</strong>，它们包含：</p>
-<ul>
-<li>📚 <strong>领域知识</strong>：最佳实践、设计模式、编码规范</li>
-<li>🔄 <strong>工作流定义</strong>：TDD 流程、验证循环、部署流程</li>
-<li>🛠️ <strong>工具集成</strong>：浏览器自动化、文档生成、数据处理</li>
-</ul>
-<p><strong>技能包的特点</strong>：</p>
-<ul>
-<li>🔄 <strong>自动激活</strong>：根据项目类型和任务自动加载</li>
-<li>📦 <strong>模块化</strong>：可以单独启用或禁用</li>
-<li>🎓 <strong>持续学习</strong>：可以从会话中自动提取新技能</li>
-</ul>
-<h4 id="4-2-2-技能包分类与列表"><a href="#4-2-2-技能包分类与列表" class="headerlink" title="4.2.2 技能包分类与列表"></a>4.2.2 技能包分类与列表</h4><p><strong>核心开发模式（4个）</strong>：</p>
-<div class="table-container">
+<h3 id="技能包skills使用方法">4.2 技能包（Skills）使用方法</h3>
+<h4 id="什么是技能包">4.2.1 什么是技能包？</h4>
+<p>技能包是<strong>可复用的知识库和工作流定义</strong>，它们包含： - 📚
+<strong>领域知识</strong>：最佳实践、设计模式、编码规范 - 🔄
+<strong>工作流定义</strong>：TDD 流程、验证循环、部署流程 - 🛠️
+<strong>工具集成</strong>：浏览器自动化、文档生成、数据处理</p>
+<p><strong>技能包的特点</strong>： - 🔄
+<strong>自动激活</strong>：根据项目类型和任务自动加载 - 📦
+<strong>模块化</strong>：可以单独启用或禁用 - 🎓
+<strong>持续学习</strong>：可以从会话中自动提取新技能</p>
+<h4 id="技能包分类与列表">4.2.2 技能包分类与列表</h4>
+<p><strong>核心开发模式（4个）</strong>：</p>
 <table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 28%" />
+<col style="width: 18%" />
+<col style="width: 28%" />
+</colgroup>
 <thead>
-<tr>
+<tr class="header">
 <th>技能包</th>
 <th>文件位置</th>
 <th>功能</th>
@@ -814,25 +866,25 @@
 </tr>
 </thead>
 <tbody>
-<tr>
+<tr class="odd">
 <td><code>tdd-workflow</code></td>
 <td><code>~/.claude/skills/tdd-workflow/</code></td>
 <td>TDD 工作流</td>
 <td>自动激活或 <code>/ecc:tdd</code></td>
 </tr>
-<tr>
+<tr class="even">
 <td><code>verification-loop</code></td>
 <td><code>~/.claude/skills/verification-loop/</code></td>
 <td>验证循环</td>
 <td>自动激活或 <code>/ecc:verify</code></td>
 </tr>
-<tr>
+<tr class="odd">
 <td><code>continuous-learning</code></td>
 <td><code>~/.claude/skills/continuous-learning/</code></td>
 <td>持续学习 v1</td>
 <td>自动激活或 <code>/ecc:learn</code></td>
 </tr>
-<tr>
+<tr class="even">
 <td><code>continuous-learning-v2</code></td>
 <td><code>~/.claude/skills/continuous-learning-v2/</code></td>
 <td>持续学习 v2（Instinct 系统）</td>
@@ -840,203 +892,217 @@
 </tr>
 </tbody>
 </table>
-</div>
 <p><strong>数据库与存储（4个）</strong>：</p>
-<div class="table-container">
 <table>
 <thead>
-<tr>
+<tr class="header">
 <th>技能包</th>
 <th>功能</th>
 </tr>
 </thead>
 <tbody>
-<tr>
+<tr class="odd">
 <td><code>postgres-patterns</code></td>
 <td>PostgreSQL 模式</td>
 </tr>
-<tr>
+<tr class="even">
 <td><code>database-migrations</code></td>
 <td>数据库迁移</td>
 </tr>
-<tr>
+<tr class="odd">
 <td><code>docker-patterns</code></td>
 <td>Docker 模式</td>
 </tr>
-<tr>
+<tr class="even">
 <td><code>clickhouse-io</code></td>
 <td>ClickHouse 模式</td>
 </tr>
 </tbody>
 </table>
-</div>
 <p><strong>安全与质量（3个）</strong>：</p>
-<div class="table-container">
 <table>
 <thead>
-<tr>
+<tr class="header">
 <th>技能包</th>
 <th>功能</th>
 </tr>
 </thead>
 <tbody>
-<tr>
+<tr class="odd">
 <td><code>security-review</code></td>
 <td>安全审查</td>
 </tr>
-<tr>
+<tr class="even">
 <td><code>security-scan</code></td>
 <td>安全扫描</td>
 </tr>
-<tr>
+<tr class="odd">
 <td><code>coding-standards</code></td>
 <td>编码规范</td>
 </tr>
 </tbody>
 </table>
-</div>
 <p><strong>文档生成（4个）</strong>：</p>
-<div class="table-container">
 <table>
 <thead>
-<tr>
+<tr class="header">
 <th>技能包</th>
 <th>功能</th>
 </tr>
 </thead>
 <tbody>
-<tr>
+<tr class="odd">
 <td><code>pptx</code></td>
 <td>PPT 生成</td>
 </tr>
-<tr>
+<tr class="even">
 <td><code>xlsx</code></td>
 <td>Excel 生成</td>
 </tr>
-<tr>
+<tr class="odd">
 <td><code>pdf</code></td>
 <td>PDF 生成</td>
 </tr>
-<tr>
+<tr class="even">
 <td><code>markitdown</code></td>
 <td>Markdown 转换</td>
 </tr>
 </tbody>
 </table>
-</div>
-<h4 id="4-2-3-持续学习系统（Instinct-→-Skill-→-Agent）"><a href="#4-2-3-持续学习系统（Instinct-→-Skill-→-Agent）" class="headerlink" title="4.2.3 持续学习系统（Instinct → Skill → Agent）"></a>4.2.3 持续学习系统（Instinct → Skill → Agent）</h4><p>Everything Claude Code 的学习系统是三层架构：</p>
+<h4 id="持续学习系统instinct-skill-agent">4.2.3 持续学习系统（Instinct →
+Skill → Agent）</h4>
+<p>Everything Claude Code 的学习系统是三层架构：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Instinct (本能)</span><br><span class="line">    ↓ 聚类</span><br><span class="line">Skill (技能)</span><br><span class="line">    ↓ 演进</span><br><span class="line">Agent (智能体)</span><br></pre></td></tr></table></figure>
 <p><strong>使用流程</strong>：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 1. 完成任务后提取 Instinct</span></span><br><span class="line">/ecc:learn</span><br><span class="line"></span><br><span class="line"><span class="comment"># 2. 查看已学习的 Instincts</span></span><br><span class="line">/ecc:instinct-status</span><br><span class="line"></span><br><span class="line"><span class="comment"># 3. 演进为 Skill</span></span><br><span class="line">/ecc:evolve --domain auth</span><br><span class="line"></span><br><span class="line"><span class="comment"># 4. 导出分享给团队</span></span><br><span class="line">/ecc:instinct-export --output team-patterns.yaml</span><br><span class="line"></span><br><span class="line"><span class="comment"># 5. 从 Git 历史生成技能包</span></span><br><span class="line">/ecc:skill-create</span><br></pre></td></tr></table></figure>
-<h3 id="4-3-规则（Rules）使用方法"><a href="#4-3-规则（Rules）使用方法" class="headerlink" title="4.3 规则（Rules）使用方法"></a>4.3 规则（Rules）使用方法</h3><h4 id="4-3-1-核心规则详解"><a href="#4-3-1-核心规则详解" class="headerlink" title="4.3.1 核心规则详解"></a>4.3.1 核心规则详解</h4><p><strong>1. coding-style.md（编码风格）</strong></p>
+<h3 id="规则rules使用方法">4.3 规则（Rules）使用方法</h3>
+<h4 id="核心规则详解">4.3.1 核心规则详解</h4>
+<p><strong>1. coding-style.md（编码风格）</strong></p>
 <figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="section"># 关键规则</span></span><br><span class="line"><span class="bullet">-</span> 不可变性 (CRITICAL): 永远不要修改现有对象，总是创建新对象</span><br><span class="line"><span class="bullet">-</span> 文件大小: 200-400 行典型，800 行最大</span><br><span class="line"><span class="bullet">-</span> 函数大小: &lt;50 行</span><br><span class="line"><span class="bullet">-</span> 嵌套深度: &lt;4 层</span><br><span class="line"><span class="bullet">-</span> 错误处理: 必须在每一层处理错误</span><br><span class="line"><span class="bullet">-</span> 输入验证: 必须在系统边界验证所有输入</span><br></pre></td></tr></table></figure>
 <p><strong>2. testing.md（测试要求）</strong></p>
 <figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="section"># 关键规则</span></span><br><span class="line"><span class="bullet">-</span> 最低覆盖率: 80%</span><br><span class="line"><span class="bullet">-</span> TDD 工作流: 强制执行 RED→GREEN→REFACTOR</span><br><span class="line"><span class="bullet">-</span> 测试类型: 单元测试 + 集成测试 + E2E 测试（全部必需）</span><br><span class="line"><span class="bullet">-</span> 测试隔离: 每个测试必须独立运行</span><br></pre></td></tr></table></figure>
 <p><strong>3. security.md（安全标准）</strong></p>
 <figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="section"># 提交前强制检查清单</span></span><br><span class="line"><span class="bullet">-</span> [ ] 无硬编码秘密（API keys、密码、tokens）</span><br><span class="line"><span class="bullet">-</span> [ ] 所有用户输入已验证</span><br><span class="line"><span class="bullet">-</span> [ ] SQL 注入防护（参数化查询）</span><br><span class="line"><span class="bullet">-</span> [ ] XSS 防护（HTML 清理）</span><br><span class="line"><span class="bullet">-</span> [ ] CSRF 保护已启用</span><br><span class="line"><span class="bullet">-</span> [ ] 认证/授权已验证</span><br><span class="line"><span class="bullet">-</span> [ ] 所有端点已限流</span><br><span class="line"><span class="bullet">-</span> [ ] 错误消息不泄露敏感数据</span><br></pre></td></tr></table></figure>
-<h4 id="4-3-2-规则与智能体-技能包的关系"><a href="#4-3-2-规则与智能体-技能包的关系" class="headerlink" title="4.3.2 规则与智能体/技能包的关系"></a>4.3.2 规则与智能体/技能包的关系</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">规则 (Rules)</span><br><span class="line">    ↓ 定义标准</span><br><span class="line">智能体 (Agents)</span><br><span class="line">    ↓ 执行检查</span><br><span class="line">技能包 (Skills)</span><br><span class="line">    ↓ 提供知识</span><br></pre></td></tr></table></figure>
-<hr>
-<h2 id="五、使用示例"><a href="#五、使用示例" class="headerlink" title="五、使用示例"></a>五、使用示例</h2><h3 id="5-1-新功能开发（完整工作流）"><a href="#5-1-新功能开发（完整工作流）" class="headerlink" title="5.1 新功能开发（完整工作流）"></a>5.1 新功能开发（完整工作流）</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 1. 规划阶段</span></span><br><span class="line">/ecc:plan <span class="string">&quot;添加用户认证功能&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 2. TDD 开发</span></span><br><span class="line">/ecc:tdd <span class="string">&quot;实现 JWT 认证&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 3. 代码审查</span></span><br><span class="line">/ecc:python-review</span><br><span class="line"></span><br><span class="line"><span class="comment"># 4. 质量验证</span></span><br><span class="line">/ecc:verify</span><br><span class="line"></span><br><span class="line"><span class="comment"># 5. 学习总结</span></span><br><span class="line">/ecc:learn</span><br></pre></td></tr></table></figure>
-<h3 id="5-2-多模型协作开发"><a href="#5-2-多模型协作开发" class="headerlink" title="5.2 多模型协作开发"></a>5.2 多模型协作开发</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 1. 多模型规划</span></span><br><span class="line">/ecc:multi-plan <span class="string">&quot;实现支付处理系统&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 2. 多模型执行</span></span><br><span class="line">/ecc:multi-execute</span><br><span class="line"></span><br><span class="line"><span class="comment"># 3. 验证</span></span><br><span class="line">/ecc:verify</span><br></pre></td></tr></table></figure>
-<h3 id="5-3-代码质量提升"><a href="#5-3-代码质量提升" class="headerlink" title="5.3 代码质量提升"></a>5.3 代码质量提升</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 1. 通用审查</span></span><br><span class="line">/ecc:code-review</span><br><span class="line"></span><br><span class="line"><span class="comment"># 2. 清理死代码</span></span><br><span class="line">/ecc:refactor-clean</span><br><span class="line"></span><br><span class="line"><span class="comment"># 3. 测试覆盖率</span></span><br><span class="line">/ecc:test-coverage</span><br><span class="line"></span><br><span class="line"><span class="comment"># 4. 全面验证</span></span><br><span class="line">/ecc:verify</span><br></pre></td></tr></table></figure>
-<hr>
-<h2 id="六、核心优势"><a href="#六、核心优势" class="headerlink" title="六、核心优势"></a>六、核心优势</h2><h3 id="6-1-vs-SuperClaude-Framework"><a href="#6-1-vs-SuperClaude-Framework" class="headerlink" title="6.1 vs SuperClaude Framework"></a>6.1 vs SuperClaude Framework</h3><div class="table-container">
+<h4 id="规则与智能体技能包的关系">4.3.2 规则与智能体/技能包的关系</h4>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">规则 (Rules)</span><br><span class="line">    ↓ 定义标准</span><br><span class="line">智能体 (Agents)</span><br><span class="line">    ↓ 执行检查</span><br><span class="line">技能包 (Skills)</span><br><span class="line">    ↓ 提供知识</span><br></pre></td></tr></table></figure>
+<hr />
+<h2 id="五使用示例">五、使用示例</h2>
+<h3 id="新功能开发完整工作流">5.1 新功能开发（完整工作流）</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 1. 规划阶段</span></span><br><span class="line">/ecc:plan <span class="string">&quot;添加用户认证功能&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 2. TDD 开发</span></span><br><span class="line">/ecc:tdd <span class="string">&quot;实现 JWT 认证&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 3. 代码审查</span></span><br><span class="line">/ecc:python-review</span><br><span class="line"></span><br><span class="line"><span class="comment"># 4. 质量验证</span></span><br><span class="line">/ecc:verify</span><br><span class="line"></span><br><span class="line"><span class="comment"># 5. 学习总结</span></span><br><span class="line">/ecc:learn</span><br></pre></td></tr></table></figure>
+<h3 id="多模型协作开发">5.2 多模型协作开发</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 1. 多模型规划</span></span><br><span class="line">/ecc:multi-plan <span class="string">&quot;实现支付处理系统&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 2. 多模型执行</span></span><br><span class="line">/ecc:multi-execute</span><br><span class="line"></span><br><span class="line"><span class="comment"># 3. 验证</span></span><br><span class="line">/ecc:verify</span><br></pre></td></tr></table></figure>
+<h3 id="代码质量提升">5.3 代码质量提升</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 1. 通用审查</span></span><br><span class="line">/ecc:code-review</span><br><span class="line"></span><br><span class="line"><span class="comment"># 2. 清理死代码</span></span><br><span class="line">/ecc:refactor-clean</span><br><span class="line"></span><br><span class="line"><span class="comment"># 3. 测试覆盖率</span></span><br><span class="line">/ecc:test-coverage</span><br><span class="line"></span><br><span class="line"><span class="comment"># 4. 全面验证</span></span><br><span class="line">/ecc:verify</span><br></pre></td></tr></table></figure>
+<hr />
+<h2 id="六核心优势">六、核心优势</h2>
+<h3 id="vs-superclaude-framework">6.1 vs SuperClaude Framework</h3>
 <table>
 <thead>
-<tr>
+<tr class="header">
 <th>维度</th>
 <th>Everything Claude Code</th>
 <th>SuperClaude</th>
 </tr>
 </thead>
 <tbody>
-<tr>
+<tr class="odd">
 <td><strong>专业审查</strong></td>
 <td>✅ 语言特定 (Python/Go/TS)</td>
 <td>⚠️ 通用审查</td>
 </tr>
-<tr>
+<tr class="even">
 <td><strong>TDD 支持</strong></td>
 <td>✅ 完整生态系统</td>
 <td>⚠️ 基础测试</td>
 </tr>
-<tr>
+<tr class="odd">
 <td><strong>多模型</strong></td>
 <td>✅ 5 个命令</td>
 <td>❌ 无</td>
 </tr>
-<tr>
+<tr class="even">
 <td><strong>学习系统</strong></td>
 <td>✅ 三层架构</td>
 <td>⚠️ 简单反思</td>
 </tr>
-<tr>
+<tr class="odd">
 <td><strong>深度研究</strong></td>
 <td>❌ 无</td>
 <td>✅ Tavily MCP</td>
 </tr>
-<tr>
+<tr class="even">
 <td><strong>项目管理</strong></td>
 <td>⚠️ 规划</td>
 <td>✅ PM Agent</td>
 </tr>
 </tbody>
 </table>
-</div>
-<h3 id="6-2-独特能力"><a href="#6-2-独特能力" class="headerlink" title="6.2 独特能力"></a>6.2 独特能力</h3><ul>
+<h3 id="独特能力">6.2 独特能力</h3>
+<ul>
 <li>🧪 <strong>强制 TDD</strong>: 80%+ 覆盖率，RED-GREEN-REFACTOR</li>
 <li>🔍 <strong>专业审查</strong>: 语言特定的深度检查</li>
-<li>🤝 <strong>多模型协作</strong>: Codex (后端) + Gemini (前端) 并行</li>
+<li>🤝 <strong>多模型协作</strong>: Codex (后端) + Gemini (前端)
+并行</li>
 <li>📚 <strong>学习进化</strong>: Instinct → Skill → Agent 演进</li>
 <li>✅ <strong>全面验证</strong>: 构建/类型/Lint/测试/安全</li>
 </ul>
-<hr>
-<h2 id="七、最佳实践"><a href="#七、最佳实践" class="headerlink" title="七、最佳实践"></a>七、最佳实践</h2><h3 id="7-1-日常开发工作流"><a href="#7-1-日常开发工作流" class="headerlink" title="7.1 日常开发工作流"></a>7.1 日常开发工作流</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 每天开始</span></span><br><span class="line">/ecc:plan <span class="string">&quot;今日任务&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 开发过程</span></span><br><span class="line">/ecc:tdd <span class="string">&quot;功能实现&quot;</span></span><br><span class="line">/ecc:python-review  <span class="comment"># 或 /ecc:go-review</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 提交前</span></span><br><span class="line">/ecc:verify</span><br><span class="line">/ecc:learn</span><br></pre></td></tr></table></figure>
-<h3 id="7-2-代码审查策略"><a href="#7-2-代码审查策略" class="headerlink" title="7.2 代码审查策略"></a>7.2 代码审查策略</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 基础审查</span></span><br><span class="line">/ecc:code-review</span><br><span class="line"></span><br><span class="line"><span class="comment"># 语言特定审查</span></span><br><span class="line">/ecc:python-review  <span class="comment"># Python 项目</span></span><br><span class="line">/ecc:go-review      <span class="comment"># Go 项目</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 安全审查</span></span><br><span class="line">/ecc:code-review --focus security</span><br></pre></td></tr></table></figure>
-<h3 id="7-3-学习积累"><a href="#7-3-学习积累" class="headerlink" title="7.3 学习积累"></a>7.3 学习积累</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 完成任务后</span></span><br><span class="line">/ecc:learn</span><br><span class="line"></span><br><span class="line"><span class="comment"># 定期查看</span></span><br><span class="line">/ecc:instinct-status</span><br><span class="line"></span><br><span class="line"><span class="comment"># 演进为技能</span></span><br><span class="line">/ecc:evolve --domain &lt;领域&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 分享给团队</span></span><br><span class="line">/ecc:instinct-export</span><br></pre></td></tr></table></figure>
-<hr>
-<h2 id="八、注意事项"><a href="#八、注意事项" class="headerlink" title="八、注意事项"></a>八、注意事项</h2><h3 id="8-1-兼容性"><a href="#8-1-兼容性" class="headerlink" title="8.1 兼容性"></a>8.1 兼容性</h3><ul>
+<hr />
+<h2 id="七最佳实践">七、最佳实践</h2>
+<h3 id="日常开发工作流">7.1 日常开发工作流</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 每天开始</span></span><br><span class="line">/ecc:plan <span class="string">&quot;今日任务&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 开发过程</span></span><br><span class="line">/ecc:tdd <span class="string">&quot;功能实现&quot;</span></span><br><span class="line">/ecc:python-review  <span class="comment"># 或 /ecc:go-review</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 提交前</span></span><br><span class="line">/ecc:verify</span><br><span class="line">/ecc:learn</span><br></pre></td></tr></table></figure>
+<h3 id="代码审查策略">7.2 代码审查策略</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 基础审查</span></span><br><span class="line">/ecc:code-review</span><br><span class="line"></span><br><span class="line"><span class="comment"># 语言特定审查</span></span><br><span class="line">/ecc:python-review  <span class="comment"># Python 项目</span></span><br><span class="line">/ecc:go-review      <span class="comment"># Go 项目</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 安全审查</span></span><br><span class="line">/ecc:code-review --focus security</span><br></pre></td></tr></table></figure>
+<h3 id="学习积累">7.3 学习积累</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 完成任务后</span></span><br><span class="line">/ecc:learn</span><br><span class="line"></span><br><span class="line"><span class="comment"># 定期查看</span></span><br><span class="line">/ecc:instinct-status</span><br><span class="line"></span><br><span class="line"><span class="comment"># 演进为技能</span></span><br><span class="line">/ecc:evolve --domain &lt;领域&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 分享给团队</span></span><br><span class="line">/ecc:instinct-export</span><br></pre></td></tr></table></figure>
+<hr />
+<h2 id="八注意事项">八、注意事项</h2>
+<h3 id="兼容性">8.1 兼容性</h3>
+<ul>
 <li><strong>Claude Code 版本</strong>: 要求 &gt;= 2.0.0</li>
 <li><strong>Python 版本</strong>: Python 规则要求 &gt;= 3.9</li>
 <li><strong>Go 版本</strong>: Go 规则要求 &gt;= 1.19</li>
 <li><strong>Node.js 版本</strong>: TypeScript 规则要求 &gt;= 18.0</li>
 </ul>
-<h3 id="8-2-与-SuperClaude-组合使用"><a href="#8-2-与-SuperClaude-组合使用" class="headerlink" title="8.2 与 SuperClaude 组合使用"></a>8.2 与 SuperClaude 组合使用</h3><p>推荐策略：</p>
+<h3 id="与-superclaude-组合使用">8.2 与 SuperClaude 组合使用</h3>
+<p>推荐策略： - <strong>日常开发 (90%)</strong>: 使用 ECC 命令 -
+<strong>特殊场景 (10%)</strong>: 使用 SC
+命令（研究、需求发现、跨会话）</p>
+<p>命令映射： - 需求发现: <code>/sc:brainstorm</code> - 技术研究:
+<code>/sc:research</code> - 项目规划: <code>/ecc:plan</code> 或
+<code>/sc:pm</code> - 功能实现: <code>/ecc:tdd</code> - 代码审查:
+<code>/ecc:python-review</code> 或 <code>/ecc:go-review</code> -
+质量验证: <code>/ecc:verify</code></p>
+<hr />
+<h2 id="九相关资源">九、相关资源</h2>
+<h3 id="官方资源">官方资源</h3>
 <ul>
-<li><strong>日常开发 (90%)</strong>: 使用 ECC 命令</li>
-<li><strong>特殊场景 (10%)</strong>: 使用 SC 命令（研究、需求发现、跨会话）</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/affaan-m/everything-claude-code">GitHub
+仓库</a></li>
+<li><a
+target="_blank" rel="noopener" href="https://github.com/affaan-m/everything-claude-code/issues">问题反馈</a></li>
 </ul>
-<p>命令映射：</p>
+<h3 id="社区资源">社区资源</h3>
 <ul>
-<li>需求发现: <code>/sc:brainstorm</code></li>
-<li>技术研究: <code>/sc:research</code></li>
-<li>项目规划: <code>/ecc:plan</code> 或 <code>/sc:pm</code></li>
-<li>功能实现: <code>/ecc:tdd</code></li>
-<li>代码审查: <code>/ecc:python-review</code> 或 <code>/ecc:go-review</code></li>
-<li>质量验证: <code>/ecc:verify</code></li>
-</ul>
-<hr>
-<h2 id="九、相关资源"><a href="#九、相关资源" class="headerlink" title="九、相关资源"></a>九、相关资源</h2><h3 id="官方资源"><a href="#官方资源" class="headerlink" title="官方资源"></a>官方资源</h3><ul>
-<li><a target="_blank" rel="noopener" href="https://github.com/affaan-m/everything-claude-code">GitHub 仓库</a></li>
-<li><a target="_blank" rel="noopener" href="https://github.com/affaan-m/everything-claude-code/issues">问题反馈</a></li>
-</ul>
-<h3 id="社区资源"><a href="#社区资源" class="headerlink" title="社区资源"></a>社区资源</h3><ul>
-<li><a target="_blank" rel="noopener" href="https://docs.anthropic.com/claude/docs">Claude Code 官方文档</a></li>
+<li><a target="_blank" rel="noopener" href="https://docs.anthropic.com/claude/docs">Claude Code
+官方文档</a></li>
 <li><a target="_blank" rel="noopener" href="https://discord.gg/anthropic">Claude Code Discord</a></li>
 </ul>
-<hr>
-<h2 id="十、项目统计"><a href="#十、项目统计" class="headerlink" title="十、项目统计"></a>十、项目统计</h2><ul>
+<hr />
+<h2 id="十项目统计">十、项目统计</h2>
+<ul>
 <li><strong>智能体数量</strong>: 13 个（分层专业化）</li>
-<li><strong>命令数量</strong>: 31 个（使用 <code>/ecc:</code> 前缀）</li>
+<li><strong>命令数量</strong>: 31 个（使用 <code>/ecc:</code>
+前缀）</li>
 <li><strong>技能数量</strong>: 37+ 个</li>
 <li><strong>规则数量</strong>: 23 个（分层规则）</li>
-<li><strong>覆盖领域</strong>: Python、TypeScript、Go、前端、后端、测试、安全</li>
+<li><strong>覆盖领域</strong>:
+Python、TypeScript、Go、前端、后端、测试、安全</li>
 <li><strong>学习系统</strong>: 三层架构（Instinct → Skill → Agent）</li>
 </ul>
-<hr>
+<hr />
 <p><strong>Happy Coding with Everything Claude Code! 🚀</strong></p>
 <blockquote>
-<p>“专业的开发工具链，让代码质量和开发效率同时提升！”</p>
+<p>"专业的开发工具链，让代码质量和开发效率同时提升！"</p>
 </blockquote>
 
     </div>
@@ -1077,8 +1143,8 @@
           
           <div class="post-tags">
               <a href="/tags/Tool/" rel="tag"><i class="fa fa-tag"></i> Tool</a>
-              <a href="/tags/Claude-Code-Skill/" rel="tag"><i class="fa fa-tag"></i> Claude-Code-Skill</a>
               <a href="/tags/AI-Development/" rel="tag"><i class="fa fa-tag"></i> AI-Development</a>
+              <a href="/tags/Claude-Code-Skill/" rel="tag"><i class="fa fa-tag"></i> Claude-Code-Skill</a>
           </div>
 
         
@@ -1087,10 +1153,13 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2026/03/10/CC-Skills-04-ralph-wiggum/" rel="prev" title="Ralph-Wiggum-Skill 完整教程">
-      <i class="fa fa-chevron-left"></i> Ralph-Wiggum-Skill 完整教程
+    <a href="/2026/03/10/CC-Skills-03-planning-with-files/" rel="prev" title="Planning-With-Files 完整教程">
+      <i class="fa fa-chevron-left"></i> Planning-With-Files 完整教程
     </a></div>
-      <div class="post-nav-item"></div>
+      <div class="post-nav-item">
+    <a href="/2026/03/10/CC-Skills-02-superclaude-framework/" rel="next" title="SuperClaude Framework 完整教程">
+      SuperClaude Framework 完整教程 <i class="fa fa-chevron-right"></i>
+    </a></div>
     </div>
       </footer>
     
@@ -1153,7 +1222,10 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Everything-Claude-Code-%E5%AE%8C%E6%95%B4%E6%95%99%E7%A8%8B"><span class="nav-text">Everything Claude Code 完整教程</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%F0%9F%93%9D-%E5%89%8D%E8%A8%80"><span class="nav-text">📝 前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E6%A0%B8%E5%BF%83%E6%9E%B6%E6%9E%84"><span class="nav-text">二、核心架构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-%E6%99%BA%E8%83%BD%E4%BD%93%E7%B3%BB%E7%BB%9F-13-%E4%B8%AA"><span class="nav-text">2.1 智能体系统 (13 个)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-%E5%91%BD%E4%BB%A4%E7%B3%BB%E7%BB%9F-31-%E4%B8%AA%EF%BC%8C%E4%BD%BF%E7%94%A8-ecc-%E5%89%8D%E7%BC%80"><span class="nav-text">2.2 命令系统 (31 个，使用 &#x2F;ecc: 前缀)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A0%B8%E5%BF%83%E5%B7%A5%E4%BD%9C%E6%B5%81-6%E4%B8%AA"><span class="nav-text">核心工作流 (6个)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A4%9A%E6%A8%A1%E5%9E%8B%E5%8D%8F%E4%BD%9C-5%E4%B8%AA"><span class="nav-text">多模型协作 (5个)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%B5%8B%E8%AF%95%E7%9B%B8%E5%85%B3-4%E4%B8%AA"><span class="nav-text">测试相关 (4个)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9E%84%E5%BB%BA%E4%B8%8E%E4%BF%AE%E5%A4%8D-4%E4%B8%AA"><span class="nav-text">构建与修复 (4个)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%AF%AD%E8%A8%80%E7%89%B9%E5%AE%9A%E5%AE%A1%E6%9F%A5-3%E4%B8%AA"><span class="nav-text">语言特定审查 (3个)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AD%A6%E4%B9%A0%E4%B8%8E%E7%9F%A5%E8%AF%86-6%E4%B8%AA"><span class="nav-text">学习与知识 (6个)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%87%E6%A1%A3%E4%B8%8E%E7%AE%A1%E7%90%86-3%E4%B8%AA"><span class="nav-text">文档与管理 (3个)</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-%E6%8A%80%E8%83%BD%E7%B3%BB%E7%BB%9F-37-%E4%B8%AA"><span class="nav-text">2.3 技能系统 (37+ 个)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A0%B8%E5%BF%83%E5%BC%80%E5%8F%91%E6%A8%A1%E5%BC%8F-4%E4%B8%AA"><span class="nav-text">核心开发模式 (4个)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%AF%AD%E8%A8%80-%E6%A1%86%E6%9E%B6%E6%A8%A1%E5%BC%8F-15-%E4%B8%AA"><span class="nav-text">语言&#x2F;框架模式 (15+个)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E4%B8%8E%E5%AD%98%E5%82%A8-4%E4%B8%AA"><span class="nav-text">数据库与存储 (4个)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%89%E5%85%A8%E4%B8%8E%E8%B4%A8%E9%87%8F-3%E4%B8%AA"><span class="nav-text">安全与质量 (3个)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%87%E6%A1%A3%E7%94%9F%E6%88%90-4%E4%B8%AA"><span class="nav-text">文档生成 (4个)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B7%A5%E5%85%B7%E9%9B%86%E6%88%90-3-%E4%B8%AA"><span class="nav-text">工具集成 (3+个)</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-4-%E8%A7%84%E5%88%99%E7%B3%BB%E7%BB%9F-23-%E4%B8%AA"><span class="nav-text">2.4 规则系统 (23 个)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89%E3%80%81%E5%AE%89%E8%A3%85%E6%96%B9%E6%B3%95"><span class="nav-text">三、安装方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-%E7%8E%AF%E5%A2%83%E5%87%86%E5%A4%87"><span class="nav-text">3.1 环境准备</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-%E5%85%8B%E9%9A%86%E4%BB%93%E5%BA%93"><span class="nav-text">3.2 克隆仓库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3-%E5%AE%89%E8%A3%85%E7%BB%84%E4%BB%B6"><span class="nav-text">3.3 安装组件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-4-%E9%AA%8C%E8%AF%81%E5%AE%89%E8%A3%85"><span class="nav-text">3.4 验证安装</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%9B%E3%80%81%E6%99%BA%E8%83%BD%E4%BD%93%E3%80%81%E6%8A%80%E8%83%BD%E5%8C%85%E3%80%81%E8%A7%84%E5%88%99%E8%AF%A6%E7%BB%86%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97"><span class="nav-text">四、智能体、技能包、规则详细使用指南</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-1-%E6%99%BA%E8%83%BD%E4%BD%93%EF%BC%88Agents%EF%BC%89%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95"><span class="nav-text">4.1 智能体（Agents）使用方法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#4-1-1-%E4%BB%80%E4%B9%88%E6%98%AF%E6%99%BA%E8%83%BD%E4%BD%93%EF%BC%9F"><span class="nav-text">4.1.1 什么是智能体？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-1-2-%E6%99%BA%E8%83%BD%E4%BD%93%E5%88%97%E8%A1%A8%E4%B8%8E%E4%BD%BF%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="nav-text">4.1.2 智能体列表与使用场景</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-1-3-%E6%99%BA%E8%83%BD%E4%BD%93%E4%BD%BF%E7%94%A8%E7%A4%BA%E4%BE%8B"><span class="nav-text">4.1.3 智能体使用示例</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-2-%E6%8A%80%E8%83%BD%E5%8C%85%EF%BC%88Skills%EF%BC%89%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95"><span class="nav-text">4.2 技能包（Skills）使用方法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#4-2-1-%E4%BB%80%E4%B9%88%E6%98%AF%E6%8A%80%E8%83%BD%E5%8C%85%EF%BC%9F"><span class="nav-text">4.2.1 什么是技能包？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-2-2-%E6%8A%80%E8%83%BD%E5%8C%85%E5%88%86%E7%B1%BB%E4%B8%8E%E5%88%97%E8%A1%A8"><span class="nav-text">4.2.2 技能包分类与列表</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-2-3-%E6%8C%81%E7%BB%AD%E5%AD%A6%E4%B9%A0%E7%B3%BB%E7%BB%9F%EF%BC%88Instinct-%E2%86%92-Skill-%E2%86%92-Agent%EF%BC%89"><span class="nav-text">4.2.3 持续学习系统（Instinct → Skill → Agent）</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-3-%E8%A7%84%E5%88%99%EF%BC%88Rules%EF%BC%89%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95"><span class="nav-text">4.3 规则（Rules）使用方法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#4-3-1-%E6%A0%B8%E5%BF%83%E8%A7%84%E5%88%99%E8%AF%A6%E8%A7%A3"><span class="nav-text">4.3.1 核心规则详解</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-3-2-%E8%A7%84%E5%88%99%E4%B8%8E%E6%99%BA%E8%83%BD%E4%BD%93-%E6%8A%80%E8%83%BD%E5%8C%85%E7%9A%84%E5%85%B3%E7%B3%BB"><span class="nav-text">4.3.2 规则与智能体&#x2F;技能包的关系</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%94%E3%80%81%E4%BD%BF%E7%94%A8%E7%A4%BA%E4%BE%8B"><span class="nav-text">五、使用示例</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#5-1-%E6%96%B0%E5%8A%9F%E8%83%BD%E5%BC%80%E5%8F%91%EF%BC%88%E5%AE%8C%E6%95%B4%E5%B7%A5%E4%BD%9C%E6%B5%81%EF%BC%89"><span class="nav-text">5.1 新功能开发（完整工作流）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-2-%E5%A4%9A%E6%A8%A1%E5%9E%8B%E5%8D%8F%E4%BD%9C%E5%BC%80%E5%8F%91"><span class="nav-text">5.2 多模型协作开发</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-3-%E4%BB%A3%E7%A0%81%E8%B4%A8%E9%87%8F%E6%8F%90%E5%8D%87"><span class="nav-text">5.3 代码质量提升</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%AD%E3%80%81%E6%A0%B8%E5%BF%83%E4%BC%98%E5%8A%BF"><span class="nav-text">六、核心优势</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#6-1-vs-SuperClaude-Framework"><span class="nav-text">6.1 vs SuperClaude Framework</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-2-%E7%8B%AC%E7%89%B9%E8%83%BD%E5%8A%9B"><span class="nav-text">6.2 独特能力</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%83%E3%80%81%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5"><span class="nav-text">七、最佳实践</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#7-1-%E6%97%A5%E5%B8%B8%E5%BC%80%E5%8F%91%E5%B7%A5%E4%BD%9C%E6%B5%81"><span class="nav-text">7.1 日常开发工作流</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-2-%E4%BB%A3%E7%A0%81%E5%AE%A1%E6%9F%A5%E7%AD%96%E7%95%A5"><span class="nav-text">7.2 代码审查策略</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-3-%E5%AD%A6%E4%B9%A0%E7%A7%AF%E7%B4%AF"><span class="nav-text">7.3 学习积累</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%AB%E3%80%81%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9"><span class="nav-text">八、注意事项</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#8-1-%E5%85%BC%E5%AE%B9%E6%80%A7"><span class="nav-text">8.1 兼容性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-2-%E4%B8%8E-SuperClaude-%E7%BB%84%E5%90%88%E4%BD%BF%E7%94%A8"><span class="nav-text">8.2 与 SuperClaude 组合使用</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B9%9D%E3%80%81%E7%9B%B8%E5%85%B3%E8%B5%84%E6%BA%90"><span class="nav-text">九、相关资源</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%98%E6%96%B9%E8%B5%84%E6%BA%90"><span class="nav-text">官方资源</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A4%BE%E5%8C%BA%E8%B5%84%E6%BA%90"><span class="nav-text">社区资源</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8D%81%E3%80%81%E9%A1%B9%E7%9B%AE%E7%BB%9F%E8%AE%A1"><span class="nav-text">十、项目统计</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#everything-claude-code-%E5%AE%8C%E6%95%B4%E6%95%99%E7%A8%8B"><span class="nav-text">Everything Claude Code
+完整教程</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-text">📝 前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E6%A0%B8%E5%BF%83%E6%9E%B6%E6%9E%84"><span class="nav-text">二、核心架构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%99%BA%E8%83%BD%E4%BD%93%E7%B3%BB%E7%BB%9F-13-%E4%B8%AA"><span class="nav-text">2.1 智能体系统 (13 个)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%91%BD%E4%BB%A4%E7%B3%BB%E7%BB%9F-31-%E4%B8%AA%E4%BD%BF%E7%94%A8-ecc-%E5%89%8D%E7%BC%80"><span class="nav-text">2.2 命令系统 (31 个，使用
+&#x2F;ecc: 前缀)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A0%B8%E5%BF%83%E5%B7%A5%E4%BD%9C%E6%B5%81-6%E4%B8%AA"><span class="nav-text">核心工作流 (6个)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A4%9A%E6%A8%A1%E5%9E%8B%E5%8D%8F%E4%BD%9C-5%E4%B8%AA"><span class="nav-text">多模型协作 (5个)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%B5%8B%E8%AF%95%E7%9B%B8%E5%85%B3-4%E4%B8%AA"><span class="nav-text">测试相关 (4个)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9E%84%E5%BB%BA%E4%B8%8E%E4%BF%AE%E5%A4%8D-4%E4%B8%AA"><span class="nav-text">构建与修复 (4个)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%AF%AD%E8%A8%80%E7%89%B9%E5%AE%9A%E5%AE%A1%E6%9F%A5-3%E4%B8%AA"><span class="nav-text">语言特定审查 (3个)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AD%A6%E4%B9%A0%E4%B8%8E%E7%9F%A5%E8%AF%86-6%E4%B8%AA"><span class="nav-text">学习与知识 (6个)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%87%E6%A1%A3%E4%B8%8E%E7%AE%A1%E7%90%86-3%E4%B8%AA"><span class="nav-text">文档与管理 (3个)</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8A%80%E8%83%BD%E7%B3%BB%E7%BB%9F-37-%E4%B8%AA"><span class="nav-text">2.3 技能系统 (37+ 个)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A0%B8%E5%BF%83%E5%BC%80%E5%8F%91%E6%A8%A1%E5%BC%8F-4%E4%B8%AA"><span class="nav-text">核心开发模式 (4个)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%AF%AD%E8%A8%80%E6%A1%86%E6%9E%B6%E6%A8%A1%E5%BC%8F-15%E4%B8%AA"><span class="nav-text">语言&#x2F;框架模式 (15+个)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E4%B8%8E%E5%AD%98%E5%82%A8-4%E4%B8%AA"><span class="nav-text">数据库与存储 (4个)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%89%E5%85%A8%E4%B8%8E%E8%B4%A8%E9%87%8F-3%E4%B8%AA"><span class="nav-text">安全与质量 (3个)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%87%E6%A1%A3%E7%94%9F%E6%88%90-4%E4%B8%AA"><span class="nav-text">文档生成 (4个)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B7%A5%E5%85%B7%E9%9B%86%E6%88%90-3%E4%B8%AA"><span class="nav-text">工具集成 (3+个)</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A7%84%E5%88%99%E7%B3%BB%E7%BB%9F-23-%E4%B8%AA"><span class="nav-text">2.4 规则系统 (23 个)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89%E5%AE%89%E8%A3%85%E6%96%B9%E6%B3%95"><span class="nav-text">三、安装方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%8E%AF%E5%A2%83%E5%87%86%E5%A4%87"><span class="nav-text">3.1 环境准备</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%8B%E9%9A%86%E4%BB%93%E5%BA%93"><span class="nav-text">3.2 克隆仓库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85%E7%BB%84%E4%BB%B6"><span class="nav-text">3.3 安装组件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%AA%8C%E8%AF%81%E5%AE%89%E8%A3%85"><span class="nav-text">3.4 验证安装</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%9B%E6%99%BA%E8%83%BD%E4%BD%93%E6%8A%80%E8%83%BD%E5%8C%85%E8%A7%84%E5%88%99%E8%AF%A6%E7%BB%86%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97"><span class="nav-text">四、智能体、技能包、规则详细使用指南</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%99%BA%E8%83%BD%E4%BD%93agents%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95"><span class="nav-text">4.1 智能体（Agents）使用方法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E6%99%BA%E8%83%BD%E4%BD%93"><span class="nav-text">4.1.1 什么是智能体？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%99%BA%E8%83%BD%E4%BD%93%E5%88%97%E8%A1%A8%E4%B8%8E%E4%BD%BF%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="nav-text">4.1.2 智能体列表与使用场景</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%99%BA%E8%83%BD%E4%BD%93%E4%BD%BF%E7%94%A8%E7%A4%BA%E4%BE%8B"><span class="nav-text">4.1.3 智能体使用示例</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8A%80%E8%83%BD%E5%8C%85skills%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95"><span class="nav-text">4.2 技能包（Skills）使用方法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E6%8A%80%E8%83%BD%E5%8C%85"><span class="nav-text">4.2.1 什么是技能包？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%8A%80%E8%83%BD%E5%8C%85%E5%88%86%E7%B1%BB%E4%B8%8E%E5%88%97%E8%A1%A8"><span class="nav-text">4.2.2 技能包分类与列表</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%8C%81%E7%BB%AD%E5%AD%A6%E4%B9%A0%E7%B3%BB%E7%BB%9Finstinct-skill-agent"><span class="nav-text">4.2.3 持续学习系统（Instinct →
+Skill → Agent）</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A7%84%E5%88%99rules%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95"><span class="nav-text">4.3 规则（Rules）使用方法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A0%B8%E5%BF%83%E8%A7%84%E5%88%99%E8%AF%A6%E8%A7%A3"><span class="nav-text">4.3.1 核心规则详解</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%A7%84%E5%88%99%E4%B8%8E%E6%99%BA%E8%83%BD%E4%BD%93%E6%8A%80%E8%83%BD%E5%8C%85%E7%9A%84%E5%85%B3%E7%B3%BB"><span class="nav-text">4.3.2 规则与智能体&#x2F;技能包的关系</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%94%E4%BD%BF%E7%94%A8%E7%A4%BA%E4%BE%8B"><span class="nav-text">五、使用示例</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%B0%E5%8A%9F%E8%83%BD%E5%BC%80%E5%8F%91%E5%AE%8C%E6%95%B4%E5%B7%A5%E4%BD%9C%E6%B5%81"><span class="nav-text">5.1 新功能开发（完整工作流）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%9A%E6%A8%A1%E5%9E%8B%E5%8D%8F%E4%BD%9C%E5%BC%80%E5%8F%91"><span class="nav-text">5.2 多模型协作开发</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81%E8%B4%A8%E9%87%8F%E6%8F%90%E5%8D%87"><span class="nav-text">5.3 代码质量提升</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%AD%E6%A0%B8%E5%BF%83%E4%BC%98%E5%8A%BF"><span class="nav-text">六、核心优势</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#vs-superclaude-framework"><span class="nav-text">6.1 vs SuperClaude Framework</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%8B%AC%E7%89%B9%E8%83%BD%E5%8A%9B"><span class="nav-text">6.2 独特能力</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%83%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5"><span class="nav-text">七、最佳实践</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%97%A5%E5%B8%B8%E5%BC%80%E5%8F%91%E5%B7%A5%E4%BD%9C%E6%B5%81"><span class="nav-text">7.1 日常开发工作流</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81%E5%AE%A1%E6%9F%A5%E7%AD%96%E7%95%A5"><span class="nav-text">7.2 代码审查策略</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AD%A6%E4%B9%A0%E7%A7%AF%E7%B4%AF"><span class="nav-text">7.3 学习积累</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%AB%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9"><span class="nav-text">八、注意事项</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%BC%E5%AE%B9%E6%80%A7"><span class="nav-text">8.1 兼容性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%8E-superclaude-%E7%BB%84%E5%90%88%E4%BD%BF%E7%94%A8"><span class="nav-text">8.2 与 SuperClaude 组合使用</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B9%9D%E7%9B%B8%E5%85%B3%E8%B5%84%E6%BA%90"><span class="nav-text">九、相关资源</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%98%E6%96%B9%E8%B5%84%E6%BA%90"><span class="nav-text">官方资源</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A4%BE%E5%8C%BA%E8%B5%84%E6%BA%90"><span class="nav-text">社区资源</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8D%81%E9%A1%B9%E7%9B%AE%E7%BB%9F%E8%AE%A1"><span class="nav-text">十、项目统计</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
