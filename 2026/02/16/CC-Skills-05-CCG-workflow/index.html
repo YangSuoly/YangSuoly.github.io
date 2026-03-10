@@ -1,0 +1,1015 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/blog-logo-32px.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/blog-logo-16px.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <link rel="manifest" href="/images/manifest.json">
+  <meta name="msapplication-config" content="/images/browserconfig.xml">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yangsuoly.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":true},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":true,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="Claude Code 进阶：CCG-Workflow 多模型协作实战指南  📝 前言 在之前的 Claude Code 基础配置指南 中，我们解决了&quot;怎么让 Claude Code 跑起来&quot;的问题。但光跑起来还不够，怎么真正提升开发效率，才是后续的核心。 最近发现了一套叫 CCG-Workflow 的多模型协作系统——简单来说，就是让 Claude 负责指挥调度，让 Co">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Claude Code 进阶：CCG-Workflow 多模型协作实战指南">
+<meta property="og:url" content="http://yangsuoly.com/2026/02/16/CC-Skills-05-CCG-workflow/index.html">
+<meta property="og:site_name" content="独孤诗人的学习驿站">
+<meta property="og:description" content="Claude Code 进阶：CCG-Workflow 多模型协作实战指南  📝 前言 在之前的 Claude Code 基础配置指南 中，我们解决了&quot;怎么让 Claude Code 跑起来&quot;的问题。但光跑起来还不够，怎么真正提升开发效率，才是后续的核心。 最近发现了一套叫 CCG-Workflow 的多模型协作系统——简单来说，就是让 Claude 负责指挥调度，让 Co">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/YangSuoly/Images/Claude-code/202603102224714.png">
+<meta property="article:published_time" content="2026-02-16T03:09:21.000Z">
+<meta property="article:modified_time" content="2026-03-10T14:24:37.404Z">
+<meta property="article:author" content="YangSu">
+<meta property="article:tag" content="Tool">
+<meta property="article:tag" content="Claude-Code-Skill">
+<meta property="article:tag" content="Workflow">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/YangSuoly/Images/Claude-code/202603102224714.png">
+
+<link rel="canonical" href="http://yangsuoly.com/2026/02/16/CC-Skills-05-CCG-workflow/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>Claude Code 进阶：CCG-Workflow 多模型协作实战指南 | 独孤诗人的学习驿站</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?f59f5fb59d32ec3903088b0f976956d1";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta custom-logo">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">独孤诗人的学习驿站</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">生活就是一半烟火，一半诗意。手执烟火谋生活，心怀诗意谋未来……</p>
+      <a>
+        <img class="custom-logo-image" src="/images/logo@2x.png" alt="独孤诗人的学习驿站">
+      </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/Tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/Categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+  <a href="https://github.com/YangSuoly" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yangsuoly.com/2026/02/16/CC-Skills-05-CCG-workflow/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/YangSu.jpg">
+      <meta itemprop="name" content="YangSu">
+      <meta itemprop="description" content="A blog for recording learning notes...">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="独孤诗人的学习驿站">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Claude Code 进阶：CCG-Workflow 多模型协作实战指南
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2026-02-16 11:09:21" itemprop="dateCreated datePublished" datetime="2026-02-16T11:09:21+08:00">2026-02-16</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2026-03-10 22:24:37" itemprop="dateModified" datetime="2026-03-10T22:24:37+08:00">2026-03-10</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/Categories/Notes/" itemprop="url" rel="index"><span itemprop="name">Notes</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/Categories/Notes/Claude-Code/" itemprop="url" rel="index"><span itemprop="name">Claude-Code</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="Views" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span><br>
+            <span class="post-meta-item" title="Symbols count in article">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">Symbols count in article: </span>
+              <span>5.3k</span>
+            </span>
+            <span class="post-meta-item" title="Reading time">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">Reading time &asymp;</span>
+              <span>5 mins.</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="claude-code-进阶ccg-workflow-多模型协作实战指南"><a class="markdownIt-Anchor" href="#claude-code-进阶ccg-workflow-多模型协作实战指南"></a> Claude Code 进阶：CCG-Workflow 多模型协作实战指南</h1>
+<h2 id="前言"><a class="markdownIt-Anchor" href="#前言"></a> 📝 前言</h2>
+<p>在之前的 <a href="01-docs/knowledge/06-Blog/Claude-code-1-basic.md">Claude Code 基础配置指南</a> 中，我们解决了&quot;怎么让 Claude Code 跑起来&quot;的问题。但光跑起来还不够，怎么真正提升开发效率，才是后续的核心。</p>
+<p>最近发现了一套叫 <strong>CCG-Workflow</strong> 的多模型协作系统——简单来说，就是<strong>让 Claude 负责指挥调度，让 Codex 专注后端，让 Gemini 专注前端</strong>。三个 AI 各取所长，协作效率提升非常明显。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/YangSuoly/Images/Claude-code/202603102224714.png" alt="" /></p>
+<a id="more"></a>
+<hr />
+<h2 id="一-项目概述"><a class="markdownIt-Anchor" href="#一-项目概述"></a> 一、项目概述</h2>
+<p>CCG-Workflow（Claude + Codex + Gemini）是一个多模型协作系统，旨在提供智能路由和开发工作流程优化。它将不同 AI 模型的优势结合起来，为开发过程的各个阶段提供支持。</p>
+<p><strong>项目地址</strong>: <a target="_blank" rel="noopener" href="https://github.com/fengshao1227/ccg-workflow">https://github.com/fengshao1227/ccg-workflow</a><br />
+<strong>项目版本</strong>: v1.7.74<br />
+<strong>npm 包名</strong>: ccg-workflow</p>
+<hr />
+<h2 id="二-快速开始"><a class="markdownIt-Anchor" href="#二-快速开始"></a> 二、快速开始</h2>
+<h3 id="21-30-秒了解"><a class="markdownIt-Anchor" href="#21-30-秒了解"></a> 2.1 30 秒了解</h3>
+<table>
+<thead>
+<tr>
+<th>概念</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>CCG</strong></td>
+<td>Claude Code (主导编排) + Codex CLI (后端原型) + Gemini CLI (前端原型)</td>
+</tr>
+<tr>
+<td><strong>核心理念</strong></td>
+<td>让 Claude 专注于编排决策，把具体代码生成交给专业模型</td>
+</tr>
+<tr>
+<td><strong>智能路由</strong></td>
+<td>前端任务 → Gemini（擅长 UI/CSS/组件），后端任务 → Codex（擅长逻辑/算法/调试），全栈整合 → Claude（编排决策，质量把控）</td>
+</tr>
+</tbody>
+</table>
+<h3 id="22-一键安装"><a class="markdownIt-Anchor" href="#22-一键安装"></a> 2.2 一键安装</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npx ccg-workflow</span><br></pre></td></tr></table></figure>
+<p><strong>安装流程</strong>:</p>
+<ol>
+<li>选择 “初始化工作流”</li>
+<li>配置 ace-tool MCP（可选，可跳过）</li>
+<li>自动安装 16 个命令</li>
+<li>重启终端生效</li>
+</ol>
+<h3 id="23-第一个命令"><a class="markdownIt-Anchor" href="#23-第一个命令"></a> 2.3 第一个命令</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 在 Claude Code 中执行</span></span><br><span class="line">/ccg:workflow 实现用户登录功能</span><br></pre></td></tr></table></figure>
+<p>自动执行 6 阶段工作流：<strong>Prompt增强 → 代码检索 → 并行分析 → 原型生成 → 实施 → 审计</strong></p>
+<hr />
+<h2 id="三-核心特性"><a class="markdownIt-Anchor" href="#三-核心特性"></a> 三、核心特性</h2>
+<table>
+<thead>
+<tr>
+<th>特性</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Web UI 实时输出</strong></td>
+<td>自动打开浏览器，流式显示思考过程、命令执行、生成结果</td>
+</tr>
+<tr>
+<td><strong>固定路由</strong></td>
+<td>前端→Gemini，后端→Codex，全栈→Claude</td>
+</tr>
+<tr>
+<td><strong>多模型并行</strong></td>
+<td>Codex ∥ Gemini 同时调用，交叉验证</td>
+</tr>
+<tr>
+<td><strong>6阶段工作流</strong></td>
+<td>Prompt增强 → 检索 → 分析 → 原型 → 实施 → 审计</td>
+</tr>
+<tr>
+<td><strong>12个专家提示词</strong></td>
+<td>ROLE_FILE 零 token 动态注入</td>
+</tr>
+<tr>
+<td><strong>16个斜杠命令</strong></td>
+<td>开发工作流 + Git 工具 + 项目管理</td>
+</tr>
+<tr>
+<td><strong>跨平台支持</strong></td>
+<td>macOS / Linux / Windows × Intel / ARM</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="四-命令参考16-个"><a class="markdownIt-Anchor" href="#四-命令参考16-个"></a> 四、命令参考（16 个）</h2>
+<h3 id="41-日常开发只需记住这几个"><a class="markdownIt-Anchor" href="#41-日常开发只需记住这几个"></a> 4.1 日常开发只需记住这几个</h3>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>用途</th>
+<th>模式</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>/ccg:workflow</code></td>
+<td>完整6阶段工作流</td>
+<td>Codex ∥ Gemini</td>
+</tr>
+<tr>
+<td><code>/ccg:plan</code></td>
+<td>多模型规划（Phase 1-2），生成计划</td>
+<td>Codex ∥ Gemini</td>
+</tr>
+<tr>
+<td><code>/ccg:execute</code></td>
+<td>多模型执行（Phase 3-5），执行计划</td>
+<td>Codex ∥ Gemini + Claude</td>
+</tr>
+<tr>
+<td><code>/ccg:feat</code></td>
+<td>智能功能开发（规划→实施）</td>
+<td>规划 → 实施</td>
+</tr>
+<tr>
+<td><code>/ccg:frontend</code></td>
+<td>纯前端，Gemini 快速模式</td>
+<td>Gemini</td>
+</tr>
+<tr>
+<td><code>/ccg:backend</code></td>
+<td>纯后端，Codex 快速模式</td>
+<td>Codex</td>
+</tr>
+</tbody>
+</table>
+<h3 id="42-完整命令列表"><a class="markdownIt-Anchor" href="#42-完整命令列表"></a> 4.2 完整命令列表</h3>
+<h4 id="开发工作流12-个"><a class="markdownIt-Anchor" href="#开发工作流12-个"></a> 开发工作流（12 个）</h4>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>用途</th>
+<th>模式</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>/ccg:workflow</code></td>
+<td>完整6阶段工作流</td>
+<td>Codex ∥ Gemini</td>
+</tr>
+<tr>
+<td><code>/ccg:plan</code></td>
+<td>多模型规划（Phase 1-2）</td>
+<td>Codex ∥ Gemini</td>
+</tr>
+<tr>
+<td><code>/ccg:execute</code></td>
+<td>多模型执行（Phase 3-5）</td>
+<td>Codex ∥ Gemini + Claude</td>
+</tr>
+<tr>
+<td><code>/ccg:feat</code></td>
+<td>智能功能开发</td>
+<td>规划 → 实施</td>
+</tr>
+<tr>
+<td><code>/ccg:frontend</code></td>
+<td>前端专项</td>
+<td>Gemini</td>
+</tr>
+<tr>
+<td><code>/ccg:backend</code></td>
+<td>后端专项</td>
+<td>Codex</td>
+</tr>
+<tr>
+<td><code>/ccg:analyze</code></td>
+<td>技术分析（仅分析）</td>
+<td>Codex ∥ Gemini</td>
+</tr>
+<tr>
+<td><code>/ccg:debug</code></td>
+<td>问题诊断+修复</td>
+<td>Codex ∥ Gemini</td>
+</tr>
+<tr>
+<td><code>/ccg:optimize</code></td>
+<td>性能优化</td>
+<td>Codex ∥ Gemini</td>
+</tr>
+<tr>
+<td><code>/ccg:test</code></td>
+<td>测试生成</td>
+<td>智能路由</td>
+</tr>
+<tr>
+<td><code>/ccg:review</code></td>
+<td>代码审查（无参数自动审查 git diff）</td>
+<td>Codex ∥ Gemini</td>
+</tr>
+<tr>
+<td><code>/ccg:enhance</code></td>
+<td>Prompt 增强</td>
+<td>ace-tool MCP</td>
+</tr>
+</tbody>
+</table>
+<h4 id="git-工具4-个"><a class="markdownIt-Anchor" href="#git-工具4-个"></a> Git 工具（4 个）</h4>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>/ccg:commit</code></td>
+<td>智能提交，自动生成 conventional commit</td>
+</tr>
+<tr>
+<td><code>/ccg:rollback</code></td>
+<td>交互式回滚</td>
+</tr>
+<tr>
+<td><code>/ccg:clean-branches</code></td>
+<td>清理已合并分支</td>
+</tr>
+<tr>
+<td><code>/ccg:worktree</code></td>
+<td>Worktree 管理</td>
+</tr>
+</tbody>
+</table>
+<h4 id="项目管理1-个"><a class="markdownIt-Anchor" href="#项目管理1-个"></a> 项目管理（1 个）</h4>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>/ccg:init</code></td>
+<td>初始化项目 <a target="_blank" rel="noopener" href="http://CLAUDE.md">CLAUDE.md</a></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="五-使用场景"><a class="markdownIt-Anchor" href="#五-使用场景"></a> 五、使用场景</h2>
+<h3 id="场景-1项目初始化"><a class="markdownIt-Anchor" href="#场景-1项目初始化"></a> 场景 1：项目初始化</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">/ccg:init <span class="string">&quot;这是一个基于 React 和 Node.js 的电商平台&quot;</span></span><br><span class="line">/ccg:plan <span class="string">&quot;实现用户注册和登录功能&quot;</span></span><br><span class="line">/ccg:analyze .</span><br></pre></td></tr></table></figure>
+<h3 id="场景-2功能开发"><a class="markdownIt-Anchor" href="#场景-2功能开发"></a> 场景 2：功能开发</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">/ccg:feat <span class="string">&quot;实现购物车功能&quot;</span></span><br><span class="line">/ccg:enhance src/</span><br><span class="line">/ccg:<span class="built_in">test</span> src/</span><br></pre></td></tr></table></figure>
+<h3 id="场景-3代码审查和部署"><a class="markdownIt-Anchor" href="#场景-3代码审查和部署"></a> 场景 3：代码审查和部署</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">/ccg:review src/</span><br><span class="line">/ccg:debug <span class="string">&quot;修复登录页面的密码验证问题&quot;</span></span><br><span class="line">/ccg:analyze .</span><br></pre></td></tr></table></figure>
+<hr />
+<h2 id="六-架构图"><a class="markdownIt-Anchor" href="#六-架构图"></a> 六、架构图</h2>
+<pre class="mermaid">graph TD
+    A[Claude Code CLI<br/>主导编排] -->|任务分发| B[Codex CLI<br/>后端原型]
+    A -->|任务分发| C[Gemini CLI<br/>前端原型]
+    B -->|返回结果| D[Patch 审核]
+    C -->|返回结果| D
+    D -->|应用到代码库| E[代码实施]</pre>
+<hr />
+<h2 id="七-前置要求"><a class="markdownIt-Anchor" href="#七-前置要求"></a> 七、前置要求</h2>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>要求</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>必需</strong></td>
+<td>Claude Code CLI，Node.js 18+</td>
+</tr>
+<tr>
+<td><strong>可选（按需安装）</strong></td>
+<td>Codex CLI - 不装的话后端任务降级成 Claude，Gemini CLI - 不装的话前端任务也降级</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>备注</strong>：只有 Claude Code 也能用，就是没有多模型协作了。</p>
+</blockquote>
+<hr />
+<h2 id="八-高级配置"><a class="markdownIt-Anchor" href="#八-高级配置"></a> 八、高级配置</h2>
+<h3 id="81-ace-tool-mcp-配置"><a class="markdownIt-Anchor" href="#81-ace-tool-mcp-配置"></a> 8.1 ace-tool MCP 配置</h3>
+<p>安装时可选配置，用于代码检索和 Prompt 增强。</p>
+<p><strong>两种方式</strong>:</p>
+<ol>
+<li><strong>官方服务</strong> - <a target="_blank" rel="noopener" href="https://augmentcode.com/">https://augmentcode.com/</a> 注册获取 Token</li>
+<li><strong>中转服务</strong> - <a target="_blank" rel="noopener" href="http://linux.do">linux.do</a> 社区提供，无需注册：<a target="_blank" rel="noopener" href="https://linux.do/t/topic/1291730">https://linux.do/t/topic/1291730</a></li>
+</ol>
+<h3 id="82-推荐全局提示词配置"><a class="markdownIt-Anchor" href="#82-推荐全局提示词配置"></a> 8.2 推荐全局提示词配置</h3>
+<p>如果你想更好地使用 ace-tool MCP 和 Codex/Gemini CLI，可以在 ~/.claude/CLAUDE.md 中添加以下全局提示词（CCG 工作流本身已封装完整提示词，此配置为可选增强）：</p>
+<p>直接复制以下内容到 ~/.claude/CLAUDE.md：</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"><span class="section"># CCG 工作流增强配置</span></span><br><span class="line"></span><br><span class="line"><span class="section">## 1. Prompt 增强 (每次对话自动触发)</span></span><br><span class="line"><span class="strong">**执行时机**</span>：用户发送消息时</span><br><span class="line"><span class="strong">**工具调用**</span>：调用 mcp<span class="strong">__ace-tool__</span>enhance<span class="emphasis">_prompt</span></span><br><span class="line"><span class="emphasis"><span class="strong">**作用**</span>：将模糊需求转化为结构化、可执行的任务描述</span></span><br><span class="line"><span class="emphasis"></span></span><br><span class="line"><span class="emphasis">## 2. 上下文全量检索 (生成代码前必须执行)</span></span><br><span class="line"><span class="emphasis"><span class="strong">**执行时机**</span>：在生成任何建议或代码之前</span></span><br><span class="line"><span class="emphasis"><span class="strong">**工具调用**</span>：调用 mcp<span class="strong">__ace-tool__</span>search_</span>context</span><br><span class="line"></span><br><span class="line"><span class="strong">**检索策略**</span>：</span><br><span class="line"><span class="bullet">-</span> 禁止基于假设 (Assumption) 回答</span><br><span class="line"><span class="bullet">-</span> 使用自然语言构建语义查询 (Where/What/How)</span><br><span class="line"><span class="bullet">-</span> 完整性检查：必须获取相关类、函数、变量的完整定义与签名</span><br><span class="line"><span class="bullet">-</span> 若上下文不足，触发递归检索直至信息完整</span><br><span class="line"></span><br><span class="line"><span class="strong">**需求对齐**</span>：若检索后需求仍有模糊空间，必须向用户输出引导性问题列表，直至需求边界清晰（无遗漏、无冗余）。</span><br><span class="line"></span><br><span class="line"><span class="section">## 3. 工作流执行原则</span></span><br><span class="line"></span><br><span class="line"><span class="bullet">1.</span> 先检索，后生成：永远不要在没有调用 search<span class="emphasis">_context 的情况下编写代码</span></span><br><span class="line"><span class="emphasis">2. 增强需求：对于复杂任务，先调用 enhance_</span>prompt 明确需求边界</span><br><span class="line"><span class="bullet">3.</span> 智能路由：根据任务类型自动选择 Codex/Gemini/Claude</span><br><span class="line"><span class="bullet">4.</span> 交叉验证：关键决策使用双模型并行分析</span><br><span class="line"><span class="bullet">5.</span> 代码主权：Codex/Gemini 仅负责分析、规划、审查，禁止直接修改文件；所有代码实现由 Claude 完成</span><br><span class="line">（可选）多模型协作调用规范：如果你安装了 Codex/Gemini CLI，可以追加以下内容：</span><br><span class="line"></span><br><span class="line"><span class="section">## 多模型协作调用规范</span></span><br><span class="line"></span><br><span class="line"><span class="section">### Codex CLI 调用 (后端任务)</span></span><br><span class="line">调用方式：codeagent-wrapper --backend codex - [工作目录] &lt;&lt;&#x27;EOF&#x27; ... EOF</span><br><span class="line">适用场景：后端逻辑、算法实现、数据库操作、API 开发，性能优化、调试分析</span><br><span class="line"></span><br><span class="line"><span class="section">### Gemini CLI 调用 (前端任务)</span></span><br><span class="line">调用方式：codeagent-wrapper --backend gemini - [工作目录] &lt;&lt;&#x27;EOF&#x27; ... EOF</span><br><span class="line">适用场景：UI/UX 组件开发、CSS 样式、响应式布局、前端交互逻辑</span><br><span class="line"></span><br><span class="line"><span class="section">### 会话复用</span></span><br><span class="line">每次调用返回 SESSION<span class="emphasis">_ID: xxx，后续阶段用 resume xxx 复用上下文，保持对话连贯性。</span></span><br><span class="line"><span class="emphasis"></span></span><br><span class="line"><span class="emphasis">新会话调用：codeagent-wrapper --backend <span class="xml">&lt;codex|gemini&gt;</span> - [工作目录] &lt;&lt;&#x27;EOF&#x27; ... EOF</span></span><br><span class="line"><span class="emphasis">复用会话调用：codeagent-wrapper --backend <span class="xml">&lt;codex|gemini&gt;</span> resume <span class="xml"><span class="tag">&lt;<span class="name">SESSION_ID</span>&gt;</span></span> - [工作目录] &lt;&lt;&#x27;EOF&#x27; ... EOF</span></span><br><span class="line"><span class="emphasis"></span></span><br><span class="line"><span class="emphasis">### 并行调用</span></span><br><span class="line"><span class="emphasis">使用 run_</span>in<span class="emphasis">_background: true 启动后台任务，用 TaskOutput 等待结果。必须等所有模型返回后才能进入下一阶段。</span></span><br><span class="line"><span class="emphasis"></span></span><br><span class="line"><span class="emphasis">并行启动示例：</span></span><br><span class="line"><span class="emphasis">Bash(&#123; command: &quot;codeagent-wrapper --backend codex ...&quot;, run_</span>in<span class="emphasis">_background: true, timeout: 3600000 &#125;)</span></span><br><span class="line"><span class="emphasis">Bash(&#123; command: &quot;codeagent-wrapper --backend gemini ...&quot;, run_</span>in<span class="emphasis">_background: true, timeout: 3600000 &#125;)</span></span><br><span class="line"><span class="emphasis"></span></span><br><span class="line"><span class="emphasis">等待后台任务：TaskOutput(&#123; task_</span>id: <span class="xml"><span class="tag">&lt;<span class="name">TASK_ID</span>&gt;</span></span>, block: true, timeout: 600000 &#125;)</span><br></pre></td></tr></table></figure>
+<p>配置后效果：</p>
+<ul>
+<li>✅ 每次对话自动增强 Prompt，减少需求模糊</li>
+<li>✅ 代码生成前强制检索上下文，避免幻觉</li>
+<li>✅ 多模型协作规范化，提升代码质量</li>
+</ul>
+<hr />
+<h2 id="九-常见问题"><a class="markdownIt-Anchor" href="#九-常见问题"></a> 九、常见问题</h2>
+<h3 id="q-codeagent-wrapper-command-not-found"><a class="markdownIt-Anchor" href="#q-codeagent-wrapper-command-not-found"></a> Q: codeagent-wrapper: command not found？</h3>
+<p>PATH 未生效，重启终端或执行：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Mac/Linux</span></span><br><span class="line"><span class="built_in">source</span> ~/.zshrc</span><br><span class="line"></span><br><span class="line"><span class="comment"># Windows</span></span><br><span class="line"><span class="comment"># 重新打开 PowerShell</span></span><br></pre></td></tr></table></figure>
+<h3 id="q-如何更新"><a class="markdownIt-Anchor" href="#q-如何更新"></a> Q: 如何更新？</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># npx 安装用户（所有平台通用）</span></span><br><span class="line">npx ccg-workflow@latest</span><br><span class="line"><span class="comment"># 选择 &quot;更新工作流&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># npm 全局安装用户</span></span><br><span class="line">npm install -g ccg-workflow@latest</span><br></pre></td></tr></table></figure>
+<h3 id="q-如何卸载"><a class="markdownIt-Anchor" href="#q-如何卸载"></a> Q: 如何卸载？</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">npx ccg-workflow</span><br><span class="line"><span class="comment"># 选择 &quot;卸载工作流&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 如果之前用 npm install -g 安装过，还需执行：</span></span><br><span class="line">npm uninstall -g ccg-workflow</span><br></pre></td></tr></table></figure>
+<h3 id="q-claude-code-任务超时"><a class="markdownIt-Anchor" href="#q-claude-code-任务超时"></a> Q: Claude Code 任务超时？</h3>
+<p>修改 <code>~/.claude/settings.json</code>：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">&quot;env&quot;</span>: &#123;</span><br><span class="line">    <span class="attr">&quot;CODEX_TIMEOUT&quot;</span>: <span class="string">&quot;7200&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;BASH_DEFAULT_TIMEOUT_MS&quot;</span>: <span class="string">&quot;600000&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;BASH_MAX_TIMEOUT_MS&quot;</span>: <span class="string">&quot;3600000&quot;</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="q-codex-任务卡住获取不到结果"><a class="markdownIt-Anchor" href="#q-codex-任务卡住获取不到结果"></a> Q: Codex 任务卡住，获取不到结果？</h3>
+<p>这是 Codex CLI 0.80.0 的已知 bug。设置环境变量让 codeagent-wrapper 检测到完成后 1 秒强制终止进程。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Mac/Linux - 添加到 ~/.zshrc 或 ~/.bashrc</span></span><br><span class="line"><span class="built_in">export</span> CODEAGENT_POST_MESSAGE_DELAY=1</span><br><span class="line"></span><br><span class="line"><span class="comment"># Windows PowerShell - 添加到用户环境变量</span></span><br><span class="line">[Environment]::SetEnvironmentVariable(<span class="string">&quot;CODEAGENT_POST_MESSAGE_DELAY&quot;</span>, <span class="string">&quot;1&quot;</span>, <span class="string">&quot;User&quot;</span>)</span><br></pre></td></tr></table></figure>
+<hr />
+<h2 id="十-总结"><a class="markdownIt-Anchor" href="#十-总结"></a> 十、总结</h2>
+<p>CCG-Workflow 是一个功能强大的多模型协作系统，它将 Claude Code、Codex 和 Gemini 的优势结合起来，提供了完整的开发工作流程优化。通过智能路由和专业分工，开发者可以更高效地完成各种编程任务，从项目初始化到代码部署的整个过程都能得到 AI 的全方位支持。</p>
+<blockquote>
+<p>🔗 <strong>相关链接</strong>：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/fengshao1227/ccg-workflow">CCG-Workflow GitHub</a></li>
+<li><a href="01-docs/knowledge/06-Blog/Claude-code-1-basic.md">Claude Code 基础配置指南</a></li>
+</ul>
+</blockquote>
+<hr />
+<p><strong>下篇预告</strong>：<a href="">03-Claude Code 核心功能全解析</a> - 深入探讨 Claude Code 的核心功能和使用技巧</p>
+
+    </div>
+
+    
+    
+    
+
+    <div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">
+            -------------This blog is over!
+            <i class="fa fa-eye"></i>
+            Thanks for your reading-------------
+        </div>
+    
+</div>
+      
+    </div>
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>Post author:  </strong>YangSu
+  </li>
+  <li class="post-copyright-link">
+    <strong>Post link: </strong>
+    <a href="http://yangsuoly.com/2026/02/16/CC-Skills-05-CCG-workflow/" title="Claude Code 进阶：CCG-Workflow 多模型协作实战指南">http://yangsuoly.com/2026/02/16/CC-Skills-05-CCG-workflow/</a>
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/Tags/Tool/" rel="tag"><i class="fa fa-tag"></i> Tool</a>
+              <a href="/Tags/Claude-Code-Skill/" rel="tag"><i class="fa fa-tag"></i> Claude-Code-Skill</a>
+              <a href="/Tags/Workflow/" rel="tag"><i class="fa fa-tag"></i> Workflow</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2026/02/10/Happy-LLM/" rel="prev" title="Happy_LLM">
+      <i class="fa fa-chevron-left"></i> Happy_LLM
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2026/03/10/CC-Skills-03-planning-with-files/" rel="next" title="Planning-With-Files 完整教程">
+      Planning-With-Files 完整教程 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div id="music163player">
+      <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=1317956275&auto=0&height=66"></iframe>
+      </iframe>
+    </div>
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#claude-code-%E8%BF%9B%E9%98%B6ccg-workflow-%E5%A4%9A%E6%A8%A1%E5%9E%8B%E5%8D%8F%E4%BD%9C%E5%AE%9E%E6%88%98%E6%8C%87%E5%8D%97"><span class="nav-text"> Claude Code 进阶：CCG-Workflow 多模型协作实战指南</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-text"> 📝 前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80-%E9%A1%B9%E7%9B%AE%E6%A6%82%E8%BF%B0"><span class="nav-text"> 一、项目概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C-%E5%BF%AB%E9%80%9F%E5%BC%80%E5%A7%8B"><span class="nav-text"> 二、快速开始</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#21-30-%E7%A7%92%E4%BA%86%E8%A7%A3"><span class="nav-text"> 2.1 30 秒了解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#22-%E4%B8%80%E9%94%AE%E5%AE%89%E8%A3%85"><span class="nav-text"> 2.2 一键安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#23-%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%91%BD%E4%BB%A4"><span class="nav-text"> 2.3 第一个命令</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89-%E6%A0%B8%E5%BF%83%E7%89%B9%E6%80%A7"><span class="nav-text"> 三、核心特性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%9B-%E5%91%BD%E4%BB%A4%E5%8F%82%E8%80%8316-%E4%B8%AA"><span class="nav-text"> 四、命令参考（16 个）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#41-%E6%97%A5%E5%B8%B8%E5%BC%80%E5%8F%91%E5%8F%AA%E9%9C%80%E8%AE%B0%E4%BD%8F%E8%BF%99%E5%87%A0%E4%B8%AA"><span class="nav-text"> 4.1 日常开发只需记住这几个</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#42-%E5%AE%8C%E6%95%B4%E5%91%BD%E4%BB%A4%E5%88%97%E8%A1%A8"><span class="nav-text"> 4.2 完整命令列表</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BC%80%E5%8F%91%E5%B7%A5%E4%BD%9C%E6%B5%8112-%E4%B8%AA"><span class="nav-text"> 开发工作流（12 个）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#git-%E5%B7%A5%E5%85%B74-%E4%B8%AA"><span class="nav-text"> Git 工具（4 个）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%A1%B9%E7%9B%AE%E7%AE%A1%E7%90%861-%E4%B8%AA"><span class="nav-text"> 项目管理（1 个）</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%94-%E4%BD%BF%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="nav-text"> 五、使用场景</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9C%BA%E6%99%AF-1%E9%A1%B9%E7%9B%AE%E5%88%9D%E5%A7%8B%E5%8C%96"><span class="nav-text"> 场景 1：项目初始化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9C%BA%E6%99%AF-2%E5%8A%9F%E8%83%BD%E5%BC%80%E5%8F%91"><span class="nav-text"> 场景 2：功能开发</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9C%BA%E6%99%AF-3%E4%BB%A3%E7%A0%81%E5%AE%A1%E6%9F%A5%E5%92%8C%E9%83%A8%E7%BD%B2"><span class="nav-text"> 场景 3：代码审查和部署</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%AD-%E6%9E%B6%E6%9E%84%E5%9B%BE"><span class="nav-text"> 六、架构图</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%83-%E5%89%8D%E7%BD%AE%E8%A6%81%E6%B1%82"><span class="nav-text"> 七、前置要求</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%AB-%E9%AB%98%E7%BA%A7%E9%85%8D%E7%BD%AE"><span class="nav-text"> 八、高级配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#81-ace-tool-mcp-%E9%85%8D%E7%BD%AE"><span class="nav-text"> 8.1 ace-tool MCP 配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#82-%E6%8E%A8%E8%8D%90%E5%85%A8%E5%B1%80%E6%8F%90%E7%A4%BA%E8%AF%8D%E9%85%8D%E7%BD%AE"><span class="nav-text"> 8.2 推荐全局提示词配置</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B9%9D-%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98"><span class="nav-text"> 九、常见问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#q-codeagent-wrapper-command-not-found"><span class="nav-text"> Q: codeagent-wrapper: command not found？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#q-%E5%A6%82%E4%BD%95%E6%9B%B4%E6%96%B0"><span class="nav-text"> Q: 如何更新？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#q-%E5%A6%82%E4%BD%95%E5%8D%B8%E8%BD%BD"><span class="nav-text"> Q: 如何卸载？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#q-claude-code-%E4%BB%BB%E5%8A%A1%E8%B6%85%E6%97%B6"><span class="nav-text"> Q: Claude Code 任务超时？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#q-codex-%E4%BB%BB%E5%8A%A1%E5%8D%A1%E4%BD%8F%E8%8E%B7%E5%8F%96%E4%B8%8D%E5%88%B0%E7%BB%93%E6%9E%9C"><span class="nav-text"> Q: Codex 任务卡住，获取不到结果？</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8D%81-%E6%80%BB%E7%BB%93"><span class="nav-text"> 十、总结</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="YangSu"
+      src="/images/YangSu.jpg">
+  <p class="site-author-name" itemprop="name">YangSu</p>
+  <div class="site-description" itemprop="description">A blog for recording learning notes...</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">84</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/Categories/">
+          
+        <span class="site-state-item-count">42</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/Tags/">
+          
+        <span class="site-state-item-count">58</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/YangSuoly" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;YangSuoly" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://gitee.com/yangsuoly" title="Gitee → https:&#x2F;&#x2F;gitee.com&#x2F;yangsuoly" rel="noopener" target="_blank"><i class="fab fa-github-square fa-fw"></i>Gitee</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://space.bilibili.com/64518717" title="B 站 → https:&#x2F;&#x2F;space.bilibili.com&#x2F;64518717" rel="noopener" target="_blank"><i class="fa fa-play-circle fa-fw"></i>B 站</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Related links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://www.58pic.com/u/19637930/" title="https:&#x2F;&#x2F;www.58pic.com&#x2F;u&#x2F;19637930&#x2F;" rel="noopener" target="_blank">千图网</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js" integrity="sha384-g7c+Jr9ZivxKLnZTDUhnkOnsh30B4H0rpLUpJ4jAIKs4fnJI+sEnkvrMWph2EDg4" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/auto-render.min.js" integrity="sha384-mll67QQFJfxn0IYznZYonOWZ644AWYC+Pt2cHqMaRhXVrursRwvLnLaebdGIlYNa" crossorigin="anonymous"
+        onload="renderMathInElement(document.body);"></script>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2026</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">YangSu</span>
+</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="Total Visitors">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="Total Views">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script size="300" alpha="0.6" zIndex="-1" src="/lib/canvas-ribbon/canvas-ribbon.js"></script>
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+<script>
+document.querySelectorAll('.pdfobject-container').forEach(element => {
+  let url = element.dataset.target;
+  let pdfOpenParams = {
+    navpanes : 0,
+    toolbar  : 0,
+    statusbar: 0,
+    pagemode : 'thumbs',
+    view     : 'FitH'
+  };
+  let pdfOpenFragment = '#' + Object.entries(pdfOpenParams).map(([key, value]) => `${key}=${encodeURIComponent(value)}`).join('&');
+  let fullURL = `/lib/pdf/web/viewer.html?file=${encodeURIComponent(url)}${pdfOpenFragment}`;
+
+  if (NexT.utils.supportsPDFs()) {
+    element.innerHTML = `<embed class="pdfobject" src="${url + pdfOpenFragment}" type="application/pdf" style="height: ${element.dataset.height};">`;
+  } else {
+    element.innerHTML = `<iframe src="${fullURL}" style="height: ${element.dataset.height};" frameborder="0"></iframe>`;
+  }
+});
+</script>
+
+
+<script>
+if (document.querySelectorAll('pre.mermaid').length) {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js', () => {
+    mermaid.initialize({
+      theme    : 'forest',
+      logLevel : 3,
+      flowchart: { curve     : 'linear' },
+      gantt    : { axisFormat: '%m/%d/%Y' },
+      sequence : { actorMargin: 50 }
+    });
+  }, window.mermaid);
+}
+</script>
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+  <script src="//cdn.jsdelivr.net/npm/quicklink@1/dist/quicklink.umd.js"></script>
+  <script>
+      window.addEventListener('load', () => {
+      quicklink({
+        timeout : 3000,
+        priority: true,
+        ignores : [uri => uri.includes('#'),uri => uri === 'http://yangsuoly.com/2026/02/16/CC-Skills-05-CCG-workflow/',]
+      });
+      });
+  </script>
+
+  
+  <script id="ribbon" src="js/canvas-ribbon.js"></script>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/22.2017.cba-normal.model.json"},"display":{"position":"right","width":300,"height":450},"mobile":{"show":false},"react":{"opacity":0.7},"log":false});</script></body>
+</html>
