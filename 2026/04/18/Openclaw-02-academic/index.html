@@ -32,7 +32,7 @@
 <meta property="og:description" content="OpenClaw 学术应用完全教程  作者: Claude Code | 更新日期: 2026-04-18   📝 前言 作为科研工作者，每天面对海量论文更新是常态。OpenClaw 可以帮你构建一个完整的学术论文自动化监控与推荐系统，实现：  自动采集：从 arXiv + 24 个学术期刊 RSS 自动拉取新论文 智能评分：基于你的研究方向分层匹配关键词，自动筛选相关论文 AI 深度分析：Ag">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2026-04-17T16:00:00.000Z">
-<meta property="article:modified_time" content="2026-04-18T11:05:49.194Z">
+<meta property="article:modified_time" content="2026-04-18T11:15:19.901Z">
 <meta property="article:author" content="YangSu">
 <meta property="article:tag" content="OpenClaw">
 <meta property="article:tag" content="Academic">
@@ -241,7 +241,7 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2026-04-18 00:00:00 / Modified: 19:05:49" itemprop="dateCreated datePublished" datetime="2026-04-18T00:00:00+08:00">2026-04-18</time>
+              <time title="Created: 2026-04-18 00:00:00 / Modified: 19:15:19" itemprop="dateCreated datePublished" datetime="2026-04-18T00:00:00+08:00">2026-04-18</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -309,10 +309,16 @@ TL;DR、创新点、方法论、课题启发、局限性</li>
 <li><strong>按主题分组</strong>：论文按研究主题自动归类，方便快速筛选</li>
 </ul>
 <p><img
-src="https://cdn.jsdelivr.net/gh/YangSuoly/Images/Claude-code/202604181903397.png" /></p>
+src="https://cdn.jsdelivr.net/gh/YangSuoly/Images/Claude-code/202604181909036.png" /></p>
 <a id="more"></a>
 <hr />
 <h2 id="一架构概览">一、架构概览</h2>
+<blockquote>
+<p>本教程相关的配置内容和 <code>skill</code> 见：<a
+href="https://yangsuoly.com/file/Openclaw_academic.zip">龙虾配置包</a></p>
+<p><a id="download" href="https://yangsuoly.com/file/Openclaw_academic.zip" target="_blank"><i class="fa fa-download"></i><span>
+Download Now </span> </a></p>
+</blockquote>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">┌───────────────────────────────────────────────────────┐</span><br><span class="line">│                    OpenClaw 平台                       │</span><br><span class="line">│                                                        │</span><br><span class="line">│  ┌──────────┐  ┌──────────┐  ┌──────────┐             │</span><br><span class="line">│  │  main    │  │ scholar  │  │info-scout│  ...agents   │</span><br><span class="line">│  │ (主角色)  │  │(学术助手) │  │(信息侦察) │             │</span><br><span class="line">│  └──────────┘  └────┬─────┘  └──────────┘             │</span><br><span class="line">│                     │                                  │</span><br><span class="line">│  Skills:            │                                  │</span><br><span class="line">│  ┌──────────────────┼──────────────────┐              │</span><br><span class="line">│  │ academic-briefing │  rss-monitor     │              │</span><br><span class="line">│  │ (论文采集+推送)    │  (RSS 博客监控)   │              │</span><br><span class="line">│  └──────────────────┼──────────────────┘              │</span><br><span class="line">│                     │                                  │</span><br><span class="line">│  Cron:              │                                  │</span><br><span class="line">│  ┌──────────────────┼──────────────────┐              │</span><br><span class="line">│  │ 每3天 09:00      │  每天 19:00       │              │</span><br><span class="line">│  │ 学术论文简报      │  RSS 日报推送     │              │</span><br><span class="line">│  └──────────────────┼──────────────────┘              │</span><br><span class="line">│                     ▼                                  │</span><br><span class="line">│              ┌─────────────┐                          │</span><br><span class="line">│              │  飞书推送     │                          │</span><br><span class="line">│              │ 卡片+文档+私信 │                          │</span><br><span class="line">│              └─────────────┘                          │</span><br><span class="line">└───────────────────────────────────────────────────────┘</span><br></pre></td></tr></table></figure>
 <p><strong>核心特点</strong>： - 🤖 <strong>多 Agent
 子角色</strong>：每个角色独立工作空间、模型配置、飞书群绑定 - 📡
