@@ -32,7 +32,7 @@
 <meta property="og:description" content="OpenClaw 学术应用完全教程  作者: Yangsu | 更新日期: 2026-04-18   📝 前言 作为科研工作者，每天面对海量论文更新是常态。OpenClaw 可以帮你构建一个完整的学术论文自动化监控与推荐系统，实现：  自动采集：从 arXiv + 24 个学术期刊 RSS 自动拉取新论文 智能评分：基于你的研究方向分层匹配关键词，自动筛选相关论文 AI 深度分析：Agent 原">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2026-04-17T16:00:00.000Z">
-<meta property="article:modified_time" content="2026-04-18T11:19:21.187Z">
+<meta property="article:modified_time" content="2026-04-19T14:49:32.300Z">
 <meta property="article:author" content="YangSu">
 <meta property="article:tag" content="OpenClaw">
 <meta property="article:tag" content="Academic">
@@ -239,10 +239,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2026-04-18 00:00:00 / Modified: 19:19:21" itemprop="dateCreated datePublished" datetime="2026-04-18T00:00:00+08:00">2026-04-18</time>
+              <time title="Created: 2026-04-18 00:00:00" itemprop="dateCreated datePublished" datetime="2026-04-18T00:00:00+08:00">2026-04-18</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2026-04-19 22:49:32" itemprop="dateModified" datetime="2026-04-19T22:49:32+08:00">2026-04-19</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -270,14 +276,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">Symbols count in article: </span>
-              <span>6.5k</span>
+              <span>10k</span>
             </span>
             <span class="post-meta-item" title="Reading time">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">Reading time &asymp;</span>
-              <span>6 mins.</span>
+              <span>9 mins.</span>
             </span>
 
         </div>
@@ -306,43 +312,135 @@
 TL;DR、创新点、方法论、课题启发、局限性</li>
 <li><strong>定时推送</strong>：每 3 天自动推送到飞书群（卡片简报 +
 详细文档）</li>
-<li><strong>按主题分组</strong>：论文按研究主题自动归类，方便快速筛选</li>
+<li><strong>多智能体协作</strong>：8 个专业子智能体协作完成从 idea
+到论文提交的完整流程</li>
 </ul>
 <p><img
 src="https://cdn.jsdelivr.net/gh/YangSuoly/Images/Claude-code/202604181909036.png" /></p>
 <a id="more"></a>
 <hr />
 <h2 id="一架构概览">一、架构概览</h2>
-<p>本教程相关的配置内容和 <code>skill</code> 见：<a
-href="https://yangsuoly.com/file/Openclaw_academic.zip">龙虾配置包</a>
-<a id="download" href="https://yangsuoly.com/file/Openclaw_academic.zip" target="_blank"><i class="fa fa-download"></i><span>
-Download Now </span> </a></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">┌───────────────────────────────────────────────────────┐</span><br><span class="line">│                    OpenClaw 平台                       │</span><br><span class="line">│                                                        │</span><br><span class="line">│  ┌──────────┐  ┌──────────┐  ┌──────────┐             │</span><br><span class="line">│  │  main    │  │ scholar  │  │info-scout│  ...agents   │</span><br><span class="line">│  │ (主角色)  │  │(学术助手) │  │(信息侦察) │             │</span><br><span class="line">│  └──────────┘  └────┬─────┘  └──────────┘             │</span><br><span class="line">│                     │                                  │</span><br><span class="line">│  Skills:            │                                  │</span><br><span class="line">│  ┌──────────────────┼──────────────────┐              │</span><br><span class="line">│  │ academic-briefing │  rss-monitor     │              │</span><br><span class="line">│  │ (论文采集+推送)    │  (RSS 博客监控)   │              │</span><br><span class="line">│  └──────────────────┼──────────────────┘              │</span><br><span class="line">│                     │                                  │</span><br><span class="line">│  Cron:              │                                  │</span><br><span class="line">│  ┌──────────────────┼──────────────────┐              │</span><br><span class="line">│  │ 每3天 09:00      │  每天 19:00       │              │</span><br><span class="line">│  │ 学术论文简报      │  RSS 日报推送     │              │</span><br><span class="line">│  └──────────────────┼──────────────────┘              │</span><br><span class="line">│                     ▼                                  │</span><br><span class="line">│              ┌─────────────┐                          │</span><br><span class="line">│              │  飞书推送     │                          │</span><br><span class="line">│              │ 卡片+文档+私信 │                          │</span><br><span class="line">│              └─────────────┘                          │</span><br><span class="line">└───────────────────────────────────────────────────────┘</span><br></pre></td></tr></table></figure>
-<p><strong>核心特点</strong>：</p>
-<ul>
-<li>🤖 <strong>多 Agent
-子角色</strong>：每个角色独立工作空间、模型配置、飞书群绑定</li>
-<li>📡 <strong>三通道数据采集</strong>：arXiv 关键词 + 分类浏览 + 期刊
-RSS 并行采集</li>
-<li>🧠 <strong>Agent-Native 分析</strong>：零额外 API 调用，Agent
-原生完成深度分析</li>
-<li>📊 <strong>分层评分系统</strong>：core(5分) + method(4分) +
-related(2分) 权重匹配</li>
-<li>🔄 <strong>智能去重</strong>：基于 DOI/URL 自动去重已推送论文</li>
-</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">┌──────────────────────────────────────────────────────────────────┐</span><br><span class="line">│                        OpenClaw 平台                              │</span><br><span class="line">│                                                                   │</span><br><span class="line">│  ┌──────────┐  ┌──────────┐  ┌──────────┐  ┌──────────┐         │</span><br><span class="line">│  │  main    │  │ scholar  │  │info-scout│  │  trader  │         │</span><br><span class="line">│  │ (主角色)  │  │(学术助手) │  │(信息侦察) │  │(交易分析) │         │</span><br><span class="line">│  └─────┬────┘  └────┬─────┘  └──────────┘  └──────────┘         │</span><br><span class="line">│        │            │                                             │</span><br><span class="line">│        │   ┌────────┴────────────────────────────────────┐       │</span><br><span class="line">│        │   │  Skills: academic-briefing &#x2F; rss-monitor     │       │</span><br><span class="line">│        │   │  Cron: 每3天论文简报 &#x2F; 每天RSS日报            │       │</span><br><span class="line">│        │   └─────────────────────────────────────────────┘       │</span><br><span class="line">│        │                                                          │</span><br><span class="line">│        │  agentToAgent (本地工作流模式)                            │</span><br><span class="line">│        │                                                          │</span><br><span class="line">│  ┌─────┴──────────────────────────────────────────────────┐      │</span><br><span class="line">│  │  论文写作多智能体团队                                     │      │</span><br><span class="line">│  │                                                         │      │</span><br><span class="line">│  │  🧠 Planner ──→ 💡 Ideator ←→ 🎯 Critic               │      │</span><br><span class="line">│  │       │                                                 │      │</span><br><span class="line">│  │       ├──→ 📚 Surveyor ──→ scholar (文献联动)           │      │</span><br><span class="line">│  │       ├──→ 💻 Coder                                    │      │</span><br><span class="line">│  │       └──→ ✍️ Writer ←→ 🔍 Reviewer                   │      │</span><br><span class="line">│  └─────────────────────────────────────────────────────────┘      │</span><br><span class="line">└──────────────────────────────────────────────────────────────────┘</span><br></pre></td></tr></table></figure>
+<p><strong>核心特点</strong>： - 🤖 <strong>多 Agent
+子角色</strong>：每个角色独立工作空间、模型配置、飞书群绑定 - 📡
+<strong>三通道数据采集</strong>：arXiv 关键词 + 分类浏览 + 期刊 RSS
+并行采集 - 🧠 <strong>Agent-Native 分析</strong>：零额外 API 调用，Agent
+原生完成深度分析 - 📊 <strong>分层评分系统</strong>：core(5分) +
+method(4分) + related(2分) 权重匹配 - 🔄 <strong>智能去重</strong>：基于
+DOI/URL 自动去重已推送论文 - ✍️ <strong>多智能体论文写作</strong>：8
+个专业子智能体协作完成 Paper Pipeline</p>
 <hr />
 <h2 id="二agent-子角色设立">二、Agent 子角色设立</h2>
-<h3 id="为什么需要子角色">2.1 为什么需要子角色</h3>
-<p>OpenClaw 支持创建多个 Agent 子角色，每个角色有独立的：</p>
-<ul>
-<li>工作空间（workspace）</li>
-<li>模型配置（可选不同的 LLM provider）</li>
-<li>飞书群绑定（每个角色推送到不同的群）</li>
-<li>会话隔离（cron 任务在独立 session 中运行）</li>
-</ul>
-<h3 id="在-openclaw.json-中定义-agent">2.2 在 openclaw.json 中定义
-Agent</h3>
-<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">&quot;agents&quot;</span>: [</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="attr">&quot;id&quot;</span>: <span class="string">&quot;main&quot;</span>,</span><br><span class="line">      <span class="attr">&quot;workspace&quot;</span>: <span class="string">&quot;/path/to/main/workspace&quot;</span></span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="attr">&quot;id&quot;</span>: <span class="string">&quot;scholar&quot;</span>,</span><br><span class="line">      <span class="attr">&quot;workspace&quot;</span>: <span class="string">&quot;/path/to/scholar/workspace&quot;</span></span><br><span class="line">    &#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="agent-全景">2.1 Agent 全景</h3>
+<p>OpenClaw 系统当前包含 11 个 Agent：</p>
+<table>
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 17%" />
+<col style="width: 17%" />
+<col style="width: 17%" />
+<col style="width: 26%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Agent</th>
+<th>类型</th>
+<th>用途</th>
+<th>模型</th>
+<th>飞书绑定</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>main (小女仆)</td>
+<td>原有</td>
+<td>综合助手、最终仲裁</td>
+<td>MiniMax-M2.7</td>
+<td>私聊 + WhatsApp</td>
+</tr>
+<tr class="even">
+<td>info-scout</td>
+<td>原有</td>
+<td>AI 资讯、RSS 监控</td>
+<td>MiniMax-M2.7</td>
+<td>AI信息搜集群</td>
+</tr>
+<tr class="odd">
+<td>scholar</td>
+<td>原有</td>
+<td>学术论文简报、文献分析</td>
+<td>MiniMax-M2.7</td>
+<td>学术论文更新群</td>
+</tr>
+<tr class="even">
+<td>trader</td>
+<td>原有</td>
+<td>投资分析、早盘晚报</td>
+<td>MiniMax-M2.7</td>
+<td>股票投资群</td>
+</tr>
+<tr class="odd">
+<td>planner</td>
+<td>论文团队</td>
+<td>统筹规划、进度管理</td>
+<td>MiniMax-M2.7</td>
+<td>本地工作流</td>
+</tr>
+<tr class="even">
+<td>ideator</td>
+<td>论文团队</td>
+<td>Idea 生成、新颖性评估</td>
+<td>MiniMax-M2.7</td>
+<td>本地工作流</td>
+</tr>
+<tr class="odd">
+<td>critic</td>
+<td>论文团队</td>
+<td>SHARP 品鉴、反模式检测</td>
+<td>MiniMax-M2.7</td>
+<td>本地工作流</td>
+</tr>
+<tr class="even">
+<td>surveyor</td>
+<td>论文团队</td>
+<td>文献搜索、Research Gap</td>
+<td>MiniMax-M2.7</td>
+<td>本地工作流</td>
+</tr>
+<tr class="odd">
+<td>coder</td>
+<td>论文团队</td>
+<td>代码实现、实验执行</td>
+<td>MiniMax-M2.7</td>
+<td>本地工作流</td>
+</tr>
+<tr class="even">
+<td>writer</td>
+<td>论文团队</td>
+<td>论文撰写、LaTeX 排版</td>
+<td>MiniMax-M2.7</td>
+<td>本地工作流</td>
+</tr>
+<tr class="odd">
+<td>reviewer</td>
+<td>论文团队</td>
+<td>内部审稿、Rebuttal</td>
+<td>MiniMax-M2.7</td>
+<td>本地工作流</td>
+</tr>
+</tbody>
+</table>
+<h3 id="两类-agent-的区别">2.2 两类 Agent 的区别</h3>
+<p><strong>飞书群绑定 Agent</strong>（main/scholar/info-scout/trader）：
+- 通过飞书群消息交互 - 有 channel binding，收到群消息后自动响应 - Cron
+定时任务触发</p>
+<p><strong>本地工作流
+Agent</strong>（planner/ideator/critic/surveyor/coder/writer/reviewer）：
+- 通过 CLI 命令 <code>openclaw chat &lt;agent&gt;</code> 或
+<code>openclaw agent --agent &lt;id&gt;</code> 交互 - 通过 agentToAgent
+工具相互通信 - Planner 作为协调者调度其他 Agent</p>
+<h3 id="在-openclaw.json-中配置">2.3 在 openclaw.json 中配置</h3>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">&quot;agents&quot;</span>: &#123;</span><br><span class="line">    <span class="attr">&quot;defaults&quot;</span>: &#123;</span><br><span class="line">      <span class="attr">&quot;model&quot;</span>: &#123; <span class="attr">&quot;primary&quot;</span>: <span class="string">&quot;minimax-portal/MiniMax-M2.7&quot;</span> &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">&quot;list&quot;</span>: [</span><br><span class="line">      &#123; <span class="attr">&quot;id&quot;</span>: <span class="string">&quot;main&quot;</span>, <span class="attr">&quot;default&quot;</span>: <span class="literal">true</span>, <span class="attr">&quot;workspace&quot;</span>: <span class="string">&quot;~/clawd&quot;</span> &#125;,</span><br><span class="line">      &#123; <span class="attr">&quot;id&quot;</span>: <span class="string">&quot;scholar&quot;</span>, <span class="attr">&quot;workspace&quot;</span>: <span class="string">&quot;~/clawd/agents/scholar&quot;</span> &#125;,</span><br><span class="line">      &#123; <span class="attr">&quot;id&quot;</span>: <span class="string">&quot;planner&quot;</span>, <span class="attr">&quot;workspace&quot;</span>: <span class="string">&quot;~/.openclaw/workspace-planner&quot;</span>,</span><br><span class="line">        <span class="attr">&quot;identity&quot;</span>: &#123; <span class="attr">&quot;name&quot;</span>: <span class="string">&quot;🧠 Planner&quot;</span> &#125; &#125;</span><br><span class="line">    ]</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">&quot;tools&quot;</span>: &#123;</span><br><span class="line">    <span class="attr">&quot;agentToAgent&quot;</span>: &#123;</span><br><span class="line">      <span class="attr">&quot;enabled&quot;</span>: <span class="literal">true</span>,</span><br><span class="line">      <span class="attr">&quot;allow&quot;</span>: [<span class="string">&quot;*&quot;</span>]</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <hr />
 <h2 id="三学术论文-skill-配置">三、学术论文 Skill 配置</h2>
 <h3 id="目录结构">3.1 目录结构</h3>
@@ -517,14 +615,66 @@ token、处理超时、额外费用</p>
 </tr>
 </tbody>
 </table>
-<h3 id="卡片容量限制">6.2 卡片容量限制</h3>
-<p>飞书 Webhook 卡片最大 <strong>28KB</strong>。含完整五步法分析时：</p>
-<ul>
-<li>每篇论文约 <strong>5-7 KB</strong></li>
-<li>最多放 <strong>4 篇</strong>论文（含 TL;DR + Novelty + Methodology +
-Inspiration + Limitations）</li>
-<li>超出时自动减少篇数</li>
-</ul>
+<h3 id="飞书群使用总览">6.2 飞书群使用总览</h3>
+<table>
+<colgroup>
+<col style="width: 21%" />
+<col style="width: 29%" />
+<col style="width: 24%" />
+<col style="width: 24%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>飞书群</th>
+<th>绑定 Agent</th>
+<th>如何触发</th>
+<th>功能说明</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>学术论文更新群</td>
+<td>scholar</td>
+<td>直接发消息</td>
+<td>论文分析、文献搜索、简报推送</td>
+</tr>
+<tr class="even">
+<td>AI信息搜集群</td>
+<td>info-scout</td>
+<td>直接发消息</td>
+<td>AI 新闻、技术博客监控、RSS 日报</td>
+</tr>
+<tr class="odd">
+<td>股票投资群</td>
+<td>trader</td>
+<td>直接发消息</td>
+<td>早盘/收盘分析、个股诊断</td>
+</tr>
+<tr class="even">
+<td><strong>Scholar Seminer</strong></td>
+<td><strong>planner</strong></td>
+<td><strong>直接发消息</strong></td>
+<td><strong>论文写作全流程协调、多智能体调度</strong></td>
+</tr>
+<tr class="odd">
+<td>飞书私聊</td>
+<td>main (小女仆)</td>
+<td>直接私聊</td>
+<td>综合助手、跨群协调</td>
+</tr>
+</tbody>
+</table>
+<h3 id="scholar-seminer-群的通信架构">6.3 Scholar Seminer
+群的通信架构</h3>
+<p><strong>重要</strong>：Scholar Seminer 群绑定的是
+<strong>Planner</strong>，不是所有子智能体。其他子智能体在后台运行，结果回传给
+Planner 整理后再转发给你。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">你（Scholar Seminer 群）</span><br><span class="line">    ↓ 发消息</span><br><span class="line">  Planner ← 唯一与你直接对话的 Agent</span><br><span class="line">    ↓ spawn（后台）</span><br><span class="line">  Surveyor &#x2F; Ideator &#x2F; Critic &#x2F; Coder &#x2F; Writer &#x2F; Reviewer</span><br><span class="line">    ↓ 完成后结果回传</span><br><span class="line">  Planner</span><br><span class="line">    ↓ 整理摘要 + 关键决策点</span><br><span class="line">你（Scholar Seminer 群）← 收到汇报 + 询问</span><br></pre></td></tr></table></figure>
+<h3 id="卡片容量限制">6.4 卡片容量限制</h3>
+<p>飞书 Webhook 卡片最大 <strong>28KB</strong>。含完整五步法分析时： -
+每篇论文约 <strong>5-7 KB</strong> - 最多放 <strong>4
+篇</strong>论文（含 TL;DR + Novelty + Methodology + Inspiration +
+Limitations） - 超出时自动减少篇数</p>
 <hr />
 <h2 id="七快速开始">七、快速开始</h2>
 <h3 id="安装依赖">7.1 安装依赖</h3>
@@ -532,7 +682,75 @@ Inspiration + Limitations）</li>
 <h3 id="使用方式">7.2 使用方式</h3>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> ~/.agents/skills/academic-briefing &amp;&amp; <span class="built_in">source</span> .venv/bin/activate</span><br><span class="line"></span><br><span class="line"><span class="comment"># 预览模式（不推送）</span></span><br><span class="line">python3 scripts/academic_monitor.py --dry-run --days 7</span><br><span class="line"></span><br><span class="line"><span class="comment"># 仅采集+评分，输出 JSON</span></span><br><span class="line">python3 scripts/academic_monitor.py --collect --output /tmp/papers.json</span><br><span class="line"></span><br><span class="line"><span class="comment"># 推送分析结果到飞书</span></span><br><span class="line">python3 scripts/academic_monitor.py --push-results /tmp/analyzed_papers.json</span><br><span class="line"></span><br><span class="line"><span class="comment"># 降级模式（直接推送，无 AI 分析）</span></span><br><span class="line">python3 scripts/academic_monitor.py --push</span><br></pre></td></tr></table></figure>
 <hr />
-<h2 id="八自定义与扩展">八、自定义与扩展</h2>
+<h2 id="九多智能体论文写作系统">九、多智能体论文写作系统</h2>
+<h3 id="概述">9.1 概述</h3>
+<p>论文写作多智能体系统由 7 个专业子 Agent 组成。<strong>入口是飞书
+Scholar Seminer 群</strong> — 直接发消息给 Planner，Planner
+在后台调度各子智能体完成任务，在关键节点回到群里汇报并请你做决策。</p>
+<p>来源于 <a
+target="_blank" rel="noopener" href="https://github.com/shenhao-stu/openclaw-agents">openclaw-agents</a>
+项目。</p>
+<h3 id="子智能体功能详解">9.2 子智能体功能详解</h3>
+<h4 id="planner统筹规划师">🧠 Planner（统筹规划师）</h4>
+<ul>
+<li><strong>职责</strong>：任务分解、进度追踪、跨 Agent
+协调、时间线管理</li>
+<li><strong>核心能力</strong>：根据 DDL
+倒推制定项目时间线、将任务拆解分配给对应 Agent</li>
+</ul>
+<h4 id="ideator创意大师">💡 Ideator（创意大师）</h4>
+<ul>
+<li><strong>职责</strong>：Idea 生成、新颖性评估、贡献声明精炼</li>
+<li><strong>核心能力</strong>：从多维度发散 Idea、对每个 Idea 进行 ACE
+评分（Attractiveness/Contribution/Executability）</li>
+</ul>
+<h4 id="critic品鉴师">🎯 Critic（品鉴师）</h4>
+<ul>
+<li><strong>职责</strong>：SHARP 品味评估、灵魂三问、反模式检测</li>
+<li><strong>核心能力</strong>：SHARP
+五维评分（Sharpness/Horizon/Asymmetry/Resistance/Parsimony）、通过标准：SHARP
+&gt;= 18 才允许进入正式流程</li>
+</ul>
+<h4 id="surveyor文献专家">📚 Surveyor（文献专家）</h4>
+<ul>
+<li><strong>职责</strong>：文献搜索、论文分析、Research Gap 识别</li>
+<li><strong>核心能力</strong>：系统文献调研、整理方法分类和 SOTA
+对比表、识别 Research Gap</li>
+</ul>
+<h4 id="coder代码工程师">💻 Coder（代码工程师）</h4>
+<ul>
+<li><strong>职责</strong>：算法实现、实验执行、代码优化</li>
+<li><strong>核心能力</strong>：搭建项目骨架、实现核心算法模块、运行主实验和消融实验</li>
+</ul>
+<h4 id="writer论文写手">✍️ Writer（论文写手）</h4>
+<ul>
+<li><strong>职责</strong>：论文撰写、LaTeX 排版、学术表达</li>
+<li><strong>核心能力</strong>：按章节撰写论文、制作图表、整理参考文献</li>
+</ul>
+<h4 id="reviewer内部审稿人">🔍 Reviewer（内部审稿人）</h4>
+<ul>
+<li><strong>职责</strong>：内部同行评审、弱点诊断、Rebuttal 策略</li>
+<li><strong>核心能力</strong>：全面技术审稿、模拟顶会审稿人视角、诊断
+GNN 论文常见问题</li>
+</ul>
+<h3 id="paper-pipeline-工作流">9.3 Paper Pipeline 工作流</h3>
+<p>从零到论文提交的 8 个阶段：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Phase 0: 项目初始化（Planner）      → 目标确认、团队配置</span><br><span class="line">Phase 1: 文献调研（Surveyor）        → 文献报告、Research Gap</span><br><span class="line">Phase 2: Idea 生成（Ideator）       → 3-5 个候选 Idea + ACE 评分</span><br><span class="line">Phase 2.5: Idea 品鉴（Critic）     → SHARP &gt;&#x3D; 18 才通过 ⚡关键节点</span><br><span class="line">Phase 3: 方法设计（Ideator + Coder） → 方法文档、架构图</span><br><span class="line">Phase 4: 代码实现（Coder）          → 可运行代码仓库</span><br><span class="line">Phase 5: 实验执行（Coder）          → 实验结果、表格、图表</span><br><span class="line">Phase 6: 论文撰写（Writer）         → 论文初稿（LaTeX）</span><br><span class="line">Phase 7: 内部审稿（Reviewer）       → 修改至 Accept</span><br><span class="line">Phase 8: 提交准备（Planner）        → Camera-Ready + main 最终审核</span><br></pre></td></tr></table></figure>
+<p><strong>启动方式</strong>（Scholar Seminer 群）： <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">启动 paper-pipeline 工作流，目标会议 KDD 2026，DDL 2026-02-01</span><br><span class="line">研究方向：学术社交网络中师生关系识别</span><br></pre></td></tr></table></figure></p>
+<h3 id="brainstorm-头脑风暴">9.4 Brainstorm 头脑风暴</h3>
+<p>快速生成和评估研究 Idea 的协作流程：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Step 1: 上下文准备（Planner + Scholar）  → 研究约束、最新论文</span><br><span class="line">Step 2: 自由发散（Ideator）             → 5-10 个粗略 Idea</span><br><span class="line">Step 3: 新颖性验证（Surveyor）          → 检查已有类似工作</span><br><span class="line">Step 4: ACE 评估（Ideator + Planner）  → 评分排序 → 汇报 Top 2</span><br><span class="line">Step 5: 你选择 → Critic 品鉴            → SHARP &gt;&#x3D; 18 硬关卡</span><br><span class="line">Step 6: Idea Card 完善                  → 进入 Paper Pipeline</span><br></pre></td></tr></table></figure>
+<h3 id="agenttoagent-通信配置">9.5 agentToAgent 通信配置</h3>
+<p>Agent 间通信通过 <code>openclaw.json</code> 中的
+<code>tools.agentToAgent</code> 配置：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">&quot;tools&quot;</span>: &#123;</span><br><span class="line">    <span class="attr">&quot;agentToAgent&quot;</span>: &#123;</span><br><span class="line">      <span class="attr">&quot;enabled&quot;</span>: <span class="literal">true</span>,</span><br><span class="line">      <span class="attr">&quot;allow&quot;</span>: [<span class="string">&quot;*&quot;</span>]</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="main-agent-的仲裁角色">9.6 main Agent 的仲裁角色</h3>
+<p>main Agent（小女仆）担任最终仲裁者： 1. <strong>Phase 2.5 品鉴未通过
+3 轮</strong> → main 裁定是否继续迭代或更换方向 2. <strong>Phase 8
+最终提交前</strong> → main 进行 Phase Gate Audit 3. <strong>跨 Agent
+争议</strong> → Planner 无法解决的分歧由 main 最终裁决</p>
+<hr />
+<h2 id="十自定义与扩展">十、自定义与扩展</h2>
 <h3 id="修改研究方向">8.1 修改研究方向</h3>
 <p>编辑 <code>references/research_topics.json</code>：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 添加核心关键词</span></span><br><span class="line"><span class="string">&quot;core&quot;</span>: &#123; <span class="string">&quot;keywords&quot;</span>: [<span class="string">&quot;your keyword&quot;</span>, ...] &#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 添加排除关键词</span></span><br><span class="line"><span class="string">&quot;exclude_keywords&quot;</span>: [<span class="string">&quot;irrelevant topic&quot;</span>, ...]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 添加关注的顶会/顶刊</span></span><br><span class="line"><span class="string">&quot;boost_venues&quot;</span>: [<span class="string">&quot;AAAI&quot;</span>, <span class="string">&quot;NeurIPS&quot;</span>, ...]</span><br></pre></td></tr></table></figure>
@@ -544,7 +762,7 @@ Inspiration + Limitations）</li>
 <p>在 <code>references/journal_rss_feeds.json</code> 中添加：</p>
 <figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">&quot;name&quot;</span>: <span class="string">&quot;Journal Name&quot;</span>,</span><br><span class="line">  <span class="attr">&quot;url&quot;</span>: <span class="string">&quot;https://journal.example.com/rss&quot;</span>,</span><br><span class="line">  <span class="attr">&quot;category&quot;</span>: <span class="string">&quot;Your Category&quot;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <hr />
-<h2 id="九常见问题">九、常见问题</h2>
+<h2 id="十一常见问题">十一、常见问题</h2>
 <p><strong>Q: 论文采集数量为 0？</strong> 检查时间窗口
 <code>--days</code> 参数。arXiv 在周末和假期不更新，建议设置 3-7
 天。</p>
@@ -552,13 +770,21 @@ Inspiration + Limitations）</li>
 是否正确。卡片超过 28KB 会自动减少论文数量。</p>
 <p><strong>Q: 如何增加精选论文数量？</strong> 修改 <code>--top</code>
 参数，但受卡片 28KB 限制。建议 4 篇精选 + 30 篇值得关注。</p>
-<p><strong>Q: 如何手动触发一次推送？</strong> 直接对 scholar agent 发送
-cron payload 中的三步指令，或使用降级模式： <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python3 scripts/academic_monitor.py --push --days 7</span><br></pre></td></tr></table></figure></p>
-<hr />
-<blockquote>
-<p>本教程基于 OpenClaw 平台 + Scholar Agent + Academic Briefing Skill v3
-(Agent-Native) 架构编写。</p>
-</blockquote>
+<p><strong>Q: 模型报 429 错误 / 套餐过期？</strong> 不要为 Agent
+单独配置 <code>model</code> 字段，让所有 Agent 继承
+<code>agents.defaults.model.primary</code>，这样换 provider
+只需改一处。</p>
+<p><strong>Q: 如何手动触发学术简报？</strong> 直接对 scholar agent
+发送三步指令，或使用降级模式： <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python3 scripts/academic_monitor.py --push --days 7</span><br></pre></td></tr></table></figure></p>
+<p><strong>Q: 论文写作 Agent 之间无法通信？</strong> 确认
+<code>openclaw.json</code> 中 <code>tools.agentToAgent.enabled</code> 为
+<code>true</code>，且 <code>allow</code> 包含 <code>["*"]</code>。</p>
+<p><strong>Q: 论文写作 Agent 如何使用？</strong>
+<strong>推荐方式</strong>：在飞书 <strong>Scholar Seminer
+群</strong>直接发消息给 Planner。Planner
+会在每个关键阶段完成后在群里汇报结果，并询问你是否继续。</p>
+<p><strong>Q: 想在特定阶段叫停或调整方向？</strong> 直接在群里回复
+Planner："先暂停，我想调整一下方向"。Planner 会响应你的指令。</p>
 
     </div>
 
@@ -676,8 +902,8 @@ cron payload 中的三步指令，或使用降级模式： <figure class="highli
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#openclaw-%E5%AD%A6%E6%9C%AF%E5%BA%94%E7%94%A8%E5%AE%8C%E5%85%A8%E6%95%99%E7%A8%8B"><span class="nav-text">OpenClaw 学术应用完全教程</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-text">📝 前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E6%9E%B6%E6%9E%84%E6%A6%82%E8%A7%88"><span class="nav-text">一、架构概览</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8Cagent-%E5%AD%90%E8%A7%92%E8%89%B2%E8%AE%BE%E7%AB%8B"><span class="nav-text">二、Agent 子角色设立</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E9%9C%80%E8%A6%81%E5%AD%90%E8%A7%92%E8%89%B2"><span class="nav-text">2.1 为什么需要子角色</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9C%A8-openclaw.json-%E4%B8%AD%E5%AE%9A%E4%B9%89-agent"><span class="nav-text">2.2 在 openclaw.json 中定义
-Agent</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89%E5%AD%A6%E6%9C%AF%E8%AE%BA%E6%96%87-skill-%E9%85%8D%E7%BD%AE"><span class="nav-text">三、学术论文 Skill 配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84"><span class="nav-text">3.1 目录结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A0%94%E7%A9%B6%E5%85%B3%E9%94%AE%E8%AF%8D%E9%85%8D%E7%BD%AE"><span class="nav-text">3.2 研究关键词配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%89%E9%80%9A%E9%81%93%E6%95%B0%E6%8D%AE%E9%87%87%E9%9B%86"><span class="nav-text">3.3 三通道数据采集</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%9Bagent-native-%E5%88%86%E6%9E%90%E6%9E%B6%E6%9E%84"><span class="nav-text">四、Agent-Native 分析架构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%BE%E8%AE%A1%E7%90%86%E5%BF%B5"><span class="nav-text">4.1 设计理念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%89%E6%AD%A5%E6%B5%81%E7%A8%8B"><span class="nav-text">4.2 三步流程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BC%98%E5%8A%BF%E5%AF%B9%E6%AF%94"><span class="nav-text">4.3 优势对比</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%94cron-%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1"><span class="nav-text">五、Cron 定时任务</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%BB%E5%8A%A1%E5%AE%9A%E4%B9%89"><span class="nav-text">5.1 任务定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8-cron-%E8%A1%A8%E8%BE%BE%E5%BC%8F"><span class="nav-text">5.2 常用 Cron 表达式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%AD%E9%A3%9E%E4%B9%A6%E9%9B%86%E6%88%90"><span class="nav-text">六、飞书集成</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8E%A8%E9%80%81%E7%B1%BB%E5%9E%8B"><span class="nav-text">6.1 推送类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8D%A1%E7%89%87%E5%AE%B9%E9%87%8F%E9%99%90%E5%88%B6"><span class="nav-text">6.2 卡片容量限制</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%83%E5%BF%AB%E9%80%9F%E5%BC%80%E5%A7%8B"><span class="nav-text">七、快速开始</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85%E4%BE%9D%E8%B5%96"><span class="nav-text">7.1 安装依赖</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E6%96%B9%E5%BC%8F"><span class="nav-text">7.2 使用方式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%AB%E8%87%AA%E5%AE%9A%E4%B9%89%E4%B8%8E%E6%89%A9%E5%B1%95"><span class="nav-text">八、自定义与扩展</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BF%AE%E6%94%B9%E7%A0%94%E7%A9%B6%E6%96%B9%E5%90%91"><span class="nav-text">8.1 修改研究方向</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%B0%83%E6%95%B4%E6%8E%A8%E9%80%81%E9%A2%91%E7%8E%87"><span class="nav-text">8.2 调整推送频率</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B7%BB%E5%8A%A0%E6%96%B0%E7%9A%84%E8%AE%BA%E6%96%87%E6%BA%90"><span class="nav-text">8.3 添加新的论文源</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B9%9D%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98"><span class="nav-text">九、常见问题</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#openclaw-%E5%AD%A6%E6%9C%AF%E5%BA%94%E7%94%A8%E5%AE%8C%E5%85%A8%E6%95%99%E7%A8%8B"><span class="nav-text">OpenClaw 学术应用完全教程</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-text">📝 前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E6%9E%B6%E6%9E%84%E6%A6%82%E8%A7%88"><span class="nav-text">一、架构概览</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8Cagent-%E5%AD%90%E8%A7%92%E8%89%B2%E8%AE%BE%E7%AB%8B"><span class="nav-text">二、Agent 子角色设立</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#agent-%E5%85%A8%E6%99%AF"><span class="nav-text">2.1 Agent 全景</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%A4%E7%B1%BB-agent-%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-text">2.2 两类 Agent 的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9C%A8-openclaw.json-%E4%B8%AD%E9%85%8D%E7%BD%AE"><span class="nav-text">2.3 在 openclaw.json 中配置</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89%E5%AD%A6%E6%9C%AF%E8%AE%BA%E6%96%87-skill-%E9%85%8D%E7%BD%AE"><span class="nav-text">三、学术论文 Skill 配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84"><span class="nav-text">3.1 目录结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A0%94%E7%A9%B6%E5%85%B3%E9%94%AE%E8%AF%8D%E9%85%8D%E7%BD%AE"><span class="nav-text">3.2 研究关键词配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%89%E9%80%9A%E9%81%93%E6%95%B0%E6%8D%AE%E9%87%87%E9%9B%86"><span class="nav-text">3.3 三通道数据采集</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%9Bagent-native-%E5%88%86%E6%9E%90%E6%9E%B6%E6%9E%84"><span class="nav-text">四、Agent-Native 分析架构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%BE%E8%AE%A1%E7%90%86%E5%BF%B5"><span class="nav-text">4.1 设计理念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%89%E6%AD%A5%E6%B5%81%E7%A8%8B"><span class="nav-text">4.2 三步流程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BC%98%E5%8A%BF%E5%AF%B9%E6%AF%94"><span class="nav-text">4.3 优势对比</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%94cron-%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1"><span class="nav-text">五、Cron 定时任务</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%BB%E5%8A%A1%E5%AE%9A%E4%B9%89"><span class="nav-text">5.1 任务定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8-cron-%E8%A1%A8%E8%BE%BE%E5%BC%8F"><span class="nav-text">5.2 常用 Cron 表达式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%AD%E9%A3%9E%E4%B9%A6%E9%9B%86%E6%88%90"><span class="nav-text">六、飞书集成</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8E%A8%E9%80%81%E7%B1%BB%E5%9E%8B"><span class="nav-text">6.1 推送类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%A3%9E%E4%B9%A6%E7%BE%A4%E4%BD%BF%E7%94%A8%E6%80%BB%E8%A7%88"><span class="nav-text">6.2 飞书群使用总览</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#scholar-seminer-%E7%BE%A4%E7%9A%84%E9%80%9A%E4%BF%A1%E6%9E%B6%E6%9E%84"><span class="nav-text">6.3 Scholar Seminer
+群的通信架构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8D%A1%E7%89%87%E5%AE%B9%E9%87%8F%E9%99%90%E5%88%B6"><span class="nav-text">6.4 卡片容量限制</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%83%E5%BF%AB%E9%80%9F%E5%BC%80%E5%A7%8B"><span class="nav-text">七、快速开始</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85%E4%BE%9D%E8%B5%96"><span class="nav-text">7.1 安装依赖</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E6%96%B9%E5%BC%8F"><span class="nav-text">7.2 使用方式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B9%9D%E5%A4%9A%E6%99%BA%E8%83%BD%E4%BD%93%E8%AE%BA%E6%96%87%E5%86%99%E4%BD%9C%E7%B3%BB%E7%BB%9F"><span class="nav-text">九、多智能体论文写作系统</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A6%82%E8%BF%B0"><span class="nav-text">9.1 概述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AD%90%E6%99%BA%E8%83%BD%E4%BD%93%E5%8A%9F%E8%83%BD%E8%AF%A6%E8%A7%A3"><span class="nav-text">9.2 子智能体功能详解</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#planner%E7%BB%9F%E7%AD%B9%E8%A7%84%E5%88%92%E5%B8%88"><span class="nav-text">🧠 Planner（统筹规划师）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ideator%E5%88%9B%E6%84%8F%E5%A4%A7%E5%B8%88"><span class="nav-text">💡 Ideator（创意大师）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#critic%E5%93%81%E9%89%B4%E5%B8%88"><span class="nav-text">🎯 Critic（品鉴师）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#surveyor%E6%96%87%E7%8C%AE%E4%B8%93%E5%AE%B6"><span class="nav-text">📚 Surveyor（文献专家）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#coder%E4%BB%A3%E7%A0%81%E5%B7%A5%E7%A8%8B%E5%B8%88"><span class="nav-text">💻 Coder（代码工程师）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#writer%E8%AE%BA%E6%96%87%E5%86%99%E6%89%8B"><span class="nav-text">✍️ Writer（论文写手）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#reviewer%E5%86%85%E9%83%A8%E5%AE%A1%E7%A8%BF%E4%BA%BA"><span class="nav-text">🔍 Reviewer（内部审稿人）</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#paper-pipeline-%E5%B7%A5%E4%BD%9C%E6%B5%81"><span class="nav-text">9.3 Paper Pipeline 工作流</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#brainstorm-%E5%A4%B4%E8%84%91%E9%A3%8E%E6%9A%B4"><span class="nav-text">9.4 Brainstorm 头脑风暴</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#agenttoagent-%E9%80%9A%E4%BF%A1%E9%85%8D%E7%BD%AE"><span class="nav-text">9.5 agentToAgent 通信配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#main-agent-%E7%9A%84%E4%BB%B2%E8%A3%81%E8%A7%92%E8%89%B2"><span class="nav-text">9.6 main Agent 的仲裁角色</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8D%81%E8%87%AA%E5%AE%9A%E4%B9%89%E4%B8%8E%E6%89%A9%E5%B1%95"><span class="nav-text">十、自定义与扩展</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BF%AE%E6%94%B9%E7%A0%94%E7%A9%B6%E6%96%B9%E5%90%91"><span class="nav-text">8.1 修改研究方向</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%B0%83%E6%95%B4%E6%8E%A8%E9%80%81%E9%A2%91%E7%8E%87"><span class="nav-text">8.2 调整推送频率</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B7%BB%E5%8A%A0%E6%96%B0%E7%9A%84%E8%AE%BA%E6%96%87%E6%BA%90"><span class="nav-text">8.3 添加新的论文源</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8D%81%E4%B8%80%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98"><span class="nav-text">十一、常见问题</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
