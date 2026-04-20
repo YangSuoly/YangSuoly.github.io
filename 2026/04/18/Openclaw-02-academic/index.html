@@ -32,7 +32,7 @@
 <meta property="og:description" content="OpenClaw 学术应用完全教程  作者: Yangsu | 更新日期: 2026-04-18   📝 前言 作为科研工作者，每天面对海量论文更新是常态。OpenClaw 可以帮你构建一个完整的学术论文自动化监控与推荐系统，实现：  自动采集：从 arXiv + 24 个学术期刊 RSS 自动拉取新论文 智能评分：基于你的研究方向分层匹配关键词，自动筛选相关论文 AI 深度分析：Agent 原">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2026-04-17T16:00:00.000Z">
-<meta property="article:modified_time" content="2026-04-20T02:32:11.644Z">
+<meta property="article:modified_time" content="2026-04-20T02:34:09.638Z">
 <meta property="article:author" content="YangSu">
 <meta property="article:tag" content="OpenClaw">
 <meta property="article:tag" content="Academic">
@@ -247,7 +247,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2026-04-20 10:32:11" itemprop="dateModified" datetime="2026-04-20T10:32:11+08:00">2026-04-20</time>
+                <time title="Modified: 2026-04-20 10:34:09" itemprop="dateModified" datetime="2026-04-20T10:34:09+08:00">2026-04-20</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -326,14 +326,20 @@ src="https://cdn.jsdelivr.net/gh/YangSuoly/Images/Claude-code/202604181909036.pn
 Download Now </span> </a></p>
 </blockquote>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">┌──────────────────────────────────────────────────────────────────┐</span><br><span class="line">│                        OpenClaw 平台                              │</span><br><span class="line">│                                                                   │</span><br><span class="line">│  ┌──────────┐  ┌──────────┐  ┌──────────┐  ┌──────────┐         │</span><br><span class="line">│  │  main    │  │ scholar  │  │info-scout│  │  trader  │         │</span><br><span class="line">│  │ (主角色)  │  │(学术助手) │  │(信息侦察) │  │(交易分析) │         │</span><br><span class="line">│  └─────┬────┘  └────┬─────┘  └──────────┘  └──────────┘         │</span><br><span class="line">│        │            │                                             │</span><br><span class="line">│        │   ┌────────┴────────────────────────────────────┐       │</span><br><span class="line">│        │   │  Skills: academic-briefing &#x2F; rss-monitor     │       │</span><br><span class="line">│        │   │  Cron: 每3天论文简报 &#x2F; 每天RSS日报            │       │</span><br><span class="line">│        │   └─────────────────────────────────────────────┘       │</span><br><span class="line">│        │                                                          │</span><br><span class="line">│        │  agentToAgent (本地工作流模式)                            │</span><br><span class="line">│        │                                                          │</span><br><span class="line">│  ┌─────┴──────────────────────────────────────────────────┐      │</span><br><span class="line">│  │  论文写作多智能体团队                                     │      │</span><br><span class="line">│  │                                                         │      │</span><br><span class="line">│  │  🧠 Planner ──→ 💡 Ideator ←→ 🎯 Critic               │      │</span><br><span class="line">│  │       │                                                 │      │</span><br><span class="line">│  │       ├──→ 📚 Surveyor ──→ scholar (文献联动)           │      │</span><br><span class="line">│  │       ├──→ 💻 Coder                                    │      │</span><br><span class="line">│  │       └──→ ✍️ Writer ←→ 🔍 Reviewer                   │      │</span><br><span class="line">│  └─────────────────────────────────────────────────────────┘      │</span><br><span class="line">└──────────────────────────────────────────────────────────────────┘</span><br></pre></td></tr></table></figure>
-<p><strong>核心特点</strong>： - 🤖 <strong>多 Agent
-子角色</strong>：每个角色独立工作空间、模型配置、飞书群绑定 - 📡
-<strong>三通道数据采集</strong>：arXiv 关键词 + 分类浏览 + 期刊 RSS
-并行采集 - 🧠 <strong>Agent-Native 分析</strong>：零额外 API 调用，Agent
-原生完成深度分析 - 📊 <strong>分层评分系统</strong>：core(5分) +
-method(4分) + related(2分) 权重匹配 - 🔄 <strong>智能去重</strong>：基于
-DOI/URL 自动去重已推送论文 - ✍️ <strong>多智能体论文写作</strong>：8
-个专业子智能体协作完成 Paper Pipeline</p>
+<p><strong>核心特点</strong>：</p>
+<ul>
+<li>🤖 <strong>多 Agent
+子角色</strong>：每个角色独立工作空间、模型配置、飞书群绑定</li>
+<li>📡 <strong>三通道数据采集</strong>：arXiv 关键词 + 分类浏览 + 期刊
+RSS 并行采集</li>
+<li>🧠 <strong>Agent-Native 分析</strong>：零额外 API 调用，Agent
+原生完成深度分析</li>
+<li>📊 <strong>分层评分系统</strong>：core(5分) + method(4分) +
+related(2分) 权重匹配</li>
+<li>🔄 <strong>智能去重</strong>：基于 DOI/URL 自动去重已推送论文</li>
+<li>✍️ <strong>多智能体论文写作</strong>：8 个专业子智能体协作完成 Paper
+Pipeline</li>
+</ul>
 <hr />
 <h2 id="二agent-子角色设立">二、Agent 子角色设立</h2>
 <h3 id="agent-全景">2.1 Agent 全景</h3>
@@ -436,14 +442,21 @@ DOI/URL 自动去重已推送论文 - ✍️ <strong>多智能体论文写作</s
 </tbody>
 </table>
 <h3 id="两类-agent-的区别">2.2 两类 Agent 的区别</h3>
-<p><strong>飞书群绑定 Agent</strong>（main/scholar/info-scout/trader）：
-- 通过飞书群消息交互 - 有 channel binding，收到群消息后自动响应 - Cron
-定时任务触发</p>
+<p><strong>飞书群绑定
+Agent</strong>（main/scholar/info-scout/trader）：</p>
+<ul>
+<li>通过飞书群消息交互</li>
+<li>有 channel binding，收到群消息后自动响应</li>
+<li>Cron 定时任务触发</li>
+</ul>
 <p><strong>本地工作流
-Agent</strong>（planner/ideator/critic/surveyor/coder/writer/reviewer）：
-- 通过 CLI 命令 <code>openclaw chat &lt;agent&gt;</code> 或
-<code>openclaw agent --agent &lt;id&gt;</code> 交互 - 通过 agentToAgent
-工具相互通信 - Planner 作为协调者调度其他 Agent</p>
+Agent</strong>（planner/ideator/critic/surveyor/coder/writer/reviewer）：</p>
+<ul>
+<li>通过 CLI 命令 <code>openclaw chat &lt;agent&gt;</code> 或
+<code>openclaw agent --agent &lt;id&gt;</code> 交互</li>
+<li>通过 agentToAgent 工具相互通信</li>
+<li>Planner 作为协调者调度其他 Agent</li>
+</ul>
 <h3 id="在-openclaw.json-中配置">2.3 在 openclaw.json 中配置</h3>
 <figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">&quot;agents&quot;</span>: &#123;</span><br><span class="line">    <span class="attr">&quot;defaults&quot;</span>: &#123;</span><br><span class="line">      <span class="attr">&quot;model&quot;</span>: &#123; <span class="attr">&quot;primary&quot;</span>: <span class="string">&quot;minimax-portal/MiniMax-M2.7&quot;</span> &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">&quot;list&quot;</span>: [</span><br><span class="line">      &#123; <span class="attr">&quot;id&quot;</span>: <span class="string">&quot;main&quot;</span>, <span class="attr">&quot;default&quot;</span>: <span class="literal">true</span>, <span class="attr">&quot;workspace&quot;</span>: <span class="string">&quot;~/clawd&quot;</span> &#125;,</span><br><span class="line">      &#123; <span class="attr">&quot;id&quot;</span>: <span class="string">&quot;scholar&quot;</span>, <span class="attr">&quot;workspace&quot;</span>: <span class="string">&quot;~/clawd/agents/scholar&quot;</span> &#125;,</span><br><span class="line">      &#123; <span class="attr">&quot;id&quot;</span>: <span class="string">&quot;planner&quot;</span>, <span class="attr">&quot;workspace&quot;</span>: <span class="string">&quot;~/.openclaw/workspace-planner&quot;</span>,</span><br><span class="line">        <span class="attr">&quot;identity&quot;</span>: &#123; <span class="attr">&quot;name&quot;</span>: <span class="string">&quot;🧠 Planner&quot;</span> &#125; &#125;</span><br><span class="line">    ]</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">&quot;tools&quot;</span>: &#123;</span><br><span class="line">    <span class="attr">&quot;agentToAgent&quot;</span>: &#123;</span><br><span class="line">      <span class="attr">&quot;enabled&quot;</span>: <span class="literal">true</span>,</span><br><span class="line">      <span class="attr">&quot;allow&quot;</span>: [<span class="string">&quot;*&quot;</span>]</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <hr />
